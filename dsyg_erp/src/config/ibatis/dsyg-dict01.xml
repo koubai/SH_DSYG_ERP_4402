@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.tbps">
+
+	<resultMap id="Dict01Dto" class="com.cn.dsyg.dto.Dict01Dto">
+		<result property="id" column="id" />
+		<result property="fieldcode" column="fieldcode" />
+		<result property="fieldname" column="fieldname" />
+		<result property="code" column="code" />
+		<result property="lang" column="lang" />
+		<result property="mean" column="mean" />
+		<result property="note" column="note" />
+		<result property="status" column="status" />
+		<result property="createuid" column="createuid" />
+		<result property="createdate" column="createdate" />
+		<result property="updateuid" column="updateuid" />
+		<result property="updatedate" column="updatedate" />
+	</resultMap>
+	
+	<select id="queryDict01CountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from tbdict01 T where 1 = 1 and status = 1
+		<isNotEmpty prepend="and" property="fieldcode">
+			T.fieldcode = #fieldcode#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fieldname">
+			T.fieldname like '%$fieldname$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="lang">
+			T.lang = #lang#
+		</isNotEmpty>
+	</select>
+	
+	<select id="queryDict01ByPage" parameterClass="java.util.Map" resultMap="Dict01Dto">
+		select T.* from tbdict01 T where 1 = 1 and status = 1
+		<isNotEmpty prepend="and" property="fieldcode">
+			T.fieldcode = #fieldcode#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fieldname">
+			T.fieldname like '%$fieldname$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="lang">
+			T.lang = #lang#
+		</isNotEmpty>
+		order by T.updatedate desc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryDict01ByID" parameterClass="java.util.Map" resultMap="Dict01Dto">
+		select * from tbdict01 where 
+			id = #id#
+	</select>
+	
+	<select id="queryDict01ByLogicId" parameterClass="java.util.Map" resultMap="Dict01Dto">
+		select * from tbdict01 where 1 = 1 and status = 1 and
+			fieldcode = #fieldcode# and code = #code# and lang = #lang#
+	</select>
+	
+	<select id="queryDict01ByFieldcode" parameterClass="java.util.Map" resultMap="Dict01Dto">
+		select * from tbdict01 where 1 = 1 and fieldcode = #fieldcode#  and lang = #lang# and status = 1 order by code asc
+	</select>
+	
+	<delete id="deleteDict01" parameterClass="java.util.Map">
+		delete from tbdict01 where id = #id#
+	</delete>
+	
+	<insert id="insertDict01" parameterClass="com.cn.dsyg.dto.Dict01Dto">
+		insert into tbdict01(fieldcode,fieldname,lang,mean,note,status,createuid,createdate,updateuid,updatedate)
+		values(#fieldcode#,#fieldname#,#lang#,#mean#,#note#,#status#,#createuid#,NOW(),#updateuid#,NOW())
+	</insert>
+	
+	<update id="updateDict01" parameterClass="com.cn.dsyg.dto.Dict01Dto">
+		update tbdict01
+		set fieldname = #fieldname#,
+			mean = #mean#,
+			note = #note#,
+			status = #status#,
+			updateuid = #updateuid#,
+			updatedate = NOW()
+		where id = #id#
+	</update>
+	
+</sqlMap>

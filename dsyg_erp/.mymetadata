@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="dsyg_erp"
+  id="myeclipse.1430141156639"
+  context-root="/dsyg_erp"
+  j2ee-spec="6.0"
+  archive="dsyg_erp.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

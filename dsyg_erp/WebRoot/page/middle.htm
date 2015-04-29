@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBliC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<style>
+html, body {
+height:100%;
+margin:0;
+} 
+.middle {
+	position:relative;
+	width:7px;
+	height:100%;
+	background:url('../images/bg_center.gif') repeat-y 0 0;
+}
+.middle a.btnleft, .middle a.btnright {
+	position:absolute;
+	top:50%;
+	display:block;
+	width:7px;
+	height:48px;
+	background:url(../images/icon_arrow.gif) 0 0 no-repeat;
+}
+.middle a.btnright {
+	background:url(../images/icon_arrow.gif) -21px 0 no-repeat;
+}
+.aftlogin .middle {
+	background:url(../images/bg_center.gif) -7px 0 repeat-y;
+}
+</style>
+<script>
+	function getCookie(name){
+	}
+	
+	function setBg(){
+		document.body.setAttribute("class","aftlogin");
+		document.body.setAttribute("className","aftlogin");
+	}
+	
+	function resizeFrame(){
+		parent.resizeFrame();
+	}
+</script>
+</head>
+<body onload="setBg()">
+<div class="middle">
+	<a href="#" id="mid_resize" class="btnleft" onclick="resizeFrame()"></a>
+</div>
+</body>
+</html>

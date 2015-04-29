@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="frame" extends="struts-erp" namespace="/frame">
+	
+		<action name="showManageHomeAction" class="frameAction" method="showManageHomeAction">
+			<result name="*">/page/managehome.jsp</result>
+		</action>
+		
+		<action name="showTopAction" class="frameAction" method="showTopAction">
+			<result name="*">/page/topframe.jsp</result>
+		</action>
+		
+		<action name="showLeftAction" class="frameAction" method="showLeftAction">
+			<result name="*">/page/leftframe.jsp</result>
+		</action>
+		
+		<action name="showMiddleAction" class="frameAction" method="showMiddleAction">
+			<result name="*">/page/middle.jsp</result>
+		</action>
+		
+		<action name="showMainFrameAction" class="frameAction" method="showMainFrameAction">
+			<result name="*">/page/mainframe.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

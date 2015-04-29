@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+	
+	<!-- role -->
+	<bean id="roleService" class="com.cn.dsyg.service.impl.RoleServiceImpl" >
+		<property name="roleDao">
+			<ref local="roleDao"/>
+		</property>
+	</bean>
+	
+	<bean id="roleDao" class="com.cn.dsyg.dao.impl.RoleDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+
+	<!-- 用户 -->
+	<bean id="userService" class="com.cn.dsyg.service.impl.UserServiceImpl" >
+		<property name="userDao">
+			<ref local="userDao"/>
+		</property>
+	</bean>
+	
+	<bean id="userDao" class="com.cn.dsyg.dao.impl.UserDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- Resource -->
+	<bean id="resourceService" class="com.cn.dsyg.service.impl.ResourceServiceImpl" >
+		<property name="resourceDao">
+			<ref local="resourceDao"/>
+		</property>
+	</bean>
+	
+	<bean id="resourceDao" class="com.cn.dsyg.dao.impl.ResourceDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+</beans>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.tbps">
+
+	<resultMap id="ResourceDto" class="com.cn.dsyg.dto.ResourceDto">
+		<result property="id" column="id" />
+		<result property="url" column="url" />
+		<result property="note" column="note" />
+		<result property="status" column="status" />
+		<result property="createtime" column="createtime" />
+		<result property="sort" column="sort" />
+		<result property="parentid" column="parentid" />
+		<result property="restype" column="restype" />
+	</resultMap>
+	
+	<select id="queryResourceByRole" parameterClass="java.util.Map" resultMap="ResourceDto">
+		SELECT T.* FROM tbroleres R,tbresource T WHERE T.id = R.resourceid AND T.status = 1
+		<isNotEmpty prepend="and" property="roleid">
+			R.roleid = #roleid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="restype">
+			T.restype = #restype#
+		</isNotEmpty>
+		ORDER BY T.restype ASC, T.sort ASC 
+	</select>
+	
+	<select id="queryResourceID" parameterClass="java.util.Map" resultMap="ResourceDto">
+		select * from tbresource where 
+			id = #id#
+	</select>
+	
+	<insert id="insertResource" parameterClass="com.cn.dsyg.dto.ResourceDto">
+		insert into tbresource(url,note,status,createtime,sort,parentid,restype)
+		values(#url#,#note#,#status#,NOW(),#sort#,#parentid#,#restype#)
+	</insert>
+	
+	<update id="updateResource" parameterClass="com.cn.dsyg.dto.ResourceDto">
+		update tbresource
+		set url = #url#,
+			note = #note#,
+			status = #status#,
+			sort = #sort#,
+			parentid = #parentid#,
+			restype = #restype#
+		where id = #id#
+	</update>
+	
+</sqlMap>
