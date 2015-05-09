@@ -12,6 +12,8 @@
 	
 	<constant name="struts.multipart.saveDir" value="/tmp"/>
 	
+	<!-- purchase -->
+	<include file="struts-purchase.xml"></include>
 	<!-- Frame -->
 	<include file="struts-frame.xml"></include>
 	<!-- login -->

@@ -2,6 +2,20 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 
 <beans>
+
+	<!-- etbPurchase -->
+	<bean id="etbPurchaseService" class="com.cn.dsyg.service.impl.EtbPurchaseServiceImpl" >
+		<property name="etbPurchaseDao">
+			<ref local="etbPurchaseDao"/>
+		</property>
+	</bean>
+	
+	<bean id="etbPurchaseDao" class="com.cn.dsyg.dao.impl.EtbPurchaseDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
 	
 	<!-- role -->
 	<bean id="roleService" class="com.cn.dsyg.service.impl.RoleServiceImpl" >
