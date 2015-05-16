@@ -25,6 +25,13 @@
 	<!-- frame -->
 	<bean id="frameAction" class="com.cn.dsyg.action.FrameAction" scope="session">
 	</bean>
+
+	<!-- 供应商 -->
+	<bean id="supplierAction" class="com.cn.dsyg.action.SupplierAction" scope="session">
+		<property name="supplierService">
+			<ref bean="supplierService" />
+		</property>
+	</bean>
 	
 	<!-- 验证码 -->
 	<bean id="randomActionBean" class="com.cn.dsyg.action.ValidateCodeAction" />

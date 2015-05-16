@@ -56,4 +56,17 @@
 		</property>
 	</bean>
 	
+	<!-- 供应商 -->
+	<bean id="supplierService" class="com.cn.dsyg.service.impl.SupplierServiceImpl" >
+		<property name="supplierDao">
+			<ref local="supplierDao"/>
+		</property>
+	</bean>
+	
+	<bean id="supplierDao" class="com.cn.dsyg.dao.impl.SupplierDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
 </beans>
