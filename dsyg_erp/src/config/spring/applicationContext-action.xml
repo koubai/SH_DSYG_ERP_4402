@@ -32,6 +32,13 @@
 			<ref bean="supplierService" />
 		</property>
 	</bean>
+
+	<!-- 客户 -->
+	<bean id="etbCustomerAction" class="com.cn.dsyg.action.EtbCustomerAction" scope="session">
+		<property name="etbCustomerService">
+			<ref bean="etbCustomerService" />
+		</property>
+	</bean>
 	
 	<!-- 验证码 -->
 	<bean id="randomActionBean" class="com.cn.dsyg.action.ValidateCodeAction" />

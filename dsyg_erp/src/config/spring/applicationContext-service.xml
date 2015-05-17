@@ -69,4 +69,17 @@
 		</property>
 	</bean>
 	
+	<!-- 客户 -->
+	<bean id="etbCustomerService" class="com.cn.dsyg.service.impl.EtbCustomerServiceImpl" >
+		<property name="etbCustomerDao">
+			<ref local="etbCustomerDao"/>
+		</property>
+	</bean>
+	
+	<bean id="etbCustomerDao" class="com.cn.dsyg.dao.impl.EtbCustomerDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
 </beans>

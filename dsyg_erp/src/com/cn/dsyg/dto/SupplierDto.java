@@ -12,8 +12,8 @@ import com.cn.common.util.StringUtil;
  * @version 1.0
  */
 public class SupplierDto extends BaseDto {
-
-	private static final long serialVersionUID = 6301088564902082330L;
+	
+	private static final long serialVersionUID = 6088422120956254318L;
 
 	/**
 	 * 供应商ID

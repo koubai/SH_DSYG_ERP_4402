@@ -26,9 +26,9 @@ import com.opensymphony.xwork2.ActionContext;
  * @version 1.0
  */
 public class SupplierAction extends BaseAction {
-
-	private static final long serialVersionUID = -446028602607043389L;
 	
+	private static final long serialVersionUID = -5975208404506720111L;
+
 	private static final Logger log = LogManager.getLogger(SupplierAction.class);
 	
 	private SupplierService supplierService;

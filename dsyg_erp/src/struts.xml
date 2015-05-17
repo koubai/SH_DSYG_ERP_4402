@@ -20,6 +20,8 @@
 	<include file="struts-login.xml"></include>
 	<!-- supplier -->
 	<include file="struts-supplier.xml"></include>
+	<!-- customer -->
+	<include file="struts-customer.xml"></include>
 	
 	<package name="index" extends="struts-default, json-default" namespace="/index">
 		
