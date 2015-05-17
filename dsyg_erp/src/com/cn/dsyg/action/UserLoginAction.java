@@ -2,6 +2,7 @@ package com.cn.dsyg.action;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -108,6 +109,9 @@ public class UserLoginAction extends BaseAction {
 			//角色对应的资源
 			List<ResourceDto> resourceList = resourceService.queryResourceByRole("" + role.getId(), "");
 			ActionContext.getContext().getSession().put(Constants.SESSION_RESOURCE_LIST, resourceList);
+			//角色资源明细MAP（拦截器用）
+			Map<String, Integer> map = resourceService.getRoleResourceMap("" + role.getId());
+			ActionContext.getContext().getSession().put(Constants.SESSION_RESOURCE_MAP, map);
 			log.info(userDto.getUserid() + " login success.");
 		} catch(Exception e) {
 			log.error("loginAction error:" + e);

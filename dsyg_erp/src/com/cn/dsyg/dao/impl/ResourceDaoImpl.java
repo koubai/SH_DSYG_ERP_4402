@@ -15,6 +15,14 @@ import com.cn.dsyg.dto.ResourceDto;
  * @version 1.0
  */
 public class ResourceDaoImpl extends BaseDao implements ResourceDao {
+	
+	@Override
+	public List<ResourceDto> queryAllResource() {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		@SuppressWarnings("unchecked")
+		List<ResourceDto> list = getSqlMapClientTemplate().queryForList("queryAllResource", paramMap);
+		return list;
+	}
 
 	@Override
 	public List<ResourceDto> queryResourceByRole(String roleid, String restype) {

@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>盛大数据服务平台</title>
+<title>东升营港ERP</title>
 <script>
 	
 	function resizeFrame(){
@@ -25,11 +25,11 @@
 </script>
 </head>
 <frameset rows="0,*">
-	<frame src="../frame/showTopAction.action" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" name="topFrame" id="topFrame" title="topFrame"/>
+	<frame src="<%=request.getContextPath()%>/frame/showTopAction.action" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" name="topFrame" id="topFrame" title="topFrame"/>
 	<frameset cols="182,7,*" id="info_frame">
-		<frame src="../frame/showLeftAction.action" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" name="leftFrame" id="leftFrame" title="leftFrame" />
-		<frame src="../page/middle.htm" name="middleFrame" noresize="noresize" marginwidth="0" marginheight="0" frameborder="0" />
-		<frame src="../frame/showMainFrameAction.action" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" name="mainFrame" id="mainFrame" title="mainFrame" />
+		<frame src="<%=request.getContextPath()%>/frame/showLeftAction.action" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" name="leftFrame" id="leftFrame" title="leftFrame" />
+		<frame src="<%=request.getContextPath()%>/page/middle.htm" name="middleFrame" noresize="noresize" marginwidth="0" marginheight="0" frameborder="0" />
+		<frame src="<%=request.getContextPath()%>/frame/showMainFrameAction.action" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" name="mainFrame" id="mainFrame" title="mainFrame" />
 	</frameset>
 </frameset>
 </html>

@@ -12,10 +12,14 @@
 	
 	<constant name="struts.multipart.saveDir" value="/tmp"/>
 	
+	<!-- purchase -->
+	<include file="struts-purchase.xml"></include>
 	<!-- Frame -->
 	<include file="struts-frame.xml"></include>
 	<!-- login -->
 	<include file="struts-login.xml"></include>
+	<!-- supplier -->
+	<include file="struts-supplier.xml"></include>
 	
 	<package name="index" extends="struts-default, json-default" namespace="/index">
 		

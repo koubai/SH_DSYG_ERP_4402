@@ -5,8 +5,11 @@ import java.math.BigDecimal;
 import java.sql.Blob;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -437,6 +440,20 @@ public class StringUtil {
 			return array.toString();
 		}
 		return "";
+	}
+	
+	/**
+	 * 打印MAP
+	 * @param map
+	 */
+	public static void printMap(Map<?, ?> map) {
+		if(map != null) {
+			Set<?> key = map.keySet();
+			for (Iterator<?> it = key.iterator(); it.hasNext();) {
+				String k = (String) it.next();
+				System.out.println("key=" + k + ",value=" + map.get(k));
+			}
+		}
 	}
 	
 	public static void main(String arg[]) {
