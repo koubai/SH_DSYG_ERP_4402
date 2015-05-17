@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.tbps">
+
+	<resultMap id="ChartDto" class="com.cn.dsyg.dto.ChartDto">
+		<result property="X_Year" column="pur_year" />
+		<result property="Y_Month_01" column="pur_month01" />
+		<result property="Y_Month_02" column="pur_month02" />
+		<result property="Y_Month_03" column="pur_month03" />
+		<result property="Y_Month_04" column="pur_month04" />
+		<result property="Y_Month_05" column="pur_month05" />
+		<result property="Y_Month_06" column="pur_month06" />
+		<result property="Y_Month_07" column="pur_month07" />
+		<result property="Y_Month_08" column="pur_month08" />
+		<result property="Y_Month_09" column="pur_month09" />
+		<result property="Y_Month_10" column="pur_month10" />
+		<result property="Y_Month_11" column="pur_month11" />
+		<result property="Y_Month_12" column="pur_month12" />
+		<result property="Theme" column="theme1" />
+		<result property="Handler" column="handler" />
+	</resultMap>
+	
+	<select id="queryPurchaseByDate" parameterClass="java.util.Map" resultMap="ChartDto">
+		select handler, theme1, years as pur_year, 
+			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
+			SUM(case when months=02 then pur_sum_data else 0 end) 'pur_month02',   
+			SUM(case when months=03 then pur_sum_data else 0 end) 'pur_month03',   
+			SUM(case when months=04 then pur_sum_data else 0 end) 'pur_month04',   
+			SUM(case when months=05 then pur_sum_data else 0 end) 'pur_month05',   
+			SUM(case when months=06 then pur_sum_data else 0 end) 'pur_month06',   
+			SUM(case when months=07 then pur_sum_data else 0 end) 'pur_month07',   
+			SUM(case when months=08 then pur_sum_data else 0 end) 'pur_month08',   
+			SUM(case when months=09 then pur_sum_data else 0 end) 'pur_month09',   
+			SUM(case when months=10 then pur_sum_data else 0 end) 'pur_month10',   
+			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
+			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
+		from(   
+			select DATE_FORMAT(purchasedate,'%y') as years, DATE_FORMAT(purchasedate,'%m') months,  theme1,handler, totalamount as pur_sum_data     
+			from etb_purchase 
+			where theme1='T1' 
+		)as test 
+			group by handler, theme1, pur_year
+	</select>
+</sqlMap>
