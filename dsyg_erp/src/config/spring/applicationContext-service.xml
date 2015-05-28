@@ -82,4 +82,17 @@
 		</property>
 	</bean>
 	
+	<!-- 快递 -->
+	<bean id="etbDeliveryService" class="com.cn.dsyg.service.impl.EtbDeliveryServiceImpl" >
+		<property name="etbDeliveryDao">
+			<ref local="etbDeliveryDao"/>
+		</property>
+	</bean>
+	
+	<bean id="etbDeliveryDao" class="com.cn.dsyg.dao.impl.EtbDeliveryDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
 </beans>

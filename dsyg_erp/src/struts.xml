@@ -22,6 +22,8 @@
 	<include file="struts-supplier.xml"></include>
 	<!-- customer -->
 	<include file="struts-customer.xml"></include>
+	<!-- delivery -->
+	<include file="struts-delivery.xml"></include>
 	
 	<package name="index" extends="struts-default, json-default" namespace="/index">
 		

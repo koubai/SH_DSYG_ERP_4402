@@ -33,6 +33,13 @@
 		</property>
 	</bean>
 
+	<!-- 快递 -->
+	<bean id="etbDeliveryAction" class="com.cn.dsyg.action.EtbDeliveryAction" scope="session">
+		<property name="etbDeliveryService">
+			<ref bean="etbDeliveryService" />
+		</property>
+	</bean>
+
 	<!-- 客户 -->
 	<bean id="etbCustomerAction" class="com.cn.dsyg.action.EtbCustomerAction" scope="session">
 		<property name="etbCustomerService">
