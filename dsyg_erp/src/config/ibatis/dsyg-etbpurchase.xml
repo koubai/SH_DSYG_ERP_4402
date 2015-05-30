@@ -13,9 +13,11 @@
 		<result property="warehouse" column="warehouse" />
 		<result property="supplierid" column="supplierid" />
 		<result property="suppliername" column="suppliername" />
+		<result property="supplieraddr" column="supplieraddr" />
 		<result property="suppliertel" column="suppliertel" />
 		<result property="suppliermanager" column="suppliermanager" />
-		<result property="supplieradd" column="supplieradd" />
+		<result property="suppliermanageraddr" column="suppliermanageraddr" />
+		<result property="suppliertax" column="suppliertax" />
 		<result property="suppliermail" column="suppliermail" />
 		<result property="handler" column="handler" />
 		<result property="purchasedate" column="purchasedate" />
@@ -24,6 +26,7 @@
 		<result property="paidamount" column="paidamount" />
 		<result property="unpaidamount" column="unpaidamount" />
 		<result property="approverid" column="approverid" />
+		<result property="productlist" column="productlist" />
 		<result property="note" column="note" />
 		<result property="rank" column="rank" />
 		<result property="status" column="status" />
@@ -59,7 +62,7 @@
 			T.purchasedate <![CDATA[>=]]> #purchasedateLow#
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="purchasedateHigh">
-			T.purchasedate <![CDATA[<]]> #purchasedateHigh#
+			T.purchasedate <![CDATA[<=]]> #purchasedateHigh#
 		</isNotEmpty>
 		order by T.updatedate desc
 		LIMIT #start#, #end#
@@ -75,13 +78,13 @@
 	</delete>
 	
 	<insert id="insertEtbPurchase" parameterClass="com.cn.dsyg.dto.EtbPurchaseDto">
-		insert into etb_purchase(purchaseno,belongto,theme1,theme2,warehouse,supplierid,suppliername,suppliertel,
-			suppliermanager,supplieradd,suppliermail,handler,purchasedate,totalamount,taxamount,paidamount,
-			unpaidamount,approverid,note,rank,status,res01,res02,res03,res04,res05,res06,res07,res08,res09,
+		insert into etb_purchase(purchaseno,belongto,theme1,theme2,warehouse,supplierid,suppliername,supplieraddr,suppliertel,
+			suppliermanager,suppliermanageraddr,suppliertax,suppliermail,handler,purchasedate,totalamount,taxamount,paidamount,
+			unpaidamount,approverid,productlist,note,rank,status,res01,res02,res03,res04,res05,res06,res07,res08,res09,
 			res10,createuid,createdate,updateuid,updatedate)
-		values(#purchaseno#,#belongto#,#theme1#,#theme2#,#warehouse#,#supplierid#,#suppliername#,#suppliertel#,
-			#suppliermanager#,#supplieradd#,#suppliermail#,#handler#,#purchasedate#,#totalamount#,#taxamount#,#paidamount#,
-			#unpaidamount#,#approverid#,#note#,#rank#,#status#,#res01#,#res02#,#res03#,#res04#,#res05#,#res06#,#res07#,#res08#,#res09#,
+		values(#purchaseno#,#belongto#,#theme1#,#theme2#,#warehouse#,#supplierid#,#suppliername#,#supplieraddr#,#suppliertel#,
+			#suppliermanager#,#suppliermanageraddr#,#suppliertax#,#suppliermail#,#handler#,#purchasedate#,#totalamount#,#taxamount#,#paidamount#,
+			#unpaidamount#,#approverid#,#productlist#,#note#,#rank#,#status#,#res01#,#res02#,#res03#,#res04#,#res05#,#res06#,#res07#,#res08#,#res09#,
 			#res10#,#createuid#,NOW(),#updateuid#,NOW())
 	</insert>
 	
@@ -92,9 +95,11 @@
 			warehouse = #warehouse#,
 			supplierid = #supplierid#,
 			suppliername = #suppliername#,
+			supplieraddr = supplieraddr,
 			suppliertel = #suppliertel#,
 			suppliermanager = #suppliermanager#,
-			supplieradd = #supplieradd#,
+			suppliermanageraddr = #suppliermanageraddr#,
+			suppliertax = #suppliertax#,
 			suppliermail = #suppliermail#,
 			handler = #handler#,
 			purchasedate = #purchasedate#,
@@ -103,6 +108,7 @@
 			paidamount = #paidamount#,
 			unpaidamount = #unpaidamount#,
 			approverid = #approverid#,
+			productlist = #productlist#,
 			note = #note#,
 			rank = #rank#,
 			status = #status#,

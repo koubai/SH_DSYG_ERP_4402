@@ -9,7 +9,7 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>
-<title>采购信息一览</title>
+<title>产品信息一览</title>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var h = screen.availHeight; 
@@ -17,7 +17,7 @@
 	});
 	
 	function add() {
-		document.mainform.action = "../purchase/showAddEtbPurchaseAction.action";
+		document.mainform.action = "../product/showAddProductAction.action";
 		document.mainform.submit();
 	}
 	
@@ -27,8 +27,22 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
-			document.mainform.action = "../purchase/showUpdEtbPurchaseAction.action?updEtbPurchaseId=" + id;
+			document.mainform.action = "../product/showUpdProductAction.action?updEtbProductId=" + id;
 			document.mainform.submit();
+		}
+	}
+	
+	function del() {
+		var id = getSelectedID();
+		if(id == "") {
+			alert("请选择一条记录！");
+			return;
+		} else {
+			if(confirm("确定删除该记录吗？")) {
+				setQueryDate();
+				document.mainform.action = "../product/delProductAction.action?delEtbProductId=" + id;
+				document.mainform.submit();
+			}
 		}
 	}
 	
@@ -44,9 +58,6 @@
 		return id;
 	}
 	
-	function del() {
-	}
-	
 	//查询日期赋值
 	function setQueryDate() {
 		$("#strPurchasedateLow").attr("value", $("#purchaseDateLow").val());
@@ -56,7 +67,7 @@
 	//查询数据
 	function queryList() {
 		setQueryDate();
-		document.mainform.action = '../purchase/queryEtbPurchaseAction.action';
+		document.mainform.action = '../product/queryEtbProductAction.action';
 		document.mainform.submit();
 	}
 	
@@ -64,7 +75,7 @@
 	function changepagesize(pagesize) {
 		$("#intPageSize").attr("value", pagesize);
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../purchase/queryEtbPurchaseAction.action';
+		document.mainform.action = '../product/queryEtbProductAction.action';
 		document.mainform.submit();
 	}
 	
@@ -72,7 +83,7 @@
 	function changePage(pageNum) {
 		setQueryDate();
 		$("#startIndex").attr("value", pageNum);
-		document.mainform.action = '../purchase/turnEtbPurchaseAction.action';
+		document.mainform.action = '../product/turnEtbProductAction.action';
 		document.mainform.submit();
 	}
 
@@ -113,31 +124,32 @@
 				<div class="tittle_left">
 				</div>
 				<div class="tittle_center">
-					采购信息一览
+					产品信息一览
 				</div>
 				<div class="tittle_right">
 				</div>
 			</div>
 			<s:form id="mainform" name="mainform" method="POST">
 				<s:hidden name="startIndex" id="startIndex"/>
-				<s:hidden name="strPurchasedateLow" id="strPurchasedateLow"/>
-				<s:hidden name="strPurchasedateHigh" id="strPurchasedateHigh"/>
-				<s:hidden name="strSupplierId" id="strSupplierId"/>
 				<s:hidden name="intPageSize" id="intPageSize"/>
 				<div class="searchbox">
 					<div class="box1">
-						<label class="pdf10">采购日期</label>
+						<label class="pdf10">品种</label>
 						<div class="box1_left"></div>
-						<div class="box1_center date_input">
-							<input type="text" disabled="disabled" style="width: 105px;" id="purchaseDateLow" value="<s:property value="strPurchasedateLow"/>" maxlength="10" />
-							<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('purchaseDateLow'));"></a>
+						<div class="box1_center">
+							<select id="strFieldno" name="strFieldno">
+								<option value="" selected="selected">请选择</option>
+								<s:iterator value="goodsList" id="goodsList" status="st1">
+									<option value="<s:property value="code"/>" <s:if test="%{goodsList[#st1.index].code == strFieldno}">selected</s:if>><s:property value="fieldname"/></option>
+								</s:iterator>
+							</select>
 						</div>
-						<div class="box1_right"></div>
-						<label>-</label>
+					</div>
+					<div class="box1">
+						<label class="pdf10">关键字</label>
 						<div class="box1_left"></div>
-						<div class="box1_center date_input">
-							<input type="text" disabled="disabled" style="width: 105px;" id="purchaseDateHigh" value="<s:property value="strPurchasedateHigh"/>" maxlength="10" />
-							<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('purchaseDateHigh'));"></a>
+						<div class="box1_center">
+							<s:textfield name="strKeyword" id="strKeyword" cssClass="input80" maxlength="16" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
 					</div>
@@ -165,19 +177,15 @@
 					<div class="tab_content">
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
-								<td width="30"></td>
-								<td width="40">序号</td>
-								<td width="80">采购单号</td>
-								<td width="60">采购主题</td>
-								<td width="120">仓库</td>
-								<td width="120">供应商</td>
-								<td width="60">经手人</td>
-								<td width="80">采购日期</td>
-								<td width="110">采购金额（不含税）</td>
-								<td width="100">采购金额（含税）</td>
-								<td width="100">已付金额（含税）</td>
+								<td width="20"></td>
+								<td width="20">序号</td>
+								<td width="60">类型</td>
+								<td width="60">品名</td>
+								<td width="60">规格</td>
+								<td width="60">颜色</td>
+								<td width="60">包装</td>
 							</tr>
-							<s:iterator id="etbPurchaseList" value="etbPurchaseList" status="st1">
+							<s:iterator id="etbProductList" value="etbProductList" status="st1">
 								<s:if test="#st1.odd==true">
 									<tr class="tr_bg">
 								</s:if>
@@ -186,21 +194,29 @@
 								</s:else>
 									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-									<td><s:property value="purchaseno"/></td>
 									<td>
 										<s:iterator id="goodsList" value="goodsList" status="st3">
-											<s:if test="%{goodsList[#st3.index].code == etbPurchaseList[#st1.index].theme1}">
+											<s:if test="%{goodsList[#st3.index].code == etbProductList[#st1.index].fieldno}">
 												<s:property value="fieldname"/>
 											</s:if>
 										</s:iterator>
 									</td>
-									<td><s:property value="warehouse"/></td>
-									<td><s:property value="suppliername"/></td>
-									<td><s:property value="handler"/></td>
-									<td><s:date name="purchasedate" format="yyyy-MM-dd" /></td>
-									<td><s:property value="totalamount"/></td>
-									<td><s:property value="taxamount"/></td>
-									<td><s:property value="paidamount"/></td>
+									<td><s:property value="tradename"/></td>
+									<td><s:property value="typeno"/></td>
+									<td>
+										<s:iterator id="colorList" value="colorList" status="st3">
+											<s:if test="%{colorList[#st3.index].code == etbProductList[#st1.index].color}">
+												<s:property value="fieldname"/>
+											</s:if>
+										</s:iterator>
+									</td>
+									<td>
+										<s:if test='%{etbProductList[#st1.index].packaging == "1"}'>整箱</s:if>
+										<s:elseif test='%{etbProductList[#st1.index].packaging == "0"}'>乱尺</s:elseif>
+										<s:else>
+											<s:property value="packaging"/>
+										</s:else>
+									</td>
 								</tr>
 							</s:iterator>
 						</table>

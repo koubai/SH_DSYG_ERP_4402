@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="product" extends="struts-erp" namespace="/product">
+	
+		<action name="delProductAction" class="etbProductAction" method="delProductAction">
+			<result name="*">/page/product/productlist.jsp</result>
+		</action>
+		
+		<action name="showEtbProductAction" class="etbProductAction" method="showEtbProductAction">
+			<result name="*">/page/product/productlist.jsp</result>
+		</action>
+		
+		<action name="queryEtbProductAction" class="etbProductAction" method="queryEtbProductAction">
+			<result name="*">/page/product/productlist.jsp</result>
+		</action>
+		
+		<action name="turnEtbProductAction" class="etbProductAction" method="turnEtbProductAction">
+			<result name="*">/page/product/productlist.jsp</result>
+		</action>
+		
+		<action name="showAddProductAction" class="etbProductAction" method="showAddProductAction">
+			<result name="*">/page/product/addproduct.jsp</result>
+		</action>
+		
+		<action name="addProductAction" class="etbProductAction" method="addProductAction">
+			<result name="*">/page/product/addproduct.jsp</result>
+		</action>
+		
+		<action name="showUpdProductAction" class="etbProductAction" method="showUpdProductAction">
+			<result name="*">/page/product/updproduct.jsp</result>
+		</action>
+		
+		<action name="updProductAction" class="etbProductAction" method="updProductAction">
+			<result name="*">/page/product/updproduct.jsp</result>
+		</action>
+		
+		<action name="showEtbProductSelectPage" class="etbProductAction" method="showEtbProductSelectPage">
+			<result name="*">/page/product/selectproduct.jsp</result>
+		</action>
+		
+		<action name="queryEtbProductSelectPage" class="etbProductAction" method="queryEtbProductSelectPage">
+			<result name="*">/page/product/selectproduct.jsp</result>
+		</action>
+		
+		<action name="turnEtbProductSelectPage" class="etbProductAction" method="turnEtbProductSelectPage">
+			<result name="*">/page/product/selectproduct.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

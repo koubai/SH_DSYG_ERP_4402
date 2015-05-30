@@ -6,14 +6,14 @@ import java.util.Date;
 import com.cn.common.action.BaseAction;
 
 /**
- * @name EtbPurchaseDto.java
+ * @name EtbSalesitemDto.java
  * @author Frank
- * @time 2015-5-7下午10:26:56
+ * @time 2015-5-19下午10:40:15
  * @version 1.0
  */
-public class EtbPurchaseDto extends BaseAction {
+public class EtbSalesitemDto extends BaseAction {
 
-	private static final long serialVersionUID = -3324268176712044565L;
+	private static final long serialVersionUID = 2337982978512345040L;
 
 	/**
 	 * id
@@ -21,109 +21,74 @@ public class EtbPurchaseDto extends BaseAction {
 	private Long id;
 
 	/**
-	 * 采购单号
+	 * 销售单单号
 	 */
-	private String purchaseno;
+	private String salesno;
 
 	/**
-	 * 采购单所属地（以后可能分上海和深圳）
+	 * 销售单所属地（以后可能分上海和深圳）
 	 */
 	private String belongto;
 
 	/**
-	 * 采购主题
+	 * 销售主题1
 	 */
 	private String theme1;
 
 	/**
-	 * 采购主题2
+	 * 销售主题2
 	 */
 	private String theme2;
 
 	/**
-	 * 仓库
+	 * 产品ID号
 	 */
-	private String warehouse;
+	private String productid;
 
 	/**
-	 * 采购单供应商
+	 * 销售数量
 	 */
-	private Long supplierid;
+	private Integer quantity;
 
 	/**
-	 * 采购单供应商名
+	 * 已出库数量
 	 */
-	private String suppliername;
-	
-	/**
-	 * 采购单供应商地址
-	 */
-	private String supplieraddr;
+	private Integer outquantity;
 
 	/**
-	 * 供应商联系人电话
+	 * 未出库数量
 	 */
-	private String suppliertel;
+	private Integer remainquantity;
 
 	/**
-	 * 供应商联系人
+	 * 销售单价
 	 */
-	private String suppliermanager;
+	private BigDecimal unitprice;
 
 	/**
-	 * 供应商联系人地址
+	 * 金额
 	 */
-	private String suppliermanageraddr;
-	
-	/**
-	 * 供应商联系人传真
-	 */
-	private String suppliertax;
+	private BigDecimal amount;
 
 	/**
-	 * 供应商联系人邮箱
-	 */
-	private String suppliermail;
-
-	/**
-	 * 采购单经手人
-	 */
-	private String handler;
-
-	/**
-	 * 采购日期
-	 */
-	private Date purchasedate;
-
-	/**
-	 * 采购金额（不含税）
-	 */
-	private BigDecimal totalamount;
-
-	/**
-	 * 采购金额（含税）
+	 * 金额（含税）
 	 */
 	private BigDecimal taxamount;
 
 	/**
-	 * 已付金额（含税）
+	 * 销售
 	 */
-	private BigDecimal paidamount;
+	private String handler;
 
 	/**
-	 * 未付金额（含税）
+	 * 客户ID
 	 */
-	private BigDecimal unpaidamount;
+	private String customerid;
 
 	/**
 	 * 确认者
 	 */
 	private String approverid;
-	
-	/**
-	 * 采购单对应的产品ID（逗号分割）
-	 */
-	private String productlist;
 
 	/**
 	 * 备注
@@ -133,12 +98,12 @@ public class EtbPurchaseDto extends BaseAction {
 	/**
 	 * 级别(0-99)
 	 */
-	private Integer rank;
+	private String rank;
 
 	/**
 	 * 状态
 	 */
-	private Integer status;
+	private String status;
 
 	/**
 	 * 预备项目1
@@ -218,14 +183,6 @@ public class EtbPurchaseDto extends BaseAction {
 		this.id = id;
 	}
 
-	public String getPurchaseno() {
-		return purchaseno;
-	}
-
-	public void setPurchaseno(String purchaseno) {
-		this.purchaseno = purchaseno;
-	}
-
 	public String getBelongto() {
 		return belongto;
 	}
@@ -250,76 +207,52 @@ public class EtbPurchaseDto extends BaseAction {
 		this.theme2 = theme2;
 	}
 
-	public String getWarehouse() {
-		return warehouse;
+	public String getProductid() {
+		return productid;
 	}
 
-	public void setWarehouse(String warehouse) {
-		this.warehouse = warehouse;
+	public void setProductid(String productid) {
+		this.productid = productid;
 	}
 
-	public Long getSupplierid() {
-		return supplierid;
+	public Integer getQuantity() {
+		return quantity;
 	}
 
-	public void setSupplierid(Long supplierid) {
-		this.supplierid = supplierid;
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
-	public String getSuppliername() {
-		return suppliername;
+	public Integer getOutquantity() {
+		return outquantity;
 	}
 
-	public void setSuppliername(String suppliername) {
-		this.suppliername = suppliername;
+	public void setOutquantity(Integer outquantity) {
+		this.outquantity = outquantity;
 	}
 
-	public String getSuppliertel() {
-		return suppliertel;
+	public Integer getRemainquantity() {
+		return remainquantity;
 	}
 
-	public void setSuppliertel(String suppliertel) {
-		this.suppliertel = suppliertel;
+	public void setRemainquantity(Integer remainquantity) {
+		this.remainquantity = remainquantity;
 	}
 
-	public String getSuppliermanager() {
-		return suppliermanager;
+	public BigDecimal getUnitprice() {
+		return unitprice;
 	}
 
-	public void setSuppliermanager(String suppliermanager) {
-		this.suppliermanager = suppliermanager;
+	public void setUnitprice(BigDecimal unitprice) {
+		this.unitprice = unitprice;
 	}
 
-	public String getSuppliermail() {
-		return suppliermail;
+	public BigDecimal getAmount() {
+		return amount;
 	}
 
-	public void setSuppliermail(String suppliermail) {
-		this.suppliermail = suppliermail;
-	}
-
-	public String getHandler() {
-		return handler;
-	}
-
-	public void setHandler(String handler) {
-		this.handler = handler;
-	}
-
-	public Date getPurchasedate() {
-		return purchasedate;
-	}
-
-	public void setPurchasedate(Date purchasedate) {
-		this.purchasedate = purchasedate;
-	}
-
-	public BigDecimal getTotalamount() {
-		return totalamount;
-	}
-
-	public void setTotalamount(BigDecimal totalamount) {
-		this.totalamount = totalamount;
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
 	}
 
 	public BigDecimal getTaxamount() {
@@ -330,20 +263,20 @@ public class EtbPurchaseDto extends BaseAction {
 		this.taxamount = taxamount;
 	}
 
-	public BigDecimal getPaidamount() {
-		return paidamount;
+	public String getHandler() {
+		return handler;
 	}
 
-	public void setPaidamount(BigDecimal paidamount) {
-		this.paidamount = paidamount;
+	public void setHandler(String handler) {
+		this.handler = handler;
 	}
 
-	public BigDecimal getUnpaidamount() {
-		return unpaidamount;
+	public String getCustomerid() {
+		return customerid;
 	}
 
-	public void setUnpaidamount(BigDecimal unpaidamount) {
-		this.unpaidamount = unpaidamount;
+	public void setCustomerid(String customerid) {
+		this.customerid = customerid;
 	}
 
 	public String getApproverid() {
@@ -362,19 +295,19 @@ public class EtbPurchaseDto extends BaseAction {
 		this.note = note;
 	}
 
-	public Integer getRank() {
+	public String getRank() {
 		return rank;
 	}
 
-	public void setRank(Integer rank) {
+	public void setRank(String rank) {
 		this.rank = rank;
 	}
 
-	public Integer getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
@@ -490,36 +423,11 @@ public class EtbPurchaseDto extends BaseAction {
 		this.updatedate = updatedate;
 	}
 
-	public String getSupplieraddr() {
-		return supplieraddr;
+	public String getSalesno() {
+		return salesno;
 	}
 
-	public void setSupplieraddr(String supplieraddr) {
-		this.supplieraddr = supplieraddr;
+	public void setSalesno(String salesno) {
+		this.salesno = salesno;
 	}
-
-	public String getSuppliermanageraddr() {
-		return suppliermanageraddr;
-	}
-
-	public void setSuppliermanageraddr(String suppliermanageraddr) {
-		this.suppliermanageraddr = suppliermanageraddr;
-	}
-
-	public String getSuppliertax() {
-		return suppliertax;
-	}
-
-	public void setSuppliertax(String suppliertax) {
-		this.suppliertax = suppliertax;
-	}
-
-	public String getProductlist() {
-		return productlist;
-	}
-
-	public void setProductlist(String productlist) {
-		this.productlist = productlist;
-	}
-
 }

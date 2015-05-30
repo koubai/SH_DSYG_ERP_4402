@@ -6,14 +6,14 @@ import java.util.Date;
 import com.cn.common.action.BaseAction;
 
 /**
- * @name EtbPurchaseDto.java
+ * @name 销售单
  * @author Frank
- * @time 2015-5-7下午10:26:56
+ * @time 2015-5-19下午10:29:28
  * @version 1.0
  */
-public class EtbPurchaseDto extends BaseAction {
+public class EtbSalesDto extends BaseAction {
 
-	private static final long serialVersionUID = -3324268176712044565L;
+	private static final long serialVersionUID = -1315447015946259223L;
 
 	/**
 	 * id
@@ -21,22 +21,22 @@ public class EtbPurchaseDto extends BaseAction {
 	private Long id;
 
 	/**
-	 * 采购单号
+	 * 销售单号
 	 */
-	private String purchaseno;
+	private String salesno;
 
 	/**
-	 * 采购单所属地（以后可能分上海和深圳）
+	 * 销售单所属地（以后可能分上海和深圳）
 	 */
 	private String belongto;
 
 	/**
-	 * 采购主题
+	 * 销售主题
 	 */
 	private String theme1;
 
 	/**
-	 * 采购主题2
+	 * 销售主题2
 	 */
 	private String theme2;
 
@@ -46,59 +46,49 @@ public class EtbPurchaseDto extends BaseAction {
 	private String warehouse;
 
 	/**
-	 * 采购单供应商
+	 * 客户ID
 	 */
-	private Long supplierid;
+	private Long customerid;
 
 	/**
-	 * 采购单供应商名
+	 * 客户名
 	 */
-	private String suppliername;
-	
-	/**
-	 * 采购单供应商地址
-	 */
-	private String supplieraddr;
+	private String customername;
 
 	/**
-	 * 供应商联系人电话
+	 * 客户联系电话
 	 */
-	private String suppliertel;
+	private String customertel;
 
 	/**
-	 * 供应商联系人
+	 * 客户联系人
 	 */
-	private String suppliermanager;
+	private String customermanager;
 
 	/**
-	 * 供应商联系人地址
+	 * 客户地址
 	 */
-	private String suppliermanageraddr;
-	
-	/**
-	 * 供应商联系人传真
-	 */
-	private String suppliertax;
+	private String customeraddress;
 
 	/**
-	 * 供应商联系人邮箱
+	 * 客户邮箱
 	 */
-	private String suppliermail;
+	private String customermail;
 
 	/**
-	 * 采购单经手人
+	 * 销售
 	 */
 	private String handler;
 
 	/**
-	 * 采购日期
+	 * 订单日期
 	 */
-	private Date purchasedate;
+	private Date bookdate;
 
 	/**
 	 * 采购金额（不含税）
 	 */
-	private BigDecimal totalamount;
+	private BigDecimal amount;
 
 	/**
 	 * 采购金额（含税）
@@ -119,11 +109,6 @@ public class EtbPurchaseDto extends BaseAction {
 	 * 确认者
 	 */
 	private String approverid;
-	
-	/**
-	 * 采购单对应的产品ID（逗号分割）
-	 */
-	private String productlist;
 
 	/**
 	 * 备注
@@ -218,12 +203,12 @@ public class EtbPurchaseDto extends BaseAction {
 		this.id = id;
 	}
 
-	public String getPurchaseno() {
-		return purchaseno;
+	public String getSalesno() {
+		return salesno;
 	}
 
-	public void setPurchaseno(String purchaseno) {
-		this.purchaseno = purchaseno;
+	public void setSalesno(String salesno) {
+		this.salesno = salesno;
 	}
 
 	public String getBelongto() {
@@ -258,44 +243,52 @@ public class EtbPurchaseDto extends BaseAction {
 		this.warehouse = warehouse;
 	}
 
-	public Long getSupplierid() {
-		return supplierid;
+	public Long getCustomerid() {
+		return customerid;
 	}
 
-	public void setSupplierid(Long supplierid) {
-		this.supplierid = supplierid;
+	public void setCustomerid(Long customerid) {
+		this.customerid = customerid;
 	}
 
-	public String getSuppliername() {
-		return suppliername;
+	public String getCustomername() {
+		return customername;
 	}
 
-	public void setSuppliername(String suppliername) {
-		this.suppliername = suppliername;
+	public void setCustomername(String customername) {
+		this.customername = customername;
 	}
 
-	public String getSuppliertel() {
-		return suppliertel;
+	public String getCustomertel() {
+		return customertel;
 	}
 
-	public void setSuppliertel(String suppliertel) {
-		this.suppliertel = suppliertel;
+	public void setCustomertel(String customertel) {
+		this.customertel = customertel;
 	}
 
-	public String getSuppliermanager() {
-		return suppliermanager;
+	public String getCustomermanager() {
+		return customermanager;
 	}
 
-	public void setSuppliermanager(String suppliermanager) {
-		this.suppliermanager = suppliermanager;
+	public void setCustomermanager(String customermanager) {
+		this.customermanager = customermanager;
 	}
 
-	public String getSuppliermail() {
-		return suppliermail;
+	public String getCustomeraddress() {
+		return customeraddress;
 	}
 
-	public void setSuppliermail(String suppliermail) {
-		this.suppliermail = suppliermail;
+	public void setCustomeraddress(String customeraddress) {
+		this.customeraddress = customeraddress;
+	}
+
+	public String getCustomermail() {
+		return customermail;
+	}
+
+	public void setCustomermail(String customermail) {
+		this.customermail = customermail;
 	}
 
 	public String getHandler() {
@@ -306,20 +299,20 @@ public class EtbPurchaseDto extends BaseAction {
 		this.handler = handler;
 	}
 
-	public Date getPurchasedate() {
-		return purchasedate;
+	public Date getBookdate() {
+		return bookdate;
 	}
 
-	public void setPurchasedate(Date purchasedate) {
-		this.purchasedate = purchasedate;
+	public void setBookdate(Date bookdate) {
+		this.bookdate = bookdate;
 	}
 
-	public BigDecimal getTotalamount() {
-		return totalamount;
+	public BigDecimal getAmount() {
+		return amount;
 	}
 
-	public void setTotalamount(BigDecimal totalamount) {
-		this.totalamount = totalamount;
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
 	}
 
 	public BigDecimal getTaxamount() {
@@ -489,37 +482,4 @@ public class EtbPurchaseDto extends BaseAction {
 	public void setUpdatedate(Date updatedate) {
 		this.updatedate = updatedate;
 	}
-
-	public String getSupplieraddr() {
-		return supplieraddr;
-	}
-
-	public void setSupplieraddr(String supplieraddr) {
-		this.supplieraddr = supplieraddr;
-	}
-
-	public String getSuppliermanageraddr() {
-		return suppliermanageraddr;
-	}
-
-	public void setSuppliermanageraddr(String suppliermanageraddr) {
-		this.suppliermanageraddr = suppliermanageraddr;
-	}
-
-	public String getSuppliertax() {
-		return suppliertax;
-	}
-
-	public void setSuppliertax(String suppliertax) {
-		this.suppliertax = suppliertax;
-	}
-
-	public String getProductlist() {
-		return productlist;
-	}
-
-	public void setProductlist(String productlist) {
-		this.productlist = productlist;
-	}
-
 }

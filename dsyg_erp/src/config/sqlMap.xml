@@ -1,14 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMapConfig
   PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
   "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
 
 <sqlMapConfig>
 
+	<sqlMap resource="/config/ibatis/dsyg-dict01.xml" />
 	<sqlMap resource="/config/ibatis/dsyg-user.xml" />
 	<sqlMap resource="/config/ibatis/dsyg-resource.xml" />
 	<sqlMap resource="/config/ibatis/dsyg-role.xml" />
 	<sqlMap resource="/config/ibatis/dsyg-etbpurchase.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-etbpurchaseitem.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-etbproduct.xml" />
 	<sqlMap resource="/config/ibatis/dsyg-supplier.xml" />
 	
 </sqlMapConfig>

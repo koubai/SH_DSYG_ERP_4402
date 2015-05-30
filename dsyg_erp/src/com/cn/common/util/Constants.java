@@ -9,6 +9,8 @@ package com.cn.common.util;
  */
 public class Constants {
 	
+	//当前系统所属地
+	public final static String SYSTEM_BELONG = "belongto";
 	//多语言
 	public final static String SYSTEM_LANGUAGE = "language";
 	//URL后缀名
@@ -31,6 +33,10 @@ public class Constants {
 	public final static String DICT_GOODS_TYPE_CODE_04 = "04";//线束
 	public final static String DICT_GOODS_TYPE_CODE_05 = "05";//连接器
 	public final static String DICT_GOODS_TYPE_CODE_06 = "06";//FPC
+	
+	//包装
+	public final static String DICT_PACKAGING_TYPE_CODE_1 = "1";//乱尺
+	public final static String DICT_PACKAGING_TYPE_CODE_0 = "0";//整箱
 	
 	//产地
 	public final static String DICT_MAKEAREA = "makearea";

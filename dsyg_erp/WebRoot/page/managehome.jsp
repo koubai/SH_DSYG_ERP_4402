@@ -29,7 +29,7 @@
 	<frameset cols="182,7,*" id="info_frame">
 		<frame src="<%=request.getContextPath()%>/frame/showLeftAction.action" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" name="leftFrame" id="leftFrame" title="leftFrame" />
 		<frame src="<%=request.getContextPath()%>/page/middle.htm" name="middleFrame" noresize="noresize" marginwidth="0" marginheight="0" frameborder="0" />
-		<frame src="<%=request.getContextPath()%>/frame/showMainFrameAction.action" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" name="mainFrame" id="mainFrame" title="mainFrame" />
+		<frame src="<%=request.getContextPath()%>/frame/showMainFrameAction.action" frameborder="0" scrolling="auto" marginwidth="0" marginheight="0" name="mainFrame" id="mainFrame" title="mainFrame" />
 	</frameset>
 </frameset>
 </html>

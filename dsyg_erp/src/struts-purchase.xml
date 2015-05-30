@@ -18,6 +18,22 @@
 			<result name="*">/page/purchase/purchaselist.jsp</result>
 		</action>
 		
+		<action name="showAddEtbPurchaseAction" class="etbPurchaseAction" method="showAddEtbPurchaseAction">
+			<result name="*">/page/purchase/addpurchase.jsp</result>
+		</action>
+		
+		<action name="addEtbPurchaseAction" class="etbPurchaseAction" method="addEtbPurchaseAction">
+			<result name="*">/page/purchase/addpurchase.jsp</result>
+		</action>
+		
+		<action name="showUpdEtbPurchaseAction" class="etbPurchaseAction" method="showUpdEtbPurchaseAction">
+			<result name="*">/page/purchase/updpurchase.jsp</result>
+		</action>
+		
+		<action name="updEtbPurchaseAction" class="etbPurchaseAction" method="updEtbPurchaseAction">
+			<result name="*">/page/purchase/updpurchase.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

@@ -1,11 +1,34 @@
-<?xml version="1.0" encoding="UTF-8"?>  
+﻿<?xml version="1.0" encoding="UTF-8"?>  
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
+	
+	<!-- etbProduct -->
+	<bean id="etbProductAction" class="com.cn.dsyg.action.EtbProductAction" scope="session">
+		<property name="etbProductService">
+			<ref bean="etbProductService"/>
+		</property>
+		<property name="dict01Service">
+			<ref bean="dict01Service"/>
+		</property>
+	</bean>
 	
 	<!-- etbPurchase -->
 	<bean id="etbPurchaseAction" class="com.cn.dsyg.action.EtbPurchaseAction" scope="session">
 		<property name="etbPurchaseService">
 			<ref bean="etbPurchaseService"/>
+		</property>
+		<property name="dict01Service">
+			<ref bean="dict01Service"/>
+		</property>
+		<property name="etbPurchaseItemService">
+			<ref bean="etbPurchaseItemService"/>
+		</property>
+	</bean>
+	
+	<!-- supplier -->
+	<bean id="supplierAction" class="com.cn.dsyg.action.SupplierAction" scope="session">
+		<property name="supplierService">
+			<ref bean="supplierService"/>
 		</property>
 	</bean>
 	
@@ -24,13 +47,6 @@
 	
 	<!-- frame -->
 	<bean id="frameAction" class="com.cn.dsyg.action.FrameAction" scope="session">
-	</bean>
-
-	<!-- 供应商 -->
-	<bean id="supplierAction" class="com.cn.dsyg.action.SupplierAction" scope="session">
-		<property name="supplierService">
-			<ref bean="supplierService" />
-		</property>
 	</bean>
 	
 	<!-- 验证码 -->

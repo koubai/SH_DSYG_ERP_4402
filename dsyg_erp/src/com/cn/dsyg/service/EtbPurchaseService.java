@@ -1,7 +1,10 @@
 package com.cn.dsyg.service;
 
+import java.util.List;
+
 import com.cn.common.util.Page;
 import com.cn.dsyg.dto.EtbPurchaseDto;
+import com.cn.dsyg.dto.EtbPurchaseItemDto;
 
 /**
  * @name EtbPurchaseService.java
@@ -34,6 +37,15 @@ public interface EtbPurchaseService {
 	public void deleteEtbPurchase(String id);
 	
 	/**
+	 * 新增采购单和产品
+	 * @param etbPurchase
+	 * @param listPurchaseItem
+	 * @param userid
+	 * @return
+	 */
+	public String addEtbPurchase(EtbPurchaseDto etbPurchase, List<EtbPurchaseItemDto> listPurchaseItem, String userid);
+	
+	/**
 	 * 新增采购单
 	 * @param etbPurchase
 	 */
@@ -42,6 +54,8 @@ public interface EtbPurchaseService {
 	/**
 	 * 修改采购单
 	 * @param etbPurchase
+	 * @param listPurchaseItem
+	 * @param userid
 	 */
-	public void updateEtbPurchase(EtbPurchaseDto etbPurchase);
+	public void updateEtbPurchase(EtbPurchaseDto etbPurchase, List<EtbPurchaseItemDto> listPurchaseItem, String userid);
 }

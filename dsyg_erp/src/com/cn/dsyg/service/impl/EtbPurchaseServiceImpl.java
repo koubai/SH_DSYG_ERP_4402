@@ -1,10 +1,16 @@
 package com.cn.dsyg.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
+import com.cn.common.util.PropertiesConfig;
 import com.cn.dsyg.dao.EtbPurchaseDao;
+import com.cn.dsyg.dao.EtbPurchaseItemDao;
 import com.cn.dsyg.dto.EtbPurchaseDto;
+import com.cn.dsyg.dto.EtbPurchaseItemDto;
 import com.cn.dsyg.service.EtbPurchaseService;
 
 /**
@@ -16,6 +22,7 @@ import com.cn.dsyg.service.EtbPurchaseService;
 public class EtbPurchaseServiceImpl implements EtbPurchaseService {
 	
 	private EtbPurchaseDao etbPurchaseDao;
+	private EtbPurchaseItemDao etbPurchaseItemDao;
 
 	@Override
 	public Page queryEtbPurchaseByPage(String purchasedateLow,
@@ -44,6 +51,35 @@ public class EtbPurchaseServiceImpl implements EtbPurchaseService {
 	public void deleteEtbPurchase(String id) {
 		etbPurchaseDao.deleteEtbPurchase(id);
 	}
+	
+	@Override
+	public String addEtbPurchase(EtbPurchaseDto etbPurchase,
+			List<EtbPurchaseItemDto> listPurchaseItem, String userid) {
+		//生成采购单号
+		String purchaseno = "";
+		String belongto = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG);
+		etbPurchase.setBelongto(belongto);
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
+		purchaseno = "PURCHASE" + belongto + sdf.format(date);
+		etbPurchase.setPurchaseno(purchaseno);
+		etbPurchase.setUpdateuid(userid);
+		etbPurchase.setCreateuid(userid);
+		etbPurchaseDao.insertEtbPurchase(etbPurchase);
+		//保存采购单对应的货物数据
+		if(listPurchaseItem != null) {
+			for(EtbPurchaseItemDto purchaseItem : listPurchaseItem) {
+				//采购单号
+				purchaseItem.setPurchaseno(purchaseno);
+				purchaseItem.setUpdateuid(userid);
+				purchaseItem.setCreateuid(userid);
+				purchaseItem.setStatus("" + Constants.STATUS_NORMAL);
+				purchaseItem.setBelongto(belongto);
+				etbPurchaseItemDao.insertPurchaseItem(purchaseItem);
+			}
+		}
+		return purchaseno;
+	}
 
 	@Override
 	public void insertEtbPurchase(EtbPurchaseDto etbPurchase) {
@@ -51,8 +87,30 @@ public class EtbPurchaseServiceImpl implements EtbPurchaseService {
 	}
 
 	@Override
-	public void updateEtbPurchase(EtbPurchaseDto etbPurchase) {
+	public void updateEtbPurchase(EtbPurchaseDto etbPurchase, List<EtbPurchaseItemDto> listPurchaseItem, String userid) {
 		etbPurchaseDao.updateEtbPurchase(etbPurchase);
+		//根据采购单号删除所有的货物数据
+		etbPurchaseItemDao.deletePurchaseItemByPurchaseno(etbPurchase.getPurchaseno(), userid);
+		//保存采购单对应的货物数据
+		if(listPurchaseItem != null) {
+			for(EtbPurchaseItemDto purchaseItem : listPurchaseItem) {
+				if(purchaseItem.getId() == null) {
+					//新增
+					//采购单号
+					purchaseItem.setPurchaseno(etbPurchase.getPurchaseno());
+					purchaseItem.setUpdateuid(userid);
+					purchaseItem.setCreateuid(userid);
+					purchaseItem.setStatus("" + Constants.STATUS_NORMAL);
+					purchaseItem.setBelongto(etbPurchase.getBelongto());
+					etbPurchaseItemDao.insertPurchaseItem(purchaseItem);
+				} else {
+					//修改
+					purchaseItem.setUpdateuid(userid);
+					purchaseItem.setStatus("" + Constants.STATUS_NORMAL);
+					etbPurchaseItemDao.updatePurchaseItem(purchaseItem);
+				}
+			}
+		}
 	}
 
 	public EtbPurchaseDao getEtbPurchaseDao() {
@@ -61,5 +119,13 @@ public class EtbPurchaseServiceImpl implements EtbPurchaseService {
 
 	public void setEtbPurchaseDao(EtbPurchaseDao etbPurchaseDao) {
 		this.etbPurchaseDao = etbPurchaseDao;
+	}
+
+	public EtbPurchaseItemDao getEtbPurchaseItemDao() {
+		return etbPurchaseItemDao;
+	}
+
+	public void setEtbPurchaseItemDao(EtbPurchaseItemDao etbPurchaseItemDao) {
+		this.etbPurchaseItemDao = etbPurchaseItemDao;
 	}
 }
