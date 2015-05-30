@@ -31,13 +31,6 @@
 			id = #id#
 	</select>
 	
-	<select id="queryAllResource" parameterClass="java.util.Map" resultMap="ResourceDto">
-		select * from tbresource where 1 = 1
-		<isNotEmpty prepend="and" property="restype">
-			T.restype = #restype#
-		</isNotEmpty>
-	</select>
-	
 	<insert id="insertResource" parameterClass="com.cn.dsyg.dto.ResourceDto">
 		insert into tbresource(url,note,status,createtime,sort,parentid,restype)
 		values(#url#,#note#,#status#,NOW(),#sort#,#parentid#,#restype#)

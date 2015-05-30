@@ -68,11 +68,6 @@ public class Constants {
 	public final static String SESSION_RESOURCE_LIST = "resource_list";
 	
 	/**
-	 * 当前用户角色对应的资源MAP（拦截器用）
-	 */
-	public final static String SESSION_RESOURCE_MAP = "resource_map";
-	
-	/**
 	 * 验证码
 	 */
 	public final static String SESSION_RANDOM = "random";

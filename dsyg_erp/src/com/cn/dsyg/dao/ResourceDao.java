@@ -11,12 +11,6 @@ import com.cn.dsyg.dto.ResourceDto;
  * @version 1.0
  */
 public interface ResourceDao {
-	
-	/**
-	 * 查询所有资源
-	 * @return
-	 */
-	public List<ResourceDto> queryAllResource();
 
 	/**
 	 * 根据角色ID查询资源信息

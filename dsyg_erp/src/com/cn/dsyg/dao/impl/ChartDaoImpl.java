@@ -14,8 +14,9 @@ public class ChartDaoImpl extends BaseDao implements ChartDao {
 	 * @param fieldcode
 	 * @return
 	 */
-	public List<ChartDto> queryPurchaseByDate(String from_date, String to_date) {
+	public List<ChartDto> queryPurchaseByDate(String theme1, String from_date, String to_date) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("theme1", theme1);
 		paramMap.put("from_date", from_date);
 		paramMap.put("to_date", to_date);
 		

@@ -8,6 +8,10 @@
 		<action name="showSaleInfoMainChartAction" class="chartAction" method="showSaleInfoMainChartAction">
 			<result name="*">/page/chart.jsp</result>
 		</action>
+
+		<action name="getDataAction" class="chartAction" method="getDataAction">
+			<result name="*">/page/chart.jsp</result>
+		</action>
 	</package>
 
 </struts>

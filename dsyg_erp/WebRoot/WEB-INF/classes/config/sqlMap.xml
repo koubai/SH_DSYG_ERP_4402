@@ -8,5 +8,6 @@
 	<sqlMap resource="/config/ibatis/dsyg-user.xml" />
 	<sqlMap resource="/config/ibatis/dsyg-resource.xml" />
 	<sqlMap resource="/config/ibatis/dsyg-role.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-chart.xml" />
 	
 </sqlMapConfig>

@@ -12,14 +12,12 @@
 	
 	<constant name="struts.multipart.saveDir" value="/tmp"/>
 	
-	<!-- purchase -->
-	<include file="struts-purchase.xml"></include>
 	<!-- Frame -->
 	<include file="struts-frame.xml"></include>
 	<!-- login -->
 	<include file="struts-login.xml"></include>
-	<!-- supplier -->
-	<include file="struts-supplier.xml"></include>
+	<!-- chart -->
+	<include file="struts-chart.xml"></include>
 	
 	<package name="index" extends="struts-default, json-default" namespace="/index">
 		
@@ -37,6 +35,7 @@
 	<!-- 登录 -->
 	<package name="struts-erp" extends="struts-default, json-default" namespace="/">
 	
+	<!-- 登录 
 		<interceptors>
 			<interceptor name="loginInterceptor" class="loginInterceptorBean"></interceptor>
 			<interceptor-stack name="loginStack">
@@ -44,8 +43,8 @@
 				<interceptor-ref name="defaultStack"></interceptor-ref>
 			</interceptor-stack>
 		</interceptors>
-		
 		<default-interceptor-ref name="loginStack"></default-interceptor-ref>
+		-->
 		
 		<!-- 全局返回值 -->
 		<global-results>

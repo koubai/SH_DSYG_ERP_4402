@@ -1,7 +1,6 @@
 package com.cn.dsyg.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.cn.dsyg.dto.ResourceDto;
 
@@ -12,13 +11,6 @@ import com.cn.dsyg.dto.ResourceDto;
  * @version 1.0
  */
 public interface ResourceService {
-	
-	/**
-	 * 根据角色id查询资源MAP
-	 * @param roleid
-	 * @return
-	 */
-	public Map<String, Integer> getRoleResourceMap(String roleid);
 
 	/**
 	 * 根据角色ID查询资源信息

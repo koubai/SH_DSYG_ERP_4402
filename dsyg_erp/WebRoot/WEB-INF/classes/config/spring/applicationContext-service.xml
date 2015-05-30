@@ -41,5 +41,25 @@
 			<ref bean="sqlMapClient"/>
 		</property>
 	</bean>
+
+	<!-- Chart -->
+	<bean id="chartService" class="com.cn.dsyg.service.impl.ChartServiceImpl" >
+		<property name="chartDao">
+			<ref local="chartDao"/>
+		</property>
+	</bean>
+	
+	<bean id="chartDao" class="com.cn.dsyg.dao.impl.ChartDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+
+	<bean id="chartServlet" class="com.cn.dsyg.servlet.ChartServlet" >
+		<property name="chartService">
+			<ref bean="chartService"/>
+		</property>
+	</bean>
+
 	
 </beans>

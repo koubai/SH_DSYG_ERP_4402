@@ -2,13 +2,6 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
 	
-	<!-- etbPurchase -->
-	<bean id="etbPurchaseAction" class="com.cn.dsyg.action.EtbPurchaseAction" scope="session">
-		<property name="etbPurchaseService">
-			<ref bean="etbPurchaseService"/>
-		</property>
-	</bean>
-	
 	<!-- 用户 -->
 	<bean id="userLoginAction" class="com.cn.dsyg.action.UserLoginAction" scope="session">
 		<property name="resourceService">
@@ -25,14 +18,14 @@
 	<!-- frame -->
 	<bean id="frameAction" class="com.cn.dsyg.action.FrameAction" scope="session">
 	</bean>
-
-	<!-- 供应商 -->
-	<bean id="supplierAction" class="com.cn.dsyg.action.SupplierAction" scope="session">
-		<property name="supplierService">
-			<ref bean="supplierService" />
+	
+	<!-- chart -->
+	<bean id="chartAction" class="com.cn.dsyg.action.ChartAction" scope="session">
+		<property name="chartService">
+			<ref bean="chartService"/>
 		</property>
 	</bean>
-	
+
 	<!-- 验证码 -->
 	<bean id="randomActionBean" class="com.cn.dsyg.action.ValidateCodeAction" />
 	

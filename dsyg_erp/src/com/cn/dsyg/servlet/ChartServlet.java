@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServlet;
 import java.io.IOException;  
 import java.io.PrintWriter;  
 import java.text.SimpleDateFormat;  
+import java.util.ArrayList;
 import java.util.Calendar;  
 import java.util.Comparator;
 import java.util.Date;  
@@ -15,40 +16,97 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;  
 import javax.servlet.http.HttpServlet;  
 import javax.servlet.http.HttpServletRequest;  
 import javax.servlet.http.HttpServletResponse;  
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.xbean.spring.context.FileSystemXmlApplicationContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.cn.dsyg.action.ChartAction;
 import com.cn.dsyg.dto.ChartDto;
 import com.cn.dsyg.service.ChartService;
+import com.cn.dsyg.service.impl.ChartServiceImpl;
 
 public class ChartServlet extends HttpServlet {
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = -7285713183683200542L;
-	/**
-	 * 
-	 */
+	private static final Logger log = LogManager.getLogger(ChartServlet.class);
+
 	private ChartService chartService;
+	private String str;  
+	public ApplicationContext ctx;
+	
+	public String getStr() {
+		return str;
+	}
+
+	public void setStr(String str) {
+		this.str = str;
+	}
+
+	public String getSeries() {
+		return series;
+	}
+
+	public void setSeries(String series) {
+		this.series = series;
+	}
+
+	public String getSeries_X() {
+		return series_X;
+	}
+
+	public void setSeries_X(String series_X) {
+		this.series_X = series_X;
+	}
+
+	private String series;  
+	private String series_X;  
+	private JSONArray m_jsonArr;
+	
+	public JSONArray getM_jsonArr() {
+		return m_jsonArr;
+	}
+	public void setM_jsonArr(JSONArray m_jsonArr) {
+		this.m_jsonArr = m_jsonArr;
+	}
+	public ChartService getChartService() {
+		return chartService;
+	}
+	public void setChartService(ChartService chartService) {
+		this.chartService = chartService;
+	}
 
 	
 	public Map<String, String> getInitDataMap(int i_fy, int i_ty, int i_fm, int i_tm) {  
 		Map<String, String> data_map = new HashMap<String, String>();
-		
-		for (int i = i_fy; i < i_ty + 1; i++ ){
-			for (int j = i_fm; (j < 13 && i_fy != i_ty) || (j<i_tm+1 && i_fy == i_ty); j++ ){
-				data_map.put((Integer.toString(i)+String.format("%02d", Integer.toString(j))),"0");
+
+		int i_year = 0;
+		int i_month = 0;
+		for (int i = 0; i < (i_ty - i_fy)*12 + (i_tm - i_fm) + 1; i++ ){
+			i_year = i_fy  + (i + i_fm)/12;
+			i_month = (i + i_fm)%12; 
+			if (i_month == 0){
+				i_year--;
+				i_month = 12;
 			}
+			data_map.put((Integer.toString(i_year)+String.format("%02d", i_month)),"0.00");
+            System.out.println("key:" +(Integer.toString(i_year)+String.format("%02d", i_month)));
 		}
 		return data_map;
 	}
-	
+
 	public Map<String, String> setDataMap( Map<String, String> data_map, ChartDto chd ) {  
 		String str = data_map.get(chd.getX_Year()+"01");
 		if (str!=null && str !=""){
@@ -120,22 +178,53 @@ public class ChartServlet extends HttpServlet {
                     String v1 = (String)obj1; 
                     String v2 = (String)obj2; 
                     int s = v2.compareTo(v1); 
-                    return s; 
+                    return -s; 
                 } 
             } 
         ); 
-
         Set col = map.keySet(); 
         Iterator iter = col.iterator(); 
         while (iter.hasNext()) { 
             String key = (String) iter.next(); 
-            Integer value = (Integer) map.get(key); 
+            String value = (String) map.get(key); 
             mapVK.put(key, value); 
         } 
         return mapVK; 
     } 
+
+
     	
-    public JSONArray getData() {  
+    public JSONArray setJsonData(JSONArray jsonArr, String use_id, Map<String, String> item_map ) throws JSONException {  
+        JSONObject item = null;  
+
+    	//Add user information into json array 
+        item = new JSONObject(); 
+        String tmp_Series_X = getSeries_X();
+
+		item.put("name", use_id.replace("\"", ""));            	
+    	Set sortSet = item_map.entrySet(); 
+        Iterator ii = sortSet.iterator();
+        ArrayList arrY=new ArrayList();
+        while(ii.hasNext()){ 
+            Map.Entry<String, String> entry1=(Map.Entry<String, String>)ii.next(); 
+            System.out.println(entry1.getKey() + "-------->" + entry1.getValue()); 
+            arrY.add(entry1.getValue());  
+
+            if (tmp_Series_X == null || tmp_Series_X=="")
+            	tmp_Series_X = entry1.getKey();
+            else
+            	tmp_Series_X = tmp_Series_X + "," + entry1.getKey();  
+        } 
+        
+        if (getSeries_X()== null || getSeries_X()== "" )
+        	setSeries_X("[" + tmp_Series_X + "]");
+
+		item.put("data", arrY);            	
+        jsonArr.put(item);  		         			        	
+        return jsonArr;  
+    }
+
+    public JSONArray getSaleData() {  
     	String from_date;
     	String to_date;
     	int period_days = -180;
@@ -143,128 +232,88 @@ public class ChartServlet extends HttpServlet {
     	int i_ty;
     	int i_fm;
     	int i_tm;
-    	int idx2 = 0;
-    	String X_m[];
-    	String Y_m[];
+    	String user_id = "";
     	String tmp_user_id = "";
     	JSONArray jsonArr = new JSONArray();  
-        JSONObject item = null;  
+		log.error("getData");
+        System.out.println("-------->"); 
     	    
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
-        to_date = sdf.format(new Date(System.currentTimeMillis()));
-        from_date = sdf.format(add(new Date(System.currentTimeMillis()), period_days));
+//        to_date = sdf.format(new Date(System.currentTimeMillis()));
+//        from_date = sdf.format(add(new Date(System.currentTimeMillis()), period_days));
+
+        from_date= "2015-06-01";
+        to_date = "2015-12-31";
         System.out.println("from_date:" + from_date);
         System.out.println("to_date:" + to_date);
 
-        i_fy =  Integer.parseInt(from_date.substring(2,3));
-        i_ty =  Integer.parseInt(to_date.substring(2,3));
-        i_fm =  Integer.parseInt(from_date.substring(5,6));
-        i_tm =  Integer.parseInt(to_date.substring(5,6));
-        
-		
-		
-		
-		for (int x = i_fm - 1; x < (i_ty-i_fy)*12 + i_tm; x++ ){
-			X_map.put(Integer.toString(i_fy),"0");
-			item.put("x_data", x);
-			item.put("y_data", Y_m[x]);
-			if (j == i_tm){
-				break;
-			}
-			j++ ;
-		}
-
-        
+        i_fy =  Integer.parseInt(from_date.substring(2,4));
+        i_ty =  Integer.parseInt(to_date.substring(2,4));
+        i_fm =  Integer.parseInt(from_date.substring(5,7));
+        i_tm =  Integer.parseInt(to_date.substring(5,7));
         
         try {
-	        List<ChartDto> list = chartService.queryPurchaseByDate(from_date, to_date);
-	        if (list.size() > 0) 
-	        	tmp_user_id = list.get(0).getHandler();
-            int idx = 0;
+        	List<ChartDto>  list = new ArrayList<ChartDto>();
+        	        	
+        	chartService = (ChartService)ctx.getBean("chartService");
+        	chartService.setCtx(ctx);
+	        list = chartService.queryPurchaseByDate("T1", from_date, to_date);
+	        if (list==null || list.size()<= 0)
+	            System.out.println("list.size error");	        	
+	        if (list.size() > 0) {
+	            System.out.println("list.size:" + list.size());
+	        }
+            Map<String, String> item_map = null;
+            Map<String, String> temp_item_map = null;
+            Map<String, String> user_item_map = null;
+            
 	        for (int z = 0; z < list.size(); z++) {  
+	            System.out.println("Z:" + z);
 	        	ChartDto chd = list.get(z);
-	        	if (list.get(z).getHandler() != tmp_user_id){
-	        		tmp_user_id = list.get(z).getHandler();
+	        	user_id = chd.getHandler();	        	
+	            System.out.println("user_id_loop:" + user_id);
+	        	if (user_id != tmp_user_id){
+	        		// part of every user_id 
+		            System.out.println("This user_id is:" + user_id);
+		            if (temp_item_map != null){
+		            	// put pre_user's data into array
+			        	item_map= sort(user_item_map);
+			        	jsonArr = setJsonData(jsonArr, tmp_user_id,  item_map );
+		            }
+		            // initial the user's data map
+		            temp_item_map = getInitDataMap(i_fy, i_ty, i_fm, i_tm);
 	        	}
-	        	
-	        	
-	        	
-	            System.out.println("----------------"); 
-	            //排序后的输出 
-	           Map<String, Integer> sortMaps = sort(maps); 
-	           Set sortSet = sortMaps.entrySet(); 
-	           Iterator ii = sortSet.iterator(); 
-	           while(ii.hasNext()){ 
-	               Map.Entry<String, Integer> entry1=(Map.Entry<String, Integer>)ii.next(); 
-	               System.out.println(entry1.getKey() + "-------->" + entry1.getValue()); 
-	           } 
-	          
-	        	
-	            item = new JSONObject();  
-				item.put("name", tmp_user_id);            	
-	        	for (int i = 0; i < 12; i++){
-	        		X_m[idx*12+i] = new String(chd.getX_Year() + "/" + Integer.toString(i+1)); 
-	        		switch(i+1)
-	        		{
-	        		case 1:
-	            		Y_m[idx*12+i] = new String(chd.getY_Month_01());
-	        			break;
-	        			
-	        		case 2:
-	            		Y_m[idx*12+i] = new String(chd.getY_Month_02());
-	        			break;
-	
-	        		case 3: 
-	            		Y_m[idx*12+i] = new String(chd.getY_Month_03());
-	        			break;
-	
-	        		case 4: 
-	            		Y_m[idx*12+i] = new String(chd.getY_Month_04());
-	        			break;
-	
-	        		case 5: 
-	            		Y_m[idx*12+i] = new String(chd.getY_Month_05());
-	        			break;
-	
-	        		case 6: 
-	            		Y_m[idx*12+i] = new String(chd.getY_Month_06());
-	        			break;
-	
-	        		case 7: 
-	            		Y_m[idx*12+i] = new String(chd.getY_Month_07());
-	        			break;
-	        		
-	        		case 8: 
-	            		Y_m[idx*12+i] = new String(chd.getY_Month_08());
-	        			break;
-	        		
-	        		case 9: 
-	            		Y_m[idx*12+i] = new String(chd.getY_Month_09());
-	        			break;
-	
-	        		case 10: 
-	            		Y_m[idx*12+i] = new String(chd.getY_Month_10());
-	        			break;
-	
-	        		case 11: 
-	            		Y_m[idx*12+i] = new String(chd.getY_Month_11());
-	        			break;
-	
-	        		case 12: 
-	            		Y_m[idx*12+i] = new String(chd.getY_Month_12());
-	        			break;
-	        		}
-	        		idx++;
-	        	}
-	        }	
-	        
-	        jsonArr.put(item);  
-		} catch (JSONException e) {
+	            if (temp_item_map != null){
+	            	// add user data to his data map
+	            	user_item_map = setDataMap(temp_item_map, chd);
+	            }
+	        	tmp_user_id = user_id;	        	
+	        }	                  
+            if (temp_item_map != null){
+	        	item_map= sort(user_item_map);
+	        	jsonArr = setJsonData(jsonArr, tmp_user_id,  item_map );
+            }
+            
+            JSONObject[] arr=new JSONObject[jsonArr.length()];
+            System.out.println("jsonArr length:" + jsonArr.length());
+    	    System.out.println("JO: " + jsonArr);  
+    	    setM_jsonArr(jsonArr);
+            
+		}
+        catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}  		
+		} 		
         return(jsonArr);  
-    }
+    }	
+      
+    public Date add(Date day,int dist) {  
+        Calendar calendar = new GregorianCalendar();  
+        calendar.setTime(day);  
+        calendar.add(calendar.DATE, dist);  
+        day = calendar.getTime();  
+        return day;  
+    }  	
 	
 	public ChartServlet() {  
         super();  
@@ -284,35 +333,21 @@ public class ChartServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");  
         PrintWriter out = response.getWriter();  
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
-          
-        //生成一组随机的时间序列  
+
+        String mth=request.getParameter("month");  
+        System.out.println("request.month:" + mth);
+        String act=request.getParameter("action");  
+        System.out.println("request.act:" + act);
+        
+        ServletContext servletContext = request.getSession().getServletContext();
+    	ctx= WebApplicationContextUtils.getWebApplicationContext(servletContext);
+                  
         JSONArray jsonArr = new JSONArray();  
-        JSONObject item = null;  
-        for (int i = 0; i < 10; i++) {  
-            item = new JSONObject();  
-            //从今日开始统计  
-            try {
-				item.put("id", sdf.format(add(new Date(),i)));
-				item.put("heigh", Math.round(1000*Math.random()));
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}  
-            jsonArr.put(item);  
-        }  
+        jsonArr = getSaleData();
         out.println(jsonArr.toString());  
         out.flush();  
         out.close();  
-    }  
-      
-    //日期加N天  
-    public Date add(Date day,int dist) {  
-        Calendar calendar = new GregorianCalendar();  
-        calendar.setTime(day);  
-        calendar.add(calendar.DATE, dist);  
-        day = calendar.getTime();  
-        return day;  
-    }  
+    }        
         
     public void init() throws ServletException {  
         // Put your code here  

@@ -10,6 +10,6 @@ public interface ChartDao {
 	 * @param fieldcode
 	 * @return
 	 */
-	public List<ChartDto> queryPurchaseByDate(String from_date, String to_date);
+	public List<ChartDto> queryPurchaseByDate(String theme1, String from_date, String to_date);
 
 }

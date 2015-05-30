@@ -19,6 +19,12 @@
 		<div class=content>
 			<p class="session_txt">欢迎使用DSYG ERP系统。</p>
 		</div>
+		<div class=content>
+			<a href="${pageContext.request.contextPath}/chart/showSaleInfoMainChartAction.action">chart</a>
+		</div>
+		<div class=content>
+			<a href="${pageContext.request.contextPath}/chart/getDataAction.action">chart2</a>
+		</div>		
 	</div>
 </body>
 </html>

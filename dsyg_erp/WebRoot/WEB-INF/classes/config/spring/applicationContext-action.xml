@@ -21,6 +21,9 @@
 	
 	<!-- chart -->
 	<bean id="chartAction" class="com.cn.dsyg.action.ChartAction" scope="session">
+		<property name="chartService">
+			<ref bean="chartService"/>
+		</property>
 	</bean>
 
 	<!-- 验证码 -->
