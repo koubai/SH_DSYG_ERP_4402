@@ -224,10 +224,7 @@ public class ChartServlet extends HttpServlet {
         return jsonArr;  
     }
 
-    public JSONArray getSaleData() {  
-    	String from_date;
-    	String to_date;
-    	int period_days = -180;
+    public JSONArray getSaleData(String from_date, String to_date) {  
     	int i_fy;
     	int i_ty;
     	int i_fm;
@@ -238,12 +235,12 @@ public class ChartServlet extends HttpServlet {
 		log.error("getData");
         System.out.println("-------->"); 
     	    
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
 //        to_date = sdf.format(new Date(System.currentTimeMillis()));
 //        from_date = sdf.format(add(new Date(System.currentTimeMillis()), period_days));
 
-        from_date= "2015-06-01";
-        to_date = "2015-12-31";
+//        from_date= "2015-06-01";
+//        to_date = "2015-12-31";
         System.out.println("from_date:" + from_date);
         System.out.println("to_date:" + to_date);
 
@@ -334,16 +331,21 @@ public class ChartServlet extends HttpServlet {
         PrintWriter out = response.getWriter();  
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
 
-        String mth=request.getParameter("month");  
-        System.out.println("request.month:" + mth);
         String act=request.getParameter("action");  
         System.out.println("request.act:" + act);
+        String from_date=request.getParameter("from_date");  
+        System.out.println("request.from_date:" + from_date);
+        String to_date=request.getParameter("to_date");  
+        System.out.println("request.to_date:" + to_date);
         
         ServletContext servletContext = request.getSession().getServletContext();
     	ctx= WebApplicationContextUtils.getWebApplicationContext(servletContext);
                   
         JSONArray jsonArr = new JSONArray();  
-        jsonArr = getSaleData();
+        if (act.equals("getSaleData")){
+            jsonArr = getSaleData(from_date, to_date);        	
+        }
+        
         out.println(jsonArr.toString());  
         out.flush();  
         out.close();  

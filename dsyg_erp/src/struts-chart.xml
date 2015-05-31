@@ -9,7 +9,7 @@
 			<result name="*">/page/chart.jsp</result>
 		</action>
 
-		<action name="getDataAction" class="chartAction" method="getDataAction">
+		<action name="getSaleDataAction" class="chartAction" method="getSaleDataAction">
 			<result name="*">/page/chart.jsp</result>
 		</action>
 	</package>
