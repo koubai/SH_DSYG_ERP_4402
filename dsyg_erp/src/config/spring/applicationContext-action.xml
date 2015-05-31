@@ -46,6 +46,13 @@
 			<ref bean="etbCustomerService" />
 		</property>
 	</bean>
+
+	<!-- 固定资产信息 -->
+	<bean id="etbAssetsAction" class="com.cn.dsyg.action.EtbAssetsAction" scope="session">
+		<property name="etbAssetsService">
+			<ref bean="etbAssetsService" />
+		</property>
+	</bean>
 	
 	<!-- 验证码 -->
 	<bean id="randomActionBean" class="com.cn.dsyg.action.ValidateCodeAction" />

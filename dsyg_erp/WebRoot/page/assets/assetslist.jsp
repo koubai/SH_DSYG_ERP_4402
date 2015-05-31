@@ -8,7 +8,7 @@
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
-<title>快递信息一览</title>
+<title>固定资产信息一览</title>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var h = screen.availHeight; 
@@ -16,7 +16,7 @@
 	});
 
 	function add() {
-		var url = '<c:url value="/delivery/showAddEtbDeliveryAction.action"></c:url>' + "?date=" + new Date();
+		var url = '<c:url value="/assets/showAddEtbAssetsAction.action"></c:url>' + "?date=" + new Date();
 		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:750px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 	}
 	
@@ -26,8 +26,8 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
-			var url = '<c:url value="/delivery/showUpdEtbDeliveryAction.action"></c:url>'
-					+ "?updateDeliveryNo=" + id
+			var url = '<c:url value="/assets/showUpdEtbAssetsAction.action"></c:url>'
+					+ "?updateAssetsNo=" + id
 					+ "&date=" + new Date();
 			window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:750px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 		}
@@ -40,7 +40,7 @@
 			return;
 		} else {
 			if(confirm("确定删除该记录吗？")) {
-				document.mainform.action = '<c:url value="/delivery/delEtbDeliveryAction.action"></c:url>' + "?delDeliveryNo=" + id;
+				document.mainform.action = '<c:url value="/assets/delEtbAssetsAction.action"></c:url>' + "?delAssetsNo=" + id;
 				document.mainform.submit();
 			}
 		}
@@ -59,19 +59,19 @@
 	}
 	
 	function exportExcel() {
-		document.mainform.action = '<c:url value="/delivery/exportEtbDeliveryAction.action"></c:url>';
+		document.mainform.action = '<c:url value="/assets/exportEtbAssetsAction.action"></c:url>';
 		document.mainform.submit();
 	}
 	
 	function queryList() {
-		document.mainform.action = '<c:url value="/delivery/queryEtbDeliveryList.action"></c:url>';
+		document.mainform.action = '<c:url value="/assets/queryEtbAssetsList.action"></c:url>';
 		document.mainform.submit();
 	}
 	
 	//翻页
 	function changePage(pageNum) {
 		document.getElementById("startIndex").value = pageNum;
-		document.mainform.action = '<c:url value="/delivery/turnEtbDeliveryPage.action"></c:url>';
+		document.mainform.action = '<c:url value="/assets/turnEtbAssetsPage.action"></c:url>';
 		document.mainform.submit();
 	}
 
@@ -114,7 +114,7 @@
 				<div class="tittle_left">
 				</div>
 				<div class="tittle_center">
-					快递信息一览
+					固定资产信息一览
 				</div>
 				<div class="tittle_right">
 				</div>
@@ -123,26 +123,26 @@
 				<s:hidden name="startIndex" id="startIndex"/>
 				<div class="searchbox update" style="width:1024px">
 					<div class="box1">
-						<label class="pdf10" style="width:120px">快递编号检索 FROM</label>
+						<label class="pdf10" style="width:120px">资产编号检索 FROM</label>
 						<div class="box1_left"></div>
 						<div class="box1_center">
-							<s:textfield name="strDeliveryNoLow" id="strDeliveryNoLow" cssStyle="width:135px;" maxlength="4" theme="simple"></s:textfield>
+							<s:textfield name="strAssetsNoLow" id="strAssetsNoLow" cssStyle="width:135px;" maxlength="4" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
 						<label>TO</label>
 						<div class="box1_left"></div>
 						<div class="box1_center">
-							<s:textfield name="strDeliveryNoHigh" id="strDeliveryNoHigh" cssStyle="width:135px;" maxlength="4" theme="simple"></s:textfield>
+							<s:textfield name="strAssetsNoHigh" id="strAssetsNoHigh" cssStyle="width:135px;" maxlength="4" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
 					</div>
 				</div>
 				<div class="searchbox update" style="width:1024px">
 					<div class="box1" >
-						<label class="pdf10" style="width:120px">快递名称</label>
+						<label class="pdf10" style="width:120px">资产名</label>
 						<div class="box1_left"></div>
 						<div class="box1_center">
-							<s:textfield name="strDeliveryName" id="strDeliveryName" cssStyle="width:135px;" maxlength="4" theme="simple"></s:textfield>
+							<s:textfield name="strAssetsName" id="strAssetsName" cssStyle="width:135px;" maxlength="4" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
 					</div>
@@ -172,33 +172,31 @@
 							<tr class="tittle">
 								<td width="5%"></td>
 								<td width="10%">序号</td>
-								<td width="15%">快递名称</td>
-								<td width="15%">快递地址</td>
-								<td width="10%">联系人</td>
-								<td width="10%">电话</td>
-								<td width="10%">传真</td>
-								<td width="10%">邮箱</td>
-								<td width="15%">备注</td>
+								<td width="15%">资产编号</td>
+								<td width="15%">资产名</td>
+								<td width="15%">用途</td>
+								<td width="10%">负责人</td>
+								<td width="10%">登记日期</td>
+								<td width="20%">备注</td>
 							</tr>
-							<s:iterator id="listDelivery" value="listDelivery" status="st1">
+							<s:iterator id="listAssets" value="listAssets" status="st1">
 								<s:if test="#st1.odd==true">
 									<tr class="tr_bg">
 								</s:if>
 								<s:else>
 									<tr>
 								</s:else>
-									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
-									<td><s:property value="id"/></td>
+									<td><input name="radioKey" type="radio" value="<s:property value="assetsno"/>"/></td>
+									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
+									<td><s:property value="assetsno"/></td>
 									<td>
 										<div noWrap style="text-overflow:ellipsis;overflow:hidden">
-											<s:property value="deliveryname"/>
+											<s:property value="assetsname"/>
 										</div>
 									</td>
-									<td><s:property value="deliveryaddress1"/></td>
-									<td><s:property value="deliverymanager1"/></td>
-									<td><s:property value="deliverytel1"/></td>
-									<td><s:property value="deliveryfax1"/></td>
-									<td><s:property value="deliverymail1"/></td>
+									<td><s:property value="purpose"/></td>
+									<td><s:property value="handler"/></td>
+									<td><s:property value="registerdate"/></td>
 									<td>
 										<div noWrap style="width:150px;text-overflow:ellipsis;overflow:hidden">
 											<s:property value="note"/>

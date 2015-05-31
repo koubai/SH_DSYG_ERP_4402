@@ -95,4 +95,17 @@
 		</property>
 	</bean>
 	
+	<!-- 固定资产信息 -->
+	<bean id="etbAssetsService" class="com.cn.dsyg.service.impl.EtbAssetsServiceImpl" >
+		<property name="etbAssetsDao">
+			<ref local="etbAssetsDao"/>
+		</property>
+	</bean>
+	
+	<bean id="etbAssetsDao" class="com.cn.dsyg.dao.impl.EtbAssetsDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
 </beans>

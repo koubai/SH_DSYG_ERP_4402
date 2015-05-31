@@ -26,6 +26,7 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
+			alert(id);
 			var url = '<c:url value="/customer/showUpdEtbCustomerAction.action"></c:url>'
 					+ "?updateCustomerNo=" + id
 					+ "&date=" + new Date();
@@ -47,7 +48,6 @@
 	}
 	
 	function getSelectedID() {
-		var id = "";
 		var list = document.getElementsByName("radioKey");
 		for(var i = 0; i < list.length; i++) {
 			if(list[i].checked) {
@@ -191,14 +191,14 @@
 									<td><s:property value="id"/></td>
 									<td>
 										<div noWrap style="text-overflow:ellipsis;overflow:hidden">
-											<s:property value="Customername"/>
+											<s:property value="customername"/>
 										</div>
 									</td>
-									<td><s:property value="Customeraddress1"/></td>
-									<td><s:property value="Customermanager1"/></td>
-									<td><s:property value="Customertel1"/></td>
-									<td><s:property value="Customerfax1"/></td>
-									<td><s:property value="Customermail1"/></td>
+									<td><s:property value="customeraddress1"/></td>
+									<td><s:property value="customermanager1"/></td>
+									<td><s:property value="customertel1"/></td>
+									<td><s:property value="customerfax1"/></td>
+									<td><s:property value="customermail1"/></td>
 									<td>
 										<div noWrap style="width:150px;text-overflow:ellipsis;overflow:hidden">
 											<s:property value="note"/>

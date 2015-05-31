@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="assets" extends="struts-erp" namespace="/assets">
+	
+		<action name="showEtbAssetsAction" class="etbAssetsAction" method="showEtbAssetsAction">
+			<result name="*">/page/assets/assetslist.jsp</result>
+		</action>
+		
+		<action name="queryEtbAssetsList" class="etbAssetsAction" method="queryEtbAssetsList">
+			<result name="success">/page/assets/assetslist.jsp</result>
+		</action>
+		
+		<action name="turnEtbAssetsPage" class="etbAssetsAction" method="turnEtbAssetsPage">
+			<result name="success">/page/assets/assetslist.jsp</result>
+		</action>
+		
+		<action name="showAddEtbAssetsAction" class="etbAssetsAction" method="showAddEtbAssetsAction">
+			<result name="*">/page/assets/addassets.jsp</result>
+		</action>
+		
+		<action name="addEtbAssetsAction" class="etbAssetsAction" method="addEtbAssetsAction">
+			<result name="success">/page/assets/addassets.jsp</result>
+			<result name="checkerror">/page/assets/addassets.jsp</result>
+		</action>
+		
+		<action name="showUpdEtbAssetsAction" class="etbAssetsAction" method="showUpdEtbAssetsAction">
+			<result name="success">/page/assets/updassets.jsp</result>
+			<result name="checkerror">/page/assets/updassets.jsp</result>
+		</action>
+		
+		<action name="updEtbAssetsAction" class="etbAssetsAction" method="updEtbAssetsAction">
+			<result name="success">/page/assets/updassets.jsp</result>
+			<result name="checkerror">/page/assets/updassets.jsp</result>
+		</action>
+		
+		<action name="delEtbAssetsAction" class="etbAssetsAction" method="delEtbAssetsAction">
+			<result name="success">/page/assets/assetslist.jsp</result>
+			<result name="checkerror">/page/assets/assetslist.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>
