@@ -11,7 +11,7 @@ import com.cn.dsyg.dto.EtbAssetsDto;
  * @time 
  * @version 1.0
  */
-public interface EtbAssetsService {
+public interface AssetsService {
 	
 	/**
 	 * 翻页查询资产

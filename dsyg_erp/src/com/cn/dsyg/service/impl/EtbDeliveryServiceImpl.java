@@ -7,7 +7,7 @@ import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.EtbDeliveryDao;
 import com.cn.dsyg.dto.EtbDeliveryDto;
-import com.cn.dsyg.service.EtbDeliveryService;
+import com.cn.dsyg.service.DeliveryService;
 
 /**
  * @name 
@@ -15,7 +15,7 @@ import com.cn.dsyg.service.EtbDeliveryService;
  * @time 
  * @version 1.0
  */
-public class EtbDeliveryServiceImpl implements EtbDeliveryService {
+public class EtbDeliveryServiceImpl implements DeliveryService {
 	
 	private EtbDeliveryDao etbDeliveryDao;
 

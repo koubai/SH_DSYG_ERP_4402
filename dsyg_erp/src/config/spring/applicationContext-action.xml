@@ -35,22 +35,22 @@
 
 	<!-- 快递 -->
 	<bean id="etbDeliveryAction" class="com.cn.dsyg.action.EtbDeliveryAction" scope="session">
-		<property name="etbDeliveryService">
-			<ref bean="etbDeliveryService" />
+		<property name="deliveryService">
+			<ref bean="deliveryService" />
 		</property>
 	</bean>
 
 	<!-- 客户 -->
 	<bean id="etbCustomerAction" class="com.cn.dsyg.action.EtbCustomerAction" scope="session">
-		<property name="etbCustomerService">
-			<ref bean="etbCustomerService" />
+		<property name="customerService">
+			<ref bean="customerService" />
 		</property>
 	</bean>
 
 	<!-- 固定资产信息 -->
 	<bean id="etbAssetsAction" class="com.cn.dsyg.action.EtbAssetsAction" scope="session">
-		<property name="etbAssetsService">
-			<ref bean="etbAssetsService" />
+		<property name="assetsService">
+			<ref bean="assetsService" />
 		</property>
 	</bean>
 	

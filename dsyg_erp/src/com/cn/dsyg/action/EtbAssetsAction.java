@@ -1,15 +1,10 @@
 package com.cn.dsyg.action;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.struts2.ServletActionContext;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
@@ -17,7 +12,7 @@ import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.EtbAssetsDto;
-import com.cn.dsyg.service.EtbAssetsService;
+import com.cn.dsyg.service.AssetsService;
 import com.opensymphony.xwork2.ActionContext;
 
 /**
@@ -32,7 +27,7 @@ public class EtbAssetsAction extends BaseAction {
 
 	private static final Logger log = LogManager.getLogger(EtbAssetsAction.class);
 	
-	private EtbAssetsService assetsService;
+	private AssetsService assetsService;
 	
 	/**
 	 * 页码
@@ -360,14 +355,6 @@ public class EtbAssetsAction extends BaseAction {
 		this.listAssets = listAssets;
 	}
 
-	public EtbAssetsService getEtbAssetsService() {
-		return assetsService;
-	}
-
-	public void setEtbAssetsService(EtbAssetsService assetsService) {
-		this.assetsService = assetsService;
-	}
-
 	public String getStrAssetsNoLow() {
 		return strAssetsNoLow;
 	}
@@ -482,5 +469,13 @@ public class EtbAssetsAction extends BaseAction {
 
 	public void setStrAssetsName(String strAssetsName) {
 		this.strAssetsName = strAssetsName;
+	}
+
+	public AssetsService getAssetsService() {
+		return assetsService;
+	}
+
+	public void setAssetsService(AssetsService assetsService) {
+		this.assetsService = assetsService;
 	}
 }

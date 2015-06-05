@@ -11,7 +11,7 @@ import com.cn.dsyg.dto.EtbCustomerDto;
  * @time 
  * @version 1.0
  */
-public interface EtbCustomerService {
+public interface CustomerService {
 	
 	/**
 	 * 翻页查询客户

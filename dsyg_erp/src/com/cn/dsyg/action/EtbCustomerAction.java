@@ -1,22 +1,16 @@
 package com.cn.dsyg.action;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.struts2.ServletActionContext;
-
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.EtbCustomerDto;
-import com.cn.dsyg.service.EtbCustomerService;
+import com.cn.dsyg.service.CustomerService;
 import com.opensymphony.xwork2.ActionContext;
 
 /**
@@ -31,7 +25,7 @@ public class EtbCustomerAction extends BaseAction {
 
 	private static final Logger log = LogManager.getLogger(EtbCustomerAction.class);
 	
-	private EtbCustomerService customerService;
+	private CustomerService customerService;
 	
 	/**
 	 * 页码
@@ -355,14 +349,6 @@ public class EtbCustomerAction extends BaseAction {
 		this.listCustomer = listCustomer;
 	}
 
-	public EtbCustomerService getEtbCustomerService() {
-		return customerService;
-	}
-
-	public void setEtbCustomerService(EtbCustomerService customerService) {
-		this.customerService = customerService;
-	}
-
 	public String getStrCustomerNoLow() {
 		return strCustomerNoLow;
 	}
@@ -477,5 +463,13 @@ public class EtbCustomerAction extends BaseAction {
 
 	public void setStrCustomerName(String strCustomerName) {
 		this.strCustomerName = strCustomerName;
+	}
+
+	public CustomerService getCustomerService() {
+		return customerService;
+	}
+
+	public void setCustomerService(CustomerService customerService) {
+		this.customerService = customerService;
 	}
 }

@@ -7,7 +7,7 @@ import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.EtbCustomerDao;
 import com.cn.dsyg.dto.EtbCustomerDto;
-import com.cn.dsyg.service.EtbCustomerService;
+import com.cn.dsyg.service.CustomerService;
 
 /**
  * @name 
@@ -15,7 +15,7 @@ import com.cn.dsyg.service.EtbCustomerService;
  * @time 
  * @version 1.0
  */
-public class EtbCustomerServiceImpl implements EtbCustomerService {
+public class EtbCustomerServiceImpl implements CustomerService {
 	
 	private EtbCustomerDao etbCustomerDao;
 

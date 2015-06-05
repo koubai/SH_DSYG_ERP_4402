@@ -11,7 +11,7 @@ import com.cn.dsyg.dto.EtbDeliveryDto;
  * @time 
  * @version 1.0
  */
-public interface EtbDeliveryService {
+public interface DeliveryService {
 	
 	/**
 	 * 翻页查询快递

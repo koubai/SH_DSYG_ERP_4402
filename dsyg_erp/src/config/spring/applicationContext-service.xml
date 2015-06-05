@@ -70,7 +70,7 @@
 	</bean>
 	
 	<!-- 客户 -->
-	<bean id="etbCustomerService" class="com.cn.dsyg.service.impl.EtbCustomerServiceImpl" >
+	<bean id="customerService" class="com.cn.dsyg.service.impl.EtbCustomerServiceImpl" >
 		<property name="etbCustomerDao">
 			<ref local="etbCustomerDao"/>
 		</property>
@@ -83,7 +83,7 @@
 	</bean>
 	
 	<!-- 快递 -->
-	<bean id="etbDeliveryService" class="com.cn.dsyg.service.impl.EtbDeliveryServiceImpl" >
+	<bean id="deliveryService" class="com.cn.dsyg.service.impl.EtbDeliveryServiceImpl" >
 		<property name="etbDeliveryDao">
 			<ref local="etbDeliveryDao"/>
 		</property>
@@ -96,7 +96,7 @@
 	</bean>
 	
 	<!-- 固定资产信息 -->
-	<bean id="etbAssetsService" class="com.cn.dsyg.service.impl.EtbAssetsServiceImpl" >
+	<bean id="assetsService" class="com.cn.dsyg.service.impl.EtbAssetsServiceImpl" >
 		<property name="etbAssetsDao">
 			<ref local="etbAssetsDao"/>
 		</property>

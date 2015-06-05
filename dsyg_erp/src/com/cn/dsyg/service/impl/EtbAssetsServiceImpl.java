@@ -7,7 +7,7 @@ import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.EtbAssetsDao;
 import com.cn.dsyg.dto.EtbAssetsDto;
-import com.cn.dsyg.service.EtbAssetsService;
+import com.cn.dsyg.service.AssetsService;
 
 /**
  * @name 
@@ -15,7 +15,7 @@ import com.cn.dsyg.service.EtbAssetsService;
  * @time 
  * @version 1.0
  */
-public class EtbAssetsServiceImpl implements EtbAssetsService {
+public class EtbAssetsServiceImpl implements AssetsService {
 	
 	private EtbAssetsDao etbAssetsDao;
 

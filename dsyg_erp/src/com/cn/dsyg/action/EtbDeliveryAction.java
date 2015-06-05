@@ -1,22 +1,17 @@
 package com.cn.dsyg.action;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.struts2.ServletActionContext;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.EtbDeliveryDto;
-import com.cn.dsyg.service.EtbDeliveryService;
+import com.cn.dsyg.service.DeliveryService;
 import com.opensymphony.xwork2.ActionContext;
 
 /**
@@ -31,7 +26,7 @@ public class EtbDeliveryAction extends BaseAction {
 
 	private static final Logger log = LogManager.getLogger(EtbDeliveryAction.class);
 	
-	private EtbDeliveryService deliveryService;
+	private DeliveryService deliveryService;
 	
 	/**
 	 * 页码
@@ -354,15 +349,6 @@ public class EtbDeliveryAction extends BaseAction {
 	public void setListDelivery(List<EtbDeliveryDto> listDelivery) {
 		this.listDelivery = listDelivery;
 	}
-
-	public EtbDeliveryService getEtbDeliveryService() {
-		return deliveryService;
-	}
-
-	public void setEtbDeliveryService(EtbDeliveryService deliveryService) {
-		this.deliveryService = deliveryService;
-	}
-
 	public String getStrDeliveryNoLow() {
 		return strDeliveryNoLow;
 	}
@@ -477,5 +463,13 @@ public class EtbDeliveryAction extends BaseAction {
 
 	public void setStrDeliveryName(String strDeliveryName) {
 		this.strDeliveryName = strDeliveryName;
+	}
+
+	public DeliveryService getDeliveryService() {
+		return deliveryService;
+	}
+
+	public void setDeliveryService(DeliveryService deliveryService) {
+		this.deliveryService = deliveryService;
 	}
 }
