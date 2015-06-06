@@ -13,5 +13,7 @@
 	<sqlMap resource="/config/ibatis/dsyg-etbcustomer.xml" />
 	<sqlMap resource="/config/ibatis/dsyg-etbdelivery.xml" />
 	<sqlMap resource="/config/ibatis/dsyg-etbassets.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-etbdocument.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-etbpersonal.xml" />
 	
 </sqlMapConfig>

@@ -53,6 +53,20 @@
 			<ref bean="assetsService" />
 		</property>
 	</bean>
+
+	<!-- 员工档案信息 -->
+	<bean id="etbPersonalAction" class="com.cn.dsyg.action.EtbPersonalAction" scope="session">
+		<property name="personalService">
+			<ref bean="personalService" />
+		</property>
+	</bean>
+
+	<!-- 文件物品信息 -->
+	<bean id="etbDocumentAction" class="com.cn.dsyg.action.EtbDocumentAction" scope="session">
+		<property name="documentService">
+			<ref bean="documentService" />
+		</property>
+	</bean>
 	
 	<!-- 验证码 -->
 	<bean id="randomActionBean" class="com.cn.dsyg.action.ValidateCodeAction" />

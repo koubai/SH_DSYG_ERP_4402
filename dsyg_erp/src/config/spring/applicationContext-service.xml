@@ -108,4 +108,30 @@
 		</property>
 	</bean>
 	
+	<!-- 文件物品信息 -->
+	<bean id="documentService" class="com.cn.dsyg.service.impl.EtbDocumentServiceImpl" >
+		<property name="etbDocumentDao">
+			<ref local="etbDocumentDao"/>
+		</property>
+	</bean>
+	
+	<bean id="etbDocumentDao" class="com.cn.dsyg.dao.impl.EtbDocumentDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- 员工档案信息 -->
+	<bean id="personalService" class="com.cn.dsyg.service.impl.EtbPersonalServiceImpl" >
+		<property name="etbPersonalDao">
+			<ref local="etbPersonalDao"/>
+		</property>
+	</bean>
+	
+	<bean id="etbPersonalDao" class="com.cn.dsyg.dao.impl.EtbPersonalDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
 </beans>

@@ -26,6 +26,10 @@
 	<include file="struts-delivery.xml"></include>
 	<!-- assets -->
 	<include file="struts-assets.xml"></include>	
+	<!-- personal -->
+	<include file="struts-personal.xml"></include>	
+	<!-- document -->
+	<include file="struts-document.xml"></include>	
 	
 	<package name="index" extends="struts-default, json-default" namespace="/index">
 		
