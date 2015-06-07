@@ -53,4 +53,64 @@ public class ChartServiceImpl implements ChartService{
 		}
 	}
 
+	@Override
+	public List<ChartDto> querySalesByDate(String theme1, String from_date, String to_date) {
+		try {
+			if (ctx != null){
+	        	chartDao = (ChartDao)ctx.getBean("chartDao");
+		        System.out.println("chartDao not null" );
+			}else
+		        System.out.println("chartDao is null" );
+				
+			List<ChartDto> list = chartDao.querySalesByDate(theme1, from_date, to_date);
+	        System.out.println("querySalesByDate theme1:" + theme1);
+	        System.out.println("querySalesByDate from_date:" + from_date);
+	        System.out.println("querySalesByDate to_date:" + to_date);
+	        System.out.println("querySalesByDate list:" + list.size());
+			return list;		
+		}catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	@Override
+	public List<ChartDto> queryWareHouseRptByDate(String theme1, String from_date, String to_date) {
+		try {
+			if (ctx != null){
+	        	chartDao = (ChartDao)ctx.getBean("chartDao");
+		        System.out.println("chartDao not null" );
+			}else
+		        System.out.println("chartDao is null" );
+				
+			List<ChartDto> list = chartDao.queryWareHouseRptByDate(theme1, from_date, to_date);
+	        System.out.println("queryWareHouseRptByDate theme1:" + theme1);
+	        System.out.println("queryWareHouseRptByDate from_date:" + from_date);
+	        System.out.println("queryWareHouseRptByDate to_date:" + to_date);
+	        System.out.println("queryWareHouseRptByDate list:" + list.size());
+			return list;		
+		}catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	@Override
+	public List<ChartDto> queryFinanceByDate(String theme1, String from_date, String to_date) {
+		try {
+			if (ctx != null){
+	        	chartDao = (ChartDao)ctx.getBean("chartDao");
+		        System.out.println("chartDao not null" );
+			}else
+		        System.out.println("chartDao is null" );
+				
+			List<ChartDto> list = chartDao.queryFinanceByDate(theme1, from_date, to_date);
+	        System.out.println("queryFinanceByDate theme1:" + theme1);
+	        System.out.println("queryFinanceByDate from_date:" + from_date);
+	        System.out.println("queryFinanceByDate to_date:" + to_date);
+	        System.out.println("queryFinanceByDate list:" + list.size());
+			return list;		
+		}catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

@@ -283,6 +283,15 @@
 	    };  
 
 	    function getSaleData3M() {
+			ajaxRequestData("getPurchaseData", -3, "采购");
+		};
+		function getSaleData6M() {
+			ajaxRequestData("getPurchaseData", -6, "采购");
+		};
+		function getSaleData12M() {
+			ajaxRequestData("getPurchaseData", -12, "采购");
+		};
+	    function getSaleData3M() {
 			ajaxRequestData("getSaleData", -3, "销售");
 		};
 		function getSaleData6M() {
@@ -300,6 +309,9 @@
 		<input type="hidden" id="h1" value="<s:property value="str" />" />
 		<input type="hidden" id="h2" value="<s:property value="series" />" />
 		<input type="hidden" id="h3" value="<s:property value="series_X" />" />
+           <Input id="btn1" type=button value="3 Month" onClick="javascripts:getPurchaseData3M();">
+           <Input id="btn2" type=button value="6 Month" onClick="javascripts:getPurchaseData6M();">
+           <Input id="btn3" type=button value="12 Month" onClick="javascripts:getPurchaseData12M();">
            <Input id="btn1" type=button value="3 Month" onClick="javascripts:getSaleData3M();">
            <Input id="btn2" type=button value="6 Month" onClick="javascripts:getSaleData6M();">
            <Input id="btn3" type=button value="12 Month" onClick="javascripts:getSaleData12M();">

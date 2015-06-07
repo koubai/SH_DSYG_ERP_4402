@@ -61,5 +61,29 @@
 		</property>
 	</bean>
 
+	<!-- Calendar -->	
+	<bean id="calendarService" class="com.cn.dsyg.service.impl.CalendarServiceImpl" >
+		<property name="calendarDao">
+			<ref local="calendarDao"/>
+		</property>
+	</bean>
+
+	<bean id="calendarDao" class="com.cn.dsyg.dao.impl.CalendarDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+
+	<bean id="eventdoServlet" class="com.cn.dsyg.servlet.EventdoServlet" >
+		<property name="calendarService">
+			<ref bean="calendarService"/>
+		</property>
+	</bean>
+	
+	<bean id="JsonServlet" class="com.cn.dsyg.servlet.JsonServlet" >
+		<property name="calendarService">
+			<ref bean="calendarService"/>
+		</property>
+	</bean>
 	
 </beans>

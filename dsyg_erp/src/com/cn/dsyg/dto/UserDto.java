@@ -51,7 +51,13 @@ public class UserDto extends BaseDto {
 	 * 数据状态：1有效，其他无效
 	 */
 	private Integer status;
+
+	/**
+	 * 颜色：
+	 */
+	private String color;
 	
+
 	/**
 	 * 备注
 	 */
@@ -179,5 +185,13 @@ public class UserDto extends BaseDto {
 
 	public void setOldpassword(String oldpassword) {
 		this.oldpassword = oldpassword;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 }

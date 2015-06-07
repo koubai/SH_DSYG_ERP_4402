@@ -19,6 +19,9 @@
 	<!-- chart -->
 	<include file="struts-chart.xml"></include>
 	
+	<!-- Internal Management -->
+	<include file="struts-intermana.xml"></include>
+	
 	<package name="index" extends="struts-default, json-default" namespace="/index">
 		
 		<!-- 验证码 -->

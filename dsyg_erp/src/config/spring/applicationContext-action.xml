@@ -26,6 +26,10 @@
 		</property>
 	</bean>
 
+	<!-- chart -->
+	<bean id="calendarAction" class="com.cn.dsyg.action.CalendarAction" scope="session">
+	</bean>
+	
 	<!-- 验证码 -->
 	<bean id="randomActionBean" class="com.cn.dsyg.action.ValidateCodeAction" />
 	

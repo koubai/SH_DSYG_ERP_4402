@@ -25,6 +25,9 @@
 		<div class=content>
 			<a href="${pageContext.request.contextPath}/chart/getDataAction.action">chart2</a>
 		</div>		
+		<div class=content>
+			<a href="${pageContext.request.contextPath}/intermana/showCalendarAction.action">calendar</a>
+		</div>		
 	</div>
 </body>
 </html>

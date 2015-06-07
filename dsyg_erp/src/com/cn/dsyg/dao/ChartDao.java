@@ -11,5 +11,7 @@ public interface ChartDao {
 	 * @return
 	 */
 	public List<ChartDto> queryPurchaseByDate(String theme1, String from_date, String to_date);
-
+	public List<ChartDto> querySalesByDate(String theme1, String from_date, String to_date);
+	public List<ChartDto> queryWareHouseRptByDate(String theme1, String from_date, String to_date);
+	public List<ChartDto> queryFinanceByDate(String theme1, String from_date, String to_date);
 }

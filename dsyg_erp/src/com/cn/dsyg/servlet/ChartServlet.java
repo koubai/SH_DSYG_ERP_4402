@@ -224,7 +224,43 @@ public class ChartServlet extends HttpServlet {
         return jsonArr;  
     }
 
-    public JSONArray getSaleData(String from_date, String to_date) {  
+    public List<ChartDto> getSaleData(String theme, String from_date, String to_date) {  
+    	List<ChartDto>  list = new ArrayList<ChartDto>();
+    	chartService = (ChartService)ctx.getBean("chartService");
+    	chartService.setCtx(ctx);    	
+        list = chartService.queryPurchaseByDate(theme, from_date, to_date);
+    	
+    	return list;
+    }
+    
+    public List<ChartDto> getBuyData(String theme, String from_date, String to_date) {  
+    	List<ChartDto>  list = new ArrayList<ChartDto>();
+    	chartService = (ChartService)ctx.getBean("chartService");
+    	chartService.setCtx(ctx);    	
+        list = chartService.queryPurchaseByDate(theme, from_date, to_date);
+    	
+    	return list;
+    }
+
+    public List<ChartDto> getDeliveryData(String theme, String from_date, String to_date) {  
+    	List<ChartDto>  list = new ArrayList<ChartDto>();
+    	chartService = (ChartService)ctx.getBean("chartService");
+    	chartService.setCtx(ctx);    	
+        list = chartService.queryPurchaseByDate(theme, from_date, to_date);
+    	
+    	return list;
+    }
+    
+    public List<ChartDto> getAccountData(String theme, String from_date, String to_date) {  
+    	List<ChartDto>  list = new ArrayList<ChartDto>();
+    	chartService = (ChartService)ctx.getBean("chartService");
+    	chartService.setCtx(ctx);    	
+        list = chartService.queryPurchaseByDate(theme, from_date, to_date);
+    	
+    	return list;
+    }
+    
+    public JSONArray getData(String pattern, String from_date, String to_date) {  
     	int i_fy;
     	int i_ty;
     	int i_fm;
@@ -251,51 +287,65 @@ public class ChartServlet extends HttpServlet {
         
         try {
         	List<ChartDto>  list = new ArrayList<ChartDto>();
-        	        	
-        	chartService = (ChartService)ctx.getBean("chartService");
-        	chartService.setCtx(ctx);
-	        list = chartService.queryPurchaseByDate("T1", from_date, to_date);
-	        if (list==null || list.size()<= 0)
-	            System.out.println("list.size error");	        	
-	        if (list.size() > 0) {
-	            System.out.println("list.size:" + list.size());
-	        }
+
+        	// get Saler's data 
+        	if (pattern=="1"){
+        		list = getSaleData("", from_date, to_date);
+        	}
+        	// get Buyer's data 
+        	else if (pattern=="2"){
+        		list = getBuyData("", from_date, to_date);
+        	}
+        	// get Delivery's data 
+        	else if (pattern=="3"){
+        		list = getDeliveryData("", from_date, to_date);
+        	}
+        	// get Account's data 
+        	else if (pattern=="4"){
+        		list = getAccountData("", from_date, to_date);
+        	}
+        	
             Map<String, String> item_map = null;
             Map<String, String> temp_item_map = null;
             Map<String, String> user_item_map = null;
-            
-	        for (int z = 0; z < list.size(); z++) {  
-	            System.out.println("Z:" + z);
-	        	ChartDto chd = list.get(z);
-	        	user_id = chd.getHandler();	        	
-	            System.out.println("user_id_loop:" + user_id);
-	        	if (user_id != tmp_user_id){
-	        		// part of every user_id 
-		            System.out.println("This user_id is:" + user_id);
+
+            if (list==null || list.size()<= 0)
+	            System.out.println("list.size error");	        	
+	        if (list.size() > 0) {
+	            System.out.println("list.size:" + list.size());
+		        for (int z = 0; z < list.size(); z++) {  
+		            System.out.println("Z:" + z);
+		        	ChartDto chd = list.get(z);
+		        	user_id = chd.getHandler();	        	
+		            System.out.println("user_id_loop:" + user_id);
+		        	if (user_id != tmp_user_id){
+		        		// part of every user_id 
+			            System.out.println("This user_id is:" + user_id);
+			            if (temp_item_map != null){
+			            	// put pre_user's data into array
+				        	item_map= sort(user_item_map);
+				        	jsonArr = setJsonData(jsonArr, tmp_user_id,  item_map );
+			            }
+			            // initial the user's data map
+			            temp_item_map = getInitDataMap(i_fy, i_ty, i_fm, i_tm);
+		        	}
 		            if (temp_item_map != null){
-		            	// put pre_user's data into array
-			        	item_map= sort(user_item_map);
-			        	jsonArr = setJsonData(jsonArr, tmp_user_id,  item_map );
+		            	// add user data to his data map
+		            	user_item_map = setDataMap(temp_item_map, chd);
 		            }
-		            // initial the user's data map
-		            temp_item_map = getInitDataMap(i_fy, i_ty, i_fm, i_tm);
-	        	}
-	            if (temp_item_map != null){
-	            	// add user data to his data map
-	            	user_item_map = setDataMap(temp_item_map, chd);
-	            }
-	        	tmp_user_id = user_id;	        	
-	        }	                  
+		        	tmp_user_id = user_id;	        	
+		        }	                  
+	        }
+            
             if (temp_item_map != null){
 	        	item_map= sort(user_item_map);
 	        	jsonArr = setJsonData(jsonArr, tmp_user_id,  item_map );
             }
             
             JSONObject[] arr=new JSONObject[jsonArr.length()];
-            System.out.println("jsonArr length:" + jsonArr.length());
+            System.out.println("Saler jsonArr length:" + jsonArr.length());
     	    System.out.println("JO: " + jsonArr);  
-    	    setM_jsonArr(jsonArr);
-            
+    	    setM_jsonArr(jsonArr);            
 		}
         catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -341,9 +391,22 @@ public class ChartServlet extends HttpServlet {
         ServletContext servletContext = request.getSession().getServletContext();
     	ctx= WebApplicationContextUtils.getWebApplicationContext(servletContext);
                   
-        JSONArray jsonArr = new JSONArray();  
+        JSONArray jsonArr = new JSONArray();
+        // Get Saler's individual data
         if (act.equals("getSaleData")){
-            jsonArr = getSaleData(from_date, to_date);        	
+            jsonArr = getData("1",from_date, to_date);        	
+        } 
+        // Get Buyer's individual data
+        else if (act.equals("getBuyData")){
+            jsonArr = getData("2", from_date, to_date);        	
+        }
+        // Get Delivery's individual data
+        else if (act.equals("getDeliveryData")){
+            jsonArr = getData("3", from_date, to_date);        	
+        }
+        // Get Accounting's individual data
+        else if (act.equals("getAccountData")){
+            jsonArr = getData("4", from_date, to_date);        	
         }
         
         out.println(jsonArr.toString());  

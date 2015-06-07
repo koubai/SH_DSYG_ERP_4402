@@ -25,5 +25,36 @@ public class ChartDaoImpl extends BaseDao implements ChartDao {
 		return list;
 	}
 
+	public List<ChartDto> querySalesByDate(String theme1, String from_date, String to_date) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("theme1", theme1);
+		paramMap.put("from_date", from_date);
+		paramMap.put("to_date", to_date);
 
+		@SuppressWarnings("unchecked")
+		List<ChartDto> list = getSqlMapClientTemplate().queryForList("querySalesByDate", paramMap);
+		return list;
+	}
+
+	public List<ChartDto> queryWareHouseRptByDate(String theme1, String from_date, String to_date) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("theme1", theme1);
+		paramMap.put("from_date", from_date);
+		paramMap.put("to_date", to_date);
+
+		@SuppressWarnings("unchecked")
+		List<ChartDto> list = getSqlMapClientTemplate().queryForList("queryWareHouseRptByDate", paramMap);
+		return list;
+	}
+
+	public List<ChartDto> queryFinanceByDate(String theme1, String from_date, String to_date){
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("theme1", theme1);
+		paramMap.put("from_date", from_date);
+		paramMap.put("to_date", to_date);
+
+		@SuppressWarnings("unchecked")
+		List<ChartDto> list = getSqlMapClientTemplate().queryForList("queryFinanceByDate", paramMap);
+		return list;
+	}
 }
