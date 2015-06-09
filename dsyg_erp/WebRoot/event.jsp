@@ -34,10 +34,10 @@
 	userName="AAAA";
 	userColor="#FF0000";
 %>
-<link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery-ui.css">
 <div class="fancy">
 	<h3>新建事件</h3>
-    <form id="add_form" action='http://localhost:8080/dsyg_erp/EventdoServlet.servlet' method="post">
+    <form id="add_form" action="${pageContext.request.contextPath}/EventdoServlet.servlet" method="post">
     <input type="text" name="action" value="<%=action%>">
     <input type="text" name="userName" value="<%=userName%>">
     <input type="text" name="userColor" value="<%=userColor%>">
@@ -169,10 +169,10 @@
 		String userName = (String)session.getAttribute("userName");	
 		String userColor = (String)session.getAttribute("userColor");
 %>
-<link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery-ui.css">
 <div class="fancy">
 	<h3>编辑事件</h3>(<%=eventUser%>)
-    <form id="add_form" action='http://localhost:8080/dsyg_erp/EventdoServlet.servlet' method="post">
+    <form id="add_form" action="${pageContext.request.contextPath}/EventdoServlet.servlet" method="post">
     <input type="hidden" name="action" value="<%=action%>">
     <input type="hidden" name="id" id="eventid" value="<%=id%>">
     <input type="hidden" name="userName" id="userid" value="<%=userName%>">
@@ -260,13 +260,13 @@
     <label><input type="checkbox" value="1" id="isallday" name="isallday" <%if(1 == allDay){ %> checked="checked" <%} %>> 全天</label>
     <label><input type="checkbox" value="1" id="isend" name="isend"  <%if(!"".equals(end)){ %> checked="checked" <%} %>> 结束时间</label>
     </p>
-    <div class="sub_btn"><span class="del"><input type="button" class="btn btn_del" id="del_event" value="删除4" "></span><input type="submit" class="btn btn_ok" value="确定"> <input type="button" class="btn btn_cancel" value="取消" onClick="$.fancybox.close()"></div>
+    <div class="sub_btn"><span class="del"><input type="button" class="btn btn_del" id="del_event" value="删除" "></span><input type="submit" class="btn btn_ok" value="确定"> <input type="button" class="btn btn_cancel" value="取消" onClick="$.fancybox.close()"></div>
     </form>
 </div>
 <% 
 	}
 %>
-<script type="text/javascript" src="../js/jquery.form.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.form.min.js"></script>
 <script type="text/javascript">
 $(function(){
 	$(".datepicker").datepicker();
@@ -298,7 +298,7 @@ $(function(){
 		if(confirm("您确定要删除吗？")){
 			var eventid = $("#eventid").val();
 			var userid = $("#userid").val();
-			$.post("http://localhost:8080/dsyg_erp/EventdoServlet.servlet?action=del",{id:eventid},function(msg){
+			$.post("${pageContext.request.contextPath}/EventdoServlet.servlet?action=del",{id:eventid},function(msg){
 				if(msg==1){//删除成功
 					$.fancybox.close();
 					$('#calendar').fullCalendar('refetchEvents'); //重新获取所有事件数据

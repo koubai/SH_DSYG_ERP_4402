@@ -132,10 +132,10 @@
 				var to_date=X_data[mth*(-1) - 1]+"-31";
 			else
 				var to_date=X_data[0]+"-31";
-//			alert("mth: "+mth+ " from_date:"+ from_date+ " to_date:"+ to_date);		
+			alert("mth: "+mth+ " from_date:"+ from_date+ " to_date:"+ to_date);		
 			
             $.ajax({
-				url: 'http://localhost:8080/dsyg_erp/ChartServlet.servlet?action='+act+'&from_date='+from_date+'&to_date='+to_date,
+				url: '${pageContext.request.contextPath}/ChartServlet.servlet?action='+act+'&from_date='+from_date+'&to_date='+to_date,
                 type: "POST",
                 dataType: "text",
                 success: function (data) {
@@ -282,22 +282,28 @@
 	        });
 	    };  
 
-	    function getSaleData3M() {
+	    function getPurchaseData3M() {
+     		alert("采购3");
 			ajaxRequestData("getPurchaseData", -3, "采购");
 		};
-		function getSaleData6M() {
+		function getPurchaseData6M() {
+     		alert("采购6");
 			ajaxRequestData("getPurchaseData", -6, "采购");
 		};
-		function getSaleData12M() {
+		function getPurchaseData12M() {
+     		alert("采购12");
 			ajaxRequestData("getPurchaseData", -12, "采购");
 		};
 	    function getSaleData3M() {
+     		alert("销售3");
 			ajaxRequestData("getSaleData", -3, "销售");
 		};
 		function getSaleData6M() {
+     		alert("销售6");
 			ajaxRequestData("getSaleData", -6, "销售");
 		};
 		function getSaleData12M() {
+     		alert("销售12");
 			ajaxRequestData("getSaleData", -12, "销售");
 		};
 		
@@ -309,12 +315,12 @@
 		<input type="hidden" id="h1" value="<s:property value="str" />" />
 		<input type="hidden" id="h2" value="<s:property value="series" />" />
 		<input type="hidden" id="h3" value="<s:property value="series_X" />" />
-           <Input id="btn1" type=button value="3 Month" onClick="javascripts:getPurchaseData3M();">
-           <Input id="btn2" type=button value="6 Month" onClick="javascripts:getPurchaseData6M();">
-           <Input id="btn3" type=button value="12 Month" onClick="javascripts:getPurchaseData12M();">
-           <Input id="btn1" type=button value="3 Month" onClick="javascripts:getSaleData3M();">
-           <Input id="btn2" type=button value="6 Month" onClick="javascripts:getSaleData6M();">
-           <Input id="btn3" type=button value="12 Month" onClick="javascripts:getSaleData12M();">
+           <Input id="btn1" type=button value="采购 3 Month" onClick="javascripts:getPurchaseData3M();">
+           <Input id="btn2" type=button value="采购 6 Month" onClick="javascripts:getPurchaseData6M();">
+           <Input id="btn3" type=button value="采购 12 Month" onClick="javascripts:getPurchaseData12M();">
+           <Input id="btn1" type=button value="销售 3 Month" onClick="javascripts:getSaleData3M();">
+           <Input id="btn2" type=button value="销售 6 Month" onClick="javascripts:getSaleData6M();">
+           <Input id="btn3" type=button value="销售 12 Month" onClick="javascripts:getSaleData12M();">
 		<table>
 		<tr>
 		<td>

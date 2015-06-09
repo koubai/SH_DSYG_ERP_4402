@@ -57,7 +57,6 @@ public class JsonServlet extends HttpServlet {
 		calendarService.setCtx(ctx);    	
 		List<CalendarDto> list = calendarService.find();
 		String json = JSONSerializer.toJSON(list).toString();
-		System.out.println(json);
 		out.print(json);
 		//值得一提的是，在返回的json数据中，每个字段如id，title..对应着FullCalendar的Event Object事件对象中的属性id，title..。
 	}

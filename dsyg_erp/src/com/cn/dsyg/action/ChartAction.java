@@ -101,7 +101,7 @@ public class ChartAction extends BaseAction {
 	        
 	        return SUCCESS;  
 		} catch(Exception e) {
-			log.error("showManageHomeAction error:" + e);
+			log.error("showSaleInfoMainChartAction error:" + e);
 			return ERROR;
 		}
 	}
@@ -251,7 +251,6 @@ public class ChartAction extends BaseAction {
     
     
     
-    @SuppressWarnings("unchecked")
 	public JSONArray getData() {  
     	String from_date;
     	String to_date;

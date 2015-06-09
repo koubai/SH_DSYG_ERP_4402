@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>fullCalendar4Java</title>
+<title>Calendar</title>
 <link rel="stylesheet" type="text/css" href="../css/main.css">
 <link rel="stylesheet" type="text/css" href="../css/fullcalendar.css">
 <link rel="stylesheet" type="text/css" href="../css/fancybox.css">
@@ -22,10 +22,10 @@
 </style>
 <script src='http://code.jquery.com/jquery-1.9.1.js'></script>
 <script src='http://code.jquery.com/ui/1.10.3/jquery-ui.js'></script>
-<script src='../js/fullcalendar.min.js'></script>
-<script src='../js/jquery.fancybox-1.3.1.pack.js'></script>
+<script src='<%=request.getContextPath()%>/js/fullcalendar.min.js'></script>
+<script src='<%=request.getContextPath()%>/js/jquery.fancybox-1.3.1.pack.js'></script>
 
-<script src='../js/fullcalendar.min.js'></script>
+<script src='<%=request.getContextPath()%>/js/fullcalendar.min.js'></script>
 
 <!--
 	说明：需要整合农历节气和节日，引入fullcalendar.js fullcalendar2.css
@@ -50,7 +50,7 @@ $(function() {
 		},
 		firstDay:1,//每行第一天为周一 
         editable: true,//启用拖动 
-		events: 'http://localhost:8080/dsyg_erp/JsonServlet.servlet',
+		events: '${pageContext.request.contextPath}/JsonServlet.servlet',
 		//点击某一天时促发
 		dayClick: function(date, allDay, jsEvent, view) {
 			var selDate =$.fullCalendar.formatDate(date,'yyyy-MM-dd');
@@ -58,7 +58,7 @@ $(function() {
 			//var userColor = '<%= request.getParameter("userColor")%>';
 			$.fancybox({
 				'type':'ajax',
-				'href':'http://localhost:8080/dsyg_erp/event.jsp?action=add&date='+selDate
+				'href':'${pageContext.request.contextPath}/event.jsp?action=add&date='+selDate
 						//+ '&userName=' + userName + '&userColor=' + userColor
 			});
     	},
@@ -66,14 +66,14 @@ $(function() {
         eventClick: function(calEvent, jsEvent, view) { 
             $.fancybox({ 
                 'type':'ajax', 
-                'href':'http://localhost:8080/dsyg_erp/event.jsp?action=edit&id='+calEvent.id
+                'href':'${pageContext.request.contextPath}/event.jsp?action=edit&id='+calEvent.id
                 		//+ '&userName=' + userName + '&userColor=' + userColor
             }); 
         },
 		
 		//拖动事件 
 		eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc) { 
-        	$.post("http://localhost:8080/dsyg_erp/EventdoServlet.servlet?action=drag",{id:event.id,daydiff:dayDelta, minudiff:minuteDelta,allday:allDay},function(msg){ 
+        	$.post("${pageContext.request.contextPath}/EventdoServlet.servlet?action=drag",{id:event.id,daydiff:dayDelta, minudiff:minuteDelta,allday:allDay},function(msg){ 
             	if(msg!=1){ 
                 	alert(msg); 
                 	revertFunc(); //恢复原状 
@@ -83,7 +83,7 @@ $(function() {
 		
 		//日程事件的缩放
 		eventResize: function(event,dayDelta,minuteDelta,revertFunc) { 
-    		$.post("http://localhost:8080/dsyg_erp/EventdoServlet.servlet?action=resize",{id:event.id,daydiff:dayDelta,minudiff:minuteDelta},function(msg){ 
+    		$.post("${pageContext.request.contextPath}/EventdoServlet.servlet?action=resize",{id:event.id,daydiff:dayDelta,minudiff:minuteDelta},function(msg){ 
         		if(msg!=1){ 
             		alert(msg); 
             		revertFunc(); 
@@ -97,7 +97,7 @@ $(function() {
 	    	var end =$.fullCalendar.formatDate(endDate,'yyyy-MM-dd'); 
 	    	$.fancybox({ 
 	        	'type':'ajax', 
-	        	'href':'http://localhost:8080/dsyg_erp/event.jsp?action=add&date='+start+'&end='+end
+	        	'href':'${pageContext.request.contextPath}/event.jsp?action=add&date='+start+'&end='+end
 	        			//+ '&userName=' + userName + '&userColor=' + userColor
 	    	}); 
 		}
