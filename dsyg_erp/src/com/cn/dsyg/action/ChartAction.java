@@ -1,6 +1,5 @@
 package com.cn.dsyg.action;
 
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -204,8 +203,8 @@ public class ChartAction extends BaseAction {
             } 
         ); 
 
-        Set col = map.keySet(); 
-        Iterator iter = col.iterator(); 
+		Set col = map.keySet(); 
+		Iterator iter = col.iterator(); 
         while (iter.hasNext()) { 
             String key = (String) iter.next(); 
             String value = (String) map.get(key); 
@@ -252,7 +251,8 @@ public class ChartAction extends BaseAction {
     
     
     
-    public JSONArray getData() {  
+    @SuppressWarnings("unchecked")
+	public JSONArray getData() {  
     	String from_date;
     	String to_date;
     	int period_days = -180;
@@ -260,9 +260,6 @@ public class ChartAction extends BaseAction {
     	int i_ty;
     	int i_fm;
     	int i_tm;
-    	int idx2 = 0;
-    	String X_m[];
-    	String Y_m[];
     	String user_id = "";
     	String tmp_user_id = "";
     	JSONArray jsonArr = new JSONArray();  
@@ -325,7 +322,7 @@ public class ChartAction extends BaseAction {
 	        	jsonArr = setJsonData(jsonArr, tmp_user_id,  item_map );
             }
             
-            JSONObject[] arr=new JSONObject[jsonArr.length()];
+//            JSONObject[] arr=new JSONObject[jsonArr.length()];
             System.out.println("jsonArr length:" + jsonArr.length());
     	    System.out.println("JO: " + jsonArr);  
     	    setM_jsonArr(jsonArr);

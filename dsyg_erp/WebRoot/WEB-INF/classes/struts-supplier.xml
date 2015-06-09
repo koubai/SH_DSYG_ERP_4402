@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="supplier" extends="struts-erp" namespace="/supplier">
+	
+		<action name="showSupplierAction" class="supplierAction" method="showSupplierAction">
+			<result name="*">/page/supplier/supplierlist.jsp</result>
+		</action>
+		
+		<action name="querySupplierList" class="supplierAction" method="querySupplierList">
+			<result name="success">/page/supplier/supplierlist.jsp</result>
+		</action>
+		
+		<action name="turnSupplierPage" class="supplierAction" method="turnSupplierPage">
+			<result name="success">/page/supplier/supplierlist.jsp</result>
+		</action>
+		
+		<action name="showAddSupplierAction" class="supplierAction" method="showAddSupplierAction">
+			<result name="*">/page/supplier/addsupplier.jsp</result>
+		</action>
+		
+		<action name="addSupplierAction" class="supplierAction" method="addSupplierAction">
+			<result name="success">/page/supplier/addsupplier.jsp</result>
+			<result name="checkerror">/page/supplier/addsupplier.jsp</result>
+		</action>
+		
+		<action name="showUpdSupplierAction" class="supplierAction" method="showUpdSupplierAction">
+			<result name="success">/page/supplier/updsupplier.jsp</result>
+			<result name="checkerror">/page/supplier/updsupplier.jsp</result>
+		</action>
+		
+		<action name="updSupplierAction" class="supplierAction" method="updSupplierAction">
+			<result name="success">/page/supplier/updsupplier.jsp</result>
+			<result name="checkerror">/page/supplier/updsupplier.jsp</result>
+		</action>
+		
+		<action name="delSupplierAction" class="supplierAction" method="delSupplierAction">
+			<result name="success">/page/supplier/supplierlist.jsp</result>
+			<result name="checkerror">/page/supplier/supplierlist.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

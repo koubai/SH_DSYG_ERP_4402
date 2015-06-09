@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.dsyg">
+
+	<resultMap id="SupplierDto" class="com.cn.dsyg.dto.SupplierDto">
+		<result property="id" column="id" />
+		<result property="suppliername" column="suppliername" />
+		<result property="belongto" column="belongto" />
+		<result property="note" column="note" />
+		<result property="suppliertel1" column="suppliertel1" />
+		<result property="suppliermanager1" column="suppliermanager1" />
+		<result property="supplieraddress1" column="supplieraddress1" />
+		<result property="suppliermail1" column="suppliermail1" />
+		<result property="supplierfax1" column="supplierfax1" />
+		<result property="suppliertel2" column="suppliertel2" />
+		<result property="suppliermanager2" column="suppliermanager2" />
+		<result property="supplieraddress2" column="supplieraddress2" />
+		<result property="suppliermail2" column="suppliermail2" />
+		<result property="supplierfax2" column="supplierfax2" />
+		<result property="suppliertel3" column="suppliertel3" />
+		<result property="suppliermanager3" column="suppliermanager3" />
+		<result property="supplieraddress3" column="supplieraddress3" />
+		<result property="suppliermail3" column="suppliermail3" />
+		<result property="supplierfax3" column="supplierfax3" />
+		<result property="suppliertel4" column="suppliertel4" />
+		<result property="suppliermanager4" column="suppliermanager4" />
+		<result property="supplieraddress4" column="supplieraddress4" />
+		<result property="suppliermail4" column="suppliermail4" />
+		<result property="supplierfax4" column="supplierfax4" />
+		<result property="suppliertel5" column="suppliertel5" />
+		<result property="suppliermanager5" column="suppliermanager5" />
+		<result property="supplieraddress5" column="supplieraddress5" />
+		<result property="suppliermail5" column="suppliermail5" />
+		<result property="supplierfax5" column="supplierfax5" />
+		<result property="suppliertype" column="suppliertype" />
+		<result property="handlerid" column="handlerid" />
+		<result property="status" column="status" />
+		<result property="res01" column="res01" />
+		<result property="res02" column="res02" />
+		<result property="res03" column="res03" />
+		<result property="res04" column="res04" />
+		<result property="res05" column="res05" />
+		<result property="res06" column="res06" />
+		<result property="res07" column="res07" />
+		<result property="res08" column="res08" />
+		<result property="res09" column="res09" />
+		<result property="res10" column="res10" />
+		<result property="createuid" column="createuid" />
+		<result property="createdate" column="createdate" />
+		<result property="updateuid" column="updateuid" />
+		<result property="updatedate" column="updatedate" />
+	</resultMap>
+	
+	<select id="querySupplierCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from etb_supplier T where 1 = 1
+			and T.status = '1'
+			<isNotEmpty prepend="and" property="ID_LOW">
+				T.id <![CDATA[>=]]> #ID_LOW#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ID_HIGH">
+				T.id <![CDATA[<=]]> #ID_HIGH#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="SUPPLIER_NAME">
+				T.suppliername like '%$SUPPLIER_NAME$%'
+			</isNotEmpty>
+	</select>
+	
+	<select id="queryAllSupplierExport" parameterClass="java.util.Map" resultMap="SupplierDto">
+		select T.* from etb_supplier T where 1 = 1
+		and T.status = '1'
+		<isNotEmpty prepend="and" property="ID_LOW">
+			T.id <![CDATA[>=]]> #ID_LOW#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="ID_HIGH">
+			T.id <![CDATA[<=]]> #ID_HIGH#
+		</isNotEmpty>
+		order by T.updatedate desc
+	</select>
+	
+	<select id="querySupplierByPage" parameterClass="java.util.Map" resultMap="SupplierDto">
+		select T.* from etb_supplier T where 1 = 1
+		and T.status = '1'
+		<isNotEmpty prepend="and" property="ID_LOW">
+			T.id <![CDATA[>=]]> #ID_LOW#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="ID_HIGH">
+			T.id <![CDATA[<=]]> #ID_HIGH#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="SUPPLIER_NAME">
+			T.suppliername like '%$SUPPLIER_NAME$%'
+		</isNotEmpty>
+		order by T.updatedate desc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="querySupplierByID" parameterClass="java.util.Map" resultMap="SupplierDto">
+		select * from etb_supplier where 
+			id = #ID#
+			and status = '1'
+	</select>
+	
+	<select id="queryAllSupplierByID" parameterClass="java.util.Map" resultMap="SupplierDto">
+		select * from etb_supplier where 
+			id = #ID#
+	</select>
+	
+	<select id="queryAllSupplier" parameterClass="java.util.Map" resultMap="SupplierDto">
+		select * from etb_supplier where 1 = 1 and status = '1' order by updatedate desc
+	</select>
+	<insert id="insertSupplier" parameterClass="com.cn.dsyg.dto.SupplierDto">
+		insert into etb_supplier(id,suppliername,belongto,note,suppliertel1,suppliermanager1,supplieraddress1,suppliermail1,supplierfax1,
+		suppliertel2,suppliermanager2,supplieraddress2,suppliermail2,supplierfax2,
+		suppliertel3,suppliermanager3,supplieraddress3,suppliermail3,supplierfax3,
+		suppliertel4,suppliermanager4,supplieraddress4,suppliermail4,supplierfax4,
+		suppliertel5,suppliermanager5,supplieraddress5,suppliermail5,supplierfax5,
+		suppliertype,handlerid,status,res01,res02,res03,res04,res05,res06,res07,res08,res09,res10,
+		createuid,createdate,updateuid,updatedate)
+		values(#id#,#suppliername#,#belongto#,#note#,#suppliertel1#,#suppliermanager1#,#supplieraddress1#,#suppliermail1#,#supplierfax1#,
+		#suppliertel2#,#suppliermanager2#,#supplieraddress2#,#suppliermail2#,#supplierfax2#,
+		#suppliertel3#,#suppliermanager3#,#supplieraddress3#,#suppliermail3#,#supplierfax3#,
+		#suppliertel4#,#suppliermanager4#,#supplieraddress4#,#suppliermail4#,#supplierfax4#,
+		#suppliertel5#,#suppliermanager5#,#supplieraddress5#,#suppliermail5#,#supplierfax5#,
+		#suppliertype#,#handlerid#,#status#,#res01#,#res02#,#res03#,#res04#,#res05#,#res06#,#res07#,#res08#,#res09#,#res10#,
+		#createuid#,NOW(),#updateuid#,#updatedate#)
+	</insert>
+	
+	<update id="updateSupplier" parameterClass="com.cn.dsyg.dto.SupplierDto">
+		update etb_supplier
+		set suppliername=#suppliername#,
+			belongto=#belongto#,
+			note=#note#,
+			suppliertel1=#suppliertel1#,
+			suppliermanager1=#suppliermanager1#,
+			supplieraddress1=#supplieraddress1#,
+			suppliermail1=#suppliermail1#,
+			supplierfax1=#supplierfax1#,
+			suppliertel2=#suppliertel2#,
+			suppliermanager2=#suppliermanager2#,
+			supplieraddress2=#supplieraddress2#,
+			suppliermail2=#suppliermail2#,
+			supplierfax2=#supplierfax2#,
+			suppliertel3=#suppliertel3#,
+			suppliermanager3=#suppliermanager3#,
+			supplieraddress3=#supplieraddress3#,
+			suppliermail3=#suppliermail3#,
+			supplierfax3=#supplierfax3#,
+			suppliertel4=#suppliertel4#,
+			suppliermanager4=#suppliermanager4#,
+			supplieraddress4=#supplieraddress4#,
+			suppliermail4=#suppliermail4#,
+			supplierfax4=#supplierfax4#,
+			suppliertel5=#suppliertel5#,
+			suppliermanager5=#suppliermanager5#,
+			supplieraddress5=#supplieraddress5#,
+			suppliermail5=#suppliermail5#,
+			supplierfax5=#supplierfax5#,
+			suppliertype=#suppliertype#,
+			handlerid=#handlerid#,
+			status=#status#,
+			res01=#res01#,
+			res02=#res02#,
+			res03=#res03#,
+			res04=#res04#,
+			res05=#res05#,
+			res06=#res06#,
+			res07=#res07#,
+			res08=#res08#,
+			res09=#res09#,
+			res10=#res10#,
+			createuid=#createuid#,
+			createdate=#createdate#,
+			updateuid=#updateuid#,
+			updatedate=NOW()
+		where id = #id#
+	</update>
+	
+</sqlMap>

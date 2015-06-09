@@ -18,23 +18,19 @@ import java.util.TreeMap;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;  
-import javax.servlet.http.HttpServlet;  
 import javax.servlet.http.HttpServletRequest;  
 import javax.servlet.http.HttpServletResponse;  
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.xbean.spring.context.FileSystemXmlApplicationContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.cn.dsyg.action.ChartAction;
 import com.cn.dsyg.dto.ChartDto;
 import com.cn.dsyg.service.ChartService;
-import com.cn.dsyg.service.impl.ChartServiceImpl;
 
 public class ChartServlet extends HttpServlet {
     /**

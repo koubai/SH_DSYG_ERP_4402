@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="purchase" extends="struts-erp" namespace="/purchase">
+	
+		<action name="showEtbPurchaseAction" class="etbPurchaseAction" method="showEtbPurchaseAction">
+			<result name="*">/page/purchase/purchaselist.jsp</result>
+		</action>
+		
+		<action name="queryEtbPurchaseAction" class="etbPurchaseAction" method="queryEtbPurchaseAction">
+			<result name="*">/page/purchase/purchaselist.jsp</result>
+		</action>
+		
+		<action name="turnEtbPurchaseAction" class="etbPurchaseAction" method="turnEtbPurchaseAction">
+			<result name="*">/page/purchase/purchaselist.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>
