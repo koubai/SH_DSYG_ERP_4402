@@ -21,10 +21,10 @@ public interface CalendarService {
 
 	public boolean add(CalendarDto calendar) ;
 
-	public boolean del(Integer id, String userid);	
+	public boolean del(Integer id);	
 	
 	public List<CalendarDto> find();
 	
-	public CalendarDto findById(Integer id, String userid);
+	public CalendarDto findById(Integer id);
 	
 }

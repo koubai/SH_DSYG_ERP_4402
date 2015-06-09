@@ -12,6 +12,7 @@
 		<result property="allDay" column="allDay" />
 		<result property="color" column="color" />
 		<result property="userid" column="userid" />
+		<result property="userName" column="userName" />
 	</resultMap>
 
 	<insert id="insertCalendar01" parameterClass="com.cn.dsyg.dto.CalendarDto">
@@ -20,19 +21,18 @@
 	</insert>
 
 	<select id="queryCalendar01" parameterClass="java.util.Map" resultMap="CalendarDto">
-		select id, title, start, end, allday, color, userid from calendar T where 1 = 1
+		select T.id, T.title, T.start, T.end, T.allday, T.color, T.userid, TU.username from calendar T, tbuser TU  where 1 = 1
+			and T.userid = TU.userid
 		<isNotEmpty prepend="and" property="userid">
 			userid = #userid#
 		</isNotEmpty>
 	</select>
 
 	<select id="queryCalendar02" parameterClass="java.util.Map" resultMap="CalendarDto">
-		select id, title, start, end, allday, color, userid from calendar T where 1 = 1
+		select T.id, T.title, T.start, T.end, T.allday, T.color, T.userid, TU.username from calendar T, tbuser TU  where 1 = 1
+			and T.userid = TU.userid
 		<isNotEmpty prepend="and" property="id">
 			id = #id#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="userid">
-			userid = #userid#
 		</isNotEmpty>
 	</select>
 
@@ -40,9 +40,6 @@
 		delete from calendar where  1 = 1
 		<isNotEmpty prepend="and" property="id">
 			id = #id#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="userid">
-			userid = #userid#
 		</isNotEmpty>
 	</delete>
 

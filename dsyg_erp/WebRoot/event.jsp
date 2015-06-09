@@ -27,11 +27,9 @@
 		}else{
 			chk = "checked";
 		}
-	//String userName = request.getParameter("userName");	
-	//String userColor = request.getParameter("userColor");
-	String userName = (String)session.getAttribute("userName");	
+	String userId = (String)session.getAttribute("userId");	
 	String userColor = (String)session.getAttribute("userColor");
-	userName="AAAA";
+	userId="111";
 	userColor="#FF0000";
 %>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery-ui.css">
@@ -39,7 +37,7 @@
 	<h3>新建事件</h3>
     <form id="add_form" action="${pageContext.request.contextPath}/EventdoServlet.servlet" method="post">
     <input type="text" name="action" value="<%=action%>">
-    <input type="text" name="userName" value="<%=userName%>">
+    <input type="text" name="userId" value="<%=userId%>">
     <input type="text" name="userColor" value="<%=userColor%>">
     <p>日程内容：<input type="text" class="input" name="event" id="event" style="width:320px" placeholder="记录你将要做的一件事..."></p>
     <p>开始时间：<input type="text" class="input datepicker" name="startdate" id="startdate" value="<%=date%>" readonly>
@@ -128,15 +126,14 @@
 		System.out.println("Now is edit");	
 		Integer id = Integer.parseInt(request.getParameter("id"));
 		System.out.println("id:" + String.valueOf(id));	
-		String userid = request.getParameter("userName");
-		System.out.println("id:" + String.valueOf(id));	
-		CalendarDto calendar = calendarService.findById(id, userid);
+		CalendarDto calendar = calendarService.findById(id);
 		String title = calendar.getTitle();// 事件标题
 		String start = calendar.getStart();// 事件开始时间
 		String end = calendar.getEnd();// 结束时间
 		Integer allDay = calendar.getAllDay();// 是否为全天事件
 		String color = calendar.getColor();// 事件的背景
-		String eventUser = String.valueOf(calendar.getUserid());//事件创建者
+		String eventUser = String.valueOf(calendar.getUserName());//事件创建者
+		System.out.println("eventUser:" + eventUser);	
 		
 		String start_d = "";
 		String start_h = "";
@@ -164,10 +161,12 @@
 			start_h = start.substring(11,13);
 			start_m = start.substring(14,16);
 		}
-		//String userName = request.getParameter("userName");	
-		//String userColor = request.getParameter("userColor");
-		String userName = (String)session.getAttribute("userName");	
+		String userId = (String)session.getAttribute("userId");	
+		System.out.println("session UserId:" + userId);	
+		userId = (String)request.getParameter("userId");	
+		System.out.println("requext UserId:" + userId);	
 		String userColor = (String)session.getAttribute("userColor");
+		System.out.println("userColor:" + userColor);	
 %>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery-ui.css">
 <div class="fancy">
@@ -175,7 +174,7 @@
     <form id="add_form" action="${pageContext.request.contextPath}/EventdoServlet.servlet" method="post">
     <input type="hidden" name="action" value="<%=action%>">
     <input type="hidden" name="id" id="eventid" value="<%=id%>">
-    <input type="hidden" name="userName" id="userid" value="<%=userName%>">
+    <input type="hidden" name="userId" id="userId" value="<%=userId%>">
     <input type="hidden" name="userColor" id="userColor" value="<%=userColor%>">
     <p>日程内容：<input type="text" class="input" name="event" id="event" style="width:320px" placeholder="记录你将要做的一件事..." value="<%=title%>"></p>
     <p>开始时间：<input type="text" class="input datepicker" name="startdate" id="startdate" value="<%=start_d %>" readonly>
@@ -297,8 +296,8 @@ $(function(){
 	$("#del_event").click(function(){
 		if(confirm("您确定要删除吗？")){
 			var eventid = $("#eventid").val();
-			var userid = $("#userid").val();
-			$.post("${pageContext.request.contextPath}/EventdoServlet.servlet?action=del",{id:eventid},function(msg){
+			var userid = $("#userId").val();
+			$.post("${pageContext.request.contextPath}/EventdoServlet.servlet?action=del",{id:eventid, userId:userid},function(msg){
 				if(msg==1){//删除成功
 					$.fancybox.close();
 					$('#calendar').fullCalendar('refetchEvents'); //重新获取所有事件数据
@@ -311,7 +310,6 @@ $(function(){
 });
 
 function showRequest(){
-	alert("1");	
 	var events = $("#event").val();
 	if(events==''){
 		alert("请输入日程内容！");
@@ -321,7 +319,6 @@ function showRequest(){
 }
 
 function showResponse(responseText, statusText, xhr, $form){
-	alert("2");	
 	if(statusText=="success"){	
 		if(responseText==1){
 			$.fancybox.close();

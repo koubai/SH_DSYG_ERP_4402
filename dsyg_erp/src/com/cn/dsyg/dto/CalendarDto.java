@@ -7,6 +7,23 @@ public class CalendarDto extends BaseDto {
 	 * 
 	 */
 	private static final long serialVersionUID = 6778899572192068068L;
+	
+	private Integer id;
+	private String title;
+	private String start;
+	private String end;
+	private Integer allDay;
+	private String color;
+	private String userid;
+	private String userName;
+
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -37,24 +54,17 @@ public class CalendarDto extends BaseDto {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	public Integer getUserid() {
-		return userid;
-	}
-	public void setUserid(Integer userid) {
-		this.userid = userid;
-	}
 	public Integer getAllDay() {
 		return allDay;
 	}
 	public void setAllDay(Integer allDay) {
 		this.allDay = allDay;
 	}
-	private Integer id;
-	private String title;
-	private String start;
-	private String end;
-	private Integer allDay;
-	private String color;
-	private Integer userid;
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
 	
 }

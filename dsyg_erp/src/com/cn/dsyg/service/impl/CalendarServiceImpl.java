@@ -42,8 +42,8 @@ public class CalendarServiceImpl implements CalendarService{
 
 	
 	//根据编号删除日历事件
-	public boolean del(Integer id, String userid) {
-		return calendarDao.del(id, userid);
+	public boolean del(Integer id) {
+		return calendarDao.del(id);
 	}
 	
 	
@@ -54,8 +54,8 @@ public class CalendarServiceImpl implements CalendarService{
 	}
 	
 	//根据编号查询单个日历事件
-	public CalendarDto findById(Integer id, String userid) {
-		return calendarDao.findById(id, userid);
+	public CalendarDto findById(Integer id) {
+		return calendarDao.findById(id);
 	}
 		
 }

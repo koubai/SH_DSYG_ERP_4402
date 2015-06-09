@@ -25,15 +25,13 @@
 <script src='<%=request.getContextPath()%>/js/fullcalendar.min.js'></script>
 <script src='<%=request.getContextPath()%>/js/jquery.fancybox-1.3.1.pack.js'></script>
 
-<script src='<%=request.getContextPath()%>/js/fullcalendar.min.js'></script>
-
 <!--
 	说明：需要整合农历节气和节日，引入fullcalendar.js fullcalendar2.css
 	不需要则引入：fullcalendar.min.js fullcalendar.css
 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <% 
-	String userName = (String)session.getAttribute("userName");	
+	String userId = (String)session.getAttribute("userId");	
 	String userColor = (String)session.getAttribute("userColor");
 %>
 
@@ -54,8 +52,6 @@ $(function() {
 		//点击某一天时促发
 		dayClick: function(date, allDay, jsEvent, view) {
 			var selDate =$.fullCalendar.formatDate(date,'yyyy-MM-dd');
-			//var userName = '<%= request.getParameter("userName")%>';
-			//var userColor = '<%= request.getParameter("userColor")%>';
 			$.fancybox({
 				'type':'ajax',
 				'href':'${pageContext.request.contextPath}/event.jsp?action=add&date='+selDate
@@ -110,7 +106,7 @@ $(function() {
 <div id="main" style="width:1060px">
    <h2 class="top_title"><a>考勤管理</a></h2>   
    <div id='calendar'></div>
-   <input type="hidden" name="userName" value="<%=userName%>">
+   <input type="hidden" name="userId" value="<%=userId%>">
    <input type="hidden" name="userColor" value="<%=userColor%>">
 </div>
 <p id="stat"><script type="text/javascript" src="/js/tongji.js"></script></p>

@@ -65,7 +65,7 @@ public class EventdoServlet extends HttpServlet {
 			String s_time = request.getParameter("s_hour") + ":" + request.getParameter("s_minute") + ":00";
 			String e_time = request.getParameter("e_hour") + ":" + request.getParameter("e_minute") + ":00";
 			String userColor = request.getParameter("userColor");
-			String userName = request.getParameter("userName");
+			String userId = request.getParameter("userId");
 			
 			String start = "";
 			String end = "";
@@ -93,18 +93,20 @@ public class EventdoServlet extends HttpServlet {
 			//calendar.setColor(colors[index]);
 			System.out.println("events:" + events);
 			calendar.setColor(userColor);
-			calendar.setUserid(Integer.valueOf(userName));
+			calendar.setUserid(userId);
 			boolean b = calendarService.add(calendar);
 
 			if(b){
 				out.print("1");
+				session.setAttribute("userId",userId);
+
 			}else {
 				out.print("写入失败！");
 			}
 		}else if("edit".equals(action)) {
 			System.out.println("Edit");
 			Integer id =  Integer.parseInt(request.getParameter("id"));
-			String userid = request.getParameter("userName");
+			String userid = (String)session.getAttribute("userId");
 //			String userName = request.getParameter("userName");
 			if (userCheck(id,userid)){
 				String events = request.getParameter("event");//事件内容
@@ -159,12 +161,14 @@ public class EventdoServlet extends HttpServlet {
 			System.out.println("Del");
 			if (request.getParameter("id") != null){
 				Integer id =  Integer.parseInt(request.getParameter("id"));
-				//String userName = request.getParameter("userName");
-				String userid = (String)session.getAttribute("userName");
+				String userid = (String)session.getAttribute("userId");
+				System.out.println("id:"+request.getParameter("id"));
+				System.out.println("userid:"+userid);
+				//String userid = (String)session.getAttribute("userId");
 				//System.out.println("userName" + userName);
 				if (userCheck(id,userid)){
 					if(id > 0){
-						boolean b = calendarService.del(id, userid);
+						boolean b = calendarService.del(id);
 						if(b){
 							out.print("1");
 						}else {
@@ -182,12 +186,12 @@ public class EventdoServlet extends HttpServlet {
 		}else if("drag".equals(action)) {
 			System.out.println("Drag");
 			Integer id =  Integer.parseInt(request.getParameter("id"));
-			String userid = (String)session.getAttribute("userName");
+			String userid = (String)session.getAttribute("userId");
 			if (userCheck(id,userid)){
 				Integer daydiff = Integer.parseInt(request.getParameter("daydiff")) * 24 * 60 * 60;
 				Integer minudiff = Integer.parseInt(request.getParameter("minudiff")) * 60;
 				String allday = request.getParameter("allday");
-				CalendarDto calendar = calendarService.findById(id, userid);
+				CalendarDto calendar = calendarService.findById(id);
 				String start = calendar.getStart();
 				long lstart = DateUtil.string2long(start);				
 				String end = calendar.getEnd();
@@ -231,11 +235,11 @@ public class EventdoServlet extends HttpServlet {
 			System.out.println("Resize");
 
 			Integer id =  Integer.parseInt(request.getParameter("id"));
-			String userid = (String)session.getAttribute("userName");
+			String userid = (String)session.getAttribute("userId");
 			if (userCheck(id,userid)){
 				Integer daydiff = Integer.parseInt(request.getParameter("daydiff")) * 24 * 60 * 60;
 				Integer minudiff = Integer.parseInt(request.getParameter("minudiff")) * 60;
-				CalendarDto calendar = calendarService.findById(id, userid);
+				CalendarDto calendar = calendarService.findById(id);
 				String start = calendar.getStart();
 				long lstart = DateUtil.string2long(start);
 				String end = calendar.getEnd();
@@ -260,15 +264,20 @@ public class EventdoServlet extends HttpServlet {
 		}
 	}
 	
-	private boolean userCheck(Integer id, String user){
+	private boolean userCheck(Integer id, String userid){
 		System.out.println("UserCheck");
-
-//		CalendarDto calendar = calendarService.findById(id);
-//		String chkUser = calendar.getUserId()();
-//		if (user.equals(chkUser)){
-			return true;
-//		}
-//		return false;
-		
+		System.out.println("id:" + String.valueOf(id));
+		System.out.println("userid:" + userid);
+		try{
+			CalendarDto calendar = calendarService.findById(id);
+			String chkUser = calendar.getUserid();
+			System.out.println("chkUser:" + chkUser);
+			if (userid.equals(chkUser)){
+				return true;
+			}
+		} catch (Exception e){			
+			System.out.println(e);
+		}
+		return false;
 	}
 }

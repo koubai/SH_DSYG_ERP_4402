@@ -10,7 +10,7 @@ public interface CalendarDao {
 	public boolean add(CalendarDto calendar);
 	
 	//根据编号删除日历事件
-	public boolean del(Integer id, String userId);
+	public boolean del(Integer id);
 	
 	//修改
 	public boolean modify(CalendarDto calendar);
@@ -19,6 +19,6 @@ public interface CalendarDao {
 	public List<CalendarDto> find();
 	
 	//根据编号查询单个日历事件
-	public CalendarDto findById(Integer id, String userId);
+	public CalendarDto findById(Integer id);
 	
 }

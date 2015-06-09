@@ -27,12 +27,11 @@ public class CalendarDaoImpl extends BaseDao implements CalendarDao {
 	}
 	
 	//根据编号删除日历事件
-	public boolean del(Integer id, String userId) {
+	public boolean del(Integer id) {
 		boolean flag = false;
 		try {
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("id", id);
-			paramMap.put("userid", userId);
 			getSqlMapClientTemplate().delete("deleteCalendar01", paramMap);
 			flag = true;
 		} catch (Exception e) {
@@ -71,12 +70,11 @@ public class CalendarDaoImpl extends BaseDao implements CalendarDao {
 	
 	//根据编号查询单个日历事件
 	@SuppressWarnings("unchecked")
-	public CalendarDto findById(Integer id, String userId) {
+	public CalendarDto findById(Integer id) {
 		List<CalendarDto> list = null;
 		try {
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("id", id);
-			paramMap.put("userid", userId);
 			list = getSqlMapClientTemplate().queryForList("queryCalendar02", paramMap);
 		} catch (Exception e) {
 	        System.out.println(e);
