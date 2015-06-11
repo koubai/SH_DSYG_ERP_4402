@@ -37,9 +37,10 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(purchasedate,'%y') as years, DATE_FORMAT(purchasedate,'%m') months,  theme1,handler, totalamount as pur_sum_data     
-			from etb_purchase T
+			select DATE_FORMAT(T.purchasedate,'%y') as years, DATE_FORMAT(T.purchasedate,'%m') months,  T.theme1, TU.username as handler, T.totalamount as pur_sum_data     
+			from etb_purchase T, tbuser TU			
 			where 1=1 
+			and T.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
@@ -48,6 +49,9 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
 				T.purchasedate <![CDATA[<=]]> #to_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="handerList">
+				T.handler in ( $handerList$ )			
 			</isNotEmpty>
 		)as test 
 			group by handler, theme1, pur_year
@@ -68,9 +72,10 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(bookdate,'%y') as years, DATE_FORMAT(bookdate,'%m') months,  theme1, handler, taxamount as pur_sum_data     
-			from etb_sales T
+			select DATE_FORMAT(T.bookdate,'%y') as years, DATE_FORMAT(T.bookdate,'%m') months, T.theme1, TU.username as handler, T.taxamount as pur_sum_data     
+			from etb_sales T, tbuser TU
 			where 1=1 
+			and T.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
@@ -79,6 +84,9 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
 				T.bookdate <![CDATA[<=]]> #to_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="handerList">
+				T.handler in ( $handerList$ )			
 			</isNotEmpty>
 		)as test 
 			group by handler, theme1, pur_year
@@ -99,9 +107,10 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(warehousedate,'%y') as years, DATE_FORMAT(warehousedate,'%m') months,  theme1, handler, taxamount as pur_sum_data     
-			from etb_warehouse T
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, T.theme1, TU.username as handler, T.taxamount as pur_sum_data     
+			from etb_warehouse T, tbuser TU
 			where 1=1 
+			and T.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
@@ -111,12 +120,16 @@
 			<isNotEmpty prepend="and" property="to_date">
 				T.warehousedate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
+			<isNotEmpty prepend="and" property="handerList">
+				T.handler in ( $handerList$ )			
+			</isNotEmpty>
+			
 		)as test 
 			group by handler, theme1, pur_year
 	</select>
 	
 	<select id="queryFinanceByDate" parameterClass="java.util.Map" resultMap="ChartDto">
-		select handler, theme1, years as pur_year, 
+		select handler, financetype, years as pur_year, 
 			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
 			SUM(case when months=02 then pur_sum_data else 0 end) 'pur_month02',   
 			SUM(case when months=03 then pur_sum_data else 0 end) 'pur_month03',   
@@ -130,9 +143,10 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(receiptdate,'%y') as years, DATE_FORMAT(receiptdate,'%m') months,  financetype, handler, amount as pur_sum_data     
-			from etb_finance T
+			select DATE_FORMAT(T.receiptdate,'%y') as years, DATE_FORMAT(T.receiptdate,'%m') months, T.financetype as financetype, TU.username as handler, T.amount as pur_sum_data     
+			from etb_finance T, tbuser TU
 			where 1=1 
+			and T.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.financetype = #theme1#
 			</isNotEmpty>
@@ -142,6 +156,9 @@
 			<isNotEmpty prepend="and" property="to_date">
 				T.receiptdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
+			<isNotEmpty prepend="and" property="handerList">
+				T.handler in ( $handerList$ )			
+			</isNotEmpty>			
 		)as test 
 			group by handler, financetype, pur_year
 	</select>

@@ -134,23 +134,28 @@
 				var to_date=X_data[0]+"-31";
 			alert("mth: "+mth+ " from_date:"+ from_date+ " to_date:"+ to_date);		
 			
+			var handerList=document.getElementById('handerList').value;
+			if( handerList== null) {
+				handerList="";
+			}
+			alert("handerList: "+handerList);		
             $.ajax({
-				url: '${pageContext.request.contextPath}/ChartServlet.servlet?action='+act+'&from_date='+from_date+'&to_date='+to_date,
+				url: '${pageContext.request.contextPath}/ChartServlet.servlet?action='+act+'&from_date='+from_date+'&to_date='+to_date+'&handerList='+handerList,
                 type: "POST",
                 dataType: "text",
+                async: false,
                 success: function (data) {
                 	var str_data= JSON.stringify(eval(data));
                 	var str_data2= str_data.replace(/\"/g,"");
                    	o_data=str_data2;            
 //        			alert("org_data:"+str_data2);
 	       			var pie_data = getPieData(data, tit);
-//       			alert("pie_data:"+pie_data);
+//	       			alert("pie_data:"+pie_data);
         			drawPie(pie_data, tit);
         			drawChart(mth, o_data, tit);
         			viewData(o_data);
                 }
             });
-//     		alert(o_data);
             return o_data;
         }		
 
@@ -315,6 +320,7 @@
 		<input type="hidden" id="h1" value="<s:property value="str" />" />
 		<input type="hidden" id="h2" value="<s:property value="series" />" />
 		<input type="hidden" id="h3" value="<s:property value="series_X" />" />
+		<input type="text" name="handerList" id="handerList" value="0001,0002" />
            <Input id="btn1" type=button value="采购 3 Month" onClick="javascripts:getPurchaseData3M();">
            <Input id="btn2" type=button value="采购 6 Month" onClick="javascripts:getPurchaseData6M();">
            <Input id="btn3" type=button value="采购 12 Month" onClick="javascripts:getPurchaseData12M();">
