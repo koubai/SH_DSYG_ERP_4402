@@ -16,7 +16,7 @@
 	
 	function queryList() {
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../product/turnEtbProductSelectPage.action';
+		document.mainform.action = '../product/turnProductSelectPage.action';
 		document.mainform.submit();
 	}
 	
@@ -29,18 +29,27 @@
 			if(list[i].checked) {
 				obj = list[i];
 				id = list[i].value;
-				break;
+				//添加父页面记录
+				addProductToParent(obj, id);
 			}
 		}
 		if(obj == null) {
 			alert("请选择一条记录！");
 			return;
 		}
+		//刷新父页面斑马线
+		refreshParentBidExpertData();
+		
+		window.close();
+	}
+	
+	//
+	function addProductToParent(obj, id) {
 		//验证该产品是否在产品列表中
 		var productlist = window.dialogArguments.document.getElementById("productlist").value;
 		var products = "," + productlist;
 		if(products.indexOf("," + id + ",") >= 0) {
-			alert("该产品已存在！");
+			//alert("该产品已存在！");
 			return;
 		}
 		//添加产品信息
@@ -136,10 +145,10 @@
 		
 		//============================
 		//入库数量
-		var input = createHidden("");
+		var input = createHiddenAddAlt("", "tmpPurchaseQuantity_" + id);
 		td0.appendChild(input);
 		//预入库数量
-		var input = createHidden("");
+		var input = createHiddenAddAlt("", "tmpBeforeQuantity_" + id);
 		td0.appendChild(input);
 		//未入库数量
 		var input = createHidden("");
@@ -148,19 +157,27 @@
 		var input = createHidden("");
 		td0.appendChild(input);
 		//采购金额已税
-		var input = createHidden("");
+		var input = createHiddenAddAlt("", "tmpTaxamount_" + id);
+		td0.appendChild(input);
+		//已入库数，默认为0
+		var input = createHidden("0");
 		td0.appendChild(input);
 		//==============================
 		
-		var wid = 90;
+		var wid = 80;
 		var maxlength = 11;
 		
 		//采购数量
-		td = createTdInput("tmpPurchaseQuantity", wid, maxlength, "calcquantity(this);");
+		td = createTdInput("tmpPurchaseQuantity", wid, maxlength, "calcquantity(this, '1');", id);
 		tr.appendChild(td);
 		//预入库数量
-		td = createTdInput("tmpInQuantity", wid, maxlength, "calcquantity(this);");
+		td = createTdInput("tmpBeforeQuantity", wid, maxlength, "calcquantity(this, '2');", id);
 		tr.appendChild(td);
+		
+		//已入库数量
+		td = createTd("0");
+		tr.appendChild(td);
+		
 		//未入库数量
 		td = createTd("0");
 		tr.appendChild(td);
@@ -171,15 +188,11 @@
 		td = createTd("0");
 		tr.appendChild(td);
 		//采购金额含税
-		td = createTdInput("tmpTaxamount", wid, 13, "calcquantity(this);");
+		td = createTdInput("tmpTaxamount", wid, 13, "calcquantity(this, '3');", id);
 		tr.appendChild(td);
 		
 		window.dialogArguments.document.getElementById("productlist").value = productlist + id + ",";
 		window.dialogArguments.document.getElementById("productData").appendChild(tr);
-		//刷新父页面斑马线
-		refreshParentBidExpertData();
-		
-		window.close();
 	}
 	
 	//刷新投标公司序号和斑马线
@@ -205,10 +218,11 @@
 		return td;
 	}
 	
-	function createTdInput(name, wid, maxlength, onblurevent) {
+	function createTdInput(name, wid, maxlength, onblurevent, productid) {
 		var td = window.dialogArguments.document.createElement("td");
 		var input = window.dialogArguments.document.createElement("input");
 		input.name = name;
+		input.id = name + "_" + productid;
 		input.style.width = wid + "px";
 		input.setAttribute("maxlength", maxlength);
 		input.type = "text";
@@ -223,6 +237,14 @@
 		var input = window.dialogArguments.document.createElement("input");
 		input.type = "hidden";
 		input.value = s;
+		return input;
+	}
+	
+	function createHiddenAddAlt(s, id) {
+		var input = window.dialogArguments.document.createElement("input");
+		input.type = "hidden";
+		input.value = s;
+		input.alt = id;
 		return input;
 	}
 	
@@ -242,20 +264,20 @@
 	function changepagesize(pagesize) {
 		$("#intPageSize").attr("value", pagesize);
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../product/queryEtbProductSelectPage.action';
+		document.mainform.action = '../product/queryProductSelectPage.action';
 		document.mainform.submit();
 	}
 	
 	//翻页
 	function changePage(pageNum) {
 		$("#startIndex").attr("value", pageNum);
-		document.mainform.action = '../product/turnEtbProductSelectPage.action';
+		document.mainform.action = '../product/turnProductSelectPage.action';
 		document.mainform.submit();
 	}
 
 	//页跳转
 	function turnPage() {
-		var totalPage = "${pageExpert.totalPage}";
+		var totalPage = "${page.totalPage}";
 		var turnPage = document.getElementById("pagenum").value;
 		//判断是否输入页码
 		if ('' != turnPage) {
@@ -285,6 +307,7 @@
 </head>
 <body style="background: url(''); overflow-x:hidden;overflow-y:hidden;">
 <s:form id="mainform" name="mainform" method="POST">
+	<s:hidden name="common_rate" id="common_rate"></s:hidden>
 	<s:hidden name="startIndex" id="startIndex"/>
 	<s:hidden name="intPageSize" id="intPageSize"/>
 	<s:hidden name="strSupplierId" id="strSupplierId"/>
@@ -348,7 +371,7 @@
 						<td width="60">颜色</td>
 						<td width="60">包装</td>
 					</tr>
-					<s:iterator id="etbProductList" value="etbProductList" status="st1">
+					<s:iterator id="productList" value="productList" status="st1">
 						<s:if test="#st1.odd==true">
 							<tr class="tr_bg">
 						</s:if>
@@ -358,25 +381,26 @@
 							<td style="display: none;">
 								<input type="hidden" value="<s:property value="id"/>"/>
 								<input type="hidden" value="<s:property value="fieldno"/>"/>
-								<input type="hidden" value="<s:iterator id="goodsList" value="goodsList" status="st3"><s:if test="%{goodsList[#st3.index].code == etbProductList[#st1.index].fieldno}"><s:property value="fieldname"/></s:if></s:iterator>"/>
+								<input type="hidden" value="<s:iterator id="goodsList" value="goodsList" status="st3"><s:if test="%{goodsList[#st3.index].code == productList[#st1.index].fieldno}"><s:property value="fieldname"/></s:if></s:iterator>"/>
 								<input type="hidden" value="<s:property value="tradename"/>"/>
 								<input type="hidden" value="<s:property value="typeno"/>"/>
 								<input type="hidden" value="<s:property value="color"/>"/>
-								<input type="hidden" value="<s:iterator id="colorList" value="colorList" status="st3"><s:if test="%{colorList[#st3.index].code == etbProductList[#st1.index].color}"><s:property value="fieldname"/></s:if></s:iterator>"/>
+								<input type="hidden" value="<s:iterator id="colorList" value="colorList" status="st3"><s:if test="%{colorList[#st3.index].code == productList[#st1.index].color}"><s:property value="fieldname"/></s:if></s:iterator>"/>
 								<input type="hidden" value="<s:property value="unit"/>"/>
-								<input type="hidden" value="<s:iterator id="unitList" value="unitList" status="st3"><s:if test="%{unitList[#st3.index].code == etbProductList[#st1.index].unit}"><s:property value="fieldname"/></s:if></s:iterator>"/>
+								<input type="hidden" value="<s:iterator id="unitList" value="unitList" status="st3"><s:if test="%{unitList[#st3.index].code == productList[#st1.index].unit}"><s:property value="fieldname"/></s:if></s:iterator>"/>
 								<input type="hidden" value="<s:property value="packaging"/>"/>
-								<input type="hidden" value="<s:if test='%{etbProductList[#st1.index].packaging == "1"}'>整箱</s:if><s:elseif test='%{etbProductList[#st1.index].packaging == "0"}'>乱尺</s:elseif><s:else>乱尺</s:else>"/>
+								<input type="hidden" value="<s:if test='%{productList[#st1.index].packaging == "1"}'>整箱</s:if><s:elseif test='%{productList[#st1.index].packaging == "0"}'>乱尺</s:elseif><s:else>乱尺</s:else>"/>
 								<input type="hidden" value="<s:property value="sampleflag"/>"/>
 								<input type="hidden" value="<s:property value="purchaseprice"/>"/>
 								<input type="hidden" value="<s:property value="salesprice"/>"/>
 								<input type="hidden" value="<s:property value="makearea"/>"/>
 							</td>
-							<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
+							<!-- <td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td> -->
+							<td><input name="radioKey" type="checkbox" value="<s:property value="id"/>"/></td>
 							<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
 							<td>
 								<s:iterator id="goodsList" value="goodsList" status="st3">
-									<s:if test="%{goodsList[#st3.index].code == etbProductList[#st1.index].fieldno}">
+									<s:if test="%{goodsList[#st3.index].code == productList[#st1.index].fieldno}">
 										<s:property value="fieldname"/>
 									</s:if>
 								</s:iterator>
@@ -385,14 +409,14 @@
 							<td><s:property value="typeno"/></td>
 							<td>
 								<s:iterator id="colorList" value="colorList" status="st3">
-									<s:if test="%{colorList[#st3.index].code == etbProductList[#st1.index].color}">
+									<s:if test="%{colorList[#st3.index].code == productList[#st1.index].color}">
 										<s:property value="fieldname"/>
 									</s:if>
 								</s:iterator>
 							</td>
 							<td>
-								<s:if test='%{etbProductList[#st1.index].packaging == "1"}'>整箱</s:if>
-								<s:elseif test='%{etbProductList[#st1.index].packaging == "0"}'>乱尺</s:elseif>
+								<s:if test='%{productList[#st1.index].packaging == "1"}'>整箱</s:if>
+								<s:elseif test='%{productList[#st1.index].packaging == "0"}'>乱尺</s:elseif>
 								<s:else>
 									<s:property value="packaging"/>
 								</s:else>

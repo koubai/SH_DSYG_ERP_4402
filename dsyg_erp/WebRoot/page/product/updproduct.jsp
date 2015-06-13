@@ -129,7 +129,7 @@
 	}
 	
 	function goProductList() {
-		window.location.href = "../product/queryEtbProductAction.action";
+		window.location.href = "../product/queryProductAction.action";
 	}
 </script>
 </head>
@@ -147,8 +147,8 @@
 				</div>
 			</div>
 			<s:form id="mainform" name="mainform" method="POST">
-				<s:hidden name="updEtbProductDto.packaging" id="packaging"></s:hidden>
-				<s:hidden name="updEtbProductDto.note" id="note"></s:hidden>
+				<s:hidden name="updProductDto.packaging" id="packaging"></s:hidden>
+				<s:hidden name="updProductDto.note" id="note"></s:hidden>
 				<div class="searchbox update" style="height:0px;">
 					<table width="100%" border="0" cellpadding="5" cellspacing="0">
 						<tr>
@@ -161,10 +161,10 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<select name="updEtbProductDto.fieldno" id="fieldno" style="width: 300px;">
+									<select name="updProductDto.fieldno" id="fieldno" style="width: 300px;">
 										<option value="" selected="selected">请选择</option>
 										<s:iterator value="goodsList" id="goodsList" status="st1">
-											<option value="<s:property value="code"/>" <s:if test="%{goodsList[#st1.index].code == updEtbProductDto.fieldno}">selected</s:if>><s:property value="fieldname"/></option>
+											<option value="<s:property value="code"/>" <s:if test="%{goodsList[#st1.index].code == updProductDto.fieldno}">selected</s:if>><s:property value="fieldname"/></option>
 										</s:iterator>
 									</select>
 								</div>
@@ -176,7 +176,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updEtbProductDto.brand" id="brand" cssStyle="width:300px;" maxlength="16" theme="simple"></s:textfield>
+									<s:textfield name="updProductDto.brand" id="brand" cssStyle="width:300px;" maxlength="16" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -188,7 +188,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updEtbProductDto.tradename" id="tradename" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
+									<s:textfield name="updProductDto.tradename" id="tradename" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -198,7 +198,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updEtbProductDto.typeno" id="typeno" maxlength="32" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="updProductDto.typeno" id="typeno" maxlength="32" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -210,10 +210,10 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<select name="updEtbProductDto.color" id="color" style="width: 300px;">
+									<select name="updProductDto.color" id="color" style="width: 300px;">
 										<option value="" selected="selected">请选择</option>
 										<s:iterator value="colorList" id="colorList" status="st1">
-											<option value="<s:property value="code"/>" <s:if test="%{colorList[#st1.index].code == updEtbProductDto.color}">selected</s:if>><s:property value="fieldname"/></option>
+											<option value="<s:property value="code"/>" <s:if test="%{colorList[#st1.index].code == updProductDto.color}">selected</s:if>><s:property value="fieldname"/></option>
 										</s:iterator>
 									</select>
 								</div>
@@ -223,11 +223,11 @@
 								<label class="pdf10"><font color="red">*</font>包装</label>
 							</td>
 							<td>
-								<s:if test='%{updEtbProductDto.packaging == "1"}'>
+								<s:if test='%{updProductDto.packaging == "1"}'>
 									<input type="radio" name="tmpPackaging" value="1" checked="checked"/>整箱
 									<input type="radio" name="tmpPackaging" value="0"/>乱尺
 								</s:if>
-								<s:elseif test='%{updEtbProductDto.packaging == "0"}'>
+								<s:elseif test='%{updProductDto.packaging == "0"}'>
 									<input type="radio" name="tmpPackaging" value="1"/>整箱
 									<input type="radio" name="tmpPackaging" value="0" checked="checked"/>乱尺
 								</s:elseif>
@@ -244,10 +244,10 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<select name="updEtbProductDto.makearea" id="makearea" style="width: 300px;">
+									<select name="updProductDto.makearea" id="makearea" style="width: 300px;">
 										<option value="" selected="selected">请选择</option>
 										<s:iterator value="makeareaList" id="makeareaList" status="st1">
-											<option value="<s:property value="code"/>" <s:if test="%{makeareaList[#st1.index].code == updEtbProductDto.makearea}">selected</s:if>><s:property value="fieldname"/></option>
+											<option value="<s:property value="code"/>" <s:if test="%{makeareaList[#st1.index].code == updProductDto.makearea}">selected</s:if>><s:property value="fieldname"/></option>
 										</s:iterator>
 									</select>
 								</div>
@@ -259,10 +259,10 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<select name="updEtbProductDto.unit" id="unit" style="width: 300px;">
+									<select name="updProductDto.unit" id="unit" style="width: 300px;">
 										<option value="" selected="selected">请选择</option>
 										<s:iterator value="unitList" id="unitList" status="st1">
-											<option value="<s:property value="code"/>" <s:if test="%{unitList[#st1.index].code == updEtbProductDto.unit}">selected</s:if>><s:property value="fieldname"/></option>
+											<option value="<s:property value="code"/>" <s:if test="%{unitList[#st1.index].code == updProductDto.unit}">selected</s:if>><s:property value="fieldname"/></option>
 										</s:iterator>
 									</select>
 								</div>
@@ -276,7 +276,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updEtbProductDto.purchaseprice" id="purchaseprice" maxlength="64" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="updProductDto.purchaseprice" id="purchaseprice" maxlength="64" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -286,7 +286,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updEtbProductDto.salesprice" id="salesprice" maxlength="13" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="updProductDto.salesprice" id="salesprice" maxlength="13" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -296,7 +296,7 @@
 								<label class="pdf10">备注</label>
 							</td>
 							<td colspan="3">
-								<textarea rows="5" cols="150" style="width:895px;" id="tempNote"><s:property value="updEtbProductDto.note"/></textarea>
+								<textarea rows="5" cols="150" style="width:895px;" id="tempNote"><s:property value="updProductDto.note"/></textarea>
 							</td>
 						</tr>
 					</table>

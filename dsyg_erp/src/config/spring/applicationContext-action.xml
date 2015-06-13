@@ -2,26 +2,52 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
 	
-	<!-- etbProduct -->
-	<bean id="etbProductAction" class="com.cn.dsyg.action.EtbProductAction" scope="session">
-		<property name="etbProductService">
-			<ref bean="etbProductService"/>
+	<!-- warehouseOk -->
+	<bean id="warehouseOkAction" class="com.cn.dsyg.action.WarehouseOkAction" scope="session">
+		<property name="warehouseService">
+			<ref bean="warehouseService"/>
 		</property>
 		<property name="dict01Service">
 			<ref bean="dict01Service"/>
 		</property>
 	</bean>
 	
-	<!-- etbPurchase -->
-	<bean id="etbPurchaseAction" class="com.cn.dsyg.action.EtbPurchaseAction" scope="session">
-		<property name="etbPurchaseService">
-			<ref bean="etbPurchaseService"/>
+	<!-- warehouserpt -->
+	<bean id="warehouserptAction" class="com.cn.dsyg.action.WarehouserptAction" scope="session">
+		<property name="warehouserptService">
+			<ref bean="warehouserptService"/>
+		</property>
+		<property name="purchaseService">
+			<ref bean="purchaseService"/>
+		</property>
+		<property name="purchaseItemService">
+			<ref bean="purchaseItemService"/>
 		</property>
 		<property name="dict01Service">
 			<ref bean="dict01Service"/>
 		</property>
-		<property name="etbPurchaseItemService">
-			<ref bean="etbPurchaseItemService"/>
+	</bean>
+	
+	<!-- Product -->
+	<bean id="productAction" class="com.cn.dsyg.action.ProductAction" scope="session">
+		<property name="productService">
+			<ref bean="productService"/>
+		</property>
+		<property name="dict01Service">
+			<ref bean="dict01Service"/>
+		</property>
+	</bean>
+	
+	<!-- Purchase -->
+	<bean id="purchaseAction" class="com.cn.dsyg.action.PurchaseAction" scope="session">
+		<property name="purchaseService">
+			<ref bean="purchaseService"/>
+		</property>
+		<property name="dict01Service">
+			<ref bean="dict01Service"/>
+		</property>
+		<property name="purchaseItemService">
+			<ref bean="purchaseItemService"/>
 		</property>
 	</bean>
 	

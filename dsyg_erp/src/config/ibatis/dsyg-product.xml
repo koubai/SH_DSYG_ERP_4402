@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.tbps">
+
+	<resultMap id="ProductDto" class="com.cn.dsyg.dto.ProductDto">
+		<result property="id" column="id" />
+		<result property="belongto" column="belongto" />
+		<result property="fieldno" column="fieldno" />
+		<result property="brand" column="brand" />
+		<result property="item1" column="item1" />
+		<result property="item2" column="item2" />
+		<result property="item3" column="item3" />
+		<result property="tradename" column="tradename" />
+		<result property="typeno" column="typeno" />
+		<result property="color" column="color" />
+		<result property="packaging" column="packaging" />
+		<result property="unit" column="unit" />
+		<result property="sampleflag" column="sampleflag" />
+		<result property="productname" column="productname" />
+		<result property="makearea" column="makearea" />
+		<result property="supplierid" column="supplierid" />
+		<result property="salesprice" column="salesprice" />
+		<result property="purchaseprice" column="purchaseprice" />
+		<result property="note" column="note" />
+		<result property="item01" column="item01" />
+		<result property="item02" column="item02" />
+		<result property="item03" column="item03" />
+		<result property="item04" column="item04" />
+		<result property="item05" column="item05" />
+		<result property="item06" column="item06" />
+		<result property="item07" column="item07" />
+		<result property="item08" column="item08" />
+		<result property="item09" column="item09" />
+		<result property="item10" column="item10" />
+		<result property="item11" column="item11" />
+		<result property="item12" column="item12" />
+		<result property="item13" column="item13" />
+		<result property="item14" column="item14" />
+		<result property="item15" column="item15" />
+		<result property="item16" column="item16" />
+		<result property="item17" column="item17" />
+		<result property="item18" column="item18" />
+		<result property="item19" column="item19" />
+		<result property="item20" column="item20" />
+		<result property="item21" column="item21" />
+		<result property="item22" column="item22" />
+		<result property="item23" column="item23" />
+		<result property="item24" column="item24" />
+		<result property="item25" column="item25" />
+		<result property="item26" column="item26" />
+		<result property="item27" column="item27" />
+		<result property="item28" column="item28" />
+		<result property="item29" column="item29" />
+		<result property="item30" column="item30" />
+		<result property="pic01" column="pic01" />
+		<result property="pic02" column="pic02" />
+		<result property="pic03" column="pic03" />
+		<result property="pic04" column="pic04" />
+		<result property="pic05" column="pic05" />
+		<result property="pdfpath" column="pdfpath" />
+		<result property="rank" column="rank" />
+		<result property="status" column="status" />
+		<result property="res01" column="res01" />
+		<result property="res02" column="res02" />
+		<result property="res03" column="res03" />
+		<result property="res04" column="res04" />
+		<result property="res05" column="res05" />
+		<result property="res06" column="res06" />
+		<result property="res07" column="res07" />
+		<result property="res08" column="res08" />
+		<result property="res09" column="res09" />
+		<result property="res10" column="res10" />
+		<result property="keyword" column="keyword" />
+		<result property="createuid" column="createuid" />
+		<result property="createdate" column="createdate" />
+		<result property="updateuid" column="updateuid" />
+		<result property="updatedate" column="updatedate" />
+	</resultMap>
+	
+	<select id="queryProductByPage" parameterClass="java.util.Map" resultMap="ProductDto">
+		select T.* from etb_product T where 1 = 1
+		<isNotEmpty prepend="and" property="status">
+			T.status = #status#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fieldno">
+			T.fieldno = #fieldno#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="supplierid">
+			T.supplierid = #supplierid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="tradename">
+			T.tradename like '%$tradename$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="typeno">
+			T.typeno like '%$typeno$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="color">
+			T.color = #color#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="keyword">
+			T.keyword like '%$keyword$%' ESCAPE '/'
+		</isNotEmpty>
+		order by T.updatedate desc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryProductCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from etb_product T where 1 = 1
+		<isNotEmpty prepend="and" property="status">
+			T.status = #status#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="supplierid">
+			T.supplierid = #supplierid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fieldno">
+			T.fieldno = #fieldno#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="tradename">
+			T.tradename like '%$tradename$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="typeno">
+			T.typeno like '%$typeno$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="color">
+			T.color = #color#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="keyword">
+			T.keyword like '%$keyword$%' ESCAPE '/'
+		</isNotEmpty>
+	</select>
+	
+	<select id="queryProductByID" parameterClass="java.util.Map" resultMap="ProductDto">
+		select * from etb_product where id = #id#
+	</select>
+	
+	<insert id="insertProduct" parameterClass="com.cn.dsyg.dto.ProductDto">
+		insert into etb_product(belongto,fieldno,brand,item1,item2,item3,tradename,typeno,color,packaging,
+			sampleflag,unit,productname,makearea,supplierid,salesprice,purchaseprice,note,item01,item02,item03,
+			item04,item05,item06,item07,item08,item09,item10,item11,item12,item13,item14,item15,item16,item17,item18,item19,
+			item20,item21,item22,item23,item24,item25,item26,item27,item28,item29,item30,
+			pic01,pic02,pic03,pic04,pic05,pdfpath,rank,status,res01,res02,res03,res04,
+			res05,res06,res07,res08,res09,res10,keyword,createuid,createdate,updateuid,updatedate)
+		values(#belongto#,#fieldno#,#brand#,#item1#,#item2#,#item3#,#tradename#,#typeno#,#color#,#packaging#,
+			#sampleflag#,#unit#,#productname#,#makearea#,#supplierid#,#salesprice#,#purchaseprice#,#note#,#item01#,#item02#,#item03#,
+			#item04#,#item05#,#item06#,#item07#,#item08#,#item09#,#item10#,#item11#,#item12#,#item13#,#item14#,#item15#,#item16#,#item17#,#item18#,#item19#,
+			#item20#,#item21#,#item22#,#item23#,#item24#,#item25#,#item26#,#item27#,#item28#,#item29#,#item30#,
+			#pic01#,#pic02#,#pic03#,#pic04#,#pic05#,#pdfpath#,#rank#,#status#,#res01#,#res02#,#res03#,#res04#,
+			#res05#,#res06#,#res07#,#res08#,#res09#,#res10#,#keyword#,#createuid#,NOW(),#updateuid#,NOW())
+	</insert>
+	
+	<update id="updateProduct" parameterClass="com.cn.dsyg.dto.ProductDto">
+		update etb_product
+		set fieldno = #fieldno#,
+			brand = #brand#,
+			item1 = #item1#,
+			item2 = #item2#,
+			item3 = #item3#,
+			tradename = #tradename#,
+			typeno = #typeno#,
+			color = #color#,
+			packaging = #packaging#,
+			unit = #unit#,
+			sampleflag = #sampleflag#,
+			productname = #productname#,
+			makearea = #makearea#,
+			supplierid = #supplierid#,
+			salesprice = #salesprice#,
+			purchaseprice = #purchaseprice#,
+			note = #note#,
+			item01 = #item01#,
+			item02 = #item02#,
+			item03 = #item03#,
+			item04 = #item04#,
+			item05 = #item05#,
+			item06 = #item06#,
+			item07 = #item07#,
+			item08 = #item08#,
+			item09 = #item09#,
+			item10 = #item10#,
+			item11 = #item11#,
+			item12 = #item12#,
+			item13 = #item13#,
+			item14 = #item14#,
+			item15 = #item15#,
+			item16 = #item16#,
+			item17 = #item17#,
+			item18 = #item18#,
+			item19 = #item19#,
+			item20 = #item20#,
+			item21 = #item21#,
+			item22 = #item22#,
+			item23 = #item23#,
+			item24 = #item24#,
+			item25 = #item25#,
+			item26 = #item26#,
+			item27 = #item27#,
+			item28 = #item28#,
+			item29 = #item29#,
+			item30 = #item30#,
+			pic01 = #pic01#,
+			pic02 = #pic02#,
+			pic03 = #pic03#,
+			pic04 = #pic04#,
+			pic05 = #pic05#,
+			pdfpath = #pdfpath#,
+			rank = #rank#,
+			status = #status#,
+			res01 = #res01#,
+			res02 = #res02#,
+			res03 = #res03#,
+			res04 = #res04#,
+			res05 = #res05#,
+			res06 = #res06#,
+			res07 = #res07#,
+			res08 = #res08#,
+			res09 = #res09#,
+			res10 = #res10#,
+			keyword = #keyword#,
+			updateuid = #updateuid#,
+			updatedate = NOW()
+		where id = #id#
+	</update>
+	
+</sqlMap>

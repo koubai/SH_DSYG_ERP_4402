@@ -60,6 +60,9 @@ public class Constants {
 	//颜色
 	public final static String DICT_COLOR_TYPE = "color";
 	
+	//税率
+	public final static String DICT_RATE = "rate";
+	
 	//properties
 	public final static String PROPERTIES_IMAGES_URL = "images_url";
 	public final static String PROPERTIES_IMAGES_PATH = "images_path";
@@ -130,6 +133,31 @@ public class Constants {
 	public final static String ROLE_CODE_WAREHOUSE = "warehouse";
 	public final static String ROLE_CODE_EMPLOYEE = "employee";
 	public final static String ROLE_CODE_NORMAL = "normal";
+	
+	//库存类型：1为入库单
+	public final static int WAREHOUSE_TYPE_IN = 1;
+	//库存类型：2为出库单
+	public final static int WAREHOUSE_TYPE_OUT = 2;
+	
+	//入库单状态
+	//新增
+	public final static int WAREHOUSE_STATUS_NEW = 10;
+	//已确认
+	public final static int WAREHOUSE_STATUS_OK = 20;
+	//已发货
+	public final static int WAREHOUSE_STATUS_SEND = 30;
+	//已收货
+	public final static int WAREHOUSE_STATUS_RECEIVE = 40;
+	//预退货
+	public final static int WAREHOUSE_STATUS_REFUND = 50;
+	//已退货
+	public final static int WAREHOUSE_STATUS_REFUND_OK = 60;
+	//待付款
+	public final static int WAREHOUSE_STATUS_PAY = 70;
+	//已付款
+	public final static int WAREHOUSE_STATUS_PAY_OK = 80;
+	//结束
+	public final static int WAREHOUSE_STATUS_FINISHED = 99;
 	
 	//删除标记
 	/**

@@ -42,6 +42,18 @@
 			<result name="checkerror">/page/supplier/supplierlist.jsp</result>
 		</action>
 		
+		<action name="showSelectSupplierAction" class="supplierAction" method="showSelectSupplierAction">
+			<result name="*">/page/supplier/selectsupplier.jsp</result>
+		</action>
+		
+		<action name="querySelectSupplierAction" class="supplierAction" method="querySelectSupplierAction">
+			<result name="*">/page/supplier/selectsupplier.jsp</result>
+		</action>
+		
+		<action name="turnSelectSupplierAction" class="supplierAction" method="turnSelectSupplierAction">
+			<result name="*">/page/supplier/selectsupplier.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

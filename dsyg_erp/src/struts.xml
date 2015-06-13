@@ -12,6 +12,8 @@
 	
 	<constant name="struts.multipart.saveDir" value="/tmp"/>
 	
+	<!-- warehouse -->
+	<include file="struts-warehouse.xml"></include>
 	<!-- product -->
 	<include file="struts-product.xml"></include>
 	<!-- purchase -->

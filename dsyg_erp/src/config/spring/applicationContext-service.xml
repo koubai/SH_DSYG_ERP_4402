@@ -3,6 +3,38 @@
 
 <beans>
 
+	<!-- Warehouse -->
+	<bean id="warehouseService" class="com.cn.dsyg.service.impl.WarehouseServiceImpl" >
+		<property name="warehouseDao">
+			<ref local="warehouseDao"/>
+		</property>
+	</bean>
+	
+	<bean id="warehouseDao" class="com.cn.dsyg.dao.impl.WarehouseDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- Warehouserpt -->
+	<bean id="warehouserptService" class="com.cn.dsyg.service.impl.WarehouserptServiceImpl" >
+		<property name="warehouserptDao">
+			<ref local="warehouserptDao"/>
+		</property>
+		<property name="purchaseItemDao">
+			<ref local="purchaseItemDao"/>
+		</property>
+		<property name="purchaseDao">
+			<ref local="purchaseDao"/>
+		</property>
+	</bean>
+	
+	<bean id="warehouserptDao" class="com.cn.dsyg.dao.impl.WarehouserptDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+
 	<!-- supplier -->
 	<bean id="supplierService" class="com.cn.dsyg.service.impl.SupplierServiceImpl" >
 		<property name="supplierDao">
@@ -16,17 +48,17 @@
 		</property>
 	</bean>
 	
-	<!-- EtbProduct -->
-	<bean id="etbProductService" class="com.cn.dsyg.service.impl.EtbProductServiceImpl" >
-		<property name="etbProductDao">
-			<ref local="etbProductDao"/>
+	<!-- Product -->
+	<bean id="productService" class="com.cn.dsyg.service.impl.ProductServiceImpl" >
+		<property name="productDao">
+			<ref local="productDao"/>
 		</property>
 		<property name="dict01Dao">
 			<ref local="dict01Dao"/>
 		</property>
 	</bean>
 	
-	<bean id="etbProductDao" class="com.cn.dsyg.dao.impl.EtbProductDaoImpl">
+	<bean id="productDao" class="com.cn.dsyg.dao.impl.ProductDaoImpl">
 		<property name="sqlMapClient">
 			<ref bean="sqlMapClient"/>
 		</property>
@@ -34,29 +66,32 @@
 	
 
 	<!-- PurchaseItem -->
-	<bean id="etbPurchaseItemService" class="com.cn.dsyg.service.impl.EtbPurchaseItemServiceImpl" >
-		<property name="etbPurchaseItemDao">
-			<ref local="etbPurchaseItemDao"/>
+	<bean id="purchaseItemService" class="com.cn.dsyg.service.impl.PurchaseItemServiceImpl" >
+		<property name="purchaseItemDao">
+			<ref local="purchaseItemDao"/>
 		</property>
 	</bean>
 	
-	<bean id="etbPurchaseItemDao" class="com.cn.dsyg.dao.impl.EtbPurchaseItemDaoImpl">
+	<bean id="purchaseItemDao" class="com.cn.dsyg.dao.impl.PurchaseItemDaoImpl">
 		<property name="sqlMapClient">
 			<ref bean="sqlMapClient"/>
 		</property>
 	</bean>
 
-	<!-- etbPurchase -->
-	<bean id="etbPurchaseService" class="com.cn.dsyg.service.impl.EtbPurchaseServiceImpl" >
-		<property name="etbPurchaseDao">
-			<ref local="etbPurchaseDao"/>
+	<!-- purchase -->
+	<bean id="purchaseService" class="com.cn.dsyg.service.impl.PurchaseServiceImpl" >
+		<property name="purchaseDao">
+			<ref local="purchaseDao"/>
 		</property>
-		<property name="etbPurchaseItemDao">
-			<ref local="etbPurchaseItemDao"/>
+		<property name="purchaseItemDao">
+			<ref local="purchaseItemDao"/>
+		</property>
+		<property name="warehouseDao">
+			<ref local="warehouseDao"/>
 		</property>
 	</bean>
 	
-	<bean id="etbPurchaseDao" class="com.cn.dsyg.dao.impl.EtbPurchaseDaoImpl">
+	<bean id="purchaseDao" class="com.cn.dsyg.dao.impl.PurchaseDaoImpl">
 		<property name="sqlMapClient">
 			<ref bean="sqlMapClient"/>
 		</property>

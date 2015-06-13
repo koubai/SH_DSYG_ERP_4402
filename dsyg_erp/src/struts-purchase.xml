@@ -6,31 +6,31 @@
 
 	<package name="purchase" extends="struts-erp" namespace="/purchase">
 	
-		<action name="showEtbPurchaseAction" class="etbPurchaseAction" method="showEtbPurchaseAction">
+		<action name="showPurchaseAction" class="purchaseAction" method="showPurchaseAction">
 			<result name="*">/page/purchase/purchaselist.jsp</result>
 		</action>
 		
-		<action name="queryEtbPurchaseAction" class="etbPurchaseAction" method="queryEtbPurchaseAction">
+		<action name="queryPurchaseAction" class="purchaseAction" method="queryPurchaseAction">
 			<result name="*">/page/purchase/purchaselist.jsp</result>
 		</action>
 		
-		<action name="turnEtbPurchaseAction" class="etbPurchaseAction" method="turnEtbPurchaseAction">
+		<action name="turnPurchaseAction" class="purchaseAction" method="turnPurchaseAction">
 			<result name="*">/page/purchase/purchaselist.jsp</result>
 		</action>
 		
-		<action name="showAddEtbPurchaseAction" class="etbPurchaseAction" method="showAddEtbPurchaseAction">
+		<action name="showAddPurchaseAction" class="purchaseAction" method="showAddPurchaseAction">
 			<result name="*">/page/purchase/addpurchase.jsp</result>
 		</action>
 		
-		<action name="addEtbPurchaseAction" class="etbPurchaseAction" method="addEtbPurchaseAction">
+		<action name="addPurchaseAction" class="purchaseAction" method="addPurchaseAction">
 			<result name="*">/page/purchase/addpurchase.jsp</result>
 		</action>
 		
-		<action name="showUpdEtbPurchaseAction" class="etbPurchaseAction" method="showUpdEtbPurchaseAction">
+		<action name="showUpdPurchaseAction" class="purchaseAction" method="showUpdPurchaseAction">
 			<result name="*">/page/purchase/updpurchase.jsp</result>
 		</action>
 		
-		<action name="updEtbPurchaseAction" class="etbPurchaseAction" method="updEtbPurchaseAction">
+		<action name="updPurchaseAction" class="purchaseAction" method="updPurchaseAction">
 			<result name="*">/page/purchase/updpurchase.jsp</result>
 		</action>
 		

@@ -22,6 +22,11 @@ public class BaseAction extends ActionSupport implements ServletResponseAware,
 	protected HttpServletResponse response;
 
 	protected HttpServletRequest request;
+	
+	/**
+	 * 税率
+	 */
+	protected String common_rate;
 
 	@Override
 	public void setServletResponse(HttpServletResponse httpServletResponse) {
@@ -41,5 +46,13 @@ public class BaseAction extends ActionSupport implements ServletResponseAware,
 		String ip = request.getHeader("x-forwarded-for") == null ? request
 				.getRemoteAddr() : request.getHeader("x-forwarded-for");
 		return ip;
+	}
+
+	public String getCommon_rate() {
+		return common_rate;
+	}
+
+	public void setCommon_rate(String common_rate) {
+		this.common_rate = common_rate;
 	}
 }

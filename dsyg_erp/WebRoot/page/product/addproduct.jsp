@@ -129,7 +129,7 @@
 	}
 	
 	function goProductList() {
-		window.location.href = "../product/queryEtbProductAction.action";
+		window.location.href = "../product/queryProductAction.action";
 	}
 </script>
 </head>
@@ -147,8 +147,8 @@
 				</div>
 			</div>
 			<s:form id="mainform" name="mainform" method="POST">
-				<s:hidden name="addEtbProductDto.packaging" id="packaging"></s:hidden>
-				<s:hidden name="addEtbProductDto.note" id="note"></s:hidden>
+				<s:hidden name="addProductDto.packaging" id="packaging"></s:hidden>
+				<s:hidden name="addProductDto.note" id="note"></s:hidden>
 				<s:hidden name="strTradename" id="strTradename"></s:hidden>
 				<s:hidden name="strTypeno" id="strTypeno"></s:hidden>
 				<s:hidden name="strColor" id="strColor"></s:hidden>
@@ -164,10 +164,10 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<select name="addEtbProductDto.fieldno" id="fieldno" style="width: 300px;">
+									<select name="addProductDto.fieldno" id="fieldno" style="width: 300px;">
 										<option value="" selected="selected">请选择</option>
 										<s:iterator value="goodsList" id="goodsList" status="st1">
-											<option value="<s:property value="code"/>" <s:if test="%{goodsList[#st1.index].code == addEtbProductDto.fieldno}">selected</s:if>><s:property value="fieldname"/></option>
+											<option value="<s:property value="code"/>" <s:if test="%{goodsList[#st1.index].code == addProductDto.fieldno}">selected</s:if>><s:property value="fieldname"/></option>
 										</s:iterator>
 									</select>
 								</div>
@@ -179,7 +179,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="addEtbProductDto.brand" id="brand" cssStyle="width:300px;" maxlength="16" theme="simple"></s:textfield>
+									<s:textfield name="addProductDto.brand" id="brand" cssStyle="width:300px;" maxlength="16" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -191,7 +191,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="addEtbProductDto.tradename" id="tradename" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
+									<s:textfield name="addProductDto.tradename" id="tradename" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -201,7 +201,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="addEtbProductDto.typeno" id="typeno" maxlength="32" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="addProductDto.typeno" id="typeno" maxlength="32" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -213,10 +213,10 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<select name="addEtbProductDto.color" id="color" style="width: 300px;">
+									<select name="addProductDto.color" id="color" style="width: 300px;">
 										<option value="" selected="selected">请选择</option>
 										<s:iterator value="colorList" id="colorList" status="st1">
-											<option value="<s:property value="code"/>" <s:if test="%{colorList[#st1.index].code == addEtbProductDto.color}">selected</s:if>><s:property value="fieldname"/></option>
+											<option value="<s:property value="code"/>" <s:if test="%{colorList[#st1.index].code == addProductDto.color}">selected</s:if>><s:property value="fieldname"/></option>
 										</s:iterator>
 									</select>
 								</div>
@@ -226,11 +226,11 @@
 								<label class="pdf10"><font color="red">*</font>包装</label>
 							</td>
 							<td>
-								<s:if test='%{addEtbProductDto.packaging == "1"}'>
+								<s:if test='%{addProductDto.packaging == "1"}'>
 									<input type="radio" name="tmpPackaging" value="1" checked="checked"/>整箱
 									<input type="radio" name="tmpPackaging" value="0"/>乱尺
 								</s:if>
-								<s:elseif test='%{addEtbProductDto.packaging == "0"}'>
+								<s:elseif test='%{addProductDto.packaging == "0"}'>
 									<input type="radio" name="tmpPackaging" value="1"/>整箱
 									<input type="radio" name="tmpPackaging" value="0" checked="checked"/>乱尺
 								</s:elseif>
@@ -247,10 +247,10 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<select name="addEtbProductDto.unit" id="unit" style="width: 300px;">
+									<select name="addProductDto.unit" id="unit" style="width: 300px;">
 										<option value="" selected="selected">请选择</option>
 										<s:iterator value="unitList" id="unitList" status="st1">
-											<option value="<s:property value="code"/>" <s:if test="%{unitList[#st1.index].code == addEtbProductDto.unit}">selected</s:if>><s:property value="fieldname"/></option>
+											<option value="<s:property value="code"/>" <s:if test="%{unitList[#st1.index].code == addProductDto.unit}">selected</s:if>><s:property value="fieldname"/></option>
 										</s:iterator>
 									</select>
 								</div>
@@ -262,10 +262,10 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<select name="addEtbProductDto.makearea" id="makearea" style="width: 300px;">
+									<select name="addProductDto.makearea" id="makearea" style="width: 300px;">
 										<option value="" selected="selected">请选择</option>
 										<s:iterator value="makeareaList" id="makeareaList" status="st1">
-											<option value="<s:property value="code"/>" <s:if test="%{makeareaList[#st1.index].code == addEtbProductDto.makearea}">selected</s:if>><s:property value="fieldname"/></option>
+											<option value="<s:property value="code"/>" <s:if test="%{makeareaList[#st1.index].code == addProductDto.makearea}">selected</s:if>><s:property value="fieldname"/></option>
 										</s:iterator>
 									</select>
 								</div>
@@ -279,7 +279,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="addEtbProductDto.purchaseprice" id="purchaseprice" maxlength="64" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="addProductDto.purchaseprice" id="purchaseprice" maxlength="64" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -289,7 +289,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="addEtbProductDto.salesprice" id="salesprice" maxlength="13" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="addProductDto.salesprice" id="salesprice" maxlength="13" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -299,7 +299,7 @@
 								<label class="pdf10">备注</label>
 							</td>
 							<td colspan="3">
-								<textarea rows="5" cols="150" style="width:895px;" id="tempNote"><s:property value="addEtbProductDto.note"/></textarea>
+								<textarea rows="5" cols="150" style="width:895px;" id="tempNote"><s:property value="addProductDto.note"/></textarea>
 							</td>
 						</tr>
 					</table>

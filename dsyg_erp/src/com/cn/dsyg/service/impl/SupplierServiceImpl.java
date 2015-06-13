@@ -35,7 +35,7 @@ public class SupplierServiceImpl implements SupplierService {
 	@Override
 	public Page querySupplierByPage(Page page, String supplierNoLow,
 			String supplierNoHigh, String supplierName) {
-		supplierNoLow = StringUtil.replaceDatabaseKeyword_mysql(supplierNoLow);
+		supplierName = StringUtil.replaceDatabaseKeyword_mysql(supplierName);
 		//查询总记录数
 		int totalCount = supplierDao.querySupplierCountByPage(supplierNoLow, supplierNoHigh, supplierName);
 		page.setTotalCount(totalCount);

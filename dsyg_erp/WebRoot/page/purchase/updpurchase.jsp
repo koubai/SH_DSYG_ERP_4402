@@ -14,59 +14,101 @@
 	function upd() {
 		if(checkItem()) {
 			if(confirm("确定修改吗？")) {
-				document.mainform.action = "../purchase/updEtbPurchaseAction.action";
+				document.mainform.action = "../purchase/updPurchaseAction.action";
 				document.mainform.submit();
 			}
 		}
 	}
 	
 	//计算采购数量及金额
-	function calcquantity(obj) {
+	function calcquantity(obj, type) {
+		if(type == "1") {
+			//是否大于0的数字check
+			if(!isNumber(obj.value)) {
+				alert("采购数量必须是大于0的数字！");
+				obj.focus();
+				return;
+			}
+		} else if(type == "2") {
+			//是否整数字check
+			if(!checkInteger(obj.value)) {
+				alert("预入库数必须整数！");
+				obj.focus();
+				return;
+			}
+		} else {
+			//是否实数check
+			if(!isReal(obj.value)) {
+				alert("采购金额（含税）格式不正确！");
+				obj.focus();
+				return;
+			}
+		}
 		var tr = obj.parentNode.parentNode;
 		var tds = tr.getElementsByTagName("td");
+		var inputs = tds[0].getElementsByTagName("input");
+		
 		var inputPurchaseQuantitys = tds[9].getElementsByTagName("input");
-		var inputInQuantitys = tds[10].getElementsByTagName("input");
+		var beforeQuantitys = tds[10].getElementsByTagName("input");
 		//采购单货物数量
 		var purchaseQuantity = inputPurchaseQuantitys[0].value;
 		//采购金额已税
-		var purchaseTaxamount = tds[14].getElementsByTagName("input")[0].value;
+		var purchaseTaxamount = tds[15].getElementsByTagName("input")[0].value;
 		//预入库数量
-		var inQuantity = inputInQuantitys[0].value;
+		var beforeQuantity = beforeQuantitys[0].value;
 		if(purchaseQuantity == "") {
 			purchaseQuantity = 0;
 		} else {
 			purchaseQuantity = parseInt(purchaseQuantity);
 		}
-		if(inQuantity == "") {
-			inQuantity = 0;
+		if(beforeQuantity == "") {
+			beforeQuantity = 0;
 		} else {
-			inQuantity = parseInt(inQuantity);
+			beforeQuantity = parseInt(beforeQuantity);
 		}
-		//未入库数量
-		var remain = purchaseQuantity - inQuantity;
-		tds[11].innerHTML = remain;
+		//已入库数量
+		var inquantity = inputs[14].value;
+		if(inquantity == "") {
+			inquantity = 0;
+		} else {
+			inquantity = parseInt(inquantity);
+		}
+		
+		//逻辑check
+		if(beforeQuantity > purchaseQuantity || (inquantity + beforeQuantity) < 0 || (inquantity + beforeQuantity) > purchaseQuantity) {
+			alert("预入库数不在正确范围！");
+			obj.focus();
+			return;
+		}
+			
+		//未入库数量=采购数量-预入库数量-已入库数量
+		var remain = purchaseQuantity - beforeQuantity - inquantity;
+		tds[12].innerHTML = remain;
 		//单价
-		var price = tds[12].innerHTML;
+		var price = tds[13].innerHTML;
 		//采购金额未税
-		var amount = purchaseQuantity * price;
-		tds[13].innerHTML = amount;
+		var amount = purchaseQuantity * parseFloat(price);
+		tds[14].innerHTML = amount.toFixed(2);
 		
 		//补充隐藏TD中的数据内容
 		//===============================================
-		var inputs = tds[0].getElementsByTagName("input");
 		//入库数量
 		inputs[9].value = purchaseQuantity;
 		//预入库数量
-		inputs[10].value = inQuantity;
+		inputs[10].value = beforeQuantity;
 		//未入库数量
 		inputs[11].value = remain;
 		//采购金额未税
-		inputs[12].value = amount;
-		//采购金额已税
-		if(purchaseTaxamount == "") {
-			inputs[13].value = "0";
-		} else {
-			inputs[13].value = purchaseTaxamount;
+		inputs[12].value = amount.toFixed(2);
+		
+		//采购金额已税rate为税率
+		var rate = parseFloat($("#common_rate").val());
+		if(amount != "") {
+			//采购金额已税=未税金额 * (1 + rate)
+			var vv = amount * (1 + rate);
+			inputs[13].value = vv.toFixed(2);
+			//输入框金额也对应变更
+			tds[15].getElementsByTagName("input")[0].value = vv.toFixed(2);
 		}
 		//===============================================
 	}
@@ -109,7 +151,7 @@
 		//联系人电话
 		var suppliertel = $("#suppliertel").val().trim();
 		//联系人传真
-		var suppliertax = $("#suppliertax").val().trim();
+		var supplierfax = $("#supplierfax").val().trim();
 		//联系人信箱
 		var suppliermail = $("#suppliermail").val().trim();
 		
@@ -194,14 +236,25 @@
 			var unitprice = childs[8].value;
 			
 			var quantity = childs[9].value;
-			var inquantity = childs[10].value;
+			//预入库数
+			var beforequantity = childs[10].value;
 			var remainquantity = childs[11].value;
 			var amount = childs[12].value;
 			var taxamount = childs[13].value;
+			//已入库数
+			var inquantity = childs[14].value;
 			
 			var tr = document.createElement("tr");
 			//采购货物列表
 			var td = document.createElement("td");
+			
+			//货物数据check
+			if(quantity == "") {
+				alert("采购数量不能为空！");
+				$("#" + childs[9].alt).focus();
+				return false;
+			}
+			
 			td.appendChild(createInput("updPurchaseItemList[" + i + "].id", id));
 			td.appendChild(createInput("updPurchaseItemList[" + i + "].productid", productid));
 			td.appendChild(createInput("updPurchaseItemList[" + i + "].theme1", theme1));
@@ -213,6 +266,7 @@
 			td.appendChild(createInput("updPurchaseItemList[" + i + "].unitprice", unitprice));
 			
 			td.appendChild(createInput("updPurchaseItemList[" + i + "].quantity", quantity));
+			td.appendChild(createInput("updPurchaseItemList[" + i + "].beforequantity", beforequantity));
 			td.appendChild(createInput("updPurchaseItemList[" + i + "].inquantity", inquantity));
 			td.appendChild(createInput("updPurchaseItemList[" + i + "].remainquantity", remainquantity));
 			td.appendChild(createInput("updPurchaseItemList[" + i + "].amount", amount));
@@ -221,6 +275,7 @@
 			tr.appendChild(td);
 			document.getElementById("purchaseItemTable").appendChild(tr);
 		}
+		return true;
 	}
 	
 	function createInput(id, value) {
@@ -254,7 +309,7 @@
 		//}
 		var rows = document.getElementById("productData").rows;
 		var seq = rows.length + 1;
-		var url = '<%=request.getContextPath()%>/product/showEtbProductSelectPage.action';
+		var url = '<%=request.getContextPath()%>/product/showProductSelectPage.action';
 		//strFlag=1采购单，strFlag=2销售单
 		url += "?strFieldno=" + theme1 + "&strSeq=" + seq + "&strSupplierId=" + supplierid + "&strFlag=1" + "&date=" + new Date();
 		
@@ -323,7 +378,7 @@
 	}//*/
 	
 	function goPurchaseList() {
-		window.location.href = "../purchase/queryEtbPurchaseAction.action";
+		window.location.href = "../purchase/queryPurchaseAction.action";
 	}
 </script>
 </head>
@@ -341,13 +396,15 @@
 				</div>
 			</div>
 			<s:form id="mainform" name="mainform" method="POST">
-				<s:hidden name="updEtbPurchaseDto.supplierid" id="supplierid"></s:hidden>
-				<s:hidden name="updEtbPurchaseDto.purchasedate" id="purchasedate"></s:hidden>
-				<s:hidden name="updEtbPurchaseDto.productlist" id="productlist"></s:hidden>
+				<s:hidden name="common_rate" id="common_rate"></s:hidden>
 				
-				<s:hidden name="updEtbPurchaseDto.taxamount" id="taxamount"></s:hidden>
-				<s:hidden name="updEtbPurchaseDto.paidamount" id="paidamount"></s:hidden>
-				<s:hidden name="updEtbPurchaseDto.totalamount" id="totalamount"></s:hidden>
+				<s:hidden name="updPurchaseDto.supplierid" id="supplierid"></s:hidden>
+				<s:hidden name="updPurchaseDto.purchasedate" id="purchasedate"></s:hidden>
+				<s:hidden name="updPurchaseDto.productlist" id="productlist"></s:hidden>
+				
+				<s:hidden name="updPurchaseDto.taxamount" id="taxamount"></s:hidden>
+				<s:hidden name="updPurchaseDto.paidamount" id="paidamount"></s:hidden>
+				<s:hidden name="updPurchaseDto.totalamount" id="totalamount"></s:hidden>
 				
 				<div class="searchbox update" style="height:0px;">
 					<table id="purchaseItemTable" style="display: none;">
@@ -363,7 +420,7 @@
 							<td colspan="3">
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updEtbPurchaseDto.purchaseno" id="purchaseno" disabled="true" cssStyle="width:300px;" maxlength="8" theme="simple"></s:textfield>
+									<s:textfield name="updPurchaseDto.purchaseno" id="purchaseno" disabled="true" cssStyle="width:300px;" maxlength="8" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 								<div style="margin-top: 9px;"><label>（自动编号）</label></div>
@@ -376,7 +433,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center date_input">
-									<input type="text" id="tmpPurchasedate" disabled="disabled" style="width:285px;" value="<s:date name="updEtbPurchaseDto.purchasedate" format="yyyy-MM-dd" />" />
+									<input type="text" id="tmpPurchasedate" disabled="disabled" style="width:285px;" value="<s:date name="updPurchaseDto.purchasedate" format="yyyy-MM-dd" />" />
 									<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpPurchasedate'));"></a>
 								</div>
 								<div class="box1_right"></div>
@@ -387,7 +444,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updEtbPurchaseDto.handler" id="handler" cssStyle="width:300px;" maxlength="16" theme="simple"></s:textfield>
+									<s:textfield name="updPurchaseDto.handler" id="handler" cssStyle="width:300px;" maxlength="16" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -399,10 +456,10 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<select name="updEtbPurchaseDto.theme1" id="theme1" style="width: 300px;" disabled="disabled" onchange="changeTheme();">
+									<select name="updPurchaseDto.theme1" id="theme1" style="width: 300px;" disabled="disabled" onchange="changeTheme();">
 										<option value="" selected="selected">请选择</option>
 										<s:iterator value="goodsList" id="goodsList" status="st1">
-											<option value="<s:property value="code"/>" <s:if test="%{goodsList[#st1.index].code == updEtbPurchaseDto.theme1}">selected</s:if>><s:property value="fieldname"/></option>
+											<option value="<s:property value="code"/>" <s:if test="%{goodsList[#st1.index].code == updPurchaseDto.theme1}">selected</s:if>><s:property value="fieldname"/></option>
 										</s:iterator>
 									</select>
 								</div>
@@ -414,7 +471,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updEtbPurchaseDto.warehouse" id="warehouse" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
+									<s:textfield name="updPurchaseDto.warehouse" id="warehouse" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -426,7 +483,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updEtbPurchaseDto.suppliername" id="suppliername" maxlength="32" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="updPurchaseDto.suppliername" id="suppliername" maxlength="32" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 								<div class="btn">
@@ -443,7 +500,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updEtbPurchaseDto.suppliermanager" id="suppliermanager" maxlength="16" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="updPurchaseDto.suppliermanager" id="suppliermanager" maxlength="16" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -456,7 +513,7 @@
 							<td colspan="3">
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updEtbPurchaseDto.supplieraddr" id="supplieraddr" maxlength="64" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="updPurchaseDto.supplieraddr" id="supplieraddr" maxlength="64" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -469,7 +526,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updEtbPurchaseDto.suppliermanageraddr" id="suppliermanageraddr" maxlength="64" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="updPurchaseDto.suppliermanageraddr" id="suppliermanageraddr" maxlength="64" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -479,7 +536,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updEtbPurchaseDto.suppliertel" id="suppliertel" maxlength="16" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="updPurchaseDto.suppliertel" id="suppliertel" maxlength="16" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -491,7 +548,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updEtbPurchaseDto.suppliertax" id="suppliertax" maxlength="16" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="updPurchaseDto.supplierfax" id="supplierfax" maxlength="16" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -501,7 +558,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updEtbPurchaseDto.suppliermail" id="suppliermail" maxlength="64" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="updPurchaseDto.suppliermail" id="suppliermail" maxlength="64" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -513,7 +570,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<input type="text" id="tmpTotalamount" disabled="disabled" style="width:300px;" value="<s:property value="updEtbPurchaseDto.totalamount"/>"/>
+									<input type="text" id="tmpTotalamount" disabled="disabled" style="width:300px;" value="<s:property value="updPurchaseDto.totalamount"/>"/>
 								</div>
 								<div class="box1_right"></div>
 								<div style="margin-top: 9px;"><label>（不含税）</label></div>
@@ -524,7 +581,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<input type="text" id="tmpTaxamount" disabled="disabled" style="width:300px;" value="<s:property value="updEtbPurchaseDto.taxamount"/>"/>
+									<input type="text" id="tmpTaxamount" disabled="disabled" style="width:300px;" value="<s:property value="updPurchaseDto.taxamount"/>"/>
 								</div>
 								<div class="box1_right"></div>
 								<div style="margin-top: 9px;"><label>（含税）</label></div>
@@ -537,7 +594,7 @@
 							<td colspan="3">
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<input type="text" id="tmpPaidamount" disabled="disabled" style="width:300px;" value="<s:property value="updEtbPurchaseDto.paidamount"/>"/>
+									<input type="text" id="tmpPaidamount" disabled="disabled" style="width:300px;" value="<s:property value="updPurchaseDto.paidamount"/>"/>
 								</div>
 								<div class="box1_right"></div>
 								<div style="margin-top: 9px;"><label>（含税）</label></div>
@@ -564,16 +621,17 @@
 											<td width="40">序号</td>
 											<td width="40">类型</td>
 											<td width="100">品名</td>
-											<td width="100">规格</td>
+											<td width="90">规格</td>
 											<td width="40">颜色</td>
 											<td width="40">单位</td>
 											<td width="40">包装</td>
-											<td width="100">采购数量</td>
-											<td width="100">预入库数</td>
-											<td width="80">未入库数</td>
+											<td width="90">采购数量</td>
+											<td width="90">预入库数</td>
+											<td width="70">已入库数</td>
+											<td width="70">未入库数</td>
 											<td width="70">单价</td>
-											<td width="100">采购金额（未税）</td>
-											<td width="100">采购金额（含税）</td>
+											<td width="105">采购金额（未税）</td>
+											<td width="105">采购金额（含税）</td>
 										</tr>
 										<tbody id="productData">
 											<s:iterator id="updPurchaseItemList" value="updPurchaseItemList" status="st1">
@@ -594,11 +652,12 @@
 														<input type="hidden" value="<s:property value="packaging"/>" />
 														<input type="hidden" value="<s:property value="unitprice"/>" />
 														
-														<input type="hidden" value="<s:property value="quantity"/>" />
-														<input type="hidden" value="<s:property value="inquantity"/>" />
+														<input type="hidden" alt="tmpPurchaseQuantity_<s:property value="productid"/>" value="<s:property value="quantity"/>" />
+														<input type="hidden" alt="tmpBeforeQuantity_<s:property value="productid"/>" value="<s:property value="beforequantity"/>" />
 														<input type="hidden" value="<s:property value="remainquantity"/>" />
 														<input type="hidden" value="<s:property value="amount"/>" />
-														<input type="hidden" value="<s:property value="taxamount"/>" />
+														<input type="hidden" alt="tmpTaxamount_<s:property value="productid"/>" value="<s:property value="taxamount"/>" />
+														<input type="hidden" value="<s:property value="inquantity"/>" />
 													</td>
 													<td><input name="itemRadio" type="radio" value="<s:property value="BID_NO"/>_<s:property value="BID_CO_SEQ"/>"/></td>
 													<td><s:property value="#st1.index + 1"/></td>
@@ -633,16 +692,17 @@
 														</s:else>
 													</td>
 													<td>
-														<input type="text" style="width: 90px;" name="tmpPurchaseQuantity" onblur="calcquantity(this);" maxlength="11" value="<s:property value="quantity"/>"/>
+														<input type="text" style="width: 80px;" name="tmpPurchaseQuantity" onblur="calcquantity(this, '1');" maxlength="11" value="<s:property value="quantity"/>"/>
 													</td>
 													<td>
-														<input type="text" style="width: 90px;" name="tmpInQuantity" onblur="calcquantity(this);" maxlength="11" value="<s:property value="inquantity"/>"/>
+														<input type="text" style="width: 80px;" name="tmpBeforeQuantity" onblur="calcquantity(this, '2');" maxlength="11" value="<s:property value="beforequantity"/>"/>
 													</td>
+													<td><s:property value="inquantity"/></td>
 													<td><s:property value="remainquantity"/></td>
 													<td><s:property value="unitprice"/></td>
 													<td><s:property value="amount"/></td>
 													<td>
-														<input type="text" style="width: 90px;" name="tmpTaxamount" onblur="calcquantity(this);" maxlength="13" value="<s:property value="taxamount"/>"/>
+														<input type="text" style="width: 80px;" name="tmpTaxamount" onblur="calcquantity(this, '3');" maxlength="13" value="<s:property value="taxamount"/>"/>
 													</td>
 												</tr>
 											</s:iterator>

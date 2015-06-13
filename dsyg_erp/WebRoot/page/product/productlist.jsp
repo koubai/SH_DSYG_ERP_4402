@@ -27,7 +27,7 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
-			document.mainform.action = "../product/showUpdProductAction.action?updEtbProductId=" + id;
+			document.mainform.action = "../product/showUpdProductAction.action?updProductId=" + id;
 			document.mainform.submit();
 		}
 	}
@@ -40,7 +40,7 @@
 		} else {
 			if(confirm("确定删除该记录吗？")) {
 				setQueryDate();
-				document.mainform.action = "../product/delProductAction.action?delEtbProductId=" + id;
+				document.mainform.action = "../product/delProductAction.action?delProductId=" + id;
 				document.mainform.submit();
 			}
 		}
@@ -67,7 +67,7 @@
 	//查询数据
 	function queryList() {
 		setQueryDate();
-		document.mainform.action = '../product/queryEtbProductAction.action';
+		document.mainform.action = '../product/queryProductAction.action';
 		document.mainform.submit();
 	}
 	
@@ -75,7 +75,7 @@
 	function changepagesize(pagesize) {
 		$("#intPageSize").attr("value", pagesize);
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../product/queryEtbProductAction.action';
+		document.mainform.action = '../product/queryProductAction.action';
 		document.mainform.submit();
 	}
 	
@@ -83,7 +83,7 @@
 	function changePage(pageNum) {
 		setQueryDate();
 		$("#startIndex").attr("value", pageNum);
-		document.mainform.action = '../product/turnEtbProductAction.action';
+		document.mainform.action = '../product/turnProductAction.action';
 		document.mainform.submit();
 	}
 
@@ -185,7 +185,7 @@
 								<td width="60">颜色</td>
 								<td width="60">包装</td>
 							</tr>
-							<s:iterator id="etbProductList" value="etbProductList" status="st1">
+							<s:iterator id="productList" value="productList" status="st1">
 								<s:if test="#st1.odd==true">
 									<tr class="tr_bg">
 								</s:if>
@@ -196,7 +196,7 @@
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
 									<td>
 										<s:iterator id="goodsList" value="goodsList" status="st3">
-											<s:if test="%{goodsList[#st3.index].code == etbProductList[#st1.index].fieldno}">
+											<s:if test="%{goodsList[#st3.index].code == productList[#st1.index].fieldno}">
 												<s:property value="fieldname"/>
 											</s:if>
 										</s:iterator>
@@ -205,14 +205,14 @@
 									<td><s:property value="typeno"/></td>
 									<td>
 										<s:iterator id="colorList" value="colorList" status="st3">
-											<s:if test="%{colorList[#st3.index].code == etbProductList[#st1.index].color}">
+											<s:if test="%{colorList[#st3.index].code == productList[#st1.index].color}">
 												<s:property value="fieldname"/>
 											</s:if>
 										</s:iterator>
 									</td>
 									<td>
-										<s:if test='%{etbProductList[#st1.index].packaging == "1"}'>整箱</s:if>
-										<s:elseif test='%{etbProductList[#st1.index].packaging == "0"}'>乱尺</s:elseif>
+										<s:if test='%{productList[#st1.index].packaging == "1"}'>整箱</s:if>
+										<s:elseif test='%{productList[#st1.index].packaging == "0"}'>乱尺</s:elseif>
 										<s:else>
 											<s:property value="packaging"/>
 										</s:else>

@@ -38,6 +38,21 @@ function isInteger(str) {
 }
 
 /**
+ * 判断STR是否为整数组成的字符串，可带一个负号
+ * @param str
+ * @return
+ */
+function checkInteger(str) {
+	var reg;
+	if(str.indexOf("-") >= 0) {
+		reg = /^-[0-9]{0,}$/;
+	} else {
+		reg = /^[0-9]{0,}$/;
+	}
+	return reg.test(str);
+}
+
+/**
  * 根据位数判断整数 
  * @param str
  * @param pos

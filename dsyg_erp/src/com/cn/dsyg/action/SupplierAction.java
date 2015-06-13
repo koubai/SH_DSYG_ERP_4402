@@ -1,15 +1,10 @@
 package com.cn.dsyg.action;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.struts2.ServletActionContext;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
@@ -109,6 +104,80 @@ public class SupplierAction extends BaseAction {
 	 * 控件ID
 	 */
 	private String strKey;
+	
+	//供应商选择页面=================
+	//供应商名
+	private String strSelectSupplierName;
+	//供应商列表
+	private List<SupplierDto> listSelectSupplier;
+	//页码
+	private int selectStartIndex;
+	//翻页page
+	private Page selectPage;
+	//一页显示记录数
+	private Integer intSelectPageSize;
+	//供应商选择页面=================
+	
+	//供应商选择页面start
+	/**
+	 * 显示供应商选择页面
+	 * @return
+	 */
+	public String showSelectSupplierAction() {
+		try {
+			this.clearMessages();
+			selectStartIndex = 0;
+			strSelectSupplierName = "";
+			//默认10条
+			intSelectPageSize = 10;
+			selectPage = new Page(intSelectPageSize);
+			//查询数据
+			querySelectSupplier();
+		} catch(Exception e) {
+			log.error("showSelectSupplierAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 供应商查询（供应商选择页面）
+	 * @return
+	 */
+	public String querySelectSupplierAction() {
+		try {
+			this.clearMessages();
+			selectStartIndex = 0;
+			//默认10条
+			if(intSelectPageSize == null) {
+				intSelectPageSize = 10;
+			}
+			selectPage = new Page(intSelectPageSize);
+			//查询数据
+			querySelectSupplier();
+		} catch(Exception e) {
+			log.error("querySelectSupplierAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页（供应商选择页面）
+	 * @return
+	 */
+	public String turnSelectSupplierAction() {
+		try {
+			this.clearMessages();
+			//查询数据
+			querySelectSupplier();
+		} catch(Exception e) {
+			log.error("turnSelectSupplierAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	//供应商选择页面end
 
 	/**
 	 * 显示供应商页面
@@ -163,23 +232,6 @@ public class SupplierAction extends BaseAction {
 			return ERROR;
 		}
 		return SUCCESS;
-	}
-	
-	/**
-	 * 翻页查询所有供应商列表
-	 */
-	@SuppressWarnings("unchecked")
-	private void querySupplier() {
-		listSupplier = new ArrayList<SupplierDto>();
-		if(page == null) {
-			page = new Page();
-		}
-		//翻页查询所有供应商
-		this.page.setStartIndex(startIndex);
-		page = supplierService.querySupplierByPage(page, strSupplierNoLow, strSupplierNoHigh, strSupplierName);
-		listSupplier = (List<SupplierDto>) page.getItems();
-		
-		this.setStartIndex(page.getStartIndex());
 	}
 	
 	/**
@@ -330,6 +382,40 @@ public class SupplierAction extends BaseAction {
 		}
 		return true;
 	}
+	
+	/**
+	 * 翻页查询所有供应商列表
+	 */
+	@SuppressWarnings("unchecked")
+	private void querySupplier() {
+		listSupplier = new ArrayList<SupplierDto>();
+		if(page == null) {
+			page = new Page();
+		}
+		//翻页查询所有供应商
+		this.page.setStartIndex(startIndex);
+		page = supplierService.querySupplierByPage(page, strSupplierNoLow, strSupplierNoHigh, strSupplierName);
+		listSupplier = (List<SupplierDto>) page.getItems();
+		
+		this.setStartIndex(page.getStartIndex());
+	}
+	
+	/**
+	 * 翻页查询供应商列表（供应商选择页面用）
+	 */
+	@SuppressWarnings("unchecked")
+	private void querySelectSupplier() {
+		listSelectSupplier = new ArrayList<SupplierDto>();
+		if(selectPage == null) {
+			selectPage = new Page(intSelectPageSize);
+		}
+		//翻页查询所有供应商
+		this.selectPage.setStartIndex(selectStartIndex);
+		selectPage = supplierService.querySupplierByPage(selectPage, "", "", strSelectSupplierName);
+		listSelectSupplier = (List<SupplierDto>) selectPage.getItems();
+		
+		this.setSelectStartIndex(selectPage.getStartIndex());
+	}
 
 	public Page getPage() {
 		return page;
@@ -477,5 +563,44 @@ public class SupplierAction extends BaseAction {
 
 	public void setStrSupplierName(String strSupplierName) {
 		this.strSupplierName = strSupplierName;
+	}
+
+	public String getStrSelectSupplierName() {
+		return strSelectSupplierName;
+	}
+	public void setStrSelectSupplierName(String strSelectSupplierName) {
+		this.strSelectSupplierName = strSelectSupplierName;
+	}
+
+	public List<SupplierDto> getListSelectSupplier() {
+		return listSelectSupplier;
+	}
+
+	public void setListSelectSupplier(List<SupplierDto> listSelectSupplier) {
+		this.listSelectSupplier = listSelectSupplier;
+	}
+
+	public int getSelectStartIndex() {
+		return selectStartIndex;
+	}
+
+	public Page getSelectPage() {
+		return selectPage;
+	}
+
+	public void setSelectStartIndex(int selectStartIndex) {
+		this.selectStartIndex = selectStartIndex;
+	}
+
+	public void setSelectPage(Page selectPage) {
+		this.selectPage = selectPage;
+	}
+
+	public Integer getIntSelectPageSize() {
+		return intSelectPageSize;
+	}
+
+	public void setIntSelectPageSize(Integer intSelectPageSize) {
+		this.intSelectPageSize = intSelectPageSize;
 	}
 }

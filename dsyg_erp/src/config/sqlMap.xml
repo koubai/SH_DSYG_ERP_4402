@@ -9,9 +9,11 @@
 	<sqlMap resource="/config/ibatis/dsyg-user.xml" />
 	<sqlMap resource="/config/ibatis/dsyg-resource.xml" />
 	<sqlMap resource="/config/ibatis/dsyg-role.xml" />
-	<sqlMap resource="/config/ibatis/dsyg-etbpurchase.xml" />
-	<sqlMap resource="/config/ibatis/dsyg-etbpurchaseitem.xml" />
-	<sqlMap resource="/config/ibatis/dsyg-etbproduct.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-purchase.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-purchaseitem.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-product.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-warehouse.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-warehouserpt.xml" />
 	<sqlMap resource="/config/ibatis/dsyg-supplier.xml" />
 	
 </sqlMapConfig>
