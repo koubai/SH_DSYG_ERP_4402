@@ -85,11 +85,11 @@ public class ChartServlet extends HttpServlet {
         chartService = (ChartService)ctx.getBean("chartService");
     	chartService.setCtx(ctx);    	
         // Get Saler's individual data
-        if (act.equals("getSaleData")){
+        if (act.equals("getPurchaseData")){
             jsonArr = chartService.getData("1",from_date, to_date, handerList);        	
         } 
         // Get Buyer's individual data
-        else if (act.equals("getBuyData")){
+        else if (act.equals("getSaleData")){
             jsonArr = chartService.getData("2", from_date, to_date, handerList);        	
         }
         // Get Delivery's individual data

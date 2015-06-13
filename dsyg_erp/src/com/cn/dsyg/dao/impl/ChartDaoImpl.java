@@ -46,7 +46,7 @@ public class ChartDaoImpl extends BaseDao implements ChartDao {
 		paramMap.put("handerList", handerList);
 
 		@SuppressWarnings("unchecked")
-		List<ChartDto> list = getSqlMapClientTemplate().queryForList("queryWareHouseRptByDate", paramMap);
+		List<ChartDto> list = getSqlMapClientTemplate().queryForList("queryDeliveryByDate", paramMap);
 		return list;
 	}
 

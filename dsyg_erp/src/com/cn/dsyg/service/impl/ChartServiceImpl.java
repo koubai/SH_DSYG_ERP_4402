@@ -92,7 +92,7 @@ public class ChartServiceImpl implements ChartService{
 	// 取得销售数据
 	public List<ChartDto> getSaleData(String theme, String from_date, String to_date, String handerList) {  
     	List<ChartDto>  list = new ArrayList<ChartDto>();
-        list = queryPurchaseByDate(theme, from_date, to_date, handerList);
+        list = querySalesByDate(theme, from_date, to_date, handerList);
     	
     	return list;
     }
@@ -108,7 +108,7 @@ public class ChartServiceImpl implements ChartService{
 	// 取得快递数据
     public List<ChartDto> getDeliveryData(String theme, String from_date, String to_date, String handerList) {  
     	List<ChartDto>  list = new ArrayList<ChartDto>();
-        list = queryPurchaseByDate(theme, from_date, to_date, handerList);
+        list = queryWareHouseRptByDate(theme, from_date, to_date, handerList);
     	
     	return list;
     }
@@ -116,7 +116,7 @@ public class ChartServiceImpl implements ChartService{
 	// 取得会计数据
     public List<ChartDto> getAccountData(String theme, String from_date, String to_date, String handerList) {  
     	List<ChartDto>  list = new ArrayList<ChartDto>();
-        list = queryPurchaseByDate(theme, from_date, to_date, handerList);
+        list = queryFinanceByDate(theme, from_date, to_date, handerList);
     	
     	return list;
     }
@@ -235,13 +235,13 @@ public class ChartServiceImpl implements ChartService{
         try {
         	List<ChartDto>  list = new ArrayList<ChartDto>();
 
-        	// get Saler's data 
-        	if (pattern=="1"){
-        		list = getSaleData("", from_date, to_date, handerList);
-        	}
         	// get Buyer's data 
-        	else if (pattern=="2"){
+        	if (pattern=="1"){
         		list = getBuyData("", from_date, to_date, handerList);
+        	}
+        	// get Saler's data 
+        	else if (pattern=="2"){
+        		list = getSaleData("", from_date, to_date, handerList);
         	}
         	// get Delivery's data 
         	else if (pattern=="3"){
@@ -265,7 +265,7 @@ public class ChartServiceImpl implements ChartService{
 		        	ChartDto chd = list.get(z);
 		        	user_id = chd.getHandler();	        	
 		            System.out.println("user_id_loop:" + user_id);
-		        	if (user_id != tmp_user_id){
+		        	if (!user_id.equals(tmp_user_id) ){
 		        		// part of every user_id 
 			            System.out.println("This user_id is:" + user_id);
 			            if (temp_item_map != null){

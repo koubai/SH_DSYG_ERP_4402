@@ -24,7 +24,14 @@ public class ChartDto extends BaseDto {
 	private String Y_Month_12;
 	private String Theme;
 	private String Handler;
+	private String Id;
 
+	public String getId() {
+		return Id;
+	}
+	public void setId(String id) {
+		Id = id;
+	}
 	public String getX_Year() {
 		return X_Year;
 	}

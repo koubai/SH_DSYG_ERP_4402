@@ -145,20 +145,33 @@
                 dataType: "text",
                 async: false,
                 success: function (data) {
-                	var str_data= JSON.stringify(eval(data));
-                	var str_data2= str_data.replace(/\"/g,"");
-                   	o_data=str_data2;            
 //        			alert("org_data:"+str_data2);
 	       			var pie_data = getPieData(data, tit);
 //	       			alert("pie_data:"+pie_data);
         			drawPie(pie_data, tit);
+        			o_data = getChartData(data);
         			drawChart(mth, o_data, tit);
         			viewData(o_data);
                 }
             });
             return o_data;
-        }		
-
+        }	
+		
+		function getChartData(data) {
+			var jsonobj=eval(data);  
+			var sum_data = new Array();
+			var total_data = new Number(0);
+			if (jsonobj.length >0){
+				for(var k=0;k<jsonobj.length;k++){  
+					jsonobj[k].name= "'"+ jsonobj[k].name+"'";
+				}
+			}
+        	var str_data= JSON.stringify(jsonobj);
+        	var o_data= str_data.replace(/\"/g,"");
+//   			alert("o_data:"+o_data);
+           	return o_data;            
+		}
+		
 		function getPieData(data, tit) {
 //			var	data=[{name:0001,data:[11700.00,23400.00,11700.00,11700.00,11700.00,23400.00,11700.00]},{name:0003,data:[0.00,21700.00,21700.00,0.00,0.00,0.00,0.00]}];
 
@@ -264,7 +277,7 @@
 		                backgroundColor: '#FFFFFF',  
 		                align: 'left',  
 		                verticalAlign: 'top',  
-		                x: 5,  
+		                x: 500,  
 		                y: 5,  
 		                floating: true,  
 		                shadow: true  
@@ -312,6 +325,30 @@
 			ajaxRequestData("getSaleData", -12, "销售");
 		};
 		
+	    function getDeliveryData3M() {
+     		alert("快递3");
+			ajaxRequestData("getDeliveryData", -3, "快递");
+		};
+		function getDeliveryData6M() {
+     		alert("快递6");
+			ajaxRequestData("getDeliveryData", -6, "快递");
+		};
+		function getDeliveryData12M() {
+     		alert("快递12");
+			ajaxRequestData("getDeliveryData", -12, "快递");
+		};
+	    function getAccountData3M() {
+     		alert("会计3");
+			ajaxRequestData("getAccountData", -3, "会计");
+		};
+		function getAccountData6M() {
+     		alert("会计6");
+			ajaxRequestData("getAccountData", -6, "会计");
+		};
+		function getAccountData12M() {
+     		alert("会计12");
+			ajaxRequestData("getAccountData", -12, "会计");
+		};
 		</script>
 		<script src="${pageContext.request.contextPath}/js/themes/gray.js"></script>
 	</head>
@@ -321,12 +358,40 @@
 		<input type="hidden" id="h2" value="<s:property value="series" />" />
 		<input type="hidden" id="h3" value="<s:property value="series_X" />" />
 		<input type="text" name="handerList" id="handerList" value="0001,0002" />
-           <Input id="btn1" type=button value="采购 3 Month" onClick="javascripts:getPurchaseData3M();">
-           <Input id="btn2" type=button value="采购 6 Month" onClick="javascripts:getPurchaseData6M();">
-           <Input id="btn3" type=button value="采购 12 Month" onClick="javascripts:getPurchaseData12M();">
-           <Input id="btn1" type=button value="销售 3 Month" onClick="javascripts:getSaleData3M();">
-           <Input id="btn2" type=button value="销售 6 Month" onClick="javascripts:getSaleData6M();">
-           <Input id="btn3" type=button value="销售 12 Month" onClick="javascripts:getSaleData12M();">
+		<table>
+		<tr>
+		<td>
+           <Input id="btn1" type=button value="采购 3 Month" onClick="javascripts:getPurchaseData3M();" /></td>
+		<td>
+           <Input id="btn2" type=button value="采购 6 Month" onClick="javascripts:getPurchaseData6M();" /></td>
+		<td>
+           <Input id="btn3" type=button value="采购 12 Month" onClick="javascripts:getPurchaseData12M();" /></td>
+		</tr>
+		<tr>
+		<td>
+           <Input id="btn1" type=button value="销售 3 Month" onClick="javascripts:getSaleData3M();" /></td>
+		<td>
+           <Input id="btn2" type=button value="销售 6 Month" onClick="javascripts:getSaleData6M();" /></td>
+		<td>
+           <Input id="btn3" type=button value="销售 12 Month" onClick="javascripts:getSaleData12M();" /></td>
+		</tr>
+		<tr>
+		<td>
+           <Input id="btn1" type=button value="快递 3 Month" onClick="javascripts:getDeliveryData3M();" /></td>
+		<td>
+           <Input id="btn2" type=button value="快递 6 Month" onClick="javascripts:getDeliveryData6M();" /></td>
+		<td>
+           <Input id="btn3" type=button value="快递 12 Month" onClick="javascripts:getDeliveryData12M();" /></td>
+		</tr>
+		<tr>
+		<td>
+           <Input id="btn1" type=button value="财务 3 Month" onClick="javascripts:getAccountData3M();" /></td>
+		<td>
+           <Input id="btn2" type=button value="财务 6 Month" onClick="javascripts:getAccountData6M();" /></td>
+		<td>
+           <Input id="btn3" type=button value="财务 12 Month" onClick="javascripts:getAccountData12M();" /></td>
+		</tr>
+		</table>
 		<table>
 		<tr>
 		<td>
