@@ -12,6 +12,14 @@ import com.cn.dsyg.dto.WarehouseDto;
 public interface WarehouseService {
 	
 	/**
+	 * 库存确认
+	 * @param productid
+	 * @param supplierid
+	 * @param userid
+	 */
+	public void warehouseInOk(String productid, String supplierid, String userid);
+	
+	/**
 	 * 入库确认
 	 * @param productid
 	 * @param supplierid

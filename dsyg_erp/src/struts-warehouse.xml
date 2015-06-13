@@ -22,6 +22,22 @@
 			<result name="*">/page/warehouse/warehouseoklist.jsp</result>
 		</action>
 		
+		<action name="showWarehouseInOkAction" class="warehouseInOkAction" method="showWarehouseInOkAction">
+			<result name="*">/page/warehouse/warehouseinoklist.jsp</result>
+		</action>
+		
+		<action name="queryWarehouseInOkAction" class="warehouseInOkAction" method="queryWarehouseInOkAction">
+			<result name="*">/page/warehouse/warehouseinoklist.jsp</result>
+		</action>
+		
+		<action name="turnWarehouseInOkAction" class="warehouseInOkAction" method="turnWarehouseInOkAction">
+			<result name="*">/page/warehouse/warehouseinoklist.jsp</result>
+		</action>
+		
+		<action name="warehouseInOkAction" class="warehouseInOkAction" method="warehouseInOkAction">
+			<result name="*">/page/warehouse/warehouseinoklist.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

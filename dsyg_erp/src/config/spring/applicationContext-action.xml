@@ -1,6 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>  
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
+
+	<!-- warehouseinOk -->
+	<bean id="warehouseInOkAction" class="com.cn.dsyg.action.WarehouseInOkAction" scope="session">
+		<property name="warehouseService">
+			<ref bean="warehouseService"/>
+		</property>
+		<property name="dict01Service">
+			<ref bean="dict01Service"/>
+		</property>
+	</bean>
 	
 	<!-- warehouseOk -->
 	<bean id="warehouseOkAction" class="com.cn.dsyg.action.WarehouseOkAction" scope="session">

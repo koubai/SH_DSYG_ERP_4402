@@ -11,7 +11,6 @@ import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.dsyg.dto.Dict01Dto;
-import com.cn.dsyg.dto.WarehouseDto;
 import com.cn.dsyg.dto.WarehouseOkDto;
 import com.cn.dsyg.service.Dict01Service;
 import com.cn.dsyg.service.WarehouseService;
@@ -39,7 +38,7 @@ public class WarehouseInOkAction extends BaseAction {
 	//一页显示数据条数
 	private Integer intPageSize;
 	//库存确认数据列表
-	private List<WarehouseDto> warehouseList;
+	private List<WarehouseOkDto> warehouseInOkList;
 	
 	//采购主题
 	private List<Dict01Dto> goodsList;
@@ -50,12 +49,15 @@ public class WarehouseInOkAction extends BaseAction {
 	//产地
 	private List<Dict01Dto> makeareaList;
 	
-	//预入库
+	//库存确认
+	private String strOkProductid;
+	private String strOkSupplierid;
+	
 	/**
-	 * 显示预入库确认页面
+	 * 库存确认页面
 	 * @return
 	 */
-	public String showWarehouseOkAction() {
+	public String showWarehouseInOkAction() {
 		try {
 			this.clearMessages();
 			//页面数据初期化
@@ -63,19 +65,22 @@ public class WarehouseInOkAction extends BaseAction {
 			//默认10条
 			intPageSize = 10;
 			page = new Page(intPageSize);
-			warehouseList = new ArrayList<WarehouseDto>();
+			warehouseInOkList = new ArrayList<WarehouseOkDto>();
+			
+			strOkProductid = "";
+			strOkSupplierid = "";
 		} catch(Exception e) {
-			log.error("showWarehouseOkAction error:" + e);
+			log.error("showWarehouseInOkAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
 	}
 	
 	/**
-	 * 查询入库数据
+	 * 查询库存确认数据
 	 * @return
 	 */
-	public String queryWarehouseOkAction() {
+	public String queryWarehouseInOkAction() {
 		try {
 			this.clearMessages();
 			//页面数据初期化
@@ -87,7 +92,7 @@ public class WarehouseInOkAction extends BaseAction {
 			page = new Page(intPageSize);
 			queryData();
 		} catch(Exception e) {
-			log.error("queryWarehouseOkAction error:" + e);
+			log.error("queryWarehouseInOkAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -97,13 +102,13 @@ public class WarehouseInOkAction extends BaseAction {
 	 * 翻页
 	 * @return
 	 */
-	public String turnWarehouseOkAction() {
+	public String turnWarehouseInOkAction() {
 		try {
 			this.clearMessages();
 			//页面数据初期化
 			queryData();
 		} catch(Exception e) {
-			log.error("turnWarehouseOkAction error:" + e);
+			log.error("turnWarehouseInOkAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -116,15 +121,15 @@ public class WarehouseInOkAction extends BaseAction {
 	public String warehouseInOkAction() {
 		try {
 			this.clearMessages();
-//			//当前操作用户ID
-//			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
-//			warehouseService.warehouseOk(strOkProductid, strOkSupplierid, username);
-//			
-//			this.addActionMessage("确认成功！");
-//			//刷新页面数据
-//			queryData();
+			//当前操作用户ID
+			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			warehouseService.warehouseInOk(strOkProductid, strOkSupplierid, username);
+			
+			this.addActionMessage("确认成功！");
+			//刷新页面数据
+			queryData();
 		} catch(Exception e) {
-			log.error("warehouseOkAction error:" + e);
+			log.error("warehouseInOkAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -139,10 +144,10 @@ public class WarehouseInOkAction extends BaseAction {
 			page = new Page(intPageSize);
 		}
 		initDictList();
-		//翻页查询所有委托公司
+		//翻页查询所有库存确认数据
 		this.page.setStartIndex(startIndex);
-		page = warehouseService.queryWarehouseOkByPage("" + Constants.WAREHOUSE_STATUS_NEW, page);
-		warehouseList = (List<WarehouseDto>) page.getItems();
+		page = warehouseService.queryWarehouseOkByPage("" + Constants.WAREHOUSE_STATUS_OK, page);
+		warehouseInOkList = (List<WarehouseOkDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
 	
@@ -232,11 +237,27 @@ public class WarehouseInOkAction extends BaseAction {
 		this.warehouseService = warehouseService;
 	}
 
-	public List<WarehouseDto> getWarehouseList() {
-		return warehouseList;
+	public String getStrOkProductid() {
+		return strOkProductid;
 	}
 
-	public void setWarehouseList(List<WarehouseDto> warehouseList) {
-		this.warehouseList = warehouseList;
+	public void setStrOkProductid(String strOkProductid) {
+		this.strOkProductid = strOkProductid;
+	}
+
+	public String getStrOkSupplierid() {
+		return strOkSupplierid;
+	}
+
+	public void setStrOkSupplierid(String strOkSupplierid) {
+		this.strOkSupplierid = strOkSupplierid;
+	}
+
+	public List<WarehouseOkDto> getWarehouseInOkList() {
+		return warehouseInOkList;
+	}
+
+	public void setWarehouseInOkList(List<WarehouseOkDto> warehouseInOkList) {
+		this.warehouseInOkList = warehouseInOkList;
 	}
 }

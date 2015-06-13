@@ -19,10 +19,23 @@ public class WarehouseServiceImpl implements WarehouseService {
 	private WarehouseDao warehouseDao;
 	
 	@Override
+	public void warehouseInOk(String productid, String supplierid, String userid) {
+		List<WarehouseDto> list = warehouseDao.queryWarehouseBySupplieridProductid("" + Constants.WAREHOUSE_STATUS_OK, productid, supplierid);
+		if(list != null && list.size() > 0) {
+			for(WarehouseDto warehouse : list) {
+				warehouse.setUpdateuid(userid);
+				warehouse.setApproverid(userid);
+				//状态=库存确认
+				warehouse.setStatus(Constants.WAREHOUSE_STATUS_RECEIVE);
+				warehouseDao.updateWarehouse(warehouse);
+			}
+		}
+	}
+	
+	@Override
 	public void warehouseOk(String productid, String supplierid, String userid) {
 		List<WarehouseDto> list = warehouseDao.queryWarehouseBySupplieridProductid("" + Constants.WAREHOUSE_STATUS_NEW, productid, supplierid);
 		if(list != null && list.size() > 0) {
-			//计算此次入库数量=预入库数量-已入库数量
 			for(WarehouseDto warehouse : list) {
 				warehouse.setUpdateuid(userid);
 				warehouse.setApproverid(userid);

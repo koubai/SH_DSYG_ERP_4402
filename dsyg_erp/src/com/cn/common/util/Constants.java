@@ -146,7 +146,7 @@ public class Constants {
 	public final static int WAREHOUSE_STATUS_OK = 20;
 	//已发货
 	public final static int WAREHOUSE_STATUS_SEND = 30;
-	//已收货
+	//库存确认
 	public final static int WAREHOUSE_STATUS_RECEIVE = 40;
 	//预退货
 	public final static int WAREHOUSE_STATUS_REFUND = 50;

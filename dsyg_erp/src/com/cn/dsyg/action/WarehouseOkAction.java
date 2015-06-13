@@ -53,7 +53,6 @@ public class WarehouseOkAction extends BaseAction {
 	private String strOkProductid;
 	private String strOkSupplierid;
 	
-	//预入库
 	/**
 	 * 显示预入库确认页面
 	 * @return
@@ -174,7 +173,7 @@ public class WarehouseOkAction extends BaseAction {
 			page = new Page(intPageSize);
 		}
 		initDictList();
-		//翻页查询所有委托公司
+		//翻页查询所有预入库待确认数据
 		this.page.setStartIndex(startIndex);
 		page = warehouseService.queryWarehouseOkByPage("" + Constants.WAREHOUSE_STATUS_NEW, page);
 		warehouseOkList = (List<WarehouseOkDto>) page.getItems();
