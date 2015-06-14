@@ -83,7 +83,7 @@ public class SalesDto extends BaseAction {
 	/**
 	 * 订单日期
 	 */
-	private Date bookdate;
+	private String bookdate;
 
 	/**
 	 * 采购金额（不含税）
@@ -299,14 +299,6 @@ public class SalesDto extends BaseAction {
 		this.handler = handler;
 	}
 
-	public Date getBookdate() {
-		return bookdate;
-	}
-
-	public void setBookdate(Date bookdate) {
-		this.bookdate = bookdate;
-	}
-
 	public BigDecimal getAmount() {
 		return amount;
 	}
@@ -481,5 +473,13 @@ public class SalesDto extends BaseAction {
 
 	public void setUpdatedate(Date updatedate) {
 		this.updatedate = updatedate;
+	}
+
+	public String getBookdate() {
+		return bookdate;
+	}
+
+	public void setBookdate(String bookdate) {
+		this.bookdate = bookdate;
 	}
 }

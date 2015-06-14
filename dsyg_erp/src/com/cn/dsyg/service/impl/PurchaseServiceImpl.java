@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.cn.common.util.Constants;
+import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.dsyg.dao.PurchaseDao;
@@ -207,7 +208,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		//入出库金额（含税）
 		warehouse.setTaxamount(purchaseItem.getTaxamount());
 		//入库日期=当天
-		warehouse.setWarehousedate(date);
+		warehouse.setWarehousedate(DateUtil.dateToShortStr(new Date()));
 		//供应商ID
 		warehouse.setSupplierid(purchase.getSupplierid());
 		//收货人

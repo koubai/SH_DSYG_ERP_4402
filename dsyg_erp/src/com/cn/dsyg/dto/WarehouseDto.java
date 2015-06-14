@@ -83,7 +83,7 @@ public class WarehouseDto extends BaseAction {
 	/**
 	 * 入库日期
 	 */
-	private Date warehousedate;
+	private String warehousedate;
 
 	/**
 	 * 收货人
@@ -290,14 +290,6 @@ public class WarehouseDto extends BaseAction {
 		this.taxamount = taxamount;
 	}
 
-	public Date getWarehousedate() {
-		return warehousedate;
-	}
-
-	public void setWarehousedate(Date warehousedate) {
-		this.warehousedate = warehousedate;
-	}
-
 	public String getHandler() {
 		return handler;
 	}
@@ -456,6 +448,14 @@ public class WarehouseDto extends BaseAction {
 
 	public void setUpdatedate(Date updatedate) {
 		this.updatedate = updatedate;
+	}
+
+	public String getWarehousedate() {
+		return warehousedate;
+	}
+
+	public void setWarehousedate(String warehousedate) {
+		this.warehousedate = warehousedate;
 	}
 
 }

@@ -68,7 +68,7 @@ public class WarehouserptDto extends BaseAction {
 	/**
 	 * 入出库单日期
 	 */
-	private Date warehousedate;
+	private String warehousedate;
 
 	/**
 	 * 收货人
@@ -312,14 +312,6 @@ public class WarehouserptDto extends BaseAction {
 
 	public void setTotaltaxamount(BigDecimal totaltaxamount) {
 		this.totaltaxamount = totaltaxamount;
-	}
-
-	public Date getWarehousedate() {
-		return warehousedate;
-	}
-
-	public void setWarehousedate(Date warehousedate) {
-		this.warehousedate = warehousedate;
 	}
 
 	public String getHandler() {
@@ -624,5 +616,13 @@ public class WarehouserptDto extends BaseAction {
 
 	public void setSupplierfax(String supplierfax) {
 		this.supplierfax = supplierfax;
+	}
+
+	public String getWarehousedate() {
+		return warehousedate;
+	}
+
+	public void setWarehousedate(String warehousedate) {
+		this.warehousedate = warehousedate;
 	}
 }

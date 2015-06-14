@@ -93,7 +93,12 @@ public class PurchaseDto extends BaseAction {
 	/**
 	 * 采购日期
 	 */
-	private Date purchasedate;
+	private String purchasedate;
+	
+	/**
+	 * 采购日期（显示用）
+	 */
+	private String showPurchasedate;
 
 	/**
 	 * 采购金额（不含税）
@@ -306,14 +311,6 @@ public class PurchaseDto extends BaseAction {
 		this.handler = handler;
 	}
 
-	public Date getPurchasedate() {
-		return purchasedate;
-	}
-
-	public void setPurchasedate(Date purchasedate) {
-		this.purchasedate = purchasedate;
-	}
-
 	public BigDecimal getTotalamount() {
 		return totalamount;
 	}
@@ -522,4 +519,24 @@ public class PurchaseDto extends BaseAction {
 		this.supplierfax = supplierfax;
 	}
 
+	public String getPurchasedate() {
+		return purchasedate;
+	}
+
+	public void setPurchasedate(String purchasedate) {
+		this.purchasedate = purchasedate;
+	}
+
+	public String getShowPurchasedate() {
+		if(purchasedate != null && !"".equals(purchasedate)) {
+			showPurchasedate = purchasedate.substring(0, 10);
+		} else {
+			showPurchasedate = "";
+		}
+		return showPurchasedate;
+	}
+
+	public void setShowPurchasedate(String showPurchasedate) {
+		this.showPurchasedate = showPurchasedate;
+	}
 }

@@ -433,7 +433,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center date_input">
-									<input type="text" id="tmpPurchasedate" disabled="disabled" style="width:285px;" value="<s:date name="updPurchaseDto.purchasedate" format="yyyy-MM-dd" />" />
+									<input type="text" id="tmpPurchasedate" disabled="disabled" style="width:285px;" value="<s:property value="updPurchaseDto.showPurchasedate"/>" />
 									<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpPurchasedate'));"></a>
 								</div>
 								<div class="box1_right"></div>

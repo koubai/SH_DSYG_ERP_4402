@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
+import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
@@ -130,7 +131,8 @@ public class PurchaseAction extends BaseAction {
 			//==========================================测试数据，等供应商页面整合时修改
 			addPurchaseDto.setSupplierid(1L);
 			//默认为当天
-			addPurchaseDto.setPurchasedate(new Date());
+			addPurchaseDto.setPurchasedate(DateUtil.dateToShortStr(new Date()));
+			
 			addPurchaseItemList = new ArrayList<PurchaseItemDto>();
 			//初期化字典数据
 			initDictList();
@@ -166,7 +168,7 @@ public class PurchaseAction extends BaseAction {
 			//清空数据
 			addPurchaseDto = new PurchaseDto();
 			//默认为当天
-			addPurchaseDto.setPurchasedate(new Date());
+			addPurchaseDto.setPurchasedate(DateUtil.dateToShortStr(new Date()));
 			addPurchaseItemList = new ArrayList<PurchaseItemDto>();
 		} catch(Exception e) {
 			log.error("addPurchaseAction error:" + e);
