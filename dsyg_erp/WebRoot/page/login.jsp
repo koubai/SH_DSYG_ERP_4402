@@ -7,6 +7,16 @@
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
 <title>登录</title>
+<style type="text/css">
+body{ font-size:28px; color:#FFF; 
+	background: #75D2FF url(<%=request.getContextPath()%>/images/bg7.jpg) no-repeat fixed bottom;
+}
+a { color:#FFF}
+.classname { margin-left: 50px; margin-right: 50px; border:solid 1px #2d2d2d;  text-align:center; background:#0080C0; padding:50px 50px 50px 50px;  -moz-border-radius: 5px;  -webkit-border-radius: 5px; border-radius: 5px;}
+.classname{text-shadow:5px  5px 5px #000000;}
+.classname{-moz-box-shadow:10px  10px 5px #000000;-webkit-box-shadow:10px  10px 5px #000000;box-shadow:10px  10px 5px #000000;} 
+</style>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		var h = document.documentElement.clientHeight;
@@ -46,13 +56,7 @@
 </script>
 </head>
 <body>
-	<div id="container">
-		<div id="top" style="height:200px;">
-			<div class="logobox" style="margin-top:60px;">
-				<div class="logo_tittle"></div>
-				<div class="logo"></div>
-			</div>
-		</div>
+		<div class="classname">DSYG_东升盈港企业内部管理系统</div>
 		<div class="content">
 		<div style="position:absolute; margin-left: 430px; margin-top: 1px; text-align: center; color: red;">
 			<s:actionmessage />
@@ -121,7 +125,5 @@
 				</table>
 			</s:form>
 		</div>
-		<div id="footer"></div>
-	</div>
 </body>
 </html>
