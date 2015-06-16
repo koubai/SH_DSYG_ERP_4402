@@ -54,73 +54,33 @@
 			return dicArray;
    	    };
    	    
-		function viewData(data) {
+		function viewData(X_data, data) {
 			var jsonobj=eval(data);  
 
 			var newLine = $("#planTable").length;
 			var d=document.getElementById('planTable').deleteTHead();
 			var x=document.getElementById('planTable').createTHead();
-			var row = x.insertRow(0);   
-            var col = row.insertCell(0);                
-			 col.innerHTML="Name";
-             col = row.insertCell(1);   
-             col.innerHTML =  "Data1";   
-             col = row.insertCell(2);   
-             col.innerHTML =  "Data2";;   
-             col = row.insertCell(3);   
-             col.innerHTML =  "Data3";;   
-             col = row.insertCell(4);   
-             col.innerHTML =  "Data4";;   
-             col = row.insertCell(5);   
-             col.innerHTML =  "Data5";;   
-             col = row.insertCell(6);   
-             col.innerHTML =  "Data6";;   
-             col = row.insertCell(7);   
-             col.innerHTML =  "Data7";;   
-             col = row.insertCell(8);   
-             col.innerHTML =  "Data8";;   
-             col = row.insertCell(9);   
-             col.innerHTML =  "Data19";;   
-             col = row.insertCell(10);   
-             col.innerHTML =  "Data10";;   
-             col = row.insertCell(11);   
-             col.innerHTML =  "Data11";;   
-             col = row.insertCell(12);   
-             col.innerHTML =  "Data12";;   
-             
-			d=document.getElementById('planTable').deleteTFoot();
-			x=document.getElementById('planTable').createTFoot();
-	        $.each(jsonobj, function(i, u){	         				
-//				planTable.deleteRow(newLine);
-	    		 var row = x.insertRow(i); 
-	             var col = row.insertCell(0);                
-	             col.innerHTML = u.name;
-	                
-	             col = row.insertCell(1);   
-	             col.innerHTML =  u.data[0];   
-	             col = row.insertCell(2);   
-	             col.innerHTML =  u.data[1];   
-	             col = row.insertCell(3);   
-	             col.innerHTML =  u.data[2];   
-	             col = row.insertCell(4);   
-	             col.innerHTML =  u.data[3];   
-	             col = row.insertCell(5);   
-	             col.innerHTML =  u.data[4];   
-	             col = row.insertCell(6);   
-	             col.innerHTML =  u.data[5];   
-	             col = row.insertCell(7);   
-	             col.innerHTML =  u.data[6];   
-	             col = row.insertCell(8);   
-	             col.innerHTML =  u.data[7];   
-	             col = row.insertCell(9);   
-	             col.innerHTML =  u.data[8];   
-	             col = row.insertCell(10);   
-	             col.innerHTML =  u.data[9];   
-	             col = row.insertCell(11);   
-	             col.innerHTML =  u.data[10];   
-	             col = row.insertCell(12);   
-	             col.innerHTML =  u.data[11];   
-	        });
+			if (X_data.length>0){
+				var row = x.insertRow(0);   
+	            var col = row.insertCell(0);         
+                col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+""+"</strong>";
+	            for (var z=0; z< X_data.length; z++) {
+	    		    col = row.insertCell(z+1);   
+	                col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+X_data[z]+"</strong>";
+	            }             
+				d=document.getElementById('planTable').deleteTFoot();
+				x=document.getElementById('planTable').createTFoot();
+		        $.each(jsonobj, function(i, u){	         				
+		    		 var row = x.insertRow(i); 
+		    		 var col = row.insertCell(0);                
+		             col.innerHTML = "<style>strong1{float: right;}</style><strong1>"+u.name+"</strong1>";
+			                
+		             for (var w=0; w< u.data.length; w++) {
+					 	col = row.insertCell(w+1);   
+			            col.innerHTML = "<style>strong1{float: right;}</style><strong1>"+u.data[w]+"</strong1>";
+		             }
+		        });				
+			}
 	    };  
    	    
 		function ajaxRequestData(act, mth, tit){
@@ -151,7 +111,7 @@
         			drawPie(pie_data, tit);
         			o_data = getChartData(data);
         			drawChart(mth, o_data, tit);
-        			viewData(o_data);
+        			viewData(X_data, o_data);
                 }
             });
             return o_data;
@@ -222,7 +182,11 @@
 						plotBorderWidth: null,
 						plotShadow: false
 					},
-
+					
+					credits: { 
+			               enabled: false   //右下角不显示LOGO 
+			           },
+			           
 					title: {
 						text: strTitle
 					},
@@ -259,7 +223,10 @@
 		    	options = {  
 		            chart: {  
 		                renderTo: 'container',  
-		            },  
+		            },		            
+		            credits: { 
+		                enabled: false   //右下角不显示LOGO 
+		            },
 		            title: {  
 		                text: tit + "曲线",
 		            },  
@@ -350,7 +317,7 @@
 			ajaxRequestData("getAccountData", -12, "会计");
 		};
 		</script>
-		<script src="${pageContext.request.contextPath}/js/themes/gray.js"></script>
+		<!-- <script src="${pageContext.request.contextPath}/js/themes/gray.js"></script> -->
 	</head>
 	<body>
 		<!-- 3. Add the container -->
@@ -395,14 +362,20 @@
 		<table>
 		<tr>
 		<td>
-		<div id="container" style="width: 600px; height: 300px; margin: 2 "></div>
-		<div id="container2" style="width: 300px; height: 300px; margin: 2 "></div>
+		<div id="container" style="width: 600px; height: 400px; margin: 2 "></div>
+		</td>
+		<td>
+		</td>
+		<td>
+		<div id="container2" style="width: 400px; height: 400px; margin: 2 "></div>
 		</td>
 		</tr>
 		</table>
+		<br><br><br>
 		<div id="dateMessage">   
-        <table id="planTable" border="1">   
-        </table>   
-    </div>
+		<!-- <table id="planTable" border:1px solid #000 style="border-collapse:collapse;"> -->
+		<table id="planTable" border:1px  cellpadding="3" cellspacing="1" style="background-color: #b9d8f3;">
+		</table>			
+	    </div>
 	</body>
 </html>
