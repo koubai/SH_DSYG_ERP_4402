@@ -14,6 +14,7 @@
 		<!-- 2. Add the JavaScript to initialize the chart on document ready -->
 		<script type="text/javascript">
 		$(function () {  
+			getSaleData3M();
 		});
 	     	    
 		Date.prototype.format = function(format){ 
@@ -328,37 +329,14 @@
 		<table>
 		<tr>
 		<td>
-           <Input id="btn1" type=button value="采购 3 Month" onClick="javascripts:getPurchaseData3M();" /></td>
-		<td>
-           <Input id="btn2" type=button value="采购 6 Month" onClick="javascripts:getPurchaseData6M();" /></td>
-		<td>
-           <Input id="btn3" type=button value="采购 12 Month" onClick="javascripts:getPurchaseData12M();" /></td>
-		</tr>
-		<tr>
-		<td>
            <Input id="btn1" type=button value="销售 3 Month" onClick="javascripts:getSaleData3M();" /></td>
 		<td>
            <Input id="btn2" type=button value="销售 6 Month" onClick="javascripts:getSaleData6M();" /></td>
 		<td>
            <Input id="btn3" type=button value="销售 12 Month" onClick="javascripts:getSaleData12M();" /></td>
 		</tr>
-		<tr>
-		<td>
-           <Input id="btn1" type=button value="快递 3 Month" onClick="javascripts:getDeliveryData3M();" /></td>
-		<td>
-           <Input id="btn2" type=button value="快递 6 Month" onClick="javascripts:getDeliveryData6M();" /></td>
-		<td>
-           <Input id="btn3" type=button value="快递 12 Month" onClick="javascripts:getDeliveryData12M();" /></td>
-		</tr>
-		<tr>
-		<td>
-           <Input id="btn1" type=button value="财务 3 Month" onClick="javascripts:getAccountData3M();" /></td>
-		<td>
-           <Input id="btn2" type=button value="财务 6 Month" onClick="javascripts:getAccountData6M();" /></td>
-		<td>
-           <Input id="btn3" type=button value="财务 12 Month" onClick="javascripts:getAccountData12M();" /></td>
-		</tr>
 		</table>
+		<br><br><br>
 		<table>
 		<tr>
 		<td>

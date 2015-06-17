@@ -6,12 +6,21 @@
 
 	<package name="chart" extends="struts-erp" namespace="/chart">
 		<action name="showSaleInfoMainChartAction" class="chartAction" method="showSaleInfoMainChartAction">
-			<result name="*">/page/chart.jsp</result>
+			<result name="*">/page/intermana/chart_sale.jsp</result>
 		</action>
 
-		<action name="getSaleDataAction" class="chartAction" method="getSaleDataAction">
-			<result name="*">/page/chart.jsp</result>
+		<action name="showPurchaseInfoMainChartAction" class="chartAction" method="showPurchaseInfoMainChartAction">
+			<result name="*">/page/intermana/chart_purchase.jsp</result>
 		</action>
+		
+		<action name="showDeliveryInfoMainChartAction" class="chartAction" method="showDeliveryInfoMainChartAction">
+			<result name="*">/page/intermana/chart_delivery.jsp</result>
+		</action>
+		
+		<action name="showAccountInfoMainChartAction" class="chartAction" method="showAccountInfoMainChartAction">
+			<result name="*">/page/intermana/chart_account.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

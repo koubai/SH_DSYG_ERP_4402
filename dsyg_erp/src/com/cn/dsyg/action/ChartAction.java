@@ -87,6 +87,36 @@ public class ChartAction extends BaseAction {
 		}
 	}
     
+    public String showPurchaseInfoMainChartAction(){  
+    	try{
+            System.out.println("showPurchaseInfoMainChartAction success"); 
+	        return SUCCESS;  
+		} catch(Exception e) {
+			log.error("showPurchaseInfoMainChartAction error:" + e);
+			return ERROR;
+		}
+	}
+
+    public String showDeliveryInfoMainChartAction(){  
+    	try{
+            System.out.println("showDeliveryInfoMainChartAction success"); 
+	        return SUCCESS;  
+		} catch(Exception e) {
+			log.error("showDeliveryInfoMainChartAction error:" + e);
+			return ERROR;
+		}
+	}
+
+    public String showAccountInfoMainChartAction(){  
+    	try{
+            System.out.println("showAccountInfoMainChartAction success"); 
+	        return SUCCESS;  
+		} catch(Exception e) {
+			log.error("showAccountInfoMainChartAction error:" + e);
+			return ERROR;
+		}
+	}
+
     public String getDataAction() {  
 		log.error("getDataAction");
 //    	JSONArray arr = getData();

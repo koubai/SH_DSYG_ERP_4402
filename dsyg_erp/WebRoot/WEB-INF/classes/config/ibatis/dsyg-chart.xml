@@ -198,4 +198,73 @@
 		)as test 
 			group by handler, financetype, pur_year
 	</select>
+	
+	<select id="querySupplierByDate_bak" parameterClass="java.util.Map" resultMap="ChartDto">
+		select id, handler, years as pur_year, 
+			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
+			SUM(case when months=02 then pur_sum_data else 0 end) 'pur_month02',   
+			SUM(case when months=03 then pur_sum_data else 0 end) 'pur_month03',   
+			SUM(case when months=04 then pur_sum_data else 0 end) 'pur_month04',   
+			SUM(case when months=05 then pur_sum_data else 0 end) 'pur_month05',   
+			SUM(case when months=06 then pur_sum_data else 0 end) 'pur_month06',   
+			SUM(case when months=07 then pur_sum_data else 0 end) 'pur_month07',   
+			SUM(case when months=08 then pur_sum_data else 0 end) 'pur_month08',   
+			SUM(case when months=09 then pur_sum_data else 0 end) 'pur_month09',   
+			SUM(case when months=10 then pur_sum_data else 0 end) 'pur_month10',   
+			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
+			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
+		from(   
+			select DATE_FORMAT(T.receiptdate,'%y') as years, DATE_FORMAT(T.receiptdate,'%m') months, TU.id as id, TU.suppliername as handler, T.amount as pur_sum_data     
+			from etb_finance T, etb_supplier TU
+			where 1=1 
+			and T.supplierid = TU.id
+			and	T.financetype = '1'
+			<isNotEmpty prepend="and" property="from_date">
+				T.receiptdate <![CDATA[>=]]> #from_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="to_date">
+				T.receiptdate <![CDATA[<=]]> #to_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="handerList">
+				TU.customerid in ( $handerList$ )			
+			</isNotEmpty>			
+		)as test 
+			group by id, handler, pur_year
+			order by id
+	</select>
+	
+	<select id="queryCustomerByDate_bak" parameterClass="java.util.Map" resultMap="ChartDto">
+		select id, handler, years as pur_year, 
+			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
+			SUM(case when months=02 then pur_sum_data else 0 end) 'pur_month02',   
+			SUM(case when months=03 then pur_sum_data else 0 end) 'pur_month03',   
+			SUM(case when months=04 then pur_sum_data else 0 end) 'pur_month04',   
+			SUM(case when months=05 then pur_sum_data else 0 end) 'pur_month05',   
+			SUM(case when months=06 then pur_sum_data else 0 end) 'pur_month06',   
+			SUM(case when months=07 then pur_sum_data else 0 end) 'pur_month07',   
+			SUM(case when months=08 then pur_sum_data else 0 end) 'pur_month08',   
+			SUM(case when months=09 then pur_sum_data else 0 end) 'pur_month09',   
+			SUM(case when months=10 then pur_sum_data else 0 end) 'pur_month10',   
+			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
+			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
+		from(   
+			select DATE_FORMAT(T.receiptdate,'%y') as years, DATE_FORMAT(T.receiptdate,'%m') months, TU.id as id, TU.customername as handler, T.amount as pur_sum_data     
+			from etb_finance T, etb_customer TU
+			where 1=1 
+			and T.customerid = TU.id
+			and	T.financetype = '2'
+			<isNotEmpty prepend="and" property="from_date">
+				T.receiptdate <![CDATA[>=]]> #from_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="to_date">
+				T.receiptdate <![CDATA[<=]]> #to_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="handerList">
+				TU.customerid in ( $handerList$ )			
+			</isNotEmpty>			
+		)as test 
+			group by id, handler, pur_year
+			order by id
+	</select>
+	
 </sqlMap>
