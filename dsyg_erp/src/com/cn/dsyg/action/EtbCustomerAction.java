@@ -271,6 +271,35 @@ public class EtbCustomerAction extends BaseAction {
 	}
 	
 	/**
+	 * 修改客户
+	 * @return
+	 */
+	public String updEtbCustomerManageAction() {
+		try {
+			this.clearMessages();
+			/*
+			//数据校验
+			if(!checkData(updateCustomerDto)) {
+				return "checkerror";
+			}*/
+			//修改数据
+			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
+			for(EtbCustomerDto etbCustomerDto:listCustomer){
+				if(etbCustomerDto.getCheckKey()!=null && etbCustomerDto.getCheckKey().equals("on")){
+					etbCustomerDto.setUpdateuid(username);
+					customerService.updateEtbCustomer(etbCustomerDto);
+				}
+			}
+			this.addActionMessage("修改客户成功！");
+		} catch(Exception e) {
+			this.addActionMessage("系统异常，修改客户失败！");
+			log.error("updEtbCustomerAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
 	 * 删除客户
 	 * @return
 	 */

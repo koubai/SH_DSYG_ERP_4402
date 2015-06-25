@@ -24,6 +24,12 @@ public class EtbCustomerDto extends BaseDto {
 	 * 客户名
 	 */
 	private String customername;
+
+	/**
+	 * checkbox
+	 */
+	private String checkKey;
+	private String test;
 	
 	public String getCustomername() {
 		return customername;
@@ -742,6 +748,22 @@ public class EtbCustomerDto extends BaseDto {
 
 	public void setUpdatedate(Date updatedate) {
 		this.updatedate = updatedate;
+	}
+
+	public String getCheckKey() {
+		return checkKey;
+	}
+
+	public void setCheckKey(String checkKey) {
+		this.checkKey = checkKey;
+	}
+
+	public String getTest() {
+		return test;
+	}
+
+	public void setTest(String test) {
+		this.test = test;
 	}
 	
 

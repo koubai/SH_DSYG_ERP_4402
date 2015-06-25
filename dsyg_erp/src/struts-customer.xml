@@ -9,13 +9,25 @@
 		<action name="showEtbCustomerAction" class="etbCustomerAction" method="showEtbCustomerAction">
 			<result name="*">/page/customer/customerlist.jsp</result>
 		</action>
+	
+		<action name="showEtbCustomerManageAction" class="etbCustomerAction" method="showEtbCustomerAction">
+			<result name="*">/page/customer/customerlist_manage.jsp</result>
+		</action>
 		
 		<action name="queryEtbCustomerList" class="etbCustomerAction" method="queryEtbCustomerList">
 			<result name="success">/page/customer/customerlist.jsp</result>
 		</action>
 		
+		<action name="queryEtbCustomerManageList" class="etbCustomerAction" method="queryEtbCustomerList">
+			<result name="success">/page/customer/customerlist_manage.jsp</result>
+		</action>
+		
 		<action name="turnEtbCustomerPage" class="etbCustomerAction" method="turnEtbCustomerPage">
 			<result name="success">/page/customer/customerlist.jsp</result>
+		</action>
+		
+		<action name="turnEtbCustomerManagePage" class="etbCustomerAction" method="turnEtbCustomerPage">
+			<result name="success">/page/customer/customerlist_manage.jsp</result>
 		</action>
 		
 		<action name="showAddEtbCustomerAction" class="etbCustomerAction" method="showAddEtbCustomerAction">
@@ -35,6 +47,11 @@
 		<action name="updEtbCustomerAction" class="etbCustomerAction" method="updEtbCustomerAction">
 			<result name="success">/page/customer/updcustomer.jsp</result>
 			<result name="checkerror">/page/customer/updcustomer.jsp</result>
+		</action>
+		
+		<action name="updEtbCustomerManageAction" class="etbCustomerAction" method="updEtbCustomerManageAction">
+			<result name="success">/page/customer/customerlist_manage.jsp</result>
+			<result name="checkerror">/page/customer/customerlist_manage.jsp</result>
 		</action>
 		
 		<action name="delEtbCustomerAction" class="etbCustomerAction" method="delEtbCustomerAction">

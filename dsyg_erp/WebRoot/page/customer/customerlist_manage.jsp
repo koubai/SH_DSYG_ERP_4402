@@ -21,15 +21,21 @@
 	}
 	
 	function upd() {
-		var id = getSelectedID();
-		if(id == "") {
+		var status = $("#checked").val().trim();
+		if(status == "none") {
 			alert("请选择一条记录！");
 			return;
 		} else {
-			var url = '<c:url value="/customer/showUpdEtbCustomerAction.action"></c:url>'
-					+ "?updateCustomerNo=" + id
-					+ "&date=" + new Date();
-			window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:750px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+			document.mainform.action = '<c:url value="/customer/updEtbCustomerManageAction.action"></c:url>';
+			document.mainform.submit();
+		}
+	}
+	
+	function check(obj) {
+		if(obj.checked){
+			$("#checked").attr("value", "checked");
+		} else {
+			$("#checked").attr("value", "none");
 		}
 	}
 	
@@ -48,7 +54,7 @@
 	
 	function getSelectedID() {
 		var id = "";
-		var list = document.getElementsByName("radioKey");
+		var list = document.getElementsByName("checkKey");
 		for(var i = 0; i < list.length; i++) {
 			if(list[i].checked) {
 				id = list[i].value;
@@ -64,14 +70,14 @@
 	}
 	
 	function queryList() {
-		document.mainform.action = '<c:url value="/customer/queryEtbCustomerList.action"></c:url>';
+		document.mainform.action = '<c:url value="/customer/queryEtbCustomerManageList.action"></c:url>';
 		document.mainform.submit();
 	}
 	
 	//翻页
 	function changePage(pageNum) {
 		document.getElementById("startIndex").value = pageNum;
-		document.mainform.action = '<c:url value="/customer/turnEtbCustomerPage.action"></c:url>';
+		document.mainform.action = '<c:url value="/customer/turnEtbCustomerManagePage.action"></c:url>';
 		document.mainform.submit();
 	}
 
@@ -121,6 +127,7 @@
 			</div>
 			<s:form id="mainform" name="mainform" method="POST">
 				<s:hidden name="startIndex" id="startIndex"/>
+				<s:hidden name="checked" id="checked" value="none"/>
 				<div class="searchbox update" style="width:1024px">
 					<div class="box1">
 						<label class="pdf10" style="width:120px">客户编号检索 FROM</label>
@@ -157,9 +164,7 @@
 						<s:actionmessage />
 					</div>
 					<div class="icons thums">
-						<a class="add" onclick="add();">增加</a>
 						<a class="edit" onclick="upd();">修改</a>
-						<a class="delete" onclick="del();">删除</a>
 					</div>
 				</div>
 				<div class="data_table" style="padding:0px;">
@@ -173,12 +178,10 @@
 								<td width="5%"></td>
 								<td width="10%">序号</td>
 								<td width="15%">客户名称</td>
-								<td width="15%">客户地址</td>
+								<td width="25%">客户地址</td>
 								<td width="10%">联系人</td>
-								<td width="10%">电话</td>
-								<td width="10%">传真</td>
-								<td width="10%">邮箱</td>
-								<td width="15%">备注</td>
+								<td width="15%">客户类型</td>
+								<td width="15%">客户担当</td>
 							</tr>
 							<s:iterator id="listCustomer" value="listCustomer" status="st1">
 								<s:if test="#st1.odd==true">
@@ -187,7 +190,8 @@
 								<s:else>
 									<tr>
 								</s:else>
-									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
+									<td>
+									<input type="checkbox" name="listCustomer[<s:property value="#st1.index"/>].checkKey" onclick="check(this);" /></td>
 									<td><s:property value="id"/></td>
 									<td>
 										<div noWrap style="text-overflow:ellipsis;overflow:hidden">
@@ -196,13 +200,15 @@
 									</td>
 									<td><s:property value="customeraddress1"/></td>
 									<td><s:property value="customermanager1"/></td>
-									<td><s:property value="customertel1"/></td>
-									<td><s:property value="customerfax1"/></td>
-									<td><s:property value="customermail1"/></td>
-									<td>
-										<div noWrap style="width:150px;text-overflow:ellipsis;overflow:hidden">
-											<s:property value="note"/>
-										</div>
+									<td><select type="select" name="listCustomer[<s:property value="#st1.index"/>].customertype">
+ 									   <option value="0"<c:if test="${customertype==0}">selected</c:if>>
+    									 公司开拓
+    									</option>
+   									   <option value="1" <c:if test="${customertype==1}">selected</c:if>>
+    									 个人开拓
+    									</option>
+									   </select></td>
+									<td><input type="text" name="listCustomer[<s:property value="#st1.index"/>].handlerid" value="<s:property value="handlerid"/>" />
 									</td>
 								</tr>
 							</s:iterator>
