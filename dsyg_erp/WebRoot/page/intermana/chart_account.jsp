@@ -69,18 +69,77 @@
 	    		    col = row.insertCell(z+1);   
 	                col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+X_data[z]+"</strong>";
 	            }             
-				d=document.getElementById('planTable').deleteTFoot();
+    		    col = row.insertCell(z+1);   
+                col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>合计</strong>";
+
+                d=document.getElementById('planTable').deleteTFoot();
 				x=document.getElementById('planTable').createTFoot();
+				
+				var high_profits =  new Array(X_data.length);
+				var detail_profits =  new Array(X_data.length);
+				var sum_high_profits;
+				var sum_detail_profits;
+
+				var row_no=0;
 		        $.each(jsonobj, function(i, u){	         				
-		    		 var row = x.insertRow(i); 
+	   	             var sum = 0;
+	 				 sum_high_profits = 0;
+					 sum_detail_profits = 0;
+		    		 var row = x.insertRow(i);
+		    		 row_no = i;
 		    		 var col = row.insertCell(0);                
 		             col.innerHTML = "<style>strong1{float: right;}</style><strong1>"+u.name+"</strong1>";
-			                
+		             if (i==0){
+			             for (var m=0; m< u.data.length; m++) {
+			                high_profits[m]= 0;
+			                detail_profits[m]= 0;			                
+			             }		            	 
+		             }
 		             for (var w=0; w< u.data.length; w++) {
 					 	col = row.insertCell(w+1);   
 			            col.innerHTML = "<style>strong1{float: right;}</style><strong1>"+u.data[w]+"</strong1>";
+		                sum = sum + Number(u.data[w]);
+
+		                if (i == 1){
+			                high_profits[w]=high_profits[w]+Number(u.data[w]);
+			                detail_profits[w]=detail_profits[w]+Number(u.data[w]);
+		                } else {
+		                	if (i == 0){		                		
+				                high_profits[w]=high_profits[w]-Number(u.data[w]);		                	
+		                	}
+			                detail_profits[w]=detail_profits[w]-Number(u.data[w]);
+		                }		                	
+			            sum_high_profits = sum_high_profits + Number(high_profits[w]);
+			            sum_detail_profits = sum_detail_profits + Number(detail_profits[w]);
+//		                alert("sum_high_profits:" + sum_high_profits);
 		             }
-		        });				
+	    		    col = row.insertCell(w+1);   
+	                col.innerHTML = "<style>strong{float: right;}</style><strong1>"+ sum.toString() +"</strong1>";
+		        });		        
+				row = x.insertRow(row_no+1);
+	    		col = row.insertCell(0);                
+	            col.innerHTML = "<style>strong1{float: right;}</style><strong1>  </strong1>";
+				row_no++;
+				row = x.insertRow(row_no+1); 
+	    		col = row.insertCell(0);                
+	            col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>毛利</strong2>";
+	            for (var j=0; j< high_profits.length; j++) {
+	    		    col = row.insertCell(j+1);   
+	                col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+high_profits[j].toString()+"</strong2>";
+	            }             
+    		    col = row.insertCell(j+1);   
+                col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+sum_high_profits.toString()+"</strong2>";
+				row_no++;
+				row = x.insertRow(row_no+1); 
+	    		col = row.insertCell(0);                
+	            col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>净利</strong2>";
+	            for (var v=0; v< detail_profits.length; v++) {
+	    		    col = row.insertCell(v+1);   
+	                col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+detail_profits[v].toString()+"</strong2>";
+	            }             
+    		    col = row.insertCell(j+1);   
+                col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+sum_detail_profits.toString()+"</strong2>";
+
 			}
 	    };  
    	    
