@@ -55,7 +55,7 @@
 				for(var i = 0; i < duration + 1; i++) {
 					tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1 + i,parseInt(d1.split("-")[2]));
 					dicArray[i] = tmp_date.format("yyyy-MM");
-					alert("dicArray[i]="+ dicArray[i]);		
+//					alert("dicArray[i]="+ dicArray[i]);		
 				}
 			} else if (type == "2"){
 				// Quarter
@@ -64,20 +64,20 @@
 	            duration = m2 - m1;
 				tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1,parseInt(d1.split("-")[2]));
 				for(var j = 0; j < (duration + 1)/3; j++) {
-					tmp_date.setFullYear(parseInt(d1.split("-")[0])+(parseInt((d1.split("-")[1])) + j * 3)/12,(parseInt((d1.split("-")[1])-1)/3 + j%4)%4,parseInt(d1.split("-")[2]));
+					tmp_date.setFullYear(parseInt(d1.split("-")[0])+(parseInt((d1.split("-")[1])) + j * 3)/12,(parseInt((d1.split("-")[1])-1)/3 + j%4)%4,1);
 					dicArray[j] = tmp_date.format("yyyy-MM")+"季";
-					alert("dicArray[j]="+ dicArray[j]);		
+//					alert("dicArray[j]="+ dicArray[j]);		
 				}				
 			} else if (type == "3"){
 				// Year
 	            m1 = parseInt(d1.split("-")[0]);
 	            m2 = parseInt(d2.split("-")[0]);
 	            duration = m2 - m1;
-				tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1,parseInt(d1.split("-")[2]));
+				tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1,1);
 				for(var k = 0; k < duration + 1; k++) {
 					tmp_date.setFullYear(parseInt(d1.split("-")[0])+k,parseInt(d1.split("-")[1])-1,parseInt(d1.split("-")[2]));
 					dicArray[k] = tmp_date.format("yyyy");
-					alert("dicArray[k]="+ dicArray[k]);		
+//					alert("dicArray[k]="+ dicArray[k]);		
 				}
 			}
 			return dicArray;
@@ -116,13 +116,13 @@
 			var o_data="";
 			var X_data = new Array();
 			X_data = get_X_Data(fromDate, toDate, dur_type);			
-			alert("type: " + dur_type + " from_date:"+ fromDate+ " to_date:"+ toDate);		
+//			alert("type: " + dur_type + " from_date:"+ fromDate+ " to_date:"+ toDate);		
 			
 			var handerList=document.getElementById('handerList').value;
 			if( handerList== null) {
 				handerList="";
 			}
-			alert("handerList: "+handerList);		
+//			alert("handerList: "+handerList);		
             $.ajax({
 				url: '${pageContext.request.contextPath}/ChartServlet.servlet?action='+act+'&from_date='+fromDate+'&to_date='+toDate+'&dur_type='+dur_type+'&handerList='+handerList,
                 type: "POST",
@@ -292,7 +292,7 @@
 	    };  
 
 	    function getSaleData3M() {
-     		alert("销售3");
+//     		alert("销售3");
 		   	var rds = document.getElementsByName("mtype");
 	   		var fromDate = new Date();
 	   		var toDate = new Date();
@@ -305,7 +305,7 @@
 		}
 
 	    function getSaleData6M() {
-     		alert("销售6");
+//     		alert("销售6");
 		   	var rds = document.getElementsByName("mtype");
 	   		var fromDate = new Date();
 	   		var toDate = new Date();
@@ -318,7 +318,7 @@
 		}
 	    
 		function getSaleData12M() {
-     		alert("销售12");
+//     		alert("销售12");
 		   	var rds = document.getElementsByName("mtype");
 	   		var fromDate = new Date();
 	   		var toDate = new Date();
@@ -343,7 +343,7 @@
 		   	}
 		   	for(var i=0;i<rds.length;i++){
 	           	if(rds[i].checked){
-	        		alert("fromDate:" +fromDate +" toDate:"+toDate + " type:" + rds[i].value);
+//	        		alert("fromDate:" +fromDate +" toDate:"+toDate + " type:" + rds[i].value);
 		   			ajaxRequestData("getSaleData", fromDate, toDate, rds[i].value, "销售");
 	           }
 		    }

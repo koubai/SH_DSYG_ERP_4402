@@ -40,20 +40,48 @@
 			return format; 
 		}
 		
-		function get_X_Data(period_month) {
-			var today = new Date();
-//			var startday = new Date();
-			var dicArray = new Array();
-			var duration = parseInt(period_month) *(-1);
-			
-			for(var i = 0; i < parseInt(duration); i++) {
-				var tmp_date = new Date();
-				tmp_date.setMonth(tmp_date.getMonth() + parseInt(period_month) +i + 1,1);
-				dicArray[i] = tmp_date.format("yyyy-MM");
-//				alert(tmp_date.format("yyyy-MM-dd"));		
+		function get_X_Data(d1, d2, type) {
+			var m1;
+			var m2;
+			var duration;
+	   		var dicArray = new Array();
+	   		var tmp_date = new Date();
+			if (type == "1"){
+				// Monthly
+	            m1 = parseInt(d1.split("-")[1].replace(/^0+/, "")) + parseInt(d1.split("-")[0]) * 12;
+	            m2 = parseInt(d2.split("-")[1].replace(/^0+/, "")) + parseInt(d2.split("-")[0]) * 12;
+	            duration = m2 - m1;
+				tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1,parseInt(d1.split("-")[2]));
+				for(var i = 0; i < duration + 1; i++) {
+					tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1 + i,parseInt(d1.split("-")[2]));
+					dicArray[i] = tmp_date.format("yyyy-MM");
+//					alert("dicArray[i]="+ dicArray[i]);		
+				}
+			} else if (type == "2"){
+				// Quarter
+	            m1 = parseInt(d1.split("-")[1].replace(/^0+/, "")) + parseInt(d1.split("-")[0]) * 12;
+	            m2 = parseInt(d2.split("-")[1].replace(/^0+/, "")) + parseInt(d2.split("-")[0]) * 12;
+	            duration = m2 - m1;
+				tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1,parseInt(d1.split("-")[2]));
+				for(var j = 0; j < (duration + 1)/3; j++) {
+					tmp_date.setFullYear(parseInt(d1.split("-")[0])+(parseInt((d1.split("-")[1])) + j * 3)/12,(parseInt((d1.split("-")[1])-1)/3 + j%4)%4,1);
+					dicArray[j] = tmp_date.format("yyyy-MM")+"季";
+//					alert("dicArray[j]="+ dicArray[j]);		
+				}				
+			} else if (type == "3"){
+				// Year
+	            m1 = parseInt(d1.split("-")[0]);
+	            m2 = parseInt(d2.split("-")[0]);
+	            duration = m2 - m1;
+				tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1,1);
+				for(var k = 0; k < duration + 1; k++) {
+					tmp_date.setFullYear(parseInt(d1.split("-")[0])+k,parseInt(d1.split("-")[1])-1,parseInt(d1.split("-")[2]));
+					dicArray[k] = tmp_date.format("yyyy");
+//					alert("dicArray[k]="+ dicArray[k]);		
+				}
 			}
 			return dicArray;
-   	    };
+		}
    	    
 		function viewData(X_data, data) {
 			var jsonobj=eval(data);  
@@ -84,24 +112,19 @@
 			}
 	    };  
    	    
-		function ajaxRequestData(act, mth, tit){
+		function ajaxRequestData(act, fromDate, toDate, dur_type, tit){
 			var o_data="";
 			var X_data = new Array();
-			X_data = get_X_Data(mth);			
-			var from_date=X_data[0]+"-01";
-			if (mth <0)
-				var to_date=X_data[mth*(-1) - 1]+"-31";
-			else
-				var to_date=X_data[0]+"-31";
-			alert("mth: "+mth+ " from_date:"+ from_date+ " to_date:"+ to_date);		
+			X_data = get_X_Data(fromDate, toDate, dur_type);			
+//			alert("type: " + dur_type + " from_date:"+ fromDate+ " to_date:"+ toDate);		
 			
 			var handerList=document.getElementById('handerList').value;
 			if( handerList== null) {
 				handerList="";
 			}
-			alert("handerList: "+handerList);		
+//			alert("handerList: "+handerList);		
             $.ajax({
-				url: '${pageContext.request.contextPath}/ChartServlet.servlet?action='+act+'&from_date='+from_date+'&to_date='+to_date+'&handerList='+handerList,
+				url: '${pageContext.request.contextPath}/ChartServlet.servlet?action='+act+'&from_date='+fromDate+'&to_date='+toDate+'&dur_type='+dur_type+'&handerList='+handerList,
                 type: "POST",
                 dataType: "text",
                 async: false,
@@ -111,7 +134,7 @@
 //	       			alert("pie_data:"+pie_data);
         			drawPie(pie_data, tit);
         			o_data = getChartData(data);
-        			drawChart(mth, o_data, tit);
+        			drawChart(fromDate, toDate, dur_type, o_data, tit);
         			viewData(X_data, o_data);
                 }
             });
@@ -219,7 +242,7 @@
 			});
 		};
 		
-		function drawChart(mth, chart_data, tit) {
+		function drawChart(d1, d2, dur_type, chart_data, tit) {
      		$(document).ready(function() {  
 		    	options = {  
 		            chart: {  
@@ -232,7 +255,7 @@
 		                text: tit + "曲线",
 		            },  
 		            xAxis: {  
-		                categories: get_X_Data(mth),
+		                categories: get_X_Data(d1, d2, dur_type),
 		            },  
 		            yAxis: {  
 		                min: 0,  
@@ -268,55 +291,62 @@
 	        });
 	    };  
 
-	    function getPurchaseData3M() {
-     		alert("采购3");
-			ajaxRequestData("getPurchaseData", -3, "采购");
-		};
-		function getPurchaseData6M() {
-     		alert("采购6");
-			ajaxRequestData("getPurchaseData", -6, "采购");
-		};
-		function getPurchaseData12M() {
-     		alert("采购12");
-			ajaxRequestData("getPurchaseData", -12, "采购");
-		};
-	    function getSaleData3M() {
-     		alert("销售3");
-			ajaxRequestData("getSaleData", -3, "销售");
-		};
-		function getSaleData6M() {
-     		alert("销售6");
-			ajaxRequestData("getSaleData", -6, "销售");
-		};
-		function getSaleData12M() {
-     		alert("销售12");
-			ajaxRequestData("getSaleData", -12, "销售");
-		};
 		
 	    function getDeliveryData3M() {
-     		alert("快递3");
-			ajaxRequestData("getDeliveryData", -3, "快递");
+//     		alert("快递3");
+		   	var rds = document.getElementsByName("mtype");
+	   		var fromDate = new Date();
+	   		var toDate = new Date();
+			fromDate.setMonth(toDate.getMonth()+1-3);
+		   	for(var i=0;i<rds.length;i++){
+	           	if(rds[i].checked){
+	   				ajaxRequestData("getDeliveryData", fromDate.format("yyyy-MM-dd"), toDate.format("yyyy-MM-dd"), rds[i].value, "快递");
+	           	}
+		   	}
 		};
 		function getDeliveryData6M() {
-     		alert("快递6");
-			ajaxRequestData("getDeliveryData", -6, "快递");
+//     		alert("快递6");
+		   	var rds = document.getElementsByName("mtype");
+	   		var fromDate = new Date();
+	   		var toDate = new Date();
+			fromDate.setMonth(toDate.getMonth()+1-6);
+		   	for(var i=0;i<rds.length;i++){
+	           	if(rds[i].checked){
+	   				ajaxRequestData("getDeliveryData", fromDate.format("yyyy-MM-dd"), toDate.format("yyyy-MM-dd"), rds[i].value, "快递");
+	           	}
+		   	}
 		};
 		function getDeliveryData12M() {
-     		alert("快递12");
-			ajaxRequestData("getDeliveryData", -12, "快递");
+//     		alert("快递12");
+		   	var rds = document.getElementsByName("mtype");
+	   		var fromDate = new Date();
+	   		var toDate = new Date();
+			fromDate.setMonth(toDate.getMonth()+1-12);
+		   	for(var i=0;i<rds.length;i++){
+	           	if(rds[i].checked){
+	   				ajaxRequestData("getDeliveryData", fromDate.format("yyyy-MM-dd"), toDate.format("yyyy-MM-dd"), rds[i].value, "快递");
+	           	}
+		   	}
 		};
-	    function getAccountData3M() {
-     		alert("会计3");
-			ajaxRequestData("getAccountData", -3, "会计");
-		};
-		function getAccountData6M() {
-     		alert("会计6");
-			ajaxRequestData("getAccountData", -6, "会计");
-		};
-		function getAccountData12M() {
-     		alert("会计12");
-			ajaxRequestData("getAccountData", -12, "会计");
-		};
+		function ck(){
+		   	var rds = document.getElementsByName("mtype");
+		   	var fromDate = document.getElementById("fromDate").value;
+			var today = new Date();
+		   	if (fromDate == null || fromDate ==""){
+		   		fromDate ="1900-01-01";
+		   	}
+		   	var toDate = document.getElementById("toDate").value;
+		   	if (toDate == null || toDate ==""){
+		   		toDate = today.format("yyyy-MM-dd");		
+		   	}
+		   	for(var i=0;i<rds.length;i++){
+	           	if(rds[i].checked){
+//	        		alert("fromDate:" +fromDate +" toDate:"+toDate + " type:" + rds[i].value);
+		   			ajaxRequestData("getDeliveryData", fromDate, toDate, rds[i].value, "快递");
+	           }
+		    }
+		}
+
 		</script>
 		<!-- <script src="${pageContext.request.contextPath}/js/themes/gray.js"></script> -->
 	</head>
@@ -325,15 +355,23 @@
 		<input type="hidden" id="h1" value="<s:property value="str" />" />
 		<input type="hidden" id="h2" value="<s:property value="series" />" />
 		<input type="hidden" id="h3" value="<s:property value="series_X" />" />
-		<input type="text" name="handerList" id="handerList" value="0001,0002" />
+		<input type="hidden" id="periodtype" value="<s:property value="periodtype" />" />
+		快递ID  <input type="text" name="handerList" id="handerList" value="0001,0002" /><BR>
+		期间类型<input type="text" name="fromDate" id="fromDate" value="2015-01-01" />
+		<input type="text" name="toDate" id="toDate" value="2015-06-30" />
+		<input name="mtype" type="radio" id="radio1" value="1" checked>月</input>
+		<input name="mtype" type="radio" id="radio2" value="2" >季</input>
+		<input name="mtype" type="radio" id="radio3" value="3" >年</input>
+		<input type="button" value="快递查询" onclick="ck();" />
+		
 		<table>
 		<tr>
 		<td>
-           <Input id="btn1" type=button value="快递 3 Month" onClick="javascripts:getDeliveryData3M();" /></td>
+           <Input id="btn1" type=button value="快递 近3个月" onClick="javascripts:getDeliveryData3M();" /></td>
 		<td>
-           <Input id="btn2" type=button value="快递 6 Month" onClick="javascripts:getDeliveryData6M();" /></td>
+           <Input id="btn2" type=button value="快递 近6个月" onClick="javascripts:getDeliveryData6M();" /></td>
 		<td>
-           <Input id="btn3" type=button value="快递 12 Month" onClick="javascripts:getDeliveryData12M();" /></td>
+           <Input id="btn3" type=button value="快递 近12个月" onClick="javascripts:getDeliveryData12M();" /></td>
 		</tr>
 		</table>
 		<br><br><br>

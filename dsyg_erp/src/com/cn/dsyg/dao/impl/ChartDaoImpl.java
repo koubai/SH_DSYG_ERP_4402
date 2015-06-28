@@ -57,8 +57,15 @@ public class ChartDaoImpl extends BaseDao implements ChartDao {
 		paramMap.put("to_date", to_date);
 		paramMap.put("handerList", handerList);
 
-		@SuppressWarnings("unchecked")
-		List<ChartDto> list = getSqlMapClientTemplate().queryForList("queryDeliveryByDate", paramMap);
+		List<ChartDto> list = null;
+		if (dur_type.equals("1")){
+			list = getSqlMapClientTemplate().queryForList("queryDeliveryByDateM", paramMap);
+		} else if (dur_type.equals("2")){
+			list = getSqlMapClientTemplate().queryForList("queryDeliveryByDateQ", paramMap);
+		} else if (dur_type.equals("3")){
+			list = getSqlMapClientTemplate().queryForList("queryDeliveryByDateY", paramMap);			
+		}
+
 		return list;
 	}
 
@@ -69,8 +76,14 @@ public class ChartDaoImpl extends BaseDao implements ChartDao {
 		paramMap.put("to_date", to_date);
 		paramMap.put("handerList", handerList);
 
-		@SuppressWarnings("unchecked")
-		List<ChartDto> list = getSqlMapClientTemplate().queryForList("queryFinanceByDate", paramMap);
+		List<ChartDto> list = null;
+		if (dur_type.equals("1")){
+			list = getSqlMapClientTemplate().queryForList("queryFinanceByDateM", paramMap);
+		} else if (dur_type.equals("2")){
+			list = getSqlMapClientTemplate().queryForList("queryFinanceByDateQ", paramMap);
+		} else if (dur_type.equals("3")){
+			list = getSqlMapClientTemplate().queryForList("queryFinanceByDateY", paramMap);			
+		}
 		return list;
 	}
 }
