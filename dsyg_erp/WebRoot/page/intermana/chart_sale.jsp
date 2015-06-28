@@ -40,17 +40,45 @@
 			return format; 
 		}
 		
-		function get_X_Data(d1, d2) {
-            var m1 = parseInt(d1.split("-")[1].replace(/^0+/, "")) + parseInt(d1.split("-")[0]) * 12;
-            var m2 = parseInt(d2.split("-")[1].replace(/^0+/, "")) + parseInt(d2.split("-")[0]) * 12;
-            var duration = m2 - m1;
+		function get_X_Data(d1, d2, type) {
+			var m1;
+			var m2;
+			var duration;
 	   		var dicArray = new Array();
 	   		var tmp_date = new Date();
-			tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1,parseInt(d1.split("-")[2]));
-			for(var i = 0; i < duration + 1; i++) {
-				tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1 + i,parseInt(d1.split("-")[2]));
-				dicArray[i] = tmp_date.format("yyyy-MM");
-//				alert("dicArray[i]="+ dicArray[i]);		
+			if (type == "1"){
+				// Monthly
+	            m1 = parseInt(d1.split("-")[1].replace(/^0+/, "")) + parseInt(d1.split("-")[0]) * 12;
+	            m2 = parseInt(d2.split("-")[1].replace(/^0+/, "")) + parseInt(d2.split("-")[0]) * 12;
+	            duration = m2 - m1;
+				tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1,parseInt(d1.split("-")[2]));
+				for(var i = 0; i < duration + 1; i++) {
+					tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1 + i,parseInt(d1.split("-")[2]));
+					dicArray[i] = tmp_date.format("yyyy-MM");
+					alert("dicArray[i]="+ dicArray[i]);		
+				}
+			} else if (type == "2"){
+				// Quarter
+	            m1 = parseInt(d1.split("-")[1].replace(/^0+/, "")) + parseInt(d1.split("-")[0]) * 12;
+	            m2 = parseInt(d2.split("-")[1].replace(/^0+/, "")) + parseInt(d2.split("-")[0]) * 12;
+	            duration = m2 - m1;
+				tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1,parseInt(d1.split("-")[2]));
+				for(var j = 0; j < (duration + 1)/3; j++) {
+					tmp_date.setFullYear(parseInt(d1.split("-")[0])+(parseInt((d1.split("-")[1])) + j * 3)/12,(parseInt((d1.split("-")[1])-1)/3 + j%4)%4,parseInt(d1.split("-")[2]));
+					dicArray[j] = tmp_date.format("yyyy-MM")+"季";
+					alert("dicArray[j]="+ dicArray[j]);		
+				}				
+			} else if (type == "3"){
+				// Year
+	            m1 = parseInt(d1.split("-")[0]);
+	            m2 = parseInt(d2.split("-")[0]);
+	            duration = m2 - m1;
+				tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1,parseInt(d1.split("-")[2]));
+				for(var k = 0; k < duration + 1; k++) {
+					tmp_date.setFullYear(parseInt(d1.split("-")[0])+k,parseInt(d1.split("-")[1])-1,parseInt(d1.split("-")[2]));
+					dicArray[k] = tmp_date.format("yyyy");
+					alert("dicArray[k]="+ dicArray[k]);		
+				}
 			}
 			return dicArray;
 		}
@@ -84,11 +112,11 @@
 			}
 	    }  
    	    
-		function ajaxRequestData(act, fromDate, toDate, type, tit){
+		function ajaxRequestData(act, fromDate, toDate, dur_type, tit){
 			var o_data="";
 			var X_data = new Array();
-			X_data = get_X_Data(fromDate, toDate);			
-			alert("type: " + type + " from_date:"+ fromDate+ " to_date:"+ toDate);		
+			X_data = get_X_Data(fromDate, toDate, dur_type);			
+			alert("type: " + dur_type + " from_date:"+ fromDate+ " to_date:"+ toDate);		
 			
 			var handerList=document.getElementById('handerList').value;
 			if( handerList== null) {
@@ -96,7 +124,7 @@
 			}
 			alert("handerList: "+handerList);		
             $.ajax({
-				url: '${pageContext.request.contextPath}/ChartServlet.servlet?action='+act+'&from_date='+fromDate+'&to_date='+toDate+'&handerList='+handerList,
+				url: '${pageContext.request.contextPath}/ChartServlet.servlet?action='+act+'&from_date='+fromDate+'&to_date='+toDate+'&dur_type='+dur_type+'&handerList='+handerList,
                 type: "POST",
                 dataType: "text",
                 async: false,
@@ -106,7 +134,7 @@
 //	       			alert("pie_data:"+pie_data);
         			drawPie(pie_data, tit);
         			o_data = getChartData(data);
-        			drawChart(fromDate, toDate, o_data, tit);
+        			drawChart(fromDate, toDate, dur_type, o_data, tit);
         			viewData(X_data, o_data);
                 }
             });
@@ -214,7 +242,7 @@
 			});
 		};
 		
-		function drawChart(d1, d2, chart_data, tit) {
+		function drawChart(d1, d2, dur_type, chart_data, tit) {
      		$(document).ready(function() {  
 		    	options = {  
 		            chart: {  
@@ -227,7 +255,7 @@
 		                text: tit + "曲线",
 		            },  
 		            xAxis: {  
-		                categories: get_X_Data(d1, d2),
+		                categories: get_X_Data(d1, d2, dur_type),
 		            },  
 		            yAxis: {  
 		                min: 0,  
@@ -265,16 +293,42 @@
 
 	    function getSaleData3M() {
      		alert("销售3");
-			ajaxRequestData("getSaleData", "2015-04-01","2015-06-31","1", "销售");
-		};
-		function getSaleData6M() {
+		   	var rds = document.getElementsByName("mtype");
+	   		var fromDate = new Date();
+	   		var toDate = new Date();
+			fromDate.setMonth(toDate.getMonth()+1-3);
+		   	for(var i=0;i<rds.length;i++){
+	           	if(rds[i].checked){
+	   				ajaxRequestData("getSaleData", fromDate.format("yyyy-MM-dd"), toDate.format("yyyy-MM-dd"), rds[i].value, "销售");
+	           	}
+		   	}
+		}
+
+	    function getSaleData6M() {
      		alert("销售6");
-			ajaxRequestData("getSaleData", -6, "销售");
-		};
+		   	var rds = document.getElementsByName("mtype");
+	   		var fromDate = new Date();
+	   		var toDate = new Date();
+			fromDate.setMonth(toDate.getMonth()+1-6);
+		   	for(var i=0;i<rds.length;i++){
+	           	if(rds[i].checked){
+	   				ajaxRequestData("getSaleData", fromDate.format("yyyy-MM-dd"), toDate.format("yyyy-MM-dd"), rds[i].value, "销售");
+	           	}
+		   	}
+		}
+	    
 		function getSaleData12M() {
      		alert("销售12");
-			ajaxRequestData("getSaleData", -12, "销售");
-		};
+		   	var rds = document.getElementsByName("mtype");
+	   		var fromDate = new Date();
+	   		var toDate = new Date();
+			fromDate.setMonth(toDate.getMonth()+1-12);
+		   	for(var i=0;i<rds.length;i++){
+	           	if(rds[i].checked){
+	   				ajaxRequestData("getSaleData", fromDate.format("yyyy-MM-dd"), toDate.format("yyyy-MM-dd"), rds[i].value, "销售");
+	           	}
+		   	}
+		}
 		
 		function ck(){
 		   	var rds = document.getElementsByName("mtype");
@@ -316,11 +370,11 @@
 		<table>
 		<tr>
 		<td>
-           <Input id="btn1" type=button value="销售 3 Month" onClick="javascripts:getSaleData3M();" /></td>
+           <Input id="btn1" type=button value="销售 近3个月" onClick="javascripts:getSaleData3M();" /></td>
 		<td>
-           <Input id="btn2" type=button value="销售 6 Month" onClick="javascripts:getSaleData6M();" /></td>
+           <Input id="btn2" type=button value="销售 近6个月" onClick="javascripts:getSaleData6M();" /></td>
 		<td>
-           <Input id="btn3" type=button value="销售 12 Month" onClick="javascripts:getSaleData12M();" /></td>
+           <Input id="btn3" type=button value="销售 近12个月" onClick="javascripts:getSaleData12M();" /></td>
 		</tr>
 		</table>
 		<br><br><br>

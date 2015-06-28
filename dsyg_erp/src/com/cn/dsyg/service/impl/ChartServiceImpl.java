@@ -90,46 +90,46 @@ public class ChartServiceImpl implements ChartService{
 	}
 
 	// 取得销售数据
-	public List<ChartDto> getSaleData(String theme, String from_date, String to_date, String handerList) {  
+	public List<ChartDto> getSaleData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
     	List<ChartDto>  list = new ArrayList<ChartDto>();
-        list = querySalesByDate(theme, from_date, to_date, handerList);
+        list = querySalesByDate(theme, from_date, to_date, dur_type, handerList);
     	
     	return list;
     }
     
 	// 取得采购数据
-    public List<ChartDto> getBuyData(String theme, String from_date, String to_date, String handerList) {  
+    public List<ChartDto> getBuyData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
     	List<ChartDto>  list = new ArrayList<ChartDto>();
-        list = queryPurchaseByDate(theme, from_date, to_date, handerList);
+        list = queryPurchaseByDate(theme, from_date, to_date, dur_type, handerList);
     	
     	return list;
     }
 
 	// 取得快递数据
-    public List<ChartDto> getDeliveryData(String theme, String from_date, String to_date, String handerList) {  
+    public List<ChartDto> getDeliveryData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
     	List<ChartDto>  list = new ArrayList<ChartDto>();
-        list = queryWareHouseRptByDate(theme, from_date, to_date, handerList);
+        list = queryWareHouseRptByDate(theme, from_date, to_date, dur_type, handerList);
     	
     	return list;
     }
     
 	// 取得会计数据
-    public List<ChartDto> getAccountData(String theme, String from_date, String to_date, String handerList) {  
+    public List<ChartDto> getAccountData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
     	List<ChartDto>  list = new ArrayList<ChartDto>();
-        list = queryFinanceByDate(theme, from_date, to_date, handerList);
+        list = queryFinanceByDate(theme, from_date, to_date, dur_type, handerList);
     	
     	return list;
     }
 
     // get 采购 data by date
-	public List<ChartDto> queryPurchaseByDate(String theme1, String from_date, String to_date, String handerList) {
+	public List<ChartDto> queryPurchaseByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		try {
 			if (ctx != null){
 	        	chartDao = (ChartDao)ctx.getBean("chartDao");
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartDto> list = chartDao.queryPurchaseByDate(theme1, from_date, to_date, handerList);
+			List<ChartDto> list = chartDao.queryPurchaseByDate(theme1, from_date, to_date, dur_type, handerList);
 	        System.out.println("queryPurchaseByDate theme1:" + theme1);
 	        System.out.println("queryPurchaseByDate from_date:" + from_date);
 	        System.out.println("queryPurchaseByDate to_date:" + to_date);
@@ -143,14 +143,14 @@ public class ChartServiceImpl implements ChartService{
 	}
 
     // get 销售 data by date
-	public List<ChartDto> querySalesByDate(String theme1, String from_date, String to_date, String handerList) {
+	public List<ChartDto> querySalesByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		try {
 			if (ctx != null){
 	        	chartDao = (ChartDao)ctx.getBean("chartDao");
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartDto> list = chartDao.querySalesByDate(theme1, from_date, to_date, handerList);
+			List<ChartDto> list = chartDao.querySalesByDate(theme1, from_date, to_date, dur_type, handerList);
 	        System.out.println("querySalesByDate theme1:" + theme1);
 	        System.out.println("querySalesByDate from_date:" + from_date);
 	        System.out.println("querySalesByDate to_date:" + to_date);
@@ -164,7 +164,7 @@ public class ChartServiceImpl implements ChartService{
 	}
 
     // get 库存 data by date
-	public List<ChartDto> queryWareHouseRptByDate(String theme1, String from_date, String to_date, String handerList) {
+	public List<ChartDto> queryWareHouseRptByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		try {
 			if (ctx != null){
 	        	chartDao = (ChartDao)ctx.getBean("chartDao");
@@ -172,7 +172,7 @@ public class ChartServiceImpl implements ChartService{
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartDto> list = chartDao.queryWareHouseRptByDate(theme1, from_date, to_date, handerList);
+			List<ChartDto> list = chartDao.queryWareHouseRptByDate(theme1, from_date, to_date, dur_type, handerList);
 	        System.out.println("queryWareHouseRptByDate theme1:" + theme1);
 	        System.out.println("queryWareHouseRptByDate from_date:" + from_date);
 	        System.out.println("queryWareHouseRptByDate to_date:" + to_date);
@@ -186,7 +186,7 @@ public class ChartServiceImpl implements ChartService{
 	}
 
     // get 财务 data by date
-	public List<ChartDto> queryFinanceByDate(String theme1, String from_date, String to_date, String handerList) {
+	public List<ChartDto> queryFinanceByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		try {
 			if (ctx != null){
 	        	chartDao = (ChartDao)ctx.getBean("chartDao");
@@ -194,7 +194,7 @@ public class ChartServiceImpl implements ChartService{
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartDto> list = chartDao.queryFinanceByDate(theme1, from_date, to_date, handerList);
+			List<ChartDto> list = chartDao.queryFinanceByDate(theme1, from_date, to_date, dur_type, handerList);
 	        System.out.println("queryFinanceByDate theme1:" + theme1);
 	        System.out.println("queryFinanceByDate from_date:" + from_date);
 	        System.out.println("queryFinanceByDate to_date:" + to_date);
@@ -208,7 +208,7 @@ public class ChartServiceImpl implements ChartService{
 	}
 	
 	// 从数据库中取得各类数据，放入JSON，由年单位转为月数组，并排序
-    public JSONArray getData(String pattern, String from_date, String to_date, String handerList) {  
+    public JSONArray getData(String pattern, String from_date, String to_date, String dur_type, String handerList) {  
     	int i_fy;
     	int i_ty;
     	int i_fm;
@@ -237,19 +237,19 @@ public class ChartServiceImpl implements ChartService{
 
         	// get Buyer's data 
         	if (pattern=="1"){
-        		list = getBuyData("", from_date, to_date, handerList);
+        		list = getBuyData("", from_date, to_date, dur_type, handerList);
         	}
         	// get Saler's data 
         	else if (pattern=="2"){
-        		list = getSaleData("", from_date, to_date, handerList);
+        		list = getSaleData("", from_date, to_date, dur_type, handerList);
         	}
         	// get Delivery's data 
         	else if (pattern=="3"){
-        		list = getDeliveryData("", from_date, to_date, handerList);
+        		list = getDeliveryData("", from_date, to_date, dur_type, handerList);
         	}
         	// get Account's data 
         	else if (pattern=="4"){
-        		list = getAccountData("", from_date, to_date, handerList);
+        		list = getAccountData("", from_date, to_date, dur_type, handerList);
         	}
         	
             Map<String, String> item_map = null;
@@ -274,7 +274,7 @@ public class ChartServiceImpl implements ChartService{
 				        	jsonArr = setJsonData(jsonArr, tmp_user_id,  item_map );
 			            }
 			            // initial the user's data map
-			            temp_item_map = getInitDataMap(i_fy, i_ty, i_fm, i_tm);
+			            temp_item_map = getInitDataMap(i_fy, i_ty, i_fm, i_tm, dur_type);
 		        	}
 		            if (temp_item_map != null){
 		            	// add user data to his data map
@@ -301,20 +301,47 @@ public class ChartServiceImpl implements ChartService{
         return(jsonArr);  
     }	
     
-	public Map<String, String> getInitDataMap(int i_fy, int i_ty, int i_fm, int i_tm) {  
+	public Map<String, String> getInitDataMap(int i_fy, int i_ty, int i_fm, int i_tm, String dur_type) {  
 		Map<String, String> data_map = new HashMap<String, String>();
 
 		int i_year = 0;
 		int i_month = 0;
-		for (int i = 0; i < (i_ty - i_fy)*12 + (i_tm - i_fm) + 1; i++ ){
-			i_year = i_fy  + (i + i_fm)/12;
-			i_month = (i + i_fm)%12; 
-			if (i_month == 0){
-				i_year--;
-				i_month = 12;
+		int dv = 1;
+		if (dur_type.equals("1"))
+			dv = 1;
+		else if (dur_type.equals("2"))
+			dv = 3;
+		else if (dur_type.equals("3"))
+			dv = 12;
+		
+		if (dur_type.equals("1")){
+			for (int i = 0; i < (i_ty - i_fy)*12 + (i_tm - i_fm) + 1; i++ ){
+				i_year = i_fy  + (i + i_fm)/12;
+				i_month = (i + i_fm)%12; 
+				if (i_month == 0){
+					i_year--;
+					i_month = 12;
+				}				
+				data_map.put((Integer.toString(i_year)+String.format("%02d", i_month)),"0.00");
+		        System.out.println("key:" +(Integer.toString(i_year)+String.format("%02d", i_month)));
 			}
-			data_map.put((Integer.toString(i_year)+String.format("%02d", i_month)),"0.00");
-            System.out.println("key:" +(Integer.toString(i_year)+String.format("%02d", i_month)));
+		}else if (dur_type.equals("2")){
+			for (int j = 0; j < ((i_ty - i_fy)*12 + (i_tm - i_fm) + 1)/dv; j++ ){
+				i_year = i_fy  + (j * dv + i_fm) / 12 ;
+				i_month = ((j*dv + i_fm - 1) / dv+1) % 4; 				
+				if (i_month == 0){
+					i_month = 4;
+				}				
+				data_map.put((Integer.toString(i_year)+String.format("%02d", i_month)),"0.00");
+		        System.out.println("key:" +(Integer.toString(i_year)+String.format("%02d", i_month)));
+			}
+		}else if (dur_type.equals("3")){
+			for (int k = 0; k < (i_ty - i_fy) + 1; k++ ){
+				i_year = i_fy  + k;
+				i_month = 1; 				
+				data_map.put((Integer.toString(i_year)+String.format("%02d", i_month)),"0.00");
+		        System.out.println("key:" +(Integer.toString(i_year)+String.format("%02d", i_month)));
+			}
 		}
 		return data_map;
 	}

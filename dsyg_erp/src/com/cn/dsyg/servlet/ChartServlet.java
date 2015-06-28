@@ -74,6 +74,8 @@ public class ChartServlet extends HttpServlet {
         System.out.println("request.from_date:" + from_date);
         String to_date=request.getParameter("to_date");  
         System.out.println("request.to_date:" + to_date);
+        String dur_type=request.getParameter("dur_type");  
+        System.out.println("request.dur_type:" + dur_type);
         String handerList=request.getParameter("handerList");  
         System.out.println("request.handerList:" + handerList);
         
@@ -86,19 +88,19 @@ public class ChartServlet extends HttpServlet {
     	chartService.setCtx(ctx);    	
         // Get Saler's individual data
         if (act.equals("getPurchaseData")){
-            jsonArr = chartService.getData("1",from_date, to_date, handerList);        	
+            jsonArr = chartService.getData("1",from_date, to_date, dur_type, handerList);        	
         } 
         // Get Buyer's individual data
         else if (act.equals("getSaleData")){
-            jsonArr = chartService.getData("2", from_date, to_date, handerList);        	
+            jsonArr = chartService.getData("2", from_date, to_date, dur_type, handerList);        	
         }
         // Get Delivery's individual data
         else if (act.equals("getDeliveryData")){
-            jsonArr = chartService.getData("3", from_date, to_date, handerList);        	
+            jsonArr = chartService.getData("3", from_date, to_date, dur_type, handerList);        	
         }
         // Get Accounting's individual data
         else if (act.equals("getAccountData")){
-            jsonArr = chartService.getData("4", from_date, to_date, handerList);        	
+            jsonArr = chartService.getData("4", from_date, to_date, dur_type, handerList);        	
         }
         
         out.println(jsonArr.toString());  

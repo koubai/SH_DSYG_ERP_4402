@@ -60,7 +60,7 @@
 	</select>
 	
 	<select id="querySalesByDate" parameterClass="java.util.Map" resultMap="ChartDto">	
-			select id, handler2, CONCAT(handler2,if(typ="0"," (公司)"," (自拓)"))as handler, theme1, typ, years as pur_year, 
+		select id, handler2, CONCAT(handler2,if(typ="0"," (公司)"," (自拓)"))as handler, theme1, typ, years as pur_year, 
 			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
 			SUM(case when months=02 then pur_sum_data else 0 end) 'pur_month02',   
 			SUM(case when months=03 then pur_sum_data else 0 end) 'pur_month03',   
@@ -95,6 +95,119 @@
 			group by id, handler2, theme1, typ, pur_year
 			order by id
 	</select>	
+
+
+	<select id="querySalesByDateM" parameterClass="java.util.Map" resultMap="ChartDto">
+		select id, handler2, CONCAT(handler2,if(typ="0"," (公司)"," (自拓)"))as handler, theme1, typ, years as pur_year, 
+			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
+			SUM(case when months=02 then pur_sum_data else 0 end) 'pur_month02',   
+			SUM(case when months=03 then pur_sum_data else 0 end) 'pur_month03',   
+			SUM(case when months=04 then pur_sum_data else 0 end) 'pur_month04',   
+			SUM(case when months=05 then pur_sum_data else 0 end) 'pur_month05',   
+			SUM(case when months=06 then pur_sum_data else 0 end) 'pur_month06',   
+			SUM(case when months=07 then pur_sum_data else 0 end) 'pur_month07',   
+			SUM(case when months=08 then pur_sum_data else 0 end) 'pur_month08',   
+			SUM(case when months=09 then pur_sum_data else 0 end) 'pur_month09',   
+			SUM(case when months=10 then pur_sum_data else 0 end) 'pur_month10',   
+			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
+			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
+		from(   
+			select DATE_FORMAT(T.bookdate,'%y') as years, DATE_FORMAT(T.bookdate,'%m') months, T.theme1, TU.userid as id,TU.username as handler2, TC.customertype as typ, TC.customername, T.taxamount as pur_sum_data     
+			from etb_sales T, etb_customer TC, tbuser TU
+			where 1=1
+  			and T.customerid = TC.id
+  			and T.handler = TU.userid
+			<isNotEmpty prepend="and" property="theme1">
+				T.theme1 = #theme1#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="from_date">
+				T.bookdate <![CDATA[>=]]> #from_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="to_date">
+				T.bookdate <![CDATA[<=]]> #to_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="handerList">
+				T.handler in ( $handerList$ )			
+			</isNotEmpty>
+		)as test 
+			group by id, handler2, theme1, typ, pur_year
+			order by id
+	</select>
+
+	<select id="querySalesByDateQ" parameterClass="java.util.Map" resultMap="ChartDto">
+		select id, handler2, CONCAT(handler2,if(typ="0"," (公司)"," (自拓)"))as handler, theme1, typ, years as pur_year, 
+			SUM(case when months in (01, 02, 03) then pur_sum_data else 0 end) 'pur_month01',   
+			SUM(case when months in (04, 05, 06) then pur_sum_data else 0 end) 'pur_month02',   
+			SUM(case when months in (07, 08, 09) then pur_sum_data else 0 end) 'pur_month03',   
+			SUM(case when months in (10, 11, 12) then pur_sum_data else 0 end) 'pur_month04',   
+			NULL 'pur_month05',   
+			NULL 'pur_month06',   
+			NULL 'pur_month07',   
+			NULL 'pur_month08',   
+			NULL 'pur_month09',   
+			NULL 'pur_month10',   
+			NULL 'pur_month11',   
+			NULL 'pur_month12'   
+		from(   
+			select DATE_FORMAT(T.bookdate,'%y') as years, DATE_FORMAT(T.bookdate,'%m') months, T.theme1, TU.userid as id,TU.username as handler2, TC.customertype as typ, TC.customername, T.taxamount as pur_sum_data     
+			from etb_sales T, etb_customer TC, tbuser TU
+			where 1=1
+  			and T.customerid = TC.id
+  			and T.handler = TU.userid
+			<isNotEmpty prepend="and" property="theme1">
+				T.theme1 = #theme1#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="from_date">
+				T.bookdate <![CDATA[>=]]> #from_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="to_date">
+				T.bookdate <![CDATA[<=]]> #to_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="handerList">
+				T.handler in ( $handerList$ )			
+			</isNotEmpty>
+		)as test 
+			group by id, handler2, theme1, typ, pur_year
+			order by id
+	</select>
+
+	<select id="querySalesByDateY" parameterClass="java.util.Map" resultMap="ChartDto">
+		select id, handler2, CONCAT(handler2,if(typ="0"," (公司)"," (自拓)"))as handler, theme1, typ, years as pur_year, 
+			SUM(case when months in (01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12) then pur_sum_data else 0 end) 'pur_month01',   
+			NULL 'pur_month02',   
+			NULL 'pur_month03',   
+			NULL 'pur_month04',   
+			NULL 'pur_month05',   
+			NULL 'pur_month06',   
+			NULL 'pur_month07',   
+			NULL 'pur_month08',   
+			NULL 'pur_month09',   
+			NULL 'pur_month10',   
+			NULL 'pur_month11',   
+			NULL 'pur_month12'   
+		from(   
+			select DATE_FORMAT(T.bookdate,'%y') as years, DATE_FORMAT(T.bookdate,'%m') months, T.theme1, TU.userid as id,TU.username as handler2, TC.customertype as typ, TC.customername, T.taxamount as pur_sum_data     
+			from etb_sales T, etb_customer TC, tbuser TU
+			where 1=1
+  			and T.customerid = TC.id
+  			and T.handler = TU.userid
+			<isNotEmpty prepend="and" property="theme1">
+				T.theme1 = #theme1#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="from_date">
+				T.bookdate <![CDATA[>=]]> #from_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="to_date">
+				T.bookdate <![CDATA[<=]]> #to_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="handerList">
+				T.handler in ( $handerList$ )			
+			</isNotEmpty>
+		)as test 
+			group by id, handler2, theme1, typ, pur_year
+			order by id
+	</select>
+
 	
 	<select id="querySalesByDate2" parameterClass="java.util.Map" resultMap="ChartDto">
 		select id, handler, theme1, years as pur_year, 

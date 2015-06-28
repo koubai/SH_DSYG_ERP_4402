@@ -136,22 +136,18 @@ public class ChartAction extends BaseAction {
 	
     // Get Saler's individual data
     public String getSaleDataAction() {  
-    	JSONArray arr = chartService.getData("1",chgDate(0), chgDate(-3), "");        	
         return SUCCESS;  
     } 
     // Get Buyer's individual data
     public String getBuyDataAction() {  
-    	JSONArray arr = chartService.getData("2",chgDate(0), chgDate(-3), "");        	
         return SUCCESS;  
     } 
     // Get Delivery's individual data
     public String getDeliveryDataAction() {  
-    	JSONArray arr = chartService.getData("3",chgDate(0), chgDate(-3), "");        	
         return SUCCESS;  
     } 
     // Get Accounting's individual data
     public String getAccountDataAction() {  
-    	JSONArray arr = chartService.getData("4",chgDate(0), chgDate(-3), "");        	
         return SUCCESS;  
     }
           
