@@ -102,6 +102,18 @@ public class ChartServlet extends HttpServlet {
         else if (act.equals("getAccountData")){
             jsonArr = chartService.getData("4", from_date, to_date, dur_type, handerList);        	
         }
+        // Get Saler's detail individual data
+        else if (act.equals("getSaleDetailData")){
+            jsonArr = chartService.getData("5", from_date, to_date, dur_type, handerList);        	
+        }
+        // Get Saler's detail individual data
+        else if (act.equals("getSupplierData")){
+            jsonArr = chartService.getData("6", from_date, to_date, dur_type, handerList);        	
+        }
+        // Get Saler's detail individual data
+        else if (act.equals("getCustomerData")){
+            jsonArr = chartService.getData("7", from_date, to_date, dur_type, handerList);        	
+        }
         
         out.println(jsonArr.toString());  
         out.flush();  

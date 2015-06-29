@@ -86,6 +86,16 @@ public class ChartAction extends BaseAction {
 			return ERROR;
 		}
 	}
+
+    public String showSaleDetailInfoMainChartAction(){  
+    	try{
+            System.out.println("showSaleDetailInfoMainChartAction success"); 
+	        return SUCCESS;  
+		} catch(Exception e) {
+			log.error("showSaleDetailInfoMainChartAction error:" + e);
+			return ERROR;
+		}
+	}
     
     public String showPurchaseInfoMainChartAction(){  
     	try{
@@ -113,6 +123,26 @@ public class ChartAction extends BaseAction {
 	        return SUCCESS;  
 		} catch(Exception e) {
 			log.error("showAccountInfoMainChartAction error:" + e);
+			return ERROR;
+		}
+	}
+
+    public String showSupplierInfoMainChartAction(){  
+    	try{
+            System.out.println("showSupplierInfoMainChartAction success"); 
+	        return SUCCESS;  
+		} catch(Exception e) {
+			log.error("showSupplierInfoMainChartAction error:" + e);
+			return ERROR;
+		}
+	}
+
+    public String showCustomerInfoMainChartAction(){  
+    	try{
+            System.out.println("showCustomerInfoMainChartAction success"); 
+	        return SUCCESS;  
+		} catch(Exception e) {
+			log.error("showCustomerInfoMainChartAction error:" + e);
 			return ERROR;
 		}
 	}

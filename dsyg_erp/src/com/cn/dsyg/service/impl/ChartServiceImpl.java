@@ -96,6 +96,14 @@ public class ChartServiceImpl implements ChartService{
     	
     	return list;
     }
+
+	// 取得销售详细数据
+	public List<ChartDto> getSaleDetailData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
+    	List<ChartDto>  list = new ArrayList<ChartDto>();
+        list = querySalesDetailByDate(theme, from_date, to_date, dur_type, handerList);
+    	
+    	return list;
+    }
     
 	// 取得采购数据
     public List<ChartDto> getBuyData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
@@ -117,6 +125,22 @@ public class ChartServiceImpl implements ChartService{
     public List<ChartDto> getAccountData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
     	List<ChartDto>  list = new ArrayList<ChartDto>();
         list = queryFinanceByDate(theme, from_date, to_date, dur_type, handerList);
+    	
+    	return list;
+    }
+
+    // 取得供应商数据
+    public List<ChartDto> getSupplierData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
+    	List<ChartDto>  list = new ArrayList<ChartDto>();
+        list = querySupplierByDate(theme, from_date, to_date, dur_type, handerList);
+    	
+    	return list;
+    }
+
+    // 取得客户数据
+    public List<ChartDto> getCustomerData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
+    	List<ChartDto>  list = new ArrayList<ChartDto>();
+        list = queryCustomerByDate(theme, from_date, to_date, dur_type, handerList);
     	
     	return list;
     }
@@ -156,6 +180,27 @@ public class ChartServiceImpl implements ChartService{
 	        System.out.println("querySalesByDate to_date:" + to_date);
 	        System.out.println("querySalesByDate handerList:" + handerList);
 	        System.out.println("querySalesByDate list:" + list.size());
+			return list;		
+		}catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	// get 销售 data by date
+	public List<ChartDto> querySalesDetailByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+		try {
+			if (ctx != null){
+	        	chartDao = (ChartDao)ctx.getBean("chartDao");
+			}else
+		        System.out.println("chartDao is null" );
+				
+			List<ChartDto> list = chartDao.querySalesDetailByDate(theme1, from_date, to_date, dur_type, handerList);
+	        System.out.println("queryDetailSalesByDate theme1:" + theme1);
+	        System.out.println("queryDetailSalesByDate from_date:" + from_date);
+	        System.out.println("queryDetailSalesByDate to_date:" + to_date);
+	        System.out.println("queryDetailSalesByDate handerList:" + handerList);
+	        System.out.println("queryDetailSalesByDate list:" + list.size());
 			return list;		
 		}catch (Exception e){
 			e.printStackTrace();
@@ -207,6 +252,49 @@ public class ChartServiceImpl implements ChartService{
 		}
 	}
 	
+    // get supplier data by date
+	public List<ChartDto> querySupplierByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+		try {
+			if (ctx != null){
+	        	chartDao = (ChartDao)ctx.getBean("chartDao");
+		        System.out.println("chartDao not null" );
+			}else
+		        System.out.println("chartDao is null" );
+				
+			List<ChartDto> list = chartDao.querySupplierByDate(theme1, from_date, to_date, dur_type, handerList);
+	        System.out.println("querySupplierByDate theme1:" + theme1);
+	        System.out.println("querySupplierByDate from_date:" + from_date);
+	        System.out.println("querySupplierByDate to_date:" + to_date);
+	        System.out.println("querySupplierByDate handerList:" + handerList);
+	        System.out.println("querySupplierByDate list:" + list.size());
+			return list;		
+		}catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+    // get customer data by date
+	public List<ChartDto> queryCustomerByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+		try {
+			if (ctx != null){
+	        	chartDao = (ChartDao)ctx.getBean("chartDao");
+		        System.out.println("chartDao not null" );
+			}else
+		        System.out.println("chartDao is null" );
+				
+			List<ChartDto> list = chartDao.queryCustomerByDate(theme1, from_date, to_date, dur_type, handerList);
+	        System.out.println("queryCustomerByDate theme1:" + theme1);
+	        System.out.println("queryCustomerByDate from_date:" + from_date);
+	        System.out.println("queryCustomerByDate to_date:" + to_date);
+	        System.out.println("queryCustomerByDate handerList:" + handerList);
+	        System.out.println("queryCustomerByDate list:" + list.size());
+			return list;		
+		}catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	// 从数据库中取得各类数据，放入JSON，由年单位转为月数组，并排序
     public JSONArray getData(String pattern, String from_date, String to_date, String dur_type, String handerList) {  
     	int i_fy;
@@ -236,20 +324,32 @@ public class ChartServiceImpl implements ChartService{
         	List<ChartDto>  list = new ArrayList<ChartDto>();
 
         	// get Buyer's data 
-        	if (pattern=="1"){
+        	if (pattern.equals("1")){
         		list = getBuyData("", from_date, to_date, dur_type, handerList);
         	}
         	// get Saler's data 
-        	else if (pattern=="2"){
+        	else if (pattern.equals("2")){
         		list = getSaleData("", from_date, to_date, dur_type, handerList);
         	}
         	// get Delivery's data 
-        	else if (pattern=="3"){
+        	else if (pattern.equals("3")){
         		list = getDeliveryData("", from_date, to_date, dur_type, handerList);
         	}
         	// get Account's data 
-        	else if (pattern=="4"){
+        	else if (pattern.equals("4")){
         		list = getAccountData("", from_date, to_date, dur_type, handerList);
+        	}
+        	// get Saler's detail data 
+        	else if (pattern.equals("5")){
+        		list = getSaleDetailData("", from_date, to_date, dur_type, handerList);
+        	}
+        	// get supplier data 
+        	else if (pattern.equals("6")){
+        		list = getSupplierData("", from_date, to_date, dur_type, handerList);
+        	}
+        	// get Saler's detail data 
+        	else if (pattern.equals("7")){
+        		list = getCustomerData("", from_date, to_date, dur_type, handerList);
         	}
         	
             Map<String, String> item_map = null;

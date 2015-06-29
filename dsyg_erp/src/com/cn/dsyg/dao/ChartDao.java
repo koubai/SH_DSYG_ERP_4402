@@ -12,6 +12,9 @@ public interface ChartDao {
 	 */
 	public List<ChartDto> queryPurchaseByDate(String theme1, String from_date, String to_date, String dur_type, String handerList);
 	public List<ChartDto> querySalesByDate(String theme1, String from_date, String to_date, String dur_type, String handerList);
+	public List<ChartDto> querySalesDetailByDate(String theme1, String from_date, String to_date, String dur_type, String handerList);
 	public List<ChartDto> queryWareHouseRptByDate(String theme1, String from_date, String to_date, String dur_type, String handerList);
 	public List<ChartDto> queryFinanceByDate(String theme1, String from_date, String to_date, String dur_type, String handerList);
+	public List<ChartDto> querySupplierByDate(String theme1, String from_date, String to_date, String dur_type, String handerList);
+	public List<ChartDto> queryCustomerByDate(String theme1, String from_date, String to_date, String dur_type, String handerList);
 }

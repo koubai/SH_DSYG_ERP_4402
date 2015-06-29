@@ -21,13 +21,12 @@
 		</div>
 		<div class=content>
 			<a href="${pageContext.request.contextPath}/chart/showSaleInfoMainChartAction.action">销售信息分析</a><br>
-			销售详细信息分析<br>
+			<a href="${pageContext.request.contextPath}/chart/showSaleDetailInfoMainChartAction.action">销售详细信息分析</a><br>
 			<a href="${pageContext.request.contextPath}/chart/showPurchaseInfoMainChartAction.action">采购信息分析</a><br>
 			<a href="${pageContext.request.contextPath}/chart/showDeliveryInfoMainChartAction.action">物流信息分析</a><br>
 			<a href="${pageContext.request.contextPath}/chart/showAccountInfoMainChartAction.action">财务信息分析</a><br>
-			供应商信息分析<br>
-			客户信息分析<br>
-			利润分析<br>			
+			<a href="${pageContext.request.contextPath}/chart/showSupplierInfoMainChartAction.action">供应商信息分析</a><br>
+			<a href="${pageContext.request.contextPath}/chart/showCustomerInfoMainChartAction.action">客户信息分析</a><br>
 		</div>
 		<div class=content>
 			<a href="${pageContext.request.contextPath}/intermana/showCalendarAction.action">考勤管理一览</a><br>
