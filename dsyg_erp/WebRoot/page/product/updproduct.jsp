@@ -140,7 +140,6 @@
 				<div class="tittle_left">
 				</div>
 				<div class="tittle_center" style="width:150px;">
-					<input type="hidden" id="agentCompEditFlag" value="0"/>
 					产品信息编辑
 				</div>
 				<div class="tittle_right">

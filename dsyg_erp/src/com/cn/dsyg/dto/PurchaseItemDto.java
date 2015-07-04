@@ -106,6 +106,11 @@ public class PurchaseItemDto extends BaseAction {
 	 * 金额（含税）
 	 */
 	private BigDecimal taxamount;
+	
+	/**
+	 * 预入库时间
+	 */
+	private String plandate;
 
 	/**
 	 * 收货人
@@ -509,5 +514,13 @@ public class PurchaseItemDto extends BaseAction {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getPlandate() {
+		return plandate;
+	}
+
+	public void setPlandate(String plandate) {
+		this.plandate = plandate;
 	}
 }

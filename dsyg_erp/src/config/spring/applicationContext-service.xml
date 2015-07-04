@@ -3,10 +3,76 @@
 
 <beans>
 
+	<!-- finance -->
+	<bean id="financeService" class="com.cn.dsyg.service.impl.FinanceServiceImpl" >
+		<property name="financeDao">
+			<ref local="financeDao"/>
+		</property>
+	</bean>
+	
+	<bean id="financeDao" class="com.cn.dsyg.dao.impl.FinanceDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- sales -->
+	<bean id="salesService" class="com.cn.dsyg.service.impl.SalesServiceImpl" >
+		<property name="salesDao">
+			<ref local="salesDao"/>
+		</property>
+		<property name="salesItemDao">
+			<ref local="salesItemDao"/>
+		</property>
+		<property name="warehouseDao">
+			<ref local="warehouseDao"/>
+		</property>
+		<property name="dict01Dao">
+			<ref local="dict01Dao"/>
+		</property>
+	</bean>
+	
+	<bean id="salesDao" class="com.cn.dsyg.dao.impl.SalesDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- salesItem -->
+	<bean id="salesItemService" class="com.cn.dsyg.service.impl.SalesItemServiceImpl" >
+		<property name="salesItemDao">
+			<ref local="salesItemDao"/>
+		</property>
+	</bean>
+	
+	<bean id="salesItemDao" class="com.cn.dsyg.dao.impl.SalesItemDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+
 	<!-- Warehouse -->
 	<bean id="warehouseService" class="com.cn.dsyg.service.impl.WarehouseServiceImpl" >
 		<property name="warehouseDao">
 			<ref local="warehouseDao"/>
+		</property>
+		<property name="purchaseDao">
+			<ref local="purchaseDao"/>
+		</property>
+		<property name="purchaseItemDao">
+			<ref local="purchaseItemDao"/>
+		</property>
+		<property name="warehouserptDao">
+			<ref local="warehouserptDao"/>
+		</property>
+		<property name="supplierDao">
+			<ref local="supplierDao"/>
+		</property>
+		<property name="salesDao">
+			<ref local="salesDao"/>
+		</property>
+		<property name="salesItemDao">
+			<ref local="salesItemDao"/>
 		</property>
 	</bean>
 	
@@ -26,6 +92,15 @@
 		</property>
 		<property name="purchaseDao">
 			<ref local="purchaseDao"/>
+		</property>
+		<property name="warehouseDao">
+			<ref local="warehouseDao"/>
+		</property>
+		<property name="productDao">
+			<ref local="productDao"/>
+		</property>
+		<property name="dict01Dao">
+			<ref local="dict01Dao"/>
 		</property>
 	</bean>
 	
@@ -88,6 +163,9 @@
 		</property>
 		<property name="warehouseDao">
 			<ref local="warehouseDao"/>
+		</property>
+		<property name="dict01Dao">
+			<ref local="dict01Dao"/>
 		</property>
 	</bean>
 	

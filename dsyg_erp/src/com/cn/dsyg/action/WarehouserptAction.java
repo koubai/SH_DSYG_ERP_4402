@@ -1,18 +1,23 @@
 package com.cn.dsyg.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
+import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
+import com.cn.common.util.PropertiesConfig;
+import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.Dict01Dto;
-import com.cn.dsyg.dto.WarehouseOkDto;
+import com.cn.dsyg.dto.WarehouserptDto;
 import com.cn.dsyg.service.Dict01Service;
 import com.cn.dsyg.service.PurchaseItemService;
 import com.cn.dsyg.service.PurchaseService;
 import com.cn.dsyg.service.WarehouserptService;
+import com.opensymphony.xwork2.ActionContext;
 
 /**
  * @name WarehouserptAction.java
@@ -36,8 +41,7 @@ public class WarehouserptAction extends BaseAction {
 	private Page page;
 	//一页显示数据条数
 	private Integer intPageSize;
-	//页面显示的采购数据列表
-	private List<WarehouseOkDto> purchaseItemOkList;
+	private List<WarehouserptDto> warehouserptList;
 	
 	//采购单号
 	private String strPurchaseno;
@@ -51,32 +55,323 @@ public class WarehouserptAction extends BaseAction {
 	//产地
 	private List<Dict01Dto> makeareaList;
 	
+	//编辑
+	private String updWarehouserptId;
+	private WarehouserptDto updWarehouserptDto;
+	
+	
+	//发货单
 	/**
-	 * 显示库存确认页面
+	 * 修改发货单页面
 	 * @return
 	 */
-	public String showWarehouseOk() {
+	public String showUpdWarehouserptOutAction() {
 		try {
 			this.clearMessages();
+			updWarehouserptDto = warehouserptService.queryWarehouserptByID(updWarehouserptId);
+			//测试数据==============================
+			updWarehouserptDto.setExpressid("1");
+			//初期化字典数据
+			initDictList();
 		} catch(Exception e) {
-			log.error("showWarehouseOk error:" + e);
+			log.error("showUpdWarehouserptOutAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
 	}
 	
 	/**
-	 * 库存确认
+	 * 修改发货单
 	 * @return
 	 */
-	public String warehouseOk() {
+	public String updWarehouserptOutAction() {
 		try {
 			this.clearMessages();
+			//初期化字典数据
+			initDictList();
+			//数据验证
+			if(updWarehouserptDto == null) {
+				this.addActionMessage("数据为空，请检查数据是否正确！");
+				return "checkerror";
+			}
+			if(StringUtil.isBlank(updWarehouserptDto.getExpressid())) {
+				this.addActionMessage("请选择快递！");
+				return "checkerror";
+			}
+			if(StringUtil.isBlank(updWarehouserptDto.getExpressname())) {
+				this.addActionMessage("快递名称不能为空！");
+				return "checkerror";
+			}
+			if(StringUtil.isBlank(updWarehouserptDto.getExpressaddress())) {
+				this.addActionMessage("快递地址不能为空！");
+				return "checkerror";
+			}
+			if(updWarehouserptDto.getExpresstaxamount() == null) {
+				this.addActionMessage("转运费用合计不能为空！");
+				return "checkerror";
+			}
+			if(StringUtil.isBlank(updWarehouserptDto.getExpressmanager())) {
+				this.addActionMessage("快递联系人不能为空！");
+				return "checkerror";
+			}
+			if(StringUtil.isBlank(updWarehouserptDto.getExpresstel())) {
+				this.addActionMessage("快递联系人电话不能为空！");
+				return "checkerror";
+			}
+			if(StringUtil.isBlank(updWarehouserptDto.getExpressfax())) {
+				this.addActionMessage("快递联系人传真不能为空！");
+				return "checkerror";
+			}
+			if(StringUtil.isBlank(updWarehouserptDto.getWarehousedate())) {
+				this.addActionMessage("发货日期不能为空！");
+				return "checkerror";
+			}
+			if(StringUtil.isBlank(updWarehouserptDto.getExpressmail())) {
+				this.addActionMessage("信箱不能为空！");
+				return "checkerror";
+			}
+			//保存数据
+			//当前操作用户ID
+			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			updWarehouserptDto.setUpdateuid(username);
+			warehouserptService.updateWarehouserpt(updWarehouserptDto, Constants.WAREHOUSE_TYPE_OUT);
+			this.addActionMessage("修改成功！");
 		} catch(Exception e) {
-			log.error("warehouseOk error:" + e);
+			log.error("updWarehouserptOutAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
+	}
+	
+	/**
+	 * 发货单一览
+	 * @return
+	 */
+	public String showWarehouserptOutAction() {
+		try {
+			this.clearMessages();
+			warehouserptList = new ArrayList<WarehouserptDto>();
+			//页面数据初期化
+			startIndex = 0;
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			initDictList();
+		} catch(Exception e) {
+			log.error("showWarehouserptOutAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询入库数据
+	 * @return
+	 */
+	public String queryWarehouserptOutAction() {
+		try {
+			this.clearMessages();
+			//页面数据初期化
+			startIndex = 0;
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
+			queryData("" + Constants.WAREHOUSE_TYPE_OUT);
+		} catch(Exception e) {
+			log.error("queryWarehouserptOutAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页
+	 * @return
+	 */
+	public String turnWarehouserptOutAction() {
+		try {
+			this.clearMessages();
+			//页面数据初期化
+			queryData("" + Constants.WAREHOUSE_TYPE_OUT);
+		} catch(Exception e) {
+			log.error("turnWarehouserptOutAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	//入库单
+	/**
+	 * 修改入库单页面
+	 * @return
+	 */
+	public String showUpdWarehouserptInAction() {
+		try {
+			this.clearMessages();
+			updWarehouserptDto = warehouserptService.queryWarehouserptByID(updWarehouserptId);
+			//测试数据==============================
+			updWarehouserptDto.setExpressid("1");
+			//初期化字典数据
+			initDictList();
+		} catch(Exception e) {
+			log.error("showUpdWarehouserptInAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 修改入库单
+	 * @return
+	 */
+	public String updWarehouserptInAction() {
+		try {
+			this.clearMessages();
+			//初期化字典数据
+			initDictList();
+			//数据验证
+			if(updWarehouserptDto == null) {
+				this.addActionMessage("数据为空，请检查数据是否正确！");
+				return "checkerror";
+			}
+			if(StringUtil.isBlank(updWarehouserptDto.getExpressid())) {
+				this.addActionMessage("请选择快递！");
+				return "checkerror";
+			}
+			if(StringUtil.isBlank(updWarehouserptDto.getExpressname())) {
+				this.addActionMessage("快递名称不能为空！");
+				return "checkerror";
+			}
+			if(StringUtil.isBlank(updWarehouserptDto.getExpressaddress())) {
+				this.addActionMessage("快递地址不能为空！");
+				return "checkerror";
+			}
+			if(updWarehouserptDto.getExpresstaxamount() == null) {
+				this.addActionMessage("转运费用合计不能为空！");
+				return "checkerror";
+			}
+			if(StringUtil.isBlank(updWarehouserptDto.getExpressmanager())) {
+				this.addActionMessage("快递联系人不能为空！");
+				return "checkerror";
+			}
+			if(StringUtil.isBlank(updWarehouserptDto.getExpresstel())) {
+				this.addActionMessage("快递联系人电话不能为空！");
+				return "checkerror";
+			}
+			if(StringUtil.isBlank(updWarehouserptDto.getExpressfax())) {
+				this.addActionMessage("快递联系人传真不能为空！");
+				return "checkerror";
+			}
+			if(StringUtil.isBlank(updWarehouserptDto.getWarehousedate())) {
+				this.addActionMessage("收货日期不能为空！");
+				return "checkerror";
+			}
+			if(StringUtil.isBlank(updWarehouserptDto.getExpressmail())) {
+				this.addActionMessage("信箱不能为空！");
+				return "checkerror";
+			}
+			//保存数据
+			//当前操作用户ID
+			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			updWarehouserptDto.setUpdateuid(username);
+			warehouserptService.updateWarehouserpt(updWarehouserptDto, Constants.WAREHOUSE_TYPE_IN);
+			this.addActionMessage("修改成功！");
+		} catch(Exception e) {
+			log.error("showAddWarehouserptInAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 入库单一览
+	 * @return
+	 */
+	public String showWarehouserptInAction() {
+		try {
+			this.clearMessages();
+			warehouserptList = new ArrayList<WarehouserptDto>();
+			//页面数据初期化
+			startIndex = 0;
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			initDictList();
+		} catch(Exception e) {
+			log.error("showWarehouserptInAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询入库数据
+	 * @return
+	 */
+	public String queryWarehouserptInAction() {
+		try {
+			this.clearMessages();
+			//页面数据初期化
+			startIndex = 0;
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
+			queryData("" + Constants.WAREHOUSE_TYPE_IN);
+		} catch(Exception e) {
+			log.error("queryWarehouserptInAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页
+	 * @return
+	 */
+	public String turnWarehouserptInAction() {
+		try {
+			this.clearMessages();
+			//页面数据初期化
+			queryData("" + Constants.WAREHOUSE_TYPE_IN);
+		} catch(Exception e) {
+			log.error("turnWarehouserptInAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 数据查询
+	 */
+	@SuppressWarnings("unchecked")
+	private void queryData(String type) {
+		if(page == null) {
+			page = new Page(intPageSize);
+		}
+		initDictList();
+		//翻页查询所有预入库待确认数据
+		this.page.setStartIndex(startIndex);
+		page = warehouserptService.queryWarehouserptByPage("", type, "", "", "", "", "", page);
+		warehouserptList = (List<WarehouserptDto>) page.getItems();
+		this.setStartIndex(page.getStartIndex());
+	}
+	
+	/**
+	 * 初期化字典数据
+	 */
+	private void initDictList() {
+		//采购主题
+		goodsList = dict01Service.queryDict01ByFieldcode(Constants.DICT_GOODS_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		//单位
+		unitList = dict01Service.queryDict01ByFieldcode(Constants.DICT_UNIT_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		//产地
+		makeareaList = dict01Service.queryDict01ByFieldcode(Constants.DICT_MAKEAREA, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		//颜色
+		colorList = dict01Service.queryDict01ByFieldcode(Constants.DICT_COLOR_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 	}
 	
 	public WarehouserptService getWarehouserptService() {
@@ -175,11 +470,27 @@ public class WarehouserptAction extends BaseAction {
 		this.strPurchaseno = strPurchaseno;
 	}
 
-	public List<WarehouseOkDto> getPurchaseItemOkList() {
-		return purchaseItemOkList;
+	public List<WarehouserptDto> getWarehouserptList() {
+		return warehouserptList;
 	}
 
-	public void setPurchaseItemOkList(List<WarehouseOkDto> purchaseItemOkList) {
-		this.purchaseItemOkList = purchaseItemOkList;
+	public void setWarehouserptList(List<WarehouserptDto> warehouserptList) {
+		this.warehouserptList = warehouserptList;
+	}
+
+	public String getUpdWarehouserptId() {
+		return updWarehouserptId;
+	}
+
+	public void setUpdWarehouserptId(String updWarehouserptId) {
+		this.updWarehouserptId = updWarehouserptId;
+	}
+
+	public WarehouserptDto getUpdWarehouserptDto() {
+		return updWarehouserptDto;
+	}
+
+	public void setUpdWarehouserptDto(WarehouserptDto updWarehouserptDto) {
+		this.updWarehouserptDto = updWarehouserptDto;
 	}
 }

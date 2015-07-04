@@ -1,5 +1,6 @@
 package com.cn.dsyg.service.impl;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -9,9 +10,11 @@ import com.cn.common.util.Constants;
 import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
+import com.cn.dsyg.dao.Dict01Dao;
 import com.cn.dsyg.dao.PurchaseDao;
 import com.cn.dsyg.dao.PurchaseItemDao;
 import com.cn.dsyg.dao.WarehouseDao;
+import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.PurchaseDto;
 import com.cn.dsyg.dto.PurchaseItemDto;
 import com.cn.dsyg.dto.WarehouseDto;
@@ -28,6 +31,25 @@ public class PurchaseServiceImpl implements PurchaseService {
 	private PurchaseDao purchaseDao;
 	private PurchaseItemDao purchaseItemDao;
 	private WarehouseDao warehouseDao;
+	private Dict01Dao dict01Dao;
+	
+	@Override
+	public Page queryFinancePurchaseByPage(String purchasedateLow,
+			String purchasedateHigh, String status, Page page) {
+		//查询总记录数
+		int totalCount = purchaseDao.queryFinancePurchaseCountByPage(purchasedateLow, purchasedateHigh, status);
+		page.setTotalCount(totalCount);
+		if(totalCount % page.getPageSize() > 0) {
+			page.setTotalPage(totalCount / page.getPageSize() + 1);
+		} else {
+			page.setTotalPage(totalCount / page.getPageSize());
+		}
+		//翻页查询记录
+		List<PurchaseDto> list = purchaseDao.queryFinancePurchaseByPage(purchasedateLow, purchasedateHigh, status,
+				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		page.setItems(list);
+		return page;
+	}
 
 	@Override
 	public Page queryPurchaseByPage(String purchasedateLow,
@@ -71,6 +93,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 		purchaseno = "purchase" + belongto + sdf.format(date) + uuid;
 		purchase.setPurchaseno(purchaseno);
 		
+		//status
+		purchase.setStatus(Constants.PURCHASE_STATUS_NEW);
 		//rank
 		purchase.setRank(Constants.ROLE_RANK_OPERATOR);
 		
@@ -88,6 +112,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 				purchaseItem.setBelongto(belongto);
 				purchaseItem.setRank(Constants.ROLE_RANK_OPERATOR);
 				purchaseItem.setSupplierid(purchase.getSupplierid());
+				purchaseItem.setPlandate(purchase.getPlandate());
 				
 				//判断预入库数量是否大于0，若大于0则生产库存记录
 				if(purchaseItem.getBeforequantity() != null && purchaseItem.getBeforequantity() > 0) {
@@ -172,6 +197,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 		}
 	}
 	
+	@Override
+	public void updatePurchase(PurchaseDto purchase) {
+		purchaseDao.updatePurchase(purchase);
+	}
+	
 	/**
 	 * 新增库存记录
 	 * @param purchase
@@ -187,6 +217,10 @@ public class PurchaseServiceImpl implements PurchaseService {
 		warehouse.setParentid(purchase.getPurchaseno());
 		//库存类型=入库单
 		warehouse.setWarehousetype(Constants.WAREHOUSE_TYPE_IN);
+		//仓库
+		warehouse.setWarehousename(purchase.getWarehouse());
+		//预入库时间
+		warehouse.setPlandate(purchase.getPlandate());
 		
 		//入库单号
 		String uuid = UUID.randomUUID().toString();
@@ -203,10 +237,25 @@ public class PurchaseServiceImpl implements PurchaseService {
 		warehouse.setQuantity(purchaseItem.getBeforequantity());
 		//单价
 		warehouse.setUnitprice(purchaseItem.getUnitprice());
-		//入库金额
-		warehouse.setAmount(purchaseItem.getAmount());
+		//入库金额=入库数量*单价
+		BigDecimal amount = purchaseItem.getUnitprice().multiply(new BigDecimal(purchaseItem.getBeforequantity()));
+		//入库金额含税=入库金额*税率
+		BigDecimal taxamount = new BigDecimal(0);
+		
+		//入出库金额（含税）=入库金额*（1+税率）
+		List<Dict01Dto> listRate = dict01Dao.queryDict01ByFieldcode(Constants.DICT_RATE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		//默认为0
+		BigDecimal rate = new BigDecimal(0);
+		if(listRate != null && listRate.size() > 0) {
+			rate = new BigDecimal(listRate.get(0).getCode());
+			rate = rate.add(new BigDecimal(1));
+			taxamount = amount.multiply(rate);
+			taxamount = taxamount.setScale(2, BigDecimal.ROUND_HALF_UP);
+		}
+		
+		warehouse.setAmount(amount);
 		//入出库金额（含税）
-		warehouse.setTaxamount(purchaseItem.getTaxamount());
+		warehouse.setTaxamount(taxamount);
 		//入库日期=当天
 		warehouse.setWarehousedate(DateUtil.dateToShortStr(new Date()));
 		//供应商ID
@@ -245,5 +294,13 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 	public void setWarehouseDao(WarehouseDao warehouseDao) {
 		this.warehouseDao = warehouseDao;
+	}
+
+	public Dict01Dao getDict01Dao() {
+		return dict01Dao;
+	}
+
+	public void setDict01Dao(Dict01Dao dict01Dao) {
+		this.dict01Dao = dict01Dao;
 	}
 }

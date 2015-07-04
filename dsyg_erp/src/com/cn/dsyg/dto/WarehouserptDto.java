@@ -2,6 +2,7 @@ package com.cn.dsyg.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import com.cn.common.action.BaseAction;
 
@@ -21,7 +22,7 @@ public class WarehouserptDto extends BaseAction {
 	private Long id;
 
 	/**
-	 * 类型：1为入库单，2为出库单
+	 * 类型：1为入库单，2为出库单，3为退换货，4为手动录入
 	 */
 	private Integer warehousetype;
 
@@ -31,10 +32,20 @@ public class WarehouserptDto extends BaseAction {
 	private String warehouseno;
 	
 	/**
-	 * 货物ID
+	 * 仓库名
 	 */
-	private Long productid;
-
+	private String warehousename;
+	
+	/**
+	 * 货物信息：产品ID,产品数量,产品金额#产品ID,产品数量,产品金额
+	 */
+	private String productinfo;
+	
+	/**
+	 * 入出库单对应的货物记录列表
+	 */
+	private List<ProductDto> listProduct;
+	
 	/**
 	 * 所属地（以后可能分上海和深圳）
 	 */
@@ -64,11 +75,27 @@ public class WarehouserptDto extends BaseAction {
 	 * 入库数量
 	 */
 	private Integer totalnum;
+	
+	//损毁数量
+	/**
+	 * 损毁数量
+	 */
+	private Integer brokennum;
+
+	/**
+	 * 是否损毁（1为损毁）
+	 */
+	private String hasbroken;
 
 	/**
 	 * 入出库单日期
 	 */
 	private String warehousedate;
+	
+	/**
+	 * 采购日期（显示用）
+	 */
+	private String showWarehousedate;
 
 	/**
 	 * 收货人
@@ -124,6 +151,11 @@ public class WarehouserptDto extends BaseAction {
 	 * 快递公司联系电话
 	 */
 	private String expresstel;
+	
+	/**
+	 * 快递公司传真
+	 */
+	private String expressfax;
 
 	/**
 	 * 快递联系人
@@ -586,14 +618,6 @@ public class WarehouserptDto extends BaseAction {
 		this.updatedate = updatedate;
 	}
 
-	public Long getProductid() {
-		return productid;
-	}
-
-	public void setProductid(Long productid) {
-		this.productid = productid;
-	}
-
 	public String getSuppliername() {
 		return suppliername;
 	}
@@ -624,5 +648,66 @@ public class WarehouserptDto extends BaseAction {
 
 	public void setWarehousedate(String warehousedate) {
 		this.warehousedate = warehousedate;
+	}
+
+	public Integer getBrokennum() {
+		return brokennum;
+	}
+
+	public void setBrokennum(Integer brokennum) {
+		this.brokennum = brokennum;
+	}
+
+	public String getHasbroken() {
+		return hasbroken;
+	}
+
+	public void setHasbroken(String hasbroken) {
+		this.hasbroken = hasbroken;
+	}
+
+	public String getExpressfax() {
+		return expressfax;
+	}
+
+	public void setExpressfax(String expressfax) {
+		this.expressfax = expressfax;
+	}
+
+	public String getShowWarehousedate() {
+		if(warehousedate != null && !"".equals(warehousedate)) {
+			showWarehousedate = warehousedate.substring(0, 10);
+		} else {
+			showWarehousedate = "";
+		}
+		return showWarehousedate;
+	}
+
+	public void setShowWarehousedate(String showWarehousedate) {
+		this.showWarehousedate = showWarehousedate;
+	}
+
+	public String getWarehousename() {
+		return warehousename;
+	}
+
+	public void setWarehousename(String warehousename) {
+		this.warehousename = warehousename;
+	}
+
+	public String getProductinfo() {
+		return productinfo;
+	}
+
+	public void setProductinfo(String productinfo) {
+		this.productinfo = productinfo;
+	}
+
+	public List<ProductDto> getListProduct() {
+		return listProduct;
+	}
+
+	public void setListProduct(List<ProductDto> listProduct) {
+		this.listProduct = listProduct;
 	}
 }

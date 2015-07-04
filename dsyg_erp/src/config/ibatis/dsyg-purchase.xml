@@ -21,6 +21,7 @@
 		<result property="suppliermail" column="suppliermail" />
 		<result property="handler" column="handler" />
 		<result property="purchasedate" column="purchasedate" />
+		<result property="plandate" column="plandate" />
 		<result property="totalamount" column="totalamount" />
 		<result property="taxamount" column="taxamount" />
 		<result property="paidamount" column="paidamount" />
@@ -45,6 +46,36 @@
 		<result property="updateuid" column="updateuid" />
 		<result property="updatedate" column="updatedate" />
 	</resultMap>
+	
+	<!-- finance -->
+	<select id="queryFinancePurchaseCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from etb_purchase T where 1 = 1
+		<isNotEmpty prepend="and" property="purchasedateLow">
+			T.purchasedate <![CDATA[>=]]> #purchasedateLow#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="purchasedateHigh">
+			T.purchasedate <![CDATA[<]]> #purchasedateHigh#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="status">
+			T.status <![CDATA[>=]]> #status#
+		</isNotEmpty>
+	</select>
+	
+	<select id="queryFinancePurchaseByPage" parameterClass="java.util.Map" resultMap="PurchaseDto">
+		select T.* from etb_purchase T where 1 = 1
+		<isNotEmpty prepend="and" property="purchasedateLow">
+			T.purchasedate <![CDATA[>=]]> #purchasedateLow#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="purchasedateHigh">
+			T.purchasedate <![CDATA[<=]]> #purchasedateHigh#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="status">
+			T.status <![CDATA[>=]]> #status#
+		</isNotEmpty>
+		order by T.updatedate desc
+		LIMIT #start#, #end#
+	</select>
+	<!-- finance -->
 	
 	<select id="queryPurchaseCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from etb_purchase T where 1 = 1
@@ -84,11 +115,11 @@
 	
 	<insert id="insertPurchase" parameterClass="com.cn.dsyg.dto.PurchaseDto">
 		insert into etb_purchase(purchaseno,belongto,theme1,theme2,warehouse,supplierid,suppliername,supplieraddr,suppliertel,
-			suppliermanager,suppliermanageraddr,supplierfax,suppliermail,handler,purchasedate,totalamount,taxamount,paidamount,
+			suppliermanager,suppliermanageraddr,supplierfax,suppliermail,handler,purchasedate,plandate,totalamount,taxamount,paidamount,
 			unpaidamount,approverid,productlist,note,rank,status,res01,res02,res03,res04,res05,res06,res07,res08,res09,
 			res10,createuid,createdate,updateuid,updatedate)
 		values(#purchaseno#,#belongto#,#theme1#,#theme2#,#warehouse#,#supplierid#,#suppliername#,#supplieraddr#,#suppliertel#,
-			#suppliermanager#,#suppliermanageraddr#,#supplierfax#,#suppliermail#,#handler#,#purchasedate#,#totalamount#,#taxamount#,#paidamount#,
+			#suppliermanager#,#suppliermanageraddr#,#supplierfax#,#suppliermail#,#handler#,#purchasedate#,#plandate#,#totalamount#,#taxamount#,#paidamount#,
 			#unpaidamount#,#approverid#,#productlist#,#note#,#rank#,#status#,#res01#,#res02#,#res03#,#res04#,#res05#,#res06#,#res07#,#res08#,#res09#,
 			#res10#,#createuid#,NOW(),#updateuid#,NOW())
 	</insert>
@@ -108,6 +139,7 @@
 			suppliermail = #suppliermail#,
 			handler = #handler#,
 			purchasedate = #purchasedate#,
+			plandate = #plandate#,
 			totalamount = #totalamount#,
 			taxamount = #taxamount#,
 			paidamount = #paidamount#,

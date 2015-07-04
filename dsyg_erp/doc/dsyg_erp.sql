@@ -148,10 +148,13 @@ DROP TABLE IF EXISTS `etb_finance`;
 CREATE TABLE `etb_finance` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `financetype` int(4) DEFAULT NULL COMMENT '财务数据来源：1采购单，2销售单，3快递，4手动录入',
+  `theme` varchar(32) DEFAULT NULL COMMENT '主题（仅当financetype=4时有值）',
+  `mode` varchar(16) DEFAULT NULL COMMENT '方式：1为收款，2为付款',
   `belongto` varchar(16) DEFAULT NULL COMMENT '0：上海，1：深圳',
   `invoiceid` varchar(32) DEFAULT NULL COMMENT '单据号',
   `receiptid` varchar(32) DEFAULT NULL COMMENT '发票号',
   `receiptdate` datetime DEFAULT NULL COMMENT '开票日期',
+  `accountdate` datetime DEFAULT NULL COMMENT '结算日期',
   `amount` decimal(11,2) DEFAULT NULL COMMENT '金额',
   `handler` varchar(32) DEFAULT NULL COMMENT '负责人',
   `approverid` varchar(32) DEFAULT NULL COMMENT '确认者',
@@ -179,9 +182,11 @@ CREATE TABLE `etb_finance` (
   `updateuid` varchar(32) DEFAULT NULL COMMENT '更新者',
   `updatedate` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 /*Data for the table `etb_finance` */
+
+insert  into `etb_finance`(`id`,`financetype`,`theme`,`mode`,`belongto`,`invoiceid`,`receiptid`,`receiptdate`,`accountdate`,`amount`,`handler`,`approverid`,`customerid`,`customername`,`customertel`,`customermanager`,`customeraddress`,`customermail`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (1,1,NULL,'2','0','aa','ee','2015-06-22 00:00:00','2015-06-23 00:00:00','1.00',NULL,NULL,1,'aa',NULL,NULL,NULL,NULL,NULL,50,10,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-22 00:00:00','admin','2015-06-22 00:00:00'),(2,2,NULL,'1','0','bb','ff','2015-06-23 00:00:00','2015-06-24 00:00:00','2.00',NULL,NULL,2,'bb',NULL,NULL,NULL,NULL,NULL,50,20,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-22 00:00:00','admin','2015-06-22 00:00:00'),(3,3,NULL,'2','0','cc','gg','2015-06-24 00:00:00','2015-06-25 00:00:00','3.00',NULL,NULL,3,'cc',NULL,NULL,NULL,NULL,NULL,50,30,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-22 00:00:00','admin','2015-06-22 00:00:00'),(4,4,'02','2','0','dd','hh','2015-06-25 00:00:00','2015-06-26 00:00:00','4.00','jsr',NULL,4,'dd',NULL,'lxr',NULL,NULL,NULL,50,50,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-22 00:00:00','admin','2015-06-28 20:54:55');
 
 /*Table structure for table `etb_personal` */
 
@@ -365,12 +370,13 @@ CREATE TABLE `etb_purchase` (
   `suppliermail` varchar(64) DEFAULT NULL COMMENT '供应商联系人邮箱',
   `handler` varchar(32) DEFAULT NULL COMMENT '采购单经手人',
   `purchasedate` date DEFAULT NULL COMMENT '采购日期',
+  `plandate` varchar(32) DEFAULT NULL COMMENT '预入库时间',
   `totalamount` decimal(11,2) DEFAULT NULL COMMENT '采购金额（不含税）',
   `taxamount` decimal(11,2) DEFAULT NULL COMMENT '采购金额（含税）',
   `paidamount` decimal(11,2) DEFAULT NULL COMMENT '已付金额（含税）',
   `unpaidamount` decimal(11,2) DEFAULT NULL COMMENT '未付金额（含税）',
   `approverid` varchar(32) DEFAULT NULL COMMENT '确认者',
-  `productlist` varchar(512) DEFAULT NULL COMMENT '采购单对应的产品ID（逗号分割）',
+  `productlist` varchar(1024) DEFAULT NULL COMMENT '采购单对应的产品ID（逗号分割）',
   `note` varchar(500) DEFAULT NULL COMMENT '备注',
   `rank` int(2) DEFAULT NULL COMMENT '级别(0-99)',
   `status` int(4) DEFAULT NULL COMMENT '状态',
@@ -389,11 +395,11 @@ CREATE TABLE `etb_purchase` (
   `updateuid` varchar(32) DEFAULT NULL COMMENT '更新者',
   `updatedate` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 
 /*Data for the table `etb_purchase` */
 
-insert  into `etb_purchase`(`id`,`purchaseno`,`belongto`,`theme1`,`theme2`,`warehouse`,`supplierid`,`suppliername`,`supplieraddr`,`suppliertel`,`suppliermanager`,`suppliermanageraddr`,`supplierfax`,`suppliermail`,`handler`,`purchasedate`,`totalamount`,`taxamount`,`paidamount`,`unpaidamount`,`approverid`,`productlist`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (41,'purchase020150611230653f6f6d555','0','01',NULL,'tww',1,'供应商1',NULL,'13912345678','小刘','浦东','12345678','liu@163.com','gg','2015-06-11','7326.00','8571.42','0.00',NULL,NULL,'3,4,5,',NULL,50,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-11 23:06:53','admin','2015-06-11 23:07:29'),(42,'purchase020150613112136ca6d52fa','0','01',NULL,'21',1,'供应商1',NULL,'13912345678','小刘','浦东','12345678','liu@163.com','gg','2015-06-13','10989.00','12857.13','0.00',NULL,NULL,'9,10,11,',NULL,50,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-13 11:21:36','admin','2015-06-13 11:21:36');
+insert  into `etb_purchase`(`id`,`purchaseno`,`belongto`,`theme1`,`theme2`,`warehouse`,`supplierid`,`suppliername`,`supplieraddr`,`suppliertel`,`suppliermanager`,`suppliermanageraddr`,`supplierfax`,`suppliermail`,`handler`,`purchasedate`,`plandate`,`totalamount`,`taxamount`,`paidamount`,`unpaidamount`,`approverid`,`productlist`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (50,'purchase020150704155408eac0fabe','0','01',NULL,'ck1',1,'供应商1',NULL,'13912345678','小刘','浦东','12345678','liu@163.com','jsr','2015-07-04','2015-07-04','3330.00','3896.10','0.00',NULL,NULL,'19,18,',NULL,50,20,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-07-04 15:54:08','admin','2015-07-04 15:55:03');
 
 /*Table structure for table `etb_purchaseitem` */
 
@@ -413,6 +419,7 @@ CREATE TABLE `etb_purchaseitem` (
   `unitprice` decimal(11,2) DEFAULT NULL COMMENT '采购单价',
   `amount` decimal(11,2) DEFAULT NULL COMMENT '金额(未税)',
   `taxamount` decimal(11,2) DEFAULT NULL COMMENT '金额（含税）',
+  `plandate` varchar(32) DEFAULT NULL COMMENT '预入库时间',
   `handler` varchar(32) DEFAULT NULL COMMENT '收货人',
   `supplierid` bigint(20) DEFAULT NULL COMMENT '供应商',
   `approverid` varchar(32) DEFAULT NULL COMMENT '确认者',
@@ -434,11 +441,11 @@ CREATE TABLE `etb_purchaseitem` (
   `updateuid` varchar(32) DEFAULT NULL COMMENT '更新者',
   `updatedate` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 
 /*Data for the table `etb_purchaseitem` */
 
-insert  into `etb_purchaseitem`(`id`,`purchaseno`,`belongto`,`theme1`,`theme2`,`productid`,`quantity`,`inquantity`,`beforequantity`,`remainquantity`,`unitprice`,`amount`,`taxamount`,`handler`,`supplierid`,`approverid`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (28,'purchase020150611230653f6f6d555','0','01',NULL,'3',11,3,0,8,'111.00','1221.00','1428.57',NULL,1,NULL,NULL,50,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-11 23:06:53','admin','2015-06-11 23:07:29'),(29,'purchase020150611230653f6f6d555','0','01',NULL,'4',22,5,0,17,'111.00','2442.00','2857.14',NULL,1,NULL,NULL,50,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-11 23:06:53','admin','2015-06-11 23:07:29'),(30,'purchase020150611230653f6f6d555','0','01',NULL,'5',33,4,0,29,'111.00','3663.00','4285.71',NULL,1,NULL,NULL,50,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-11 23:06:53','admin','2015-06-11 23:07:29'),(31,'purchase020150613112136ca6d52fa','0','01',NULL,'9',22,1,0,21,'111.00','2442.00','2857.14',NULL,1,NULL,NULL,50,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-13 11:21:37','admin','2015-06-13 11:21:37'),(32,'purchase020150613112136ca6d52fa','0','01',NULL,'10',33,2,0,31,'111.00','3663.00','4285.71',NULL,1,NULL,NULL,50,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-13 11:21:37','admin','2015-06-13 11:21:37'),(33,'purchase020150613112136ca6d52fa','0','01',NULL,'11',44,3,0,41,'111.00','4884.00','5714.28',NULL,1,NULL,NULL,50,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-13 11:21:37','admin','2015-06-13 11:21:37');
+insert  into `etb_purchaseitem`(`id`,`purchaseno`,`belongto`,`theme1`,`theme2`,`productid`,`quantity`,`inquantity`,`beforequantity`,`remainquantity`,`unitprice`,`amount`,`taxamount`,`plandate`,`handler`,`supplierid`,`approverid`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (54,'purchase020150704155408eac0fabe','0','01',NULL,'19',20,20,0,0,'111.00','2220.00','2597.40','2015-07-04',NULL,1,NULL,NULL,50,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-07-04 15:54:08','admin','2015-07-04 15:54:34'),(55,'purchase020150704155408eac0fabe','0','01',NULL,'18',10,10,0,0,'111.00','1110.00','1298.70','2015-07-04',NULL,1,NULL,NULL,50,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-07-04 15:54:08','admin','2015-07-04 15:54:34');
 
 /*Table structure for table `etb_quantity` */
 
@@ -490,14 +497,17 @@ CREATE TABLE `etb_sales` (
   `customertel` varchar(32) DEFAULT NULL COMMENT '客户联系电话',
   `customermanager` varchar(32) DEFAULT NULL COMMENT '客户联系人',
   `customeraddress` varchar(128) DEFAULT NULL COMMENT '客户地址',
+  `customerfax` varchar(32) DEFAULT NULL COMMENT '客户传真',
   `customermail` varchar(64) DEFAULT NULL COMMENT '客户邮箱',
   `handler` varchar(32) DEFAULT NULL COMMENT '销售',
   `bookdate` datetime DEFAULT NULL COMMENT '订单日期',
+  `plandate` varchar(32) DEFAULT NULL COMMENT '预入库时间',
   `amount` decimal(11,2) DEFAULT NULL COMMENT '采购金额（不含税）',
   `taxamount` decimal(11,2) DEFAULT NULL COMMENT '采购金额（含税）',
   `paidamount` decimal(11,2) DEFAULT NULL COMMENT '已付金额（含税）',
   `unpaidamount` decimal(11,2) DEFAULT NULL COMMENT '未付金额（含税）',
   `approverid` varchar(32) DEFAULT NULL COMMENT '确认者',
+  `productlist` varchar(1024) DEFAULT NULL COMMENT '销售单对应的产品ID（逗号分割）',
   `note` varchar(500) DEFAULT NULL COMMENT '备注',
   `rank` int(2) DEFAULT NULL COMMENT '级别(0-99)',
   `status` int(4) DEFAULT NULL COMMENT '状态',
@@ -516,9 +526,11 @@ CREATE TABLE `etb_sales` (
   `updateuid` varchar(32) DEFAULT NULL COMMENT '更新者',
   `updatedate` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `etb_sales` */
+
+insert  into `etb_sales`(`id`,`salesno`,`belongto`,`theme1`,`theme2`,`warehouse`,`customerid`,`customername`,`customertel`,`customermanager`,`customeraddress`,`customerfax`,`customermail`,`handler`,`bookdate`,`plandate`,`amount`,`taxamount`,`paidamount`,`unpaidamount`,`approverid`,`productlist`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (7,'sales0201507041601407331bb74','0','01',NULL,'ck1',1,'11','44','22','33','55','66','aaa','2015-07-04 00:00:00','2015-07-04','2553.00','2987.01','0.00',NULL,NULL,'19,18,',NULL,50,20,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-07-04 16:01:40','admin','2015-07-04 16:08:55');
 
 /*Table structure for table `etb_salesitem` */
 
@@ -533,10 +545,12 @@ CREATE TABLE `etb_salesitem` (
   `productid` varchar(20) DEFAULT NULL COMMENT '产品ID号',
   `quantity` int(11) DEFAULT NULL COMMENT '销售数量',
   `outquantity` int(11) DEFAULT NULL COMMENT '已出库数量',
+  `beforequantity` int(11) DEFAULT NULL COMMENT '预出库数量',
   `remainquantity` int(11) DEFAULT NULL COMMENT '未出库数量',
   `unitprice` decimal(11,2) DEFAULT NULL COMMENT '销售单价',
   `amount` decimal(11,2) DEFAULT NULL COMMENT '金额',
   `taxamount` decimal(11,2) DEFAULT NULL COMMENT '金额（含税）',
+  `plandate` varchar(32) DEFAULT NULL COMMENT '预出库时间',
   `handler` varchar(32) DEFAULT NULL COMMENT '销售',
   `customerid` bigint(20) DEFAULT NULL COMMENT '客户ID',
   `approverid` varchar(32) DEFAULT NULL COMMENT '确认者',
@@ -558,9 +572,11 @@ CREATE TABLE `etb_salesitem` (
   `updateuid` varchar(32) DEFAULT NULL COMMENT '更新者',
   `updatedate` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 /*Data for the table `etb_salesitem` */
+
+insert  into `etb_salesitem`(`id`,`salesno`,`belongto`,`theme1`,`theme2`,`productid`,`quantity`,`outquantity`,`beforequantity`,`remainquantity`,`unitprice`,`amount`,`taxamount`,`plandate`,`handler`,`customerid`,`approverid`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (11,'sales0201507041601407331bb74','0','01',NULL,'19',20,20,0,0,'111.00','2220.00','2597.40','2015-07-04',NULL,1,NULL,NULL,50,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-07-04 16:01:40','admin','2015-07-04 16:08:47'),(12,'sales0201507041601407331bb74','0','01',NULL,'18',3,3,0,0,'111.00','333.00','389.61','2015-07-04',NULL,1,NULL,NULL,50,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-07-04 16:01:40','admin','2015-07-04 16:08:47');
 
 /*Table structure for table `etb_supplier` */
 
@@ -629,6 +645,7 @@ CREATE TABLE `etb_warehouse` (
   `parentid` varchar(32) DEFAULT NULL COMMENT '数据来源单号',
   `warehousetype` int(4) DEFAULT NULL COMMENT '类型',
   `warehouseno` varchar(32) DEFAULT NULL COMMENT '入出库单号',
+  `warehousename` varchar(64) DEFAULT NULL COMMENT '库存名',
   `belongto` varchar(16) DEFAULT NULL COMMENT '所属地（以后可能分上海和深圳）',
   `theme1` varchar(32) DEFAULT NULL COMMENT '主题1',
   `theme2` varchar(32) DEFAULT NULL COMMENT '主题2',
@@ -639,6 +656,7 @@ CREATE TABLE `etb_warehouse` (
   `amount` decimal(11,2) DEFAULT NULL COMMENT '入出库金额',
   `taxamount` decimal(11,2) DEFAULT NULL COMMENT '入出库金额（含税）',
   `warehousedate` datetime DEFAULT NULL COMMENT '入库日期',
+  `plandate` varchar(32) DEFAULT NULL COMMENT '预计入库时间（yyyy-MM-dd）',
   `handler` varchar(32) DEFAULT NULL COMMENT '收货人',
   `supplierid` bigint(20) DEFAULT NULL COMMENT '供应商ID/客户',
   `approverid` varchar(32) DEFAULT NULL COMMENT '确认者',
@@ -660,11 +678,11 @@ CREATE TABLE `etb_warehouse` (
   `updateuid` varchar(32) DEFAULT NULL COMMENT '更新者',
   `updatedate` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
 
 /*Data for the table `etb_warehouse` */
 
-insert  into `etb_warehouse`(`id`,`parentid`,`warehousetype`,`warehouseno`,`belongto`,`theme1`,`theme2`,`productid`,`quantity`,`actualquantity`,`unitprice`,`amount`,`taxamount`,`warehousedate`,`handler`,`supplierid`,`approverid`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (20,'purchase020150611230653f6f6d555',1,'warehouse02015061123065353254afa','0','01',NULL,'3',1,NULL,'111.00','1221.00','1428.57','2015-06-11 23:06:53','gg',1,NULL,NULL,50,20,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-11 23:06:53','admin','2015-06-11 23:18:29'),(21,'purchase020150611230653f6f6d555',1,'warehouse020150611230653c2dfe910','0','01',NULL,'4',2,NULL,'111.00','2442.00','2857.14','2015-06-11 23:06:53','gg',1,NULL,NULL,50,10,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-11 23:06:53','admin','2015-06-11 23:06:53'),(22,'purchase020150611230653f6f6d555',1,'warehouse0201506112307290b51faa3','0','01',NULL,'3',2,NULL,'111.00','1221.00','1428.57','2015-06-11 23:07:29','gg',1,NULL,NULL,50,20,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-11 23:07:29','admin','2015-06-11 23:18:31'),(23,'purchase020150611230653f6f6d555',1,'warehouse020150611230729c98e902c','0','01',NULL,'4',3,NULL,'111.00','2442.00','2857.14','2015-06-11 23:07:29','gg',1,NULL,NULL,50,10,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-11 23:07:29','admin','2015-06-11 23:07:29'),(24,'purchase020150611230653f6f6d555',1,'warehouse020150611230729a3aefbe3','0','01',NULL,'5',4,NULL,'111.00','3663.00','4285.71','2015-06-11 23:07:29','gg',1,NULL,NULL,50,20,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-11 23:07:29','admin','2015-06-11 23:18:59'),(25,'purchase020150613112136ca6d52fa',1,'warehouse0201506131121368063f8da','0','01',NULL,'9',1,NULL,'111.00','2442.00','2857.14','2015-06-13 11:21:36','gg',1,NULL,NULL,50,10,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-13 11:21:36','admin','2015-06-13 11:21:36'),(26,'purchase020150613112136ca6d52fa',1,'warehouse020150613112137230ea40f','0','01',NULL,'10',2,NULL,'111.00','3663.00','4285.71','2015-06-13 11:21:37','gg',1,NULL,NULL,50,10,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-13 11:21:37','admin','2015-06-13 11:21:37'),(27,'purchase020150613112136ca6d52fa',1,'warehouse0201506131121374ed9dae0','0','01',NULL,'11',3,NULL,'111.00','4884.00','5714.28','2015-06-13 11:21:37','gg',1,NULL,NULL,50,10,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-06-13 11:21:37','admin','2015-06-13 11:21:37');
+insert  into `etb_warehouse`(`id`,`parentid`,`warehousetype`,`warehouseno`,`warehousename`,`belongto`,`theme1`,`theme2`,`productid`,`quantity`,`actualquantity`,`unitprice`,`amount`,`taxamount`,`warehousedate`,`plandate`,`handler`,`supplierid`,`approverid`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (79,'purchase020150704155408eac0fabe',1,'warehouse020150704155408228ba282','ck1','0','01',NULL,'19',20,NULL,'111.00','2220.00','2597.40','2015-07-04 00:00:00','2015-07-04','jsr',1,NULL,NULL,50,20,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-07-04 15:54:08','admin','2015-07-04 15:55:03'),(80,'purchase020150704155408eac0fabe',1,'warehouse020150704155408bb6a8160','ck1','0','01',NULL,'18',8,NULL,'111.00','888.00','1038.96','2015-07-04 00:00:00','2015-07-04','jsr',1,NULL,NULL,50,20,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-07-04 15:54:08','admin','2015-07-04 15:55:03'),(81,'purchase020150704155408eac0fabe',1,'warehouse02015070415543454cccec9','ck1','0','01',NULL,'18',2,NULL,'111.00','222.00','259.74','2015-07-04 00:00:00','2015-07-04','jsr',1,NULL,NULL,50,20,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-07-04 15:54:34','admin','2015-07-04 15:55:03'),(82,'warehouserpt0150704155503',1,'warehouse02015070415561070155937',NULL,'0','01',NULL,'18',-5,NULL,'111.00','555.00','649.35','2015-07-04 00:00:00',NULL,'',1,NULL,'aa',50,40,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-07-04 15:56:10','admin','2015-07-04 15:56:10'),(83,'sales0201507041601407331bb74',2,'warehouse020150704160140bdab4326','ck1','0','01',NULL,'19',-20,NULL,'111.00','2220.00','2597.40','2015-07-04 00:00:00','2015-07-04','aaa',1,NULL,NULL,50,20,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-07-04 16:01:40','admin','2015-07-04 16:05:24'),(84,'sales0201507041601407331bb74',2,'warehouse020150704160140ce78d4c7','ck1','0','01',NULL,'18',-1,NULL,'111.00','111.00','129.87','2015-07-04 00:00:00','2015-07-04','aaa',1,NULL,NULL,50,20,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-07-04 16:01:40','admin','2015-07-04 16:05:24'),(85,'sales0201507041601407331bb74',2,'warehouse020150704160847371d9fd9','ck1','0','01',NULL,'18',-2,NULL,'111.00','222.00','259.74','2015-07-04 00:00:00','2015-07-04','aaa',1,NULL,NULL,50,20,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-07-04 16:08:47','admin','2015-07-04 16:08:54');
 
 /*Table structure for table `etb_warehouserpt` */
 
@@ -674,7 +692,8 @@ CREATE TABLE `etb_warehouserpt` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `warehousetype` int(4) DEFAULT NULL COMMENT '类型：1为入库单，2为出库单',
   `warehouseno` varchar(32) DEFAULT NULL COMMENT '入出库单号',
-  `productid` int(20) DEFAULT NULL COMMENT '产品ID',
+  `warehousename` varchar(64) DEFAULT NULL COMMENT '仓库名',
+  `productinfo` varchar(5000) DEFAULT NULL COMMENT '产品ID,产品数量,产品金额#产品ID,产品数量,产品金额',
   `belongto` varchar(16) DEFAULT NULL COMMENT '所属地（以后可能分上海和深圳）',
   `theme1` varchar(32) DEFAULT NULL COMMENT '主题1',
   `theme2` varchar(32) DEFAULT NULL COMMENT '主题2',
@@ -693,6 +712,7 @@ CREATE TABLE `etb_warehouserpt` (
   `expressid` varchar(64) DEFAULT NULL COMMENT '快递公司ID',
   `expressname` varchar(64) DEFAULT NULL COMMENT '快递公司名',
   `expresstel` varchar(32) DEFAULT NULL COMMENT '快递公司联系电话',
+  `expressfax` varchar(64) DEFAULT NULL COMMENT '快递公司传真',
   `expressmanager` varchar(32) DEFAULT NULL COMMENT '快递联系人',
   `expressaddress` varchar(128) DEFAULT NULL COMMENT '快递地址',
   `expressmail` varchar(64) DEFAULT NULL COMMENT '快递邮箱',
@@ -719,9 +739,11 @@ CREATE TABLE `etb_warehouserpt` (
   `updateuid` varchar(32) DEFAULT NULL COMMENT '更新者',
   `updatedate` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 /*Data for the table `etb_warehouserpt` */
+
+insert  into `etb_warehouserpt`(`id`,`warehousetype`,`warehouseno`,`warehousename`,`productinfo`,`belongto`,`theme1`,`theme2`,`parentid`,`totaltaxamount`,`totalnum`,`warehousedate`,`handler`,`supplierid`,`suppliername`,`suppliertel`,`suppliermanager`,`supplieraddress`,`supplierfax`,`suppliermail`,`expressid`,`expressname`,`expresstel`,`expressfax`,`expressmanager`,`expressaddress`,`expressmail`,`expressno`,`expressamount`,`expresstaxamount`,`expressnote`,`approverid`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (41,1,'warehouserpt0150704155503',NULL,'18,3,389.61#18,2,259.74#19,20,2597.40#','0',NULL,NULL,'warehouse020150704155408bb6a8160,warehouse02015070415543454cccec9,warehouse020150704155408228ba282,','3896.10',30,'2015-07-04 00:00:00','',1,'供应商1','13912345678','小刘','浦东','12345678','liu@163.com','1','11','44','55','33','22','66',NULL,NULL,'77.00',NULL,NULL,'aa',50,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-07-04 15:55:03','admin','2015-07-04 15:56:10'),(42,3,'warehouserpt0150704155610',NULL,'18,5,649.35#','0','01',NULL,'warehouse02015070415561070155937','649.35',5,'2015-07-04 00:00:00','',1,'供应商1','13912345678','小刘','浦东','12345678','liu@163.com',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'aa',50,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-07-04 15:56:10','admin','2015-07-04 15:56:10'),(43,2,'warehouserpt0150704160524',NULL,'18,1,129.87#19,20,2597.40#','0',NULL,NULL,'warehouse020150704160140ce78d4c7,warehouse020150704160140bdab4326,','2727.27',NULL,'2015-07-04 00:00:00','',1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,50,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-07-04 16:05:24','admin','2015-07-04 16:05:24'),(44,2,'warehouserpt0150704160855',NULL,'18,2,259.74#','0',NULL,NULL,'warehouse020150704160847371d9fd9,','259.74',NULL,'2015-07-04 00:00:00','',1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,50,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-07-04 16:08:55','admin','2015-07-04 16:08:55');
 
 /*Table structure for table `tbdict01` */
 
@@ -741,11 +763,11 @@ CREATE TABLE `tbdict01` (
   `updateuid` varchar(32) DEFAULT NULL COMMENT '数据更新者',
   `updatedate` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `tbdict01` */
 
-insert  into `tbdict01`(`id`,`fieldcode`,`fieldname`,`code`,`lang`,`mean`,`note`,`status`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (1,'goods','電子線','01','c','Electronic Wire','电子线',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(2,'goods','熱収缩套管','02','c','Heat-Shrink-Tube','热收缩套管',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(3,'goods','柔軟扁平電纜','03','c','Flexible Flat Cable','柔软扁平电缆',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(4,'goods','漆包線','04','c','Magnesium Alloy','漆包线',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(5,'goods','線束加工','05','c','Wiring Harness','线束加工',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(6,'goods','柔軟印刷電路板','06','c','Flexible Printed Circuit Board','柔软印刷电路板',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(7,'goods','其他','07','c','其他','其他',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(8,'01_item01','80℃～105℃','01','c','耐温','电线耐温80℃～105℃',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(9,'01_item01','105℃～150℃','02','c','耐温','电线耐温105℃～150℃',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(10,'01_item01','150℃～200℃及以上','03','c','耐温','电线耐温150℃～200℃及以上',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(11,'01_item02','30V～100V','001','c','耐压','耐压30V～100V',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(12,'01_item02','100V～600V','002','c','耐压','耐压100V～600V',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(13,'01_item02','1KV及以上','003','c','耐压','耐压1KV及以上',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(14,'01_item03','PVC','01','c','材质','材质PVC',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(15,'01_item03','PE','02','c','材质','材质PE',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(16,'01_item03','其他','03','c','材质','其他',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(17,'01_item04','LEAD Free','01','c','环保','LEAD Free',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(18,'01_item04','Halogen Free','02','c','环保','Halogen Free',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(19,'02_item01','80℃～105℃','01','c','耐温','套管耐温80℃～105℃',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(20,'02_item01','105℃～150℃','02','c','耐温','套管耐温105℃～150℃',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(21,'02_item01','150℃～200℃及以上','03','c','耐温','套管耐温150℃～200℃及以上',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(22,'02_item02','30V～100V','001','c','耐压','耐压30V～100V',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(23,'02_item02','100V～600V','002','c','耐压','耐压100V～600V',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(24,'02_item02','1KV及以上','003','c','耐压','耐压1KV及以上',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(25,'02_item03','双层绝缘','01','c','绝缘','绝缘双层绝缘',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(26,'02_item03','单层绝缘','02','c','绝缘','绝缘单层绝缘',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(27,'02_item04','1.5:1','01','c','收缩比','收缩比1.5:1',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(28,'02_item04','2:1','02','c','收缩比','收缩比2:1',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(29,'02_item04','2.4:1','03','c','收缩比','收缩比2.4:1',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(30,'02_item04','3:1','04','c','收缩比','收缩比3:1',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(31,'02_item04','4:1','05','c','收缩比','收缩比4:1',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(32,'02_item05','PE','01','c','材质','PE',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(33,'02_item05','其他','02','c','材质','其他',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(34,'02_item06','LEAD Free','01','c','环保','LEAD Free',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(35,'02_item06','Halogen Free','02','c','环保','Halogen Free',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(36,'makearea','日本','001','c','产地','产地日本',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(37,'makearea','马来西亚','002','c','产地','产地马来西亚',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(38,'makearea','苏州','003','c','产地','产地苏州',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(39,'unit','米','002','c','单位','米',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(40,'unit','卷','003','c','单位','卷',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(41,'unit','箱','004','c','单位','箱',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(42,'unit','盘','005','c','单位','盘',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(43,'unit','套','006','c','单位','套',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(44,'unit','PSC','007','c','单位','PSC',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(45,'unit','根','008','c','单位','根',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(46,'unit','其它','009','c','单位','其它',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(47,'color','红','01','c','颜色','红',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(48,'color','橙','02','c','颜色','橙',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(49,'color','黄','03','c','颜色','黄',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(50,'color','绿','04','c','颜色','绿',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(51,'color','蓝','05','c','颜色','蓝',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(52,'color','靛','06','c','颜色','靛',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(53,'color','紫','07','c','颜色','紫',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(54,'color','灰','08','c','颜色','灰',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(55,'color','白','09','c','颜色','白',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(56,'color','黑','10','c','颜色','黑',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(57,'color','透明','11','c','颜色','透明',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(58,'color','粉红','12','c','颜色','粉红',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(59,'color','棕','13','c','颜色','棕',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(60,'rate','税率','0.17','c','税率','税率',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00');
+insert  into `tbdict01`(`id`,`fieldcode`,`fieldname`,`code`,`lang`,`mean`,`note`,`status`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (1,'goods','電子線','01','c','Electronic Wire','电子线',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(2,'goods','熱収缩套管','02','c','Heat-Shrink-Tube','热收缩套管',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(3,'goods','柔軟扁平電纜','03','c','Flexible Flat Cable','柔软扁平电缆',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(4,'goods','漆包線','04','c','Magnesium Alloy','漆包线',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(5,'goods','線束加工','05','c','Wiring Harness','线束加工',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(6,'goods','柔軟印刷電路板','06','c','Flexible Printed Circuit Board','柔软印刷电路板',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(7,'goods','其他','07','c','其他','其他',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(8,'01_item01','80℃～105℃','01','c','耐温','电线耐温80℃～105℃',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(9,'01_item01','105℃～150℃','02','c','耐温','电线耐温105℃～150℃',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(10,'01_item01','150℃～200℃及以上','03','c','耐温','电线耐温150℃～200℃及以上',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(11,'01_item02','30V～100V','001','c','耐压','耐压30V～100V',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(12,'01_item02','100V～600V','002','c','耐压','耐压100V～600V',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(13,'01_item02','1KV及以上','003','c','耐压','耐压1KV及以上',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(14,'01_item03','PVC','01','c','材质','材质PVC',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(15,'01_item03','PE','02','c','材质','材质PE',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(16,'01_item03','其他','03','c','材质','其他',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(17,'01_item04','LEAD Free','01','c','环保','LEAD Free',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(18,'01_item04','Halogen Free','02','c','环保','Halogen Free',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(19,'02_item01','80℃～105℃','01','c','耐温','套管耐温80℃～105℃',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(20,'02_item01','105℃～150℃','02','c','耐温','套管耐温105℃～150℃',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(21,'02_item01','150℃～200℃及以上','03','c','耐温','套管耐温150℃～200℃及以上',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(22,'02_item02','30V～100V','001','c','耐压','耐压30V～100V',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(23,'02_item02','100V～600V','002','c','耐压','耐压100V～600V',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(24,'02_item02','1KV及以上','003','c','耐压','耐压1KV及以上',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(25,'02_item03','双层绝缘','01','c','绝缘','绝缘双层绝缘',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(26,'02_item03','单层绝缘','02','c','绝缘','绝缘单层绝缘',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(27,'02_item04','1.5:1','01','c','收缩比','收缩比1.5:1',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(28,'02_item04','2:1','02','c','收缩比','收缩比2:1',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(29,'02_item04','2.4:1','03','c','收缩比','收缩比2.4:1',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(30,'02_item04','3:1','04','c','收缩比','收缩比3:1',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(31,'02_item04','4:1','05','c','收缩比','收缩比4:1',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(32,'02_item05','PE','01','c','材质','PE',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(33,'02_item05','其他','02','c','材质','其他',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(34,'02_item06','LEAD Free','01','c','环保','LEAD Free',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(35,'02_item06','Halogen Free','02','c','环保','Halogen Free',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(36,'makearea','日本','001','c','产地','产地日本',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(37,'makearea','马来西亚','002','c','产地','产地马来西亚',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(38,'makearea','苏州','003','c','产地','产地苏州',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(39,'unit','米','002','c','单位','米',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(40,'unit','卷','003','c','单位','卷',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(41,'unit','箱','004','c','单位','箱',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(42,'unit','盘','005','c','单位','盘',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(43,'unit','套','006','c','单位','套',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(44,'unit','PSC','007','c','单位','PSC',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(45,'unit','根','008','c','单位','根',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(46,'unit','其它','009','c','单位','其它',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(47,'color','红','01','c','颜色','红',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(48,'color','橙','02','c','颜色','橙',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(49,'color','黄','03','c','颜色','黄',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(50,'color','绿','04','c','颜色','绿',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(51,'color','蓝','05','c','颜色','蓝',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(52,'color','靛','06','c','颜色','靛',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(53,'color','紫','07','c','颜色','紫',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(54,'color','灰','08','c','颜色','灰',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(55,'color','白','09','c','颜色','白',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(56,'color','黑','10','c','颜色','黑',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(57,'color','透明','11','c','颜色','透明',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(58,'color','粉红','12','c','颜色','粉红',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(59,'color','棕','13','c','颜色','棕',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(60,'rate','税率','0.17','c','税率','税率',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(61,'financetheme','工资','01','c','财务主题','工资',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00'),(62,'financetheme','办公用品','02','c','财务主题','办公用品',1,'admin','2014-12-16 00:00:00','admin','2014-12-16 00:00:00');
 
 /*Table structure for table `tbresource` */
 
@@ -761,11 +783,11 @@ CREATE TABLE `tbresource` (
   `parentid` int(10) DEFAULT NULL COMMENT '父节点ID',
   `restype` int(4) DEFAULT NULL COMMENT '资源类型：1为主节点，2为子节，3为其他',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tbresource` */
 
-insert  into `tbresource`(`id`,`url`,`note`,`status`,`createtime`,`sort`,`parentid`,`restype`) values (1,'采购','采购',1,'2015-04-28 00:00:00',1,-1,1),(2,'产品','产品',1,'2015-04-28 00:00:00',4,-1,1),(3,'/purchase/showPurchaseAction.action','采购单管理',1,'2015-04-28 00:00:00',1,1,2),(4,'/product/showProductAction.action','产品管理',1,'2015-04-28 00:00:00',1,2,2),(5,'/supplier/showSupplierAction.action','供应商管理',1,'2015-05-10 00:00:00',2,1,2),(6,'库存','库存',1,'2015-05-10 00:00:00',3,-1,1),(7,'/warehouse/showWarehouseOkAction.action','预入库确认',1,'2015-05-10 00:00:00',1,6,2);
+insert  into `tbresource`(`id`,`url`,`note`,`status`,`createtime`,`sort`,`parentid`,`restype`) values (1,'采购','采购',1,'2015-04-28 00:00:00',1,-1,1),(2,'产品','产品',1,'2015-04-28 00:00:00',4,-1,1),(3,'/purchase/showPurchaseAction.action','采购单管理',1,'2015-04-28 00:00:00',1,1,2),(4,'/product/showProductAction.action','产品管理',1,'2015-04-28 00:00:00',1,2,2),(5,'/supplier/showSupplierAction.action','供应商管理',1,'2015-05-10 00:00:00',2,1,2),(6,'库存','库存',1,'2015-05-10 00:00:00',3,-1,1),(7,'/warehouse/showWarehouseInOkAction.action','预入库确认',1,'2015-05-10 00:00:00',1,6,2),(8,'/warehouse/showWarehouseOutOkAction.action','预出库确认',1,'2015-05-10 00:00:00',2,6,2),(9,'销售','销售',1,'2015-05-10 00:00:00',2,-1,1),(10,'/sales/showSalesAction.action','销售单管理',1,'2015-05-10 00:00:00',1,9,2),(11,'/warehouserpt/showWarehouserptInAction.action','入库单一览',1,'2015-05-10 00:00:00',3,6,2),(12,'财务','财务',1,'2015-05-10 00:00:00',5,-1,1),(13,'/finance/showFinanceAction.action','账目管理',1,'2015-05-10 00:00:00',4,12,2),(14,'/finance/showFinancePurchaseAction.action','采购单检索',1,'2015-05-10 00:00:00',1,12,2),(15,'/finance/showFinanceSalesAction.action','订单检索',1,'2015-05-10 00:00:00',2,12,2),(16,'/warehouserpt/showWarehouserptOutAction.action','发货单一览',1,'2015-05-10 00:00:00',4,6,2),(17,'/warehouse/showProductOkAction.action','仓位确认',1,'2015-05-10 00:00:00',6,6,2);
 
 /*Table structure for table `tbrole` */
 
@@ -800,7 +822,7 @@ CREATE TABLE `tbroleres` (
 
 /*Data for the table `tbroleres` */
 
-insert  into `tbroleres`(`roleid`,`resourceid`) values (1,1),(1,2),(2,1),(2,2),(1,3),(1,4),(1,5),(1,6),(1,7);
+insert  into `tbroleres`(`roleid`,`resourceid`) values (1,1),(1,2),(2,1),(2,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),(1,16),(1,17);
 
 /*Table structure for table `tbuser` */
 

@@ -12,6 +12,30 @@ import com.cn.dsyg.dto.PurchaseDto;
  */
 public interface PurchaseDao {
 
+	//finance start
+	/**
+	 * 翻页查询采购单数（财务）
+	 * @param purchasedateLow
+	 * @param purchasedateHigh
+	 * @param status
+	 * @return
+	 */
+	public int queryFinancePurchaseCountByPage(String purchasedateLow,
+			String purchasedateHigh, String status);
+	
+	/**
+	 * 翻页查询采购单（财务）
+	 * @param purchasedateLow
+	 * @param purchasedateHigh
+	 * @param status
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public List<PurchaseDto> queryFinancePurchaseByPage(String purchasedateLow,
+			String purchasedateHigh, String status, int start, int end);
+	//finance end
+	
 	/**
 	 * 根据条件查询满足条件的采购单数量
 	 * @param purchasedateLow

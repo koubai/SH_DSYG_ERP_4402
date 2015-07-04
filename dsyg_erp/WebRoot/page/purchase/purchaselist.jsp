@@ -122,7 +122,6 @@
 				<s:hidden name="startIndex" id="startIndex"/>
 				<s:hidden name="strPurchasedateLow" id="strPurchasedateLow"/>
 				<s:hidden name="strPurchasedateHigh" id="strPurchasedateHigh"/>
-				<s:hidden name="strSupplierId" id="strSupplierId"/>
 				<s:hidden name="intPageSize" id="intPageSize"/>
 				<div class="searchbox">
 					<div class="box1">
@@ -166,16 +165,17 @@
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
 								<td width="30"></td>
-								<td width="40">序号</td>
-								<td width="80">采购单号</td>
+								<td width="30">序号</td>
+								<td width="100">采购单号</td>
 								<td width="60">采购主题</td>
-								<td width="120">仓库</td>
-								<td width="120">供应商</td>
+								<td width="100">仓库</td>
+								<td width="110">供应商</td>
 								<td width="60">经手人</td>
 								<td width="80">采购日期</td>
-								<td width="110">采购金额（不含税）</td>
-								<td width="100">采购金额（含税）</td>
-								<td width="100">已付金额（含税）</td>
+								<td width="120">采购金额（不含税）</td>
+								<td width="110">采购金额（含税）</td>
+								<td width="110">已付金额（含税）</td>
+								<td width="80">状态</td>
 							</tr>
 							<s:iterator id="purchaseList" value="purchaseList" status="st1">
 								<s:if test="#st1.odd==true">
@@ -197,10 +197,30 @@
 									<td><s:property value="warehouse"/></td>
 									<td><s:property value="suppliername"/></td>
 									<td><s:property value="handler"/></td>
-									<td><s:date name="purchasedate" format="yyyy-MM-dd" /></td>
+									<td><s:property value="showPurchasedate"/></td>
 									<td><s:property value="totalamount"/></td>
 									<td><s:property value="taxamount"/></td>
 									<td><s:property value="paidamount"/></td>
+									<td>
+										<s:if test="%{status == 10}">
+											新增
+										</s:if>
+										<s:elseif test="%{status == 20}">
+											付款申请
+										</s:elseif>
+										<s:elseif test="%{status == 30}">
+											付款审批
+										</s:elseif>
+										<s:elseif test="%{status == 40}">
+											付款完了
+										</s:elseif>
+										<s:elseif test="%{status == 50}">
+											已开票
+										</s:elseif>
+										<s:else>
+											<s:property value="status"/>
+										</s:else>
+									</td>
 								</tr>
 							</s:iterator>
 						</table>

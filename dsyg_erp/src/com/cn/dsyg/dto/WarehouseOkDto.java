@@ -14,9 +14,19 @@ public class WarehouseOkDto extends BaseAction {
 	private static final long serialVersionUID = 4006937398518292644L;
 	
 	/**
-	 * 入库数量
+	 * ID集合
+	 */
+	private String ids;
+	
+	/**
+	 * 入出库数量
 	 */
 	private Integer quantity;
+	
+	/**
+	 * 对于出库数量为负数时，用这个变量来展现= -1 * quantity
+	 */
+	private Integer showQuantity;
 	
 	/**
 	 * 供应商ID
@@ -62,6 +72,11 @@ public class WarehouseOkDto extends BaseAction {
 	 * 单位
 	 */
 	private String unit;
+	
+	/**
+	 * 仓库名
+	 */
+	private String warehousename;
 
 	public Long getSupplierid() {
 		return supplierid;
@@ -141,5 +156,34 @@ public class WarehouseOkDto extends BaseAction {
 
 	public void setSuppliername(String suppliername) {
 		this.suppliername = suppliername;
+	}
+
+	public String getWarehousename() {
+		return warehousename;
+	}
+
+	public void setWarehousename(String warehousename) {
+		this.warehousename = warehousename;
+	}
+
+	public String getIds() {
+		return ids;
+	}
+
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
+
+	public Integer getShowQuantity() {
+		if(quantity != null && quantity < 0) {
+			showQuantity = -1 * quantity;
+		} else {
+			showQuantity = quantity;
+		}
+		return showQuantity;
+	}
+
+	public void setShowQuantity(Integer showQuantity) {
+		this.showQuantity = showQuantity;
 	}
 }

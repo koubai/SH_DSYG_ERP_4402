@@ -12,10 +12,14 @@
 <title>采购信息编辑</title>
 <script type="text/javascript">
 	function upd() {
-		if(checkItem()) {
-			if(confirm("确定修改吗？")) {
-				document.mainform.action = "../purchase/updPurchaseAction.action";
-				document.mainform.submit();
+		if($("#status").val() != "10") {
+			alert("该数据不可以修改！");
+		} else {
+			if(checkItem()) {
+				if(confirm("确定修改吗？")) {
+					document.mainform.action = "../purchase/updPurchaseAction.action";
+					document.mainform.submit();
+				}
 			}
 		}
 	}
@@ -155,6 +159,9 @@
 		//联系人信箱
 		var suppliermail = $("#suppliermail").val().trim();
 		
+		//预入库时间
+		var tmpPlandate = $("#tmpPlandate").val().trim();
+		
 		if(tmpPurchasedate == "") {
 			alert("采购日期不能为空！");
 			$("#tmpPurchasedate").focus();
@@ -175,12 +182,46 @@
 			$("#warehouse").focus();
 			return;
 		}
-		/*/
 		if(supplierid == "") {
 			alert("请选择供应商！");
 			$("#supplierid").focus();
 			return;
-		}//*/
+		}
+		if(suppliername == "") {
+			alert("供应商名称不能为空！");
+			$("#suppliername").focus();
+			return;
+		}
+		if(suppliermanager == "") {
+			alert("联系人不能为空！");
+			$("#suppliermanager").focus();
+			return;
+		}
+		if(suppliermanageraddr == "") {
+			alert("联系人地址不能为空！");
+			$("#suppliermanageraddr").focus();
+			return;
+		}
+		if(suppliertel == "") {
+			alert("联系人电话不能为空！");
+			$("#suppliertel").focus();
+			return;
+		}
+		if(supplierfax == "") {
+			alert("联系人传真不能为空！");
+			$("#supplierfax").focus();
+			return;
+		}
+		if(suppliermail == "") {
+			alert("联系人信箱不能为空！");
+			$("#suppliermail").focus();
+			return;
+		}
+		if(tmpPlandate == "") {
+			alert("预入库时间不能为空！");
+			$("#tmpPlandate").focus();
+			return;
+		}
 		
 		//采购金额未税
 		var calcAmount = 0;
@@ -215,7 +256,10 @@
 			$("#tmpPaidamount").val(calcPaidamount);
 		}
 		$("#purchasedate").val($("#tmpPurchasedate").val());
-		setPurchaseItemList();
+		$("#plandate").val($("#tmpPlandate").val());
+		if(!setPurchaseItemList()) {
+			return false;
+		}
 		return true;
 	}
 	
@@ -369,14 +413,6 @@
 		}
 	}
 	
-	/*/供应商
-	function selectSupplier() {
-		var url = '<c:url value="/bid/showAddBidAgentCompAction.action"></c:url>';
-		url += "?agentAddFlag=1&date=" + new Date();
-		
-		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-	}//*/
-	
 	function goPurchaseList() {
 		window.location.href = "../purchase/queryPurchaseAction.action";
 	}
@@ -389,7 +425,6 @@
 				<div class="tittle_left">
 				</div>
 				<div class="tittle_center" style="width:150px;">
-					<input type="hidden" id="agentCompEditFlag" value="0"/>
 					采购信息编辑
 				</div>
 				<div class="tittle_right">
@@ -405,6 +440,9 @@
 				<s:hidden name="updPurchaseDto.taxamount" id="taxamount"></s:hidden>
 				<s:hidden name="updPurchaseDto.paidamount" id="paidamount"></s:hidden>
 				<s:hidden name="updPurchaseDto.totalamount" id="totalamount"></s:hidden>
+				<s:hidden name="updPurchaseDto.status" id="status"></s:hidden>
+				
+				<s:hidden name="updPurchaseDto.plandate" id="plandate"></s:hidden>
 				
 				<div class="searchbox update" style="height:0px;">
 					<table id="purchaseItemTable" style="display: none;">
@@ -591,13 +629,24 @@
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>已付金额</label>
 							</td>
-							<td colspan="3">
+							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
 									<input type="text" id="tmpPaidamount" disabled="disabled" style="width:300px;" value="<s:property value="updPurchaseDto.paidamount"/>"/>
 								</div>
 								<div class="box1_right"></div>
 								<div style="margin-top: 9px;"><label>（含税）</label></div>
+							</td>
+							<td align="right">
+								<label class="pdf10"><font color="red">*</font>预入库日期</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center date_input">
+									<input type="text" id="tmpPlandate" disabled="disabled" style="width:285px;" value="<s:property value="updPurchaseDto.plandate"/>" />
+									<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpPlandate'));"></a>
+								</div>
+								<div class="box1_right"></div>
 							</td>
 						</tr>
 					</table>
@@ -652,14 +701,14 @@
 														<input type="hidden" value="<s:property value="packaging"/>" />
 														<input type="hidden" value="<s:property value="unitprice"/>" />
 														
-														<input type="hidden" alt="tmpPurchaseQuantity_<s:property value="productid"/>" value="<s:property value="quantity"/>" />
+														<input type="hidden" alt="tmpQuantity_<s:property value="productid"/>" value="<s:property value="quantity"/>" />
 														<input type="hidden" alt="tmpBeforeQuantity_<s:property value="productid"/>" value="<s:property value="beforequantity"/>" />
 														<input type="hidden" value="<s:property value="remainquantity"/>" />
 														<input type="hidden" value="<s:property value="amount"/>" />
 														<input type="hidden" alt="tmpTaxamount_<s:property value="productid"/>" value="<s:property value="taxamount"/>" />
 														<input type="hidden" value="<s:property value="inquantity"/>" />
 													</td>
-													<td><input name="itemRadio" type="radio" value="<s:property value="BID_NO"/>_<s:property value="BID_CO_SEQ"/>"/></td>
+													<td><input name="itemRadio" type="radio" /></td>
 													<td><s:property value="#st1.index + 1"/></td>
 													<td>
 														<s:iterator id="goodsList" value="goodsList" status="st3">
@@ -692,17 +741,17 @@
 														</s:else>
 													</td>
 													<td>
-														<input type="text" style="width: 80px;" name="tmpPurchaseQuantity" onblur="calcquantity(this, '1');" maxlength="11" value="<s:property value="quantity"/>"/>
+														<input type="text" style="width: 80px;" id="tmpQuantity_<s:property value="productid"/>" onblur="calcquantity(this, '1');" maxlength="11" value="<s:property value="quantity"/>"/>
 													</td>
 													<td>
-														<input type="text" style="width: 80px;" name="tmpBeforeQuantity" onblur="calcquantity(this, '2');" maxlength="11" value="<s:property value="beforequantity"/>"/>
+														<input type="text" style="width: 80px;" id="tmpBeforeQuantity_<s:property value="productid"/>" onblur="calcquantity(this, '2');" maxlength="11" value="<s:property value="beforequantity"/>"/>
 													</td>
 													<td><s:property value="inquantity"/></td>
 													<td><s:property value="remainquantity"/></td>
 													<td><s:property value="unitprice"/></td>
 													<td><s:property value="amount"/></td>
 													<td>
-														<input type="text" style="width: 80px;" name="tmpTaxamount" onblur="calcquantity(this, '3');" maxlength="13" value="<s:property value="taxamount"/>"/>
+														<input type="text" style="width: 80px;" id="tmpTaxamount_<s:property value="productid"/>" onblur="calcquantity(this, '3');" maxlength="13" value="<s:property value="taxamount"/>"/>
 													</td>
 												</tr>
 											</s:iterator>

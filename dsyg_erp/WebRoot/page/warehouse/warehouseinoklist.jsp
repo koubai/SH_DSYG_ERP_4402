@@ -9,7 +9,7 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>
-<title>库存确认</title>
+<title>预入库确认</title>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var h = screen.availHeight; 
@@ -17,23 +17,26 @@
 	});
 	
 	//库存确认
-	function warehouseInOk(productid, supplierid) {
-		$("#strOkProductid").val(productid);
-		$("#strOkSupplierid").val(supplierid);
+	function createrpt() {
+		var ids = getSelectedID();
+		if(ids == "") {
+			alert("请选择一条记录！");
+			return;
+		}
+		$("#strOkIds").val(ids);
 		document.mainform.action = '../warehouse/warehouseInOkAction.action';
 		document.mainform.submit();
 	}
 	
 	function getSelectedID() {
-		var id = "";
+		var ids = "";
 		var list = document.getElementsByName("radioKey");
 		for(var i = 0; i < list.length; i++) {
 			if(list[i].checked) {
-				id = list[i].value;
-				break;
+				ids += list[i].value + ",";
 			}
 		}
-		return id;
+		return ids;
 	}
 	
 	//查询数据
@@ -94,7 +97,7 @@
 				<div class="tittle_left">
 				</div>
 				<div class="tittle_center">
-					库存确认信息一览
+					预入库确认信息一览
 				</div>
 				<div class="tittle_right">
 				</div>
@@ -102,8 +105,7 @@
 			<s:form id="mainform" name="mainform" method="POST">
 				<s:hidden name="startIndex" id="startIndex"/>
 				<s:hidden name="intPageSize" id="intPageSize"/>
-				<s:hidden name="strOkProductid" id="strOkProductid"/>
-				<s:hidden name="strOkSupplierid" id="strOkSupplierid"/>
+				<s:hidden name="strOkIds" id="strOkIds"/>
 				<div class="searchbox">
 					<div class="btn" style="margin-left: 160px;">
 						<div class="box1_left"></div>
@@ -127,15 +129,19 @@
 					<div class="tab_content">
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
+								<td width="40"></td>
 								<td width="40">序号</td>
 								<td width="60">主题</td>
+								<td width="120">仓库</td>
 								<td width="120">品名</td>
 								<td width="120">规格</td>
 								<td width="60">颜色</td>
 								<td width="60">包装</td>
 								<td width="120">供应商</td>
 								<td width="80">库存数量</td>
+								<!--
 								<td width="60"></td>
+								-->
 							</tr>
 							<s:iterator id="warehouseInOkList" value="warehouseInOkList" status="st1">
 								<s:if test="#st1.odd==true">
@@ -144,6 +150,9 @@
 								<s:else>
 									<tr>
 								</s:else>
+									<td>
+										<input name="radioKey" type="checkbox" value="<s:property value="ids"/>"/>
+									</td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
 									<td>
 										<s:iterator id="goodsList" value="goodsList" status="st3">
@@ -152,6 +161,7 @@
 											</s:if>
 										</s:iterator>
 									</td>
+									<td><s:property value="warehousename"/></td>
 									<td><s:property value="tradename"/></td>
 									<td><s:property value="typeno"/></td>
 									<td>
@@ -170,9 +180,11 @@
 									</td>
 									<td><s:property value="suppliername"/></td>
 									<td><s:property value="quantity"/></td>
+									<!--
 									<td width="60">
-										<input type="button" value="确认" onclick="warehouseInOk('<s:property value="productid"/>', '<s:property value="supplierid"/>')"/>
+										<input type="button" value="确认" onclick="warehouseInOk('<s:property value="productid"/>', '<s:property value="supplierid"/>', '<s:property value="warehousename"/>')"/>
 									</td>
+									-->
 								</tr>
 							</s:iterator>
 						</table>
@@ -233,7 +245,16 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="详细" onclick="showBidDetail();" />
+										<input class="input80" type="button" value="入库单生成" onclick="createrpt();" />
+									</div>
+									<div class="box1_right"></div>
+								</div>
+							</td>
+							<td>
+								<div class="btn">
+									<div class="box1_left"></div>
+									<div class="box1_center">
+										<input class="input80" type="button" value="详细" onclick="" />
 									</div>
 									<div class="box1_right"></div>
 								</div>

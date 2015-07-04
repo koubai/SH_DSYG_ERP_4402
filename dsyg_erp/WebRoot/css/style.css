@@ -75,11 +75,7 @@ input,img,label{ vertical-align:middle;}
 .pages ul li a.last:hover{ color:#ccc; background:none;}
 .btns{ margin-top:30px;}
 
-.login_tab{margin:0 auto; margin-top:50px; font-size:12pt; font-family:"宋体"; color:#333;}
-.login_tab { background:#fff; border:solid 1px #2d2d2d;  text-align:center; padding:50px 50px 50px 50px;  -moz-border-radius: 5px;  -webkit-border-radius: 5px; border-radius: 5px;}
-.login_tab{-moz-box-shadow:10px  10px 5px #000000;-webkit-box-shadow:10px  10px 5px #000000;box-shadow:10px  10px 5px #000000;} 
-
-
+.login_tab{margin:0 auto; margin-top:15px; font-size:12pt; font-family:"宋体"; color:#333;}
 .yzhm{ margin-top:6px; margin-left:5px;}
 #footer{ position:absolute; bottom:0; background:url(../images/footer.gif) no-repeat; width:1024px; height:120px;}
 .session_txt{ margin:0; padding:0; padding-top:155px; font-size:36px; color:#f7b667; text-align:center;}

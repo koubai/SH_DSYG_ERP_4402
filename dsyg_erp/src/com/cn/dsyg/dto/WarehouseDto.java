@@ -29,6 +29,11 @@ public class WarehouseDto extends BaseAction {
 	 * 类型
 	 */
 	private Integer warehousetype;
+	
+	/**
+	 * 仓库
+	 */
+	private String warehousename;
 
 	/**
 	 * 入出库单号
@@ -84,6 +89,11 @@ public class WarehouseDto extends BaseAction {
 	 * 入库日期
 	 */
 	private String warehousedate;
+	
+	/**
+	 * 预入库时间
+	 */
+	private String plandate;
 
 	/**
 	 * 收货人
@@ -458,4 +468,19 @@ public class WarehouseDto extends BaseAction {
 		this.warehousedate = warehousedate;
 	}
 
+	public String getWarehousename() {
+		return warehousename;
+	}
+
+	public void setWarehousename(String warehousename) {
+		this.warehousename = warehousename;
+	}
+
+	public String getPlandate() {
+		return plandate;
+	}
+
+	public void setPlandate(String plandate) {
+		this.plandate = plandate;
+	}
 }

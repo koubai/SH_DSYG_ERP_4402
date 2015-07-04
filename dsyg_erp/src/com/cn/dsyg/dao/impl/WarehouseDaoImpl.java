@@ -7,6 +7,8 @@ import java.util.Map;
 import com.cn.common.dao.BaseDao;
 import com.cn.dsyg.dao.WarehouseDao;
 import com.cn.dsyg.dto.WarehouseDto;
+import com.cn.dsyg.dto.WarehouseOkDto;
+import com.cn.dsyg.dto.WarehouseProductDto;
 
 /**
  * @name WarehouseDaoImpl.java
@@ -17,31 +19,85 @@ import com.cn.dsyg.dto.WarehouseDto;
 public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
 	
 	@Override
-	public List<WarehouseDto> queryWarehouseBySupplieridProductid(String status,
-			String productid, String supplierid) {
+	public List<WarehouseProductDto> queryWarehouseProductByPage(String parentid, String warehousetype,
+			String warehouseno, String theme1, String productid, String tradename,
+			String typeno, String color, String warehousename, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("parentid", parentid);
+		paramMap.put("warehousetype", warehousetype);
+		paramMap.put("warehouseno", warehouseno);
+		paramMap.put("theme1", theme1);
+		paramMap.put("productid", productid);
+		paramMap.put("tradename", tradename);
+		paramMap.put("typeno", typeno);
+		paramMap.put("color", color);
+		paramMap.put("warehousename", warehousename);
+		paramMap.put("start", start);
+		paramMap.put("end", end);
+		@SuppressWarnings("unchecked")
+		List<WarehouseProductDto> list = getSqlMapClientTemplate().queryForList("queryWarehouseProductByPage", paramMap);
+		return list;
+	}
+
+	@Override
+	public int queryWarehouseProductCountByPage(String parentid, String warehousetype,
+			String warehouseno, String theme1, String productid, String tradename,
+			String typeno, String color, String warehousename) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("parentid", parentid);
+		paramMap.put("warehousetype", warehousetype);
+		paramMap.put("warehouseno", warehouseno);
+		paramMap.put("theme1", theme1);
+		paramMap.put("productid", productid);
+		paramMap.put("tradename", tradename);
+		paramMap.put("typeno", typeno);
+		paramMap.put("color", color);
+		paramMap.put("warehousename", warehousename);
+		return (Integer) getSqlMapClientTemplate().queryForObject("queryWarehouseProductCountByPage", paramMap);
+	}
+	
+	@Override
+	public List<WarehouseDto> queryWarehouseBySupplieridProductid(String warehouseType, String status,
+			String productid, String supplierid, String warehousename) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("warehousetype", warehouseType);
 		paramMap.put("status", status);
 		paramMap.put("productid", productid);
 		paramMap.put("supplierid", supplierid);
+		paramMap.put("warehousename", warehousename);
 		@SuppressWarnings("unchecked")
 		List<WarehouseDto> list = getSqlMapClientTemplate().queryForList("queryWarehouseBySupplieridProductid", paramMap);
 		return list;
 	}
 	
 	@Override
-	public List<WarehouseDto> queryWarehouseOkByPage(String status, int start, int end) {
+	public List<WarehouseOkDto> queryWarehouseOkByPage(String warehouseType, String theme, String tradename,
+			String typeno, String color, String warehousename, String status, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("warehousetype", warehouseType);
+		paramMap.put("theme1", theme);
+		paramMap.put("tradename", tradename);
+		paramMap.put("typeno", typeno);
+		paramMap.put("color", color);
+		paramMap.put("warehousename", warehousename);
 		paramMap.put("status", status);
 		paramMap.put("start", start);
 		paramMap.put("end", end);
 		@SuppressWarnings("unchecked")
-		List<WarehouseDto> list = getSqlMapClientTemplate().queryForList("queryWarehouseOkByPage", paramMap);
+		List<WarehouseOkDto> list = getSqlMapClientTemplate().queryForList("queryWarehouseOkByPage", paramMap);
 		return list;
 	}
 
 	@Override
-	public int queryWarehouseOkCountByPage(String status) {
+	public int queryWarehouseOkCountByPage(String warehouseType, String theme, String tradename,
+			String typeno, String color, String warehousename, String status) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("warehousetype", warehouseType);
+		paramMap.put("theme1", theme);
+		paramMap.put("tradename", tradename);
+		paramMap.put("typeno", typeno);
+		paramMap.put("color", color);
+		paramMap.put("warehousename", warehousename);
 		paramMap.put("status", status);
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryWarehouseOkCountByPage", paramMap);
 	}
@@ -49,7 +105,7 @@ public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
 	@Override
 	public List<WarehouseDto> queryWarehouseByPage(String parentid,
 			String warehousetype, String warehouseno, String theme1,
-			String supplierid, String productid, String status, int start,
+			String supplierid, String productid, String status, String warehousename, int start,
 			int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("parentid", parentid);
@@ -59,6 +115,7 @@ public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
 		paramMap.put("supplierid", supplierid);
 		paramMap.put("productid", productid);
 		paramMap.put("status", status);
+		paramMap.put("warehousename", warehousename);
 		paramMap.put("start", start);
 		paramMap.put("end", end);
 		@SuppressWarnings("unchecked")
@@ -69,7 +126,7 @@ public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
 	@Override
 	public int queryWarehouseCountByPage(String parentid, String warehousetype,
 			String warehouseno, String theme1, String supplierid,
-			String productid, String status) {
+			String productid, String status, String warehousename) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("parentid", parentid);
 		paramMap.put("warehousetype", warehousetype);
@@ -78,6 +135,7 @@ public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
 		paramMap.put("supplierid", supplierid);
 		paramMap.put("productid", productid);
 		paramMap.put("status", status);
+		paramMap.put("warehousename", warehousename);
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryWarehouseCountByPage", paramMap);
 	}
 
@@ -105,6 +163,24 @@ public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
 			return list.get(0);
 		}
 		return null;
+	}
+	
+	@Override
+	public List<WarehouseDto> queryWarehouseByIds(String ids) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("ids", ids);
+		@SuppressWarnings("unchecked")
+		List<WarehouseDto> list = getSqlMapClientTemplate().queryForList("queryWarehouseByIds", paramMap);
+		return list;
+	}
+	
+	@Override
+	public List<WarehouseDto> queryWarehouseByParentid(String parentid) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("parentid", parentid);
+		@SuppressWarnings("unchecked")
+		List<WarehouseDto> list = getSqlMapClientTemplate().queryForList("queryWarehouseByParentid", paramMap);
+		return list;
 	}
 
 	@Override

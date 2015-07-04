@@ -17,16 +17,16 @@ import com.cn.dsyg.service.WarehouseService;
 import com.opensymphony.xwork2.ActionContext;
 
 /**
- * @name 入库确认Action
+ * @name 预出库确认Action
  * @author Frank
  * @time 2015-6-4下午10:09:02
  * @version 1.0
  */
-public class WarehouseOkAction extends BaseAction {
+public class WarehouseOutOkAction extends BaseAction {
 
 	private static final long serialVersionUID = 4049661437562429432L;
 
-	private static final Logger log = LogManager.getLogger(WarehouseOkAction.class);
+	private static final Logger log = LogManager.getLogger(WarehouseOutOkAction.class);
 	
 	private WarehouseService warehouseService;
 	private Dict01Service dict01Service;
@@ -38,7 +38,7 @@ public class WarehouseOkAction extends BaseAction {
 	//一页显示数据条数
 	private Integer intPageSize;
 	//库存未确认数据集集列表
-	private List<WarehouseOkDto> warehouseOkList;
+	private List<WarehouseOkDto> warehouseOutOkList;
 	
 	//采购主题
 	private List<Dict01Dto> goodsList;
@@ -49,15 +49,14 @@ public class WarehouseOkAction extends BaseAction {
 	//产地
 	private List<Dict01Dto> makeareaList;
 	
-	//入库确认
-	private String strOkProductid;
-	private String strOkSupplierid;
+	//出库确认
+	private String strOkIds;
 	
 	/**
-	 * 显示预入库确认页面
+	 * 显示预出库确认页面
 	 * @return
 	 */
-	public String showWarehouseOkAction() {
+	public String showWarehouseOutOkAction() {
 		try {
 			this.clearMessages();
 			//页面数据初期化
@@ -65,22 +64,20 @@ public class WarehouseOkAction extends BaseAction {
 			//默认10条
 			intPageSize = 10;
 			page = new Page(intPageSize);
-			warehouseOkList = new ArrayList<WarehouseOkDto>();
-			
-			strOkProductid = "";
-			strOkSupplierid = "";
+			warehouseOutOkList = new ArrayList<WarehouseOkDto>();
+			strOkIds = "";
 		} catch(Exception e) {
-			log.error("showWarehouseOkAction error:" + e);
+			log.error("showWarehouseOutOkAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
 	}
 	
 	/**
-	 * 查询入库数据
+	 * 查询出库数据
 	 * @return
 	 */
-	public String queryWarehouseOkAction() {
+	public String queryWarehouseOutOkAction() {
 		try {
 			this.clearMessages();
 			//页面数据初期化
@@ -92,7 +89,7 @@ public class WarehouseOkAction extends BaseAction {
 			page = new Page(intPageSize);
 			queryData();
 		} catch(Exception e) {
-			log.error("queryWarehouseOkAction error:" + e);
+			log.error("queryWarehouseOutOkAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -102,67 +99,38 @@ public class WarehouseOkAction extends BaseAction {
 	 * 翻页
 	 * @return
 	 */
-	public String turnWarehouseOkAction() {
+	public String turnWarehouseOutOkAction() {
 		try {
 			this.clearMessages();
 			//页面数据初期化
 			queryData();
 		} catch(Exception e) {
-			log.error("turnWarehouseOkAction error:" + e);
+			log.error("turnWarehouseOutOkAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
 	}
 	
 	/**
-	 * 入库确认
+	 * 出库确认
 	 * @return
 	 */
-	public String warehouseOkAction() {
+	public String warehouseOutOkAction() {
 		try {
 			this.clearMessages();
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
-			warehouseService.warehouseOk(strOkProductid, strOkSupplierid, username);
+			warehouseService.warehouseOutOk(strOkIds, username);
 			
 			this.addActionMessage("确认成功！");
 			//刷新页面数据
 			queryData();
 		} catch(Exception e) {
-			log.error("warehouseOkAction error:" + e);
+			log.error("warehouseOutOkAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
 	}
-	
-//	/**
-//	 * 预入库确认
-//	 * @return
-//	 * @throws IOException 
-//	 */
-//	public String purchaseItemOkAction() throws IOException {
-//		HttpServletResponse response = ServletActionContext.getResponse();
-//		response.setContentType("text/html; charset=UTF-8");
-//		PrintWriter out;
-//		String result = "0";
-//		try {
-//			this.clearMessages();
-//			String purchaseno = this.getStrItemOkPurchaseno();
-//			String productid = this.getStrItemOkProductid();
-//			String supplierid = this.getStrItemOkSupplierid();
-//			//当前操作用户ID
-//			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
-//			warehouserptService.warehouserptOk(purchaseno, productid, supplierid, username);
-//		} catch(Exception e) {
-//			log.error("purchaseItemOkAction error:" + e);
-//			return ERROR;
-//		}
-//		out = response.getWriter();
-//		log.info("purchaseItemOkAction result=" + result);
-//		out.write(result);
-//		out.flush();
-//		return null;
-//	}
 	
 	/**
 	 * 数据查询
@@ -173,10 +141,10 @@ public class WarehouseOkAction extends BaseAction {
 			page = new Page(intPageSize);
 		}
 		initDictList();
-		//翻页查询所有预入库待确认数据
+		//翻页查询所有预出库待确认数据
 		this.page.setStartIndex(startIndex);
-		page = warehouseService.queryWarehouseOkByPage("" + Constants.WAREHOUSE_STATUS_NEW, page);
-		warehouseOkList = (List<WarehouseOkDto>) page.getItems();
+		page = warehouseService.queryWarehouseOkByPage("" + Constants.WAREHOUSE_TYPE_OUT, "", "", "", "", "", "" + Constants.WAREHOUSE_STATUS_NEW, page);
+		warehouseOutOkList = (List<WarehouseOkDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
 	
@@ -266,27 +234,19 @@ public class WarehouseOkAction extends BaseAction {
 		this.warehouseService = warehouseService;
 	}
 
-	public List<WarehouseOkDto> getWarehouseOkList() {
-		return warehouseOkList;
+	public List<WarehouseOkDto> getWarehouseOutOkList() {
+		return warehouseOutOkList;
 	}
 
-	public void setWarehouseOkList(List<WarehouseOkDto> warehouseOkList) {
-		this.warehouseOkList = warehouseOkList;
+	public void setWarehouseOutOkList(List<WarehouseOkDto> warehouseOutOkList) {
+		this.warehouseOutOkList = warehouseOutOkList;
 	}
 
-	public String getStrOkProductid() {
-		return strOkProductid;
+	public String getStrOkIds() {
+		return strOkIds;
 	}
 
-	public void setStrOkProductid(String strOkProductid) {
-		this.strOkProductid = strOkProductid;
-	}
-
-	public String getStrOkSupplierid() {
-		return strOkSupplierid;
-	}
-
-	public void setStrOkSupplierid(String strOkSupplierid) {
-		this.strOkSupplierid = strOkSupplierid;
+	public void setStrOkIds(String strOkIds) {
+		this.strOkIds = strOkIds;
 	}
 }

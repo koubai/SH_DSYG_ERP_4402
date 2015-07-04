@@ -43,6 +43,7 @@ public interface WarehouserptService {
 	/**
 	 * 修改数据
 	 * @param warehouserpt
+	 * @param type 1为入库单，2为出库单
 	 */
-	public void updateWarehouserpt(WarehouserptDto warehouserpt);
+	public void updateWarehouserpt(WarehouserptDto warehouserpt, Integer type);
 }

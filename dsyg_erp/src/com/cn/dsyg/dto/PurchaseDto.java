@@ -99,6 +99,11 @@ public class PurchaseDto extends BaseAction {
 	 * 采购日期（显示用）
 	 */
 	private String showPurchasedate;
+	
+	/**
+	 * 预入库时间
+	 */
+	private String plandate;
 
 	/**
 	 * 采购金额（不含税）
@@ -538,5 +543,13 @@ public class PurchaseDto extends BaseAction {
 
 	public void setShowPurchasedate(String showPurchasedate) {
 		this.showPurchasedate = showPurchasedate;
+	}
+
+	public String getPlandate() {
+		return plandate;
+	}
+
+	public void setPlandate(String plandate) {
+		this.plandate = plandate;
 	}
 }

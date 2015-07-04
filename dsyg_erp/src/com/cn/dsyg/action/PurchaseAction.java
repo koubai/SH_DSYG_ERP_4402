@@ -98,6 +98,16 @@ public class PurchaseAction extends BaseAction {
 			this.clearMessages();
 			//初期化字典数据
 			initDictList();
+			//验证是否可以更新（状态=新增才可以更新）
+			PurchaseDto purchaseDto = purchaseService.queryPurchaseByID("" + updPurchaseDto.getId());
+			if(purchaseDto == null) {
+				this.addActionMessage("该数据不存在！");
+				return "checkerror";
+			}
+			if(purchaseDto.getStatus() > Constants.PURCHASE_STATUS_NEW) {
+				this.addActionMessage("该数据不能更新！");
+				return "checkerror";
+			}
 			//数据验证
 			if(!checkData(updPurchaseDto)) {
 				return "checkerror";
@@ -128,10 +138,9 @@ public class PurchaseAction extends BaseAction {
 		try {
 			this.clearMessages();
 			addPurchaseDto = new PurchaseDto();
-			//==========================================测试数据，等供应商页面整合时修改
-			addPurchaseDto.setSupplierid(1L);
 			//默认为当天
 			addPurchaseDto.setPurchasedate(DateUtil.dateToShortStr(new Date()));
+			addPurchaseDto.setPlandate(DateUtil.dateToShortStr(new Date()));
 			
 			addPurchaseItemList = new ArrayList<PurchaseItemDto>();
 			//初期化字典数据
@@ -278,6 +287,10 @@ public class PurchaseAction extends BaseAction {
 		//采购金额不含税金额不能大于含税金额
 		if(purchase.getTaxamount().compareTo(purchase.getTotalamount()) == -1) {
 			this.addActionMessage("含税金额不能小于不含税金额！");
+			return false;
+		}
+		if(StringUtil.isBlank(purchase.getPlandate())) {
+			this.addActionMessage("预入库时间不能为空！");
 			return false;
 		}
 		return true;

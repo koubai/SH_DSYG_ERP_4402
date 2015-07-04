@@ -1,0 +1,312 @@
+package com.cn.dsyg.service.impl;
+
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+import com.cn.common.util.Constants;
+import com.cn.common.util.DateUtil;
+import com.cn.common.util.Page;
+import com.cn.common.util.PropertiesConfig;
+import com.cn.dsyg.dao.Dict01Dao;
+import com.cn.dsyg.dao.SalesDao;
+import com.cn.dsyg.dao.SalesItemDao;
+import com.cn.dsyg.dao.WarehouseDao;
+import com.cn.dsyg.dto.Dict01Dto;
+import com.cn.dsyg.dto.SalesDto;
+import com.cn.dsyg.dto.SalesItemDto;
+import com.cn.dsyg.dto.WarehouseDto;
+import com.cn.dsyg.service.SalesService;
+
+/**
+ * @name SalesServiceImpl.java
+ * @author Frank
+ * @time 2015-6-16下午9:58:24
+ * @version 1.0
+ */
+public class SalesServiceImpl implements SalesService {
+	
+	private SalesDao salesDao;
+	private SalesItemDao salesItemDao;
+	private WarehouseDao warehouseDao;
+	private Dict01Dao dict01Dao;
+	
+	@Override
+	public Page queryFinanceSalesByPage(String bookdateLow,
+			String bookdateHigh, String status, Page page) {
+		//查询总记录数
+		int totalCount = salesDao.queryFinanceSalesCountByPage(bookdateLow, bookdateHigh, status);
+		page.setTotalCount(totalCount);
+		if(totalCount % page.getPageSize() > 0) {
+			page.setTotalPage(totalCount / page.getPageSize() + 1);
+		} else {
+			page.setTotalPage(totalCount / page.getPageSize());
+		}
+		//翻页查询记录
+		List<SalesDto> list = salesDao.queryFinanceSalesByPage(bookdateLow, bookdateHigh, status,
+				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		page.setItems(list);
+		return page;
+	}
+	
+	@Override
+	public String addSales(SalesDto sales, List<SalesItemDto> listSalesItem,
+			String userid) {
+		//生成销售单号
+		String salesno = "";
+		String belongto = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG);
+		sales.setBelongto(belongto);
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String uuid = UUID.randomUUID().toString();
+		uuid = uuid.substring(uuid.length() - 8, uuid.length());
+		salesno = "sales" + belongto + sdf.format(date) + uuid;
+		sales.setSalesno(salesno);
+		
+		//status
+		sales.setStatus(Constants.SALES_STATUS_NEW);
+		//rank
+		sales.setRank(Constants.ROLE_RANK_OPERATOR);
+		
+		sales.setUpdateuid(userid);
+		sales.setCreateuid(userid);
+		salesDao.insertSales(sales);
+		//保存销售单对应的货物数据
+		if(listSalesItem != null) {
+			for(SalesItemDto salesItem : listSalesItem) {
+				//销售单号
+				salesItem.setSalesno(salesno);
+				salesItem.setUpdateuid(userid);
+				salesItem.setCreateuid(userid);
+				salesItem.setStatus(Constants.STATUS_NORMAL);
+				salesItem.setBelongto(belongto);
+				salesItem.setRank(Constants.ROLE_RANK_OPERATOR);
+				salesItem.setCustomerid("" + sales.getCustomerid());
+				salesItem.setPlandate(sales.getPlandate());
+				
+				//判断预出库数量是否大于0，若大于0则生产库存记录
+				if(salesItem.getBeforequantity() != null && salesItem.getBeforequantity() > 0) {
+					//新增库存记录
+					addWarehouse(sales, salesItem);
+					//已出库数=预出库数+之前已出库数
+					if(salesItem.getOutquantity() == null) {
+						salesItem.setOutquantity(salesItem.getBeforequantity());
+					} else {
+						salesItem.setOutquantity(salesItem.getBeforequantity() + salesItem.getOutquantity());
+					}
+				}
+				//预出库数重置为0
+				salesItem.setBeforequantity(0);
+				salesItemDao.insertSalesItem(salesItem);
+			}
+		}
+		return salesno;
+	}
+
+	@Override
+	public Page querySalesByPage(String bookdateLow, String bookdateHigh,
+			Page page) {
+		//查询总记录数
+		int totalCount = salesDao.querySalesCountByPage(bookdateLow, bookdateHigh);
+		page.setTotalCount(totalCount);
+		if(totalCount % page.getPageSize() > 0) {
+			page.setTotalPage(totalCount / page.getPageSize() + 1);
+		} else {
+			page.setTotalPage(totalCount / page.getPageSize());
+		}
+		//翻页查询记录
+		List<SalesDto> list = salesDao.querySalesByPage(bookdateLow, bookdateHigh,
+				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		page.setItems(list);
+		return page;
+	}
+	
+	@Override
+	public void updateSales(SalesDto sales, List<SalesItemDto> listSalesItem, String userid) {
+		salesDao.updateSales(sales);
+		//根据销售单号删除所有的货物数据
+		salesItemDao.deleteSalesItemBySalesno(sales.getSalesno(), userid);
+		//保存销售单对应的货物数据
+		if(listSalesItem != null) {
+			for(SalesItemDto salesItem : listSalesItem) {
+				if(salesItem.getId() == null) {
+					//新增
+					//销售单号
+					salesItem.setSalesno(sales.getSalesno());
+					salesItem.setUpdateuid(userid);
+					salesItem.setCreateuid(userid);
+					salesItem.setStatus(Constants.STATUS_NORMAL);
+					salesItem.setBelongto(sales.getBelongto());
+					salesItem.setCustomerid("" + sales.getCustomerid());
+					
+					//判断预出库数量是!=0，若!=0则生产库存记录，这里不判断是否大于0的情况，考虑可能会增加负的库存记录
+					if(salesItem.getBeforequantity() != null && salesItem.getBeforequantity() != 0) {
+						//新增库存记录
+						addWarehouse(sales, salesItem);
+						//已出库数=预出库数+之前已出库数
+						if(salesItem.getOutquantity() == null) {
+							salesItem.setOutquantity(salesItem.getBeforequantity());
+						} else {
+							salesItem.setOutquantity(salesItem.getBeforequantity() + salesItem.getOutquantity());
+						}
+					}
+					
+					//预出库数重置为0
+					salesItem.setBeforequantity(0);
+					salesItemDao.insertSalesItem(salesItem);
+				} else {
+					//修改
+					salesItem.setUpdateuid(userid);
+					salesItem.setStatus(Constants.STATUS_NORMAL);
+					
+					//判断预出库数量是!=0，若!=0则生产库存记录，这里不判断是否大于0的情况，考虑可能会增加负的库存记录
+					if(salesItem.getBeforequantity() != null && salesItem.getBeforequantity() != 0) {
+						//新增库存记录
+						addWarehouse(sales, salesItem);
+						//已出库数=预出库数+之前已出库数
+						if(salesItem.getOutquantity() == null) {
+							salesItem.setOutquantity(salesItem.getBeforequantity());
+						} else {
+							salesItem.setOutquantity(salesItem.getBeforequantity() + salesItem.getOutquantity());
+						}
+					}
+					
+					//预出库数重置为0
+					salesItem.setBeforequantity(0);
+					salesItemDao.updateSalesItem(salesItem);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void updateSales(SalesDto sales) {
+		salesDao.updateSales(sales);
+	}
+	
+	/**
+	 * 新增库存记录
+	 * @param sales
+	 * @param salesItem
+	 */
+	private void addWarehouse(SalesDto sales, SalesItemDto salesItem) {
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String belongto = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG);
+		
+		WarehouseDto warehouse = new WarehouseDto();
+		//数据来源单号=销售单
+		warehouse.setParentid(sales.getSalesno());
+		//库存类型=出库单
+		warehouse.setWarehousetype(Constants.WAREHOUSE_TYPE_OUT);
+		//仓库
+		warehouse.setWarehousename(sales.getWarehouse());
+		
+		//出库单号
+		String uuid = UUID.randomUUID().toString();
+		uuid = uuid.substring(uuid.length() - 8, uuid.length());
+		String warehouseno = "warehouse" + belongto + sdf.format(date) + uuid;
+		warehouse.setWarehouseno(warehouseno);
+		
+		warehouse.setPlandate(sales.getPlandate());
+		
+		warehouse.setBelongto(belongto);
+		//主题
+		warehouse.setTheme1(sales.getTheme1());
+		//产品ID
+		warehouse.setProductid("" + salesItem.getProductid());
+		//出库数量=预出库数（这里是出库，所以是负数）
+		warehouse.setQuantity(salesItem.getBeforequantity() * -1);
+		//单价
+		warehouse.setUnitprice(salesItem.getUnitprice());
+		
+		//出库金额=出库数量*单价
+		BigDecimal amount = salesItem.getUnitprice().multiply(new BigDecimal(salesItem.getBeforequantity()));
+		//出库金额含税=出库金额*税率
+		BigDecimal taxamount = new BigDecimal(0);
+		
+		//出库金额（含税）=出库金额*（1+税率）
+		List<Dict01Dto> listRate = dict01Dao.queryDict01ByFieldcode(Constants.DICT_RATE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		//默认为0
+		BigDecimal rate = new BigDecimal(0);
+		if(listRate != null && listRate.size() > 0) {
+			rate = new BigDecimal(listRate.get(0).getCode());
+			rate = rate.add(new BigDecimal(1));
+			taxamount = amount.multiply(rate);
+			taxamount = taxamount.setScale(2, BigDecimal.ROUND_HALF_UP);
+		}
+		
+		//入出库金额
+		warehouse.setAmount(amount);
+		//入出库金额（含税）
+		warehouse.setTaxamount(taxamount);
+		//出库日期=当天
+		warehouse.setWarehousedate(DateUtil.dateToShortStr(new Date()));
+		//客户ID
+		warehouse.setSupplierid(sales.getCustomerid());
+		//收货人
+		warehouse.setHandler(sales.getHandler());
+		warehouse.setRank(Constants.ROLE_RANK_OPERATOR);
+		//出库单数据状态=新增
+		warehouse.setStatus(Constants.WAREHOUSE_STATUS_NEW);
+		
+		warehouse.setUpdateuid(sales.getCreateuid());
+		warehouse.setCreateuid(sales.getCreateuid());
+		
+		warehouseDao.insertWarehouse(warehouse);
+	}
+
+	@Override
+	public SalesDto querySalesByID(String id) {
+		return salesDao.querySalesByID(id);
+	}
+
+	@Override
+	public SalesDto querySalesByNo(String salesno) {
+		return salesDao.querySalesByNo(salesno);
+	}
+
+	@Override
+	public void deleteSales(String id) {
+		salesDao.deleteSales(id);
+	}
+
+	@Override
+	public void insertSales(SalesDto sales) {
+		salesDao.insertSales(sales);
+	}
+
+	public SalesDao getSalesDao() {
+		return salesDao;
+	}
+
+	public void setSalesDao(SalesDao salesDao) {
+		this.salesDao = salesDao;
+	}
+
+	public SalesItemDao getSalesItemDao() {
+		return salesItemDao;
+	}
+
+	public void setSalesItemDao(SalesItemDao salesItemDao) {
+		this.salesItemDao = salesItemDao;
+	}
+
+	public WarehouseDao getWarehouseDao() {
+		return warehouseDao;
+	}
+
+	public void setWarehouseDao(WarehouseDao warehouseDao) {
+		this.warehouseDao = warehouseDao;
+	}
+
+	public Dict01Dao getDict01Dao() {
+		return dict01Dao;
+	}
+
+	public void setDict01Dao(Dict01Dao dict01Dao) {
+		this.dict01Dao = dict01Dao;
+	}
+}

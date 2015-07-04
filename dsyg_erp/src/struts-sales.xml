@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="sales" extends="struts-erp" namespace="/sales">
+	
+		<action name="showSalesAction" class="salesAction" method="showSalesAction">
+			<result name="*">/page/sales/saleslist.jsp</result>
+		</action>
+		
+		<action name="querySalesAction" class="salesAction" method="querySalesAction">
+			<result name="*">/page/sales/saleslist.jsp</result>
+		</action>
+		
+		<action name="turnSalesAction" class="salesAction" method="turnSalesAction">
+			<result name="*">/page/sales/saleslist.jsp</result>
+		</action>
+		
+		<action name="showAddSalesAction" class="salesAction" method="showAddSalesAction">
+			<result name="*">/page/sales/addsales.jsp</result>
+		</action>
+		
+		<action name="addSalesAction" class="salesAction" method="addSalesAction">
+			<result name="*">/page/sales/addsales.jsp</result>
+		</action>
+		
+		<action name="showUpdSalesAction" class="salesAction" method="showUpdSalesAction">
+			<result name="*">/page/sales/updsales.jsp</result>
+		</action>
+		
+		<action name="updSalesAction" class="salesAction" method="updSalesAction">
+			<result name="*">/page/sales/updsales.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

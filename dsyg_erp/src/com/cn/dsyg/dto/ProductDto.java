@@ -105,6 +105,15 @@ public class ProductDto extends BaseDto {
 	 */
 	private BigDecimal purchaseprice;
 	
+	//数量（入出库单显示用）
+	private String num;
+	//金额（入出库单显示用）
+	private String amount;
+	//是否退货或破损
+	private String hasbroken;
+	//退货或破损数量
+	private String brokennum;
+	
 	/**
 	 * 备注
 	 */
@@ -949,5 +958,37 @@ public class ProductDto extends BaseDto {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public String getNum() {
+		return num;
+	}
+
+	public void setNum(String num) {
+		this.num = num;
+	}
+
+	public String getAmount() {
+		return amount;
+	}
+
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+
+	public String getHasbroken() {
+		return hasbroken;
+	}
+
+	public void setHasbroken(String hasbroken) {
+		this.hasbroken = hasbroken;
+	}
+
+	public String getBrokennum() {
+		return brokennum;
+	}
+
+	public void setBrokennum(String brokennum) {
+		this.brokennum = brokennum;
 	}
 }

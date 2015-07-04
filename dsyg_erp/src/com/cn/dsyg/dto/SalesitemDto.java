@@ -11,7 +11,7 @@ import com.cn.common.action.BaseAction;
  * @time 2015-5-19下午10:40:15
  * @version 1.0
  */
-public class SalesitemDto extends BaseAction {
+public class SalesItemDto extends BaseAction {
 
 	private static final long serialVersionUID = 2337982978512345040L;
 
@@ -44,6 +44,33 @@ public class SalesitemDto extends BaseAction {
 	 * 产品ID号
 	 */
 	private String productid;
+	
+	//================产品信息
+	/**
+	 * 品名
+	 */
+	private String tradename;
+	
+	/**
+	 * 规格
+	 */
+	private String typeno;
+	
+	/**
+	 * 颜色
+	 */
+	private String color;
+	
+	/**
+	 * 包装
+	 */
+	private String packaging;
+	
+	/**
+	 * 单位
+	 */
+	private String unit;
+	//==================
 
 	/**
 	 * 销售数量
@@ -51,9 +78,14 @@ public class SalesitemDto extends BaseAction {
 	private Integer quantity;
 
 	/**
-	 * 已出库数量
+	 * 确认出库数量
 	 */
 	private Integer outquantity;
+	
+	/**
+	 * 预出库数量
+	 */
+	private Integer beforequantity;
 
 	/**
 	 * 未出库数量
@@ -74,6 +106,11 @@ public class SalesitemDto extends BaseAction {
 	 * 金额（含税）
 	 */
 	private BigDecimal taxamount;
+	
+	/**
+	 * 预出库时间
+	 */
+	private String plandate;
 
 	/**
 	 * 销售
@@ -98,12 +135,12 @@ public class SalesitemDto extends BaseAction {
 	/**
 	 * 级别(0-99)
 	 */
-	private String rank;
+	private Integer rank;
 
 	/**
 	 * 状态
 	 */
-	private String status;
+	private Integer status;
 
 	/**
 	 * 预备项目1
@@ -295,22 +332,6 @@ public class SalesitemDto extends BaseAction {
 		this.note = note;
 	}
 
-	public String getRank() {
-		return rank;
-	}
-
-	public void setRank(String rank) {
-		this.rank = rank;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
 	public String getRes01() {
 		return res01;
 	}
@@ -429,5 +450,77 @@ public class SalesitemDto extends BaseAction {
 
 	public void setSalesno(String salesno) {
 		this.salesno = salesno;
+	}
+
+	public Integer getBeforequantity() {
+		return beforequantity;
+	}
+
+	public void setBeforequantity(Integer beforequantity) {
+		this.beforequantity = beforequantity;
+	}
+
+	public String getTradename() {
+		return tradename;
+	}
+
+	public void setTradename(String tradename) {
+		this.tradename = tradename;
+	}
+
+	public String getTypeno() {
+		return typeno;
+	}
+
+	public void setTypeno(String typeno) {
+		this.typeno = typeno;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getPackaging() {
+		return packaging;
+	}
+
+	public void setPackaging(String packaging) {
+		this.packaging = packaging;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	public Integer getRank() {
+		return rank;
+	}
+
+	public void setRank(Integer rank) {
+		this.rank = rank;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public String getPlandate() {
+		return plandate;
+	}
+
+	public void setPlandate(String plandate) {
+		this.plandate = plandate;
 	}
 }

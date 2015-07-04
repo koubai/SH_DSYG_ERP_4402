@@ -2,7 +2,70 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
 
-	<!-- warehouseinOk -->
+	<!-- ProductOkAction -->
+	<bean id="productOkAction" class="com.cn.dsyg.action.ProductOkAction" scope="session">
+		<property name="warehouseService">
+			<ref bean="warehouseService"/>
+		</property>
+		<property name="dict01Service">
+			<ref bean="dict01Service"/>
+		</property>
+	</bean>
+
+	<!-- FinanceSalesAction -->
+	<bean id="financeSalesAction" class="com.cn.dsyg.action.FinanceSalesAction" scope="session">
+		<property name="salesService">
+			<ref bean="salesService"/>
+		</property>
+		<property name="dict01Service">
+			<ref bean="dict01Service"/>
+		</property>
+	</bean>
+
+	<!-- FinancePurchaseAction -->
+	<bean id="financePurchaseAction" class="com.cn.dsyg.action.FinancePurchaseAction" scope="session">
+		<property name="purchaseService">
+			<ref bean="purchaseService"/>
+		</property>
+		<property name="dict01Service">
+			<ref bean="dict01Service"/>
+		</property>
+	</bean>
+
+	<!-- finance -->
+	<bean id="financeAction" class="com.cn.dsyg.action.FinanceAction" scope="session">
+		<property name="financeService">
+			<ref bean="financeService"/>
+		</property>
+		<property name="dict01Service">
+			<ref bean="dict01Service"/>
+		</property>
+	</bean>
+
+	<!-- Sales -->
+	<bean id="salesAction" class="com.cn.dsyg.action.SalesAction" scope="session">
+		<property name="salesService">
+			<ref bean="salesService"/>
+		</property>
+		<property name="salesItemService">
+			<ref bean="salesItemService"/>
+		</property>
+		<property name="dict01Service">
+			<ref bean="dict01Service"/>
+		</property>
+	</bean>
+
+	<!-- warehouse -->
+	<bean id="warehouseAction" class="com.cn.dsyg.action.WarehouseAction" scope="session">
+		<property name="warehouseService">
+			<ref bean="warehouseService"/>
+		</property>
+		<property name="dict01Service">
+			<ref bean="dict01Service"/>
+		</property>
+	</bean>
+	
+	<!-- warehouseInOk -->
 	<bean id="warehouseInOkAction" class="com.cn.dsyg.action.WarehouseInOkAction" scope="session">
 		<property name="warehouseService">
 			<ref bean="warehouseService"/>
@@ -12,8 +75,8 @@
 		</property>
 	</bean>
 	
-	<!-- warehouseOk -->
-	<bean id="warehouseOkAction" class="com.cn.dsyg.action.WarehouseOkAction" scope="session">
+	<!-- warehouseOutOk -->
+	<bean id="warehouseOutOkAction" class="com.cn.dsyg.action.WarehouseOutOkAction" scope="session">
 		<property name="warehouseService">
 			<ref bean="warehouseService"/>
 		</property>

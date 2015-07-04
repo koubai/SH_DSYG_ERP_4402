@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="warehouserpt" extends="struts-erp" namespace="/warehouserpt">
+	
+		<action name="showUpdWarehouserptOutAction" class="warehouserptAction" method="showUpdWarehouserptOutAction">
+			<result name="*">/page/warehouserpt/updwarehouserptout.jsp</result>
+		</action>
+		
+		<action name="updWarehouserptOutAction" class="warehouserptAction" method="updWarehouserptOutAction">
+			<result name="*">/page/warehouserpt/updwarehouserptout.jsp</result>
+		</action>
+		
+		<action name="showWarehouserptOutAction" class="warehouserptAction" method="showWarehouserptOutAction">
+			<result name="*">/page/warehouserpt/warehouserptoutlist.jsp</result>
+		</action>
+		
+		<action name="queryWarehouserptOutAction" class="warehouserptAction" method="queryWarehouserptOutAction">
+			<result name="*">/page/warehouserpt/warehouserptoutlist.jsp</result>
+		</action>
+		
+		<action name="turnWarehouserptOutAction" class="warehouserptAction" method="turnWarehouserptOutAction">
+			<result name="*">/page/warehouserpt/warehouserptoutlist.jsp</result>
+		</action>
+	
+		<action name="showUpdWarehouserptInAction" class="warehouserptAction" method="showUpdWarehouserptInAction">
+			<result name="*">/page/warehouserpt/updwarehouserptin.jsp</result>
+		</action>
+		
+		<action name="updWarehouserptInAction" class="warehouserptAction" method="updWarehouserptInAction">
+			<result name="*">/page/warehouserpt/updwarehouserptin.jsp</result>
+		</action>
+		
+		<action name="showWarehouserptInAction" class="warehouserptAction" method="showWarehouserptInAction">
+			<result name="*">/page/warehouserpt/warehouserptinlist.jsp</result>
+		</action>
+		
+		<action name="queryWarehouserptInAction" class="warehouserptAction" method="queryWarehouserptInAction">
+			<result name="*">/page/warehouserpt/warehouserptinlist.jsp</result>
+		</action>
+		
+		<action name="turnWarehouserptInAction" class="warehouserptAction" method="turnWarehouserptInAction">
+			<result name="*">/page/warehouserpt/warehouserptinlist.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

@@ -12,10 +12,16 @@
 	
 	<constant name="struts.multipart.saveDir" value="/tmp"/>
 	
+	<!-- finance -->
+	<include file="struts-finance.xml"></include>
+	<!-- warehouserpt -->
+	<include file="struts-warehouserpt.xml"></include>
 	<!-- warehouse -->
 	<include file="struts-warehouse.xml"></include>
 	<!-- product -->
 	<include file="struts-product.xml"></include>
+	<!-- sales -->
+	<include file="struts-sales.xml"></include>
 	<!-- purchase -->
 	<include file="struts-purchase.xml"></include>
 	<!-- Frame -->

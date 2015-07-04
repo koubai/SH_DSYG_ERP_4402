@@ -74,6 +74,11 @@ public class SalesDto extends BaseAction {
 	 * 客户邮箱
 	 */
 	private String customermail;
+	
+	/**
+	 * 传真
+	 */
+	private String customerfax;
 
 	/**
 	 * 销售
@@ -84,14 +89,24 @@ public class SalesDto extends BaseAction {
 	 * 订单日期
 	 */
 	private String bookdate;
+	
+	/**
+	 * 订单日期（显示用）
+	 */
+	private String showBookdate;
+	
+	/**
+	 * 预入库时间
+	 */
+	private String plandate;
 
 	/**
-	 * 采购金额（不含税）
+	 * 销售金额（不含税）
 	 */
 	private BigDecimal amount;
 
 	/**
-	 * 采购金额（含税）
+	 * 销售金额（含税）
 	 */
 	private BigDecimal taxamount;
 
@@ -109,6 +124,11 @@ public class SalesDto extends BaseAction {
 	 * 确认者
 	 */
 	private String approverid;
+	
+	/**
+	 * 销售单对应的产品ID（逗号分割）
+	 */
+	private String productlist;
 
 	/**
 	 * 备注
@@ -481,5 +501,42 @@ public class SalesDto extends BaseAction {
 
 	public void setBookdate(String bookdate) {
 		this.bookdate = bookdate;
+	}
+
+	public String getProductlist() {
+		return productlist;
+	}
+
+	public void setProductlist(String productlist) {
+		this.productlist = productlist;
+	}
+
+	public String getShowBookdate() {
+		if(bookdate != null && !"".equals(bookdate)) {
+			showBookdate = bookdate.substring(0, 10);
+		} else {
+			showBookdate = "";
+		}
+		return showBookdate;
+	}
+
+	public void setShowBookdate(String showBookdate) {
+		this.showBookdate = showBookdate;
+	}
+
+	public String getCustomerfax() {
+		return customerfax;
+	}
+
+	public void setCustomerfax(String customerfax) {
+		this.customerfax = customerfax;
+	}
+
+	public String getPlandate() {
+		return plandate;
+	}
+
+	public void setPlandate(String plandate) {
+		this.plandate = plandate;
 	}
 }

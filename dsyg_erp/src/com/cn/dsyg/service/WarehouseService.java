@@ -1,5 +1,7 @@
 package com.cn.dsyg.service;
 
+import java.util.List;
+
 import com.cn.common.util.Page;
 import com.cn.dsyg.dto.WarehouseDto;
 
@@ -11,29 +13,53 @@ import com.cn.dsyg.dto.WarehouseDto;
  */
 public interface WarehouseService {
 	
+	//库存产品
 	/**
-	 * 库存确认
+	 * 翻页查询库存产品
+	 * @param parentid
+	 * @param warehousetype
+	 * @param warehouseno
+	 * @param theme1
 	 * @param productid
-	 * @param supplierid
-	 * @param userid
+	 * @param tradename
+	 * @param typeno
+	 * @param color
+	 * @param warehousename
+	 * @param page
+	 * @return
 	 */
-	public void warehouseInOk(String productid, String supplierid, String userid);
+	public Page queryWarehouseProductByPage(String parentid, String warehousetype,
+			String warehouseno, String theme1, String productid, String tradename,
+			String typeno, String color, String warehousename, Page page);
 	
 	/**
-	 * 入库确认
-	 * @param productid
-	 * @param supplierid
+	 * 预入库确认
+	 * @param ids
 	 * @param userid
 	 */
-	public void warehouseOk(String productid, String supplierid, String userid);
+	public void warehouseInOk(String ids, String userid);
 	
 	/**
-	 * 预入库确认数据
+	 * 预出库确认
+	 * @param ids
+	 * @param userid
+	 */
+	public void warehouseOutOk(String ids, String userid);
+	
+	/**
+	 * 库存汇总数据
+	 * @param warehouseType
+	 * @param theme
+	 * @param tradename
+	 * @param typeno
+	 * @param color
+	 * @param warehousename
 	 * @param status
 	 * @param page
 	 * @return
 	 */
-	public Page queryWarehouseOkByPage(String status, Page page);
+	public Page queryWarehouseOkByPage(String warehouseType, String theme, String tradename,
+			String typeno, String color, String warehousename, String status, Page page);
 
 	/**
 	 * 翻页查询
@@ -44,12 +70,13 @@ public interface WarehouseService {
 	 * @param supplierid
 	 * @param productid
 	 * @param status
+	 * @param warehousename
 	 * @param page
 	 * @return
 	 */
 	public Page queryWarehouseByPage(String parentid, String warehousetype,
 			String warehouseno, String theme1, String supplierid, String productid,
-			String status, Page page);
+			String status, String warehousename, Page page);
 	
 	/**
 	 * 根据ID查询数据
@@ -59,12 +86,26 @@ public interface WarehouseService {
 	public WarehouseDto queryWarehouseByID(String id);
 	
 	/**
+	 * 根据ID列表查询库存记录
+	 * @param ids
+	 * @return
+	 */
+	public List<WarehouseDto> queryWarehouseByIds(String ids);
+	
+	/**
 	 * 根据父单号和产品ID查询数据
 	 * @param parentid
 	 * @param productid
 	 * @return
 	 */
 	public WarehouseDto queryWarehouseByParentidAndProductid(String parentid, String productid);
+	
+	/**
+	 * 根据父单号查询数据
+	 * @param parentid
+	 * @return
+	 */
+	public List<WarehouseDto> queryWarehouseByParentid(String parentid);
 	
 	/**
 	 * 根据入库单号查询数据

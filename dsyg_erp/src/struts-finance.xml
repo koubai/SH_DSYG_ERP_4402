@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="finance" extends="struts-erp" namespace="/finance">
+	
+		<action name="showFinanceSalesAction" class="financeSalesAction" method="showFinanceSalesAction">
+			<result name="*">/page/finance/financesaleslist.jsp</result>
+		</action>
+		
+		<action name="queryFinanceSalesAction" class="financeSalesAction" method="queryFinanceSalesAction">
+			<result name="*">/page/finance/financesaleslist.jsp</result>
+		</action>
+		
+		<action name="turnFinanceSalesAction" class="financeSalesAction" method="turnFinanceSalesAction">
+			<result name="*">/page/finance/financesaleslist.jsp</result>
+		</action>
+		
+		<action name="updFinanceSalesStatusAction" class="financeSalesAction" method="updFinanceSalesStatusAction">
+			<result name="*">/page/finance/financesaleslist.jsp</result>
+		</action>
+		
+		<action name="showFinancePurchaseAction" class="financePurchaseAction" method="showFinancePurchaseAction">
+			<result name="*">/page/finance/financepurchaselist.jsp</result>
+		</action>
+		
+		<action name="queryFinancePurchaseAction" class="financePurchaseAction" method="queryFinancePurchaseAction">
+			<result name="*">/page/finance/financepurchaselist.jsp</result>
+		</action>
+		
+		<action name="turnFinancePurchaseAction" class="financePurchaseAction" method="turnFinancePurchaseAction">
+			<result name="*">/page/finance/financepurchaselist.jsp</result>
+		</action>
+		
+		<action name="updFinancePurchaseStatusAction" class="financePurchaseAction" method="updFinancePurchaseStatusAction">
+			<result name="*">/page/finance/financepurchaselist.jsp</result>
+		</action>
+	
+		<action name="showFinanceAction" class="financeAction" method="showFinanceAction">
+			<result name="*">/page/finance/financelist.jsp</result>
+		</action>
+		
+		<action name="queryFinanceAction" class="financeAction" method="queryFinanceAction">
+			<result name="*">/page/finance/financelist.jsp</result>
+		</action>
+		
+		<action name="turnFinanceAction" class="financeAction" method="turnFinanceAction">
+			<result name="*">/page/finance/financelist.jsp</result>
+		</action>
+		
+		<action name="showAddFinanceAction" class="financeAction" method="showAddFinanceAction">
+			<result name="*">/page/finance/addfinance.jsp</result>
+		</action>
+		
+		<action name="addFinanceAction" class="financeAction" method="addFinanceAction">
+			<result name="*">/page/finance/addfinance.jsp</result>
+		</action>
+		
+		<action name="showUpdFinanceAction" class="financeAction" method="showUpdFinanceAction">
+			<result name="*">/page/finance/updfinance.jsp</result>
+		</action>
+		
+		<action name="updFinanceAction" class="financeAction" method="updFinanceAction">
+			<result name="*">/page/finance/updfinance.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

@@ -9,35 +9,22 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>
-<title>预入库确认</title>
+<title>入库单一览</title>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var h = screen.availHeight; 
 		$("#container").height(h - 20);
 	});
 	
-	//预入库确认
-	function warehouseOk(productid, supplierid) {
-		$("#strOkProductid").val(productid);
-		$("#strOkSupplierid").val(supplierid);
-		document.mainform.action = '../warehouse/warehouseOkAction.action';
-		document.mainform.submit();
-		/*
-		$.ajax({
-			url:"../purchaseitemok/purchaseItemOkAction.action",
-			type:"POST",
-			dataType:"json",
-			data:{
-				"strItemOkPurchaseno":purchaseno,
-				"strItemOkProductid":productid,
-				"strItemOkSupplierid":supplierid
-			},
-			success:function(data) {
-				if(data == "0") {
-				} else {
-				}
-			}
-		});//*/
+	function upd() {
+		var id = getSelectedID();
+		if(id == "") {
+			alert("请选择一条记录！");
+			return;
+		} else {
+			document.mainform.action = "../warehouserpt/showUpdWarehouserptInAction.action?updWarehouserptId=" + id;
+			document.mainform.submit();
+		}
 	}
 	
 	function getSelectedID() {
@@ -54,7 +41,7 @@
 	
 	//查询数据
 	function queryList() {
-		document.mainform.action = '../warehouse/queryWarehouseOkAction.action';
+		document.mainform.action = '../warehouserpt/queryWarehouserptInAction.action';
 		document.mainform.submit();
 	}
 	
@@ -62,14 +49,14 @@
 	function changepagesize(pagesize) {
 		$("#intPageSize").attr("value", pagesize);
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../warehouse/queryWarehouseOkAction.action';
+		document.mainform.action = '../warehouserpt/queryWarehouserptInAction.action';
 		document.mainform.submit();
 	}
 	
 	//翻页
 	function changePage(pageNum) {
 		$("#startIndex").attr("value", pageNum);
-		document.mainform.action = '../warehouse/turnWarehouseOkAction.action';
+		document.mainform.action = '../warehouserpt/turnWarehouserptInAction.action';
 		document.mainform.submit();
 	}
 
@@ -110,7 +97,7 @@
 				<div class="tittle_left">
 				</div>
 				<div class="tittle_center">
-					预入库确认信息一览
+					入库单一览
 				</div>
 				<div class="tittle_right">
 				</div>
@@ -118,19 +105,7 @@
 			<s:form id="mainform" name="mainform" method="POST">
 				<s:hidden name="startIndex" id="startIndex"/>
 				<s:hidden name="intPageSize" id="intPageSize"/>
-				<s:hidden name="strOkProductid" id="strOkProductid"/>
-				<s:hidden name="strOkSupplierid" id="strOkSupplierid"/>
 				<div class="searchbox">
-					<!--
-					<div class="box1">
-						<label class="pdf10">采购日期</label>
-						<div class="box1_left"></div>
-						<div class="box1_center">
-							<s:textfield name="strPurchaseno" id="strPurchaseno" maxlength="32" cssStyle="width:150px;" theme="simple"></s:textfield>
-						</div>
-						<div class="box1_right"></div>
-					</div>
-					-->
 					<div class="btn" style="margin-left: 160px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
@@ -142,7 +117,11 @@
 						<s:actionmessage />
 					</div>
 					<div class="icons thums">
-						<a class="add" onclick="">确认</a>
+						<a class="edit" onclick="upd();">编辑</a>
+						<!--
+						<a class="add" onclick="add();">增加</a>
+						<a class="delete" onclick="del();">删除</a>
+						-->
 					</div>
 				</div>
 				<div class="data_table" style="padding:0px;">
@@ -153,52 +132,54 @@
 					<div class="tab_content">
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
+								<td width="30"></td>
 								<td width="40">序号</td>
-								<td width="60">主题</td>
-								<td width="120">品名</td>
-								<td width="120">规格</td>
-								<td width="60">颜色</td>
-								<td width="60">包装</td>
+								<td width="120">入库单号</td>
+								<td width="60">来源类型</td>
 								<td width="120">供应商</td>
-								<td width="80">预入库数量</td>
-								<td width="60"></td>
+								<td width="80">联系人</td>
+								<td width="80">含税金额</td>
+								<!--
+								<td width="120">快递单号</td>
+								-->
+								<td width="120">快递公司</td>
+								<td width="80">快递费</td>
 							</tr>
-							<s:iterator id="warehouseOkList" value="warehouseOkList" status="st1">
+							<s:iterator id="warehouserptList" value="warehouserptList" status="st1">
 								<s:if test="#st1.odd==true">
 									<tr class="tr_bg">
 								</s:if>
 								<s:else>
 									<tr>
 								</s:else>
+									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
+									<td><s:property value="warehouseno"/></td>
 									<td>
-										<s:iterator id="goodsList" value="goodsList" status="st3">
-											<s:if test="%{goodsList[#st3.index].code == warehouseOkList[#st1.index].theme1}">
-												<s:property value="fieldname"/>
-											</s:if>
-										</s:iterator>
-									</td>
-									<td><s:property value="tradename"/></td>
-									<td><s:property value="typeno"/></td>
-									<td>
-										<s:iterator id="colorList" value="colorList" status="st3">
-											<s:if test="%{colorList[#st3.index].code == warehouseOkList[#st1.index].color}">
-												<s:property value="fieldname"/>
-											</s:if>
-										</s:iterator>
-									</td>
-									<td>
-										<s:if test='%{warehouseOkList[#st1.index].packaging == "1"}'>整箱</s:if>
-										<s:elseif test='%{warehouseOkList[#st1.index].packaging == "0"}'>乱尺</s:elseif>
+										<s:if test="%{warehousetype == 1}">
+											入库单
+										</s:if>
+										<s:elseif test="%{warehousetype == 2}">
+											发货单
+										</s:elseif>
+										<s:elseif test="%{warehousetype == 3}">
+											退换货
+										</s:elseif>
+										<s:elseif test="%{warehousetype == 4}">
+											手动录入
+										</s:elseif>
 										<s:else>
-											<s:property value="packaging"/>
+											<s:property value="warehousetype"/>
 										</s:else>
 									</td>
 									<td><s:property value="suppliername"/></td>
-									<td><s:property value="quantity"/></td>
-									<td width="60">
-										<input type="button" value="确认" onclick="warehouseOk('<s:property value="productid"/>', '<s:property value="supplierid"/>')"/>
-									</td>
+									<td><s:property value="suppliermanager"/></td>
+									<td><s:property value="totaltaxamount"/></td>
+									<!--
+									<td><s:property value="expressno"/></td>
+									-->
+									<td><s:property value="expressname"/></td>
+									<td><s:property value="expresstaxamount"/></td>
 								</tr>
 							</s:iterator>
 						</table>

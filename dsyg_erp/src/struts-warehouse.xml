@@ -6,20 +6,20 @@
 
 	<package name="warehouse" extends="struts-erp" namespace="/warehouse">
 	
-		<action name="showWarehouseOkAction" class="warehouseOkAction" method="showWarehouseOkAction">
-			<result name="*">/page/warehouse/warehouseoklist.jsp</result>
+		<action name="showProductOkAction" class="productOkAction" method="showProductOkAction">
+			<result name="*">/page/warehouse/productoklist.jsp</result>
 		</action>
 		
-		<action name="queryWarehouseOkAction" class="warehouseOkAction" method="queryWarehouseOkAction">
-			<result name="*">/page/warehouse/warehouseoklist.jsp</result>
+		<action name="queryProductOkAction" class="productOkAction" method="queryProductOkAction">
+			<result name="*">/page/warehouse/productoklist.jsp</result>
 		</action>
 		
-		<action name="turnWarehouseOkAction" class="warehouseOkAction" method="turnWarehouseOkAction">
-			<result name="*">/page/warehouse/warehouseoklist.jsp</result>
+		<action name="turnProductOkAction" class="productOkAction" method="turnProductOkAction">
+			<result name="*">/page/warehouse/productoklist.jsp</result>
 		</action>
-		
-		<action name="warehouseOkAction" class="warehouseOkAction" method="warehouseOkAction">
-			<result name="*">/page/warehouse/warehouseoklist.jsp</result>
+	
+		<action name="showWarehouseProductSelectAction" class="warehouseAction" method="showWarehouseProductSelectAction">
+			<result name="*">/page/warehouse/selectwarehouseproduct.jsp</result>
 		</action>
 		
 		<action name="showWarehouseInOkAction" class="warehouseInOkAction" method="showWarehouseInOkAction">
@@ -36,6 +36,22 @@
 		
 		<action name="warehouseInOkAction" class="warehouseInOkAction" method="warehouseInOkAction">
 			<result name="*">/page/warehouse/warehouseinoklist.jsp</result>
+		</action>
+		
+		<action name="showWarehouseOutOkAction" class="warehouseOutOkAction" method="showWarehouseOutOkAction">
+			<result name="*">/page/warehouse/warehouseoutoklist.jsp</result>
+		</action>
+		
+		<action name="queryWarehouseOutOkAction" class="warehouseOutOkAction" method="queryWarehouseOutOkAction">
+			<result name="*">/page/warehouse/warehouseoutoklist.jsp</result>
+		</action>
+		
+		<action name="turnWarehouseOutOkAction" class="warehouseOutOkAction" method="turnWarehouseOutOkAction">
+			<result name="*">/page/warehouse/warehouseoutoklist.jsp</result>
+		</action>
+		
+		<action name="warehouseOutOkAction" class="warehouseOutOkAction" method="warehouseOutOkAction">
+			<result name="*">/page/warehouse/warehouseoutoklist.jsp</result>
 		</action>
 		
 	</package>

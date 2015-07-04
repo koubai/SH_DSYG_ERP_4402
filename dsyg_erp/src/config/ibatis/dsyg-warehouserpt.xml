@@ -8,7 +8,8 @@
 		<result property="id" column="id" />
 		<result property="warehousetype" column="warehousetype" />
 		<result property="warehouseno" column="warehouseno" />
-		<result property="productid" column="productid" />
+		<result property="warehousename" column="warehousename" />
+		<result property="productinfo" column="productinfo" />
 		<result property="belongto" column="belongto" />
 		<result property="theme1" column="theme1" />
 		<result property="theme2" column="theme2" />
@@ -27,6 +28,7 @@
 		<result property="expressid" column="expressid" />
 		<result property="expressname" column="expressname" />
 		<result property="expresstel" column="expresstel" />
+		<result property="expressfax" column="expressfax" />
 		<result property="expressmanager" column="expressmanager" />
 		<result property="expressaddress" column="expressaddress" />
 		<result property="expressmail" column="expressmail" />
@@ -74,9 +76,6 @@
 		<isNotEmpty prepend="and" property="supplierid">
 			T.supplierid = #supplierid#
 		</isNotEmpty>
-		<isNotEmpty prepend="and" property="productid">
-			T.productid = #productid#
-		</isNotEmpty>
 		order by T.updatedate desc
 		LIMIT #start#, #end#
 	</select>
@@ -101,24 +100,21 @@
 		<isNotEmpty prepend="and" property="supplierid">
 			T.supplierid = #supplierid#
 		</isNotEmpty>
-		<isNotEmpty prepend="and" property="productid">
-			T.productid = #productid#
-		</isNotEmpty>
 	</select>
 	
 	<select id="queryWarehouserptByID" parameterClass="java.util.Map" resultMap="WarehouserptDto">
-		select * from etb_warehouserpt where id = #id#
+		select T.* from etb_warehouserpt T where T.id = #id#
 	</select>
 	
 	<insert id="insertWarehouserpt" parameterClass="com.cn.dsyg.dto.WarehouserptDto">
-		insert into etb_warehouserpt(warehousetype,warehouseno,belongto,theme1,theme2,parentid,totaltaxamount,totalnum,productid,
+		insert into etb_warehouserpt(warehousetype,warehouseno,warehousename,belongto,theme1,theme2,parentid,totaltaxamount,totalnum,productinfo,
 			warehousedate,handler,supplierid,suppliername,suppliertel,suppliermanager,supplieraddress,suppliermail,supplierfax,
-			expressid,expressname,expresstel,expressmanager,expressaddress,expressmail,expressno,expressamount,
+			expressid,expressname,expresstel,expressfax,expressmanager,expressaddress,expressmail,expressno,expressamount,
 			expresstaxamount,expressnote,approverid,note,rank,status,res01,res02,res03,res04,res05,res06,res07,
 			res08,res09,res10,createuid,createdate,updateuid,updatedate)
-		values(#warehousetype#,#warehouseno#,#belongto#,#theme1#,#theme2#,#parentid#,#totaltaxamount#,#totalnum#,#productid#,
+		values(#warehousetype#,#warehouseno#,#warehousename#,#belongto#,#theme1#,#theme2#,#parentid#,#totaltaxamount#,#totalnum#,#productinfo#,
 			#warehousedate#,#handler#,#supplierid#,#suppliername#,#suppliertel#,#suppliermanager#,#supplieraddress#,#suppliermail#,#supplierfax#,
-			#expressid#,#expressname#,#expresstel#,#expressmanager#,#expressaddress#,#expressmail#,#expressno#,#expressamount#,
+			#expressid#,#expressname#,#expresstel#,#expressfax#,#expressmanager#,#expressaddress#,#expressmail#,#expressno#,#expressamount#,
 			#expresstaxamount#,#expressnote#,#approverid#,#note#,#rank#,#status#,#res01#,#res02#,#res03#,#res04#,#res05#,#res06#,#res07#,
 			#res08#,#res09#,#res10#,#createuid#,NOW(),#updateuid#,NOW())
 	</insert>
@@ -127,10 +123,12 @@
 		update etb_warehouserpt
 		set warehousetype = #warehousetype#,
 			warehouseno = #warehouseno#,
+			warehousename = #warehousename#,
 			belongto = #belongto#,
 			theme1 = #theme1#,
 			theme2 = #theme2#,
 			parentid = #parentid#,
+			productinfo = #productinfo#,
 			totaltaxamount = #totaltaxamount#,
 			totalnum = #totalnum#,
 			warehousedate = #warehousedate#,
@@ -145,6 +143,7 @@
 			expressid = #expressid#,
 			expressname = #expressname#,
 			expresstel = #expresstel#,
+			expressfax = #expressfax#,
 			expressmanager = #expressmanager#,
 			expressaddress = #expressaddress#,
 			expressmail = #expressmail#,

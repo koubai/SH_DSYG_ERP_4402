@@ -145,7 +145,7 @@
 		
 		//============================
 		//入库数量
-		var input = createHiddenAddAlt("", "tmpPurchaseQuantity_" + id);
+		var input = createHiddenAddAlt("", "tmpQuantity_" + id);
 		td0.appendChild(input);
 		//预入库数量
 		var input = createHiddenAddAlt("", "tmpBeforeQuantity_" + id);
@@ -168,7 +168,7 @@
 		var maxlength = 11;
 		
 		//采购数量
-		td = createTdInput("tmpPurchaseQuantity", wid, maxlength, "calcquantity(this, '1');", id);
+		td = createTdInput("tmpQuantity", wid, maxlength, "calcquantity(this, '1');", id);
 		tr.appendChild(td);
 		//预入库数量
 		td = createTdInput("tmpBeforeQuantity", wid, maxlength, "calcquantity(this, '2');", id);
@@ -221,7 +221,7 @@
 	function createTdInput(name, wid, maxlength, onblurevent, productid) {
 		var td = window.dialogArguments.document.createElement("td");
 		var input = window.dialogArguments.document.createElement("input");
-		input.name = name;
+		//input.name = name;
 		input.id = name + "_" + productid;
 		input.style.width = wid + "px";
 		input.setAttribute("maxlength", maxlength);

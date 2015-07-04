@@ -17,7 +17,7 @@ import com.cn.dsyg.service.WarehouseService;
 import com.opensymphony.xwork2.ActionContext;
 
 /**
- * @name 库存确认Action
+ * @name 预入库确认Action
  * @author Frank
  * @time 2015-6-4下午10:09:02
  * @version 1.0
@@ -37,7 +37,7 @@ public class WarehouseInOkAction extends BaseAction {
 	private Page page;
 	//一页显示数据条数
 	private Integer intPageSize;
-	//库存确认数据列表
+	//预入库确认数据列表
 	private List<WarehouseOkDto> warehouseInOkList;
 	
 	//采购主题
@@ -49,12 +49,11 @@ public class WarehouseInOkAction extends BaseAction {
 	//产地
 	private List<Dict01Dto> makeareaList;
 	
-	//库存确认
-	private String strOkProductid;
-	private String strOkSupplierid;
+	//预入库确认ID
+	private String strOkIds;
 	
 	/**
-	 * 库存确认页面
+	 * 预入库确认页面
 	 * @return
 	 */
 	public String showWarehouseInOkAction() {
@@ -66,9 +65,7 @@ public class WarehouseInOkAction extends BaseAction {
 			intPageSize = 10;
 			page = new Page(intPageSize);
 			warehouseInOkList = new ArrayList<WarehouseOkDto>();
-			
-			strOkProductid = "";
-			strOkSupplierid = "";
+			strOkIds = "";
 		} catch(Exception e) {
 			log.error("showWarehouseInOkAction error:" + e);
 			return ERROR;
@@ -77,7 +74,7 @@ public class WarehouseInOkAction extends BaseAction {
 	}
 	
 	/**
-	 * 查询库存确认数据
+	 * 查询预入库确认数据
 	 * @return
 	 */
 	public String queryWarehouseInOkAction() {
@@ -115,7 +112,7 @@ public class WarehouseInOkAction extends BaseAction {
 	}
 	
 	/**
-	 * 库存确认
+	 * 预入库确认
 	 * @return
 	 */
 	public String warehouseInOkAction() {
@@ -123,7 +120,7 @@ public class WarehouseInOkAction extends BaseAction {
 			this.clearMessages();
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
-			warehouseService.warehouseInOk(strOkProductid, strOkSupplierid, username);
+			warehouseService.warehouseInOk(strOkIds, username);
 			
 			this.addActionMessage("确认成功！");
 			//刷新页面数据
@@ -144,9 +141,9 @@ public class WarehouseInOkAction extends BaseAction {
 			page = new Page(intPageSize);
 		}
 		initDictList();
-		//翻页查询所有库存确认数据
+		//翻页查询所有预入库确认数据
 		this.page.setStartIndex(startIndex);
-		page = warehouseService.queryWarehouseOkByPage("" + Constants.WAREHOUSE_STATUS_OK, page);
+		page = warehouseService.queryWarehouseOkByPage("" + Constants.WAREHOUSE_TYPE_IN, "", "", "", "", "", "" + Constants.WAREHOUSE_STATUS_NEW, page);
 		warehouseInOkList = (List<WarehouseOkDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -237,27 +234,19 @@ public class WarehouseInOkAction extends BaseAction {
 		this.warehouseService = warehouseService;
 	}
 
-	public String getStrOkProductid() {
-		return strOkProductid;
-	}
-
-	public void setStrOkProductid(String strOkProductid) {
-		this.strOkProductid = strOkProductid;
-	}
-
-	public String getStrOkSupplierid() {
-		return strOkSupplierid;
-	}
-
-	public void setStrOkSupplierid(String strOkSupplierid) {
-		this.strOkSupplierid = strOkSupplierid;
-	}
-
 	public List<WarehouseOkDto> getWarehouseInOkList() {
 		return warehouseInOkList;
 	}
 
 	public void setWarehouseInOkList(List<WarehouseOkDto> warehouseInOkList) {
 		this.warehouseInOkList = warehouseInOkList;
+	}
+
+	public String getStrOkIds() {
+		return strOkIds;
+	}
+
+	public void setStrOkIds(String strOkIds) {
+		this.strOkIds = strOkIds;
 	}
 }

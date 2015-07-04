@@ -63,6 +63,9 @@ public class Constants {
 	//税率
 	public final static String DICT_RATE = "rate";
 	
+	//财务主题
+	public final static String FINANCE_THEME = "financetheme";
+	
 	//properties
 	public final static String PROPERTIES_IMAGES_URL = "images_url";
 	public final static String PROPERTIES_IMAGES_PATH = "images_path";
@@ -139,25 +142,58 @@ public class Constants {
 	//库存类型：2为出库单
 	public final static int WAREHOUSE_TYPE_OUT = 2;
 	
-	//入库单状态
+	//发货单数据来源：1为入库单
+	public final static int WAREHOUSERPT_TYPE_IN = 1;
+	//发货单数据来源：2为出库单
+	public final static int WAREHOUSERPT_TYPE_OUT = 2;
+	//发货单数据来源：3为退货
+	public final static int WAREHOUSERPT_TYPE_REFUND = 3;
+	//发货单数据来源：4为手动录入
+	public final static int WAREHOUSERPT_TYPE_INPUT = 4;
+	
+	//库存记录状态
 	//新增
 	public final static int WAREHOUSE_STATUS_NEW = 10;
-	//已确认
+	//入库（出库）确认
 	public final static int WAREHOUSE_STATUS_OK = 20;
-	//已发货
+	//已发货=========预留
 	public final static int WAREHOUSE_STATUS_SEND = 30;
-	//库存确认
-	public final static int WAREHOUSE_STATUS_RECEIVE = 40;
-	//预退货
-	public final static int WAREHOUSE_STATUS_REFUND = 50;
-	//已退货
-	public final static int WAREHOUSE_STATUS_REFUND_OK = 60;
-	//待付款
-	public final static int WAREHOUSE_STATUS_PAY = 70;
+	//退货OR损毁
+	public final static int WAREHOUSE_STATUS_REFUND = 40;
+	
+	//采购单状态
+	//采购单新增
+	public final static int PURCHASE_STATUS_NEW = 10;
+	//采购单付款申请
+	public final static int PURCHASE_STATUS_PAY_APPLY = 20;
+	//采购单付款审批
+	public final static int PURCHASE_STATUS_PAY_APPROVE = 30;
+	//采购单付款完了
+	public final static int PURCHASE_STATUS_PAY_OK = 40;
+	//采购单已开票
+	public final static int PURCHASE_STATUS_PAY_INVOICE = 50;
+	
+	//销售单状态
+	//采购单新增
+	public final static int SALES_STATUS_NEW = 10;
+	//销售单开票申请
+	public final static int SALES_STATUS_BILL_APPLY = 20;
+	//销售单开票审批
+	public final static int SALES_STATUS_BILL_APPROVE = 30;
+	//销售单开票完了
+	public final static int SALES_STATUS_BILL_OK = 40;
+	
+	//财务状态
+	//新增
+	public final static int FINANCE_STATUS_NEW = 10;
+	//付款申请
+	public final static int FINANCE_STATUS_PAY_APPLY = 20;
+	//付款审批
+	public final static int FINANCE_STATUS_PAY_APPROVE = 30;
 	//已付款
-	public final static int WAREHOUSE_STATUS_PAY_OK = 80;
-	//结束
-	public final static int WAREHOUSE_STATUS_FINISHED = 99;
+	public final static int FINANCE_STATUS_PAY_OK = 40;
+	//已开票
+	public final static int FINANCE_STATUS_PAY_INVOICE = 50;
 	
 	//删除标记
 	/**

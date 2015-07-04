@@ -13,6 +13,19 @@ import com.cn.dsyg.dto.PurchaseItemDto;
  * @version 1.0
  */
 public interface PurchaseService {
+	
+	//finance start
+	/**
+	 * 翻页查询采购单（财务）
+	 * @param purchasedateLow
+	 * @param purchasedateHigh
+	 * @param status
+	 * @param page
+	 * @return
+	 */
+	public Page queryFinancePurchaseByPage(String purchasedateLow,
+			String purchasedateHigh, String status, Page page);
+	//finance end
 
 	/**
 	 * 翻页查询满足条件的采购数据
@@ -58,4 +71,10 @@ public interface PurchaseService {
 	 * @param userid
 	 */
 	public void updatePurchase(PurchaseDto purchase, List<PurchaseItemDto> listPurchaseItem, String userid);
+	
+	/**
+	 * 修改采购单
+	 * @param Purchase
+	 */
+	public void updatePurchase(PurchaseDto purchase);
 }
