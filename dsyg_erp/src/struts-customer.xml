@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="customer" extends="struts-erp" namespace="/customer">
+	
+		<action name="showEtbCustomerAction" class="customerAction" method="showEtbCustomerAction">
+			<result name="*">/page/customer/customerlist.jsp</result>
+		</action>
+	
+		<action name="showEtbCustomerManageAction" class="customerAction" method="showEtbCustomerAction">
+			<result name="*">/page/customer/customerlist_manage.jsp</result>
+		</action>
+		
+		<action name="queryEtbCustomerList" class="customerAction" method="queryEtbCustomerList">
+			<result name="success">/page/customer/customerlist.jsp</result>
+		</action>
+		
+		<action name="queryEtbCustomerManageList" class="customerAction" method="queryEtbCustomerList">
+			<result name="success">/page/customer/customerlist_manage.jsp</result>
+		</action>
+		
+		<action name="turnEtbCustomerPage" class="customerAction" method="turnEtbCustomerPage">
+			<result name="success">/page/customer/customerlist.jsp</result>
+		</action>
+		
+		<action name="turnEtbCustomerManagePage" class="customerAction" method="turnEtbCustomerPage">
+			<result name="success">/page/customer/customerlist_manage.jsp</result>
+		</action>
+		
+		<action name="showAddEtbCustomerAction" class="customerAction" method="showAddEtbCustomerAction">
+			<result name="*">/page/customer/addcustomer.jsp</result>
+		</action>
+		
+		<action name="addEtbCustomerAction" class="customerAction" method="addEtbCustomerAction">
+			<result name="success">/page/customer/addcustomer.jsp</result>
+			<result name="checkerror">/page/customer/addcustomer.jsp</result>
+		</action>
+		
+		<action name="showUpdEtbCustomerAction" class="customerAction" method="showUpdEtbCustomerAction">
+			<result name="success">/page/customer/updcustomer.jsp</result>
+			<result name="checkerror">/page/customer/updcustomer.jsp</result>
+		</action>
+		
+		<action name="updEtbCustomerAction" class="customerAction" method="updEtbCustomerAction">
+			<result name="success">/page/customer/updcustomer.jsp</result>
+			<result name="checkerror">/page/customer/updcustomer.jsp</result>
+		</action>
+		
+		<action name="updEtbCustomerManageAction" class="customerAction" method="updEtbCustomerManageAction">
+			<result name="success">/page/customer/customerlist_manage.jsp</result>
+			<result name="checkerror">/page/customer/customerlist_manage.jsp</result>
+		</action>
+		
+		<action name="delEtbCustomerAction" class="customerAction" method="delEtbCustomerAction">
+			<result name="success">/page/customer/customerlist.jsp</result>
+			<result name="checkerror">/page/customer/customerlist.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

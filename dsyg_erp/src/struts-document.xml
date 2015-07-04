@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="document" extends="struts-erp" namespace="/document">
+	
+		<action name="showEtbDocumentAction" class="documentAction" method="showEtbDocumentAction">
+			<result name="*">/page/document/documentlist.jsp</result>
+		</action>
+		
+		<action name="queryEtbDocumentList" class="documentAction" method="queryEtbDocumentList">
+			<result name="success">/page/document/documentlist.jsp</result>
+		</action>
+		
+		<action name="turnEtbDocumentPage" class="documentAction" method="turnEtbDocumentPage">
+			<result name="success">/page/document/documentlist.jsp</result>
+		</action>
+		
+		<action name="showAddEtbDocumentAction" class="documentAction" method="showAddEtbDocumentAction">
+			<result name="*">/page/document/adddocument.jsp</result>
+		</action>
+		
+		<action name="addEtbDocumentAction" class="documentAction" method="addEtbDocumentAction">
+			<result name="success">/page/document/adddocument.jsp</result>
+			<result name="checkerror">/page/document/adddocument.jsp</result>
+		</action>
+		
+		<action name="showUpdEtbDocumentAction" class="documentAction" method="showUpdEtbDocumentAction">
+			<result name="success">/page/document/upddocument.jsp</result>
+			<result name="checkerror">/page/document/upddocument.jsp</result>
+		</action>
+		
+		<action name="updEtbDocumentAction" class="documentAction" method="updEtbDocumentAction">
+			<result name="success">/page/document/upddocument.jsp</result>
+			<result name="checkerror">/page/document/upddocument.jsp</result>
+		</action>
+		
+		<action name="delEtbDocumentAction" class="documentAction" method="delEtbDocumentAction">
+			<result name="success">/page/document/documentlist.jsp</result>
+			<result name="checkerror">/page/document/documentlist.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

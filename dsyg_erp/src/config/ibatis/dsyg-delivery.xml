@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.dsyg">
+
+	<resultMap id="DeliveryDto" class="com.cn.dsyg.dto.DeliveryDto">
+		<result property="id" column="id" />
+		<result property="deliveryname" column="deliveryname" />
+		<result property="belongto" column="belongto" />
+		<result property="note" column="note" />
+		<result property="deliverytel1" column="deliverytel1" />
+		<result property="deliverymanager1" column="deliverymanager1" />
+		<result property="deliveryaddress1" column="deliveryaddress1" />
+		<result property="deliverymail1" column="deliverymail1" />
+		<result property="deliveryfax1" column="deliveryfax1" />
+		<result property="deliverytel2" column="deliverytel2" />
+		<result property="deliverymanager2" column="deliverymanager2" />
+		<result property="deliveryaddress2" column="deliveryaddress2" />
+		<result property="deliverymail2" column="deliverymail2" />
+		<result property="deliveryfax2" column="deliveryfax2" />
+		<result property="deliverytel3" column="deliverytel3" />
+		<result property="deliverymanager3" column="deliverymanager3" />
+		<result property="deliveryaddress3" column="deliveryaddress3" />
+		<result property="deliverymail3" column="deliverymail3" />
+		<result property="deliveryfax3" column="deliveryfax3" />
+		<result property="deliverytel4" column="deliverytel4" />
+		<result property="deliverymanager4" column="deliverymanager4" />
+		<result property="deliveryaddress4" column="deliveryaddress4" />
+		<result property="deliverymail4" column="deliverymail4" />
+		<result property="deliveryfax4" column="deliveryfax4" />
+		<result property="deliverytel5" column="deliverytel5" />
+		<result property="deliverymanager5" column="deliverymanager5" />
+		<result property="deliveryaddress5" column="deliveryaddress5" />
+		<result property="deliverymail5" column="deliverymail5" />
+		<result property="deliveryfax5" column="deliveryfax5" />
+		<result property="deliverytype" column="deliverytype" />
+		<result property="handlerid" column="handlerid" />
+		<result property="status" column="status" />
+		<result property="res01" column="res01" />
+		<result property="res02" column="res02" />
+		<result property="res03" column="res03" />
+		<result property="res04" column="res04" />
+		<result property="res05" column="res05" />
+		<result property="res06" column="res06" />
+		<result property="res07" column="res07" />
+		<result property="res08" column="res08" />
+		<result property="res09" column="res09" />
+		<result property="res10" column="res10" />
+		<result property="createuid" column="createuid" />
+		<result property="createdate" column="createdate" />
+		<result property="updateuid" column="updateuid" />
+		<result property="updatedate" column="updatedate" />
+	</resultMap>
+	
+	<select id="queryEtbDeliveryCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from etb_delivery T where 1 = 1
+			and T.status = '1'
+			<isNotEmpty prepend="and" property="ID_LOW">
+				T.id <![CDATA[>=]]> #ID_LOW#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ID_HIGH">
+				T.id <![CDATA[<=]]> #ID_HIGH#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="DELIVERY_NAME">
+				T.deliveryname like '%$DELIVERY_NAME$%'
+			</isNotEmpty>
+	</select>
+	
+	<select id="queryAllEtbDeliveryExport" parameterClass="java.util.Map" resultMap="DeliveryDto">
+		select T.* from etb_delivery T where 1 = 1
+		and T.status = '1'
+		<isNotEmpty prepend="and" property="ID_LOW">
+			T.id <![CDATA[>=]]> #ID_LOW#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="ID_HIGH">
+			T.id <![CDATA[<=]]> #ID_HIGH#
+		</isNotEmpty>
+		order by T.updatedate desc
+	</select>
+	
+	<select id="queryEtbDeliveryByPage" parameterClass="java.util.Map" resultMap="DeliveryDto">
+		select T.* from etb_delivery T where 1 = 1
+		and T.status = '1'
+		<isNotEmpty prepend="and" property="ID_LOW">
+			T.id <![CDATA[>=]]> #ID_LOW#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="ID_HIGH">
+			T.id <![CDATA[<=]]> #ID_HIGH#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="DELIVERY_NAME">
+			T.deliveryname like '%$DELIVERY_NAME$%'
+		</isNotEmpty>
+		order by T.updatedate desc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryEtbDeliveryByID" parameterClass="java.util.Map" resultMap="DeliveryDto">
+		select * from etb_delivery where 
+			id = #ID#
+			and status = '1'
+	</select>
+	
+	<select id="queryAllEtbDeliveryByID" parameterClass="java.util.Map" resultMap="DeliveryDto">
+		select * from etb_delivery where 
+			id = #ID#
+	</select>
+	
+	<select id="queryAllEtbDelivery" parameterClass="java.util.Map" resultMap="DeliveryDto">
+		select * from etb_delivery where 1 = 1 and status = '1' order by updatedate desc
+	</select>
+	<insert id="insertEtbDelivery" parameterClass="com.cn.dsyg.dto.DeliveryDto">
+		insert into etb_delivery(id,deliveryname,belongto,note,deliverytel1,deliverymanager1,deliveryaddress1,deliverymail1,deliveryfax1,
+		deliverytel2,deliverymanager2,deliveryaddress2,deliverymail2,deliveryfax2,
+		deliverytel3,deliverymanager3,deliveryaddress3,deliverymail3,deliveryfax3,
+		deliverytel4,deliverymanager4,deliveryaddress4,deliverymail4,deliveryfax4,
+		deliverytel5,deliverymanager5,deliveryaddress5,deliverymail5,deliveryfax5,
+		deliverytype,handlerid,status,res01,res02,res03,res04,res05,res06,res07,res08,res09,res10,
+		createuid,createdate,updateuid,updatedate)
+		values(#id#,#deliveryname#,#belongto#,#note#,#deliverytel1#,#deliverymanager1#,#deliveryaddress1#,#deliverymail1#,#deliveryfax1#,
+		#deliverytel2#,#deliverymanager2#,#deliveryaddress2#,#deliverymail2#,#deliveryfax2#,
+		#deliverytel3#,#deliverymanager3#,#deliveryaddress3#,#deliverymail3#,#deliveryfax3#,
+		#deliverytel4#,#deliverymanager4#,#deliveryaddress4#,#deliverymail4#,#deliveryfax4#,
+		#deliverytel5#,#deliverymanager5#,#deliveryaddress5#,#deliverymail5#,#deliveryfax5#,
+		#deliverytype#,#handlerid#,#status#,#res01#,#res02#,#res03#,#res04#,#res05#,#res06#,#res07#,#res08#,#res09#,#res10#,
+		#createuid#,NOW(),#updateuid#,#updatedate#)
+	</insert>
+	
+	<update id="updateEtbDelivery" parameterClass="com.cn.dsyg.dto.DeliveryDto">
+		update etb_delivery
+		set deliveryname=#deliveryname#,
+			belongto=#belongto#,
+			note=#note#,
+			deliverytel1=#deliverytel1#,
+			deliverymanager1=#deliverymanager1#,
+			deliveryaddress1=#deliveryaddress1#,
+			deliverymail1=#deliverymail1#,
+			deliveryfax1=#deliveryfax1#,
+			deliverytel2=#deliverytel2#,
+			deliverymanager2=#deliverymanager2#,
+			deliveryaddress2=#deliveryaddress2#,
+			deliverymail2=#deliverymail2#,
+			deliveryfax2=#deliveryfax2#,
+			deliverytel3=#deliverytel3#,
+			deliverymanager3=#deliverymanager3#,
+			deliveryaddress3=#deliveryaddress3#,
+			deliverymail3=#deliverymail3#,
+			deliveryfax3=#deliveryfax3#,
+			deliverytel4=#deliverytel4#,
+			deliverymanager4=#deliverymanager4#,
+			deliveryaddress4=#deliveryaddress4#,
+			deliverymail4=#deliverymail4#,
+			deliveryfax4=#deliveryfax4#,
+			deliverytel5=#deliverytel5#,
+			deliverymanager5=#deliverymanager5#,
+			deliveryaddress5=#deliveryaddress5#,
+			deliverymail5=#deliverymail5#,
+			deliveryfax5=#deliveryfax5#,
+			deliverytype=#deliverytype#,
+			handlerid=#handlerid#,
+			status=#status#,
+			res01=#res01#,
+			res02=#res02#,
+			res03=#res03#,
+			res04=#res04#,
+			res05=#res05#,
+			res06=#res06#,
+			res07=#res07#,
+			res08=#res08#,
+			res09=#res09#,
+			res10=#res10#,
+			createuid=#createuid#,
+			createdate=#createdate#,
+			updateuid=#updateuid#,
+			updatedate=NOW()
+		where id = #id#
+	</update>
+	
+</sqlMap>

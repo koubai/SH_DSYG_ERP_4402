@@ -16,6 +16,23 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`dsyg` /*!40100 DEFAULT CHARACTER SET ut
 
 USE `dsyg`;
 
+/*Table structure for table `calendar` */
+
+DROP TABLE IF EXISTS `calendar`;
+
+CREATE TABLE `calendar` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `start` varchar(50) NOT NULL,
+  `end` varchar(50) DEFAULT NULL,
+  `allday` tinyint(1) NOT NULL DEFAULT '0',
+  `color` varchar(20) DEFAULT NULL,
+  `userId` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `calendar` */
+
 /*Table structure for table `etb_assets` */
 
 DROP TABLE IF EXISTS `etb_assets`;
@@ -103,9 +120,69 @@ CREATE TABLE `etb_customer` (
   `updateuid` varchar(32) DEFAULT NULL COMMENT '更新者',
   `updatedate` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 /*Data for the table `etb_customer` */
+
+insert  into `etb_customer`(`id`,`customername`,`belongto`,`note`,`customertel1`,`customermanager1`,`customeraddress1`,`customermail1`,`customerfax1`,`customertel2`,`customermanager2`,`customeraddress2`,`customermail2`,`customerfax2`,`customertel3`,`customermanager3`,`customeraddress3`,`customermail3`,`customerfax3`,`customertel4`,`customermanager4`,`customeraddress4`,`customermail4`,`customerfax4`,`customertel5`,`customermanager5`,`customeraddress5`,`customermail5`,`customerfax5`,`customertype`,`handlerid`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (1,'test11',NULL,'test-note111','1123','test','1123','1123@163.com','1123','12','test2','12','12@163.com','1256','','','','','','','','','','','','','','','',0,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-05-17 20:48:10','admin11','2015-05-17 20:50:21'),(2,'test2','','memo','1234','test2','1234','111@163.com','1234','','','','','','','','','','','','','','','','','','','','',0,'',1,'','','','','','','','','','','admin11','2015-05-17 21:08:22','admin11','2015-05-17 21:08:38'),(3,'test',NULL,'','11','test','11','11@163.com','11','','','','','','','','','','','','','','','','','','','','',0,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-05-10 18:14:47',NULL,NULL),(4,'teset',NULL,'','wet','we','wet','wt@163.com','wet','','','','','','','','','','','','','','','','','','','','',0,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-05-16 09:46:36','admin11','2015-05-16 09:48:59'),(5,'通力',NULL,'测试用','13912345678','王小姐','上海','wang@163.com','13912345678','','','','','','','','','','','','','','','','','','','','',0,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-05-16 09:59:21','admin11','2015-05-16 09:59:43'),(6,'test',NULL,'','11','test','11','11@163.com','11','','','','','','','','','','','','','','','','','','','','',0,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-05-10 18:14:47',NULL,NULL),(7,'teset',NULL,'','wet','we','wet','wt@163.com','wet','','','','','','','','','','','','','','','','','','','','',0,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-05-16 09:46:36','admin11','2015-05-16 09:48:59'),(8,'通力',NULL,'测试用','13912345678','王小姐','上海','wang@163.com','13912345678','','','','','','','','','','','','','','','','','','','','',0,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-05-16 09:59:21','admin11','2015-05-16 09:59:43'),(9,'test',NULL,'','11','test','11','11@163.com','11','','','','','','','','','','','','','','','','','','','','',0,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-05-10 18:14:47',NULL,NULL),(10,'teset',NULL,'','wet','we','wet','wt@163.com','wet','','','','','','','','','','','','','','','','','','','','',0,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-05-16 09:46:36','admin11','2015-05-16 09:48:59'),(11,'通力',NULL,'测试用','13912345678','王小姐','上海','wang@163.com','13912345678','','','','','','','','','','','','','','','','','','','','',0,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-05-16 09:59:21','admin11','2015-05-16 09:59:43'),(12,'test',NULL,'','11','test','11','11@163.com','11','','','','','','','','','','','','','','','','','','','','',0,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-05-10 18:14:47',NULL,NULL),(13,'teset',NULL,'','wet','we','wet','wt@163.com','wet','','','','','','','','','','','','','','','','','','','','',0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-05-16 09:46:36','admin11','2015-05-17 21:14:46'),(14,'通力',NULL,'测试用','13912345678','王小姐','上海','wang@163.com','13912345678','','','','','','','','','','','','','','','','','','','','',0,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-05-16 09:59:21','admin11','2015-05-16 09:59:43');
+
+/*Table structure for table `etb_delivery` */
+
+DROP TABLE IF EXISTS `etb_delivery`;
+
+CREATE TABLE `etb_delivery` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `deliveryname` varchar(64) DEFAULT NULL COMMENT '快递名',
+  `belongto` varchar(16) DEFAULT NULL COMMENT '快递所属地（以后可能分上海和深圳）',
+  `note` varchar(256) DEFAULT NULL COMMENT '快递备注',
+  `deliverytel1` varchar(32) DEFAULT NULL COMMENT '联系电话1',
+  `deliverymanager1` varchar(32) DEFAULT NULL COMMENT '联系人1',
+  `deliveryaddress1` varchar(128) DEFAULT NULL COMMENT '地址1',
+  `deliverymail1` varchar(64) DEFAULT NULL COMMENT '邮箱1',
+  `deliveryfax1` varchar(32) DEFAULT NULL COMMENT '传真1',
+  `deliverytel2` varchar(32) DEFAULT NULL COMMENT '联系电话2',
+  `deliverymanager2` varchar(32) DEFAULT NULL COMMENT '联系人2',
+  `deliveryaddress2` varchar(128) DEFAULT NULL COMMENT '地址2',
+  `deliverymail2` varchar(64) DEFAULT NULL COMMENT '邮箱2',
+  `deliveryfax2` varchar(32) DEFAULT NULL COMMENT '传真2',
+  `deliverytel3` varchar(32) DEFAULT NULL COMMENT '联系电话3',
+  `deliverymanager3` varchar(32) DEFAULT NULL COMMENT '联系人3',
+  `deliveryaddress3` varchar(128) DEFAULT NULL COMMENT '地址3',
+  `deliverymail3` varchar(64) DEFAULT NULL COMMENT '邮箱3',
+  `deliveryfax3` varchar(32) DEFAULT NULL COMMENT '传真3',
+  `deliverytel4` varchar(32) DEFAULT NULL COMMENT '联系电话4',
+  `deliverymanager4` varchar(32) DEFAULT NULL COMMENT '联系人4',
+  `deliveryaddress4` varchar(128) DEFAULT NULL COMMENT '地址4',
+  `deliverymail4` varchar(64) DEFAULT NULL COMMENT '邮箱4',
+  `deliveryfax4` varchar(32) DEFAULT NULL COMMENT '传真4',
+  `deliverytel5` varchar(32) DEFAULT NULL COMMENT '联系电话5',
+  `deliverymanager5` varchar(32) DEFAULT NULL COMMENT '联系人5',
+  `deliveryaddress5` varchar(128) DEFAULT NULL COMMENT '地址5',
+  `deliverymail5` varchar(64) DEFAULT NULL COMMENT '邮箱5',
+  `deliveryfax5` varchar(32) DEFAULT NULL COMMENT '传真5',
+  `deliverytype` int(2) DEFAULT NULL COMMENT '快递类型0：公司开拓，1：个人开拓',
+  `handlerid` varchar(32) DEFAULT NULL COMMENT '快递担当（个人开拓时担当ID）',
+  `status` int(4) DEFAULT NULL COMMENT '状态',
+  `res01` varchar(10) DEFAULT NULL COMMENT '预备项目1',
+  `res02` varchar(10) DEFAULT NULL COMMENT '预备项目2',
+  `res03` varchar(10) DEFAULT NULL COMMENT '预备项目3',
+  `res04` varchar(10) DEFAULT NULL COMMENT '预备项目4',
+  `res05` varchar(10) DEFAULT NULL COMMENT '预备项目5',
+  `res06` varchar(10) DEFAULT NULL COMMENT '预备项目6',
+  `res07` varchar(10) DEFAULT NULL COMMENT '预备项目7',
+  `res08` varchar(10) DEFAULT NULL COMMENT '预备项目8',
+  `res09` varchar(50) DEFAULT NULL COMMENT '预备项目9',
+  `res10` varchar(200) DEFAULT NULL COMMENT '预备项目10',
+  `createuid` varchar(32) DEFAULT NULL COMMENT '作成者',
+  `createdate` datetime DEFAULT NULL COMMENT '作成时间',
+  `updateuid` varchar(32) DEFAULT NULL COMMENT '更新者',
+  `updatedate` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+/*Data for the table `etb_delivery` */
+
+insert  into `etb_delivery`(`id`,`deliveryname`,`belongto`,`note`,`deliverytel1`,`deliverymanager1`,`deliveryaddress1`,`deliverymail1`,`deliveryfax1`,`deliverytel2`,`deliverymanager2`,`deliveryaddress2`,`deliverymail2`,`deliveryfax2`,`deliverytel3`,`deliverymanager3`,`deliveryaddress3`,`deliverymail3`,`deliveryfax3`,`deliverytel4`,`deliverymanager4`,`deliveryaddress4`,`deliverymail4`,`deliveryfax4`,`deliverytel5`,`deliverymanager5`,`deliveryaddress5`,`deliverymail5`,`deliveryfax5`,`deliverytype`,`handlerid`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (1,'test',NULL,'','111','test','23232','11@163.com','54654','','','','','','','','','','','','','','','','','','','','',0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-05-28 23:29:24','admin11','2015-05-28 23:29:53'),(2,'test1',NULL,'test','13712345678','test2','上海浦东','11@163.com','13412345678','11111','test','123','111@163.com','456','','','','','','','','','','','','','','','',0,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-05-28 23:31:32','admin11','2015-06-05 22:29:42'),(3,'test3',NULL,'note','111111','test','111','11@sina.cn','111','','','','','','','','','','','','','','','','','','','','',0,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-05-28 23:32:31','admin11','2015-05-28 23:32:43');
 
 /*Table structure for table `etb_document` */
 
@@ -137,9 +214,11 @@ CREATE TABLE `etb_document` (
   `updateuid` varchar(32) DEFAULT NULL COMMENT '更新者',
   `updatedate` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `etb_document` */
+
+insert  into `etb_document`(`id`,`documentno`,`belongto`,`documentname`,`handler`,`registerdate`,`approverid`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (1,'PR10000001',NULL,'合同正本','小明','2015-06-02 00:00:00','CP','note',0,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-06-06 20:32:30','admin11','2015-06-06 20:39:02'),(2,'PR2000001',NULL,'电子书','陈','2015-05-30 00:00:00','陈','note',0,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-06-06 21:57:05',NULL,NULL);
 
 /*Table structure for table `etb_finance` */
 
@@ -226,9 +305,11 @@ CREATE TABLE `etb_personal` (
   `updateuid` varchar(32) DEFAULT NULL COMMENT '更新者',
   `updatedate` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `etb_personal` */
+
+insert  into `etb_personal`(`id`,`userid`,`belongto`,`userno`,`registdate`,`username`,`sex`,`post`,`superior`,`phone`,`tell`,`address`,`employeddate`,`retiredate`,`personaldesc`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (1,NULL,NULL,'1','2015-05-30 00:00:00','1',0,'','','','','','2012-01-01 00:00:00','2015-08-08 00:00:00',NULL,'',0,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-06-06 23:09:11','admin11','2015-06-06 23:33:08'),(2,NULL,NULL,'YG10001','2015-05-05 00:00:00','丁丁一',1,'销售员','陈一','13912345678','02112345678','浦东新区北蔡','2013-01-01 00:00:00','2015-06-01 00:00:00','11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111','11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111',0,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-06-06 23:34:48','admin11','2015-06-07 00:06:47');
 
 /*Table structure for table `etb_price` */
 
@@ -783,11 +864,11 @@ CREATE TABLE `tbresource` (
   `parentid` int(10) DEFAULT NULL COMMENT '父节点ID',
   `restype` int(4) DEFAULT NULL COMMENT '资源类型：1为主节点，2为子节，3为其他',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `tbresource` */
 
-insert  into `tbresource`(`id`,`url`,`note`,`status`,`createtime`,`sort`,`parentid`,`restype`) values (1,'采购','采购',1,'2015-04-28 00:00:00',1,-1,1),(2,'产品','产品',1,'2015-04-28 00:00:00',4,-1,1),(3,'/purchase/showPurchaseAction.action','采购单管理',1,'2015-04-28 00:00:00',1,1,2),(4,'/product/showProductAction.action','产品管理',1,'2015-04-28 00:00:00',1,2,2),(5,'/supplier/showSupplierAction.action','供应商管理',1,'2015-05-10 00:00:00',2,1,2),(6,'库存','库存',1,'2015-05-10 00:00:00',3,-1,1),(7,'/warehouse/showWarehouseInOkAction.action','预入库确认',1,'2015-05-10 00:00:00',1,6,2),(8,'/warehouse/showWarehouseOutOkAction.action','预出库确认',1,'2015-05-10 00:00:00',2,6,2),(9,'销售','销售',1,'2015-05-10 00:00:00',2,-1,1),(10,'/sales/showSalesAction.action','销售单管理',1,'2015-05-10 00:00:00',1,9,2),(11,'/warehouserpt/showWarehouserptInAction.action','入库单一览',1,'2015-05-10 00:00:00',3,6,2),(12,'财务','财务',1,'2015-05-10 00:00:00',5,-1,1),(13,'/finance/showFinanceAction.action','账目管理',1,'2015-05-10 00:00:00',4,12,2),(14,'/finance/showFinancePurchaseAction.action','采购单检索',1,'2015-05-10 00:00:00',1,12,2),(15,'/finance/showFinanceSalesAction.action','订单检索',1,'2015-05-10 00:00:00',2,12,2),(16,'/warehouserpt/showWarehouserptOutAction.action','发货单一览',1,'2015-05-10 00:00:00',4,6,2),(17,'/warehouse/showProductOkAction.action','仓位确认',1,'2015-05-10 00:00:00',6,6,2);
+insert  into `tbresource`(`id`,`url`,`note`,`status`,`createtime`,`sort`,`parentid`,`restype`) values (1,'采购','采购',1,'2015-04-28 00:00:00',1,-1,1),(2,'销售','销售',1,'2015-05-10 00:00:00',2,-1,1),(3,'库存','库存',1,'2015-05-10 00:00:00',3,-1,1),(4,'产品','产品',1,'2015-04-28 00:00:00',4,-1,1),(5,'财务','财务',1,'2015-05-10 00:00:00',5,-1,1),(6,'分析','分析',1,'2015-05-10 00:00:00',6,-1,1),(7,'企业管理','企业管理',1,'2015-05-10 00:00:00',7,-1,1),(8,'/purchase/showPurchaseAction.action','采购单管理',1,'2015-04-28 00:00:00',1,1,2),(9,'/supplier/showSupplierAction.action','供应商管理',1,'2015-05-10 00:00:00',2,1,2),(10,'/sales/showSalesAction.action','销售单管理',1,'2015-05-10 00:00:00',1,2,2),(11,'/customer/showEtbCustomerAction.action','客户管理',1,'2015-04-28 00:00:00',2,2,2),(12,'/warehouse/showWarehouseInOkAction.action','预入库确认',1,'2015-05-10 00:00:00',1,3,2),(13,'/warehouse/showWarehouseOutOkAction.action','预出库确认',1,'2015-05-10 00:00:00',2,3,2),(14,'/warehouserpt/showWarehouserptInAction.action','入库单一览',1,'2015-05-10 00:00:00',3,3,2),(15,'/warehouserpt/showWarehouserptOutAction.action','发货单一览',1,'2015-05-10 00:00:00',4,3,2),(16,'/warehouse/showProductOkAction.action','仓位确认',1,'2015-05-10 00:00:00',6,3,2),(17,'/product/showProductAction.action','产品管理',1,'2015-04-28 00:00:00',1,4,2),(18,'/finance/showFinancePurchaseAction.action','采购单检索',1,'2015-05-10 00:00:00',1,5,2),(19,'/finance/showFinanceSalesAction.action','订单检索',1,'2015-05-10 00:00:00',2,5,2),(20,'/finance/showFinanceAction.action','账目管理',1,'2015-05-10 00:00:00',4,5,2),(21,'/chart/showSaleInfoMainChartAction.action','销售信息分析',1,'2015-05-10 00:00:00',1,6,2),(22,'/chart/showSaleDetailInfoMainChartAction.action','销售详细信息分析',1,'2015-05-10 00:00:00',2,6,2),(23,'/chart/showPurchaseInfoMainChartAction.action','采购信息分析',1,'2015-05-10 00:00:00',3,6,2),(24,'/chart/showDeliveryInfoMainChartAction.action','物流信息分析',1,'2015-05-10 00:00:00',4,6,2),(25,'/chart/showAccountInfoMainChartAction.action','财务信息分析',1,'2015-05-10 00:00:00',5,6,2),(26,'/chart/showSupplierInfoMainChartAction.action','供应商信息分析',1,'2015-05-10 00:00:00',6,6,2),(27,'/chart/showCustomerInfoMainChartAction.action','客户信息分析',1,'2015-05-10 00:00:00',7,6,2);
 
 /*Table structure for table `tbrole` */
 
@@ -822,7 +903,7 @@ CREATE TABLE `tbroleres` (
 
 /*Data for the table `tbroleres` */
 
-insert  into `tbroleres`(`roleid`,`resourceid`) values (1,1),(1,2),(2,1),(2,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),(1,16),(1,17);
+insert  into `tbroleres`(`roleid`,`resourceid`) values (1,1),(1,2),(2,1),(2,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),(1,16),(1,17),(1,18),(1,19),(1,20),(1,21),(1,22),(1,23),(1,24),(1,25),(1,26),(1,27);
 
 /*Table structure for table `tbuser` */
 

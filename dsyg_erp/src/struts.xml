@@ -12,6 +12,11 @@
 	
 	<constant name="struts.multipart.saveDir" value="/tmp"/>
 	
+	<!-- chart -->
+	<include file="struts-chart.xml"></include>
+	<!-- intermana -->
+	<include file="struts-intermana.xml"></include>
+	
 	<!-- finance -->
 	<include file="struts-finance.xml"></include>
 	<!-- warehouserpt -->
@@ -28,8 +33,19 @@
 	<include file="struts-frame.xml"></include>
 	<!-- login -->
 	<include file="struts-login.xml"></include>
+	
 	<!-- supplier -->
 	<include file="struts-supplier.xml"></include>
+	<!-- customer -->
+	<include file="struts-customer.xml"></include>
+	<!-- delivery -->
+	<include file="struts-delivery.xml"></include>
+	<!-- assets -->
+	<include file="struts-assets.xml"></include>
+	<!-- personal -->
+	<include file="struts-personal.xml"></include>
+	<!-- document -->
+	<include file="struts-document.xml"></include>
 	
 	<package name="index" extends="struts-default, json-default" namespace="/index">
 		

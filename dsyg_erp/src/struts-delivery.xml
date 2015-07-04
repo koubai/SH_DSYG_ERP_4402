@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="delivery" extends="struts-erp" namespace="/delivery">
+	
+		<action name="showEtbDeliveryAction" class="deliveryAction" method="showEtbDeliveryAction">
+			<result name="*">/page/delivery/deliverylist.jsp</result>
+		</action>
+		
+		<action name="queryEtbDeliveryList" class="deliveryAction" method="queryEtbDeliveryList">
+			<result name="success">/page/delivery/deliverylist.jsp</result>
+		</action>
+		
+		<action name="turnEtbDeliveryPage" class="deliveryAction" method="turnEtbDeliveryPage">
+			<result name="success">/page/delivery/deliverylist.jsp</result>
+		</action>
+		
+		<action name="showAddEtbDeliveryAction" class="deliveryAction" method="showAddEtbDeliveryAction">
+			<result name="*">/page/delivery/adddelivery.jsp</result>
+		</action>
+		
+		<action name="addEtbDeliveryAction" class="deliveryAction" method="addEtbDeliveryAction">
+			<result name="success">/page/delivery/adddelivery.jsp</result>
+			<result name="checkerror">/page/delivery/adddelivery.jsp</result>
+		</action>
+		
+		<action name="showUpdEtbDeliveryAction" class="deliveryAction" method="showUpdEtbDeliveryAction">
+			<result name="success">/page/delivery/upddelivery.jsp</result>
+			<result name="checkerror">/page/delivery/upddelivery.jsp</result>
+		</action>
+		
+		<action name="updEtbDeliveryAction" class="deliveryAction" method="updEtbDeliveryAction">
+			<result name="success">/page/delivery/upddelivery.jsp</result>
+			<result name="checkerror">/page/delivery/upddelivery.jsp</result>
+		</action>
+		
+		<action name="delEtbDeliveryAction" class="deliveryAction" method="delEtbDeliveryAction">
+			<result name="success">/page/delivery/deliverylist.jsp</result>
+			<result name="checkerror">/page/delivery/deliverylist.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

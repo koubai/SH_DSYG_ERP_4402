@@ -2,6 +2,41 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
 
+	<!-- 快递 -->
+	<bean id="deliveryAction" class="com.cn.dsyg.action.DeliveryAction" scope="session">
+		<property name="deliveryService">
+			<ref bean="deliveryService" />
+		</property>
+	</bean>
+
+	<!-- 客户 -->
+	<bean id="customerAction" class="com.cn.dsyg.action.CustomerAction" scope="session">
+		<property name="customerService">
+			<ref bean="customerService" />
+		</property>
+	</bean>
+
+	<!-- 固定资产信息 -->
+	<bean id="assetsAction" class="com.cn.dsyg.action.AssetsAction" scope="session">
+		<property name="assetsService">
+			<ref bean="assetsService" />
+		</property>
+	</bean>
+
+	<!-- 员工档案信息 -->
+	<bean id="personalAction" class="com.cn.dsyg.action.PersonalAction" scope="session">
+		<property name="personalService">
+			<ref bean="personalService" />
+		</property>
+	</bean>
+
+	<!-- 文件物品信息 -->
+	<bean id="documentAction" class="com.cn.dsyg.action.DocumentAction" scope="session">
+		<property name="documentService">
+			<ref bean="documentService" />
+		</property>
+	</bean>
+
 	<!-- ProductOkAction -->
 	<bean id="productOkAction" class="com.cn.dsyg.action.ProductOkAction" scope="session">
 		<property name="warehouseService">
@@ -142,6 +177,17 @@
 		<property name="roleService">
 			<ref bean="roleService"/>
 		</property>
+	</bean>
+	
+	<!-- chart -->
+	<bean id="chartAction" class="com.cn.dsyg.action.ChartAction" scope="session">
+		<property name="chartService">
+			<ref bean="chartService"/>
+		</property>
+	</bean>
+
+	<!-- chart -->
+	<bean id="calendarAction" class="com.cn.dsyg.action.CalendarAction" scope="session">
 	</bean>
 	
 	<!-- frame -->

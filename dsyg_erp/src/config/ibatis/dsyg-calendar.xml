@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.tbps">
+
+	<resultMap id="CalendarDto" class="com.cn.dsyg.dto.CalendarDto">
+		<result property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="start" column="start" />
+		<result property="end" column="end" />
+		<result property="allDay" column="allDay" />
+		<result property="color" column="color" />
+		<result property="userid" column="userid" />
+		<result property="userName" column="userName" />
+	</resultMap>
+
+	<insert id="insertCalendar01" parameterClass="com.cn.dsyg.dto.CalendarDto">
+		insert into calendar (title, start, end, allday, color, userid) 
+		values(#title#, #start#, #end#, #allDay#, #color#, #userid#)
+	</insert>
+
+	<select id="queryCalendar01" parameterClass="java.util.Map" resultMap="CalendarDto">
+		select T.id, T.title, T.start, T.end, T.allday, T.color, T.userid, TU.username from calendar T, tbuser TU  where 1 = 1
+			and T.userid = TU.userid
+		<isNotEmpty prepend="and" property="userid">
+			userid = #userid#
+		</isNotEmpty>
+	</select>
+
+	<select id="queryCalendar02" parameterClass="java.util.Map" resultMap="CalendarDto">
+		select T.id, T.title, T.start, T.end, T.allday, T.color, T.userid, TU.username from calendar T, tbuser TU  where 1 = 1
+			and T.userid = TU.userid
+		<isNotEmpty prepend="and" property="id">
+			id = #id#
+		</isNotEmpty>
+	</select>
+
+	<delete id="deleteCalendar01" parameterClass="java.util.Map">
+		delete from calendar where  1 = 1
+		<isNotEmpty prepend="and" property="id">
+			id = #id#
+		</isNotEmpty>
+	</delete>
+
+	<update id="updateCalendar01" parameterClass="com.cn.dsyg.dto.CalendarDto">
+		update calendar
+		set title=#title#,
+			start=#start#,
+			end=#end#,
+			<isNotEmpty property="allDay">
+				allday=#allDay#
+			</isNotEmpty>
+			<isEmpty property="allDay">
+				allday='1'
+			</isEmpty>
+		where 1=1
+		<isNotEmpty prepend="and" property="id">
+			id = #id#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="userid">
+			userid = #userid#
+		</isNotEmpty>
+	</update>
+
+</sqlMap>

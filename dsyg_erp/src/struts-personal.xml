@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="personal" extends="struts-erp" namespace="/personal">
+	
+		<action name="showEtbPersonalAction" class="personalAction" method="showEtbPersonalAction">
+			<result name="*">/page/personal/personallist.jsp</result>
+		</action>
+		
+		<action name="queryEtbPersonalList" class="personalAction" method="queryEtbPersonalList">
+			<result name="success">/page/personal/personallist.jsp</result>
+		</action>
+		
+		<action name="turnEtbPersonalPage" class="personalAction" method="turnEtbPersonalPage">
+			<result name="success">/page/personal/personallist.jsp</result>
+		</action>
+		
+		<action name="showAddEtbPersonalAction" class="personalAction" method="showAddEtbPersonalAction">
+			<result name="*">/page/personal/addpersonal.jsp</result>
+		</action>
+		
+		<action name="addEtbPersonalAction" class="personalAction" method="addEtbPersonalAction">
+			<result name="success">/page/personal/addpersonal.jsp</result>
+			<result name="checkerror">/page/personal/addpersonal.jsp</result>
+		</action>
+		
+		<action name="showUpdEtbPersonalAction" class="personalAction" method="showUpdEtbPersonalAction">
+			<result name="success">/page/personal/updpersonal.jsp</result>
+			<result name="checkerror">/page/personal/updpersonal.jsp</result>
+		</action>
+		
+		<action name="updEtbPersonalAction" class="personalAction" method="updEtbPersonalAction">
+			<result name="success">/page/personal/updpersonal.jsp</result>
+			<result name="checkerror">/page/personal/updpersonal.jsp</result>
+		</action>
+		
+		<action name="delEtbPersonalAction" class="personalAction" method="delEtbPersonalAction">
+			<result name="success">/page/personal/personallist.jsp</result>
+			<result name="checkerror">/page/personal/personallist.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

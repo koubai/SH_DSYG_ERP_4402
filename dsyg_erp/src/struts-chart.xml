@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="chart" extends="struts-erp" namespace="/chart">
+		<action name="showSaleInfoMainChartAction" class="chartAction" method="showSaleInfoMainChartAction">
+			<result name="*">/page/intermana/chart_sale.jsp</result>
+		</action>
+
+		<action name="showSaleDetailInfoMainChartAction" class="chartAction" method="showSaleDetailInfoMainChartAction">
+			<result name="*">/page/intermana/chart_sale_detail.jsp</result>
+		</action>
+
+		<action name="showPurchaseInfoMainChartAction" class="chartAction" method="showPurchaseInfoMainChartAction">
+			<result name="*">/page/intermana/chart_purchase.jsp</result>
+		</action>
+		
+		<action name="showDeliveryInfoMainChartAction" class="chartAction" method="showDeliveryInfoMainChartAction">
+			<result name="*">/page/intermana/chart_delivery.jsp</result>
+		</action>
+		
+		<action name="showAccountInfoMainChartAction" class="chartAction" method="showAccountInfoMainChartAction">
+			<result name="*">/page/intermana/chart_account.jsp</result>
+		</action>
+		
+		<action name="showSupplierInfoMainChartAction" class="chartAction" method="showSupplierInfoMainChartAction">
+			<result name="*">/page/intermana/chart_supplier.jsp</result>
+		</action>
+
+		<action name="showCustomerInfoMainChartAction" class="chartAction" method="showCustomerInfoMainChartAction">
+			<result name="*">/page/intermana/chart_customer.jsp</result>
+		</action>
+	</package>
+
+</struts>
