@@ -37,7 +37,7 @@ public class EtbPersonalDto extends BaseDto {
 	/**
 	 * 登记时间
 	 */
-	private String registdate;
+	private Date registdate;
 
 	/**
 	 * 员工姓名
@@ -48,6 +48,11 @@ public class EtbPersonalDto extends BaseDto {
 	 * 性别
 	 */
 	private int sex;
+
+	/**
+	 * 登记时间
+	 */
+	private Date birthday;
 
 	/**
 	 * 岗位
@@ -77,12 +82,12 @@ public class EtbPersonalDto extends BaseDto {
 	/**
 	 * 入职时间
 	 */
-	private String employeddate;
+	private Date employeddate;
 	
 	/**
 	 * 离职时间
 	 */
-	private String retiredate;
+	private Date retiredate;
 	
 	/**
 	 * 档案明细
@@ -342,14 +347,6 @@ public class EtbPersonalDto extends BaseDto {
 		this.updatedate = updatedate;
 	}
 
-	public String getRegistdate() {
-		return registdate;
-	}
-
-	public void setRegistdate(String registdate) {
-		this.registdate = registdate;
-	}
-
 	public String getUserid() {
 		return userid;
 	}
@@ -406,28 +403,44 @@ public class EtbPersonalDto extends BaseDto {
 		this.address = address;
 	}
 
-	public String getEmployeddate() {
-		return employeddate;
-	}
-
-	public void setEmployeddate(String employeddate) {
-		this.employeddate = employeddate;
-	}
-
-	public String getRetiredate() {
-		return retiredate;
-	}
-
-	public void setRetiredate(String retiredate) {
-		this.retiredate = retiredate;
-	}
-
 	public String getPersonaldesc() {
 		return personaldesc;
 	}
 
 	public void setPersonaldesc(String personaldesc) {
 		this.personaldesc = personaldesc;
+	}
+
+	public Date getRegistdate() {
+		return registdate;
+	}
+
+	public void setRegistdate(Date registdate) {
+		this.registdate = registdate;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public Date getEmployeddate() {
+		return employeddate;
+	}
+
+	public void setEmployeddate(Date employeddate) {
+		this.employeddate = employeddate;
+	}
+
+	public Date getRetiredate() {
+		return retiredate;
+	}
+
+	public void setRetiredate(Date retiredate) {
+		this.retiredate = retiredate;
 	}
 	
 

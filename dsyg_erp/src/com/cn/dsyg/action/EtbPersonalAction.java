@@ -320,6 +320,7 @@ public class EtbPersonalAction extends BaseAction {
 			this.addActionMessage("员工姓名不能超过32个字符！");
 			return false;
 		}
+		/*
 		if(StringUtil.isNotBlank(personal.getRegistdate()) && !DateUtil.isDate(personal.getRegistdate().toString())) {
 			this.addActionMessage("登记时间格式不正确！");
 			return false;
@@ -331,7 +332,7 @@ public class EtbPersonalAction extends BaseAction {
 		if(StringUtil.isNotBlank(personal.getRetiredate()) && !DateUtil.isDate(personal.getRetiredate().toString())) {
 			this.addActionMessage("离职时间格式不正确！");
 			return false;
-		}
+		}*/
 		if(StringUtil.isNotBlank(personal.getPersonaldesc()) && personal.getPersonaldesc().length() > 500) {
 			this.addActionMessage("档案明细不能超过500个字符！");
 			return false;

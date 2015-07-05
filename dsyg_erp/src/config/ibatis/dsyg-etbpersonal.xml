@@ -12,6 +12,7 @@
 		<result property="registdate" column="registdate" />
 		<result property="username" column="username" />	
 		<result property="sex" column="sex" />
+		<result property="birthday" column="birthday" />
 		<result property="post" column="post" />
 		<result property="superior" column="superior" />
 		<result property="phone" column="phone" />
@@ -96,10 +97,10 @@
 		select * from etb_personal where 1 = 1 and status = '1' order by updatedate desc
 	</select>
 	<insert id="insertEtbPersonal" parameterClass="com.cn.dsyg.dto.EtbPersonalDto">
-		insert into etb_personal(userid,belongto,userno,registdate,username,sex,post,superior,phone,tell,address,
+		insert into etb_personal(userid,belongto,userno,registdate,username,sex,birthday,post,superior,phone,tell,address,
 		employeddate,retiredate,personaldesc,note,rank,status,res01,res02,res03,res04,res05,res06,res07,res08,res09,res10,
 		createuid,createdate,updateuid,updatedate)
-		values(#userid#,#belongto#,#userno#,#registdate#,#username#,#sex#,#post#,#superior#,#phone#,#tell#,#address#,
+		values(#userid#,#belongto#,#userno#,#registdate#,#username#,#sex#,#birthday#,#post#,#superior#,#phone#,#tell#,#address#,
 		#employeddate#,#retiredate#,#personaldesc#,#note#,#rank#,#status#,#res01#,#res02#,#res03#,#res04#,#res05#,#res06#,#res07#,#res08#,#res09#,#res10#,
 		#createuid#,NOW(),#updateuid#,#updatedate#)
 	</insert>
@@ -111,6 +112,7 @@
 			registdate=#registdate#,
 			username=#username#,
 			sex=#sex#,
+			birthday=#birthday#,
 			post=#post#,
 			superior=#superior#,
 			phone=#phone#,

@@ -45,20 +45,6 @@ public class EtbPersonalDaoImpl extends BaseDao implements EtbPersonalDao {
 		paramMap.put("end", end);
 		@SuppressWarnings("unchecked")
 		List<EtbPersonalDto> list = getSqlMapClientTemplate().queryForList("queryEtbPersonalByPage", paramMap);
-		for (EtbPersonalDto personaltmp : list) {  
-			String registerdate = personaltmp.getRegistdate();
-			String employeddate = personaltmp.getEmployeddate();
-			String retiredate = personaltmp.getRetiredate();
-			if(registerdate.length()>=10){
-				personaltmp.setRegistdate(registerdate.substring(0, 10));
-			}
-			if(employeddate.length()>=10){
-				personaltmp.setEmployeddate(employeddate.substring(0, 10));
-			}
-			if(retiredate.length()>=10){ 
-				personaltmp.setRetiredate(retiredate.substring(0, 10));  
-			} 
-		}  
 		return list;
 	}
 
@@ -83,18 +69,6 @@ public class EtbPersonalDaoImpl extends BaseDao implements EtbPersonalDao {
 		@SuppressWarnings("unchecked")
 		List<EtbPersonalDto> list = getSqlMapClientTemplate().queryForList("queryEtbPersonalByID", paramMap);
 		if(list != null && list.size() > 0) {
-			String registerdate = list.get(0).getRegistdate();
-			String employeddate = list.get(0).getEmployeddate();
-			String retiredate = list.get(0).getRetiredate();
-			if(registerdate.length()>=10){
-				list.get(0).setRegistdate(registerdate.substring(0, 10));
-			}
-			if(employeddate.length()>=10){
-				list.get(0).setEmployeddate(employeddate.substring(0, 10));
-			}
-			if(retiredate.length()>=10){ 
-				list.get(0).setRetiredate(retiredate.substring(0, 10));  
-			}
 			return list.get(0);
 		}
 		return null;
