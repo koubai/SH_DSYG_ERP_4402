@@ -26,11 +26,8 @@ public class CalendarAction extends BaseAction {
 
 	public String showCalendarAction(){  
     	try{
-			log.error("showManageHomeAction success:");
-	        
 	        return SUCCESS;  
 		} catch(Exception e) {
-			log.error("showManageHomeAction error:" + e);
 			return ERROR;
 		}
 	}

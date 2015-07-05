@@ -304,7 +304,6 @@ public class ChartServiceImpl implements ChartService{
     	String user_id = "";
     	String tmp_user_id = "";
     	JSONArray jsonArr = new JSONArray();  
-		log.error("getData");
     	    
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
 //        to_date = sdf.format(new Date(System.currentTimeMillis()));
@@ -357,7 +356,7 @@ public class ChartServiceImpl implements ChartService{
             Map<String, String> user_item_map = null;
 
             if (list==null || list.size()<= 0)
-	            System.out.println("list.size error");	        	
+	            System.out.println("getData list.size is 0 or null");	        	
 	        if (list.size() > 0) {
 	            System.out.println("list.size:" + list.size());
 		        for (int z = 0; z < list.size(); z++) {  

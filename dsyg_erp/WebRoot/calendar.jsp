@@ -31,8 +31,8 @@
 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <% 
-	String userId = (String)session.getAttribute("userId");	
-	String userColor = (String)session.getAttribute("userColor");
+	String userId = (String)session.getAttribute("user_id");	
+	String userColor = (String)session.getAttribute("user_color");
 %>
 
 <script type="text/javascript">
@@ -106,8 +106,8 @@ $(function() {
 <div id="main" style="width:1060px">
    <h2 class="top_title"><a>考勤管理</a></h2>   
    <div id='calendar'></div>
-   <input type="hidden" name="userId" value="<%=userId%>">
-   <input type="hidden" name="userColor" value="<%=userColor%>">
+   <input type="TEXT" name="userId" value="<%=userId%>">
+   <input type="TEXT" name="userColor" value="<%=userColor%>">
 </div>
 <p id="stat"><script type="text/javascript" src="/js/tongji.js"></script></p>
 </body>

@@ -106,7 +106,7 @@ public class EventdoServlet extends HttpServlet {
 		}else if("edit".equals(action)) {
 			System.out.println("Edit");
 			Integer id =  Integer.parseInt(request.getParameter("id"));
-			String userid = (String)session.getAttribute("userId");
+			String userid = (String)session.getAttribute("user_id");
 //			String userName = request.getParameter("userName");
 			if (userCheck(id,userid)){
 				String events = request.getParameter("event");//事件内容
@@ -161,10 +161,10 @@ public class EventdoServlet extends HttpServlet {
 			System.out.println("Del");
 			if (request.getParameter("id") != null){
 				Integer id =  Integer.parseInt(request.getParameter("id"));
-				String userid = (String)session.getAttribute("userId");
+				String userid = (String)session.getAttribute("user_id");
 				System.out.println("id:"+request.getParameter("id"));
 				System.out.println("userid:"+userid);
-				//String userid = (String)session.getAttribute("userId");
+				//String userid = (String)session.getAttribute("user_id");
 				//System.out.println("userName" + userName);
 				if (userCheck(id,userid)){
 					if(id > 0){
@@ -186,7 +186,7 @@ public class EventdoServlet extends HttpServlet {
 		}else if("drag".equals(action)) {
 			System.out.println("Drag");
 			Integer id =  Integer.parseInt(request.getParameter("id"));
-			String userid = (String)session.getAttribute("userId");
+			String userid = (String)session.getAttribute("user_id");
 			if (userCheck(id,userid)){
 				Integer daydiff = Integer.parseInt(request.getParameter("daydiff")) * 24 * 60 * 60;
 				Integer minudiff = Integer.parseInt(request.getParameter("minudiff")) * 60;
@@ -235,7 +235,7 @@ public class EventdoServlet extends HttpServlet {
 			System.out.println("Resize");
 
 			Integer id =  Integer.parseInt(request.getParameter("id"));
-			String userid = (String)session.getAttribute("userId");
+			String userid = (String)session.getAttribute("user_id");
 			if (userCheck(id,userid)){
 				Integer daydiff = Integer.parseInt(request.getParameter("daydiff")) * 24 * 60 * 60;
 				Integer minudiff = Integer.parseInt(request.getParameter("minudiff")) * 60;

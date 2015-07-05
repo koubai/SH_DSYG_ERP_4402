@@ -353,6 +353,8 @@
 		<!-- <script src="${pageContext.request.contextPath}/js/themes/gray.js"></script> -->
 	</head>
 	<body>
+		<jsp:include page="../info.jsp" flush="true" />
+	
 		<!-- 3. Add the container -->
 		<input type="hidden" id="h1" value="<s:property value="str" />" />
 		<input type="hidden" id="h2" value="<s:property value="series" />" />

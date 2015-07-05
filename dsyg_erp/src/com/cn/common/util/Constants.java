@@ -115,6 +115,13 @@ public class Constants {
 	public final static String SESSION_USER_NAME = "user_name";
 	
 	/**
+	 * 用户颜色
+	 * 
+	 */
+	public final static String SESSION_USER_COLOR = "user_color";
+	
+	
+	/**
 	 * 登录时间
 	 */
 	public final static String SESSION_LOGIN_TIME = "login_time";

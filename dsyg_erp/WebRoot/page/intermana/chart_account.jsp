@@ -410,47 +410,54 @@
 		<!-- <script src="${pageContext.request.contextPath}/js/themes/gray.js"></script> -->
 	</head>
 	<body>
-		<!-- 3. Add the container -->
-		<input type="hidden" id="h1" value="<s:property value="str" />" />
-		<input type="hidden" id="h2" value="<s:property value="series" />" />
-		<input type="hidden" id="h3" value="<s:property value="series_X" />" />
-		<input type="hidden" id="periodtype" value="<s:property value="periodtype" />" />
-		会计ID  <input type="text" name="handerList" id="handerList" value="0001,0002" /><BR>
-		期间类型<input type="text" name="fromDate" id="fromDate" value="2015-01-01" />
-		<input type="text" name="toDate" id="toDate" value="2015-06-30" />
-		<input name="mtype" type="radio" id="radio1" value="1" checked>月</input>
-		<input name="mtype" type="radio" id="radio2" value="2" >季</input>
-		<input name="mtype" type="radio" id="radio3" value="3" >年</input>
-		<input type="button" value="会计查询" onclick="ck();" />
-		
-		<table>
-		<tr>
-		<td>
-           <Input id="btn1" type=button value="财务 近3个月" onClick="javascripts:getAccountData3M();" /></td>
-		<td>
-           <Input id="btn2" type=button value="财务 近6个月" onClick="javascripts:getAccountData6M();" /></td>
-		<td>
-           <Input id="btn3" type=button value="财务 近12个月" onClick="javascripts:getAccountData12M();" /></td>
-		</tr>
-		</table>
-		<br><br><br>
-		<table>
-		<tr>
-		<td>
-		<div id="container" style="width: 600px; height: 400px; margin: 2 "></div>
-		</td>
-		<td>
-		</td>
-		<td>
-		<div id="container2" style="width: 400px; height: 400px; margin: 2 "></div>
-		</td>
-		</tr>
-		</table>
-		<br><br><br>
-		<div id="dateMessage">   
-		<!-- <table id="planTable" border:1px solid #000 style="border-collapse:collapse;"> -->
-		<table id="planTable" border:1px  cellpadding="3" cellspacing="1" style="background-color: #b9d8f3;">
-		</table>			
+		<div id="container3">
+		<div class="content">	
+		<jsp:include page="../info.jsp" flush="true" />
+		<s:form id="mainform" name="mainform" method="POST">
+			<!-- 3. Add the container -->
+			<input type="hidden" id="h1" value="<s:property value="str" />" />
+			<input type="hidden" id="h2" value="<s:property value="series" />" />
+			<input type="hidden" id="h3" value="<s:property value="series_X" />" />
+			<input type="hidden" id="periodtype" value="<s:property value="periodtype" />" />
+			会计ID  <input type="text" name="handerList" id="handerList" value="0001,0002" /><BR>
+			期间类型<input type="text" name="fromDate" id="fromDate" value="2015-01-01" />
+			<input type="text" name="toDate" id="toDate" value="2015-06-30" />
+			<input name="mtype" type="radio" id="radio1" value="1" checked>月</input>
+			<input name="mtype" type="radio" id="radio2" value="2" >季</input>
+			<input name="mtype" type="radio" id="radio3" value="3" >年</input>
+			<input type="button" value="会计查询" onclick="ck();" />
+			
+			<table>
+			<tr>
+			<td>
+	           <Input id="btn1" type=button value="财务 近3个月" onClick="javascripts:getAccountData3M();" /></td>
+			<td>
+	           <Input id="btn2" type=button value="财务 近6个月" onClick="javascripts:getAccountData6M();" /></td>
+			<td>
+	           <Input id="btn3" type=button value="财务 近12个月" onClick="javascripts:getAccountData12M();" /></td>
+			</tr>
+			</table>
+			<br><br><br>
+			<table>
+			<tr>
+			<td>
+			<div id="container" style="width: 600px; height: 400px; margin: 2 "></div>
+			</td>
+			<td>
+			</td>
+			<td>
+			<div id="container2" style="width: 400px; height: 400px; margin: 2 "></div>
+			</td>
+			</tr>
+			</table>
+			<br><br><br>
+			<div id="dateMessage">   
+			<!-- <table id="planTable" border:1px solid #000 style="border-collapse:collapse;"> -->
+			<table id="planTable" border:1px  cellpadding="3" cellspacing="1" style="background-color: #b9d8f3;">
+			</table>			
+		    </div>
+		  </s:form>
+	    </div>
 	    </div>
 	</body>
 </html>

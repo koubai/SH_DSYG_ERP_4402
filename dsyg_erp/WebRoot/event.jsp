@@ -27,10 +27,15 @@
 		}else{
 			chk = "checked";
 		}
-	String userId = (String)session.getAttribute("userId");	
-	String userColor = (String)session.getAttribute("userColor");
-	userId="111";
-	userColor="#FF0000";
+	String userId = (String)session.getAttribute("user_id");	
+	String userColor = (String)session.getAttribute("user_color");
+	System.out.println("userId"+userId);
+	if (userId==null || "".equals(userId)){
+		userId="test11222";
+	}	
+	if (userColor==null || "".equals(userColor)){
+		userColor="#FFFF00";
+	}
 %>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery-ui.css">
 <div class="fancy">
@@ -118,7 +123,7 @@
     <label><input type="checkbox" value="1" id="isallday" name="isallday" checked> 全天</label>
     <label><input type="checkbox" value="1" id="isend" name="isend" <%=chk %>> 结束时间</label>
     </p>
-    <div class="sub_btn"><span class="del"><input type="button" class="btn btn_del" id="del_event" value="删除2"></span><input type="submit" class="btn btn_ok" value="确定"> <input type="button" class="btn btn_cancel" value="取消" onClick="$.fancybox.close()"></div>
+    <div class="sub_btn"><span class="del"><input type="button" class="btn btn_del" id="del_event" value="删除"></span><span><input type="submit" class="btn btn_ok" value="确定"></span><span><input type="button" class="btn btn_cancel" value="取消" onClick="$.fancybox.close()"></span></div>
     </form>
 </div>
 <% 
@@ -161,12 +166,12 @@
 			start_h = start.substring(11,13);
 			start_m = start.substring(14,16);
 		}
-		String userId = (String)session.getAttribute("userId");	
-		System.out.println("session UserId:" + userId);	
+		String userId = (String)session.getAttribute("user_id");	
+		System.out.println("session user_id:" + userId);	
 		userId = (String)request.getParameter("userId");	
 		System.out.println("requext UserId:" + userId);	
-		String userColor = (String)session.getAttribute("userColor");
-		System.out.println("userColor:" + userColor);	
+		String userColor = (String)session.getAttribute("user_color");
+		System.out.println("session user color:" + userColor);	
 %>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery-ui.css">
 <div class="fancy">

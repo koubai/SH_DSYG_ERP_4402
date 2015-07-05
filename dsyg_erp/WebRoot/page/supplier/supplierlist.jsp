@@ -108,7 +108,7 @@
 <body>
 	<div id="container">
 		<div class="content">
-			<jsp:include page="../supplier/info.jsp" flush="true" />
+			<jsp:include page="../info.jsp" flush="true" />
 			<div class="tittle">
 				<div class="icons"><a class="home" href="#" onclick="goHome();">返回首页</a><a class="quit" href="#" onclick="logout();">退出</a></div>
 				<div class="tittle_left">
