@@ -44,6 +44,11 @@ public class EtbDocumentDto extends BaseDto {
 	 */
 	private String registerdate;
 
+	/**
+	 * 登记日期（显示用）
+	 */
+	private String showregisterdate;
+
 
 	/**
 	 * 确认者
@@ -325,6 +330,19 @@ public class EtbDocumentDto extends BaseDto {
 
 	public void setApproverid(String approverid) {
 		this.approverid = approverid;
+	}
+
+	public String getShowregisterdate() {
+		if(getRegisterdate() != null && !getRegisterdate().equals("")){
+			showregisterdate =  getRegisterdate().substring(0, 10);
+		} else {
+			showregisterdate="";
+		}
+		return showregisterdate;
+	}
+
+	public void setShowregisterdate(String showregisterdate) {
+		this.showregisterdate = showregisterdate;
 	}
 	
 

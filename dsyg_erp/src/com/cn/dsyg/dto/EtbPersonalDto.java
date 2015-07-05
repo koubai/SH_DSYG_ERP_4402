@@ -37,7 +37,12 @@ public class EtbPersonalDto extends BaseDto {
 	/**
 	 * 登记时间
 	 */
-	private Date registdate;
+	private String registdate;
+
+	/**
+	 * 登记时间（显示用）
+	 */
+	private String showregistdate;
 
 	/**
 	 * 员工姓名
@@ -50,9 +55,14 @@ public class EtbPersonalDto extends BaseDto {
 	private int sex;
 
 	/**
-	 * 登记时间
+	 * 出生时间
 	 */
-	private Date birthday;
+	private String birthday;
+
+	/**
+	 * 出生时间（显示用）
+	 */
+	private String showbirthday;
 
 	/**
 	 * 岗位
@@ -82,12 +92,22 @@ public class EtbPersonalDto extends BaseDto {
 	/**
 	 * 入职时间
 	 */
-	private Date employeddate;
+	private String employeddate;
+
+	/**
+	 * 入职时间（显示用）
+	 */
+	private String showemployeddate;
 	
 	/**
 	 * 离职时间
 	 */
-	private Date retiredate;
+	private String retiredate;
+
+	/**
+	 * 离职时间（显示用）
+	 */
+	private String showretiredate;
 	
 	/**
 	 * 档案明细
@@ -411,36 +431,88 @@ public class EtbPersonalDto extends BaseDto {
 		this.personaldesc = personaldesc;
 	}
 
-	public Date getRegistdate() {
+	public String getRegistdate() {
 		return registdate;
 	}
 
-	public void setRegistdate(Date registdate) {
+	public void setRegistdate(String registdate) {
 		this.registdate = registdate;
 	}
 
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 
-	public Date getEmployeddate() {
+	public String getEmployeddate() {
 		return employeddate;
 	}
 
-	public void setEmployeddate(Date employeddate) {
+	public void setEmployeddate(String employeddate) {
 		this.employeddate = employeddate;
 	}
 
-	public Date getRetiredate() {
+	public String getRetiredate() {
 		return retiredate;
 	}
 
-	public void setRetiredate(Date retiredate) {
+	public void setRetiredate(String retiredate) {
 		this.retiredate = retiredate;
+	}
+
+	public String getShowbirthday() {
+		if(getBirthday() != null && !getBirthday().equals("")){
+			showbirthday =  getBirthday().substring(0, 10);
+		} else {
+			showbirthday="";
+		}
+		return showbirthday;
+	}
+
+	public void setShowbirthday(String showbirthday) {
+		this.showbirthday = showbirthday;
+	}
+
+	public String getShowregistdate() {
+		if(getRegistdate() != null && !getRegistdate().equals("")){
+			showregistdate =  getRegistdate().substring(0, 10);
+		} else {
+			showregistdate="";
+		}
+		return showregistdate;
+	}
+
+	public void setShowregistdate(String showregistdate) {
+		this.showregistdate = showregistdate;
+	}
+
+	public String getShowemployeddate() {
+		if(getEmployeddate() != null && !getEmployeddate().equals("")){
+			showemployeddate =  getEmployeddate().substring(0, 10);
+		} else {
+			showemployeddate="";
+		}
+		return showemployeddate;
+	}
+
+	public void setShowemployeddate(String showemployeddate) {
+		this.showemployeddate = showemployeddate;
+	}
+
+	public String getShowretiredate() {
+		if(getRetiredate() != null && !getRetiredate().equals("")){
+			showretiredate =  getRetiredate().substring(0, 10);
+		} else {
+			showretiredate="";
+		}
+		return showretiredate;
+	}
+
+	public void setShowretiredate(String showretiredate) {
+		this.showretiredate = showretiredate;
 	}
 	
 

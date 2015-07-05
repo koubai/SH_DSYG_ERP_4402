@@ -112,7 +112,7 @@
 </script>
 </head>
 <body>
-	<div id="container">
+	<div id="containermain">
 		<div class="content">
 			<jsp:include page="../supplier/info.jsp" flush="true" />
 			<div class="tittle">
@@ -128,7 +128,7 @@
 			<s:form id="mainform" name="mainform" method="POST">
 				<s:hidden name="startIndex" id="startIndex"/>
 				<s:hidden name="checked" id="checked" value="none"/>
-				<div class="searchbox update" style="width:1024px">
+				<div class="searchbox update">
 					<div class="box1">
 						<label class="pdf10" style="width:120px">客户编号检索 FROM</label>
 						<div class="box1_left"></div>
@@ -144,7 +144,7 @@
 						<div class="box1_right"></div>
 					</div>
 				</div>
-				<div class="searchbox update" style="width:1024px">
+				<div class="searchbox update">
 					<div class="box1" >
 						<label class="pdf10" style="width:120px">客户名称</label>
 						<div class="box1_left"></div>

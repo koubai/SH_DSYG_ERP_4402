@@ -16,8 +16,8 @@
 	});
 
 	function add() {
-		var url = '<c:url value="/assets/showAddEtbAssetsAction.action"></c:url>' + "?date=" + new Date();
-		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:750px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+		document.mainform.action = '<c:url value="/assets/showAddEtbAssetsAction.action"></c:url>';
+		document.mainform.submit();
 	}
 	
 	function upd() {
@@ -26,10 +26,8 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
-			var url = '<c:url value="/assets/showUpdEtbAssetsAction.action"></c:url>'
-					+ "?updateAssetsNo=" + id
-					+ "&date=" + new Date();
-			window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:750px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+			document.mainform.action = '<c:url value="/assets/showUpdEtbAssetsAction.action"></c:url>' + "?updateAssetsNo=" + id;
+			document.mainform.submit();
 		}
 	}
 	
@@ -106,7 +104,7 @@
 </script>
 </head>
 <body>
-	<div id="container">
+	<div id="containermain">
 		<div class="content">
 			<jsp:include page="../supplier/info.jsp" flush="true" />
 			<div class="tittle">
@@ -121,7 +119,7 @@
 			</div>
 			<s:form id="mainform" name="mainform" method="POST">
 				<s:hidden name="startIndex" id="startIndex"/>
-				<div class="searchbox update" style="width:1024px">
+				<div class="searchbox update">
 					<div class="box1">
 						<label class="pdf10" style="width:120px">资产编号检索 FROM</label>
 						<div class="box1_left"></div>
@@ -137,7 +135,7 @@
 						<div class="box1_right"></div>
 					</div>
 				</div>
-				<div class="searchbox update" style="width:1024px">
+				<div class="searchbox update">
 					<div class="box1" >
 						<label class="pdf10" style="width:120px">资产名</label>
 						<div class="box1_left"></div>

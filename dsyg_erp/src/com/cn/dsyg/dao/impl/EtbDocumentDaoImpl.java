@@ -45,10 +45,6 @@ public class EtbDocumentDaoImpl extends BaseDao implements EtbDocumentDao {
 		paramMap.put("end", end);
 		@SuppressWarnings("unchecked")
 		List<EtbDocumentDto> list = getSqlMapClientTemplate().queryForList("queryEtbDocumentByPage", paramMap);
-		for (EtbDocumentDto documenttmp : list) {  
-			String registerdate = documenttmp.getRegisterdate();
-			documenttmp.setRegisterdate(registerdate.substring(0, 10)); 
-		}  
 		return list;
 	}
 
@@ -73,8 +69,6 @@ public class EtbDocumentDaoImpl extends BaseDao implements EtbDocumentDao {
 		@SuppressWarnings("unchecked")
 		List<EtbDocumentDto> list = getSqlMapClientTemplate().queryForList("queryEtbDocumentByID", paramMap);
 		if(list != null && list.size() > 0) {
-			String registerdate = list.get(0).getRegisterdate();
-			list.get(0).setRegisterdate(registerdate.substring(0,10));
 			return list.get(0);
 		}
 		return null;

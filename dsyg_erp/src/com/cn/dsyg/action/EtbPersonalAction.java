@@ -208,7 +208,7 @@ public class EtbPersonalAction extends BaseAction {
 			//校验员工编号是否存在
 			EtbPersonalDto personal = personalService.queryAllEtbPersonalByID(addPersonalDto.getUserno()+"");
 			if(personal != null) {
-				this.addActionMessage("员工ID已经存在！");
+				this.addActionMessage("员工编号已经存在！");
 				return "checkerror";
 			}
 			//保存数据
@@ -320,19 +320,12 @@ public class EtbPersonalAction extends BaseAction {
 			this.addActionMessage("员工姓名不能超过32个字符！");
 			return false;
 		}
-		/*
-		if(StringUtil.isNotBlank(personal.getRegistdate()) && !DateUtil.isDate(personal.getRegistdate().toString())) {
-			this.addActionMessage("登记时间格式不正确！");
-			return false;
+		if(StringUtil.isBlank(personal.getBirthday())) {
+			personal.setBirthday(null);
 		}
-		if(StringUtil.isNotBlank(personal.getEmployeddate()) && !DateUtil.isDate(personal.getEmployeddate().toString())) {
-			this.addActionMessage("入职时间格式不正确！");
-			return false;
+		if(StringUtil.isBlank(personal.getRetiredate())) {
+			personal.setRetiredate(null);
 		}
-		if(StringUtil.isNotBlank(personal.getRetiredate()) && !DateUtil.isDate(personal.getRetiredate().toString())) {
-			this.addActionMessage("离职时间格式不正确！");
-			return false;
-		}*/
 		if(StringUtil.isNotBlank(personal.getPersonaldesc()) && personal.getPersonaldesc().length() > 500) {
 			this.addActionMessage("档案明细不能超过500个字符！");
 			return false;

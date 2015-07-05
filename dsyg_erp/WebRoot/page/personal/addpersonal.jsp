@@ -8,14 +8,15 @@
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>
 <title>员工档案信息输入</title>
 <script type="text/javascript">
 	function add() {
 		var id = $("#userno").val().trim();
 		var username = $("#username").val().trim();
-		var tmpnote = $("#tmpnote").val();
+		var tmpnote = $("#tmpnote").val().trim();
 		$("#note").attr("value", tmpnote);
-		var tmppersonaldesc = $("#tmppersonaldesc").val();
+		var tmppersonaldesc = $("#tmppersonaldesc").val().trim();
 		$("#personaldesc").attr("value", tmppersonaldesc);
 		if(id == "") {
 			alert("员工编号不能为空！");
@@ -27,20 +28,33 @@
 			$("#username").focus();
 			return;
 		}
+
+		var tmpbirthday = $("#tmpbirthday").val().trim();
+		$("#birthday").attr("value", tmpbirthday);
+
+		var tmpregistdate = $("#tmpregistdate").val().trim();
+
+		var tmpemployeddate = $("#tmpemployeddate").val().trim();
+
+		var tmpretiredate = $("#tmpretiredate").val().trim();
+		$("#retiredate").attr("value", tmpretiredate);
 		
-		var registdate = $("#registdate").val();
-		if(registdate.trim() == "") {
+		if(tmpregistdate == "") {
 			alert("登记时间不能为空！");
-			$("#registdate").focus();
+			$("#tmpregistdate").focus();
 			return;
+		} else {
+			$("#registdate").attr("value", tmpregistdate);
 		}
 		
-		var employeddate = $("#employeddate").val();
-		if(employeddate.trim() == "") {
+		if(tmpemployeddate == "") {
 			alert("入职时间不能为空！");
-			$("#employeddate").focus();
+			$("#tmpemployeddate").focus();
 			return;
+		} else {
+			$("#employeddate").attr("value", tmpemployeddate);
 		}
+		
 		if(tmpnote.length > 500) {
 			alert("备注不能超过500个字！");
 			$("#tmpnote").focus();
@@ -56,11 +70,16 @@
 	}
 	
 	//页面关闭响应
-	window.onunload = function() {
+	//window.onunload = function() {
 		//刷新父页面
-		window.dialogArguments.document.mainform.action = '<c:url value="/personal/queryEtbPersonalList.action"></c:url>';
-		window.dialogArguments.document.mainform.submit();
-	};
+		//window.dialogArguments.document.mainform.action = '<c:url value="/personal/queryEtbPersonalList.action"></c:url>';
+		//window.dialogArguments.document.mainform.submit();
+	//};
+	
+	function closepage() {
+		document.mainform.action = '<c:url value="/personal/queryEtbPersonalList.action"></c:url>';
+		document.mainform.submit();
+	}
 
 </script>
 <base target="_self"/>
@@ -69,6 +88,10 @@
 <s:form id="mainform" name="mainform" method="POST">
 	<s:hidden name="addPersonalDto.note" id="note"></s:hidden>
 	<s:hidden name="addPersonalDto.personaldesc" id="personaldesc"></s:hidden>
+	<s:hidden name="addPersonalDto.birthday" id="birthday"></s:hidden>
+	<s:hidden name="addPersonalDto.registdate" id="registdate"></s:hidden>
+	<s:hidden name="addPersonalDto.employeddate" id="employeddate"></s:hidden>
+	<s:hidden name="addPersonalDto.retiredate" id="retiredate"></s:hidden>
 	<div id="container" style="width: 100%; height: 100%;">
 		<div class="content" style="margin-top: 0px;">
 			<div class="tittle" style="width:750px">
@@ -159,34 +182,44 @@
 				</td>
 			</tr>
 			<tr>
+				<td>出生日期</td>
+				<td>
+					<div class="box1_left"></div>
+					<div class="box1_center date_input">
+						<input type="text" disabled="disabled" style="width: 100px;" id="tmpbirthday" value="<s:property value="addPersonalDto.showbirthday"/>" maxlength="10" />
+						<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpbirthday'));"></a>
+					</div>
+					<div class="box1_right"></div>
+				</td>
+				<td>登记日期</td>
+				<td>
+					<div class="box1_left"></div>
+					<div class="box1_center date_input">
+						<input type="text" disabled="disabled" style="width: 100px;" id="tmpregistdate" value="<s:property value="addPersonalDto.showregistdate"/>" maxlength="10" />
+						<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpregistdate'));"></a>
+					</div>
+					<div class="box1_right"></div>
+				</td>
+			</tr>
+			<tr>
 				<td>入职日期</td>
 				<td>
 					<div class="box1_left"></div>
-					<div class="box1_center">
-						<s:textfield name="addPersonalDto.employeddate" id="employeddate" cssStyle="width:100px;" maxlength="10" theme="simple"></s:textfield>
+					<div class="box1_center date_input">
+						<input type="text" disabled="disabled" style="width: 100px;" id="tmpemployeddate" value="<s:property value="addPersonalDto.showemployeddate"/>" maxlength="10" />
+						<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpemployeddate'));"></a>
 					</div>
 					<div class="box1_right"></div>
 				</td>
 				<td>离职日期</td>
 				<td>
 					<div class="box1_left"></div>
-					<div class="box1_center">
-						<s:textfield name="addPersonalDto.retiredate" id="retiredate" cssStyle="width:100px;" maxlength="10" theme="simple"></s:textfield>
+					<div class="box1_center date_input">
+						<input type="text" disabled="disabled" style="width: 100px;" id="tmpretiredate" value="<s:property value="addPersonalDto.showretiredate"/>" maxlength="10" />
+						<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpretiredate'));"></a>
 					</div>
 					<div class="box1_right"></div>
 				</td>
-			</tr>
-			<tr>
-				<td>登记日期</td>
-				<td>
-					<div class="box1_left"></div>
-					<div class="box1_center">
-						<s:textfield name="addPersonalDto.registdate" id="registdate" cssStyle="width:100px;" maxlength="10" theme="simple"></s:textfield>
-					</div>
-					<div class="box1_right"></div>
-				</td>
-				<td colspan="2">日期格式为：yyyy-mm-dd</td>
-				<td></td>
 			</tr>
 			<tr>
 				<td>档案</td>
@@ -213,7 +246,7 @@
 					<div class="btn">
 						<div class="box1_left"></div>
 						<div class="box1_center">
-							<input class="input80" type="button" value="关闭" onclick="window.close();"/>
+							<input class="input80" type="button" value="关闭" onclick="closepage();"/>
 						</div>
 						<div class="box1_right"></div>
 					</div>
