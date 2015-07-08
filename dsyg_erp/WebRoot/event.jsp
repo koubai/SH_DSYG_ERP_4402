@@ -31,19 +31,19 @@
 	String userColor = (String)session.getAttribute("user_color");
 	System.out.println("userId"+userId);
 	if (userId==null || "".equals(userId)){
-		userId="test11222";
+		userId="guest";
 	}	
 	if (userColor==null || "".equals(userColor)){
-		userColor="#FFFF00";
+		userColor="#000080";
 	}
 %>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery-ui.css">
 <div class="fancy">
 	<h3>新建事件</h3>
     <form id="add_form" action="${pageContext.request.contextPath}/EventdoServlet.servlet" method="post">
-    <input type="text" name="action" value="<%=action%>">
+    <input type="hidden" name="action" value="<%=action%>">
     <input type="text" name="userId" value="<%=userId%>">
-    <input type="text" name="userColor" value="<%=userColor%>">
+	<input id="color1" type="text" name="userColor" value="<%=userColor%>" />
     <p>日程内容：<input type="text" class="input" name="event" id="event" style="width:320px" placeholder="记录你将要做的一件事..."></p>
     <p>开始时间：<input type="text" class="input datepicker" name="startdate" id="startdate" value="<%=date%>" readonly>
     <span id="sel_start" style="display:none;"><select name="s_hour">
@@ -271,8 +271,11 @@
 	}
 %>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.form.min.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/colorPicker.css" type="text/css" />
+<script language="javascript" type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.colorPicker.js"/></script>
 <script type="text/javascript">
 $(function(){
+    $('#color1').colorPicker();
 	$(".datepicker").datepicker();
 	$("#isallday").click(function(){
 		if($("#sel_start").css("display")=="none"){

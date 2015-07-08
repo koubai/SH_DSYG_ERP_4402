@@ -71,7 +71,7 @@ a { color:#FFF}
 									<div>
 										
 									</div>
-									<input name="userDto.userid" type="text" style="width:200px;" maxlength="8" id="userid" value="<s:property value="userDto.userid"/>"/>
+									<input name="userDto.userid" type="text" style="width:200px;" maxlength="20" id="userid" value="<s:property value="userDto.userid"/>"/>
 								</div>
 								<div class="box1_right"></div>
 							</div>

@@ -1,0 +1,9 @@
+/* CSS Document */
+#picker { width: 50px; height: 100px }
+#slide { width: 20px; height: 100px }
+
+body{ margin:0; padding:0; font-size:13px; font-family:"宋体"; background:url(../images/bg.png);}
+ul,li{ list-style:none;}
+a{ text-decoration:none;}
+#top{ height:90px; background:#52708a; padding-top:25px; position:relative;}
+.user2{ float:right; margin-top:10px; background:#fff; margin-right:100px;}

@@ -36,8 +36,9 @@
 %>
 
 <script type="text/javascript">
-$(function() {
-	
+$(function() {	
+//    $('#color1').colorPicker();
+
 	//页面加载完初始化日历 
 	$('#calendar').fullCalendar({
 		//设置日历头部信息
@@ -99,15 +100,18 @@ $(function() {
 		}
 	});
 });
+
 </script>
 </head>
 
 <body>
+<jsp:include page="./page/info2.jsp" flush="true" />
+
 <div id="main" style="width:1060px">
    <h2 class="top_title"><a>考勤管理</a></h2>   
    <div id='calendar'></div>
-   <input type="TEXT" name="userId" value="<%=userId%>">
-   <input type="TEXT" name="userColor" value="<%=userColor%>">
+   <input type="hidden" name="userId" value="<%=userId%>">
+   <input type="hidden" name="userColor" value="<%=userColor%>">
 </div>
 <p id="stat"><script type="text/javascript" src="/js/tongji.js"></script></p>
 </body>

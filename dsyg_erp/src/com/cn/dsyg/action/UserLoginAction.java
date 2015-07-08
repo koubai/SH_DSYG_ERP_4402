@@ -104,7 +104,7 @@ public class UserLoginAction extends BaseAction {
 			ActionContext.getContext().getSession().put(Constants.SESSION_ROLE_RANK, role.getRank());
 			ActionContext.getContext().getSession().put(Constants.SESSION_USER_ID, userDto.getUserid());
 			ActionContext.getContext().getSession().put(Constants.SESSION_USER_NAME, user.getUsername());
-			ActionContext.getContext().getSession().put(Constants.SESSION_USER_COLOR, userDto.getUsercolor());
+//			ActionContext.getContext().getSession().put(Constants.SESSION_USER_COLOR, userDto.getUsercolor());
 			ActionContext.getContext().getSession().put(Constants.SESSION_LOGIN_TIME, DateUtil.dateToLogintime(new Date()));
 			ActionContext.getContext().getSession().put(Constants.SESSION_ISLOGIN, Constants.SESSION_FLAG_IS_LOGIN);
 			//角色对应的资源

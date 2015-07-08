@@ -118,7 +118,7 @@ public class Constants {
 	 * 用户颜色
 	 * 
 	 */
-	public final static String SESSION_USER_COLOR = "user_color";
+//	public final static String SESSION_USER_COLOR = "user_color";
 	
 	
 	/**

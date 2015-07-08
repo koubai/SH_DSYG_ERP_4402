@@ -354,6 +354,7 @@
 	</head>
 	<body>
 		<jsp:include page="../info.jsp" flush="true" />
+			<div class="content">
 	
 		<!-- 3. Add the container -->
 		<input type="hidden" id="h1" value="<s:property value="str" />" />
@@ -397,6 +398,7 @@
 		<!-- <table id="planTable" border:1px solid #000 style="border-collapse:collapse;"> -->
 		<table id="planTable" border:1px  cellpadding="3" cellspacing="1" style="background-color: #b9d8f3;">
 		</table>			
+	    </div>
 	    </div>
 	</body>
 </html>

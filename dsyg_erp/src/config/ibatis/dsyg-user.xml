@@ -7,7 +7,6 @@
 	<resultMap id="UserDto" class="com.cn.dsyg.dto.UserDto">
 		<result property="userid" column="userid" />
 		<result property="username" column="username" />
-		<result property="usercolor" column="usercolor" />
 		<result property="password" column="password" />
 		<result property="rolecode" column="rolecode" />
 		<result property="status" column="status" />
@@ -48,14 +47,13 @@
 	</delete>
 	
 	<insert id="insertUser" parameterClass="com.cn.dsyg.dto.UserDto">
-		insert into tbuser(userid,username,usercolor,password,rolecode,status,note,createuid,createdate,updateuid,updatedate)
-		values(#userid#,#username#,#usercolor#,#password#,#rolecode#,#status#,#note#,#createuid#,NOW(),#updateuid#,NOW())
+		insert into tbuser(userid,username,password,rolecode,status,note,createuid,createdate,updateuid,updatedate)
+		values(#userid#,#username#,#password#,#rolecode#,#status#,#note#,#createuid#,NOW(),#updateuid#,NOW())
 	</insert>
 	
 	<update id="updateUser" parameterClass="com.cn.dsyg.dto.UserDto">
 		update tbuser
 		set username = #username#,
-		    usercolor = #usercolor#,
 			password = #password#,
 			rolecode = #rolecode#,
 			status = #status#,

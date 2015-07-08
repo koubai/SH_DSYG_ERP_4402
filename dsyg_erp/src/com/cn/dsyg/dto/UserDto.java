@@ -25,7 +25,7 @@ public class UserDto extends BaseDto {
 	/**
 	 * 用户颜色
 	 */
-	private String usercolor;
+//	private String usercolor;
 	
 	/**
 	 * 旧登录密码，修改密码用
@@ -185,7 +185,7 @@ public class UserDto extends BaseDto {
 	public void setOldpassword(String oldpassword) {
 		this.oldpassword = oldpassword;
 	}
-
+/*
 	public String getUsercolor() {
 		return usercolor;
 	}
@@ -193,5 +193,5 @@ public class UserDto extends BaseDto {
 	public void setUsercolor(String usercolor) {
 		this.usercolor = usercolor;
 	}
-
+*/
 }
