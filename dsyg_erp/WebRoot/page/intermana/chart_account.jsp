@@ -410,11 +410,20 @@
 		<!-- <script src="${pageContext.request.contextPath}/js/themes/gray.js"></script> -->
 	</head>
 	<body>
-		<div id="container3">
-		<div class="content">	
+		<div class="containerchart">
 		<jsp:include page="../info.jsp" flush="true" />
-		<s:form id="mainform" name="mainform" method="POST">
-			<!-- 3. Add the container -->
+		<div class="tittle">
+			<div class="icons"><a class="home" href="#" onclick="goHome();">返回首页</a><a class="quit" href="#" onclick="logout();">退出</a></div>
+			<div class="tittle_left">
+			</div>
+			<div class="tittle_center">会计查询
+			</div>
+			<div class="tittle_right">
+			</div>
+		</div>
+		<div class="tab_content2" >	
+		<!-- 3. Add the container -->
+		<br><br>
 			<input type="hidden" id="h1" value="<s:property value="str" />" />
 			<input type="hidden" id="h2" value="<s:property value="series" />" />
 			<input type="hidden" id="h3" value="<s:property value="series_X" />" />
@@ -456,7 +465,6 @@
 			<table id="planTable" border:1px  cellpadding="3" cellspacing="1" style="background-color: #b9d8f3;">
 			</table>			
 		    </div>
-		  </s:form>
 	    </div>
 	    </div>
 	</body>

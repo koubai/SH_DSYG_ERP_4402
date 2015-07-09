@@ -19,6 +19,7 @@ input,img,label{ vertical-align:middle;}
 .opacity{ opacity:0.8;}
 .w120{ width:120px;}
 #container{ width:1024px; margin:0 auto; background:#fff;}
+#containerchart{ width:100%; margin:0 auto; background:#fff;}
 #containermain{ width:100%; margin:0 auto; background:#fff;}
 #top{ height:90px; background:#52708a; padding-top:25px; position:relative;}
 .logobox{ position:absolute; right:100px;}
@@ -68,6 +69,7 @@ input,img,label{ vertical-align:middle;}
 .data_table table,.data_table tr,.data_table td{ border-collapse:collapse; border-color:#ddd;}
 .tab_tittle{ background:#EBF2F6; padding-right:17px;}
 .tab_content{ height:350px; border-bottom:1px solid #ddd; overflow:auto; margin-top:-1px;}
+.tab_content2{ height:800px; border-bottom:1px solid #ddd; overflow:auto; margin-top:-1px;background:#fff;}
 .tr_bg{ background:#F9F9F9;}
 .pages{ float:right; padding-top:10px;}
 .pages ul{ margin:0; padding:0;}

@@ -6,4 +6,11 @@ body{ margin:0; padding:0; font-size:13px; font-family:"宋体"; background:url(
 ul,li{ list-style:none;}
 a{ text-decoration:none;}
 #top{ height:90px; background:#52708a; padding-top:25px; position:relative;}
-.user2{ float:right; margin-top:10px; background:#fff; margin-right:100px;}
+.user2{ float:right; margin-top:10px; background:#fff; margin-right:150px;}
+.icons{ position:absolute; right:10px; top:70px; margin-right:150px;}
+.icons a{ float:left; height:20px; line-height:20px; display:block; padding-left:25px; color:#666; cursor:pointer; margin-left:25px;}
+.home{ background:url(../images/home.png) no-repeat;}
+.quit{ background:url(../images/quit.png) no-repeat;}
+.return{ background:url(../images/return.png) no-repeat;}
+.icons a:hover{  color:#0088cc;}
+
