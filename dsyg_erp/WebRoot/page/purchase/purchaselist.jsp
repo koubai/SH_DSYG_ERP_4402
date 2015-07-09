@@ -102,7 +102,12 @@
 		} else {
 			alert("页码不能为空！");
 			return;
-		}	
+		}
+	}
+	
+	function exportData() {
+		document.mainform.action = '../purchase/exportPurchaseList.action';
+		document.mainform.submit();
 	}
 </script>
 </head>
@@ -292,7 +297,7 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="履历" onclick="" />
+										<input class="input80" type="button" value="导出" onclick="exportData();" />
 									</div>
 									<div class="box1_right"></div>
 								</div>

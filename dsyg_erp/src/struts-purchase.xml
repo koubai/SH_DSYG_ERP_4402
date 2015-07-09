@@ -34,6 +34,10 @@
 			<result name="*">/page/purchase/updpurchase.jsp</result>
 		</action>
 		
+		<action name="exportPurchaseList" class="purchaseAction" method="exportPurchaseList">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

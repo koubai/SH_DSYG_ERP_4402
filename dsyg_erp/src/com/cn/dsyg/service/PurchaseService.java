@@ -14,6 +14,15 @@ import com.cn.dsyg.dto.PurchaseItemDto;
  */
 public interface PurchaseService {
 	
+	/**
+	 * 翻页查询满足条件的采购数据
+	 * @param purchasedateLow
+	 * @param purchasedateHigh
+	 * @param status
+	 * @return
+	 */
+	public List<PurchaseDto> queryAllPurchaseToExcel(String purchasedateLow, String purchasedateHigh, String status);
+	
 	//finance start
 	/**
 	 * 翻页查询采购单（财务）

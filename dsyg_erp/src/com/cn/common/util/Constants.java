@@ -9,6 +9,10 @@ package com.cn.common.util;
  */
 public class Constants {
 	
+	//数据导出常量
+	//采购单数据
+	public final static String EXCEL_TYPE_PURCHASELIST = "purchase";
+	
 	//当前系统所属地
 	public final static String SYSTEM_BELONG = "belongto";
 	//多语言

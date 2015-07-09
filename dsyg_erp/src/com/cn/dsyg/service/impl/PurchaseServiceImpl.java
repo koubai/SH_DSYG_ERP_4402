@@ -33,6 +33,18 @@ public class PurchaseServiceImpl implements PurchaseService {
 	private WarehouseDao warehouseDao;
 	private Dict01Dao dict01Dao;
 	
+	/**
+	 * 翻页查询满足条件的采购数据，然后等
+	 * @param purchasedateLow
+	 * @param purchasedateHigh
+	 * @param status
+	 * @return
+	 */
+	public List<PurchaseDto> queryAllPurchaseToExcel(String purchasedateLow,
+			String purchasedateHigh, String status) {
+		return purchaseDao.queryAllPurchaseToExcel(purchasedateLow, purchasedateHigh, status);
+	}
+	
 	@Override
 	public Page queryFinancePurchaseByPage(String purchasedateLow,
 			String purchasedateHigh, String status, Page page) {
@@ -137,7 +149,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public void insertPurchase(PurchaseDto purchase) {
 		purchaseDao.insertPurchase(purchase);
 	}
-
+	
 	@Override
 	public void updatePurchase(PurchaseDto purchase, List<PurchaseItemDto> listPurchaseItem, String userid) {
 		purchaseDao.updatePurchase(purchase);

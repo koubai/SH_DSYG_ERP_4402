@@ -57,72 +57,76 @@ a { color:#FFF}
 <body>
 		<div class="classname">DSYG_东升盈港企业内部管理系统</div> 
 		<div class="content">
-		<div style="position:absolute; margin-left: 430px; margin-top: 1px; text-align: center; color: red;">
-			<s:actionmessage />
-		</div>
-			<s:form id="mainform" name="mainform" method="POST">
-				<table class="login_tab" border="0" cellpadding="0" cellspacing="15">
-					<tr>
-						<td align="right">用户名</td>
-						<td>
-							<div class="box1">
-								<div class="box1_left"></div>
-								<div class="box1_center">
-									<div>
-										
-									</div>
-									<input name="userDto.userid" type="text" style="width:200px;" maxlength="20" id="userid" value="<s:property value="userDto.userid"/>"/>
+		<s:form id="mainform" name="mainform" method="POST">
+			<table class="login_tab" border="0" cellpadding="0" cellspacing="15">
+				<tr>
+					<td colspan="2">
+						<div style="font-size: 15px; ; position:absolute; margin-left: 20px; margin-top: -40px; text-align: center; color: red;">
+							<s:actionmessage />
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">用户名</td>
+					<td>
+						<div class="box1">
+							<div class="box1_left"></div>
+							<div class="box1_center">
+								<div>
+									
 								</div>
-								<div class="box1_right"></div>
+								<input name="userDto.userid" type="text" style="width:200px;" maxlength="20" id="userid" value="<s:property value="userDto.userid"/>"/>
 							</div>
-						</td>
-					</tr>
-					<tr>
-						<td align="right">登录密码</td>
-						<td>
-							<div class="box1">
-								<div class="box1_left"></div>
-								<div class="box1_center">
-									<input name="userDto.password" style="width:200px;" maxlength="16" type="password" id="password" />
-								</div>
-								<div class="box1_right"></div>
+							<div class="box1_right"></div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">登录密码</td>
+					<td>
+						<div class="box1">
+							<div class="box1_left"></div>
+							<div class="box1_center">
+								<input name="userDto.password" style="width:200px;" maxlength="16" type="password" id="password" />
 							</div>
-						</td>
-					</tr>
-					<tr>
-						<td align="right">验证码</td>
-						<td>
-							<div class="box1">
-								<div class="box1_left"></div>
-								<div class="box1_center">
-									<input type="text" name="userDto.verificationcode" style="width:130px;" id="verificationcode" maxlength="4" value="<s:property value="userDto.verificationcode"/>"/>
-								</div>
-								<div class="box1_right"></div>
+							<div class="box1_right"></div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">验证码</td>
+					<td>
+						<div class="box1">
+							<div class="box1_left"></div>
+							<div class="box1_center">
+								<input type="text" name="userDto.verificationcode" style="width:130px;" id="verificationcode" maxlength="4" value="<s:property value="userDto.verificationcode"/>"/>
 							</div>
-							<img title="看不清点我" id="randomImg" name="random" src="../index/rand.action" onclick="changeValidateCode(this)" class="yzhm" />
-						</td>
-					</tr>
-					<tr>
-						<td align="right">&nbsp;</td>
-						<td>
-							<div class="btn" style="margin-left:0;">
-								<div class="box1_left"></div>
-								<div class="box1_center">
-									<input name="提交" type="submit" class="input80" value="登录" onclick="login();" />
-								</div>
-								<div class="box1_right"></div>
+							<div class="box1_right"></div>
+						</div>
+						<img title="看不清点我" id="randomImg" name="random" src="../index/rand.action" onclick="changeValidateCode(this)" class="yzhm" />
+					</td>
+				</tr>
+				<tr>
+					<td align="right">&nbsp;</td>
+					<td>
+						<div class="btn" style="margin-left:0;">
+							<div class="box1_left"></div>
+							<div class="box1_center">
+								<input name="提交" type="submit" class="input80" value="登录" onclick="login();" />
 							</div>
-							<div class="btn">
-								<div class="box1_left"></div>
-								<div class="box1_center">
-									<input name="重置" type="button" class="input80" value="重置" onclick="reset();" />
-								</div>
-								<div class="box1_right"></div>
+							<div class="box1_right"></div>
+						</div>
+						<div class="btn">
+							<div class="box1_left"></div>
+							<div class="box1_center">
+								<input name="重置" type="button" class="input80" value="重置" onclick="reset();" />
 							</div>
-						</td>
-					</tr>
-				</table>
-			</s:form>
-		</div>
+							<div class="box1_right"></div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</s:form>
+	</div>
 </body>
 </html>

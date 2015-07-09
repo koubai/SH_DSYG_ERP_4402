@@ -8,6 +8,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
+import com.cn.common.factory.Poi2007Base;
+import com.cn.common.factory.PoiFactory;
 import com.cn.common.util.Constants;
 import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
@@ -67,6 +69,29 @@ public class PurchaseAction extends BaseAction {
 	private String updPurchaseId;
 	private PurchaseDto updPurchaseDto;
 	private List<PurchaseItemDto> updPurchaseItemList;
+	
+	//数据导出
+	public String exportPurchaseList() {
+		try {
+			this.clearMessages();
+			String name = StringUtil.createFileName(Constants.EXCEL_TYPE_PURCHASELIST);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_PURCHASELIST);
+			
+			//查询所有审价履历
+			List<PurchaseDto> list = purchaseService.queryAllPurchaseToExcel(
+					strPurchasedateLow, strPurchasedateHigh, "");
+			
+			base.setDatas(list);
+			base.setSheetName(Constants.EXCEL_TYPE_PURCHASELIST);
+			base.exportExcel(response.getOutputStream());
+		} catch(Exception e) {
+			log.error("exportAuditHist error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 	
 	/**
 	 * 显示更新采购单页面

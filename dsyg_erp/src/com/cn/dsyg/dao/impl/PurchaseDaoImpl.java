@@ -17,6 +17,18 @@ import com.cn.dsyg.dto.PurchaseDto;
 public class PurchaseDaoImpl extends BaseDao implements PurchaseDao {
 	
 	@Override
+	public List<PurchaseDto> queryAllPurchaseToExcel(String purchasedateLow,
+			String purchasedateHigh, String status) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("purchasedateLow", purchasedateLow);
+		paramMap.put("purchasedateHigh", purchasedateHigh);
+		paramMap.put("status", status);
+		@SuppressWarnings("unchecked")
+		List<PurchaseDto> list = getSqlMapClientTemplate().queryForList("queryAllPurchaseToExcel", paramMap);
+		return list;
+	}
+	
+	@Override
 	public int queryFinancePurchaseCountByPage(String purchasedateLow,
 			String purchasedateHigh, String status) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();

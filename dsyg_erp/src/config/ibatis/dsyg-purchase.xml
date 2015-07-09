@@ -47,6 +47,19 @@
 		<result property="updatedate" column="updatedate" />
 	</resultMap>
 	
+	<select id="queryAllPurchaseToExcel" resultMap="PurchaseDto" parameterClass="java.util.Map">
+		select * from etb_purchase T where 1 = 1
+		<isNotEmpty prepend="and" property="purchasedateLow">
+			T.purchasedate <![CDATA[>=]]> #purchasedateLow#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="purchasedateHigh">
+			T.purchasedate <![CDATA[<]]> #purchasedateHigh#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="status">
+			T.status <![CDATA[>=]]> #status#
+		</isNotEmpty>
+	</select>
+	
 	<!-- finance -->
 	<select id="queryFinancePurchaseCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from etb_purchase T where 1 = 1
