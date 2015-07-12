@@ -101,17 +101,16 @@
 		document.mainform.submit();
 	}
 	
-	//页面关闭响应
-	window.onunload = function() {
-		//刷新父页面
-		window.dialogArguments.document.mainform.action = '<c:url value="/customer/queryEtbCustomerList.action"></c:url>';
-		window.dialogArguments.document.mainform.submit();
+	function golist() {
+		document.mainform.action = '<c:url value="/customer/queryEtbCustomerList.action"></c:url>';
+		document.mainform.submit();
 	};
 
 </script>
 <base target="_self"/>
 </head>
 <body style="background: url(''); overflow-x:hidden;overflow-y:scroll;">
+<div style="height: 700px;overflow-y:scroll;">
 <s:form id="mainform" name="mainform" method="POST">
 	<s:hidden name="addCustomerDto.note" id="note"></s:hidden>
 	<s:hidden name="addCustomerDto.customermail1" id="customermail1"></s:hidden>
@@ -530,7 +529,7 @@
 					<div class="btn">
 						<div class="box1_left"></div>
 						<div class="box1_center">
-							<input class="input80" type="button" value="关闭" onclick="window.close();"/>
+							<input class="input80" type="button" value="关闭" onclick="golist();"/>
 						</div>
 						<div class="box1_right"></div>
 					</div>
@@ -539,5 +538,6 @@
 		</table>
 	</div>
 </s:form>
+</div>
 </body>
 </html>

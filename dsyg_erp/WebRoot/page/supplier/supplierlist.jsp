@@ -16,8 +16,8 @@
 	});
 
 	function add() {
-		var url = '<c:url value="/supplier/showAddSupplierAction.action"></c:url>' + "?date=" + new Date();
-		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:750px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+		document.mainform.action = '<c:url value="/supplier/showAddSupplierAction.action"></c:url>';
+		document.mainform.submit();
 	}
 	
 	function upd() {
@@ -26,10 +26,8 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
-			var url = '<c:url value="/supplier/showUpdSupplierAction.action"></c:url>'
-					+ "?updateSupplierNo=" + id
-					+ "&date=" + new Date();
-			window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:750px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+			document.mainform.action = '<c:url value="/supplier/showUpdSupplierAction.action"></c:url>' + "?updateSupplierNo=" + id;
+			document.mainform.submit();
 		}
 	}
 	
@@ -171,14 +169,15 @@
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
 								<td width="5%"></td>
-								<td width="10%">序号</td>
-								<td width="15%">供应商名称</td>
+								<td width="5%">序号</td>
+								<td width="10%">供应商编号</td>
+								<td width="10%">供应商名称</td>
 								<td width="15%">供应商地址</td>
 								<td width="10%">联系人</td>
 								<td width="10%">电话</td>
 								<td width="10%">传真</td>
-								<td width="10%">邮箱</td>
-								<td width="15%">备注</td>
+								<td width="15%">邮箱</td>
+								<td width="10%">备注</td>
 							</tr>
 							<s:iterator id="listSupplier" value="listSupplier" status="st1">
 								<s:if test="#st1.odd==true">
@@ -188,6 +187,7 @@
 									<tr>
 								</s:else>
 									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
+									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
 									<td><s:property value="id"/></td>
 									<td>
 										<div noWrap style="text-overflow:ellipsis;overflow:hidden">

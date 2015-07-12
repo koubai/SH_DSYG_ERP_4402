@@ -8,6 +8,7 @@
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>
 <title>固定资产信息输入</title>
 <script type="text/javascript">
 	function add() {
@@ -25,13 +26,14 @@
 			$("#assetsname").focus();
 			return;
 		}
-		
-		var registerdate = $("#registerdate").val();
-		if(registerdate.trim() == "") {
+
+		var tmpregisterdate = $("#tmpregisterdate").val().trim();
+		if(tmpregisterdate == "") {
 			alert("登记日期不能为空！");
-			$("#registerdate").focus();
+			$("#tmpregisterdate").focus();
 			return;
 		}
+		$("#registerdate").attr("value", tmpregisterdate);
 		
 		var handler = $("#handler").val();
 		if(handler.trim() == "") {
@@ -48,11 +50,9 @@
 		document.mainform.submit();
 	}
 	
-	//页面关闭响应
-	window.onunload = function() {
-		//刷新父页面
-		window.dialogArguments.document.mainform.action = '<c:url value="/assets/queryEtbAssetsList.action"></c:url>';
-		window.dialogArguments.document.mainform.submit();
+	function golist() {
+		document.mainform.action = '<c:url value="/assets/queryEtbAssetsList.action"></c:url>';
+		document.mainform.submit();
 	};
 
 </script>
@@ -61,6 +61,7 @@
 <body style="background: url(''); overflow-x:hidden;overflow-y:scroll;">
 <s:form id="mainform" name="mainform" method="POST">
 	<s:hidden name="addAssetsDto.note" id="note"></s:hidden>
+	<s:hidden name="addAssetsDto.registerdate" id="registerdate"></s:hidden>
 	<div id="container" style="width: 100%; height: 100%;">
 		<div class="content" style="margin-top: 0px;">
 			<div class="tittle" style="width:750px">
@@ -119,11 +120,12 @@
 				</td>
 			</tr>
 			<tr>
-				<td><font color="red">*</font>登记日期(yyyy-mm-dd)</td>
+				<td><font color="red">*</font>登记日期</td>
 				<td>
 					<div class="box1_left"></div>
-					<div class="box1_center">
-						<s:textfield name="addAssetsDto.registerdate" id="registerdate" cssStyle="width:350px;" maxlength="10" theme="simple"></s:textfield>
+					<div class="box1_center date_input">
+						<input type="text" disabled="disabled" style="width: 100px;" id="tmpregisterdate" value="<s:property value="addAssetsDto.showregisterdate"/>" maxlength="10" />
+						<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpregisterdate'));"></a>
 					</div>
 					<div class="box1_right"></div>
 				</td>
@@ -147,7 +149,7 @@
 					<div class="btn">
 						<div class="box1_left"></div>
 						<div class="box1_center">
-							<input class="input80" type="button" value="关闭" onclick="window.close();"/>
+							<input class="input80" type="button" value="关闭" onclick="golist();"/>
 						</div>
 						<div class="box1_right"></div>
 					</div>
