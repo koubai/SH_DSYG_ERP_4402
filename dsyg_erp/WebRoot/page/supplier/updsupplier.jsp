@@ -95,27 +95,17 @@
 		document.mainform.submit();
 	}
 	
-	//页面关闭响应
-	window.onunload = function() {
-		//刷新父页面
-		window.dialogArguments.document.mainform.action = '<c:url value="/supplier/querySupplierList.action"></c:url>';
-		window.dialogArguments.document.mainform.submit();
+	function golist() {
+		document.mainform.action = '<c:url value="/supplier/querySupplierList.action"></c:url>';
+		document.mainform.submit();
 	};
 
 </script>
-<base target="_self"/>
 </head>
-<body style="background: url(''); overflow-x:hidden;overflow-y:scroll;">
-<s:form id="mainform" name="mainform" method="POST">
-	<s:hidden name="updateSupplierDto.note" id="note"></s:hidden>
-	<s:hidden name="updateSupplierDto.suppliermail1" id="suppliermail1"></s:hidden>
-	<s:hidden name="updateSupplierDto.suppliermail2" id="suppliermail2"></s:hidden>
-	<s:hidden name="updateSupplierDto.suppliermail3" id="suppliermail3"></s:hidden>
-	<s:hidden name="updateSupplierDto.suppliermail4" id="suppliermail4"></s:hidden>
-	<s:hidden name="updateSupplierDto.suppliermail5" id="suppliermail5"></s:hidden>
-	<div id="container" style="width: 100%; height: 100%;">
-		<div class="content" style="margin-top: 0px;">
-			<div class="tittle" style="width:750px">
+<body>
+	<div id="containermain">
+		<div class="content">
+			<div class="tittle">
 				<div class="icons"></div>
 				<div class="tittle_left">
 				</div>
@@ -126,6 +116,13 @@
 				</div>
 			</div>
 		</div>
+		<s:form id="mainform" name="mainform" method="POST">
+			<s:hidden name="updateSupplierDto.note" id="note"></s:hidden>
+			<s:hidden name="updateSupplierDto.suppliermail1" id="suppliermail1"></s:hidden>
+			<s:hidden name="updateSupplierDto.suppliermail2" id="suppliermail2"></s:hidden>
+			<s:hidden name="updateSupplierDto.suppliermail3" id="suppliermail3"></s:hidden>
+			<s:hidden name="updateSupplierDto.suppliermail4" id="suppliermail4"></s:hidden>
+			<s:hidden name="updateSupplierDto.suppliermail5" id="suppliermail5"></s:hidden>
 		<div style="position:absolute; margin-left: 150px; margin-top: 10px; text-align: center; color: red;">
 			<s:actionmessage />
 		</div>
@@ -518,14 +515,14 @@
 					<div class="btn">
 						<div class="box1_left"></div>
 						<div class="box1_center">
-							<input class="input80" type="button" value="关闭" onclick="window.close();"/>
+							<input class="input80" type="button" value="关闭" onclick="golist();"/>
 						</div>
 						<div class="box1_right"></div>
 					</div>
 				</td>
 			</tr>
 		</table>
+	</s:form>
 	</div>
-</s:form>
 </body>
 </html>

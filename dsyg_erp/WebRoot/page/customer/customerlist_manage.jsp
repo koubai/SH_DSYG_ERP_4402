@@ -21,8 +21,8 @@
 	}
 	
 	function upd() {
-		var status = $("#checked").val().trim();
-		if(status == "none") {
+		var sum = $("#checked").val().trim();
+		if(parseInt(sum) == 0) {
 			alert("请选择一条记录！");
 			return;
 		} else {
@@ -32,10 +32,13 @@
 	}
 	
 	function check(obj) {
+		var sum = $("#checked").val().trim();
 		if(obj.checked){
-			$("#checked").attr("value", "checked");
+			var add = parseInt(sum) + 1;
+			$("#checked").attr("value", add);
 		} else {
-			$("#checked").attr("value", "none");
+			var del = parseInt(sum) - 1;
+			$("#checked").attr("value", del);
 		}
 	}
 	
@@ -112,7 +115,7 @@
 </script>
 </head>
 <body>
-	<div id="container">
+	<div id="containermain">
 		<div class="content">
 			<jsp:include page="../info.jsp" flush="true" />
 			<div class="tittle">
@@ -127,8 +130,8 @@
 			</div>
 			<s:form id="mainform" name="mainform" method="POST">
 				<s:hidden name="startIndex" id="startIndex"/>
-				<s:hidden name="checked" id="checked" value="none"/>
-				<div class="searchbox update" style="width:1024px">
+				<s:hidden name="checked" id="checked" value="0"/>
+				<div class="searchbox update">
 					<div class="box1">
 						<label class="pdf10" style="width:120px">客户编号检索 FROM</label>
 						<div class="box1_left"></div>
@@ -144,7 +147,7 @@
 						<div class="box1_right"></div>
 					</div>
 				</div>
-				<div class="searchbox update" style="width:1024px">
+				<div class="searchbox update">
 					<div class="box1" >
 						<label class="pdf10" style="width:120px">客户名称</label>
 						<div class="box1_left"></div>
@@ -176,7 +179,8 @@
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
 								<td width="5%"></td>
-								<td width="10%">序号</td>
+								<td width="5%">序号</td>
+								<td width="5%">客户编号</td>
 								<td width="15%">客户名称</td>
 								<td width="25%">客户地址</td>
 								<td width="10%">联系人</td>
@@ -192,6 +196,7 @@
 								</s:else>
 									<td>
 									<input type="checkbox" name="listCustomer[<s:property value="#st1.index"/>].checkKey" onclick="check(this);" /></td>
+									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
 									<td><s:property value="id"/></td>
 									<td>
 										<div noWrap style="text-overflow:ellipsis;overflow:hidden">

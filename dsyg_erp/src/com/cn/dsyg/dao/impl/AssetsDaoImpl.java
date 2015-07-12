@@ -45,10 +45,6 @@ public class AssetsDaoImpl extends BaseDao implements AssetsDao {
 		paramMap.put("end", end);
 		@SuppressWarnings("unchecked")
 		List<AssetsDto> list = getSqlMapClientTemplate().queryForList("queryEtbAssetsByPage", paramMap);
-		for (AssetsDto assetstmp : list) {  
-			String registerdate = assetstmp.getRegisterdate();
-			assetstmp.setRegisterdate(registerdate.substring(0, 10)); 
-		}  
 		return list;
 	}
 
@@ -73,8 +69,6 @@ public class AssetsDaoImpl extends BaseDao implements AssetsDao {
 		@SuppressWarnings("unchecked")
 		List<AssetsDto> list = getSqlMapClientTemplate().queryForList("queryEtbAssetsByID", paramMap);
 		if(list != null && list.size() > 0) {
-			String registerdate = list.get(0).getRegisterdate();
-			list.get(0).setRegisterdate(registerdate.substring(0,10));
 			return list.get(0);
 		}
 		return null;

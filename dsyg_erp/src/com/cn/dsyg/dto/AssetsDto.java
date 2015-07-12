@@ -45,6 +45,12 @@ public class AssetsDto extends BaseDto {
 	private String registerdate;
 
 	/**
+	 * 登记日期（显示用）
+	 */
+	private String showregisterdate;
+
+
+	/**
 	 * 用途
 	 */
 	private String purpose;
@@ -337,6 +343,19 @@ public class AssetsDto extends BaseDto {
 
 	public void setApproverid(String approverid) {
 		this.approverid = approverid;
+	}
+
+	public String getShowregisterdate() {
+		if(getRegisterdate() != null && !getRegisterdate().equals("")){
+			showregisterdate =  getRegisterdate().substring(0, 10);
+		} else {
+			showregisterdate="";
+		}
+		return showregisterdate;
+	}
+
+	public void setShowregisterdate(String showregisterdate) {
+		this.showregisterdate = showregisterdate;
 	}
 	
 
