@@ -182,7 +182,8 @@
 		td = createTd("0");
 		tr.appendChild(td);
 		//单价
-		td = createTd(purchaseprice);
+		td = createTdInputAddValue("tmpUnitprice", wid, maxlength, "calcquantity(this, '4');", id, purchaseprice);
+		//td = createTd(purchaseprice);
 		tr.appendChild(td);
 		//采购金额未税
 		td = createTd("0");
@@ -226,6 +227,22 @@
 		input.style.width = wid + "px";
 		input.setAttribute("maxlength", maxlength);
 		input.type = "text";
+		if(onblurevent != "") {
+			input.setAttribute("onblur", onblurevent); 
+		}
+		td.appendChild(input);
+		return td;
+	}
+	
+	function createTdInputAddValue(name, wid, maxlength, onblurevent, productid, v) {
+		var td = window.dialogArguments.document.createElement("td");
+		var input = window.dialogArguments.document.createElement("input");
+		//input.name = name;
+		input.id = name + "_" + productid;
+		input.style.width = wid + "px";
+		input.setAttribute("maxlength", maxlength);
+		input.type = "text";
+		input.value = v;
 		if(onblurevent != "") {
 			input.setAttribute("onblur", onblurevent); 
 		}

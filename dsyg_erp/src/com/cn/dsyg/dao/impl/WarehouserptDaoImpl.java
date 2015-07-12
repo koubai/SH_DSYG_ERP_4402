@@ -17,6 +17,23 @@ import com.cn.dsyg.dto.WarehouserptDto;
 public class WarehouserptDaoImpl extends BaseDao implements WarehouserptDao {
 
 	@Override
+	public List<WarehouserptDto> queryAllWarehouserptToExport(String status,
+			String warehousetype, String warehouseno, String theme1,
+			String parentid, String supplierid, String productid) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("status", status);
+		paramMap.put("warehousetype", warehousetype);
+		paramMap.put("warehouseno", warehouseno);
+		paramMap.put("theme1", theme1);
+		paramMap.put("parentid", parentid);
+		paramMap.put("supplierid", supplierid);
+		paramMap.put("productid", productid);
+		@SuppressWarnings("unchecked")
+		List<WarehouserptDto> list = getSqlMapClientTemplate().queryForList("queryAllWarehouserptToExport", paramMap);
+		return list;
+	}
+	
+	@Override
 	public List<WarehouserptDto> queryWarehouserptByPage(String status,
 			String warehousetype, String warehouseno, String theme1,
 			String parentid, String supplierid, String productid, int start,

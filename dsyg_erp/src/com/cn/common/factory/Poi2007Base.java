@@ -3,6 +3,7 @@ package com.cn.common.factory;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -21,6 +22,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class Poi2007Base {
 	
 	private static final Logger log = LogManager.getLogger(Poi2007Base.class);
+	
+	/**
+	 * 字典表记录
+	 */
+	protected Map<String, String> dictMap;
 
 	/**
 	 * 文件路径
@@ -202,5 +208,13 @@ public class Poi2007Base {
 
 	public void setDatas(List<?> datas) {
 		this.datas = datas;
+	}
+
+	public Map<String, String> getDictMap() {
+		return dictMap;
+	}
+
+	public void setDictMap(Map<String, String> dictMap) {
+		this.dictMap = dictMap;
 	}
 }

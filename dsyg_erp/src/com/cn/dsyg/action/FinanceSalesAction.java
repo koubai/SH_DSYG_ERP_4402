@@ -66,16 +66,10 @@ public class FinanceSalesAction extends BaseAction {
 	public String updFinanceSalesStatusAction() {
 		try {
 			this.clearMessages();
-			SalesDto sales = salesService.querySalesByID(updSalesId);
-			if(sales != null) {
-				//当前操作用户ID
-				String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
-				sales.setUpdateuid(username);
-				//更新状态
-				sales.setStatus(Integer.valueOf(updSalesStatus));
-				salesService.updateSales(sales);
-				//this.addActionMessage("");
-			}
+			
+			//当前操作用户ID
+			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			salesService.updateFinanceSales(updSalesId, username, updSalesStatus);
 			//刷新页面
 			queryData();
 		} catch(Exception e) {

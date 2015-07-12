@@ -50,6 +50,18 @@ public class FinanceDaoImpl extends BaseDao implements FinanceDao {
 		paramMap.put("receiptdateHigh", receiptdateHigh);
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryFinanceCountByPage", paramMap);
 	}
+	
+	@Override
+	public FinanceDto queryFinanceByInvoiceid(String invoiceid) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("invoiceid", invoiceid);
+		@SuppressWarnings("unchecked")
+		List<FinanceDto> list = getSqlMapClientTemplate().queryForList("queryFinanceByInvoiceid", paramMap);
+		if(list != null && list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+	}
 
 	@Override
 	public FinanceDto queryFinanceByID(String id) {
@@ -72,5 +84,4 @@ public class FinanceDaoImpl extends BaseDao implements FinanceDao {
 	public void updateFinance(FinanceDto finance) {
 		getSqlMapClientTemplate().update("updateFinance", finance);
 	}
-
 }

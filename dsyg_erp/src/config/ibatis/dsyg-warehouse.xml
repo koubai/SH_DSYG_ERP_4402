@@ -56,6 +56,7 @@
 		<result property="packaging" column="packaging" />
 		<result property="unit" column="unit" />
 		<result property="warehousename" column="warehousename" />
+		<result property="plandate" column="plandate" />
 	</resultMap>
 	
 	<!-- WarehouseProductDto -->
@@ -221,7 +222,7 @@
 	
 	<!-- WarehouseOk begin -->
 	<select id="queryWarehouseOkByPage" parameterClass="java.util.Map" resultMap="WarehouseOkDto">
-		select GROUP_CONCAT(id) as ids,sum(A.quantity) as quantity,A.suppliername,A.tradename,A.typeno,A.color,A.packaging,A.unit,A.supplierid,A.theme1,A.productid,A.warehousename from (
+		select GROUP_CONCAT(id) as ids,sum(A.quantity) as quantity,A.suppliername,A.tradename,A.typeno,A.color,A.packaging,A.unit,A.supplierid,A.theme1,A.productid,A.warehousename,A.plandate from (
 			select * from (
 				select T.*,
 					(select S.suppliername from etb_supplier S where S.id = T.supplierid) as suppliername,

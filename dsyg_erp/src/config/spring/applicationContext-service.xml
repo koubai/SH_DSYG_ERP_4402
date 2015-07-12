@@ -74,6 +74,9 @@
 		<property name="dict01Dao">
 			<ref local="dict01Dao"/>
 		</property>
+		<property name="financeDao">
+			<ref local="financeDao"/>
+		</property>
 	</bean>
 	
 	<bean id="salesDao" class="com.cn.dsyg.dao.impl.SalesDaoImpl">
@@ -117,6 +120,9 @@
 		</property>
 		<property name="salesItemDao">
 			<ref local="salesItemDao"/>
+		</property>
+		<property name="financeDao">
+			<ref local="financeDao"/>
 		</property>
 	</bean>
 	
@@ -182,7 +188,6 @@
 			<ref bean="sqlMapClient"/>
 		</property>
 	</bean>
-	
 
 	<!-- PurchaseItem -->
 	<bean id="purchaseItemService" class="com.cn.dsyg.service.impl.PurchaseItemServiceImpl" >
@@ -210,6 +215,9 @@
 		</property>
 		<property name="dict01Dao">
 			<ref local="dict01Dao"/>
+		</property>
+		<property name="financeDao">
+			<ref local="financeDao"/>
 		</property>
 	</bean>
 	

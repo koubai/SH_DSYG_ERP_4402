@@ -11,10 +11,12 @@ import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.dsyg.dao.Dict01Dao;
+import com.cn.dsyg.dao.FinanceDao;
 import com.cn.dsyg.dao.SalesDao;
 import com.cn.dsyg.dao.SalesItemDao;
 import com.cn.dsyg.dao.WarehouseDao;
 import com.cn.dsyg.dto.Dict01Dto;
+import com.cn.dsyg.dto.FinanceDto;
 import com.cn.dsyg.dto.SalesDto;
 import com.cn.dsyg.dto.SalesItemDto;
 import com.cn.dsyg.dto.WarehouseDto;
@@ -32,6 +34,7 @@ public class SalesServiceImpl implements SalesService {
 	private SalesItemDao salesItemDao;
 	private WarehouseDao warehouseDao;
 	private Dict01Dao dict01Dao;
+	private FinanceDao financeDao;
 	
 	@Override
 	public Page queryFinanceSalesByPage(String bookdateLow,
@@ -62,7 +65,7 @@ public class SalesServiceImpl implements SalesService {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String uuid = UUID.randomUUID().toString();
 		uuid = uuid.substring(uuid.length() - 8, uuid.length());
-		salesno = "sales" + belongto + sdf.format(date) + uuid;
+		salesno = Constants.SALES_NO_PRE + belongto + sdf.format(date) + uuid;
 		sales.setSalesno(salesno);
 		
 		//status
@@ -182,6 +185,30 @@ public class SalesServiceImpl implements SalesService {
 	}
 	
 	@Override
+	public void updateFinanceSales(String id, String userid, String status) {
+		SalesDto sales = salesDao.querySalesByID(id);
+		if(sales != null) {
+			sales.setUpdateuid(userid);
+			//更新采购单状态
+			sales.setStatus(Integer.valueOf(status));
+			salesDao.updateSales(sales);
+			
+			//更新财务数据状态
+			FinanceDto finance = financeDao.queryFinanceByInvoiceid(sales.getSalesno());
+			if(finance != null) {
+				if(status.equals("" + Constants.FINANCE_STATUS_PAY_INVOICE)) {
+					//开票日期=当天
+					finance.setReceiptdate(DateUtil.dateToShortStr(new Date()));
+				}
+				//确认者=当前用户
+				finance.setApproverid(userid);
+				finance.setStatus(Integer.valueOf(status));
+				financeDao.updateFinance(finance);
+			}
+		}
+	}
+	
+	@Override
 	public void updateSales(SalesDto sales) {
 		salesDao.updateSales(sales);
 	}
@@ -207,7 +234,7 @@ public class SalesServiceImpl implements SalesService {
 		//出库单号
 		String uuid = UUID.randomUUID().toString();
 		uuid = uuid.substring(uuid.length() - 8, uuid.length());
-		String warehouseno = "warehouse" + belongto + sdf.format(date) + uuid;
+		String warehouseno = Constants.WAREHOUSE_NO_PRE + belongto + sdf.format(date) + uuid;
 		warehouse.setWarehouseno(warehouseno);
 		
 		warehouse.setPlandate(sales.getPlandate());
@@ -308,5 +335,13 @@ public class SalesServiceImpl implements SalesService {
 
 	public void setDict01Dao(Dict01Dao dict01Dao) {
 		this.dict01Dao = dict01Dao;
+	}
+
+	public FinanceDao getFinanceDao() {
+		return financeDao;
+	}
+
+	public void setFinanceDao(FinanceDao financeDao) {
+		this.financeDao = financeDao;
 	}
 }

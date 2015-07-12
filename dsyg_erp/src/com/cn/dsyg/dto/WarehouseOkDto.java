@@ -29,6 +29,11 @@ public class WarehouseOkDto extends BaseAction {
 	private Integer showQuantity;
 	
 	/**
+	 * 预入库时间
+	 */
+	private String plandate;
+	
+	/**
 	 * 供应商ID
 	 */
 	private Long supplierid;
@@ -185,5 +190,13 @@ public class WarehouseOkDto extends BaseAction {
 
 	public void setShowQuantity(Integer showQuantity) {
 		this.showQuantity = showQuantity;
+	}
+
+	public String getPlandate() {
+		return plandate;
+	}
+
+	public void setPlandate(String plandate) {
+		this.plandate = plandate;
 	}
 }

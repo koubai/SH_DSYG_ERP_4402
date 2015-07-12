@@ -46,6 +46,14 @@
 			<result name="*">/page/warehouserpt/warehouserptinlist.jsp</result>
 		</action>
 		
+		<action name="exportWarehouserptInAction" class="warehouserptAction" method="exportWarehouserptInAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
+		<action name="exportWarehouserptOutAction" class="warehouserptAction" method="exportWarehouserptOutAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

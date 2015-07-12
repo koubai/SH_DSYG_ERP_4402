@@ -38,6 +38,39 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 	private PurchaseItemDao purchaseItemDao;
 	private PurchaseDao purchaseDao;
 	private Dict01Dao dict01Dao;
+	
+	@Override
+	public List<WarehouserptDto> queryAllWarehouserptToExport(String status,
+			String warehousetype, String warehouseno, String theme1,
+			String parentid, String supplierid, String productid) {
+		List<WarehouserptDto> listWarehouserpt = warehouserptDao.queryAllWarehouserptToExport(status, warehousetype, warehouseno, theme1, parentid, supplierid, productid);
+		if(listWarehouserpt != null && listWarehouserpt.size() > 0) {
+			for(WarehouserptDto rpt : listWarehouserpt) {
+				//查询对应的库存记录列表
+				if(StringUtil.isNotBlank(rpt.getProductinfo())) {
+					List<ProductDto> list = new ArrayList<ProductDto>();
+					String[] infos = rpt.getProductinfo().split("#");
+					for(String info : infos) {
+						if(StringUtil.isNotBlank(info)) {
+							String[] ll = info.split(",");
+							ProductDto product = productDao.queryProductByID(ll[0]);
+							if(product != null) {
+								//货物数量
+								product.setNum(ll[1]);
+								//货物金额
+								product.setAmount(ll[2]);
+								product.setHasbroken("0");
+								product.setBrokennum("0");
+								list.add(product);
+							}
+						}
+					}
+					rpt.setListProduct(list);
+				}
+			}
+		}
+		return listWarehouserpt;
+	}
 
 	@Override
 	public Page queryWarehouserptByPage(String status, String warehousetype,
@@ -112,7 +145,7 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 					//入库单号
 					String uuid = UUID.randomUUID().toString();
 					uuid = uuid.substring(uuid.length() - 8, uuid.length());
-					String warehouseno = "warehouse" + belongto + sdf.format(date) + uuid;
+					String warehouseno = Constants.WAREHOUSE_NO_PRE + belongto + sdf.format(date) + uuid;
 					warehouse.setWarehouseno(warehouseno);
 					
 					warehouse.setProductid("" + product.getId());
@@ -181,7 +214,7 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 					
 					//入出库单号
 					SimpleDateFormat sdf1 = new SimpleDateFormat("yyMMddHHmmss");
-					String warehouserptno = "warehouserpt" + belongto + sdf1.format(date);
+					String warehouserptno = Constants.WAREHOUSERPT_REFUND_NO_PRE + belongto + sdf1.format(date);
 					newwarehouserpt.setWarehouseno(warehouserptno);
 					
 					//货物信息：产品ID,产品数量,产品金额#产品ID,产品数量,产品金额

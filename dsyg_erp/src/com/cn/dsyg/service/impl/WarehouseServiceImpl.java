@@ -10,6 +10,7 @@ import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
+import com.cn.dsyg.dao.FinanceDao;
 import com.cn.dsyg.dao.PurchaseDao;
 import com.cn.dsyg.dao.PurchaseItemDao;
 import com.cn.dsyg.dao.SalesDao;
@@ -17,6 +18,7 @@ import com.cn.dsyg.dao.SalesItemDao;
 import com.cn.dsyg.dao.SupplierDao;
 import com.cn.dsyg.dao.WarehouseDao;
 import com.cn.dsyg.dao.WarehouserptDao;
+import com.cn.dsyg.dto.FinanceDto;
 import com.cn.dsyg.dto.PurchaseDto;
 import com.cn.dsyg.dto.PurchaseItemDto;
 import com.cn.dsyg.dto.SalesDto;
@@ -43,6 +45,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 	private WarehouseDao warehouseDao;
 	private WarehouserptDao warehouserptDao;
 	private SupplierDao supplierDao;
+	private FinanceDao financeDao;
 	
 	@Override
 	public Page queryWarehouseProductByPage(
@@ -70,9 +73,39 @@ public class WarehouseServiceImpl implements WarehouseService {
 	}
 	
 	@Override
-	public void warehouseInOk(String ids, String userid) {
+	public void warehouseInOk(String ids, String userid) throws RuntimeException {
 		if(StringUtil.isNotBlank(ids)) {
+			String belongto = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG);
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
+			
 			String[] idList = ids.split(",");
+			WarehouseDto warehouse = null;
+			
+			//验证是否是同一个仓库，相同的预入库时间
+			String warehousename = "";
+			String plandate = "";
+			for(int i = 0; i < idList.length; i++) {
+				String id = idList[i];
+				if(StringUtil.isNotBlank(id)) {
+					//根据ID查询库存记录
+					warehouse = warehouseDao.queryWarehouseByID(id);
+					if(warehouse != null) {
+						if(StringUtil.isBlank(warehousename)) {
+							warehousename = warehouse.getWarehousename();
+						}
+						if(StringUtil.isBlank(plandate)) {
+							plandate = warehouse.getPlandate();
+						}
+						if(!warehousename.equals(warehouse.getWarehousename())) {
+							throw new RuntimeException("不同仓库记录不能合并成一个入库单！");
+						}
+						if(!plandate.equals(warehouse.getPlandate())) {
+							throw new RuntimeException("不同预入库时间记录不能合并成一个入库单！");
+						}
+					}
+				}
+			}
 			
 			//供应商ID
 			String supplierid = "";
@@ -81,7 +114,6 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//入库单号集合
 			String warehousenos = "";
 			int count = 0;
-			WarehouseDto warehouse = null;
 			//含税金额合计
 			BigDecimal totaltaxamount = new BigDecimal(0);
 			for(int i = 0; i < idList.length; i++) {
@@ -127,11 +159,45 @@ public class WarehouseServiceImpl implements WarehouseService {
 							}
 							//以上2个条件均满足，则更新采购单状态
 							if(b) {
-								//需要更新采购单状态=付款申请
 								PurchaseDto purchaseDto = purchaseDao.queryPurchaseByNo(warehouse.getParentid());
+								//需要更新采购单状态=付款申请
 								purchaseDto.setStatus(Constants.PURCHASE_STATUS_PAY_APPLY);
 								purchaseDto.setUpdateuid(userid);
 								purchaseDao.updatePurchase(purchaseDto);
+								
+								//新增一条财务记录
+								FinanceDto finance = new FinanceDto();
+								//类型=采购单
+								finance.setFinancetype(Constants.FINANCE_TYPE_PURCHASE);
+								//采购单（付款）
+								finance.setMode("2");
+								finance.setBelongto(belongto);
+								//单据号=采购单号
+								finance.setInvoiceid(purchaseDto.getPurchaseno());
+								//发票号
+								String receiptid = Constants.FINANCE_NO_PRE + belongto + sdf.format(date);
+								finance.setReceiptid(receiptid);
+								//开票日期
+								//finance.setReceiptdate(receiptdate);
+								//结算日期=当天
+								finance.setAccountdate(DateUtil.dateToShortStr(date));
+								//金额=采购金额含税
+								finance.setAmount(purchaseDto.getTaxamount());
+								//负责人
+								finance.setHandler(purchaseDto.getHandler());
+								//供应商信息
+								finance.setCustomerid(purchaseDto.getSupplierid());
+								finance.setCustomername(purchaseDto.getSuppliername());
+								finance.setCustomertel(purchaseDto.getSuppliertel());
+								finance.setCustomermanager(purchaseDto.getSuppliermanager());
+								finance.setCustomeraddress(purchaseDto.getSupplieraddr());
+								finance.setCustomermail(purchaseDto.getSuppliermail());
+								finance.setRank(Constants.ROLE_RANK_OPERATOR);
+								//状态=付款申请
+								finance.setStatus(Constants.FINANCE_STATUS_PAY_APPLY);
+								finance.setCreateuid(userid);
+								finance.setUpdateuid(userid);
+								financeDao.insertFinance(finance);
 							}
 						}
 					}
@@ -141,15 +207,12 @@ public class WarehouseServiceImpl implements WarehouseService {
 			WarehouserptDto warehouserpt = new WarehouserptDto();
 			//数据来源类型=入库单
 			warehouserpt.setWarehousetype(Constants.WAREHOUSERPT_TYPE_IN);
-			String belongto = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG);
 			warehouserpt.setBelongto(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG));
 			//入库单号
-			Date date = new Date();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
-			String warehouseno = "warehouserpt" + belongto + sdf.format(date);
+			String warehouseno = Constants.WAREHOUSERPT_IN_NO_PRE + belongto + sdf.format(date);
 			warehouserpt.setWarehouseno(warehouseno);
 			//仓库名
-			//warehouserpt.setWarehousename(list.get(0).getWarehousename());
+			warehouserpt.setWarehousename(warehousename);
 			//主题
 			//warehouserpt.setTheme1(list.get(0).getTheme1());
 			//产品信息
@@ -190,9 +253,39 @@ public class WarehouseServiceImpl implements WarehouseService {
 	}
 	
 	@Override
-	public void warehouseOutOk(String ids, String userid) {
+	public void warehouseOutOk(String ids, String userid) throws RuntimeException {
 		if(StringUtil.isNotBlank(ids)) {
+			String belongto = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG);
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
+			
 			String[] idList = ids.split(",");
+			WarehouseDto warehouse = null;
+			
+			//验证是否是同一个仓库，相同的预出库时间
+			String warehousename = "";
+			String plandate = "";
+			for(int i = 0; i < idList.length; i++) {
+				String id = idList[i];
+				if(StringUtil.isNotBlank(id)) {
+					//根据ID查询库存记录
+					warehouse = warehouseDao.queryWarehouseByID(id);
+					if(warehouse != null) {
+						if(StringUtil.isBlank(warehousename)) {
+							warehousename = warehouse.getWarehousename();
+						}
+						if(StringUtil.isBlank(plandate)) {
+							plandate = warehouse.getPlandate();
+						}
+						if(!warehousename.equals(warehouse.getWarehousename())) {
+							throw new RuntimeException("不同仓库记录不能合并成一个出库单！");
+						}
+						if(!plandate.equals(warehouse.getPlandate())) {
+							throw new RuntimeException("不同预出库时间记录不能合并成一个出库单！");
+						}
+					}
+				}
+			}
 			
 			//客户ID
 			String customerid = "";
@@ -201,7 +294,6 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//入库单号集合
 			String warehousenos = "";
 			//int count = 0;
-			WarehouseDto warehouse = null;
 			//含税金额合计
 			BigDecimal totaltaxamount = new BigDecimal(0);
 			for(int i = 0; i < idList.length; i++) {
@@ -257,6 +349,40 @@ public class WarehouseServiceImpl implements WarehouseService {
 								salesDto.setStatus(Constants.SALES_STATUS_BILL_APPLY);
 								salesDto.setUpdateuid(userid);
 								salesDao.updateSales(salesDto);
+								
+								//新增一条财务记录
+								FinanceDto finance = new FinanceDto();
+								//类型=采购单
+								finance.setFinancetype(Constants.FINANCE_TYPE_SALES);
+								//采购单（付款）
+								finance.setMode("2");
+								finance.setBelongto(belongto);
+								//单据号=销售单号
+								finance.setInvoiceid(salesDto.getSalesno());
+								//发票号
+								String receiptid = Constants.FINANCE_NO_PRE + belongto + sdf.format(date);
+								finance.setReceiptid(receiptid);
+								//开票日期
+								//finance.setReceiptdate(receiptdate);
+								//结算日期=当天
+								finance.setAccountdate(DateUtil.dateToShortStr(date));
+								//金额=销售金额含税
+								finance.setAmount(salesDto.getTaxamount());
+								//负责人
+								finance.setHandler(salesDto.getHandler());
+								//供应商信息
+								finance.setCustomerid(salesDto.getCustomerid());
+								finance.setCustomername(salesDto.getCustomername());
+								finance.setCustomertel(salesDto.getCustomertel());
+								finance.setCustomermanager(salesDto.getCustomermanager());
+								finance.setCustomeraddress(salesDto.getCustomeraddress());
+								finance.setCustomermail(salesDto.getCustomermail());
+								finance.setRank(Constants.ROLE_RANK_OPERATOR);
+								//状态=开票申请
+								finance.setStatus(Constants.FINANCE_STATUS_PAY_APPLY);
+								finance.setCreateuid(userid);
+								finance.setUpdateuid(userid);
+								financeDao.insertFinance(finance);
 							}
 						}
 					}
@@ -266,15 +392,12 @@ public class WarehouseServiceImpl implements WarehouseService {
 			WarehouserptDto warehouserpt = new WarehouserptDto();
 			//数据来源类型=出库单
 			warehouserpt.setWarehousetype(Constants.WAREHOUSERPT_TYPE_OUT);
-			String belongto = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG);
 			warehouserpt.setBelongto(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG));
 			//入库单号
-			Date date = new Date();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
-			String warehouseno = "warehouserpt" + belongto + sdf.format(date);
+			String warehouseno = Constants.WAREHOUSERPT_IN_NO_PRE + belongto + sdf.format(date);
 			warehouserpt.setWarehouseno(warehouseno);
 			//仓库名
-			//warehouserpt.setWarehousename(list.get(0).getWarehousename());
+			warehouserpt.setWarehousename(warehousename);
 			//主题
 			//warehouserpt.setTheme1(list.get(0).getTheme1());
 			//产品信息
@@ -453,5 +576,13 @@ public class WarehouseServiceImpl implements WarehouseService {
 
 	public void setSalesItemDao(SalesItemDao salesItemDao) {
 		this.salesItemDao = salesItemDao;
+	}
+
+	public FinanceDao getFinanceDao() {
+		return financeDao;
+	}
+
+	public void setFinanceDao(FinanceDao financeDao) {
+		this.financeDao = financeDao;
 	}
 }

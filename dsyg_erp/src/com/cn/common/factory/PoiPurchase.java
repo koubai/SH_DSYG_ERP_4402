@@ -13,6 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.cn.common.util.Constants;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.PurchaseDto;
 
@@ -89,13 +90,12 @@ public class PoiPurchase extends Poi2007Base {
 			cell0.setCellStyle(style);
 			cell1.setCellValue(purchase.getPurchaseno());
 			cell1.setCellStyle(style);
-			cell2.setCellValue(purchase.getTheme1());
+			cell2.setCellValue(dictMap.get(Constants.DICT_GOODS_TYPE + "_" + purchase.getTheme1()));
 			cell2.setCellStyle(style);
 			cell3.setCellValue(purchase.getWarehouse());
 			cell3.setCellStyle(style);
 			cell4.setCellValue(purchase.getSuppliername());
 			cell4.setCellStyle(style);
-			cell5.setCellStyle(style);
 			cell5.setCellValue(purchase.getSuppliermanager());
 			cell5.setCellStyle(style);
 			cell6.setCellValue(purchase.getSuppliertel());
@@ -107,34 +107,33 @@ public class PoiPurchase extends Poi2007Base {
 			cell9.setCellValue(purchase.getHandler());
 			cell9.setCellStyle(style);
 			cell10.setCellValue(purchase.getPurchasedate());
-			//cell10.setCellValue(DateUtil.dateToLogintime(purchase.getPurchasedate()));
-			cell11.setCellStyle(style);
+			cell10.setCellStyle(style);
 			cell11.setCellValue(purchase.getPlandate());
-			cell12.setCellStyle(style);
+			cell11.setCellStyle(style);
 			cell12.setCellValue("" + purchase.getTotalamount());
-			cell13.setCellStyle(style);
+			cell12.setCellStyle(style);
 			cell13.setCellValue("" + purchase.getTaxamount());
-			cell14.setCellStyle(style);
+			cell13.setCellStyle(style);
 			cell14.setCellValue("" + purchase.getPaidamount());
-			cell15.setCellStyle(style);
+			cell14.setCellStyle(style);
 			if(purchase.getUnpaidamount() == null) {
 				cell15.setCellValue("0.00");
 			} else {
 				cell15.setCellValue("" + purchase.getUnpaidamount());
 			}
-			cell16.setCellStyle(style);
+			cell15.setCellStyle(style);
 			if(StringUtil.isBlank(purchase.getApproverid())) {
 				cell16.setCellValue("");
 			} else {
 				cell16.setCellValue(purchase.getApproverid());
 			}
-			cell17.setCellStyle(style);
+			cell16.setCellStyle(style);
 			if(StringUtil.isBlank(purchase.getNote())) {
 				cell17.setCellValue("");
 			} else {
 				cell17.setCellValue(purchase.getNote());
 			}
-			cell10.setCellStyle(style);
+			cell17.setCellStyle(style);
 		}
 	}
 	

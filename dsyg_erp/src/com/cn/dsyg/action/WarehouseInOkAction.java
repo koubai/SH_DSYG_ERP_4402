@@ -122,9 +122,11 @@ public class WarehouseInOkAction extends BaseAction {
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
 			warehouseService.warehouseInOk(strOkIds, username);
 			
-			this.addActionMessage("确认成功！");
+			this.addActionMessage("入库单生成成功！");
 			//刷新页面数据
 			queryData();
+		} catch(RuntimeException ex) {
+			this.addActionMessage(ex.getMessage());
 		} catch(Exception e) {
 			log.error("warehouseInOkAction error:" + e);
 			return ERROR;

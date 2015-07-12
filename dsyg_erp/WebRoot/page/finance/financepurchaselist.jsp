@@ -184,9 +184,6 @@
 											付款审批
 										</s:elseif>
 										<s:elseif test="%{status == 40}">
-											付款完了
-										</s:elseif>
-										<s:elseif test="%{status == 50}">
 											已开票
 										</s:elseif>
 										<s:else>
@@ -198,12 +195,9 @@
 											<input type="button" value="付款审批" onclick="upd('<s:property value="id"/>', '30')"/>
 										</s:if>
 										<s:elseif test="%{status == 30}">
-											<input type="button" value="付款完了" onclick="upd('<s:property value="id"/>', '40')"/>
+											<input type="button" value="已开票" onclick="upd('<s:property value="id"/>', '40')"/>
 										</s:elseif>
 										<s:elseif test="%{status == 40}">
-											<input type="button" value="已开票" onclick="upd('<s:property value="id"/>', '50')"/>
-										</s:elseif>
-										<s:elseif test="%{status == 50}">
 											已开票
 										</s:elseif>
 										<s:else>

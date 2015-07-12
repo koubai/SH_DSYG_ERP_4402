@@ -11,10 +11,12 @@ import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.dsyg.dao.Dict01Dao;
+import com.cn.dsyg.dao.FinanceDao;
 import com.cn.dsyg.dao.PurchaseDao;
 import com.cn.dsyg.dao.PurchaseItemDao;
 import com.cn.dsyg.dao.WarehouseDao;
 import com.cn.dsyg.dto.Dict01Dto;
+import com.cn.dsyg.dto.FinanceDto;
 import com.cn.dsyg.dto.PurchaseDto;
 import com.cn.dsyg.dto.PurchaseItemDto;
 import com.cn.dsyg.dto.WarehouseDto;
@@ -32,6 +34,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	private PurchaseItemDao purchaseItemDao;
 	private WarehouseDao warehouseDao;
 	private Dict01Dao dict01Dao;
+	private FinanceDao financeDao;
 	
 	/**
 	 * 翻页查询满足条件的采购数据，然后等
@@ -102,7 +105,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String uuid = UUID.randomUUID().toString();
 		uuid = uuid.substring(uuid.length() - 8, uuid.length());
-		purchaseno = "purchase" + belongto + sdf.format(date) + uuid;
+		purchaseno = Constants.PURCHASE_NO_PRE + belongto + sdf.format(date) + uuid;
 		purchase.setPurchaseno(purchaseno);
 		
 		//status
@@ -210,6 +213,30 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 	
 	@Override
+	public void updateFinancePurchase(String id, String userid, String status) {
+		PurchaseDto purchase = purchaseDao.queryPurchaseByID(id);
+		if(purchase != null) {
+			purchase.setUpdateuid(userid);
+			//更新采购单状态
+			purchase.setStatus(Integer.valueOf(status));
+			purchaseDao.updatePurchase(purchase);
+			
+			//更新财务数据状态
+			FinanceDto finance = financeDao.queryFinanceByInvoiceid(purchase.getPurchaseno());
+			if(finance != null) {
+				if(status.equals("" + Constants.FINANCE_STATUS_PAY_INVOICE)) {
+					//开票日期=当天
+					finance.setReceiptdate(DateUtil.dateToShortStr(new Date()));
+				}
+				//确认者=当前用户
+				finance.setApproverid(userid);
+				finance.setStatus(Integer.valueOf(status));
+				financeDao.updateFinance(finance);
+			}
+		}
+	}
+	
+	@Override
 	public void updatePurchase(PurchaseDto purchase) {
 		purchaseDao.updatePurchase(purchase);
 	}
@@ -237,7 +264,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		//入库单号
 		String uuid = UUID.randomUUID().toString();
 		uuid = uuid.substring(uuid.length() - 8, uuid.length());
-		String warehouseno = "warehouse" + belongto + sdf.format(date) + uuid;
+		String warehouseno = Constants.WAREHOUSE_NO_PRE + belongto + sdf.format(date) + uuid;
 		warehouse.setWarehouseno(warehouseno);
 		
 		warehouse.setBelongto(belongto);
@@ -314,5 +341,13 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 	public void setDict01Dao(Dict01Dao dict01Dao) {
 		this.dict01Dao = dict01Dao;
+	}
+
+	public FinanceDao getFinanceDao() {
+		return financeDao;
+	}
+
+	public void setFinanceDao(FinanceDao financeDao) {
+		this.financeDao = financeDao;
 	}
 }

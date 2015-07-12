@@ -56,6 +56,29 @@
 		<result property="updatedate" column="updatedate" />
 	</resultMap>
 	
+	<select id="queryAllWarehouserptToExport" parameterClass="java.util.Map" resultMap="WarehouserptDto">
+		select T.* from etb_warehouserpt T where 1 = 1
+		<isNotEmpty prepend="and" property="status">
+			T.status = #status#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="warehousetype">
+			T.warehousetype = #warehousetype#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="warehouseno">
+			T.warehouseno = #warehouseno#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="theme1">
+			T.theme1 = #theme1#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="parentid">
+			T.parentid = #parentid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="supplierid">
+			T.supplierid = #supplierid#
+		</isNotEmpty>
+		order by T.updatedate desc
+	</select>
+	
 	<select id="queryWarehouserptByPage" parameterClass="java.util.Map" resultMap="WarehouserptDto">
 		select T.* from etb_warehouserpt T where 1 = 1
 		<isNotEmpty prepend="and" property="status">

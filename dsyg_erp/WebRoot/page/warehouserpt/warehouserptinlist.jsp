@@ -16,6 +16,11 @@
 		$("#container").height(h - 20);
 	});
 	
+	function add() {
+		document.mainform.action = "../warehouserpt/showAddWarehouserptInAction.action";
+		document.mainform.submit();
+	}
+	
 	function upd() {
 		var id = getSelectedID();
 		if(id == "") {
@@ -88,6 +93,11 @@
 			return;
 		}	
 	}
+	
+	function exportData() {
+		document.mainform.action = '../warehouserpt/exportWarehouserptInAction.action';
+		document.mainform.submit();
+	}
 </script>
 </head>
 <body>
@@ -120,8 +130,8 @@
 					</div>
 					<div class="icons thums">
 						<a class="edit" onclick="upd();">编辑</a>
-						<!--
 						<a class="add" onclick="add();">增加</a>
+						<!--
 						<a class="delete" onclick="del();">删除</a>
 						-->
 					</div>
@@ -242,16 +252,7 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="详细" onclick="showBidDetail();" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="履历" onclick="" />
+										<input class="input80" type="button" value="导出" onclick="exportData();" />
 									</div>
 									<div class="box1_right"></div>
 								</div>

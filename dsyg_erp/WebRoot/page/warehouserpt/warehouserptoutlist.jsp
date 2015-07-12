@@ -88,6 +88,11 @@
 			return;
 		}	
 	}
+	
+	function exportData() {
+		document.mainform.action = '../warehouserpt/exportWarehouserptOutAction.action';
+		document.mainform.submit();
+	}
 </script>
 </head>
 <body>
@@ -242,16 +247,7 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="详细" onclick="showBidDetail();" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="履历" onclick="" />
+										<input class="input80" type="button" value="导出" onclick="exportData();" />
 									</div>
 									<div class="box1_right"></div>
 								</div>

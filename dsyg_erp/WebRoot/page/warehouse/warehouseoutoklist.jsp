@@ -126,11 +126,8 @@
 						</div>
 						<div class="box1_right"></div>
 					</div>
-					<div class="box1" style="margin-top:-3px; margin-left: -240px; color: red;">
+					<div class="box1" style="margin-top:-3px; margin-left: 240px; color: red;">
 						<s:actionmessage />
-					</div>
-					<div class="icons thums">
-						<a class="add" onclick="">确认</a>
 					</div>
 				</div>
 				<div class="data_table" style="padding:0px;">
@@ -151,6 +148,7 @@
 								<td width="60">包装</td>
 								<td width="120">供应商</td>
 								<td width="80">预出库数量</td>
+								<td width="120">预入库时间</td>
 								<!--
 								<td width="60"></td>
 								-->
@@ -192,6 +190,7 @@
 									</td>
 									<td><s:property value="suppliername"/></td>
 									<td><s:property value="showQuantity"/></td>
+									<td><s:property value="plandate"/></td>
 									<!--
 									<td width="60">
 										<input type="button" value="确认" onclick="warehouseOk('<s:property value="productid"/>', '<s:property value="supplierid"/>', '<s:property value="warehousename"/>')"/>
@@ -266,16 +265,7 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="详细" onclick="showBidDetail();" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="履历" onclick="" />
+										<input class="input80" type="button" value="导出" onclick="" />
 									</div>
 									<div class="box1_right"></div>
 								</div>

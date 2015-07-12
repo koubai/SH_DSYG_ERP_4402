@@ -2,7 +2,9 @@ package com.cn.dsyg.action;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -74,6 +76,30 @@ public class PurchaseAction extends BaseAction {
 	public String exportPurchaseList() {
 		try {
 			this.clearMessages();
+			initDictList();
+			//字典数据组织个MAP
+			Map<String, String> dictMap = new HashMap<String, String>();
+			if(goodsList != null && goodsList.size() > 0) {
+				for(Dict01Dto dict : goodsList) {
+					dictMap.put(Constants.DICT_GOODS_TYPE + "_" + dict.getCode(), dict.getFieldname());
+				}
+			}
+			if(unitList != null && unitList.size() > 0) {
+				for(Dict01Dto dict : unitList) {
+					dictMap.put(Constants.DICT_UNIT_TYPE + "_" + dict.getCode(), dict.getFieldname());
+				}
+			}
+			if(makeareaList != null && makeareaList.size() > 0) {
+				for(Dict01Dto dict : makeareaList) {
+					dictMap.put(Constants.DICT_MAKEAREA + "_" + dict.getCode(), dict.getFieldname());
+				}
+			}
+			if(colorList != null && colorList.size() > 0) {
+				for(Dict01Dto dict : colorList) {
+					dictMap.put(Constants.DICT_COLOR_TYPE + "_" + dict.getCode(), dict.getFieldname());
+				}
+			}
+			
 			String name = StringUtil.createFileName(Constants.EXCEL_TYPE_PURCHASELIST);
 			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
 			response.setContentType("application/vnd.ms-excel");
@@ -85,6 +111,7 @@ public class PurchaseAction extends BaseAction {
 			
 			base.setDatas(list);
 			base.setSheetName(Constants.EXCEL_TYPE_PURCHASELIST);
+			base.setDictMap(dictMap);
 			base.exportExcel(response.getOutputStream());
 		} catch(Exception e) {
 			log.error("exportAuditHist error:" + e);

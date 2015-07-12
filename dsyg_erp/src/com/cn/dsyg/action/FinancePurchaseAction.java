@@ -66,16 +66,9 @@ public class FinancePurchaseAction extends BaseAction {
 	public String updFinancePurchaseStatusAction() {
 		try {
 			this.clearMessages();
-			PurchaseDto purchase = purchaseService.queryPurchaseByID(updPurchaseId);
-			if(purchase != null) {
-				//当前操作用户ID
-				String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
-				purchase.setUpdateuid(username);
-				//更新状态
-				purchase.setStatus(Integer.valueOf(updPurchaseStatus));
-				purchaseService.updatePurchase(purchase);
-				//this.addActionMessage("");
-			}
+			//当前操作用户ID
+			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			purchaseService.updateFinancePurchase(updPurchaseId, username, updPurchaseStatus);
 			//刷新页面
 			queryData();
 		} catch(Exception e) {

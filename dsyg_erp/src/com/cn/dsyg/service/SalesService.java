@@ -83,4 +83,12 @@ public interface SalesService {
 	 * @param sales
 	 */
 	public void updateSales(SalesDto sales);
+	
+	/**
+	 * 修改销售单状态
+	 * @param id
+	 * @param userid
+	 * @param status
+	 */
+	public void updateFinanceSales(String id, String userid, String status);
 }

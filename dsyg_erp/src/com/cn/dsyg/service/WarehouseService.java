@@ -36,15 +36,17 @@ public interface WarehouseService {
 	 * 预入库确认
 	 * @param ids
 	 * @param userid
+	 * @throws Exception
 	 */
-	public void warehouseInOk(String ids, String userid);
+	public void warehouseInOk(String ids, String userid) throws RuntimeException;
 	
 	/**
 	 * 预出库确认
 	 * @param ids
 	 * @param userid
+	 * @throws Exception
 	 */
-	public void warehouseOutOk(String ids, String userid);
+	public void warehouseOutOk(String ids, String userid) throws RuntimeException;
 	
 	/**
 	 * 库存汇总数据

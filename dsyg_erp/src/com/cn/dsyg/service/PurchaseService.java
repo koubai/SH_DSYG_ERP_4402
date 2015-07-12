@@ -82,6 +82,14 @@ public interface PurchaseService {
 	public void updatePurchase(PurchaseDto purchase, List<PurchaseItemDto> listPurchaseItem, String userid);
 	
 	/**
+	 * 修改采购单状态
+	 * @param id
+	 * @param userid
+	 * @param status
+	 */
+	public void updateFinancePurchase(String id, String userid, String status);
+	
+	/**
 	 * 修改采购单
 	 * @param Purchase
 	 */

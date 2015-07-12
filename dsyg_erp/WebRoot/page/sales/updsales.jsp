@@ -40,6 +40,13 @@
 				obj.focus();
 				return;
 			}
+		} else if(type == "4") {
+			//是否实数check
+			if(!isReal(obj.value)) {
+				alert("销售参考价格式不正确！");
+				obj.focus();
+				return;
+			}
 		} else {
 			//是否实数check
 			if(!isReal(obj.value)) {
@@ -70,6 +77,12 @@
 		} else {
 			beforeQuantity = parseInt(beforeQuantity);
 		}
+		
+		//单价
+		var prices = tds[13].getElementsByTagName("input");
+		//var price = tds[13].innerHTML;
+		var price = prices[0].value;
+		
 		//已出库数量
 		var outquantity = inputs[14].value;
 		if(outquantity == "") {
@@ -88,14 +101,13 @@
 		//未出库数量=销售数量-预出库数量-已出库数量
 		var remain = salesQuantity - beforeQuantity - outquantity;
 		tds[12].innerHTML = remain;
-		//单价
-		var price = tds[13].innerHTML;
 		//销售金额未税
 		var amount = salesQuantity * parseFloat(price);
 		tds[14].innerHTML = amount.toFixed(2);
 		
 		//补充隐藏TD中的数据内容
 		//===============================================
+		inputs[8].value = price;
 		//出库数量
 		inputs[9].value = salesQuantity;
 		//预出库数量
@@ -115,6 +127,37 @@
 			tds[15].getElementsByTagName("input")[0].value = vv.toFixed(2);
 		}
 		
+		//销售金额未税
+		var calcAmount = 0;
+		//已付金额（默认为0）
+		var calcPaidamount = 0;
+		//销售金额含税
+		var calcTaxamount = 0;
+		
+		var rows = document.getElementById("productData").rows;
+		for(var i = 0; i < rows.length; i++) {
+			var childs = rows[i].cells[0].getElementsByTagName("input");
+			if(childs[12].value != "") {
+				calcAmount += parseInt(childs[12].value);
+			}
+			if(childs[13].value != "") {
+				calcTaxamount += parseFloat(childs[13].value);
+			}
+		}
+		
+		//销售金额不含税
+		$("#amount").val(calcAmount);
+		$("#tmpAmount").val(calcAmount);
+		
+		//销售金额含税
+		$("#taxamount").val(calcTaxamount);
+		$("#tmpTaxamount").val(calcTaxamount);
+		
+		//已付金额
+		if(paidamount == "") {
+			$("#paidamount").val(calcPaidamount);
+			$("#tmpPaidamount").val(calcPaidamount);
+		}
 		/*
 		if(salesTaxamount == "") {
 			if(amount != "") {
@@ -158,10 +201,12 @@
 		//仓库
 		var warehouse = $("#warehouse").val().trim();
 		
-		//销售金额合计
-		var taxamount = $("#taxamount").val().trim();
+		//销售金额（不含税）
+		var tmpAmount = $("#tmpAmount").val().trim();
+		//销售金额合计（含税）
+		var tmpTaxamount = $("#tmpTaxamount").val().trim();
 		//已付金额
-		var paidamount = $("#paidamount").val().trim();
+		var tmpPaidamount = $("#tmpPaidamount").val().trim();
 		
 		//供应商ID
 		var customerid = $("#customerid").val().trim();
@@ -180,7 +225,7 @@
 		//联系人信箱
 		var customermail = $("#customermail").val().trim();
 		
-		//预入库时间
+		//预出库时间
 		var tmpPlandate = $("#tmpPlandate").val().trim();
 		
 		if(tmpBookdate == "") {
@@ -238,43 +283,50 @@
 			$("#customermail").focus();
 			return;
 		}
+		
+		if(tmpAmount != "") {
+			if(!isReal(tmpAmount)) {
+				alert("销售金额（不含税）格式不正确！");
+				$("#tmpAmount").focus();
+				return;
+			}
+		} else {
+			$("#tmpAmount").val("0");
+		}
+		if(tmpPaidamount != "") {
+			if(!isReal(tmpPaidamount)) {
+				alert("已付金额格式不正确！");
+				$("#tmpPaidamount").focus();
+				return;
+			}
+		} else {
+			$("#tmpPaidamount").val("0");
+		}
+		if(tmpTaxamount != "") {
+			if(!isReal(tmpTaxamount)) {
+				alert("销售金额（含税）格式不正确！");
+				$("#tmpTaxamount").focus();
+				return;
+			}
+		} else {
+			$("#tmpTaxamount").val("0");
+		}
+		if(parseFloat(tmpAmount) > parseFloat(tmpTaxamount)) {
+			alert("销售金额（不含税）不能大于销售金额（含税）！");
+				$("#tmpTaxamount").focus();
+				return;
+		}
+		
 		if(tmpPlandate == "") {
-			alert("预入库时间不能为空！");
+			alert("预出库时间不能为空！");
 			$("#tmpPlandate").focus();
 			return;
 		}
 		
-		//销售金额未税
-		var calcAmount = 0;
-		//已付金额（默认为0）
-		var calcPaidamount = 0;
-		//销售金额含税
-		var calcTaxamount = 0;
+		$("#amount").val($("#tmpAmount").val());
+		$("#taxamount").val($("#tmpTaxamount").val());
+		$("#paidamount").val($("#tmpPaidamount").val());
 		
-		var rows = document.getElementById("productData").rows;
-		for(var i = 0; i < rows.length; i++) {
-			var childs = rows[i].cells[0].getElementsByTagName("input");
-			if(childs[12].value != "") {
-				calcAmount += parseInt(childs[12].value);
-			}
-			if(childs[13].value != "") {
-				calcTaxamount += parseFloat(childs[13].value);
-			}
-		}
-		
-		//销售金额不含税
-		$("#amount").val(calcAmount);
-		$("#tmpAmount").val(calcAmount);
-		
-		//销售金额含税
-		$("#taxamount").val(calcTaxamount);
-		$("#tmpTaxamount").val(calcTaxamount);
-		
-		//已付金额
-		if(paidamount == "") {
-			$("#paidamount").val(calcPaidamount);
-			$("#tmpPaidamount").val(calcPaidamount);
-		}
 		$("#bookdate").val($("#tmpBookdate").val());
 		$("#plandate").val($("#tmpPlandate").val());
 		if(!setSalesItemList()) {
@@ -630,7 +682,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<input type="text" id="tmpAmount" disabled="disabled" style="width:300px;" value="<s:property value="updSalesDto.amount"/>"/>
+									<input type="text" id="tmpAmount" maxlength="12" style="width:300px;" value="<s:property value="updSalesDto.amount"/>"/>
 								</div>
 								<div class="box1_right"></div>
 								<div style="margin-top: 9px;"><label>（不含税）</label></div>
@@ -641,7 +693,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<input type="text" id="tmpTaxamount" disabled="disabled" style="width:300px;" value="<s:property value="updSalesDto.taxamount"/>"/>
+									<input type="text" id="tmpTaxamount" maxlength="12" style="width:300px;" value="<s:property value="updSalesDto.taxamount"/>"/>
 								</div>
 								<div class="box1_right"></div>
 								<div style="margin-top: 9px;"><label>（含税）</label></div>
@@ -654,13 +706,13 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<input type="text" id="tmpPaidamount" disabled="disabled" style="width:300px;" value="<s:property value="updSalesDto.paidamount"/>"/>
+									<input type="text" id="tmpPaidamount" maxlength="12" style="width:300px;" value="<s:property value="updSalesDto.paidamount"/>"/>
 								</div>
 								<div class="box1_right"></div>
 								<div style="margin-top: 9px;"><label>（含税）</label></div>
 							</td>
 							<td align="right">
-								<label class="pdf10"><font color="red">*</font>预入库日期</label>
+								<label class="pdf10"><font color="red">*</font>预出库日期</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>
@@ -689,20 +741,20 @@
 										<tr style="background:#eee; border-top:black solid 1px;">
 											<td style="width: 0px; display: none"></td>
 											<td width="30"></td>
-											<td width="40">序号</td>
+											<td width="35">序号</td>
 											<td width="40">类型</td>
 											<td width="100">品名</td>
 											<td width="90">规格</td>
-											<td width="40">颜色</td>
-											<td width="40">单位</td>
-											<td width="40">包装</td>
-											<td width="90">销售数量</td>
-											<td width="90">预出库数</td>
+											<td width="35">颜色</td>
+											<td width="35">单位</td>
+											<td width="35">包装</td>
+											<td width="85">销售数量</td>
+											<td width="85">预出库数</td>
 											<td width="70">已出库数</td>
 											<td width="70">未出库数</td>
-											<td width="70">单价</td>
-											<td width="105">销售金额（未税）</td>
-											<td width="105">销售金额（含税）</td>
+											<td width="90">销售参考价</td>
+											<td width="110">销售金额（未税）</td>
+											<td width="110">销售金额（含税）</td>
 										</tr>
 										<tbody id="productData">
 											<s:iterator id="updSalesItemList" value="updSalesItemList" status="st1">
@@ -770,7 +822,9 @@
 													</td>
 													<td><s:property value="outquantity"/></td>
 													<td><s:property value="remainquantity"/></td>
-													<td><s:property value="unitprice"/></td>
+													<td>
+														<input type="text" style="width: 80px;" id="tmpUnitprice_<s:property value="productid"/>" onblur="calcquantity(this, '4');" maxlength="11" value="<s:property value="unitprice"/>"/>
+													</td>
 													<td><s:property value="amount"/></td>
 													<td>
 														<input type="text" style="width: 80px;" id="tmpTaxamount_<s:property value="productid"/>" onblur="calcquantity(this, '3');" maxlength="13" value="<s:property value="taxamount"/>"/>

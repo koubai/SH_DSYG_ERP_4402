@@ -9,9 +9,28 @@ package com.cn.common.util;
  */
 public class Constants {
 	
+	//采购单单号前缀
+	public final static String PURCHASE_NO_PRE = "CGD";
+	//销售单单号前缀
+	public final static String SALES_NO_PRE = "XSD";
+	//入库单前缀
+	public final static String WAREHOUSERPT_IN_NO_PRE = "RKD";
+	//出库单前缀
+	public final static String WAREHOUSERPT_OUT_NO_PRE = "CKD";
+	//财务记录单号前缀
+	public final static String FINANCE_NO_PRE = "CWN";
+	//库存记录单号前缀
+	public final static String WAREHOUSE_NO_PRE = "KCN";
+	//退换货单号前缀
+	public final static String WAREHOUSERPT_REFUND_NO_PRE = "THN";
+	
 	//数据导出常量
 	//采购单数据
 	public final static String EXCEL_TYPE_PURCHASELIST = "purchase";
+	//入库单数据
+	public final static String EXCEL_TYPE_WAREHOUSERPT_IN_LIST = "warehouserpt_in";
+	//出库单数据
+	public final static String EXCEL_TYPE_WAREHOUSERPT_OUT_LIST = "warehouserpt_out";
 	
 	//当前系统所属地
 	public final static String SYSTEM_BELONG = "belongto";
@@ -162,6 +181,16 @@ public class Constants {
 	//发货单数据来源：4为手动录入
 	public final static int WAREHOUSERPT_TYPE_INPUT = 4;
 	
+	//财务记录数据来源类型
+	//采购单
+	public final static int FINANCE_TYPE_PURCHASE = 1;
+	//销售单
+	public final static int FINANCE_TYPE_SALES = 2;
+	//快递
+	public final static int FINANCE_TYPE_DELIVERY = 3;
+	//财务录入
+	public final static int FINANCE_TYPE_INPUT = 4;
+	
 	//库存记录状态
 	//新增
 	public final static int WAREHOUSE_STATUS_NEW = 10;
@@ -179,10 +208,8 @@ public class Constants {
 	public final static int PURCHASE_STATUS_PAY_APPLY = 20;
 	//采购单付款审批
 	public final static int PURCHASE_STATUS_PAY_APPROVE = 30;
-	//采购单付款完了
-	public final static int PURCHASE_STATUS_PAY_OK = 40;
 	//采购单已开票
-	public final static int PURCHASE_STATUS_PAY_INVOICE = 50;
+	public final static int PURCHASE_STATUS_PAY_INVOICE = 40;
 	
 	//销售单状态
 	//采购单新增
@@ -191,20 +218,18 @@ public class Constants {
 	public final static int SALES_STATUS_BILL_APPLY = 20;
 	//销售单开票审批
 	public final static int SALES_STATUS_BILL_APPROVE = 30;
-	//销售单开票完了
+	//销售单已开票
 	public final static int SALES_STATUS_BILL_OK = 40;
 	
 	//财务状态
 	//新增
 	public final static int FINANCE_STATUS_NEW = 10;
-	//付款申请
+	//付款申请 OR 开票申请
 	public final static int FINANCE_STATUS_PAY_APPLY = 20;
-	//付款审批
+	//付款审批 OR 开票审批
 	public final static int FINANCE_STATUS_PAY_APPROVE = 30;
-	//已付款
-	public final static int FINANCE_STATUS_PAY_OK = 40;
 	//已开票
-	public final static int FINANCE_STATUS_PAY_INVOICE = 50;
+	public final static int FINANCE_STATUS_PAY_INVOICE = 40;
 	
 	//删除标记
 	/**

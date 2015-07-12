@@ -19,6 +19,14 @@ public class PoiFactory {
 			//采购单数据
 			return new PoiPurchase();
 		}
+		if(Constants.EXCEL_TYPE_WAREHOUSERPT_IN_LIST.equals(type)) {
+			//入库单数据
+			return new PoiWarehouserptIn();
+		}
+		if(Constants.EXCEL_TYPE_WAREHOUSERPT_OUT_LIST.equals(type)) {
+			//出库单数据
+			return new PoiWarehouserptOut();
+		}
 		return null;
 	}
 }

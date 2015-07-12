@@ -11,6 +11,20 @@ import com.cn.dsyg.dto.WarehouserptDto;
  * @version 1.0
  */
 public interface WarehouserptDao {
+	
+	/**
+	 * 导出入出库单数据
+	 * @param status
+	 * @param warehousetype
+	 * @param warehouseno
+	 * @param theme1
+	 * @param parentid
+	 * @param supplierid
+	 * @param productid
+	 * @return
+	 */
+	public List<WarehouserptDto> queryAllWarehouserptToExport(String status, String warehousetype,
+			String warehouseno, String theme1, String parentid, String supplierid, String productid);
 
 	/**
 	 * 翻页查询

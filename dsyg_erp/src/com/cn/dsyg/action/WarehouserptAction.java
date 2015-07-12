@@ -1,12 +1,17 @@
 package com.cn.dsyg.action;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
+import com.cn.common.factory.Poi2007Base;
+import com.cn.common.factory.PoiFactory;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
@@ -58,6 +63,8 @@ public class WarehouserptAction extends BaseAction {
 	//编辑
 	private String updWarehouserptId;
 	private WarehouserptDto updWarehouserptDto;
+	//新增
+	private WarehouserptDto addWarehouserptDto;
 	
 	
 	//发货单
@@ -204,6 +211,37 @@ public class WarehouserptAction extends BaseAction {
 	
 	//入库单
 	/**
+	 * 新增入库单页面
+	 * @return
+	 */
+	public String showAddWarehouserptInAction() {
+		try {
+			this.clearMessages();
+			addWarehouserptDto = new WarehouserptDto();
+		} catch(Exception e) {
+			log.error("showAddWarehouserptInAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 新增入库单页面
+	 * @return
+	 */
+	public String addWarehouserptInAction() {
+		try {
+			this.clearMessages();
+			addWarehouserptDto = new WarehouserptDto();
+			this.addActionMessage("新增成功！");
+		} catch(Exception e) {
+			log.error("addWarehouserptInAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
 	 * 修改入库单页面
 	 * @return
 	 */
@@ -342,6 +380,87 @@ public class WarehouserptAction extends BaseAction {
 			return ERROR;
 		}
 		return SUCCESS;
+	}
+	
+	/**
+	 * 导出入库单数据
+	 * @return
+	 */
+	public String exportWarehouserptInAction() {
+		try {
+			this.clearMessages();
+			exportData("" + Constants.WAREHOUSE_TYPE_IN);
+		} catch(Exception e) {
+			log.error("exportWarehouserptInAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 导出出库单数据
+	 * @return
+	 */
+	public String exportWarehouserptOutAction() {
+		try {
+			this.clearMessages();
+			exportData("" + Constants.WAREHOUSE_TYPE_OUT);
+		} catch(Exception e) {
+			log.error("exportWarehouserptOutAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 导出数据
+	 * @param type
+	 * @throws IOException 
+	 */
+	private void exportData(String type) throws IOException {
+		initDictList();
+		//字典数据组织个MAP
+		Map<String, String> dictMap = new HashMap<String, String>();
+		if(goodsList != null && goodsList.size() > 0) {
+			for(Dict01Dto dict : goodsList) {
+				dictMap.put(Constants.DICT_GOODS_TYPE + "_" + dict.getCode(), dict.getFieldname());
+			}
+		}
+		if(unitList != null && unitList.size() > 0) {
+			for(Dict01Dto dict : unitList) {
+				dictMap.put(Constants.DICT_UNIT_TYPE + "_" + dict.getCode(), dict.getFieldname());
+			}
+		}
+		if(makeareaList != null && makeareaList.size() > 0) {
+			for(Dict01Dto dict : makeareaList) {
+				dictMap.put(Constants.DICT_MAKEAREA + "_" + dict.getCode(), dict.getFieldname());
+			}
+		}
+		if(colorList != null && colorList.size() > 0) {
+			for(Dict01Dto dict : colorList) {
+				dictMap.put(Constants.DICT_COLOR_TYPE + "_" + dict.getCode(), dict.getFieldname());
+			}
+		}
+		
+		String exceltype = "";
+		if(("" + Constants.WAREHOUSE_TYPE_IN).equals(type)) {
+			//入库单
+			exceltype = Constants.EXCEL_TYPE_WAREHOUSERPT_IN_LIST;
+		} else {
+			//出库单
+			exceltype = Constants.EXCEL_TYPE_WAREHOUSERPT_OUT_LIST;
+		}
+		String name = StringUtil.createFileName(exceltype);
+		response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+		response.setContentType("application/vnd.ms-excel");
+		Poi2007Base base = PoiFactory.getPoi(exceltype);
+		//查询所有数据
+		List<WarehouserptDto> list = warehouserptService.queryAllWarehouserptToExport("", type, "", "", "", "", "");
+		
+		base.setDatas(list);
+		base.setSheetName(exceltype);
+		base.setDictMap(dictMap);
+		base.exportExcel(response.getOutputStream());
 	}
 	
 	/**
@@ -492,5 +611,13 @@ public class WarehouserptAction extends BaseAction {
 
 	public void setUpdWarehouserptDto(WarehouserptDto updWarehouserptDto) {
 		this.updWarehouserptDto = updWarehouserptDto;
+	}
+
+	public WarehouserptDto getAddWarehouserptDto() {
+		return addWarehouserptDto;
+	}
+
+	public void setAddWarehouserptDto(WarehouserptDto addWarehouserptDto) {
+		this.addWarehouserptDto = addWarehouserptDto;
 	}
 }

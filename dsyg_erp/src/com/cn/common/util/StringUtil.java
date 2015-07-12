@@ -232,6 +232,18 @@ public class StringUtil {
 	}
 	
 	/**
+	 * 判断字符串是否为空，为空则返回空字符串，否则就返回s
+	 * @param s
+	 * @return
+	 */
+	public static String getStr(String s) {
+		if(s == null) {
+			return "";
+		}
+		return s;
+	}
+	
+	/**
 	 * 取得随机数
 	 * @param num
 	 * @return

@@ -50,6 +50,13 @@ public interface FinanceDao {
 	public FinanceDto queryFinanceByID(String id);
 	
 	/**
+	 * 根据invoiceid查询记录
+	 * @param invoiceid
+	 * @return
+	 */
+	public FinanceDto queryFinanceByInvoiceid(String invoiceid);
+	
+	/**
 	 * 新增记录
 	 * @param finance
 	 */

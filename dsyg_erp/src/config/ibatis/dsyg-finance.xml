@@ -98,6 +98,10 @@
 		select * from etb_finance where id = #id#
 	</select>
 	
+	<select id="queryFinanceByInvoiceid" parameterClass="java.util.Map" resultMap="FinanceDto">
+		select * from etb_finance where invoiceid = #invoiceid#
+	</select>
+	
 	<insert id="insertFinance" parameterClass="com.cn.dsyg.dto.FinanceDto">
 		insert into etb_finance(financetype,theme,mode,belongto,invoiceid,receiptid,receiptdate,accountdate,amount,handler,approverid,
 			customerid,customername,customertel,customermanager,customeraddress,customermail,note,rank,status,

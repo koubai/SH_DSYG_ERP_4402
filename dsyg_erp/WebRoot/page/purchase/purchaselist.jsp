@@ -219,9 +219,6 @@
 											付款审批
 										</s:elseif>
 										<s:elseif test="%{status == 40}">
-											付款完了
-										</s:elseif>
-										<s:elseif test="%{status == 50}">
 											已开票
 										</s:elseif>
 										<s:else>

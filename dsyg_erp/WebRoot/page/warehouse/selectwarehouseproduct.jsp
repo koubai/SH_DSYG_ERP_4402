@@ -183,7 +183,9 @@
 		td = createTd("0");
 		tr.appendChild(td);
 		//单价
-		td = createTd(purchaseprice);
+		//单价
+		td = createTdInputAddValue("tmpUnitprice", wid, maxlength, "calcquantity(this, '4');", id, purchaseprice);
+		//td = createTd(purchaseprice);
 		tr.appendChild(td);
 		//销售金额未税
 		td = createTd("0");
@@ -194,6 +196,22 @@
 		
 		window.dialogArguments.document.getElementById("productlist").value = productlist + id + ",";
 		window.dialogArguments.document.getElementById("productData").appendChild(tr);
+	}
+	
+	function createTdInputAddValue(name, wid, maxlength, onblurevent, productid, v) {
+		var td = window.dialogArguments.document.createElement("td");
+		var input = window.dialogArguments.document.createElement("input");
+		//input.name = name;
+		input.id = name + "_" + productid;
+		input.style.width = wid + "px";
+		input.setAttribute("maxlength", maxlength);
+		input.type = "text";
+		input.value = v;
+		if(onblurevent != "") {
+			input.setAttribute("onblur", onblurevent); 
+		}
+		td.appendChild(input);
+		return td;
 	}
 	
 	//刷新投标公司序号和斑马线
