@@ -109,17 +109,9 @@
 </script>
 <base target="_self"/>
 </head>
-<body style="background: url(''); overflow-x:hidden;overflow-y:scroll;">
-<div style="height: 700px;overflow-y:scroll;">
-<s:form id="mainform" name="mainform" method="POST">
-	<s:hidden name="addSupplierDto.note" id="note"></s:hidden>
-	<s:hidden name="addSupplierDto.suppliermail1" id="suppliermail1"></s:hidden>
-	<s:hidden name="addSupplierDto.suppliermail2" id="suppliermail2"></s:hidden>
-	<s:hidden name="addSupplierDto.suppliermail3" id="suppliermail3"></s:hidden>
-	<s:hidden name="addSupplierDto.suppliermail4" id="suppliermail4"></s:hidden>
-	<s:hidden name="addSupplierDto.suppliermail5" id="suppliermail5"></s:hidden>
-	<div id="container" style="width: 100%; height: 100%;">
-		<div class="content" style="margin-top: 0px;">
+<body>
+	<div id="containermain">
+		<div class="content">
 			<div class="tittle">
 				<div class="icons"></div>
 				<div class="tittle_left">
@@ -131,6 +123,13 @@
 				</div>
 			</div>
 		</div>
+		<s:form id="mainform" name="mainform" method="POST">
+			<s:hidden name="addSupplierDto.note" id="note"></s:hidden>
+			<s:hidden name="addSupplierDto.suppliermail1" id="suppliermail1"></s:hidden>
+			<s:hidden name="addSupplierDto.suppliermail2" id="suppliermail2"></s:hidden>
+			<s:hidden name="addSupplierDto.suppliermail3" id="suppliermail3"></s:hidden>
+			<s:hidden name="addSupplierDto.suppliermail4" id="suppliermail4"></s:hidden>
+			<s:hidden name="addSupplierDto.suppliermail5" id="suppliermail5"></s:hidden>
 		<div style="position:absolute; margin-left: 150px; margin-top: 10px; text-align: center; color: red;">
 			<s:actionmessage />
 		</div>
@@ -536,7 +535,6 @@
 				</td>
 			</tr>
 		</table>
-</div>
 </s:form>
 </div>
 </body>

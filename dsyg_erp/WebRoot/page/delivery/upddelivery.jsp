@@ -103,18 +103,10 @@
 </script>
 <base target="_self"/>
 </head>
-<body style="background: url(''); overflow-x:hidden;overflow-y:scroll;">
-<div style="height: 700px;overflow-y:scroll;">
-<s:form id="mainform" name="mainform" method="POST">
-	<s:hidden name="updateDeliveryDto.note" id="note"></s:hidden>
-	<s:hidden name="updateDeliveryDto.deliverymail1" id="deliverymail1"></s:hidden>
-	<s:hidden name="updateDeliveryDto.deliverymail2" id="deliverymail2"></s:hidden>
-	<s:hidden name="updateDeliveryDto.deliverymail3" id="deliverymail3"></s:hidden>
-	<s:hidden name="updateDeliveryDto.deliverymail4" id="deliverymail4"></s:hidden>
-	<s:hidden name="updateDeliveryDto.deliverymail5" id="deliverymail5"></s:hidden>
-	<div id="container" style="width: 100%; height: 100%;">
-		<div class="content" style="margin-top: 0px;">
-			<div class="tittle" style="width:750px">
+<body>
+	<div id="containermain">
+		<div class="content">
+			<div class="tittle">
 				<div class="icons"></div>
 				<div class="tittle_left">
 				</div>
@@ -125,6 +117,13 @@
 				</div>
 			</div>
 		</div>
+		<s:form id="mainform" name="mainform" method="POST">
+			<s:hidden name="updateDeliveryDto.note" id="note"></s:hidden>
+			<s:hidden name="updateDeliveryDto.deliverymail1" id="deliverymail1"></s:hidden>
+			<s:hidden name="updateDeliveryDto.deliverymail2" id="deliverymail2"></s:hidden>
+			<s:hidden name="updateDeliveryDto.deliverymail3" id="deliverymail3"></s:hidden>
+			<s:hidden name="updateDeliveryDto.deliverymail4" id="deliverymail4"></s:hidden>
+			<s:hidden name="updateDeliveryDto.deliverymail5" id="deliverymail5"></s:hidden>
 		<div style="position:absolute; margin-left: 150px; margin-top: 10px; text-align: center; color: red;">
 			<s:actionmessage />
 		</div>
@@ -524,8 +523,7 @@
 				</td>
 			</tr>
 		</table>
+	</s:form>
 	</div>
-</s:form>
-</div>
 </body>
 </html>

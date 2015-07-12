@@ -40,6 +40,11 @@ public class PersonalDto extends BaseDto {
 	private String registdate;
 
 	/**
+	 * 登记时间（显示用）
+	 */
+	private String showregistdate;
+
+	/**
 	 * 员工姓名
 	 */
 	private String username;
@@ -48,6 +53,16 @@ public class PersonalDto extends BaseDto {
 	 * 性别
 	 */
 	private int sex;
+
+	/**
+	 * 出生时间
+	 */
+	private String birthday;
+
+	/**
+	 * 出生时间（显示用）
+	 */
+	private String showbirthday;
 
 	/**
 	 * 岗位
@@ -78,11 +93,21 @@ public class PersonalDto extends BaseDto {
 	 * 入职时间
 	 */
 	private String employeddate;
+
+	/**
+	 * 入职时间（显示用）
+	 */
+	private String showemployeddate;
 	
 	/**
 	 * 离职时间
 	 */
 	private String retiredate;
+	/**
+	 * 离职时间（显示用）
+	 */
+	private String showretiredate;
+	
 	
 	/**
 	 * 档案明细
@@ -429,6 +454,65 @@ public class PersonalDto extends BaseDto {
 	public void setPersonaldesc(String personaldesc) {
 		this.personaldesc = personaldesc;
 	}
-	
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getShowbirthday() {
+		if(getBirthday() != null && !getBirthday().equals("")){
+			showbirthday =  getBirthday().substring(0, 10);
+		} else {
+			showbirthday="";
+		}
+		return showbirthday;
+	}
+
+	public void setShowbirthday(String showbirthday) {
+		this.showbirthday = showbirthday;
+	}
+
+	public String getShowregistdate() {
+		if(getRegistdate() != null && !getRegistdate().equals("")){
+			showregistdate =  getRegistdate().substring(0, 10);
+		} else {
+			showregistdate="";
+		}
+		return showregistdate;
+	}
+
+	public void setShowregistdate(String showregistdate) {
+		this.showregistdate = showregistdate;
+	}
+
+	public String getShowemployeddate() {
+		if(getEmployeddate() != null && !getEmployeddate().equals("")){
+			showemployeddate =  getEmployeddate().substring(0, 10);
+		} else {
+			showemployeddate="";
+		}
+		return showemployeddate;
+	}
+
+	public void setShowemployeddate(String showemployeddate) {
+		this.showemployeddate = showemployeddate;
+	}
+
+	public String getShowretiredate() {
+		if(getRetiredate() != null && !getRetiredate().equals("")){
+			showretiredate =  getRetiredate().substring(0, 10);
+		} else {
+			showretiredate="";
+		}
+		return showretiredate;
+	}
+
+	public void setShowretiredate(String showretiredate) {
+		this.showretiredate = showretiredate;
+	}
 
 }
