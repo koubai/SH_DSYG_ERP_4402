@@ -46,6 +46,16 @@ H1 a {
 	overflow: hidden;
 }
 </style>
+<script type="text/javascript">
+	function openUrl(url, obj) {
+		var urlList = document.getElementsByName("urlList");
+		for(var i = 0; i < urlList.length; i++) {
+			urlList[i].style.color = "";
+		}
+		parent.window.frames['mainFrame'].location = url;
+		obj.style.color = "red";
+	}
+</script>
 </head>
 <body>
 <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#EEF2FB">
@@ -66,7 +76,7 @@ H1 a {
 									<s:iterator id="resourceList" value="resourceList" status="st2">
 										<s:if test='%{resourceList[#st2.index].parentid == resourceList[#st1.index].id}'>
 											<li>
-												<a href="#" onclick="parent.window.frames['mainFrame'].location='<%=request.getContextPath()%>/${resourceList[st2.index].url}'">${resourceList[st2.index].note}</a>
+												<a href="#" name="urlList" onclick="openUrl('<%=request.getContextPath()%>/${resourceList[st2.index].url}', this);">${resourceList[st2.index].note}</a>
 											</li>
 										</s:if>
 									</s:iterator>
