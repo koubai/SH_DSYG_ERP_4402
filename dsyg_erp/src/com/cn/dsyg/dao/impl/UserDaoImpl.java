@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.cn.common.dao.BaseDao;
 import com.cn.dsyg.dao.UserDao;
+import com.cn.dsyg.dto.ProductDto;
 import com.cn.dsyg.dto.UserDto;
 
 /**
@@ -69,4 +70,33 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 	public void updateUser(UserDto user) {
 		getSqlMapClientTemplate().update("updateUser", user);
 	}
+	
+	@Override
+	public List<ProductDto> queryUserListByPage(String fieldno, String keyword, String useridfrom,
+			String useridto, String status, int start, int end) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("fieldno", fieldno);
+		paramMap.put("keyword", keyword);
+		paramMap.put("useridfrom", useridfrom);
+		paramMap.put("useridto", useridto);
+		paramMap.put("status", status);
+		paramMap.put("start", start);
+		paramMap.put("end", end);
+		@SuppressWarnings("unchecked")
+		List<ProductDto> list = getSqlMapClientTemplate().queryForList("queryUserListByPage", paramMap);
+		return list;
+	}
+
+	@Override
+	public int queryUserListCountByPage(String fieldno, String keyword, String useridfrom,
+			String useridto, String status) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("fieldno", fieldno);
+		paramMap.put("keyword", keyword);
+		paramMap.put("useridfrom", useridfrom);
+		paramMap.put("useridto", useridto);
+		paramMap.put("status", status);
+		return (Integer) getSqlMapClientTemplate().queryForObject("queryUserListCountByPage", paramMap);
+	}
+
 }

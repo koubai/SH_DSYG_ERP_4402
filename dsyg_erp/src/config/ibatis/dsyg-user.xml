@@ -63,4 +63,43 @@
 		where userid = #userid#
 	</update>
 	
+		<select id="queryUserListByPage" parameterClass="java.util.Map" resultMap="UserDto">
+		select T.* from tbuser T where 1 = 1
+		<isNotEmpty prepend="and" property="status">
+			T.status = #status#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fieldno">
+			T.fieldno = #fieldno#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="useridfrom">
+			T.userid <![CDATA[>=]]> #useridfrom#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="useridto">
+			T.userid <![CDATA[<=]]> #useridto#
+		</isNotEmpty>		
+		<isNotEmpty prepend="and" property="keyword">
+			T.keyword like '%$keyword$%' ESCAPE '/'
+		</isNotEmpty>
+		order by T.userid 
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryUserListCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from tbuser T where 1 = 1
+		<isNotEmpty prepend="and" property="status">
+			T.status = #status#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fieldno">
+			T.fieldno = #fieldno#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="useridfrom">
+			T.userid <![CDATA[>=]]> #useridfrom#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="useridto">
+			T.userid <![CDATA[<=]]> #useridto#
+		</isNotEmpty>		
+		<isNotEmpty prepend="and" property="keyword">
+			T.keyword like '%$keyword$%' ESCAPE '/'
+		</isNotEmpty>
+	</select>
 </sqlMap>

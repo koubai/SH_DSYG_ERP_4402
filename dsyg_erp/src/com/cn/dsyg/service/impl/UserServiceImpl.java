@@ -6,6 +6,7 @@ import com.cn.common.util.MD5Util;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.UserDao;
+import com.cn.dsyg.dto.ProductDto;
 import com.cn.dsyg.dto.UserDto;
 import com.cn.dsyg.service.UserService;
 
@@ -81,4 +82,27 @@ public class UserServiceImpl implements UserService {
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
+	
+	@Override
+	public Page queryUserByPage(String fieldno, String keyword, String useridfrom,
+				String useridto, String status, Page page) {
+		keyword = StringUtil.replaceDatabaseKeyword_mysql(keyword);
+		useridfrom = StringUtil.replaceDatabaseKeyword_mysql(useridfrom);
+		useridto = StringUtil.replaceDatabaseKeyword_mysql(useridto);
+		
+		//查询总记录数
+		int totalCount = userDao.queryUserListCountByPage(fieldno, keyword, useridfrom, useridto, status);
+		page.setTotalCount(totalCount);
+		if(totalCount % page.getPageSize() > 0) {
+			page.setTotalPage(totalCount / page.getPageSize() + 1);
+		} else {
+			page.setTotalPage(totalCount / page.getPageSize());
+		}
+		//翻页查询记录
+		List<ProductDto> list = userDao.queryUserListByPage(fieldno, keyword, useridfrom, useridto, status,
+				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		page.setItems(list);
+		return page;
+	}
+
 }

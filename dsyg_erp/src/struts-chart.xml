@@ -16,6 +16,16 @@
 		<action name="showPurchaseInfoMainChartAction" class="chartAction" method="showPurchaseInfoMainChartAction">
 			<result name="*">/page/intermana/chart_purchase.jsp</result>
 		</action>
+		<action name="showUserSelectPage" class="chartAction" method="showUserSelectPage">
+			<result name="*">/page/intermana/chart_purchase_selectusers.jsp</result>
+		</action>
+		<action name="queryUserSelectPage" class="chartAction" method="queryUserSelectPage">
+			<result name="*">/page/intermana/chart_purchase_selectusers.jsp</result>
+		</action>	
+		<action name="turnUserSelectPage" class="chartAction" method="turnUserSelectPage">
+			<result name="*">/page/intermana/chart_purchase_selectusers.jsp</result>
+		</action>
+		
 		
 		<action name="showDeliveryInfoMainChartAction" class="chartAction" method="showDeliveryInfoMainChartAction">
 			<result name="*">/page/intermana/chart_delivery.jsp</result>

@@ -1,7 +1,10 @@
 package com.cn.dsyg.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.cn.dsyg.dto.ProductDto;
 import com.cn.dsyg.dto.UserDto;
 
 /**
@@ -58,4 +61,8 @@ public interface UserDao {
 	 * @param user
 	 */
 	public void updateUser(UserDto user);
+	
+	public List<ProductDto> queryUserListByPage(String fieldno, String keyword, String useridfrom, String useridto, String status, int start, int end);
+
+	public int queryUserListCountByPage(String fieldno, String keyword, String useridfrom, String useridto, String status);
 }

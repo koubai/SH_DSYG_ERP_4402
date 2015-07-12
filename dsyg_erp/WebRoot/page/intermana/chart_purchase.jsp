@@ -303,6 +303,7 @@
 	           	}
 		   	}
 		};
+		
 		function getPurchaseData6M() {
 //     		alert("采购6");
 		   	var rds = document.getElementsByName("mtype");
@@ -345,7 +346,16 @@
 		   			ajaxRequestData("getPurchaseData", fromDate, toDate, rds[i].value, "采购");
 	           }
 		    }
-		}
+		};
+
+		function addUserList() {
+			var theme1 = "";
+			var url = '<%=request.getContextPath()%>/chart/showUserSelectPage.action';
+			//strFlag=1采购单，strFlag=2销售单
+			url += "?strFieldno=" + theme1 + "&date=" + new Date();
+			
+			window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+		};
 
 		</script>
 		<!-- <script src="${pageContext.request.contextPath}/js/themes/gray.js"></script> -->
@@ -370,7 +380,10 @@
 		<input type="hidden" id="h2" value="<s:property value="series" />" />
 		<input type="hidden" id="h3" value="<s:property value="series_X" />" />
 		<input type="hidden" id="periodtype" value="<s:property value="periodtype" />" />
-		采购ID  <input type="text" name="handerList" id="handerList" value="0001,0002" /><BR>
+		采购ID  <input type="text" name="handerList" id="handerList" value="" />
+		<input class="input80" type="button" onclick="addUserList();" value="采购员检索" />
+		<BR>
+		
 		期间类型<input type="text" name="fromDate" id="fromDate" value="2015-01-01" />
 		<input type="text" name="toDate" id="toDate" value="2015-06-30" />
 		<input name="mtype" type="radio" id="radio1" value="1" checked>月</input>

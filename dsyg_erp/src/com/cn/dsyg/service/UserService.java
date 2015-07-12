@@ -51,4 +51,12 @@ public interface UserService {
 	 * @param user
 	 */
 	public void updateUser(UserDto user);
+	
+	/**
+	 * 翻页查询用户2
+	 * @param 
+	 */
+	public Page queryUserByPage(String fieldno, String keyword, String useridfrom,
+			String useridto, String status, Page page);
+
 }

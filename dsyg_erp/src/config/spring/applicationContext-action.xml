@@ -184,6 +184,10 @@
 		<property name="chartService">
 			<ref bean="chartService"/>
 		</property>
+		<property name="userService">
+			<ref bean="userService"/>
+		</property>
+		
 	</bean>
 
 	<!-- chart -->
