@@ -54,6 +54,14 @@
 			<result name="success">/page/download.jsp</result>
 		</action>
 		
+		<action name="exportWarehouserptInDetailAction" class="warehouserptAction" method="exportWarehouserptInDetailAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
+		<action name="exportWarehouserptOutDetailAction" class="warehouserptAction" method="exportWarehouserptOutDetailAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

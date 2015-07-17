@@ -196,8 +196,8 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 					//收货人
 					warehouse.setHandler(warehouserpt.getHandler());
 					warehouse.setRank(Constants.ROLE_RANK_OPERATOR);
-					//入库单数据状态=退货OR损毁
-					warehouse.setStatus(Constants.WAREHOUSE_STATUS_REFUND);
+					//入库单数据状态=预入出库确认
+					warehouse.setStatus(Constants.WAREHOUSE_STATUS_OK);
 					//备注
 					warehouse.setNote(warehouserpt.getNote());
 					

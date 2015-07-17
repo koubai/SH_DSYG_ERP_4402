@@ -141,8 +141,6 @@ public class SalesAction extends BaseAction {
 		try {
 			this.clearMessages();
 			addSalesDto = new SalesDto();
-			//==========================================测试数据，等客户页面整合时修改
-			addSalesDto.setCustomerid(1L);
 			//默认为当天
 			addSalesDto.setBookdate(DateUtil.dateToShortStr(new Date()));
 			//预入库时间默认为当天
@@ -182,8 +180,6 @@ public class SalesAction extends BaseAction {
 			
 			//清空数据
 			addSalesDto = new SalesDto();
-			//==========================================测试数据，等客户页面整合时修改
-			addSalesDto.setCustomerid(1L);
 			//默认为当天
 			addSalesDto.setBookdate(DateUtil.dateToShortStr(new Date()));
 			//预入库时间默认为当天

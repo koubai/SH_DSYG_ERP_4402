@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
@@ -103,6 +104,80 @@ public class CustomerAction extends BaseAction {
 	 * 控件ID
 	 */
 	private String strKey;
+	
+	//客户选择页面=================
+	//客户名
+	private String strSelectCustomerName;
+	//客户列表
+	private List<CustomerDto> listSelectCustomer;
+	//页码
+	private int selectStartIndex;
+	//翻页page
+	private Page selectPage;
+	//一页显示记录数
+	private Integer intSelectPageSize;
+	//客户选择页面=================
+	
+	//客户选择页面start
+	/**
+	 * 显示客户选择页面
+	 * @return
+	 */
+	public String showSelectCustomerAction() {
+		try {
+			this.clearMessages();
+			selectStartIndex = 0;
+			strSelectCustomerName = "";
+			//默认10条
+			intSelectPageSize = 10;
+			selectPage = new Page(intSelectPageSize);
+			//查询数据
+			querySelectCustomer();
+		} catch(Exception e) {
+			log.error("showSelectCustomerAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 客户查询（客户选择页面）
+	 * @return
+	 */
+	public String querySelectCustomerAction() {
+		try {
+			this.clearMessages();
+			selectStartIndex = 0;
+			//默认10条
+			if(intSelectPageSize == null) {
+				intSelectPageSize = 10;
+			}
+			selectPage = new Page(intSelectPageSize);
+			//查询数据
+			querySelectCustomer();
+		} catch(Exception e) {
+			log.error("querySelectCustomerAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页（客户选择页面）
+	 * @return
+	 */
+	public String turnSelectCustomerAction() {
+		try {
+			this.clearMessages();
+			//查询数据
+			querySelectCustomer();
+		} catch(Exception e) {
+			log.error("turnSelectCustomerAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	//客户选择页面end
 
 	/**
 	 * 显示客户页面
@@ -131,12 +206,12 @@ public class CustomerAction extends BaseAction {
 	 * 查询客户列表
 	 * @return
 	 */
-	public String queryEtbCustomerList() {
+	public String queryCustomerList() {
 		try {
 			this.clearMessages();
 			page = new Page();
 			startIndex = 0;
-			queryEtbCustomer();
+			queryCustomer();
 		} catch(Exception e) {
 			log.error(e);
 			return ERROR;
@@ -151,7 +226,7 @@ public class CustomerAction extends BaseAction {
 	public String turnEtbCustomerPage() {
 		try {
 			this.clearMessages();
-			queryEtbCustomer();
+			queryCustomer();
 		} catch(Exception e) {
 			log.error(e);
 			return ERROR;
@@ -163,7 +238,7 @@ public class CustomerAction extends BaseAction {
 	 * 翻页查询所有客户列表
 	 */
 	@SuppressWarnings("unchecked")
-	private void queryEtbCustomer() {
+	private void queryCustomer() {
 		listCustomer = new ArrayList<CustomerDto>();
 		if(page == null) {
 			page = new Page();
@@ -317,12 +392,30 @@ public class CustomerAction extends BaseAction {
 			delCustomerNo = "";
 			//刷新页面
 			startIndex = 0;
-			queryEtbCustomer();
+			queryCustomer();
 		} catch(Exception e) {
 			log.error("delEtbCustomerAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页查询客户列表（客户选择页面用）
+	 */
+	@SuppressWarnings("unchecked")
+	private void querySelectCustomer() {
+		listSelectCustomer = new ArrayList<CustomerDto>();
+		if(selectPage == null) {
+			selectPage = new Page(intSelectPageSize);
+		}
+		//翻页查询所有客户
+		this.selectPage.setStartIndex(selectStartIndex);
+		
+		selectPage = customerService.queryEtbCustomerByPage(selectPage, "", "", strSelectCustomerName);
+		listSelectCustomer = (List<CustomerDto>) selectPage.getItems();
+		
+		this.setSelectStartIndex(selectPage.getStartIndex());
 	}
 	
 	/**
@@ -500,5 +593,45 @@ public class CustomerAction extends BaseAction {
 
 	public void setCustomerService(CustomerService customerService) {
 		this.customerService = customerService;
+	}
+
+	public String getStrSelectCustomerName() {
+		return strSelectCustomerName;
+	}
+
+	public void setStrSelectCustomerName(String strSelectCustomerName) {
+		this.strSelectCustomerName = strSelectCustomerName;
+	}
+
+	public List<CustomerDto> getListSelectCustomer() {
+		return listSelectCustomer;
+	}
+
+	public void setListSelectCustomer(List<CustomerDto> listSelectCustomer) {
+		this.listSelectCustomer = listSelectCustomer;
+	}
+
+	public int getSelectStartIndex() {
+		return selectStartIndex;
+	}
+
+	public void setSelectStartIndex(int selectStartIndex) {
+		this.selectStartIndex = selectStartIndex;
+	}
+
+	public Page getSelectPage() {
+		return selectPage;
+	}
+
+	public void setSelectPage(Page selectPage) {
+		this.selectPage = selectPage;
+	}
+
+	public Integer getIntSelectPageSize() {
+		return intSelectPageSize;
+	}
+
+	public void setIntSelectPageSize(Integer intSelectPageSize) {
+		this.intSelectPageSize = intSelectPageSize;
 	}
 }

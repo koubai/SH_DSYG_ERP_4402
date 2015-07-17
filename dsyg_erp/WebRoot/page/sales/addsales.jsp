@@ -479,9 +479,9 @@
 	
 	//客户
 	function selectCustomer() {
-		//var url = "../supplier/showSelectSupplierAction.action";
-		//url += "?date=" + new Date();
-		//window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+		var url = "../customer/showSelectCustomerAction.action";
+		url += "?date=" + new Date();
+		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 	}
 	
 	function goList() {

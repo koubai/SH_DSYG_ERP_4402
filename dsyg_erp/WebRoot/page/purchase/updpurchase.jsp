@@ -462,6 +462,13 @@
 		}
 	}
 	
+	//供应商
+	function selectSupplier() {
+		var url = "../supplier/showSelectSupplierAction.action";
+		url += "?date=" + new Date();
+		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	}
+	
 	function goPurchaseList() {
 		window.location.href = "../purchase/queryPurchaseAction.action";
 	}
@@ -576,7 +583,7 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input id="agentCompBtn" class="input40" type="button" value="检索" onclick="" />
+										<input id="agentCompBtn" class="input40" type="button" value="检索" onclick="selectSupplier();" />
 									</div>
 									<div class="box1_right"></div>
 								</div>

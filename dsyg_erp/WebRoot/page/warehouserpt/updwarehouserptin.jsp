@@ -143,6 +143,11 @@
 		return true;
 	}
 	
+	function exportData() {
+		var id = ${updWarehouserptId};
+		window.location.href = "../warehouserpt/exportWarehouserptInDetailAction.action?strExportDetailId=" + id;
+	}
+	
 	function goBack() {
 		window.location.href = "../warehouserpt/queryWarehouserptInAction.action";
 	}
@@ -456,6 +461,15 @@
 									<div class="box1_left"></div>
 									<div class="box1_center">
 										<input class="input80" type="button" value="更新" onclick="upd();"/>
+									</div>
+									<div class="box1_right"></div>
+								</div>
+							</td>
+							<td>
+								<div class="btn">
+									<div class="box1_left"></div>
+									<div class="box1_center">
+										<input class="input80" type="button" value="导出" onclick="exportData();"/>
 									</div>
 									<div class="box1_right"></div>
 								</div>
