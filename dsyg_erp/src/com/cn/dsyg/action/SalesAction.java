@@ -14,7 +14,6 @@ import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.Dict01Dto;
-import com.cn.dsyg.dto.PurchaseItemDto;
 import com.cn.dsyg.dto.SalesDto;
 import com.cn.dsyg.dto.SalesItemDto;
 import com.cn.dsyg.service.Dict01Service;
@@ -251,6 +250,8 @@ public class SalesAction extends BaseAction {
 			this.clearMessages();
 			System.out.println("strProdoctid is: " + strProdoctid + " ,strCustomerid is:" + strCustomerid);
 			salesItemList = salesItemService.querySalesItemByProductid(strProdoctid, strCustomerid, 0, 9);
+			strProdoctid = "";
+			strCustomerid = "";
 			
 		} catch(Exception e) {
 			log.error("querySalesItemByProductid error:" + e);
