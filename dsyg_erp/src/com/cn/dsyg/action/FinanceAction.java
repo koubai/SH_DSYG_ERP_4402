@@ -136,8 +136,8 @@ public class FinanceAction extends BaseAction {
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
 			addFinanceDto.setCreateuid(username);
 			addFinanceDto.setUpdateuid(username);
-			financeService.insertFinance(addFinanceDto);
-			this.addActionMessage("添加成功！");
+			String no = financeService.insertFinance(addFinanceDto);
+			this.addActionMessage("添加成功！账目编号为：" + no);
 			addFinanceDto = new FinanceDto();
 			//默认收款
 			addFinanceDto.setMode("1");
@@ -217,25 +217,25 @@ public class FinanceAction extends BaseAction {
 	 */
 	private boolean checkData(FinanceDto finance) {
 		if(finance == null) {
-			this.addActionMessage("账目编号不能为空！");
+			this.addActionMessage("经手人不能为空！！");
 			return false;
 		}
-		if(StringUtil.isBlank(finance.getReceiptid())) {
-			this.addActionMessage("账目编号不能为空！");
-			return false;
-		}
+//		if(StringUtil.isBlank(finance.getReceiptid())) {
+//			this.addActionMessage("账目编号不能为空！");
+//			return false;
+//		}
 		if(StringUtil.isBlank(finance.getHandler())) {
 			this.addActionMessage("经手人不能为空！");
 			return false;
 		}
-		if(StringUtil.isBlank(finance.getInvoiceid())) {
-			this.addActionMessage("关联单据编号不能为空！");
-			return false;
-		}
-		if(StringUtil.isBlank(finance.getReceiptdate())) {
-			this.addActionMessage("单据日期不能为空！");
-			return false;
-		}
+//		if(StringUtil.isBlank(finance.getInvoiceid())) {
+//			this.addActionMessage("关联单据编号不能为空！");
+//			return false;
+//		}
+//		if(StringUtil.isBlank(finance.getReceiptdate())) {
+//			this.addActionMessage("单据日期不能为空！");
+//			return false;
+//		}
 		if(StringUtil.isBlank(finance.getTheme())) {
 			this.addActionMessage("请选择主题！");
 			return false;
@@ -244,14 +244,14 @@ public class FinanceAction extends BaseAction {
 			this.addActionMessage("请选择方式！");
 			return false;
 		}
-		if(StringUtil.isBlank(finance.getCustomername())) {
-			this.addActionMessage("对象不能为空！");
-			return false;
-		}
-		if(StringUtil.isBlank(finance.getCustomermanager())) {
-			this.addActionMessage("联系人不能为空！");
-			return false;
-		}
+//		if(StringUtil.isBlank(finance.getCustomername())) {
+//			this.addActionMessage("对象不能为空！");
+//			return false;
+//		}
+//		if(StringUtil.isBlank(finance.getCustomermanager())) {
+//			this.addActionMessage("联系人不能为空！");
+//			return false;
+//		}
 		if(finance.getAmount() == null) {
 			this.addActionMessage("金额合计不能为空！");
 			return false;

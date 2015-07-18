@@ -20,16 +20,6 @@
 		document.mainform.submit();
 	}
 	
-	function showUnit(id){
-		var strSupplierId = document.getElementById("strSupplierId").value;
-		//alert("供应商："+ supplierid + " 品名：" + tradename + " 采购价：" + purchaseprice);
-		
-		var url = '<%=request.getContextPath()%>/purchase/showProductPricePage.action';
-		//strFlag=1采购单，strFlag=2销售单
-		url += "?strProdoctid=" + id + "&strSupplierid=" + strSupplierId + "&strFlag=1" + "&date=" + new Date();
-		window.showModalDialog(url, window, "dialogheight:400px;dialogwidth:600px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-	}
-	
 	//给父页面添加记录
 	function addProduct() {
 		var obj = null;
@@ -432,7 +422,7 @@
 									</s:if>
 								</s:iterator>
 							</td>
-							<td><a href="#" onclick="showUnit('<s:property value="id"/>');"><s:property value="tradename"/></a></td>
+							<td><s:property value="tradename"/></td>
 							<td><s:property value="typeno"/></td>
 							<td>
 								<s:iterator id="colorList" value="colorList" status="st3">

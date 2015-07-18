@@ -27,16 +27,6 @@ public interface PurchaseItemDao {
 	public PurchaseItemDto queryPurchaseItemByID(String id);
 	
 	/**
-	 * 根据产品ID和供应商ID查询采购单货物
-	 * @param productid
-	 * @param supplierid
-	 * @param start
-	 * @param end
-	 * @return
-	 */
-	public List<PurchaseItemDto> queryPurchaseItemByProductid(String productid, String supplierid, int start, int end);
-	
-	/**
 	 * 根据采购单ID逻辑删除采购单货物
 	 * @param purchaseno
 	 * @param updateuid

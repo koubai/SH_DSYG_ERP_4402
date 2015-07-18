@@ -1,6 +1,9 @@
 package com.cn.dsyg.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
@@ -49,14 +52,30 @@ public class FinanceServiceImpl implements FinanceService {
 	}
 
 	@Override
-	public void insertFinance(FinanceDto finance) {
+	public String insertFinance(FinanceDto finance) {
+		String no = "";
+		String belongto = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG);
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String uuid = UUID.randomUUID().toString();
+		uuid = uuid.substring(uuid.length() - 8, uuid.length());
+		no = Constants.FINANCE_NO_PRE + belongto + sdf.format(date) + uuid;
+		
+		if(StringUtil.isBlank(finance.getReceiptdate())) {
+			finance.setReceiptdate(null);
+		}
 		finance.setRank(Constants.ROLE_RANK_OPERATOR);
-		finance.setBelongto(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG));
+		finance.setReceiptid(no);
+		finance.setBelongto(belongto);
 		financeDao.insertFinance(finance);
+		return no;
 	}
 
 	@Override
 	public void updateFinance(FinanceDto finance) {
+		if(StringUtil.isBlank(finance.getReceiptdate())) {
+			finance.setReceiptdate(null);
+		}
 		financeDao.updateFinance(finance);
 	}
 

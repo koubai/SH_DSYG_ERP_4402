@@ -104,6 +104,80 @@ public class DeliveryAction extends BaseAction {
 	 * 控件ID
 	 */
 	private String strKey;
+	
+	//快递选择页面=================
+	//快递名
+	private String strSelectDeliveryName;
+	//快递列表
+	private List<DeliveryDto> listSelectDelivery;
+	//页码
+	private int selectStartIndex;
+	//翻页page
+	private Page selectPage;
+	//一页显示记录数
+	private Integer intSelectPageSize;
+	//快递选择页面=================
+	
+	//快递选择页面start
+	/**
+	 * 显示快递选择页面
+	 * @return
+	 */
+	public String showSelectDeliveryAction() {
+		try {
+			this.clearMessages();
+			selectStartIndex = 0;
+			strSelectDeliveryName = "";
+			//默认10条
+			intSelectPageSize = 10;
+			selectPage = new Page(intSelectPageSize);
+			//查询数据
+			querySelectDelivery();
+		} catch(Exception e) {
+			log.error("showSelectDeliveryAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 快递查询（快递选择页面）
+	 * @return
+	 */
+	public String querySelectDeliveryAction() {
+		try {
+			this.clearMessages();
+			selectStartIndex = 0;
+			//默认10条
+			if(intSelectPageSize == null) {
+				intSelectPageSize = 10;
+			}
+			selectPage = new Page(intSelectPageSize);
+			//查询数据
+			querySelectDelivery();
+		} catch(Exception e) {
+			log.error("querySelectDeliveryAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页（快递选择页面）
+	 * @return
+	 */
+	public String turnSelectDeliveryAction() {
+		try {
+			this.clearMessages();
+			//查询数据
+			querySelectDelivery();
+		} catch(Exception e) {
+			log.error("turnSelectDeliveryAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	//快递选择页面end
 
 	/**
 	 * 显示快递页面
@@ -298,6 +372,23 @@ public class DeliveryAction extends BaseAction {
 	}
 	
 	/**
+	 * 翻页查询快递列表（快递选择页面用）
+	 */
+	@SuppressWarnings("unchecked")
+	private void querySelectDelivery() {
+		listSelectDelivery = new ArrayList<DeliveryDto>();
+		if(selectPage == null) {
+			selectPage = new Page(intSelectPageSize);
+		}
+		//翻页查询所有快递
+		this.selectPage.setStartIndex(selectStartIndex);
+		selectPage = deliveryService.queryEtbDeliveryByPage(selectPage, "", "", strSelectDeliveryName);
+		listSelectDelivery = (List<DeliveryDto>) selectPage.getItems();
+		
+		this.setSelectStartIndex(selectPage.getStartIndex());
+	}
+	
+	/**
 	 * 验证数据格式
 	 * @param delivery
 	 * @return
@@ -471,5 +562,45 @@ public class DeliveryAction extends BaseAction {
 
 	public void setDeliveryService(DeliveryService deliveryService) {
 		this.deliveryService = deliveryService;
+	}
+
+	public String getStrSelectDeliveryName() {
+		return strSelectDeliveryName;
+	}
+
+	public void setStrSelectDeliveryName(String strSelectDeliveryName) {
+		this.strSelectDeliveryName = strSelectDeliveryName;
+	}
+
+	public List<DeliveryDto> getListSelectDelivery() {
+		return listSelectDelivery;
+	}
+
+	public void setListSelectDelivery(List<DeliveryDto> listSelectDelivery) {
+		this.listSelectDelivery = listSelectDelivery;
+	}
+
+	public int getSelectStartIndex() {
+		return selectStartIndex;
+	}
+
+	public void setSelectStartIndex(int selectStartIndex) {
+		this.selectStartIndex = selectStartIndex;
+	}
+
+	public Page getSelectPage() {
+		return selectPage;
+	}
+
+	public void setSelectPage(Page selectPage) {
+		this.selectPage = selectPage;
+	}
+
+	public Integer getIntSelectPageSize() {
+		return intSelectPageSize;
+	}
+
+	public void setIntSelectPageSize(Integer intSelectPageSize) {
+		this.intSelectPageSize = intSelectPageSize;
 	}
 }

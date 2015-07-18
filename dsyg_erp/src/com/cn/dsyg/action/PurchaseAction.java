@@ -72,11 +72,6 @@ public class PurchaseAction extends BaseAction {
 	private PurchaseDto updPurchaseDto;
 	private List<PurchaseItemDto> updPurchaseItemList;
 	
-	//采购价用
-	private String strProdoctid;
-	private String strSupplierid;
-	private List<PurchaseItemDto> purchaseItemList;
-	
 	//数据导出
 	public String exportPurchaseList() {
 		try {
@@ -282,23 +277,6 @@ public class PurchaseAction extends BaseAction {
 			queryData();
 		} catch(Exception e) {
 			log.error("queryPurchaseAction error:" + e);
-			return ERROR;
-		}
-		return SUCCESS;
-	}
-	
-	/**
-	 * 查询采购价
-	 * @return
-	 */
-	public String showProductPricePage() {
-		try {
-			this.clearMessages();
-			System.out.println("strProdoctid is: " + strProdoctid + " ,strSupplierid is:" + strSupplierid);
-			purchaseItemList = purchaseItemService.queryPurchaseItemByProductid(strProdoctid, strSupplierid, 0, 9);
-			
-		} catch(Exception e) {
-			log.error("queryPurchaseItemByProductid error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -547,29 +525,5 @@ public class PurchaseAction extends BaseAction {
 
 	public void setUpdPurchaseDto(PurchaseDto updPurchaseDto) {
 		this.updPurchaseDto = updPurchaseDto;
-	}
-
-	public String getStrProdoctid() {
-		return strProdoctid;
-	}
-
-	public void setStrProdoctid(String strProdoctid) {
-		this.strProdoctid = strProdoctid;
-	}
-
-	public String getStrSupplierid() {
-		return strSupplierid;
-	}
-
-	public void setStrSupplierid(String strSupplierid) {
-		this.strSupplierid = strSupplierid;
-	}
-
-	public List<PurchaseItemDto> getPurchaseItemList() {
-		return purchaseItemList;
-	}
-
-	public void setPurchaseItemList(List<PurchaseItemDto> purchaseItemList) {
-		this.purchaseItemList = purchaseItemList;
 	}
 }

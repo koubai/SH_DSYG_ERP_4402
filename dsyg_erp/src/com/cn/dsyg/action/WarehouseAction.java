@@ -33,7 +33,6 @@ public class WarehouseAction extends BaseAction {
 	private String strTradename;
 	private String strTypeno;
 	private String strColor;
-	private String strCustomerId;
 	
 	//页码
 	private int startIndex;
@@ -221,13 +220,5 @@ public class WarehouseAction extends BaseAction {
 
 	public void setStrFieldno(String strFieldno) {
 		this.strFieldno = strFieldno;
-	}
-
-	public String getStrCustomerId() {
-		return strCustomerId;
-	}
-
-	public void setStrCustomerId(String strCustomerId) {
-		this.strCustomerId = strCustomerId;
 	}
 }

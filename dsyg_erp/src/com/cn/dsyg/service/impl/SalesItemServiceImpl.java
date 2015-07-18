@@ -48,10 +48,4 @@ public class SalesItemServiceImpl implements SalesItemService {
 	public void setSalesItemDao(SalesItemDao salesItemDao) {
 		this.salesItemDao = salesItemDao;
 	}
-
-	@Override
-	public List<SalesItemDto> querySalesItemByProductid(String productid,
-			String customerid, int start, int end) {
-		return salesItemDao.querySalesItemByProductid(productid, customerid, start, end);
-	}
 }

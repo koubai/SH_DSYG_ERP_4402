@@ -37,7 +37,7 @@ public interface FinanceService {
 	 * 新增记录
 	 * @param finance
 	 */
-	public void insertFinance(FinanceDto finance);
+	public String insertFinance(FinanceDto finance);
 	
 	/**
 	 * 修改记录

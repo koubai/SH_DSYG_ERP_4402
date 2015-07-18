@@ -3,7 +3,11 @@ package com.cn.dsyg.service.impl;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.cn.common.util.Constants;
 import com.cn.common.util.DateUtil;
@@ -85,6 +89,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//验证是否是同一个仓库，相同的预入库时间
 			String warehousename = "";
 			String plandate = "";
+			String suppid = "";
 			for(int i = 0; i < idList.length; i++) {
 				String id = idList[i];
 				if(StringUtil.isNotBlank(id)) {
@@ -97,20 +102,28 @@ public class WarehouseServiceImpl implements WarehouseService {
 						if(StringUtil.isBlank(plandate)) {
 							plandate = warehouse.getPlandate();
 						}
+						if(StringUtil.isBlank(suppid)) {
+							suppid = "" + warehouse.getSupplierid();
+						}
+						
 						if(!warehousename.equals(warehouse.getWarehousename())) {
 							throw new RuntimeException("不同仓库记录不能合并成一个入库单！");
 						}
-						if(!plandate.equals(warehouse.getPlandate())) {
-							throw new RuntimeException("不同预入库时间记录不能合并成一个入库单！");
+						if(!suppid.equals("" + warehouse.getSupplierid())) {
+							throw new RuntimeException("不同供应商的记录不能合并成一个入库单！");
 						}
+//						if(!plandate.equals(warehouse.getPlandate())) {
+//							throw new RuntimeException("不同预入库时间记录不能合并成一个入库单！");
+//						}
 					}
 				}
 			}
 			
 			//供应商ID
 			String supplierid = "";
-			//产品信息
-			String productinfo = "";
+			//产品合集
+			Map<String, Integer> quantityMap = new HashMap<String, Integer>();
+			Map<String, BigDecimal> amountMap = new HashMap<String, BigDecimal>();
 			//入库单号集合
 			String warehousenos = "";
 			int count = 0;
@@ -123,7 +136,15 @@ public class WarehouseServiceImpl implements WarehouseService {
 					warehouse = warehouseDao.queryWarehouseByID(id);
 					if(warehouse != null) {
 						supplierid = "" + warehouse.getSupplierid();
-						productinfo += warehouse.getProductid() + "," + warehouse.getQuantity() + "," + warehouse.getTaxamount() + "#";
+						
+						if(quantityMap.get(warehouse.getProductid()) != null) {
+							quantityMap.put(warehouse.getProductid(), quantityMap.get(warehouse.getProductid()) + warehouse.getQuantity());
+							amountMap.put(warehouse.getProductid(), amountMap.get(warehouse.getProductid()).add(warehouse.getTaxamount()));
+						} else {
+							quantityMap.put(warehouse.getProductid(), warehouse.getQuantity());
+							amountMap.put(warehouse.getProductid(), warehouse.getTaxamount());
+						}
+						
 						warehouse.setUpdateuid(userid);
 						warehouse.setApproverid(userid);
 						warehouse.setStatus(Constants.WAREHOUSE_STATUS_OK);
@@ -216,6 +237,15 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//主题
 			//warehouserpt.setTheme1(list.get(0).getTheme1());
 			//产品信息
+			String productinfo = "";
+
+
+			Set<?> key = quantityMap.keySet();
+			for (Iterator<?> it = key.iterator(); it.hasNext();) {
+				String k = (String) it.next();
+				productinfo += k + "," + quantityMap.get(k) + "," + amountMap.get(k) + "#";
+			}
+			
 			warehouserpt.setProductinfo(productinfo);
 			//入库单RPT日期
 			warehouserpt.setWarehousedate(DateUtil.dateToShortStr(date));
@@ -264,6 +294,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 			
 			//验证是否是同一个仓库，相同的预出库时间
 			String warehousename = "";
+			String supplierid = "";
 			String plandate = "";
 			for(int i = 0; i < idList.length; i++) {
 				String id = idList[i];
@@ -277,22 +308,31 @@ public class WarehouseServiceImpl implements WarehouseService {
 						if(StringUtil.isBlank(plandate)) {
 							plandate = warehouse.getPlandate();
 						}
+						if(StringUtil.isBlank(supplierid)) {
+							supplierid = "" + warehouse.getSupplierid();
+						}
+						
 						if(!warehousename.equals(warehouse.getWarehousename())) {
 							throw new RuntimeException("不同仓库记录不能合并成一个出库单！");
 						}
-						if(!plandate.equals(warehouse.getPlandate())) {
-							throw new RuntimeException("不同预出库时间记录不能合并成一个出库单！");
+						//对于出库单，这里记录的是客户ID
+						if(!supplierid.equals("" + warehouse.getSupplierid())) {
+							throw new RuntimeException("不同客户的记录不能合并成一个出库单！");
 						}
+//						if(!plandate.equals(warehouse.getPlandate())) {
+//							throw new RuntimeException("不同预出库时间记录不能合并成一个出库单！");
+//						}
 					}
 				}
 			}
 			
 			//客户ID
 			String customerid = "";
-			//产品信息
-			String productinfo = "";
 			//入库单号集合
 			String warehousenos = "";
+			//产品合集
+			Map<String, Integer> quantityMap = new HashMap<String, Integer>();
+			Map<String, BigDecimal> amountMap = new HashMap<String, BigDecimal>();
 			//int count = 0;
 			//含税金额合计
 			BigDecimal totaltaxamount = new BigDecimal(0);
@@ -303,12 +343,25 @@ public class WarehouseServiceImpl implements WarehouseService {
 					warehouse = warehouseDao.queryWarehouseByID(id);
 					if(warehouse != null) {
 						customerid = "" + warehouse.getSupplierid();
-						//发货单数量是负数，所以需要变成正的
-						if(warehouse.getQuantity() < 0) {
-							productinfo += warehouse.getProductid() + "," + (warehouse.getQuantity() * -1) + "," + warehouse.getTaxamount() + "#";
+						
+						if(quantityMap.get(warehouse.getProductid()) != null) {
+							//发货单数量是负数，所以需要变成正的
+							if(warehouse.getQuantity() < 0) {
+								quantityMap.put(warehouse.getProductid(), quantityMap.get(warehouse.getProductid()) + warehouse.getQuantity() * -1);
+							} else {
+								quantityMap.put(warehouse.getProductid(), warehouse.getQuantity());
+							}
+							amountMap.put(warehouse.getProductid(), amountMap.get(warehouse.getProductid()).add(warehouse.getTaxamount()));
 						} else {
-							productinfo += warehouse.getProductid() + "," + warehouse.getQuantity() + "," + warehouse.getTaxamount() + "#";
+							//发货单数量是负数，所以需要变成正的
+							if(warehouse.getQuantity() < 0) {
+								quantityMap.put(warehouse.getProductid(), warehouse.getQuantity() * -1);
+							} else {
+								quantityMap.put(warehouse.getProductid(), warehouse.getQuantity());
+							}
+							amountMap.put(warehouse.getProductid(), warehouse.getTaxamount());
 						}
+						
 						warehouse.setUpdateuid(userid);
 						warehouse.setApproverid(userid);
 						warehouse.setStatus(Constants.WAREHOUSE_STATUS_OK);
@@ -401,6 +454,12 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//主题
 			//warehouserpt.setTheme1(list.get(0).getTheme1());
 			//产品信息
+			String productinfo = "";
+			Set<?> key = quantityMap.keySet();
+			for (Iterator<?> it = key.iterator(); it.hasNext();) {
+				String k = (String) it.next();
+				productinfo += k + "," + quantityMap.get(k) + "," + amountMap.get(k) + "#";
+			}
 			warehouserpt.setProductinfo(productinfo);
 			//入库单RPT日期
 			warehouserpt.setWarehousedate(DateUtil.dateToShortStr(date));

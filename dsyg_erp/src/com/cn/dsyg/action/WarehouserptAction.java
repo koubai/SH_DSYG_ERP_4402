@@ -79,8 +79,6 @@ public class WarehouserptAction extends BaseAction {
 		try {
 			this.clearMessages();
 			updWarehouserptDto = warehouserptService.queryWarehouserptByID(updWarehouserptId);
-			//测试数据==============================
-			updWarehouserptDto.setExpressid("1");
 			//初期化字典数据
 			initDictList();
 		} catch(Exception e) {
@@ -252,8 +250,6 @@ public class WarehouserptAction extends BaseAction {
 		try {
 			this.clearMessages();
 			updWarehouserptDto = warehouserptService.queryWarehouserptByID(updWarehouserptId);
-			//测试数据==============================
-			updWarehouserptDto.setExpressid("1");
 			//初期化字典数据
 			initDictList();
 		} catch(Exception e) {

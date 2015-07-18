@@ -48,9 +48,6 @@
 		var status2 = $("#status2").val().trim();
 		
 		if(receiptid == "") {
-			alert("账目编号不能为空！");
-			$("#receiptid").focus();
-			return;
 		}
 		if(handler == "") {
 			alert("经手人不能为空！");
@@ -58,14 +55,8 @@
 			return;
 		}
 		if(invoiceid == "") {
-			alert("关联单据编号不能为空！");
-			$("#invoiceid").focus();
-			return;
 		}
 		if(tmpReceiptdate == "") {
-			alert("单据日期不能为空！");
-			$("#tmpReceiptdate").focus();
-			return;
 		}
 		if(theme == "") {
 			alert("请选择主题！");
@@ -78,14 +69,8 @@
 			return;
 		}
 		if(customername == "") {
-			alert("对象不能为空！");
-			$("#customername").focus();
-			return;
 		}
 		if(customermanager == "") {
-			alert("联系人不能为空！");
-			$("#customermanager").focus();
-			return;
 		}
 		
 		if(amount == "") {
@@ -168,7 +153,7 @@
 						</tr>
 						<tr>
 							<td align="right">
-								<label class="pdf10"><font color="red">*</font>账目编号</label>
+								<label class="pdf10"><font color="red"></font>账目编号</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>
@@ -190,7 +175,7 @@
 						</tr>
 						<tr>
 							<td align="right">
-								<label class="pdf10"><font color="red">*</font>关联单据编号</label>
+								<label class="pdf10"><font color="red"></font>关联单据编号</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>
@@ -200,7 +185,7 @@
 								<div class="box1_right"></div>
 							</td>
 							<td align="right">
-								<label class="pdf10"><font color="red">*</font>单据日期</label>
+								<label class="pdf10"><font color="red"></font>单据日期</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>
@@ -256,7 +241,7 @@
 						</tr>
 						<tr>
 							<td align="right">
-								<label class="pdf10"><font color="red">*</font>对象</label>
+								<label class="pdf10"><font color="red"></font>对象</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>
@@ -266,7 +251,7 @@
 								<div class="box1_right"></div>
 							</td>
 							<td align="right">
-								<label class="pdf10"><font color="red">*</font>联系人</label>
+								<label class="pdf10"><font color="red"></font>联系人</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>

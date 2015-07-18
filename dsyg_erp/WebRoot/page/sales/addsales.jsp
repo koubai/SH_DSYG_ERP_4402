@@ -407,7 +407,6 @@
 	
 	function addProduct() {
 		//销售主题
-		var customerid = $("#customerid").val().trim();
 		var theme1 = $("#theme1").val().trim();
 		if(theme1 == "") {
 			alert("请选择销售主题！");
@@ -419,7 +418,7 @@
 		
 		//这里需要查询库存数据
 		var url = '<%=request.getContextPath()%>/warehouse/showWarehouseProductSelectAction.action';
-		url += "?strFieldno=" + theme1 + "&strCustomerId=" + customerid + "&date=" + new Date();
+		url += "?strFieldno=" + theme1 + "&date=" + new Date();
 		
 		//window.open(url);
 		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");

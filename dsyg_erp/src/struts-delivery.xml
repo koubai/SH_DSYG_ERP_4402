@@ -42,6 +42,18 @@
 			<result name="checkerror">/page/delivery/deliverylist.jsp</result>
 		</action>
 		
+		<action name="showSelectDeliveryAction" class="deliveryAction" method="showSelectDeliveryAction">
+			<result name="*">/page/delivery/selectdelivery.jsp</result>
+		</action>
+		
+		<action name="querySelectDeliveryAction" class="deliveryAction" method="querySelectDeliveryAction">
+			<result name="*">/page/delivery/selectdelivery.jsp</result>
+		</action>
+		
+		<action name="turnSelectDeliveryAction" class="deliveryAction" method="turnSelectDeliveryAction">
+			<result name="*">/page/delivery/selectdelivery.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

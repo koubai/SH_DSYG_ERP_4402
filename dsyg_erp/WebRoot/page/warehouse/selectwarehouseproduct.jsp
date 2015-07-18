@@ -20,15 +20,6 @@
 		document.mainform.submit();
 	}
 	
-	function showUnit(id){
-		var strCustomerId = document.getElementById("strCustomerId").value;
-		var url = '<%=request.getContextPath()%>/sales/showProductSalesPricePage.action';
-		//strFlag=1采购单，strFlag=2销售单
-		//url += "?strProdoctid=" + id + "&strCustomerid=" + strCustomerId + "&strFlag=2" + "&date=" + new Date();
-		url += "?strProdoctid=" + id + "&strFlag=2" + "&date=" + new Date();
-		window.showModalDialog(url, window, "dialogheight:400px;dialogwidth:600px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-	}
-	
 	//给父页面添加记录
 	function addProduct() {
 		var obj = null;
@@ -337,7 +328,6 @@
 <s:form id="mainform" name="mainform" method="POST">
 	<s:hidden name="startIndex" id="startIndex"/>
 	<s:hidden name="intPageSize" id="intPageSize"/>
-	<s:hidden name="strCustomerId" id="strCustomerId"/>
 	<div id="container" style="width: 100%; height: 100%;">
 		<div class="searchbox">
 			<div class="box1">
@@ -429,7 +419,7 @@
 									</s:if>
 								</s:iterator>
 							</td>
-							<td><a href="#" onclick="showUnit('<s:property value="id"/>','<s:property value="supplierid"/>');"><s:property value="tradename"/></a></td>
+							<td><s:property value="tradename"/></td>
 							<td><s:property value="typeno"/></td>
 							<td>
 								<s:iterator id="colorList" value="colorList" status="st3">

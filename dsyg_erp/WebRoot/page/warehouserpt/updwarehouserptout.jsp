@@ -149,6 +149,13 @@
 		window.location.href = "../warehouserpt/exportWarehouserptOutDetailAction.action?strExportDetailId=" + id;
 	}
 	
+	//快递
+	function selectDelivery() {
+		var url = "../delivery/showSelectDeliveryAction.action";
+		url += "?date=" + new Date();
+		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	}
+	
 	function goBack() {
 		window.location.href = "../warehouserpt/queryWarehouserptOutAction.action";
 	}
@@ -204,6 +211,13 @@
 									<s:textfield name="updWarehouserptDto.expressname" id="expressname" cssStyle="width:120px;" maxlength="16" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
+								<div class="btn">
+									<div class="box1_left"></div>
+									<div class="box1_center">
+										<input class="input40" type="button" value="检索" onclick="selectDelivery();" />
+									</div>
+									<div class="box1_right"></div>
+								</div>
 							</td>
 							<td align="right">
 							</td>

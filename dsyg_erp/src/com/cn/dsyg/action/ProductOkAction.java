@@ -140,8 +140,10 @@ public class ProductOkAction extends BaseAction {
 		initDictList();
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		page = warehouseService.queryWarehouseOkByPage("" + Constants.WAREHOUSE_TYPE_IN,
+		page = warehouseService.queryWarehouseOkByPage("",
 				strTheme, strTradename, strTypeno, strColor, strWarehousename, "", page);
+//		page = warehouseService.queryWarehouseOkByPage("" + Constants.WAREHOUSE_TYPE_IN,
+//				strTheme, strTradename, strTypeno, strColor, strWarehousename, "", page);
 		warehouseOkList = (List<WarehouseOkDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
