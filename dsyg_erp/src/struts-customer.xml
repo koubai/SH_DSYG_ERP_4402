@@ -59,6 +59,18 @@
 			<result name="checkerror">/page/customer/customerlist.jsp</result>
 		</action>
 		
+		<action name="showSelectCustomerAction" class="customerAction" method="showSelectCustomerAction">
+			<result name="*">/page/customer/selectcustomer.jsp</result>
+		</action>
+		
+		<action name="querySelectCustomerAction" class="customerAction" method="querySelectCustomerAction">
+			<result name="*">/page/customer/selectcustomer.jsp</result>
+		</action>
+		
+		<action name="turnSelectCustomerAction" class="customerAction" method="turnSelectCustomerAction">
+			<result name="*">/page/customer/selectcustomer.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>
