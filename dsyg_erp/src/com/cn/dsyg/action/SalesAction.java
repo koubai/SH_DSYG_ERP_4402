@@ -14,6 +14,7 @@ import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.Dict01Dto;
+import com.cn.dsyg.dto.PurchaseItemDto;
 import com.cn.dsyg.dto.SalesDto;
 import com.cn.dsyg.dto.SalesItemDto;
 import com.cn.dsyg.service.Dict01Service;
@@ -69,6 +70,11 @@ public class SalesAction extends BaseAction {
 	private String updSalesId;
 	private SalesDto updSalesDto;
 	private List<SalesItemDto> updSalesItemList;
+	
+	//销售价用
+	private String strProdoctid;
+	private String strCustomerid;
+	private List<SalesItemDto> salesItemList;
 
 	/**
 	 * 显示更新销售单页面
@@ -235,6 +241,23 @@ public class SalesAction extends BaseAction {
 			queryData();
 		} catch(Exception e) {
 			log.error("querySalesAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询销售价
+	 * @return
+	 */
+	public String showProductSalesPricePage() {
+		try {
+			this.clearMessages();
+			System.out.println("strProdoctid is: " + strProdoctid + " ,strCustomerid is:" + strCustomerid);
+			salesItemList = salesItemService.querySalesItemByProductid(strProdoctid, strCustomerid, 0, 9);
+			
+		} catch(Exception e) {
+			log.error("querySalesItemByProductid error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -479,5 +502,29 @@ public class SalesAction extends BaseAction {
 
 	public void setUpdSalesItemList(List<SalesItemDto> updSalesItemList) {
 		this.updSalesItemList = updSalesItemList;
+	}
+
+	public String getStrProdoctid() {
+		return strProdoctid;
+	}
+
+	public void setStrProdoctid(String strProdoctid) {
+		this.strProdoctid = strProdoctid;
+	}
+
+	public String getStrCustomerid() {
+		return strCustomerid;
+	}
+
+	public void setStrCustomerid(String strCustomerid) {
+		this.strCustomerid = strCustomerid;
+	}
+
+	public List<SalesItemDto> getSalesItemList() {
+		return salesItemList;
+	}
+
+	public void setSalesItemList(List<SalesItemDto> salesItemList) {
+		this.salesItemList = salesItemList;
 	}
 }
