@@ -84,6 +84,11 @@ public class SalesDto extends BaseAction {
 	 * 销售
 	 */
 	private String handler;
+	
+	/**
+	 * 销售名字（显示用）
+	 */
+	private String handlername;
 
 	/**
 	 * 订单日期
@@ -124,6 +129,11 @@ public class SalesDto extends BaseAction {
 	 * 确认者
 	 */
 	private String approverid;
+	
+	/**
+	 * 确认者名字（显示用）
+	 */
+	private String approvername;
 	
 	/**
 	 * 销售单对应的产品ID（逗号分割）
@@ -538,5 +548,21 @@ public class SalesDto extends BaseAction {
 
 	public void setPlandate(String plandate) {
 		this.plandate = plandate;
+	}
+
+	public String getHandlername() {
+		return handlername;
+	}
+
+	public void setHandlername(String handlername) {
+		this.handlername = handlername;
+	}
+
+	public String getApprovername() {
+		return approvername;
+	}
+
+	public void setApprovername(String approvername) {
+		this.approvername = approvername;
 	}
 }

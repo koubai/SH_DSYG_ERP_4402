@@ -198,7 +198,7 @@
 									</td>
 									<td><s:property value="warehouse"/></td>
 									<td><s:property value="customername"/></td>
-									<td><s:property value="handler"/></td>
+									<td><s:property value="handlername"/></td>
 									<td><s:property value="showBookdate"/></td>
 									<td><s:property value="amount"/></td>
 									<td><s:property value="taxamount"/></td>

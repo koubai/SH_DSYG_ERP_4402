@@ -212,7 +212,7 @@
 									</td>
 									<td><s:property value="customername"/></td>
 									<td><s:property value="customermanager"/></td>
-									<td><s:property value="handler"/></td>
+									<td><s:property value="handlername"/></td>
 									<td><s:property value="showReceiptdate"/></td>
 									<td><s:property value="amount"/></td>
 									<td><s:property value="showAccountdate"/></td>

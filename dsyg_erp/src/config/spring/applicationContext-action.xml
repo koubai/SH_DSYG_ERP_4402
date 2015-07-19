@@ -2,6 +2,13 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
 
+	<!-- user -->
+	<bean id="userAction" class="com.cn.dsyg.action.UserAction" scope="session">
+		<property name="userService">
+			<ref bean="userService" />
+		</property>
+	</bean>
+
 	<!-- 快递 -->
 	<bean id="deliveryAction" class="com.cn.dsyg.action.DeliveryAction" scope="session">
 		<property name="deliveryService">

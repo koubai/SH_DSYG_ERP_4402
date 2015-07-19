@@ -462,6 +462,13 @@
 		}
 	}
 	
+	//用户
+	function selectUser() {
+		var url = "../user/showSelectUserAction.action";
+		url += "?date=" + new Date();
+		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	}
+	
 	//供应商
 	function selectSupplier() {
 		var url = "../supplier/showSelectSupplierAction.action";
@@ -499,6 +506,9 @@
 				<s:hidden name="updPurchaseDto.status" id="status"></s:hidden>
 				
 				<s:hidden name="updPurchaseDto.plandate" id="plandate"></s:hidden>
+				
+				<s:hidden name="updPurchaseDto.handler" id="handler"></s:hidden>
+				<s:hidden name="updPurchaseDto.handlername" id="handlername"></s:hidden>
 				
 				<div class="searchbox update" style="height:0px;">
 					<table id="purchaseItemTable" style="display: none;">
@@ -538,9 +548,16 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updPurchaseDto.handler" id="handler" cssStyle="width:300px;" maxlength="16" theme="simple"></s:textfield>
+									<input type="text" id="tmphandlername" disabled="disabled" style="width:285px;" value="<s:property value="updPurchaseDto.handlername"/>" />
 								</div>
 								<div class="box1_right"></div>
+								<div class="btn">
+									<div class="box1_left"></div>
+									<div class="box1_center">
+										<input class="input40" type="button" value="检索" onclick="selectUser();" />
+									</div>
+									<div class="box1_right"></div>
+								</div>
 							</td>
 						</tr>
 						<tr>

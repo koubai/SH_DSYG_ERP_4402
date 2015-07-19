@@ -14,11 +14,13 @@ import com.cn.dsyg.dao.Dict01Dao;
 import com.cn.dsyg.dao.FinanceDao;
 import com.cn.dsyg.dao.SalesDao;
 import com.cn.dsyg.dao.SalesItemDao;
+import com.cn.dsyg.dao.UserDao;
 import com.cn.dsyg.dao.WarehouseDao;
 import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.FinanceDto;
 import com.cn.dsyg.dto.SalesDto;
 import com.cn.dsyg.dto.SalesItemDto;
+import com.cn.dsyg.dto.UserDto;
 import com.cn.dsyg.dto.WarehouseDto;
 import com.cn.dsyg.service.SalesService;
 
@@ -35,6 +37,7 @@ public class SalesServiceImpl implements SalesService {
 	private WarehouseDao warehouseDao;
 	private Dict01Dao dict01Dao;
 	private FinanceDao financeDao;
+	private UserDao userDao;
 	
 	@Override
 	public Page queryFinanceSalesByPage(String bookdateLow,
@@ -50,6 +53,14 @@ public class SalesServiceImpl implements SalesService {
 		//翻页查询记录
 		List<SalesDto> list = salesDao.queryFinanceSalesByPage(bookdateLow, bookdateHigh, status,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		if(list != null && list.size() > 0) {
+			for(SalesDto sales : list) {
+				UserDto user = userDao.queryUserByID(sales.getHandler());
+				if(user != null) {
+					sales.setHandlername(user.getUsername());
+				}
+			}
+		}
 		page.setItems(list);
 		return page;
 	}
@@ -122,6 +133,14 @@ public class SalesServiceImpl implements SalesService {
 		//翻页查询记录
 		List<SalesDto> list = salesDao.querySalesByPage(bookdateLow, bookdateHigh,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		if(list != null && list.size() > 0) {
+			for(SalesDto sales : list) {
+				UserDto user = userDao.queryUserByID(sales.getHandler());
+				if(user != null) {
+					sales.setHandlername(user.getUsername());
+				}
+			}
+		}
 		page.setItems(list);
 		return page;
 	}
@@ -287,7 +306,14 @@ public class SalesServiceImpl implements SalesService {
 
 	@Override
 	public SalesDto querySalesByID(String id) {
-		return salesDao.querySalesByID(id);
+		SalesDto sales = salesDao.querySalesByID(id);
+		if(sales != null) {
+			UserDto user = userDao.queryUserByID(sales.getHandler());
+			if(user != null) {
+				sales.setHandlername(user.getUsername());
+			}
+		}
+		return sales;
 	}
 
 	@Override
@@ -343,5 +369,13 @@ public class SalesServiceImpl implements SalesService {
 
 	public void setFinanceDao(FinanceDao financeDao) {
 		this.financeDao = financeDao;
+	}
+
+	public UserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
 	}
 }

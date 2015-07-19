@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="user" extends="struts-erp" namespace="/user">
+	
+		<action name="showSelectUserAction" class="userAction" method="showSelectUserAction">
+			<result name="*">/page/user/selectuser.jsp</result>
+		</action>
+		
+		<action name="querySelectUserAction" class="userAction" method="querySelectUserAction">
+			<result name="*">/page/user/selectuser.jsp</result>
+		</action>
+		
+		<action name="turnSelectUserAction" class="userAction" method="turnSelectUserAction">
+			<result name="*">/page/user/selectuser.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

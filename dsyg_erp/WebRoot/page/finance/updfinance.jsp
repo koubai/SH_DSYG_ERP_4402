@@ -124,6 +124,13 @@
 		}
 	}
 	
+	//用户
+	function selectUser() {
+		var url = "../user/showSelectUserAction.action";
+		url += "?date=" + new Date();
+		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	}
+	
 	function goBack() {
 		window.location.href = "../finance/queryFinanceAction.action";
 	}
@@ -146,6 +153,10 @@
 				<s:hidden name="updFinanceDto.accountdate" id="accountdate"></s:hidden>
 				<s:hidden name="updFinanceDto.financetype" id="financetype"></s:hidden>
 				<s:hidden name="updFinanceDto.status" id="status"></s:hidden>
+				
+				<s:hidden name="updFinanceDto.handler" id="handler"></s:hidden>
+				<s:hidden name="updFinanceDto.handlername" id="handlername"></s:hidden>
+				
 				<div class="searchbox update" style="height:0px;">
 					<table width="100%" border="0" cellpadding="5" cellspacing="0">
 						<tr>
@@ -168,9 +179,16 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updFinanceDto.handler" id="handler" cssStyle="width:300px;" maxlength="16" theme="simple"></s:textfield>
+									<input type="text" id="tmphandlername" disabled="disabled" style="width:285px;" value="<s:property value="updFinanceDto.handlername"/>" />
 								</div>
 								<div class="box1_right"></div>
+								<div class="btn">
+									<div class="box1_left"></div>
+									<div class="box1_center">
+										<input class="input40" type="button" value="检索" onclick="selectUser();" />
+									</div>
+									<div class="box1_right"></div>
+								</div>
 							</td>
 						</tr>
 						<tr>

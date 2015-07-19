@@ -1,8 +1,6 @@
 package com.cn.dsyg.dao;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.cn.dsyg.dto.ProductDto;
 import com.cn.dsyg.dto.UserDto;

@@ -80,6 +80,11 @@ public class FinanceDto extends BaseDto {
 	 * 负责人
 	 */
 	private String handler;
+	
+	/**
+	 * 负责人名字（显示用）
+	 */
+	private String handlername;
 
 	/**
 	 * 确认者
@@ -505,6 +510,14 @@ public class FinanceDto extends BaseDto {
 
 	public void setMode(String mode) {
 		this.mode = mode;
+	}
+
+	public String getHandlername() {
+		return handlername;
+	}
+
+	public void setHandlername(String handlername) {
+		this.handlername = handlername;
 	}
 
 

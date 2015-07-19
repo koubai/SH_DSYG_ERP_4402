@@ -89,6 +89,11 @@ public class PurchaseDto extends BaseAction {
 	 * 采购单经手人
 	 */
 	private String handler;
+	
+	/**
+	 * 经手人名字（显示用）
+	 */
+	private String handlername;
 
 	/**
 	 * 采购日期
@@ -129,6 +134,11 @@ public class PurchaseDto extends BaseAction {
 	 * 确认者
 	 */
 	private String approverid;
+	
+	/**
+	 * 确认者名字（显示用）
+	 */
+	private String approvername;
 	
 	/**
 	 * 采购单对应的产品ID（逗号分割）
@@ -551,5 +561,21 @@ public class PurchaseDto extends BaseAction {
 
 	public void setPlandate(String plandate) {
 		this.plandate = plandate;
+	}
+
+	public String getHandlername() {
+		return handlername;
+	}
+
+	public void setHandlername(String handlername) {
+		this.handlername = handlername;
+	}
+
+	public String getApprovername() {
+		return approvername;
+	}
+
+	public void setApprovername(String approvername) {
+		this.approvername = approvername;
 	}
 }

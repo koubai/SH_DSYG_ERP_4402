@@ -10,7 +10,9 @@ import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.FinanceDao;
+import com.cn.dsyg.dao.UserDao;
 import com.cn.dsyg.dto.FinanceDto;
+import com.cn.dsyg.dto.UserDto;
 import com.cn.dsyg.service.FinanceService;
 
 /**
@@ -22,6 +24,7 @@ import com.cn.dsyg.service.FinanceService;
 public class FinanceServiceImpl implements FinanceService {
 	
 	private FinanceDao financeDao;
+	private UserDao userDao;
 
 	@Override
 	public Page queryFinanceByPage(String status, String financetype,
@@ -42,13 +45,28 @@ public class FinanceServiceImpl implements FinanceService {
 		//翻页查询记录
 		List<FinanceDto> list = financeDao.queryFinanceByPage(status, financetype, invoiceid, receiptid, customerid, receiptdateLow, receiptdateHigh,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		if(list != null && list.size() > 0) {
+			for(FinanceDto finance : list) {
+				UserDto user = userDao.queryUserByID(finance.getHandler());
+				if(user != null) {
+					finance.setHandlername(user.getUsername());
+				}
+			}
+		}
 		page.setItems(list);
 		return page;
 	}
 
 	@Override
 	public FinanceDto queryFinanceByID(String id) {
-		return financeDao.queryFinanceByID(id);
+		FinanceDto finance = financeDao.queryFinanceByID(id);
+		if(finance != null) {
+			UserDto user = userDao.queryUserByID(finance.getHandler());
+			if(user != null) {
+				finance.setHandlername(user.getUsername());
+			}
+		}
+		return finance;
 	}
 
 	@Override
@@ -85,5 +103,13 @@ public class FinanceServiceImpl implements FinanceService {
 
 	public void setFinanceDao(FinanceDao financeDao) {
 		this.financeDao = financeDao;
+	}
+
+	public UserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
 	}
 }

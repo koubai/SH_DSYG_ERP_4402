@@ -14,11 +14,13 @@ import com.cn.dsyg.dao.Dict01Dao;
 import com.cn.dsyg.dao.FinanceDao;
 import com.cn.dsyg.dao.PurchaseDao;
 import com.cn.dsyg.dao.PurchaseItemDao;
+import com.cn.dsyg.dao.UserDao;
 import com.cn.dsyg.dao.WarehouseDao;
 import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.FinanceDto;
 import com.cn.dsyg.dto.PurchaseDto;
 import com.cn.dsyg.dto.PurchaseItemDto;
+import com.cn.dsyg.dto.UserDto;
 import com.cn.dsyg.dto.WarehouseDto;
 import com.cn.dsyg.service.PurchaseService;
 
@@ -35,6 +37,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	private WarehouseDao warehouseDao;
 	private Dict01Dao dict01Dao;
 	private FinanceDao financeDao;
+	private UserDao userDao;
 	
 	/**
 	 * 翻页查询满足条件的采购数据，然后等
@@ -62,6 +65,14 @@ public class PurchaseServiceImpl implements PurchaseService {
 		//翻页查询记录
 		List<PurchaseDto> list = purchaseDao.queryFinancePurchaseByPage(purchasedateLow, purchasedateHigh, status,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		if(list != null && list.size() > 0) {
+			for(PurchaseDto purchase : list) {
+				UserDto user = userDao.queryUserByID(purchase.getHandler());
+				if(user != null) {
+					purchase.setHandlername(user.getUsername());
+				}
+			}
+		}
 		page.setItems(list);
 		return page;
 	}
@@ -80,13 +91,28 @@ public class PurchaseServiceImpl implements PurchaseService {
 		//翻页查询记录
 		List<PurchaseDto> list = purchaseDao.queryPurchaseByPage(purchasedateLow, purchasedateHigh,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		if(list != null && list.size() > 0) {
+			for(PurchaseDto purchase : list) {
+				UserDto user = userDao.queryUserByID(purchase.getHandler());
+				if(user != null) {
+					purchase.setHandlername(user.getUsername());
+				}
+			}
+		}
 		page.setItems(list);
 		return page;
 	}
 
 	@Override
 	public PurchaseDto queryPurchaseByID(String id) {
-		return purchaseDao.queryPurchaseByID(id);
+		PurchaseDto purchase = purchaseDao.queryPurchaseByID(id);
+		if(purchase != null) {
+			UserDto user = userDao.queryUserByID(purchase.getHandler());
+			if(user != null) {
+				purchase.setHandlername(user.getUsername());
+			}
+		}
+		return purchase;
 	}
 
 	@Override
@@ -349,5 +375,13 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 	public void setFinanceDao(FinanceDao financeDao) {
 		this.financeDao = financeDao;
+	}
+
+	public UserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
 	}
 }

@@ -168,7 +168,7 @@
 									</td>
 									<td><s:property value="warehouse"/></td>
 									<td><s:property value="suppliername"/></td>
-									<td><s:property value="handler"/></td>
+									<td><s:property value="handlername"/></td>
 									<td><s:property value="showPurchasedate"/></td>
 									<td><s:property value="totalamount"/></td>
 									<td><s:property value="taxamount"/></td>
