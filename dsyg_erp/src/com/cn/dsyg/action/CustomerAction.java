@@ -206,12 +206,12 @@ public class CustomerAction extends BaseAction {
 	 * 查询客户列表
 	 * @return
 	 */
-	public String queryCustomerList() {
+	public String queryEtbCustomerList() {
 		try {
 			this.clearMessages();
 			page = new Page();
 			startIndex = 0;
-			queryCustomer();
+			queryEtbCustomer();
 		} catch(Exception e) {
 			log.error(e);
 			return ERROR;
@@ -226,7 +226,7 @@ public class CustomerAction extends BaseAction {
 	public String turnEtbCustomerPage() {
 		try {
 			this.clearMessages();
-			queryCustomer();
+			queryEtbCustomer();
 		} catch(Exception e) {
 			log.error(e);
 			return ERROR;
@@ -238,7 +238,7 @@ public class CustomerAction extends BaseAction {
 	 * 翻页查询所有客户列表
 	 */
 	@SuppressWarnings("unchecked")
-	private void queryCustomer() {
+	private void queryEtbCustomer() {
 		listCustomer = new ArrayList<CustomerDto>();
 		if(page == null) {
 			page = new Page();
@@ -392,7 +392,7 @@ public class CustomerAction extends BaseAction {
 			delCustomerNo = "";
 			//刷新页面
 			startIndex = 0;
-			queryCustomer();
+			queryEtbCustomer();
 		} catch(Exception e) {
 			log.error("delEtbCustomerAction error:" + e);
 			return ERROR;

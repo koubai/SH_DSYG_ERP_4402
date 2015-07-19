@@ -10,7 +10,7 @@ import com.cn.common.dto.BaseDto;
  */
 public class RoleDto extends BaseDto {
 
-	private static final long serialVersionUID = -2632758271767170193L;
+	private static final long serialVersionUID = 5205855868740308990L;
 
 	/**
 	 * 角色ID

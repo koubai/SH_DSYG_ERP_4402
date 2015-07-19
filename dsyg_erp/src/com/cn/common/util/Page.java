@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Page implements java.io.Serializable {
 
-	private static final long serialVersionUID = 4401455863657857560L;
+	private static final long serialVersionUID = -6781459633479234382L;
 	// 页数据条数，默认为10条
 	public static final int PAGESIZE = 10;
 	// 当前页记录数

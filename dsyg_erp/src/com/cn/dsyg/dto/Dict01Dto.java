@@ -10,7 +10,7 @@ import com.cn.common.dto.BaseDto;
  */
 public class Dict01Dto extends BaseDto {
 
-	private static final long serialVersionUID = -4530468223912122242L;
+	private static final long serialVersionUID = 6905706797159051998L;
 
 	/**
 	 * ID

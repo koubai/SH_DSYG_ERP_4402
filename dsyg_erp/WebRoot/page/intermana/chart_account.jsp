@@ -142,7 +142,7 @@
 //		                alert("sum_high_profits:" + sum_high_profits);
 		             }
 	    		    col = row.insertCell(w+1);   
-	                col.innerHTML = "<style>strong{float: right;}</style><strong1>"+ sum.toString() +"</strong1>";
+	                col.innerHTML = "<style>strong{float: right;}</style><strong1>"+ sum.toFixed(2).toString() +"</strong1>";
 		        });		        
 				row = x.insertRow(row_no+1);
 	    		col = row.insertCell(0);                
@@ -153,20 +153,20 @@
 	            col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>毛利</strong2>";
 	            for (var j=0; j< high_profits.length; j++) {
 	    		    col = row.insertCell(j+1);   
-	                col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+high_profits[j].toString()+"</strong2>";
+	                col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+high_profits[j].toFixed(2).toString()+"</strong2>";
 	            }             
     		    col = row.insertCell(j+1);   
-                col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+sum_high_profits.toString()+"</strong2>";
+                col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+sum_high_profits.toFixed(2).toString()+"</strong2>";
 				row_no++;
 				row = x.insertRow(row_no+1); 
 	    		col = row.insertCell(0);                
 	            col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>净利</strong2>";
 	            for (var v=0; v< detail_profits.length; v++) {
 	    		    col = row.insertCell(v+1);   
-	                col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+detail_profits[v].toString()+"</strong2>";
+	                col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+detail_profits[v].toFixed(2).toString()+"</strong2>";
 	            }             
     		    col = row.insertCell(j+1);   
-                col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+sum_detail_profits.toString()+"</strong2>";
+                col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+sum_detail_profits.toFixed(2).toString()+"</strong2>";
 
 			}
 	    };  

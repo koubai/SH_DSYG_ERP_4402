@@ -19,7 +19,8 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
  */
 public class LoginInterceptor extends AbstractInterceptor {
 
-	private static final long serialVersionUID = 1165331167415902384L;
+	private static final long serialVersionUID = -5241877991107298064L;
+
 	private static final Logger log = LogManager.getLogger(LoginInterceptor.class);
 
 	@SuppressWarnings("unchecked")

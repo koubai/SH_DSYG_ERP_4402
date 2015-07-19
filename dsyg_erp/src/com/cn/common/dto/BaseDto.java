@@ -9,4 +9,5 @@ package com.cn.common.dto;
 public class BaseDto implements java.io.Serializable {
 
 	private static final long serialVersionUID = -2606144162112576634L;
+
 }

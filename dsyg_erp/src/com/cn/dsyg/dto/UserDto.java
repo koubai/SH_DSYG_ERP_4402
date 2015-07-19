@@ -10,7 +10,7 @@ import com.cn.common.dto.BaseDto;
  */
 public class UserDto extends BaseDto {
 
-	private static final long serialVersionUID = -4779417675686140812L;
+	private static final long serialVersionUID = -3957879938440024040L;
 
 	/**
 	 * 用户登录ID（主键）
