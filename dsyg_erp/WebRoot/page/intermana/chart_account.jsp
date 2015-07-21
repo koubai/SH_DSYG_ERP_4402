@@ -428,7 +428,7 @@
 			<input type="hidden" id="h2" value="<s:property value="series" />" />
 			<input type="hidden" id="h3" value="<s:property value="series_X" />" />
 			<input type="hidden" id="periodtype" value="<s:property value="periodtype" />" />
-			会计ID  <input type="text" name="handerList" id="handerList" value="0001,0002" /><BR>
+			会计ID  <input type="text" name="handerList" id="handerList" value="" /><BR>
 			期间类型<input type="text" name="fromDate" id="fromDate" value="2015-01-01" />
 			<input type="text" name="toDate" id="toDate" value="2015-06-30" />
 			<input name="mtype" type="radio" id="radio1" value="1" checked>月</input>

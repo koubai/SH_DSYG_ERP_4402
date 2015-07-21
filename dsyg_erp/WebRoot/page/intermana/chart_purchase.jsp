@@ -10,6 +10,7 @@
 		<!--<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>-->
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/highcharts.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>
 		
 		<!-- 2. Add the JavaScript to initialize the chart on document ready -->
 		<script type="text/javascript">
@@ -118,7 +119,8 @@
 			X_data = get_X_Data(fromDate, toDate, dur_type);			
 //			alert("type: " + dur_type + " from_date:"+ fromDate+ " to_date:"+ toDate);		
 			
-			var handerList=document.getElementById('handerList').value;
+//			var handerList=document.getElementById('handerList').value;
+			var handerList = $("#handerList").val().trim();
 			if( handerList== null) {
 				handerList="";
 			}
@@ -380,18 +382,30 @@
 		<input type="hidden" id="h2" value="<s:property value="series" />" />
 		<input type="hidden" id="h3" value="<s:property value="series_X" />" />
 		<input type="hidden" id="periodtype" value="<s:property value="periodtype" />" />
-		采购ID  <input type="text" name="handerList" id="handerList" value="" />
-		<input class="input80" type="button" onclick="addUserList();" value="采购员检索" />
-		<BR>
-		
-		期间类型<input type="text" name="fromDate" id="fromDate" value="2015-01-01" />
-		<input type="text" name="toDate" id="toDate" value="2015-06-30" />
-		<input name="mtype" type="radio" id="radio1" value="1" checked>月</input>
-		<input name="mtype" type="radio" id="radio2" value="2" >季</input>
-		<input name="mtype" type="radio" id="radio3" value="3" >年</input>
-		<input type="button" value="采购查询" onclick="ck();" />
-		<BR>
-		
+		<table width="50%" border="0" cellpadding="5" cellspacing="0">
+			<tr>
+				<td>采购ID</td>
+				<td><input type="text" name="handerList" id="handerList" value="" /></td>
+				<td><input class="input80" type="button" onclick="addUserList();" value="采购员检索" /></td>
+				<td></td>
+			</tr>
+			<tr>		
+				<td>期间类型</td>
+				<td><input type="text" name="fromDate" id="fromDate" value="" />
+				<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('fromDate'));"></a>
+				</td>
+				<td>
+				<input type="text" name="toDate" id="toDate" value="" />
+				<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('toDate'));"></a>
+				</td>
+				<td>
+				<input name="mtype" type="radio" id="radio1" value="1" checked>月</input>
+				<input name="mtype" type="radio" id="radio2" value="2" >季</input>
+				<input name="mtype" type="radio" id="radio3" value="3" >年</input>
+				<input type="button" value="采购查询" onclick="ck();" />
+				<td>
+			</tr>
+		</table>
 		<table>
 		<tr>
 		<td>
