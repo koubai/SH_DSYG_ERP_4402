@@ -271,7 +271,7 @@
 		                align: 'left',  
 		                verticalAlign: 'top',  
 		                x: 500,  
-		                y: 5,  
+		                y: 1,  
 		                floating: true,  
 		                shadow: true  
 		            },  
@@ -336,7 +336,7 @@
 		   	var fromDate = document.getElementById("fromDate").value;
 			var today = new Date();
 		   	if (fromDate == null || fromDate ==""){
-		   		fromDate ="1900-01-01";
+		   		fromDate ="2015-01-01";
 		   	}
 		   	var toDate = document.getElementById("toDate").value;
 		   	if (toDate == null || toDate ==""){
@@ -385,35 +385,83 @@
 		<table width="50%" border="0" cellpadding="5" cellspacing="0">
 			<tr>
 				<td>采购ID</td>
-				<td><input type="text" name="handerList" id="handerList" value="" /></td>
-				<td><input class="input80" type="button" onclick="addUserList();" value="采购员检索" /></td>
+				<td>
+					<div class="box1_left"></div>
+					<div class="box1_center">
+					<input type="text" name="handerList" id="handerList" value="" />
+					</div>
+					<div class="box1_right"></div>
+					<div class="btn">
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<input class="input80" type="button" onclick="addUserList();" value="采购员检索" />
+						</div>
+						<div class="box1_right"></div>
+					</div>
+				</td>
 				<td></td>
 			</tr>
 			<tr>		
 				<td>期间类型</td>
-				<td><input type="text" name="fromDate" id="fromDate" value="" />
-				<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('fromDate'));"></a>
+				<td>
+					<div class="box1_left"></div>
+					<div class="box1_center date_input">				
+						<input type="text" name="fromDate" id="fromDate" value="2015-01-01" />
+						<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('fromDate'));"></a>
+					</div>
+					<div class="box1_right">&nbsp&nbsp-</div>
+					<div class="box1_left" style="margin-left: 30px;"></div>
+					<div class="box1_center date_input">				
+						<input type="text" name="toDate" id="toDate" value="2015-10-31" />
+						<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('toDate'));"></a>
+					</div>
+					<div class="box1_right"></div>
 				</td>
 				<td>
-				<input type="text" name="toDate" id="toDate" value="" />
-				<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('toDate'));"></a>
+					<div style = "float:left">
+						<input name="mtype" type="radio" id="radio1" value="1" checked>月</input>
+						<input name="mtype" type="radio" id="radio2" value="2" >季</input>
+						<input name="mtype" type="radio" id="radio3" value="3" >年</input>
+					</div>
+					<div class="btn">
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<input type="button" value="采购查询" onclick="ck();" />
+						</div>
+						<div class="box1_right"></div>
+					</div>
 				</td>
-				<td>
-				<input name="mtype" type="radio" id="radio1" value="1" checked>月</input>
-				<input name="mtype" type="radio" id="radio2" value="2" >季</input>
-				<input name="mtype" type="radio" id="radio3" value="3" >年</input>
-				<input type="button" value="采购查询" onclick="ck();" />
-				<td>
 			</tr>
 		</table>
 		<table>
 		<tr>
-		<td>
-           <Input id="btn1" type=button value="采购 近3个月" onClick="javascripts:getPurchaseData3M();" /></td>
-		<td>
-           <Input id="btn2" type=button value="采购 近6个月" onClick="javascripts:getPurchaseData6M();" /></td>
-		<td>
-           <Input id="btn3" type=button value="采购 近12个月" onClick="javascripts:getPurchaseData12M();" /></td>
+			<td>
+				<div class="btn">
+					<div class="box1_left"></div>
+					<div class="box1_center">
+			           <Input id="btn1" type=button value="采购 近3个月" onClick="javascripts:getPurchaseData3M();" />
+					</div>
+					<div class="box1_right"></div>
+				</div>
+			</td>
+			<td>
+				<div class="btn">
+					<div class="box1_left"></div>
+					<div class="box1_center">
+			           <Input id="btn2" type=button value="采购 近6个月" onClick="javascripts:getPurchaseData6M();" />
+					</div>
+					<div class="box1_right"></div>
+				</div>
+			</td>
+			<td>
+				<div class="btn">
+					<div class="box1_left"></div>
+					<div class="box1_center">
+			           <Input id="btn3" type=button value="采购 近12个月" onClick="javascripts:getPurchaseData12M();" />
+					</div>
+					<div class="box1_right"></div>
+				</div>
+			</td>
 		</tr>
 		</table>
 		<br><br><br>

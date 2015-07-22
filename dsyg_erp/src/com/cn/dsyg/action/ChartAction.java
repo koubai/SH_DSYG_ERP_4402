@@ -331,4 +331,85 @@ public class ChartAction extends BaseAction {
 		userList = (List<UserDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
+
+	//用户选择页面========================
+	/**
+	 * 显示用户选择页面
+	 * @return
+	 */
+	public String showCustomerSelectPage() {
+		try {
+			this.clearMessages();
+			//这里产品选择页面，不需要关键字检索
+			strKeyword = "";
+			startIndex = 0;
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			queryCustomerData();
+		} catch(Exception e) {
+			log.error("showUserSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询用户（选择页面）
+	 * @return
+	 */
+	public String queryCustomerSelectPage() {
+		try {
+			this.clearMessages();
+			startIndex = 0;
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
+			queryCustomerData();
+		} catch(Exception e) {
+			log.error("queryUserSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页用户（选择页面）
+	 * @return
+	 */
+	public String turnCustomerSelectPage() {
+		try {
+			System.out.println("turnUserSelectPage");
+			this.clearMessages();
+			queryCustomerData();
+		} catch(Exception e) {
+			log.error("turnUserSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+
+	/**
+	 * 数据查询
+	 */
+	@SuppressWarnings("unchecked")
+	private void queryCustomerData() {
+		if(page == null) {
+			page = new Page(intPageSize);
+		}
+		//翻页查询所有用户
+		this.page.setStartIndex(startIndex);
+		System.out.println("strUserIdFrom:" +strUserIdFrom);
+		System.out.println("strUserIdTo:" +strUserIdTo);
+//		page = userService.queryUserByPage(strFieldno, strKeyword, strUserIdFrom, strUserIdTo, "" + Constants.STATUS_NORMAL, page);
+		userList = (List<UserDto>) page.getItems();
+		this.setStartIndex(page.getStartIndex());
+	}
+
+
+
+
+
 }
