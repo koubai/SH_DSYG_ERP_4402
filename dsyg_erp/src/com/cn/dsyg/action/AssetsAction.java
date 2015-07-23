@@ -39,6 +39,9 @@ public class AssetsAction extends BaseAction {
 	 */
 	private Page page;
 	
+	//一页显示数据条数
+	private Integer intPageSize;
+	
 	/**
 	 * 资产列表
 	 */
@@ -120,7 +123,11 @@ public class AssetsAction extends BaseAction {
 			updateAssetsDto = new AssetsDto();
 			updateAssetsNo = "";
 			delAssetsNo = "";
-			page = new Page();
+
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			
 			startIndex = 0;
 			listAssets = new ArrayList<AssetsDto>();
 		} catch(Exception e) {
@@ -136,7 +143,11 @@ public class AssetsAction extends BaseAction {
 	public String queryEtbAssetsList() {
 		try {
 			this.clearMessages();
-			page = new Page();
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
 			startIndex = 0;
 			queryEtbAssets();
 		} catch(Exception e) {
@@ -168,7 +179,7 @@ public class AssetsAction extends BaseAction {
 	private void queryEtbAssets() {
 		listAssets = new ArrayList<AssetsDto>();
 		if(page == null) {
-			page = new Page();
+			page = new Page(intPageSize);
 		}
 		//翻页查询所有资产
 		this.page.setStartIndex(startIndex);
@@ -477,5 +488,13 @@ public class AssetsAction extends BaseAction {
 
 	public void setAssetsService(AssetsService assetsService) {
 		this.assetsService = assetsService;
+	}
+
+	public Integer getIntPageSize() {
+		return intPageSize;
+	}
+
+	public void setIntPageSize(Integer intPageSize) {
+		this.intPageSize = intPageSize;
 	}
 }

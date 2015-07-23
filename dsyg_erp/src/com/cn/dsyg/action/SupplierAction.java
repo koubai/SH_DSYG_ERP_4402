@@ -39,6 +39,9 @@ public class SupplierAction extends BaseAction {
 	 */
 	private Page page;
 	
+	//一页显示数据条数
+	private Integer intPageSize;
+	
 	/**
 	 * 供应商列表
 	 */
@@ -194,7 +197,11 @@ public class SupplierAction extends BaseAction {
 			updateSupplierDto = new SupplierDto();
 			updateSupplierNo = "";
 			delSupplierNo = "";
-			page = new Page();
+			
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			
 			startIndex = 0;
 			listSupplier = new ArrayList<SupplierDto>();
 		} catch(Exception e) {
@@ -210,7 +217,11 @@ public class SupplierAction extends BaseAction {
 	public String querySupplierList() {
 		try {
 			this.clearMessages();
-			page = new Page();
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
 			startIndex = 0;
 			querySupplier();
 		} catch(Exception e) {
@@ -391,7 +402,7 @@ public class SupplierAction extends BaseAction {
 	private void querySupplier() {
 		listSupplier = new ArrayList<SupplierDto>();
 		if(page == null) {
-			page = new Page();
+			page = new Page(intPageSize);
 		}
 		//翻页查询所有供应商
 		this.page.setStartIndex(startIndex);
@@ -603,5 +614,13 @@ public class SupplierAction extends BaseAction {
 
 	public void setIntSelectPageSize(Integer intSelectPageSize) {
 		this.intSelectPageSize = intSelectPageSize;
+	}
+
+	public Integer getIntPageSize() {
+		return intPageSize;
+	}
+
+	public void setIntPageSize(Integer intPageSize) {
+		this.intPageSize = intPageSize;
 	}
 }

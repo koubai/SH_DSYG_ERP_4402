@@ -38,6 +38,9 @@ public class CustomerAction extends BaseAction {
 	 */
 	private Page page;
 	
+	//一页显示数据条数
+	private Integer intPageSize;
+	
 	/**
 	 * 客户列表
 	 */
@@ -193,7 +196,11 @@ public class CustomerAction extends BaseAction {
 			updateCustomerDto = new CustomerDto();
 			updateCustomerNo = "";
 			delCustomerNo = "";
-			page = new Page();
+			
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			
 			startIndex = 0;
 			listCustomer = new ArrayList<CustomerDto>();
 		} catch(Exception e) {
@@ -209,8 +216,12 @@ public class CustomerAction extends BaseAction {
 	public String queryEtbCustomerList() {
 		try {
 			this.clearMessages();
-			page = new Page();
 			startIndex = 0;
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
 			queryEtbCustomer();
 		} catch(Exception e) {
 			log.error(e);
@@ -241,7 +252,7 @@ public class CustomerAction extends BaseAction {
 	private void queryEtbCustomer() {
 		listCustomer = new ArrayList<CustomerDto>();
 		if(page == null) {
-			page = new Page();
+			page = new Page(intPageSize);
 		}
 		//翻页查询所有客户
 		this.page.setStartIndex(startIndex);
@@ -633,5 +644,13 @@ public class CustomerAction extends BaseAction {
 
 	public void setIntSelectPageSize(Integer intSelectPageSize) {
 		this.intSelectPageSize = intSelectPageSize;
+	}
+
+	public Integer getIntPageSize() {
+		return intPageSize;
+	}
+
+	public void setIntPageSize(Integer intPageSize) {
+		this.intPageSize = intPageSize;
 	}
 }

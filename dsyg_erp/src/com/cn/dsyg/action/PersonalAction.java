@@ -39,6 +39,9 @@ public class PersonalAction extends BaseAction {
 	 */
 	private Page page;
 	
+	//一页显示数据条数
+	private Integer intPageSize;
+	
 	/**
 	 * 员工档案列表
 	 */
@@ -120,7 +123,11 @@ public class PersonalAction extends BaseAction {
 			updatePersonalDto = new PersonalDto();
 			updateUserNo = "";
 			delUserNo = "";
-			page = new Page();
+
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			
 			startIndex = 0;
 			listPersonal = new ArrayList<PersonalDto>();
 		} catch(Exception e) {
@@ -136,7 +143,11 @@ public class PersonalAction extends BaseAction {
 	public String queryEtbPersonalList() {
 		try {
 			this.clearMessages();
-			page = new Page();
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
 			startIndex = 0;
 			queryEtbPersonal();
 		} catch(Exception e) {
@@ -168,7 +179,7 @@ public class PersonalAction extends BaseAction {
 	private void queryEtbPersonal() {
 		listPersonal = new ArrayList<PersonalDto>();
 		if(page == null) {
-			page = new Page();
+			page = new Page(intPageSize);
 		}
 		//翻页查询所有员工档案
 		this.page.setStartIndex(startIndex);
@@ -483,5 +494,13 @@ public class PersonalAction extends BaseAction {
 
 	public void setPersonalService(PersonalService personalService) {
 		this.personalService = personalService;
+	}
+
+	public Integer getIntPageSize() {
+		return intPageSize;
+	}
+
+	public void setIntPageSize(Integer intPageSize) {
+		this.intPageSize = intPageSize;
 	}
 }

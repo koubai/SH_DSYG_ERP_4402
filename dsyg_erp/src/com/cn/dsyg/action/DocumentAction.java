@@ -39,6 +39,9 @@ public class DocumentAction extends BaseAction {
 	 */
 	private Page page;
 	
+	//一页显示数据条数
+	private Integer intPageSize;
+	
 	/**
 	 * 文件物品列表
 	 */
@@ -120,7 +123,11 @@ public class DocumentAction extends BaseAction {
 			updateDocumentDto = new DocumentDto();
 			updateDocumentNo = "";
 			delDocumentNo = "";
-			page = new Page();
+			
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			
 			startIndex = 0;
 			listDocument = new ArrayList<DocumentDto>();
 		} catch(Exception e) {
@@ -136,7 +143,11 @@ public class DocumentAction extends BaseAction {
 	public String queryEtbDocumentList() {
 		try {
 			this.clearMessages();
-			page = new Page();
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
 			startIndex = 0;
 			queryEtbDocument();
 		} catch(Exception e) {
@@ -168,7 +179,7 @@ public class DocumentAction extends BaseAction {
 	private void queryEtbDocument() {
 		listDocument = new ArrayList<DocumentDto>();
 		if(page == null) {
-			page = new Page();
+			page = new Page(intPageSize);
 		}
 		//翻页查询所有文件物品
 		this.page.setStartIndex(startIndex);
@@ -477,5 +488,13 @@ public class DocumentAction extends BaseAction {
 
 	public void setDocumentService(DocumentService documentService) {
 		this.documentService = documentService;
+	}
+
+	public Integer getIntPageSize() {
+		return intPageSize;
+	}
+
+	public void setIntPageSize(Integer intPageSize) {
+		this.intPageSize = intPageSize;
 	}
 }
