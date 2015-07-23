@@ -96,9 +96,9 @@
 		var packagingName = inputs[10].value;
 		//是否样品
 		var sampleflag = inputs[11].value;
-		//销售价格
+		//采购价格
 		var purchaseprice = inputs[12].value;
-		//销售价格
+		//销售价格（这里使用销售价格）
 		var salesprice = inputs[13].value;
 		//产地
 		var makearea = inputs[14].value;
@@ -141,7 +141,7 @@
 		var input = createHidden(packaging);
 		td0.appendChild(input);
 		//销售单价
-		var input = createHidden(purchaseprice);
+		var input = createHidden(salesprice);
 		td0.appendChild(input);
 		
 		//============================
@@ -184,7 +184,7 @@
 		tr.appendChild(td);
 		//单价
 		//单价
-		td = createTdInputAddValue("tmpUnitprice", wid, maxlength, "calcquantity(this, '4');", id, purchaseprice);
+		td = createTdInputAddValue("tmpUnitprice", wid, maxlength, "calcquantity(this, '4');", id, salesprice);
 		//td = createTd(purchaseprice);
 		tr.appendChild(td);
 		//销售金额未税

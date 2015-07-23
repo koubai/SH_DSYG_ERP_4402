@@ -1,9 +1,13 @@
 package com.cn.dsyg.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
+import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.DocumentDao;
 import com.cn.dsyg.dto.DocumentDto;
@@ -54,8 +58,19 @@ public class DocumentServiceImpl implements DocumentService {
 	}
 
 	@Override
-	public void insertEtbDocument(DocumentDto document) {
+	public String insertEtbDocument(DocumentDto document) {
+		String documentno = "";
+		String belongto = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG);
+		document.setBelongto(belongto);
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String uuid = UUID.randomUUID().toString();
+		uuid = uuid.substring(uuid.length() - 8, uuid.length());
+		documentno = Constants.DOCUMENT_NO_PRE + belongto + sdf.format(date) + uuid;
+		
+		document.setDocumentno(documentno);
 		documentDao.insertEtbDocument(document);
+		return documentno;
 	}
 
 	@Override

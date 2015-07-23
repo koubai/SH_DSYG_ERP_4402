@@ -8,7 +8,12 @@
 	}
 	
 	function goHome() {
-		window.parent.location.href = '<c:url value="/frame/showManageHomeAction.action"></c:url>';
+		var urlList = parent.window.frames['leftFrame'].document.getElementsByName("urlList");
+		for(var i = 0; i < urlList.length; i++) {
+			urlList[i].style.color = "";
+		}
+		parent.window.frames['mainFrame'].location = '<%=request.getContextPath()%>/frame/showMainFrameAction.action';
+		//window.parent.location.href = '<c:url value="/home/showManageHomeAction.action"></c:url>';
 	}
 </script>
 <div class="user2"><span>用户：<%=session.getAttribute("user_name")%></span><span>登录时间：<%=session.getAttribute("login_time")%></span></div>

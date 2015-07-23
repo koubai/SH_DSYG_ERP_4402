@@ -9,6 +9,12 @@ package com.cn.common.util;
  */
 public class Constants {
 	
+	//资产编号前缀
+	public final static String ASSETS_NO_PRE = "ZCN";
+	//员工编号前缀
+	public final static String PERSONAL_NO_PRE = "YGN";
+	//文档编号前缀
+	public final static String DOCUMENT_NO_PRE = "WDN";
 	//采购单单号前缀
 	public final static String PURCHASE_NO_PRE = "CGD";
 	//销售单单号前缀

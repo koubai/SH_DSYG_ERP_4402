@@ -206,17 +206,17 @@ public class DocumentAction extends BaseAction {
 			log.info("addDocumentDto.getDocumentno()=" + addDocumentDto.getDocumentno());
 			log.info("addDocumentDto.getDocumentname()=" + addDocumentDto.getDocumentname());
 			//校验文件编号是否存在
-			DocumentDto document = documentService.queryAllEtbDocumentByID(addDocumentDto.getDocumentno()+"");
-			if(document != null) {
-				this.addActionMessage("文件编号已经存在！");
-				return "checkerror";
-			}
+//			DocumentDto document = documentService.queryAllEtbDocumentByID(addDocumentDto.getDocumentno()+"");
+//			if(document != null) {
+//				this.addActionMessage("文件编号已经存在！");
+//				return "checkerror";
+//			}
 			//保存数据
 			addDocumentDto.setStatus(Constants.STATUS_NORMAL);
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			addDocumentDto.setCreateuid(username);
-			documentService.insertEtbDocument(addDocumentDto);
-			this.addActionMessage("添加文件物品成功！");
+			String documentno = documentService.insertEtbDocument(addDocumentDto);
+			this.addActionMessage("添加文件物品成功！文件编号为：" + documentno);
 			addDocumentDto = new DocumentDto();
 		} catch(Exception e) {
 			this.addActionMessage("系统异常，添加文件物品失败！");
@@ -305,13 +305,13 @@ public class DocumentAction extends BaseAction {
 	 */
 	private boolean checkData(DocumentDto document) {
 		if(document == null) {
-			this.addActionMessage("文件编号不能为空！");
+			this.addActionMessage("文件名不能为空！");
 			return false;
 		}
-		if(StringUtil.isBlank(document.getDocumentno()+"")) {
-			this.addActionMessage("文件编号不能为空！");
-			return false;
-		}
+//		if(StringUtil.isBlank(document.getDocumentno()+"")) {
+//			this.addActionMessage("文件编号不能为空！");
+//			return false;
+//		}
 		if(StringUtil.isBlank(document.getDocumentname())) {
 			this.addActionMessage("文件名不能为空！");
 			return false;

@@ -52,9 +52,10 @@ public interface FinanceDao {
 	/**
 	 * 根据invoiceid查询记录
 	 * @param invoiceid
+	 * @param financetype
 	 * @return
 	 */
-	public FinanceDto queryFinanceByInvoiceid(String invoiceid);
+	public FinanceDto queryFinanceByInvoiceid(String invoiceid, String financetype);
 	
 	/**
 	 * 新增记录

@@ -1,9 +1,13 @@
 package com.cn.dsyg.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
+import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.PersonalDao;
 import com.cn.dsyg.dto.PersonalDto;
@@ -54,8 +58,19 @@ public class PersonalServiceImpl implements PersonalService {
 	}
 
 	@Override
-	public void insertEtbPersonal(PersonalDto personal) {
+	public String insertEtbPersonal(PersonalDto personal) {
+		String userno = "";
+		String belongto = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG);
+		personal.setBelongto(belongto);
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String uuid = UUID.randomUUID().toString();
+		uuid = uuid.substring(uuid.length() - 8, uuid.length());
+		userno = Constants.PERSONAL_NO_PRE + belongto + sdf.format(date) + uuid;
+		
+		personal.setUserno(userno);
 		personalDao.insertEtbPersonal(personal);
+		return userno;
 	}
 
 	@Override

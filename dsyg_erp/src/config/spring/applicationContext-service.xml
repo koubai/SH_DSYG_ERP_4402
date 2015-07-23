@@ -158,6 +158,9 @@
 		<property name="dict01Dao">
 			<ref local="dict01Dao"/>
 		</property>
+		<property name="financeDao">
+			<ref local="financeDao"/>
+		</property>
 	</bean>
 	
 	<bean id="warehouserptDao" class="com.cn.dsyg.dao.impl.WarehouserptDaoImpl">

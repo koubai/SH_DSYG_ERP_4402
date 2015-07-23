@@ -4,6 +4,13 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 
+	<package name="home" extends="struts-frame" namespace="/home">
+	
+		<action name="showManageHomeAction" class="frameAction" method="showManageHomeAction">
+			<result name="*">/page/managehome.jsp</result>
+		</action>
+	</package>
+
 	<package name="frame" extends="struts-erp" namespace="/frame">
 	
 		<action name="showManageHomeAction" class="frameAction" method="showManageHomeAction">

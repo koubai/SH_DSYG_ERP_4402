@@ -52,9 +52,10 @@ public class FinanceDaoImpl extends BaseDao implements FinanceDao {
 	}
 	
 	@Override
-	public FinanceDto queryFinanceByInvoiceid(String invoiceid) {
+	public FinanceDto queryFinanceByInvoiceid(String invoiceid, String financetype) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("invoiceid", invoiceid);
+		paramMap.put("financetype", financetype);
 		@SuppressWarnings("unchecked")
 		List<FinanceDto> list = getSqlMapClientTemplate().queryForList("queryFinanceByInvoiceid", paramMap);
 		if(list != null && list.size() > 0) {

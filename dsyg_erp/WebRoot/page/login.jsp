@@ -23,7 +23,7 @@ a { color:#FFF}
 	});
 
 	function login() {
-		document.mainform.action = '../login/loginAction.action';
+		document.mainform.action = '<%=request.getContextPath()%>/login/loginAction.action';
 		document.mainform.submit();
 	}
 	
@@ -37,7 +37,7 @@ a { color:#FFF}
 	    var timenow = new Date().getTime();
 	    //每次请求需要一个不同的参数，否则可能会返回同样的验证码
 	    //这和浏览器的缓存机制有关系，也可以把页面设置为不缓存，这样就不用这个参数了。
-	    obj.src='../index/rand.action?d='+timenow;
+	    obj.src='<%=request.getContextPath()%>/index/rand.action?d='+timenow;
 	    return false;
 	}
 
@@ -49,7 +49,7 @@ a { color:#FFF}
 	function changeValidate(id) {
 		var timenow = new Date().getTime();
 		if(document.getElementById(id) != null) {
-			document.getElementById(id).src='../index/rand.action?d='+timenow;
+			document.getElementById(id).src='<%=request.getContextPath()%>/index/rand.action?d='+timenow;
 		}
 	}
 </script>
@@ -103,7 +103,7 @@ a { color:#FFF}
 							</div>
 							<div class="box1_right"></div>
 						</div>
-						<img title="看不清点我" id="randomImg" name="random" src="../index/rand.action" onclick="changeValidateCode(this)" class="yzhm" />
+						<img title="看不清点我" id="randomImg" name="random" src="<%=request.getContextPath()%>/index/rand.action" onclick="changeValidateCode(this)" class="yzhm" />
 					</td>
 				</tr>
 				<tr>

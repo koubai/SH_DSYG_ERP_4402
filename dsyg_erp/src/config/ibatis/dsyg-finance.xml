@@ -100,6 +100,9 @@
 	
 	<select id="queryFinanceByInvoiceid" parameterClass="java.util.Map" resultMap="FinanceDto">
 		select * from etb_finance where invoiceid = #invoiceid#
+		<isNotEmpty prepend="and" property="financetype">
+			financetype = #financetype#
+		</isNotEmpty>
 	</select>
 	
 	<insert id="insertFinance" parameterClass="com.cn.dsyg.dto.FinanceDto">

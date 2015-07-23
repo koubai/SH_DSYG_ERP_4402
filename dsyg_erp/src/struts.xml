@@ -77,6 +77,43 @@
 		
 		<!-- 全局返回值 -->
 		<global-results>
+			<!-- login -->
+			<result name="login">/page/login.jsp</result>
+			<!-- 404 -->
+			<result name="notfound">/page/404.jsp</result>
+			<!-- error -->
+			<result name="error">/page/error.jsp</result>
+			<!-- timeout -->
+			<result name="timeout">/page/timeout.jsp</result>
+			<!-- noauthority -->
+			<result name="noauthority">/page/authority.jsp</result>
+		</global-results>
+		
+		<!-- 全局异常 -->
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+			<exception-mapping result="error" exception="java.sql.SQLException"></exception-mapping>
+		</global-exception-mappings>
+		
+	</package>
+	
+	<!-- frame -->
+	<package name="struts-frame" extends="struts-default, json-default" namespace="/">
+	
+		<interceptors>
+			<interceptor name="frameInterceptor" class="frameInterceptorBean"></interceptor>
+			<interceptor-stack name="frameStack">
+				<interceptor-ref name="frameInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="frameStack"></default-interceptor-ref>
+		
+		<!-- 全局返回值 -->
+		<global-results>
+			<!-- login -->
+			<result name="login">/page/login.jsp</result>
 			<!-- 404 -->
 			<result name="notfound">/page/404.jsp</result>
 			<!-- error -->

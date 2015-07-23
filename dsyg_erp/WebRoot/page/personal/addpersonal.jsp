@@ -19,9 +19,9 @@
 		var tmppersonaldesc = $("#tmppersonaldesc").val().trim();
 		$("#personaldesc").attr("value", tmppersonaldesc);
 		if(id == "") {
-			alert("员工编号不能为空！");
-			$("#userno").focus();
-			return;
+			//alert("员工编号不能为空！");
+			//$("#userno").focus();
+			//return;
 		}
 		if(username == "") {
 			alert("员工名不能为空！");
@@ -110,11 +110,11 @@
 		</div>
 		<table style="margin-left: 50px; margin-top: 30px;" border="0" cellspacing="15" cellpadding="0">
 			<tr>
-				<td width="100"><font color="red">*</font>员工编号</td>
+				<td width="100"><font color="red"></font>员工编号</td>
 				<td width="200">
 					<div class="box1_left"></div>
 					<div class="box1_center">
-						<s:textfield name="addPersonalDto.userno" id="userno" cssStyle="width:100px;" maxlength="32" theme="simple"></s:textfield>
+						<s:textfield name="addPersonalDto.userno" disabled="true" id="userno" cssStyle="width:100px;" maxlength="32" theme="simple"></s:textfield>
 					</div>
 					<div class="box1_right"></div>
 				</td>

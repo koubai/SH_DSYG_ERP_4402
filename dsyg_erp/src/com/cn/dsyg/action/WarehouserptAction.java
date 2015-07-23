@@ -316,7 +316,7 @@ public class WarehouserptAction extends BaseAction {
 			warehouserptService.updateWarehouserpt(updWarehouserptDto, Constants.WAREHOUSE_TYPE_IN);
 			this.addActionMessage("修改成功！");
 		} catch(Exception e) {
-			log.error("showAddWarehouserptInAction error:" + e);
+			log.error("updWarehouserptInAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;

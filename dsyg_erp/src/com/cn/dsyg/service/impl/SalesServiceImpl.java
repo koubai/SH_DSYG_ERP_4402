@@ -213,7 +213,7 @@ public class SalesServiceImpl implements SalesService {
 			salesDao.updateSales(sales);
 			
 			//更新财务数据状态
-			FinanceDto finance = financeDao.queryFinanceByInvoiceid(sales.getSalesno());
+			FinanceDto finance = financeDao.queryFinanceByInvoiceid(sales.getSalesno(), "" + Constants.FINANCE_TYPE_SALES);
 			if(finance != null) {
 				if(status.equals("" + Constants.FINANCE_STATUS_PAY_INVOICE)) {
 					//开票日期=当天

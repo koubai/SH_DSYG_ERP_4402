@@ -587,10 +587,10 @@
 			and TU.fieldcode = 'finance'
 			and TU.fieldname = 'type'
 			<isNotEmpty prepend="and" property="from_date">
-				T.accountdate <![CDATA[>=]]> #from_date#
+				T.receiptdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.accountdate <![CDATA[<=]]> #to_date#
+				T.receiptdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 		)as test 
 			group by id, handler, pur_year
@@ -618,10 +618,10 @@
 			and TU.fieldcode = 'finance'
 			and TU.fieldname = 'type'
 			<isNotEmpty prepend="and" property="from_date">
-				T.accountdate <![CDATA[>=]]> #from_date#
+				T.receiptdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.accountdate <![CDATA[<=]]> #to_date#
+				T.receiptdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 		)as test 
 			group by id, handler, pur_year
@@ -649,10 +649,10 @@
 			and TU.fieldcode = 'finance'
 			and TU.fieldname = 'type'
 			<isNotEmpty prepend="and" property="from_date">
-				T.accountdate <![CDATA[>=]]> #from_date#
+				T.receiptdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.accountdate <![CDATA[<=]]> #to_date#
+				T.receiptdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 		)as test 
 			group by id, handler, pur_year
@@ -680,10 +680,10 @@
 			and TU.fieldcode = 'finance'
 			and TU.fieldname = 'type'
 			<isNotEmpty prepend="and" property="from_date">
-				T.accountdate <![CDATA[>=]]> #from_date#
+				T.receiptdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.accountdate <![CDATA[<=]]> #to_date#
+				T.receiptdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 		)as test 
 			group by id, handler, pur_year
@@ -713,10 +713,10 @@
 				T.financetype = #theme1#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="from_date">
-				T.accountdate <![CDATA[>=]]> #from_date#
+				T.receiptdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.accountdate <![CDATA[<=]]> #to_date#
+				T.receiptdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			

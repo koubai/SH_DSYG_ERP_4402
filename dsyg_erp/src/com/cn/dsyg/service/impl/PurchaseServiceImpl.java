@@ -248,7 +248,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 			purchaseDao.updatePurchase(purchase);
 			
 			//更新财务数据状态
-			FinanceDto finance = financeDao.queryFinanceByInvoiceid(purchase.getPurchaseno());
+			FinanceDto finance = financeDao.queryFinanceByInvoiceid(purchase.getPurchaseno(), "" + Constants.FINANCE_TYPE_PURCHASE);
 			if(finance != null) {
 				if(status.equals("" + Constants.FINANCE_STATUS_PAY_INVOICE)) {
 					//开票日期=当天

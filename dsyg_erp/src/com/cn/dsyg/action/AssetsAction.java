@@ -215,8 +215,8 @@ public class AssetsAction extends BaseAction {
 			addAssetsDto.setStatus(Constants.STATUS_NORMAL);
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			addAssetsDto.setCreateuid(username);
-			assetsService.insertEtbAssets(addAssetsDto);
-			this.addActionMessage("添加资产成功！");
+			String assetsno = assetsService.insertEtbAssets(addAssetsDto);
+			this.addActionMessage("添加资产成功！资产编号为：" + assetsno);
 			addAssetsDto = new AssetsDto();
 		} catch(Exception e) {
 			this.addActionMessage("系统异常，添加资产失败！");
@@ -305,13 +305,13 @@ public class AssetsAction extends BaseAction {
 	 */
 	private boolean checkData(AssetsDto assets) {
 		if(assets == null) {
-			this.addActionMessage("资产代码不能为空！");
+			this.addActionMessage("资产名称不能为空！");
 			return false;
 		}
-		if(StringUtil.isBlank(assets.getAssetsno()+"")) {
-			this.addActionMessage("资产代码不能为空！");
-			return false;
-		}
+//		if(StringUtil.isBlank(assets.getAssetsno()+"")) {
+//			this.addActionMessage("资产代码不能为空！");
+//			return false;
+//		}
 		if(StringUtil.isBlank(assets.getAssetsname())) {
 			this.addActionMessage("资产名称不能为空！");
 			return false;

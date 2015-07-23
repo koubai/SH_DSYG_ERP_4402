@@ -47,8 +47,9 @@ public interface AssetsService {
 	/**
 	 * 新增资产
 	 * @param assets
+	 * @return
 	 */
-	public void insertEtbAssets(AssetsDto assets);
+	public String insertEtbAssets(AssetsDto assets);
 	
 	/**
 	 * 修改资产

@@ -215,8 +215,8 @@ public class PersonalAction extends BaseAction {
 			addPersonalDto.setStatus(Constants.STATUS_NORMAL);
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			addPersonalDto.setCreateuid(username);
-			personalService.insertEtbPersonal(addPersonalDto);
-			this.addActionMessage("添加员工档案成功！");
+			String userno = personalService.insertEtbPersonal(addPersonalDto);
+			this.addActionMessage("添加员工档案成功！员工编号为：" + userno);
 			addPersonalDto = new PersonalDto();
 		} catch(Exception e) {
 			this.addActionMessage("系统异常，添加员工档案失败！");
@@ -305,13 +305,13 @@ public class PersonalAction extends BaseAction {
 	 */
 	private boolean checkData(PersonalDto personal) {
 		if(personal == null) {
-			this.addActionMessage("员工编号不能为空！");
+			this.addActionMessage("员工姓名不能为空！");
 			return false;
 		}
-		if(StringUtil.isBlank(personal.getUserid()+"")) {
-			this.addActionMessage("员工编号不能为空！");
-			return false;
-		}
+//		if(StringUtil.isBlank(personal.getUserid()+"")) {
+//			this.addActionMessage("员工编号不能为空！");
+//			return false;
+//		}
 		if(StringUtil.isBlank(personal.getUsername())) {
 			this.addActionMessage("员工姓名不能为空！");
 			return false;

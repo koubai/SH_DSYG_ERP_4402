@@ -13,12 +13,14 @@ import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.Dict01Dao;
+import com.cn.dsyg.dao.FinanceDao;
 import com.cn.dsyg.dao.ProductDao;
 import com.cn.dsyg.dao.PurchaseDao;
 import com.cn.dsyg.dao.PurchaseItemDao;
 import com.cn.dsyg.dao.WarehouseDao;
 import com.cn.dsyg.dao.WarehouserptDao;
 import com.cn.dsyg.dto.Dict01Dto;
+import com.cn.dsyg.dto.FinanceDto;
 import com.cn.dsyg.dto.ProductDto;
 import com.cn.dsyg.dto.WarehouseDto;
 import com.cn.dsyg.dto.WarehouserptDto;
@@ -38,6 +40,7 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 	private PurchaseItemDao purchaseItemDao;
 	private PurchaseDao purchaseDao;
 	private Dict01Dao dict01Dao;
+	private FinanceDao financeDao;
 	
 	@Override
 	public List<WarehouserptDto> queryAllWarehouserptToExport(String status,
@@ -128,14 +131,14 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 
 	@Override
 	public void updateWarehouserpt(WarehouserptDto warehouserpt, Integer type) {
+		String belongto = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG);
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		if(warehouserpt.getListProduct() != null && warehouserpt.getListProduct().size() > 0) {
 			String productinfo = "";
 			for(ProductDto product : warehouserpt.getListProduct()) {
 				//判断是否需要添加入库记录
 				if("1".equals(product.getHasbroken())) {
-					Date date = new Date();
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-					String belongto = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG);
 					//需要新增一条新的入出库记录
 					WarehouseDto warehouse = new WarehouseDto();
 					//数据来源单号=当前入库单号
@@ -265,6 +268,66 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 			warehouserpt.setProductinfo(productinfo);
 		}
 		warehouserptDao.updateWarehouserpt(warehouserpt);
+		
+		//判断是否有对应的财务记录
+		FinanceDto ff = financeDao.queryFinanceByInvoiceid(warehouserpt.getWarehouseno(), "" + Constants.FINANCE_TYPE_DELIVERY);
+		if(ff == null) {
+			//新增一条财务记录
+			FinanceDto finance = new FinanceDto();
+			//类型=快递
+			finance.setFinancetype(Constants.FINANCE_TYPE_DELIVERY);
+			if(type == Constants.WAREHOUSE_TYPE_IN) {
+				//入库单（付款）
+				finance.setMode("2");
+			} else {
+				//出库单（收款）
+				finance.setMode("1");
+			}
+			finance.setBelongto(belongto);
+			//单据号=入出库单号
+			finance.setInvoiceid(warehouserpt.getWarehouseno());
+			//发票号
+			String receiptid = Constants.FINANCE_NO_PRE + belongto + sdf.format(date);
+			finance.setReceiptid(receiptid);
+			//开票日期
+			//finance.setReceiptdate(receiptdate);
+			//结算日期=当天
+			finance.setAccountdate(DateUtil.dateToShortStr(date));
+			//金额=快递金额含税
+			finance.setAmount(warehouserpt.getExpresstaxamount());
+			//负责人
+			finance.setHandler(warehouserpt.getUpdateuid());
+			//供应商信息
+			finance.setCustomerid(Long.valueOf(warehouserpt.getSupplierid()));
+			finance.setCustomername(warehouserpt.getSuppliername());
+			finance.setCustomertel(warehouserpt.getSuppliertel());
+			finance.setCustomermanager(warehouserpt.getSuppliermanager());
+			finance.setCustomeraddress(warehouserpt.getSupplieraddress());
+			finance.setCustomermail(warehouserpt.getSuppliermail());
+			finance.setRank(Constants.ROLE_RANK_OPERATOR);
+			//状态=付款申请
+			finance.setStatus(Constants.FINANCE_STATUS_PAY_APPLY);
+			finance.setCreateuid(warehouserpt.getUpdateuid());
+			finance.setUpdateuid(warehouserpt.getUpdateuid());
+			financeDao.insertFinance(finance);
+		} else {
+			//修改财务记录
+			//结算日期=当天
+			ff.setAccountdate(DateUtil.dateToShortStr(date));
+			//金额=快递金额含税
+			ff.setAmount(warehouserpt.getExpresstaxamount());
+			//负责人
+			ff.setHandler(warehouserpt.getUpdateuid());
+			//供应商信息
+			ff.setCustomerid(Long.valueOf(warehouserpt.getSupplierid()));
+			ff.setCustomername(warehouserpt.getSuppliername());
+			ff.setCustomertel(warehouserpt.getSuppliertel());
+			ff.setCustomermanager(warehouserpt.getSuppliermanager());
+			ff.setCustomeraddress(warehouserpt.getSupplieraddress());
+			ff.setCustomermail(warehouserpt.getSuppliermail());
+			ff.setUpdateuid(warehouserpt.getUpdateuid());
+			financeDao.updateFinance(ff);
+		}
 	}
 
 	public WarehouserptDao getWarehouserptDao() {
@@ -313,5 +376,13 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 
 	public void setDict01Dao(Dict01Dao dict01Dao) {
 		this.dict01Dao = dict01Dao;
+	}
+
+	public FinanceDao getFinanceDao() {
+		return financeDao;
+	}
+
+	public void setFinanceDao(FinanceDao financeDao) {
+		this.financeDao = financeDao;
 	}
 }

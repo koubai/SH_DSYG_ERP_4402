@@ -17,9 +17,9 @@
 		var tmpnote = $("#tmpnote").val().trim();
 		$("#note").attr("value", tmpnote);
 		if(id == "") {
-			alert("文件编号不能为空！");
-			$("#id").focus();
-			return;
+			//alert("文件编号不能为空！");
+			//$("#id").focus();
+			//return;
 		}
 		if(documentname == "") {
 			alert("文件名不能为空！");
@@ -87,11 +87,11 @@
 		</div>
 		<table style="margin-left: 50px; margin-top: 30px;" border="0" cellspacing="15" cellpadding="0">
 			<tr>
-				<td width="130"><font color="red">*</font>文件编号</td>
+				<td width="130"><font color="red"></font>文件编号</td>
 				<td width="500">
 					<div class="box1_left"></div>
 					<div class="box1_center">
-						<s:textfield name="addDocumentDto.documentno" id="documentno" cssStyle="width:350px;" maxlength="32" theme="simple"></s:textfield>
+						<s:textfield name="addDocumentDto.documentno" disabled="true" id="documentno" cssStyle="width:350px;" maxlength="32" theme="simple"></s:textfield>
 					</div>
 					<div class="box1_right"></div>
 				</td>

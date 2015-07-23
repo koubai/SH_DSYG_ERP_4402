@@ -1,9 +1,13 @@
 package com.cn.dsyg.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
+import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.AssetsDao;
 import com.cn.dsyg.dto.AssetsDto;
@@ -54,8 +58,19 @@ public class AssetsServiceImpl implements AssetsService {
 	}
 
 	@Override
-	public void insertEtbAssets(AssetsDto assets) {
+	public String insertEtbAssets(AssetsDto assets) {
+		String assetsno = "";
+		String belongto = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG);
+		assets.setBelongto(belongto);
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String uuid = UUID.randomUUID().toString();
+		uuid = uuid.substring(uuid.length() - 8, uuid.length());
+		assetsno = Constants.ASSETS_NO_PRE + belongto + sdf.format(date) + uuid;
+		assets.setAssetsno(assetsno);
+		
 		assetsDao.insertEtbAssets(assets);
+		return assetsno;
 	}
 
 	@Override

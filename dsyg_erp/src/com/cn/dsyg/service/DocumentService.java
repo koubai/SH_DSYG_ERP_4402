@@ -47,8 +47,9 @@ public interface DocumentService {
 	/**
 	 * 新增文件物品
 	 * @param document
+	 * @return
 	 */
-	public void insertEtbDocument(DocumentDto document);
+	public String insertEtbDocument(DocumentDto document);
 	
 	/**
 	 * 修改文件物品

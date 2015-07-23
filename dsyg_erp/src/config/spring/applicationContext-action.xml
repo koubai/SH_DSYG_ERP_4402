@@ -210,5 +210,8 @@
 	
 	<!-- 登录拦截器 -->
 	<bean id="loginInterceptorBean" class="com.cn.dsyg.interceptor.LoginInterceptor"/>
+	
+	<!-- frame拦截器 -->
+	<bean id="frameInterceptorBean" class="com.cn.dsyg.interceptor.FrameInterceptor"/>
 
 </beans>

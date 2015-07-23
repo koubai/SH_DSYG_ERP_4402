@@ -47,8 +47,9 @@ public interface PersonalService {
 	/**
 	 * 新增员工档案
 	 * @param personal
+	 * @return
 	 */
-	public void insertEtbPersonal(PersonalDto personal);
+	public String insertEtbPersonal(PersonalDto personal);
 	
 	/**
 	 * 修改员工档案
