@@ -485,7 +485,7 @@
 				T.warehousedate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
-				T.handler in ( $handerList$ )			
+				TU.id in ( $handerList$ )			
 			</isNotEmpty>
 			
 		)as test 
@@ -521,7 +521,7 @@
 				T.warehousedate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
-				T.handler in ( $handerList$ )			
+				TU.id in ( $handerList$ )			
 			</isNotEmpty>
 			
 		)as test 
@@ -557,7 +557,7 @@
 				T.warehousedate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
-				T.handler in ( $handerList$ )			
+				TU.id in ( $handerList$ )			
 			</isNotEmpty>
 			
 		)as test 
@@ -752,7 +752,7 @@
 				T.receiptdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
-				TU.customerid in ( $handerList$ )			
+				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
 		)as test 
 			group by id, handler, pur_year
@@ -785,7 +785,7 @@
 				T.receiptdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
-				TU.customerid in ( $handerList$ )			
+				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
 		)as test 
 			group by id, handler, pur_year
@@ -818,7 +818,7 @@
 				T.receiptdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
-				TU.customerid in ( $handerList$ )			
+				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
 		)as test 
 			group by id, handler, pur_year
@@ -852,7 +852,7 @@
 				T.receiptdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
-				TU.customerid in ( $handerList$ )			
+				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
 		)as test 
 			group by id, handler, pur_year
@@ -885,7 +885,7 @@
 				T.receiptdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
-				TU.customerid in ( $handerList$ )			
+				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
 		)as test 
 			group by id, handler, pur_year
@@ -918,7 +918,7 @@
 				T.receiptdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
-				TU.customerid in ( $handerList$ )			
+				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
 		)as test 
 			group by id, handler, pur_year

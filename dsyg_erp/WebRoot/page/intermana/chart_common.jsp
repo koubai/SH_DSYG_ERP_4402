@@ -4,21 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>DSYG ERP CHART</title>
-		
-		<!-- 1. Add these JavaScript inclusions in the head of your page -->
-		<!--<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>-->
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/highcharts.js"></script>
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>
-		<!--  <jsp:include  page="chart_common.jsp"/> -->
-		
-		<!-- 2. Add the JavaScript to initialize the chart on document ready -->
-		<script type="text/javascript">
-		$(function () {  
-			getCustomerData3M();
-		});
-	     	    
+		<script type="text/javascript">	     	    
 		Date.prototype.format = function(format){ 
 			var o = { 
 				"M+" : this.getMonth()+1, //month 
@@ -112,7 +98,7 @@
 		             }
 		        });				
 			}
-	    }  
+	    };  
    	    
 		function ajaxRequestData(act, fromDate, toDate, dur_type, tit){
 			var o_data="";
@@ -122,7 +108,6 @@
 			
 //			var handerList=document.getElementById('handerList').value;
 			var handerList = $("#handerList").val().trim();
-
 			if( handerList== null) {
 				handerList="";
 			}
@@ -246,7 +231,7 @@
 			});
 		};
 		
-		function drawChart(d1, d2, dur_type, chart_data, tit) {
+		function drawChart(d1, d2, dur_type, chart_data, tit) {			
      		$(document).ready(function() {  
 		    	options = {  
 		            chart: {  
@@ -295,197 +280,8 @@
 	        });
 	    };  
 
-	    function getCustomerData3M() {
-//     		alert("客户3");
-		   	var rds = document.getElementsByName("mtype");
-	   		var fromDate = new Date();
-	   		var toDate = new Date();
-			fromDate.setMonth(toDate.getMonth()+1-3);
-		   	for(var i=0;i<rds.length;i++){
-	           	if(rds[i].checked){
-	   				ajaxRequestData("getCustomerData", fromDate.format("yyyy-MM-dd"), toDate.format("yyyy-MM-dd"), rds[i].value, "客户");
-	           	}
-		   	}
-		}
-
-	    function getCustomerData6M() {
-//     		alert("客户6");
-		   	var rds = document.getElementsByName("mtype");
-	   		var fromDate = new Date();
-	   		var toDate = new Date();
-			fromDate.setMonth(toDate.getMonth()+1-6);
-		   	for(var i=0;i<rds.length;i++){
-	           	if(rds[i].checked){
-	   				ajaxRequestData("getCustomerData", fromDate.format("yyyy-MM-dd"), toDate.format("yyyy-MM-dd"), rds[i].value, "客户");
-	           	}
-		   	}
-		}
-	    
-		function getCustomerData12M() {
-//     		alert("客户12");
-		   	var rds = document.getElementsByName("mtype");
-	   		var fromDate = new Date();
-	   		var toDate = new Date();
-			fromDate.setMonth(toDate.getMonth()+1-12);
-		   	for(var i=0;i<rds.length;i++){
-	           	if(rds[i].checked){
-	   				ajaxRequestData("getCustomerData", fromDate.format("yyyy-MM-dd"), toDate.format("yyyy-MM-dd"), rds[i].value, "客户");
-	           	}
-		   	}
-		}
-		
-		function ck(){
-		   	var rds = document.getElementsByName("mtype");
-		   	var fromDate = document.getElementById("fromDate").value;
-			var today = new Date();
-		   	if (fromDate == null || fromDate ==""){
-		   		fromDate ="1900-01-01";
-		   	}
-		   	var toDate = document.getElementById("toDate").value;
-		   	if (toDate == null || toDate ==""){
-		   		toDate = today.format("yyyy-MM-dd");		
-		   	}
-		   	for(var i=0;i<rds.length;i++){
-	           	if(rds[i].checked){
-//	        		alert("fromDate:" +fromDate +" toDate:"+toDate + " type:" + rds[i].value);
-		   			ajaxRequestData("getCustomerData", fromDate, toDate, rds[i].value, "客户");
-	           }
-		    }
-		}
-		
-		function addUserList() {
-			var theme1 = "";
-			var url = '<%=request.getContextPath()%>/chart/showCustomerSelectPage.action';
-			//strFlag=1采购单，strFlag=2销售单
-			url += "?strFieldno=" + theme1 + "&date=" + new Date();
-			
-			window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-		};
-
 		</script>
-		<!-- <script src="${pageContext.request.contextPath}/js/themes/gray.js"></script> -->
 	</head>
 	<body>
-		<div class="containerchart">
-		<jsp:include page="../info.jsp" flush="true" />
-		<div class="tittle">
-			<div class="icons"><a class="home" href="#" onclick="goHome();">返回首页</a><a class="quit" href="#" onclick="logout();">退出</a></div>
-			<div class="tittle_left">
-			</div>
-			<div class="tittle_center">客户查询
-			</div>
-			<div class="tittle_right">
-			</div>
-		</div>
-		<div class="tab_content2" >	
-		<!-- 3. Add the container -->
-		<br><br>
-		<input type="hidden" id="h1" value="<s:property value="str" />" />
-		<input type="hidden" id="h2" value="<s:property value="series" />" />
-		<input type="hidden" id="h3" value="<s:property value="series_X" />" />
-		<input type="hidden" id="periodtype" value="<s:property value="periodtype" />" />
-		<table width="50%" border="0" cellpadding="5" cellspacing="0">
-			<tr>
-				<td>客户ID</td>
-				<td>
-					<div class="box1_left"></div>
-					<div class="box1_center">
-					<input type="text" name="handerList" id="handerList" value="" />
-					</div>
-					<div class="box1_right"></div>
-					<div class="btn">
-						<div class="box1_left"></div>
-						<div class="box1_center">
-							<input class="input80" type="button" onclick="addUserList();" value="客户检索" />
-						</div>
-						<div class="box1_right"></div>
-					</div>
-				</td>
-				<td></td>
-			</tr>
-			<tr>		
-				<td>期间类型</td>
-				<td>
-					<div class="box1_left"></div>
-					<div class="box1_center date_input">				
-						<input type="text" name="fromDate" id="fromDate" value="2015-01-01" />
-						<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('fromDate'));"></a>
-					</div>
-					<div class="box1_right">&nbsp&nbsp-</div>
-					<div class="box1_left" style="margin-left: 30px;"></div>
-					<div class="box1_center date_input">				
-						<input type="text" name="toDate" id="toDate" value="2015-10-31" />
-						<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('toDate'));"></a>
-					</div>
-					<div class="box1_right"></div>
-				</td>
-				<td>
-					<div style = "float:left">
-						<input name="mtype" type="radio" id="radio1" value="1" checked>月</input>
-						<input name="mtype" type="radio" id="radio2" value="2" >季</input>
-						<input name="mtype" type="radio" id="radio3" value="3" >年</input>
-					</div>
-					<div class="btn">
-						<div class="box1_left"></div>
-						<div class="box1_center">
-							<input type="button" value="客户信息查询" onclick="ck();" />
-						</div>
-						<div class="box1_right"></div>
-					</div>
-				</td>
-			</tr>
-		</table>
-		<table>
-		<tr>
-			<td>
-				<div class="btn">
-					<div class="box1_left"></div>
-					<div class="box1_center">
-			           <Input id="btn1" type=button value="客户 近3个月" onClick="javascripts:getCustomerData3M();" />
-					</div>
-					<div class="box1_right"></div>
-				</div>
-			</td>
-			<td>
-				<div class="btn">
-					<div class="box1_left"></div>
-					<div class="box1_center">
-			           <Input id="btn2" type=button value="客户 近6个月" onClick="javascripts:getCustomerData6M();" />
-					</div>
-					<div class="box1_right"></div>
-				</div>
-			</td>
-			<td>
-				<div class="btn">
-					<div class="box1_left"></div>
-					<div class="box1_center">
-			           <Input id="btn3" type=button value="客户 近12个月" onClick="javascripts:getCustomerData12M();" />
-					</div>
-					<div class="box1_right"></div>
-				</div>
-			</td>
-		</tr>
-		</table>				
-		<br><br><br>
-		<table>
-		<tr>
-		<td>
-		<div id="container" style="width: 600px; height: 400px; margin: 2 "></div>
-		</td>
-		<td>
-		</td>
-		<td>
-		<div id="container2" style="width: 400px; height: 400px; margin: 2 "></div>
-		</td>
-		</tr>
-		</table>
-		<br><br><br>
-		<div id="dateMessage">   
-		<!-- <table id="planTable" border:1px solid #000 style="border-collapse:collapse;"> -->
-		<table id="planTable" border:1px  cellpadding="3" cellspacing="1" style="background-color: #b9d8f3;">
-		</table>			
-	    </div>
-	    </div>
-	    </div>
 	</body>
 </html>

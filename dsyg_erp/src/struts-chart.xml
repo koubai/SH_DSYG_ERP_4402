@@ -30,7 +30,17 @@
 		<action name="showDeliveryInfoMainChartAction" class="chartAction" method="showDeliveryInfoMainChartAction">
 			<result name="*">/page/intermana/chart_delivery.jsp</result>
 		</action>
-		
+		<action name="showDeliverySelectPage" class="chartAction" method="showDeliverySelectPage">
+			<result name="*">/page/intermana/chart_delivery_selectusers.jsp</result>
+		</action>
+		<action name="queryDeliverySelectPage" class="chartAction" method="queryDeliverySelectPage">
+			<result name="*">/page/intermana/chart_delivery_selectusers.jsp</result>
+		</action>	
+		<action name="turnDeliverySelectPage" class="chartAction" method="turnDeliverySelectPage">
+			<result name="*">/page/intermana/chart_delivery_selectusers.jsp</result>
+		</action>
+
+
 		<action name="showAccountInfoMainChartAction" class="chartAction" method="showAccountInfoMainChartAction">
 			<result name="*">/page/intermana/chart_account.jsp</result>
 		</action>
@@ -38,9 +48,28 @@
 		<action name="showSupplierInfoMainChartAction" class="chartAction" method="showSupplierInfoMainChartAction">
 			<result name="*">/page/intermana/chart_supplier.jsp</result>
 		</action>
+		<action name="showSupplierSelectPage" class="chartAction" method="showSupplierSelectPage">
+			<result name="*">/page/intermana/chart_supplier_selectusers.jsp</result>
+		</action>
+		<action name="querySupplierSelectPage" class="chartAction" method="querySupplierSelectPage">
+			<result name="*">/page/intermana/chart_supplier_selectusers.jsp</result>
+		</action>	
+		<action name="turnSupplierSelectPage" class="chartAction" method="turnSupplierSelectPage">
+			<result name="*">/page/intermana/chart_supplier_selectusers.jsp</result>
+		</action>
+
 
 		<action name="showCustomerInfoMainChartAction" class="chartAction" method="showCustomerInfoMainChartAction">
 			<result name="*">/page/intermana/chart_customer.jsp</result>
+		</action>
+		<action name="showCustomerSelectPage" class="chartAction" method="showCustomerSelectPage">
+			<result name="*">/page/intermana/chart_customer_selectusers.jsp</result>
+		</action>
+		<action name="queryCustomerSelectPage" class="chartAction" method="queryCustomerSelectPage">
+			<result name="*">/page/intermana/chart_customer_selectusers.jsp</result>
+		</action>	
+		<action name="turnCustomerSelectPage" class="chartAction" method="turnCustomerSelectPage">
+			<result name="*">/page/intermana/chart_customer_selectusers.jsp</result>
 		</action>
 	</package>
 

@@ -409,15 +409,6 @@
 		    }
 		}
 
-		function addUserList() {
-			var theme1 = "";
-			var url = '<%=request.getContextPath()%>/chart/showUserSelectPage.action';
-			//strFlag=1采购单，strFlag=2销售单
-			url += "?strFieldno=" + theme1 + "&date=" + new Date();
-			
-			window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-		};
-
 		</script>
 		<!-- <script src="${pageContext.request.contextPath}/js/themes/gray.js"></script> -->
 	</head>

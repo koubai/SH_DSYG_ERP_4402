@@ -194,6 +194,15 @@
 		<property name="userService">
 			<ref bean="userService"/>
 		</property>
+		<property name="customerService">
+			<ref bean="customerService"/>
+		</property>
+		<property name="supplierService">
+			<ref bean="supplierService"/>
+		</property>
+		<property name="deliveryService">
+			<ref bean="deliveryService"/>
+		</property>
 		
 	</bean>
 
