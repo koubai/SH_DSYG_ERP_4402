@@ -34,6 +34,10 @@
 			<result name="*">/page/sales/updsales.jsp</result>
 		</action>
 		
+		<action name="showProductSalesPricePage" class="salesAction" method="showProductSalesPricePage">
+			<result name="*">/page/sales/productsalesprice.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

@@ -42,6 +42,12 @@ public class PurchaseItemServiceImpl implements PurchaseItemService {
 	public void updatePurchaseItem(PurchaseItemDto purchaseItem) {
 		purchaseItemDao.updatePurchaseItem(purchaseItem);
 	}
+	
+	@Override
+	public List<PurchaseItemDto> queryPurchaseItemByProductid(String productid,
+			String supplierid, int start, int end) {
+		return purchaseItemDao.queryPurchaseItemByProductid(productid, supplierid, start, end);
+	}
 
 	public PurchaseItemDao getPurchaseItemDao() {
 		return purchaseItemDao;

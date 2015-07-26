@@ -38,4 +38,14 @@ public interface SalesItemService {
 	 * @param salesItem
 	 */
 	public void updateSalesItem(SalesItemDto salesItem);
+	
+	/**
+	 * 根据产品ID和客户ID查询销售单货物
+	 * @param productid
+	 * @param customerid
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public List<SalesItemDto> querySalesItemByProductid(String productid, String customerid, int start, int end);
 }

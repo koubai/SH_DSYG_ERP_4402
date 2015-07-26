@@ -7,6 +7,9 @@
 		<property name="userService">
 			<ref bean="userService" />
 		</property>
+		<property name="roleService">
+			<ref bean="roleService" />
+		</property>
 	</bean>
 
 	<!-- 快递 -->
