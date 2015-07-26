@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<script type="text/javascript">	     	    
+<%@ taglib prefix="c" uri="/WEB-INF/c.tld" %>
+<link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
+<script type="text/javascript">	     	    
 		Date.prototype.format = function(format){ 
 			var o = { 
 				"M+" : this.getMonth()+1, //month 
@@ -106,7 +104,6 @@
 			X_data = get_X_Data(fromDate, toDate, dur_type);			
 //			alert("type: " + dur_type + " from_date:"+ fromDate+ " to_date:"+ toDate);		
 			
-//			var handerList=document.getElementById('handerList').value;
 			var handerList = $("#handerList").val().trim();
 			if( handerList== null) {
 				handerList="";
@@ -118,7 +115,6 @@
                 dataType: "text",
                 async: false,
                 success: function (data) {
-//        			alert("org_data:"+str_data2);
 	       			var pie_data = getPieData(data, tit);
 //	       			alert("pie_data:"+pie_data);
         			drawPie(pie_data, tit);
@@ -146,7 +142,6 @@
 		}
 		
 		function getPieData(data, tit) {
-//			var	data=[{name:0001,data:[11700.00,23400.00,11700.00,11700.00,11700.00,23400.00,11700.00]},{name:0003,data:[0.00,21700.00,21700.00,0.00,0.00,0.00,0.00]}];
 
 			var jsonobj=eval(data);  
 			var sum_data = new Array();
@@ -265,7 +260,7 @@
 		            tooltip: {  
 		                formatter: function() {  
 		                    return ''+  
-		                        this.x +': '+ this.y +' ￥';  
+		                        this.x +': '+ this.y +' ';  
 		                }  
 		            },  
 		            plotOptions: {  
@@ -280,8 +275,4 @@
 	        });
 	    };  
 
-		</script>
-	</head>
-	<body>
-	</body>
-</html>
+</script>
