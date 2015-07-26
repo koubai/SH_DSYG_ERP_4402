@@ -130,6 +130,9 @@
 		<property name="financeDao">
 			<ref local="financeDao"/>
 		</property>
+		<property name="customerDao">
+			<ref local="customerDao"/>
+		</property>
 	</bean>
 	
 	<bean id="warehouseDao" class="com.cn.dsyg.dao.impl.WarehouseDaoImpl">

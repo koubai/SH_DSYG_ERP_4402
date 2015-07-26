@@ -54,6 +54,18 @@
 			<result name="*">/page/warehouse/warehouseoutoklist.jsp</result>
 		</action>
 		
+		<action name="showWarehouseCheckAction" class="warehouseCheckAction" method="showWarehouseCheckAction">
+			<result name="*">/page/warehouse/warehousechecklist.jsp</result>
+		</action>
+		
+		<action name="queryWarehouseCheckAction" class="warehouseCheckAction" method="queryWarehouseCheckAction">
+			<result name="*">/page/warehouse/warehousechecklist.jsp</result>
+		</action>
+		
+		<action name="turnWarehouseCheckAction" class="warehouseCheckAction" method="turnWarehouseCheckAction">
+			<result name="*">/page/warehouse/warehousechecklist.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

@@ -14,6 +14,7 @@ import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
+import com.cn.dsyg.dao.CustomerDao;
 import com.cn.dsyg.dao.FinanceDao;
 import com.cn.dsyg.dao.PurchaseDao;
 import com.cn.dsyg.dao.PurchaseItemDao;
@@ -22,12 +23,14 @@ import com.cn.dsyg.dao.SalesItemDao;
 import com.cn.dsyg.dao.SupplierDao;
 import com.cn.dsyg.dao.WarehouseDao;
 import com.cn.dsyg.dao.WarehouserptDao;
+import com.cn.dsyg.dto.CustomerDto;
 import com.cn.dsyg.dto.FinanceDto;
 import com.cn.dsyg.dto.PurchaseDto;
 import com.cn.dsyg.dto.PurchaseItemDto;
 import com.cn.dsyg.dto.SalesDto;
 import com.cn.dsyg.dto.SalesItemDto;
 import com.cn.dsyg.dto.SupplierDto;
+import com.cn.dsyg.dto.WarehouseCheckDto;
 import com.cn.dsyg.dto.WarehouseDto;
 import com.cn.dsyg.dto.WarehouseOkDto;
 import com.cn.dsyg.dto.WarehouseProductDto;
@@ -49,7 +52,33 @@ public class WarehouseServiceImpl implements WarehouseService {
 	private WarehouseDao warehouseDao;
 	private WarehouserptDao warehouserptDao;
 	private SupplierDao supplierDao;
+	private CustomerDao customerDao;
 	private FinanceDao financeDao;
+	
+	@Override
+	public Page queryWarehouseCheckByPage(String parentid,
+			String warehousetype, String warehouseno, String theme1,
+			String productid, String tradename, String typeno, String color,
+			String warehousename, Page page) {
+		tradename = StringUtil.replaceDatabaseKeyword_mysql(tradename);
+		typeno = StringUtil.replaceDatabaseKeyword_mysql(typeno);
+		warehousename = StringUtil.replaceDatabaseKeyword_mysql(warehousename);
+		//查询总记录数
+		int totalCount = warehouseDao.queryWarehouseCheckCountByPage(parentid, warehousetype,
+				warehouseno, theme1, productid, tradename, typeno, color, warehousename);
+		page.setTotalCount(totalCount);
+		if(totalCount % page.getPageSize() > 0) {
+			page.setTotalPage(totalCount / page.getPageSize() + 1);
+		} else {
+			page.setTotalPage(totalCount / page.getPageSize());
+		}
+		//翻页查询记录
+		List<WarehouseCheckDto> list = warehouseDao.queryWarehouseCheckByPage(parentid, warehousetype,
+				warehouseno, theme1, productid, tradename, typeno, color, warehousename,
+				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		page.setItems(list);
+		return page;
+	}
 	
 	@Override
 	public Page queryWarehouseProductByPage(
@@ -476,17 +505,17 @@ public class WarehouseServiceImpl implements WarehouseService {
 			warehouserpt.setHandler("");
 			
 			//查询客户信息
-			//SupplierDto supplier = supplierDao.queryAllSupplierByID(supplierid);
+			CustomerDto customer = customerDao.queryEtbCustomerByID(customerid);
 			//获得销售单的客户信息
 			warehouserpt.setSupplierid(customerid);
-//			if(supplier != null) {
-//				warehouserpt.setSuppliername(supplier.getSuppliername());
-//				warehouserpt.setSupplieraddress(supplier.getSupplieraddress1());
-//				warehouserpt.setSuppliermail(supplier.getSuppliermail1());
-//				warehouserpt.setSuppliermanager(supplier.getSuppliermanager1());
-//				warehouserpt.setSuppliertel(supplier.getSuppliertel1());
-//				warehouserpt.setSupplierfax(supplier.getSupplierfax1());
-//			}
+			if(customer != null) {
+				warehouserpt.setSuppliername(customer.getCustomername());
+				warehouserpt.setSupplieraddress(customer.getCustomeraddress1());
+				warehouserpt.setSuppliermail(customer.getCustomermail1());
+				warehouserpt.setSuppliermanager(customer.getCustomermanager1());
+				warehouserpt.setSuppliertel(customer.getCustomertel1());
+				warehouserpt.setSupplierfax(customer.getCustomerfax1());
+			}
 			//快递公司ID==============================这里不做填充，等发货单时填充
 			
 			warehouserpt.setRank(Constants.ROLE_RANK_OPERATOR);
@@ -643,5 +672,13 @@ public class WarehouseServiceImpl implements WarehouseService {
 
 	public void setFinanceDao(FinanceDao financeDao) {
 		this.financeDao = financeDao;
+	}
+
+	public CustomerDao getCustomerDao() {
+		return customerDao;
+	}
+
+	public void setCustomerDao(CustomerDao customerDao) {
+		this.customerDao = customerDao;
 	}
 }

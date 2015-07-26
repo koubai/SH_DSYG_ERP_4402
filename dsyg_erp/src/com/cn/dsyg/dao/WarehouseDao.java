@@ -2,6 +2,7 @@ package com.cn.dsyg.dao;
 
 import java.util.List;
 
+import com.cn.dsyg.dto.WarehouseCheckDto;
 import com.cn.dsyg.dto.WarehouseDto;
 import com.cn.dsyg.dto.WarehouseOkDto;
 import com.cn.dsyg.dto.WarehouseProductDto;
@@ -13,6 +14,42 @@ import com.cn.dsyg.dto.WarehouseProductDto;
  * @version 1.0
  */
 public interface WarehouseDao {
+	
+	/**
+	 * 库存盘点
+	 * @param parentid
+	 * @param warehousetype
+	 * @param warehouseno
+	 * @param theme1
+	 * @param productid
+	 * @param tradename
+	 * @param typeno
+	 * @param color
+	 * @param warehousename
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public List<WarehouseCheckDto> queryWarehouseCheckByPage(String parentid, String warehousetype,
+			String warehouseno, String theme1, String productid, String tradename,
+			String typeno, String color, String warehousename, int start, int end);
+	
+	/**
+	 * 查询库存盘点记录数
+	 * @param parentid
+	 * @param warehousetype
+	 * @param warehouseno
+	 * @param theme1
+	 * @param productid
+	 * @param tradename
+	 * @param typeno
+	 * @param color
+	 * @param warehousename
+	 * @return
+	 */
+	public int queryWarehouseCheckCountByPage(String parentid, String warehousetype,
+			String warehouseno, String theme1, String productid, String tradename,
+			String typeno, String color, String warehousename);
 	
 	//库存产品
 	/**
