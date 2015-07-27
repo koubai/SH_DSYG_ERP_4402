@@ -71,6 +71,24 @@ public class SalesItemDto extends BaseAction {
 	 */
 	private String unit;
 	//==================
+	
+	//================销售价信息
+	/**
+	 * 客户名
+	 */
+	private String customername;
+
+	/**
+	 * 订单日期
+	 */
+	private String bookdate;
+	
+	/**
+	 * 订单日期（显示用）
+	 */
+	private String showBookdate;
+	//==================
+	
 
 	/**
 	 * 销售数量
@@ -522,5 +540,34 @@ public class SalesItemDto extends BaseAction {
 
 	public void setPlandate(String plandate) {
 		this.plandate = plandate;
+	}
+
+	public String getCustomername() {
+		return customername;
+	}
+
+	public void setCustomername(String customername) {
+		this.customername = customername;
+	}
+
+	public String getBookdate() {
+		return bookdate;
+	}
+
+	public void setBookdate(String bookdate) {
+		this.bookdate = bookdate;
+	}
+
+	public String getShowBookdate() {
+		if(bookdate != null && !"".equals(bookdate)) {
+			showBookdate = bookdate.substring(0, 10);
+		} else {
+			showBookdate = "";
+		}
+		return showBookdate;
+	}
+
+	public void setShowBookdate(String showBookdate) {
+		this.showBookdate = showBookdate;
 	}
 }

@@ -17,6 +17,8 @@
 		<result property="color" column="color" />
 		<result property="packaging" column="packaging" />
 		<result property="unit" column="unit" />
+		<result property="customername" column="customername" />
+		<result property="bookdate" column="bookdate" />
 		
 		<result property="quantity" column="quantity" />
 		<result property="beforequantity" column="beforequantity" />
@@ -54,7 +56,9 @@
 		(select P.typeno from etb_product P where P.id = T.productid) as typeno,
 		(select P.color from etb_product P where P.id = T.productid) as color,
 		(select P.packaging from etb_product P where P.id = T.productid) as packaging,
-		(select P.unit from etb_product P where P.id = T.productid) as unit
+		(select P.unit from etb_product P where P.id = T.productid) as unit,
+		(select S.customername from etb_sales S where S.salesno = T.salesno) as customername,
+		(select S.bookdate from etb_sales S where S.salesno = T.salesno) as bookdate
 		from etb_salesitem T where 1 = 1
 		<isNotEmpty prepend="and" property="productid">
 			T.productid = #productid#
@@ -72,7 +76,9 @@
 		(select P.typeno from etb_product P where P.id = T.productid) as typeno,
 		(select P.color from etb_product P where P.id = T.productid) as color,
 		(select P.packaging from etb_product P where P.id = T.productid) as packaging,
-		(select P.unit from etb_product P where P.id = T.productid) as unit
+		(select P.unit from etb_product P where P.id = T.productid) as unit,
+		(select "") as customername,
+		(select "") as bookdate
 		from etb_salesitem T where 1 = 1 and T.status = 1
 		<isNotEmpty prepend="and" property="salesno">
 			T.salesno = #salesno#

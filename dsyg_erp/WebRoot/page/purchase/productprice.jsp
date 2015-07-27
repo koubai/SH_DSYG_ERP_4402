@@ -30,6 +30,7 @@
 						<td width="60">供应商</td>
 						<td width="60">品名</td>
 						<td width="60">采购价</td>
+						<td width="60">采购日期</td>
 					</tr>
 					<s:iterator id="purchaseItemList" value="purchaseItemList" status="st1">
 						<s:if test="#st1.odd==true">
@@ -39,9 +40,10 @@
 							<tr>
 						</s:else>
 							<td><s:property value="#st1.index + 1"/></td>
-							<td><s:property value="supplierid"/></td>
+							<td><s:property value="suppliername"/></td>
 							<td><s:property value="tradename"/></td>
 							<td><s:property value="unitprice"/></td>
+							<td><s:property value="showPurchasedate"/></td>
 						</tr>
 					</s:iterator>
 				</table>

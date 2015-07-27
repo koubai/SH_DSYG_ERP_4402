@@ -71,6 +71,23 @@ public class PurchaseItemDto extends BaseAction {
 	 */
 	private String unit;
 	//==================
+	
+	//================采购价信息
+	/**
+	 * 品名
+	 */
+	private String suppliername;
+	
+	/**
+	 * 采购日期
+	 */
+	private String purchasedate;
+	
+	/**
+	 * 采购日期（显示用）
+	 */
+	private String showPurchasedate;
+	//==================
 
 	/**
 	 * 采购数量
@@ -522,5 +539,34 @@ public class PurchaseItemDto extends BaseAction {
 
 	public void setPlandate(String plandate) {
 		this.plandate = plandate;
+	}
+
+	public String getSuppliername() {
+		return suppliername;
+	}
+
+	public void setSuppliername(String suppliername) {
+		this.suppliername = suppliername;
+	}
+
+	public String getPurchasedate() {
+		return purchasedate;
+	}
+
+	public void setPurchasedate(String purchasedate) {
+		this.purchasedate = purchasedate;
+	}
+
+	public String getShowPurchasedate() {
+		if(purchasedate != null && !"".equals(purchasedate)) {
+			showPurchasedate = purchasedate.substring(0, 10);
+		} else {
+			showPurchasedate = "";
+		}
+		return showPurchasedate;
+	}
+
+	public void setShowPurchasedate(String showPurchasedate) {
+		this.showPurchasedate = showPurchasedate;
 	}
 }

@@ -30,6 +30,7 @@
 						<td width="60">客户</td>
 						<td width="60">品名</td>
 						<td width="60">销售价</td>
+						<td width="60">销售日期</td>
 					</tr>
 					<s:iterator id="salesItemList" value="salesItemList" status="st1">
 						<s:if test="#st1.odd==true">
@@ -39,9 +40,10 @@
 							<tr>
 						</s:else>
 							<td><s:property value="#st1.index + 1"/></td>
-							<td><s:property value="customerid"/></td>
+							<td><s:property value="customername"/></td>
 							<td><s:property value="tradename"/></td>
 							<td><s:property value="unitprice"/></td>
+							<td><s:property value="showBookdate"/></td>
 						</tr>
 					</s:iterator>
 				</table>
