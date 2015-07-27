@@ -38,6 +38,10 @@
 			<result name="success">/page/download.jsp</result>
 		</action>
 		
+		<action name="showProductPricePage" class="purchaseAction" method="showProductPricePage">
+			<result name="*">/page/purchase/productprice.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

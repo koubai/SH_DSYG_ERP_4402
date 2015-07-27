@@ -40,6 +40,12 @@ public class SalesItemServiceImpl implements SalesItemService {
 	public void updateSalesItem(SalesItemDto salesItem) {
 		salesItemDao.updateSalesItem(salesItem);
 	}
+	
+	@Override
+	public List<SalesItemDto> querySalesItemByProductid(String productid,
+			String customerid, int start, int end) {
+		return salesItemDao.querySalesItemByProductid(productid, customerid, start, end);
+	}
 
 	public SalesItemDao getSalesItemDao() {
 		return salesItemDao;

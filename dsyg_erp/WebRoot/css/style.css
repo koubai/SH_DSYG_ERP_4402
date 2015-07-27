@@ -19,7 +19,7 @@ input,img,label{ vertical-align:middle;}
 .opacity{ opacity:0.8;}
 .w120{ width:120px;}
 #container{ width:1024px; margin:0 auto; background:#fff;}
-#containerchart{ width:100%; margin:0 auto; background:#fff;}
+.containerchart{ width:100%; margin:0 auto; background:#fff;}
 #containermain{ width:100%; margin:0 auto; background:#fff;}
 #top{ height:90px; background:#52708a; padding-top:25px; position:relative;}
 .logobox{ position:absolute; right:100px;}

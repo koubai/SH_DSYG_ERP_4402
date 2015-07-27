@@ -59,6 +59,85 @@
 		<result property="plandate" column="plandate" />
 	</resultMap>
 	
+	<!-- WarehouseCheckDto -->
+	<resultMap id="WarehouseCheckDto" class="com.cn.dsyg.dto.WarehouseCheckDto">
+		<result property="id" column="id" />
+		<result property="belongto" column="belongto" />
+		<result property="fieldno" column="fieldno" />
+		<result property="warehousename" column="warehousename" />
+		<result property="brand" column="brand" />
+		<result property="item1" column="item1" />
+		<result property="item2" column="item2" />
+		<result property="item3" column="item3" />
+		<result property="tradename" column="tradename" />
+		<result property="typeno" column="typeno" />
+		<result property="color" column="color" />
+		<result property="packaging" column="packaging" />
+		<result property="unit" column="unit" />
+		<result property="sampleflag" column="sampleflag" />
+		<result property="productname" column="productname" />
+		<result property="makearea" column="makearea" />
+		<result property="supplierid" column="supplierid" />
+		<result property="suppliername" column="suppliername" />
+		<result property="salesprice" column="salesprice" />
+		<result property="purchaseprice" column="purchaseprice" />
+		<result property="warehouseamount" column="warehouseamount" />
+		<result property="note" column="note" />
+		<result property="item01" column="item01" />
+		<result property="item02" column="item02" />
+		<result property="item03" column="item03" />
+		<result property="item04" column="item04" />
+		<result property="item05" column="item05" />
+		<result property="item06" column="item06" />
+		<result property="item07" column="item07" />
+		<result property="item08" column="item08" />
+		<result property="item09" column="item09" />
+		<result property="item10" column="item10" />
+		<result property="item11" column="item11" />
+		<result property="item12" column="item12" />
+		<result property="item13" column="item13" />
+		<result property="item14" column="item14" />
+		<result property="item15" column="item15" />
+		<result property="item16" column="item16" />
+		<result property="item17" column="item17" />
+		<result property="item18" column="item18" />
+		<result property="item19" column="item19" />
+		<result property="item20" column="item20" />
+		<result property="item21" column="item21" />
+		<result property="item22" column="item22" />
+		<result property="item23" column="item23" />
+		<result property="item24" column="item24" />
+		<result property="item25" column="item25" />
+		<result property="item26" column="item26" />
+		<result property="item27" column="item27" />
+		<result property="item28" column="item28" />
+		<result property="item29" column="item29" />
+		<result property="item30" column="item30" />
+		<result property="pic01" column="pic01" />
+		<result property="pic02" column="pic02" />
+		<result property="pic03" column="pic03" />
+		<result property="pic04" column="pic04" />
+		<result property="pic05" column="pic05" />
+		<result property="pdfpath" column="pdfpath" />
+		<result property="rank" column="rank" />
+		<result property="status" column="status" />
+		<result property="res01" column="res01" />
+		<result property="res02" column="res02" />
+		<result property="res03" column="res03" />
+		<result property="res04" column="res04" />
+		<result property="res05" column="res05" />
+		<result property="res06" column="res06" />
+		<result property="res07" column="res07" />
+		<result property="res08" column="res08" />
+		<result property="res09" column="res09" />
+		<result property="res10" column="res10" />
+		<result property="keyword" column="keyword" />
+		<result property="createuid" column="createuid" />
+		<result property="createdate" column="createdate" />
+		<result property="updateuid" column="updateuid" />
+		<result property="updatedate" column="updatedate" />
+	</resultMap>
+	
 	<!-- WarehouseProductDto -->
 	<resultMap id="WarehouseProductDto" class="com.cn.dsyg.dto.WarehouseProductDto">
 		<result property="id" column="id" />
@@ -139,6 +218,87 @@
 	<select id="queryWarehouseByIds" parameterClass="java.util.Map" resultMap="WarehouseProductDto">
 		select T.* from etb_warehouse T where 1 = 1 and id in ($ids$)
 	</select>
+	
+	<!-- warehousecheck begin -->
+	<select id="queryWarehouseCheckByPage" parameterClass="java.util.Map" resultMap="WarehouseCheckDto">
+		select * from (
+			SELECT T.id,T.belongto,T.fieldno,S.warehousename,T.brand,T.item1,T.item2,T.item3,T.tradename,T.typeno,T.color,T.packaging,T.unit,T.sampleflag,T.productname,T.makearea,T.supplierid,T.salesprice,T.purchaseprice,S.warehouseamount,T.note,T.item01,T.item02,T.item03,T.item04,T.item05,T.item06,T.item07,T.item08,T.item09,T.item10,T.item11,T.item12,T.item13,T.item14,T.item15,T.item16,T.item17,T.item18,T.item19,T.item20,T.item21,T.item22,T.item23,T.item24,T.item25,T.item26,T.item27,T.item28,T.item29,T.item30,T.pic01,T.pic02,T.pic03,T.pic04,T.pic05,T.pdfpath,T.rank,T.status,T.res01,T.res02,T.res03,T.res04,T.res05,T.res06,T.res07,T.res08,T.res09,T.res10,T.keyword,T.createuid,T.createdate,T.updateuid,T.updatedate,
+				(select SS.suppliername from etb_supplier SS where SS.id = T.supplierid) as suppliername
+				from (
+					SELECT W.productid,W.warehousename,SUM(W.quantity) AS warehouseamount FROM etb_warehouse W WHERE 1 = 1
+					<isNotEmpty prepend="and" property="parentid">
+						W.parentid = #parentid#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="warehousetype">
+						W.warehousetype = #warehousetype#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="warehouseno">
+						W.warehouseno = #warehouseno#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="theme1">
+						W.theme1 = #theme1#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="productid">
+						W.productid = #productid#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="warehousename">
+						W.warehousename like '%$warehousename$%' ESCAPE '/'
+					</isNotEmpty>
+					group by W.productid,W.warehousename
+				) S, etb_product T WHERE T.id = S.productid and S.warehouseamount <![CDATA[>]]> 0
+			) A where 1 = 1
+			<isNotEmpty prepend="and" property="tradename">
+				A.tradename like '%$tradename$%' ESCAPE '/'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="typeno">
+				A.typeno like '%$typeno$%' ESCAPE '/'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="color">
+				A.color = #color#
+			</isNotEmpty>
+			ORDER BY A.updatedate,A.id desc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryWarehouseCheckCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from (
+			select * from (
+			SELECT T.id,T.belongto,T.fieldno,S.warehousename,T.brand,T.item1,T.item2,T.item3,T.tradename,T.typeno,T.color,T.packaging,T.unit,T.sampleflag,T.productname,T.makearea,T.supplierid,T.salesprice,T.purchaseprice,S.warehouseamount,T.note,T.item01,T.item02,T.item03,T.item04,T.item05,T.item06,T.item07,T.item08,T.item09,T.item10,T.item11,T.item12,T.item13,T.item14,T.item15,T.item16,T.item17,T.item18,T.item19,T.item20,T.item21,T.item22,T.item23,T.item24,T.item25,T.item26,T.item27,T.item28,T.item29,T.item30,T.pic01,T.pic02,T.pic03,T.pic04,T.pic05,T.pdfpath,T.rank,T.status,T.res01,T.res02,T.res03,T.res04,T.res05,T.res06,T.res07,T.res08,T.res09,T.res10,T.keyword,T.createuid,T.createdate,T.updateuid,T.updatedate
+				from (
+					SELECT W.productid,W.warehousename,SUM(W.quantity) AS warehouseamount FROM etb_warehouse W WHERE 1 = 1
+					<isNotEmpty prepend="and" property="parentid">
+						W.parentid = #parentid#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="warehousetype">
+						W.warehousetype = #warehousetype#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="warehouseno">
+						W.warehouseno = #warehouseno#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="theme1">
+						W.theme1 = #theme1#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="productid">
+						W.productid = #productid#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="warehousename">
+						W.warehousename like '%$warehousename$%' ESCAPE '/'
+					</isNotEmpty>
+					group by W.productid,W.warehousename
+				) S, etb_product T WHERE T.id = S.productid and S.warehouseamount <![CDATA[>]]> 0
+			) A where 1 = 1
+			<isNotEmpty prepend="and" property="tradename">
+				A.tradename like '%$tradename$%' ESCAPE '/'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="typeno">
+				A.typeno like '%$typeno$%' ESCAPE '/'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="color">
+				A.color = #color#
+			</isNotEmpty>
+		) B
+	</select>
+	<!-- warehousecheck end -->
 	
 	<!-- warehouseProduct begin -->
 	<select id="queryWarehouseProductByPage" parameterClass="java.util.Map" resultMap="WarehouseProductDto">

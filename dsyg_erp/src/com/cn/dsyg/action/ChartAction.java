@@ -20,8 +20,14 @@ import org.json.JSONArray;
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
+import com.cn.dsyg.dto.CustomerDto;
+import com.cn.dsyg.dto.DeliveryDto;
+import com.cn.dsyg.dto.SupplierDto;
 import com.cn.dsyg.dto.UserDto;
 import com.cn.dsyg.service.ChartService;
+import com.cn.dsyg.service.CustomerService;
+import com.cn.dsyg.service.DeliveryService;
+import com.cn.dsyg.service.SupplierService;
 import com.cn.dsyg.service.UserService;
 
 
@@ -50,13 +56,57 @@ public class ChartAction extends BaseAction {
 	private Integer intPageSize;
 	//页面显示的用户列表
 	private List<UserDto> userList;
+
+	private List<SupplierDto> supplierList;
+	private List<CustomerDto> customerList;
+	private List<DeliveryDto> deliveryList;
 	
 	private String strKeyword;	
 	private String strFieldno;
 	private String strUserIdFrom;
 	private String strUserIdTo;
 	private UserService userService;
+	private SupplierService supplierService;
+	private CustomerService customerService;
+	private DeliveryService deliveryService;
 
+	
+	public List<SupplierDto> getSupplierList() {
+		return supplierList;
+	}
+	public void setSupplierList(List<SupplierDto> supplierList) {
+		this.supplierList = supplierList;
+	}
+	public List<CustomerDto> getCustomerList() {
+		return customerList;
+	}
+	public void setCustomerList(List<CustomerDto> customerList) {
+		this.customerList = customerList;
+	}
+	public List<DeliveryDto> getDeliveryList() {
+		return deliveryList;
+	}
+	public void setDeliveryList(List<DeliveryDto> deliveryList) {
+		this.deliveryList = deliveryList;
+	}
+	public SupplierService getSupplierService() {
+		return supplierService;
+	}
+	public void setSupplierService(SupplierService supplierService) {
+		this.supplierService = supplierService;
+	}
+	public CustomerService getCustomerService() {
+		return customerService;
+	}
+	public void setCustomerService(CustomerService customerService) {
+		this.customerService = customerService;
+	}
+	public DeliveryService getDeliveryService() {
+		return deliveryService;
+	}
+	public void setDeliveryService(DeliveryService deliveryService) {
+		this.deliveryService = deliveryService;
+	}
 	public UserService getUserService() {
 		return userService;
 	}
@@ -332,6 +382,82 @@ public class ChartAction extends BaseAction {
 		this.setStartIndex(page.getStartIndex());
 	}
 
+	//供应商选择页面========================
+	/**
+	 * 显示供应商选择页面
+	 * @return
+	 */
+	public String showSupplierSelectPage() {
+		try {
+			this.clearMessages();
+			//这里产品选择页面，不需要关键字检索
+			strKeyword = "";
+			startIndex = 0;
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			querySupplierData();
+		} catch(Exception e) {
+			log.error("showSupplierSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询供应商（选择页面）
+	 * @return
+	 */
+	public String querySupplierSelectPage() {
+		try {
+			this.clearMessages();
+			startIndex = 0;
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
+			querySupplierData();
+		} catch(Exception e) {
+			log.error("querySupplierSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页供应商（选择页面）
+	 * @return
+	 */
+	public String turnSupplierSelectPage() {
+		try {
+			System.out.println("turnUserSelectPage");
+			this.clearMessages();
+			querySupplierData();
+		} catch(Exception e) {
+			log.error("turnSupplierSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+
+	/**
+	 * 数据查询
+	 */
+	@SuppressWarnings("unchecked")
+	private void querySupplierData() {
+		if(page == null) {
+			page = new Page(intPageSize);
+		}
+		//翻页查询所有用户
+		this.page.setStartIndex(startIndex);
+		System.out.println("strUserIdFrom:" +strUserIdFrom);
+		System.out.println("strUserIdTo:" +strUserIdTo);
+		page = supplierService.querySupplierByPage(page,  strUserIdFrom, strUserIdTo, "");
+		supplierList = (List<SupplierDto>) page.getItems();
+		this.setStartIndex(page.getStartIndex());
+	}
+
 	//用户选择页面========================
 	/**
 	 * 显示用户选择页面
@@ -348,7 +474,7 @@ public class ChartAction extends BaseAction {
 			page = new Page(intPageSize);
 			queryCustomerData();
 		} catch(Exception e) {
-			log.error("showUserSelectPage error:" + e);
+			log.error("showCustomerSelectPage error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -369,7 +495,7 @@ public class ChartAction extends BaseAction {
 			page = new Page(intPageSize);
 			queryCustomerData();
 		} catch(Exception e) {
-			log.error("queryUserSelectPage error:" + e);
+			log.error("queryCustomerSelectPage error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -381,11 +507,11 @@ public class ChartAction extends BaseAction {
 	 */
 	public String turnCustomerSelectPage() {
 		try {
-			System.out.println("turnUserSelectPage");
+			System.out.println("turnCustomerSelectPage");
 			this.clearMessages();
 			queryCustomerData();
 		} catch(Exception e) {
-			log.error("turnUserSelectPage error:" + e);
+			log.error("turnCustomerSelectPage error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -403,13 +529,87 @@ public class ChartAction extends BaseAction {
 		this.page.setStartIndex(startIndex);
 		System.out.println("strUserIdFrom:" +strUserIdFrom);
 		System.out.println("strUserIdTo:" +strUserIdTo);
-//		page = userService.queryUserByPage(strFieldno, strKeyword, strUserIdFrom, strUserIdTo, "" + Constants.STATUS_NORMAL, page);
-		userList = (List<UserDto>) page.getItems();
+		page = customerService.queryEtbCustomerByPage(page,  strUserIdFrom, strUserIdTo, "");
+		customerList = (List<CustomerDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
 
+////////////////////////////////////////////////
+	//快递选择页面========================
+	/**
+	 * 显示快递选择页面
+	 * @return
+	 */
+	public String showDeliverySelectPage() {
+		try {
+			this.clearMessages();
+			//这里产品选择页面，不需要关键字检索
+			strKeyword = "";
+			startIndex = 0;
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			queryDeliveryData();
+		} catch(Exception e) {
+			log.error("showDeliverySelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询快递（选择页面）
+	 * @return
+	 */
+	public String queryDeliverySelectPage() {
+		try {
+			this.clearMessages();
+			startIndex = 0;
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
+			queryDeliveryData();
+		} catch(Exception e) {
+			log.error("queryDeliverySelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页快递（选择页面）
+	 * @return
+	 */
+	public String turnDeliverySelectPage() {
+		try {
+			System.out.println("turnDeliverySelectPage");
+			this.clearMessages();
+			queryDeliveryData();
+		} catch(Exception e) {
+			log.error("turnDeliverySelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 
-
+	/**
+	 * 数据查询
+	 */
+	@SuppressWarnings("unchecked")
+	private void queryDeliveryData() {
+		if(page == null) {
+			page = new Page(intPageSize);
+		}
+		//翻页查询所有用户
+		this.page.setStartIndex(startIndex);
+		System.out.println("strUserIdFrom:" +strUserIdFrom);
+		System.out.println("strUserIdTo:" +strUserIdTo);
+		page = deliveryService.queryEtbDeliveryByPage(page,  strUserIdFrom, strUserIdTo, "");
+		deliveryList = (List<DeliveryDto>) page.getItems();
+		this.setStartIndex(page.getStartIndex());
+	}
 
 
 }

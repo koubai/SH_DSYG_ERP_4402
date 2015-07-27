@@ -16,7 +16,7 @@
 	
 	function queryList() {
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../chart/turnUserSelectPage.action';
+		document.mainform.action = '../chart/turnSupplierSelectPage.action';
 		document.mainform.submit();
 		strUserIdFrom="";
 		strUserIdTo="";
@@ -57,14 +57,14 @@
 	function changepagesize(pagesize) {
 		$("#intPageSize").attr("value", pagesize);
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../chart/queryUserSelectPage.action';
+		document.mainform.action = '../chart/querySupplierSelectPage.action';
 		document.mainform.submit();
 	}
 	
 	//翻页
 	function changePage(pageNum) {
 		$("#startIndex").attr("value", pageNum);
-		document.mainform.action = '../chart/turnUserSelectPage.action';
+		document.mainform.action = '../chart/turnSupplierSelectPage.action';
 		document.mainform.submit();
 	}
 
@@ -103,11 +103,10 @@
 	<s:hidden name="common_rate" id="common_rate"></s:hidden>
 	<s:hidden name="startIndex" id="startIndex"/>
 	<s:hidden name="intPageSize" id="intPageSize"/>
-<!--		
+<!--	
 	<s:hidden name="strUserIdFrom" id="strUserIdFrom"/>
 	<s:hidden name="strUserIdTo" id="strUserIdTo"/>
 -->
-
 	<s:hidden name="strKeyword" id="strKeyword"/>
 	<s:hidden name="strFlag" id="strFlag"/>
 	<s:hidden name="strSeq" id="strSeq"/>
@@ -151,7 +150,7 @@
 						<td width="60">用户ID</td>
 						<td width="60">用户名</td>
 					</tr>
-					<s:iterator id="userList" value="userList" status="st1">
+					<s:iterator id="supplierList" value="supplierList" status="st1">
 						<s:if test="#st1.odd==true">
 							<tr class="tr_bg">
 						</s:if>
@@ -159,15 +158,15 @@
 							<tr>
 						</s:else>
 							<td style="display: none;">
+								<input type="hidden" value="<s:property value="tmp_id"/>"/>
 								<input type="hidden" value="<s:property value="id"/>"/>
-								<input type="hidden" value="<s:property value="userid"/>"/>
-								<input type="hidden" value="<s:property value="username"/>"/>
+								<input type="hidden" value="<s:property value="suppliername"/>"/>
 							</td>
 							<!-- <td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td> -->
 							<td><input name="radioKey" type="checkbox" value="<s:property value="userid"/>"/></td>
 							<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-							<td><s:property value="userid"/></td>
-							<td><s:property value="username"/></td>
+							<td><s:property value="id"/></td>
+							<td><s:property value="suppliername"/></td>
 						</tr>
 					</s:iterator>
 				</table>

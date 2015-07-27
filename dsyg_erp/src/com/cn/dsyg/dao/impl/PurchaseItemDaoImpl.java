@@ -56,4 +56,17 @@ public class PurchaseItemDaoImpl extends BaseDao implements PurchaseItemDao {
 	public void updatePurchaseItem(PurchaseItemDto purchaseItem) {
 		getSqlMapClientTemplate().update("updatePurchaseItem", purchaseItem);
 	}
+	
+	@Override
+	public List<PurchaseItemDto> queryPurchaseItemByProductid(String productid,
+			String supplierid, int start, int end) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("productid", productid);
+		paramMap.put("supplierid", supplierid);
+		paramMap.put("start", start);
+		paramMap.put("end", end);
+		@SuppressWarnings("unchecked")
+		List<PurchaseItemDto> list = getSqlMapClientTemplate().queryForList("queryPurchaseItemByProductid", paramMap);
+		return list;
+	}
 }

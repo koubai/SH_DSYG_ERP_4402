@@ -13,6 +13,24 @@ import com.cn.dsyg.dto.WarehouseDto;
  */
 public interface WarehouseService {
 	
+	/**
+	 * 库存盘点
+	 * @param parentid
+	 * @param warehousetype
+	 * @param warehouseno
+	 * @param theme1
+	 * @param productid
+	 * @param tradename
+	 * @param typeno
+	 * @param color
+	 * @param warehousename
+	 * @param page
+	 * @return
+	 */
+	public Page queryWarehouseCheckByPage(String parentid, String warehousetype,
+			String warehouseno, String theme1, String productid, String tradename,
+			String typeno, String color, String warehousename, Page page);
+	
 	//库存产品
 	/**
 	 * 翻页查询库存产品

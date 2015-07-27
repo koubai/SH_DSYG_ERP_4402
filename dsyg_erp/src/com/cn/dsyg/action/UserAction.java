@@ -7,9 +7,14 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
+import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
+import com.cn.common.util.StringUtil;
+import com.cn.dsyg.dto.RoleDto;
 import com.cn.dsyg.dto.UserDto;
+import com.cn.dsyg.service.RoleService;
 import com.cn.dsyg.service.UserService;
+import com.opensymphony.xwork2.ActionContext;
 
 /**
  * @name UserAction.java
@@ -23,6 +28,27 @@ public class UserAction extends BaseAction {
 	private static final long serialVersionUID = -36067602288448902L;
 	
 	private UserService userService;
+	private RoleService roleService;
+	
+	private List<RoleDto> roleList;
+	
+	//页码
+	private int startIndex;
+	//翻页page
+	private Page page;
+	//一页显示数据条数
+	private Integer intPageSize;
+	//页面显示的产品列表
+	private List<UserDto> userList;
+	//用户名
+	private String strUserName;
+	
+	//添加用户
+	private UserDto addUserDto;
+	
+	//修改用户
+	private UserDto updUserDto;
+	private String updUserid;
 
 	//用户选择页面=================
 	//用户名
@@ -36,6 +62,151 @@ public class UserAction extends BaseAction {
 	//一页显示记录数
 	private Integer intSelectPageSize;
 	//用户选择页面=================
+	
+	/**
+	 * 显示用户修改页面
+	 * @return
+	 */
+	public String showUpdUserAction() {
+		try {
+			this.clearMessages();
+			initList();
+			updUserDto = userService.queryUserByID(updUserid);
+		} catch(Exception e) {
+			log.error("showUpdUserAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 修改用户
+	 * @return
+	 */
+	public String updUserAction() {
+		try {
+			this.clearMessages();
+			initList();
+			//数据验证
+			if(!checkData(updUserDto, "2")) {
+				return "checkerror";
+			}
+			//当前操作用户ID
+			String currUser = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			updUserDto.setUpdateuid(currUser);
+			userService.updateUser(updUserDto);
+			//修改用户成功
+			this.addActionMessage("更新成功！");
+		} catch(Exception e) {
+			log.error("updUserAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 显示新增用户页面
+	 * @return
+	 */
+	public String showAddUserAction() {
+		try {
+			this.clearMessages();
+			addUserDto = new UserDto();
+			addUserDto.setStatus(1);
+			initList();
+		} catch(Exception e) {
+			log.error("showAddUserAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 新增用户
+	 * @return
+	 */
+	public String addUserAction() {
+		try {
+			this.clearMessages();
+			initList();
+			//数据验证
+			if(!checkData(addUserDto, "1")) {
+				return "checkerror";
+			}
+			//当前操作用户ID
+			String currUser = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			addUserDto.setCreateuid(currUser);
+			addUserDto.setUpdateuid(currUser);
+			userService.insertUser(addUserDto);
+			//新增用户成功
+			this.addActionMessage("添加成功！");
+			addUserDto = new UserDto();
+			addUserDto.setStatus(1);
+		} catch(Exception e) {
+			log.error("addUserAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 用户管理页面
+	 * @return
+	 */
+	public String showUserManageAction() {
+		try {
+			this.clearMessages();
+			startIndex = 0;
+			//默认10条
+			intPageSize = 10;
+			strUserName = "";
+			page = new Page(intPageSize);
+			userList = new ArrayList<UserDto>();
+			initList();
+		} catch(Exception e) {
+			log.error("showUserManageAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询用户
+	 * @return
+	 */
+	public String queryUserManageAction() {
+		try {
+			this.clearMessages();
+			//页面数据初期化
+			startIndex = 0;
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
+			queryData();
+		} catch(Exception e) {
+			log.error("queryUserManageAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页
+	 * @return
+	 */
+	public String turnUserManageAction() {
+		try {
+			this.clearMessages();
+			//页面数据初期化
+			queryData();
+		} catch(Exception e) {
+			log.error("turnUserManageAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 	
 	//用户选择页面start
 	/**
@@ -114,6 +285,83 @@ public class UserAction extends BaseAction {
 		
 		this.setSelectStartIndex(selectPage.getStartIndex());
 	}
+	
+	/**
+	 * 翻页查询用户列表
+	 */
+	@SuppressWarnings("unchecked")
+	private void queryData() {
+		initList();
+		userList = new ArrayList<UserDto>();
+		if(page == null) {
+			page = new Page(intPageSize);
+		}
+		//翻页查询所有用户
+		this.page.setStartIndex(startIndex);
+		page = userService.queryUserByPage(strUserName, page);
+		userList = (List<UserDto>) page.getItems();
+		
+		this.setStartIndex(page.getStartIndex());
+	}
+	
+	/**
+	 * 验证数据
+	 * @param user
+	 * @param flag
+	 * @return
+	 */
+	private boolean checkData(UserDto user, String flag) {
+		if("1".equals(flag)) {
+			//新增
+			if(user == null) {
+				this.addActionMessage("用户ID不能为空！");
+				return false;
+			}
+			if(StringUtil.isBlank(user.getUserid())) {
+				this.addActionMessage("用户ID不能为空！");
+				return false;
+			}
+			if(StringUtil.isBlank(user.getUsername())) {
+				this.addActionMessage("用户名不能为空！");
+				return false;
+			}
+			if(StringUtil.isBlank(user.getPassword())) {
+				this.addActionMessage("用户密码不能为空！");
+				return false;
+			}
+			if(!user.getPassword().equals(user.getRepassword())) {
+				this.addActionMessage("两次输入的密码不一致！");
+				return false;
+			}
+		} else {
+			//修改
+			if(user == null) {
+				this.addActionMessage("用户名不能为空！");
+				return false;
+			}
+			if(StringUtil.isBlank(user.getUsername())) {
+				this.addActionMessage("用户名不能为空！");
+				return false;
+			}
+		}
+		if(StringUtil.isBlank(user.getRolecode())) {
+			this.addActionMessage("用户角色不能为空！");
+			return false;
+		}
+		if(user.getStatus() == null) {
+			this.addActionMessage("请选择用户状态！");
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * 初期化数据
+	 */
+	private void initList() {
+		//角色信息
+		roleList = roleService.queryAllRole();
+	}
 
 	public UserService getUserService() {
 		return userService;
@@ -161,5 +409,85 @@ public class UserAction extends BaseAction {
 
 	public void setIntSelectPageSize(Integer intSelectPageSize) {
 		this.intSelectPageSize = intSelectPageSize;
+	}
+
+	public int getStartIndex() {
+		return startIndex;
+	}
+
+	public void setStartIndex(int startIndex) {
+		this.startIndex = startIndex;
+	}
+
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
+	}
+
+	public Integer getIntPageSize() {
+		return intPageSize;
+	}
+
+	public void setIntPageSize(Integer intPageSize) {
+		this.intPageSize = intPageSize;
+	}
+
+	public List<UserDto> getUserList() {
+		return userList;
+	}
+
+	public void setUserList(List<UserDto> userList) {
+		this.userList = userList;
+	}
+
+	public String getStrUserName() {
+		return strUserName;
+	}
+
+	public void setStrUserName(String strUserName) {
+		this.strUserName = strUserName;
+	}
+
+	public RoleService getRoleService() {
+		return roleService;
+	}
+
+	public void setRoleService(RoleService roleService) {
+		this.roleService = roleService;
+	}
+
+	public List<RoleDto> getRoleList() {
+		return roleList;
+	}
+
+	public void setRoleList(List<RoleDto> roleList) {
+		this.roleList = roleList;
+	}
+
+	public UserDto getAddUserDto() {
+		return addUserDto;
+	}
+
+	public void setAddUserDto(UserDto addUserDto) {
+		this.addUserDto = addUserDto;
+	}
+
+	public UserDto getUpdUserDto() {
+		return updUserDto;
+	}
+
+	public void setUpdUserDto(UserDto updUserDto) {
+		this.updUserDto = updUserDto;
+	}
+
+	public String getUpdUserid() {
+		return updUserid;
+	}
+
+	public void setUpdUserid(String updUserid) {
+		this.updUserid = updUserid;
 	}
 }

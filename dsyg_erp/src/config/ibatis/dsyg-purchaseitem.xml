@@ -48,6 +48,24 @@
 		<result property="updatedate" column="updatedate" />
 	</resultMap>
 	
+	<select id="queryPurchaseItemByProductid" parameterClass="java.util.Map" resultMap="PurchaseItemDto">
+		select T.*,
+		(select P.tradename from etb_product P where P.id = T.productid) as tradename,
+		(select P.typeno from etb_product P where P.id = T.productid) as typeno,
+		(select P.color from etb_product P where P.id = T.productid) as color,
+		(select P.packaging from etb_product P where P.id = T.productid) as packaging,
+		(select P.unit from etb_product P where P.id = T.productid) as unit
+		from etb_purchaseitem T where 1 = 1
+		<isNotEmpty prepend="and" property="productid">
+			T.productid = #productid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="supplierid">
+			T.supplierid = #supplierid#
+		</isNotEmpty>
+		order by T.updatedate,T.id desc
+		LIMIT #start#, #end#
+	</select>
+	
 	<select id="queryPurchaseItemByPurchaseno" parameterClass="java.util.Map" resultMap="PurchaseItemDto">
 		select T.*,
 		(select P.tradename from etb_product P where P.id = T.productid) as tradename,

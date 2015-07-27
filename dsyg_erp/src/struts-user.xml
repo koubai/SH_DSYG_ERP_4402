@@ -18,6 +18,34 @@
 			<result name="*">/page/user/selectuser.jsp</result>
 		</action>
 		
+		<action name="showUserManageAction" class="userAction" method="showUserManageAction">
+			<result name="*">/page/user/userlist.jsp</result>
+		</action>
+		
+		<action name="queryUserManageAction" class="userAction" method="queryUserManageAction">
+			<result name="*">/page/user/userlist.jsp</result>
+		</action>
+		
+		<action name="turnUserManageAction" class="userAction" method="turnUserManageAction">
+			<result name="*">/page/user/userlist.jsp</result>
+		</action>
+		
+		<action name="showAddUserAction" class="userAction" method="showAddUserAction">
+			<result name="*">/page/user/adduser.jsp</result>
+		</action>
+		
+		<action name="addUserAction" class="userAction" method="addUserAction">
+			<result name="*">/page/user/adduser.jsp</result>
+		</action>
+		
+		<action name="showUpdUserAction" class="userAction" method="showUpdUserAction">
+			<result name="*">/page/user/upduser.jsp</result>
+		</action>
+		
+		<action name="updUserAction" class="userAction" method="updUserAction">
+			<result name="*">/page/user/upduser.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

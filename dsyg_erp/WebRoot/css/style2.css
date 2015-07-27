@@ -14,3 +14,13 @@ a{ text-decoration:none;}
 .return{ background:url(../images/return.png) no-repeat;}
 .icons a:hover{  color:#0088cc;}
 
+/**yzk_bottom2**/
+.yzk_bottom2{ width:1000px; margin:300px auto; clear:both; padding-bottom:50px; margin-top:200px; }
+.yzk_bottom2 p{ font-weight:bold; font-size:12px; color:#00102a; letter-spacing:2px; color:#959595;}
+.yzk_bottom2 .contactus{ margin-top:10px; font-size:12px}
+.yzk_bottom2 .contactus ul{ list-style:none;}
+.yzk_bottom2 .contactus li{ float:left; color:#959595;}
+.yzk_bottom2 .contactus li a{ color:#959595; text-decoration:none;}
+.yzk_bottom2 .contactus li a:hover{ text-decoration:underline;}
+.yzk_bottom2 .contactus li span img{ padding-left:10px; padding-right:10px; vertical-align:middle;}
+/**yzk_bottom2 end**/

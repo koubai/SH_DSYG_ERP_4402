@@ -118,7 +118,7 @@
 			$("#salesprice").focus();
 			return;
 		}
-		if(tempNote.length > 2500) {
+		if(tempNote.length > 250) {
 			alert("备注不能超过250个字！");
 			$("#tempNote").focus();
 			return false;
