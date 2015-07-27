@@ -55,6 +55,15 @@
 		}
 	}
 	
+	function addUserList(id) {
+		var theme1 = "";
+		var url = '<%=request.getContextPath()%>/customer/showUserSelectPage.action';
+		//strFlag=1采购单，strFlag=2销售单
+		url += "?strFieldno=" + theme1 + "&customerindex=" + id + "&date=" + new Date();
+		
+		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	};
+	
 	function getSelectedID() {
 		var id = "";
 		var list = document.getElementsByName("checkKey");
@@ -193,8 +202,8 @@
 								<td width="15%">客户名称</td>
 								<td width="25%">客户地址</td>
 								<td width="10%">联系人</td>
-								<td width="15%">客户类型</td>
-								<td width="15%">客户担当</td>
+								<td width="10%">客户类型</td>
+								<td width="20%">客户担当</td>
 							</tr>
 							<s:iterator id="listCustomer" value="listCustomer" status="st1">
 								<s:if test="#st1.odd==true">
@@ -222,7 +231,8 @@
     									 个人开拓
     									</option>
 									   </select></td>
-									<td><input type="text" name="listCustomer[<s:property value="#st1.index"/>].handlerid" value="<s:property value="handlerid"/>" />
+									<td><input type="text" name="listCustomer[<s:property value="#st1.index"/>].handlerid" id="listCustomer[<s:property value="#st1.index"/>].handlerid" value="<s:property value="handlerid"/>" />
+									    <input class="input80" type="button" onclick="addUserList('listCustomer[<s:property value="#st1.index"/>].handlerid');" value="用户检索" />
 									</td>
 								</tr>
 							</s:iterator>

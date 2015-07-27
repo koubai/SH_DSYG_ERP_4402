@@ -71,6 +71,16 @@
 			<result name="*">/page/customer/selectcustomer.jsp</result>
 		</action>
 		
+		<action name="showUserSelectPage" class="customerAction" method="showUserSelectPage">
+			<result name="*">/page/customer/customer_selectusers.jsp</result>
+		</action>
+		<action name="queryUserSelectPage" class="customerAction" method="queryUserSelectPage">
+			<result name="*">/page/customer/customer_selectusers.jsp</result>
+		</action>	
+		<action name="turnUserSelectPage" class="customerAction" method="turnUserSelectPage">
+			<result name="*">/page/customer/customer_selectusers.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

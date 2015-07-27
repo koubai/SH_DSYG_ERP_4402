@@ -7,11 +7,15 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
+import com.cn.common.factory.Poi2007Base;
+import com.cn.common.factory.PoiFactory;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.CustomerDto;
+import com.cn.dsyg.dto.UserDto;
 import com.cn.dsyg.service.CustomerService;
+import com.cn.dsyg.service.UserService;
 import com.opensymphony.xwork2.ActionContext;
 
 /**
@@ -120,6 +124,61 @@ public class CustomerAction extends BaseAction {
 	//一页显示记录数
 	private Integer intSelectPageSize;
 	//客户选择页面=================
+	
+
+	//页面显示的用户列表
+	private List<UserDto> userList;
+	private String strKeyword;	
+	private String strFieldno;
+	private String strUserIdFrom;
+	private String strUserIdTo;
+	private UserService userService;
+	private String customerindex;
+
+	public UserService getUserService() {
+		return userService;
+	}
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+	public String getStrFieldno() {
+		return strFieldno;
+	}
+	public void setStrFieldno(String strFieldno) {
+		this.strFieldno = strFieldno;
+	}
+	public String getStrUserIdFrom() {
+		return strUserIdFrom;
+	}
+	public void setStrUserIdFrom(String strUserIdFrom) {
+		this.strUserIdFrom = strUserIdFrom;
+	}
+	public String getStrUserIdTo() {
+		return strUserIdTo;
+	}
+	public void setStrUserIdTo(String strUserIdTo) {
+		this.strUserIdTo = strUserIdTo;
+	}
+
+	public String getStrKeyword() {
+		return strKeyword;
+	}
+	public void setStrKeyword(String strKeyword) {
+		this.strKeyword = strKeyword;
+	}
+	public List<UserDto> getUserList() {
+		return userList;
+	}
+	public void setUserList(List<UserDto> userList) {
+		this.userList = userList;
+	}
+
+	public String getCustomerindex() {
+		return customerindex;
+	}
+	public void setCustomerindex(String customerindex) {
+		this.customerindex = customerindex;
+	}
 	
 	//客户选择页面start
 	/**
@@ -428,6 +487,85 @@ public class CustomerAction extends BaseAction {
 		
 		this.setSelectStartIndex(selectPage.getStartIndex());
 	}
+	    
+	//用户选择页面========================
+	/**
+	* 显示用户选择页面
+	* @return
+	*/
+	public String showUserSelectPage() {
+		try {
+			this.clearMessages();
+			//这里产品选择页面，不需要关键字检索
+			strKeyword = "";
+			startIndex = 0;
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			queryUserData();
+		} catch(Exception e) {
+			log.error("showUserSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	* 查询用户（选择页面）
+	* @return
+	*/
+	public String queryUserSelectPage() {
+		try {
+			this.clearMessages();
+			startIndex = 0;
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
+			queryUserData();
+		} catch(Exception e) {
+			log.error("queryUserSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	* 翻页用户（选择页面）
+	* @return
+	*/
+	public String turnUserSelectPage() {
+		try {
+			System.out.println("turnUserSelectPage");
+			this.clearMessages();
+			queryUserData();
+		} catch(Exception e) {
+			log.error("turnUserSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	* 数据查询
+	*/
+	@SuppressWarnings("unchecked")
+	private void queryUserData() {
+		if(page == null) {
+			page = new Page(intPageSize);
+		}
+		//翻页查询所有用户
+		this.page.setStartIndex(startIndex);
+		System.out.println("strUserIdFrom:" +strUserIdFrom);
+		System.out.println("strUserIdTo:" +strUserIdTo);
+		page = userService.queryUserByPage(strFieldno, strKeyword, strUserIdFrom, strUserIdTo, "" + Constants.STATUS_NORMAL, page);
+
+		userList = (List<UserDto>) page.getItems();
+		this.setStartIndex(page.getStartIndex());
+	}
+	
+	//用户选择页面========================
 	
 	/**
 	 * 验证数据格式

@@ -21,6 +21,9 @@
 		<property name="customerService">
 			<ref bean="customerService" />
 		</property>
+		<property name="userService">
+			<ref bean="userService"/>
+		</property>
 	</bean>
 
 	<!-- 固定资产信息 -->
