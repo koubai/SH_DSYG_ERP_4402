@@ -16,6 +16,28 @@ import com.cn.dsyg.dto.WarehouseProductDto;
 public interface WarehouseDao {
 	
 	/**
+	 * 翻页查询退换货记录
+	 * @param warehousetype
+	 * @param theme1
+	 * @param warehousename
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public List<WarehouseDto> queryWarehouseRefundByPage(String warehousetype,
+			String theme1, String warehousename, int start, int end);
+	
+	/**
+	 * 查询退换货记录数
+	 * @param warehousetype
+	 * @param theme1
+	 * @param warehousename
+	 * @return
+	 */
+	public int queryWarehouseRefundCountByPage(String warehousetype,
+			String theme1, String warehousename);
+	
+	/**
 	 * 库存盘点
 	 * @param parentid
 	 * @param warehousetype

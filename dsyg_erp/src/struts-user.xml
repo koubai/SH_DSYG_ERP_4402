@@ -46,6 +46,14 @@
 			<result name="*">/page/user/upduser.jsp</result>
 		</action>
 		
+		<action name="showUpdUserPsdAction" class="userAction" method="showUpdUserPsdAction">
+			<result name="*">/page/user/updpsd.jsp</result>
+		</action>
+		
+		<action name="updUserPsdAction" class="userAction" method="updUserPsdAction">
+			<result name="*">/page/user/updpsd.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

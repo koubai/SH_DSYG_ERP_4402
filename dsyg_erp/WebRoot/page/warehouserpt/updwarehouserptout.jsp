@@ -400,8 +400,8 @@
 											<td width="40">包装</td>
 											<td width="80">数量</td>
 											<td width="80">金额</td>
-											<td width="90">退货OR损毁</td>
-											<td width="90">退货数量</td>
+											<td width="90" style="display: none;">退货OR损毁</td>
+											<td width="90" style="display: none;">退货数量</td>
 										</tr>
 										<s:iterator id="updWarehouserptDto.listProduct" value="updWarehouserptDto.listProduct" status="st1">
 											<s:if test="#st1.odd==true">
@@ -447,7 +447,7 @@
 												<td>
 													<s:property value="amount"/>
 												</td>
-												<td>
+												<td style="display: none;">
 													<s:if test='%{updWarehouserptDto.listProduct[#st1.index].hasbroken == "1"}'>
 														<input type="checkbox" alt="brokennum<s:property value="#st1.index"/>" name="tmpHasbroken" id="tmpHasbroken" checked="checked"/>
 													</s:if>
@@ -457,7 +457,7 @@
 													<input type="hidden" name="updWarehouserptDto.listProduct[<s:property value="#st1.index"/>].hasbroken" id="hasbroken<s:property value="#st1.index"/>" value="<s:property value="hasbroken"/>"/>
 													<input type="hidden" id="num<s:property value="#st1.index"/>" value="<s:property value="num"/>"/>
 												</td>
-												<td>
+												<td style="display: none;">
 													<input type="text" name="updWarehouserptDto.listProduct[<s:property value="#st1.index"/>].brokennum" id="brokennum<s:property value="#st1.index"/>" maxlength="16" value="<s:property value="brokennum"/>" style="width: 80px;"/>
 												</td>
 											</tr>

@@ -219,6 +219,40 @@
 		select T.* from etb_warehouse T where 1 = 1 and id in ($ids$)
 	</select>
 	
+	<!-- warehouserefund begin -->
+	<select id="queryWarehouseRefundByPage" parameterClass="java.util.Map" resultMap="WarehouseDto">
+		select * from (
+			SELECT * from etb_warehouse W where 1 = 1 and warehousetype in (3,5)
+			<isNotEmpty prepend="and" property="warehousetype">
+				W.warehousetype = #warehousetype#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="theme1">
+				W.theme1 = #theme1#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="warehousename">
+				W.warehousename like '%$warehousename$%' ESCAPE '/'
+			</isNotEmpty>
+			) A
+			ORDER BY A.updatedate,A.id desc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryWarehouseRefundCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from (
+			SELECT * from etb_warehouse W where 1 = 1 and warehousetype in (3,5)
+			<isNotEmpty prepend="and" property="warehousetype">
+				W.warehousetype = #warehousetype#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="theme1">
+				W.theme1 = #theme1#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="warehousename">
+				W.warehousename like '%$warehousename$%' ESCAPE '/'
+			</isNotEmpty>
+		) B
+	</select>
+	<!-- warehouserefund end -->
+	
 	<!-- warehousecheck begin -->
 	<select id="queryWarehouseCheckByPage" parameterClass="java.util.Map" resultMap="WarehouseCheckDto">
 		select * from (
@@ -555,6 +589,7 @@
 			actualquantity = #actualquantity#,
 			unitprice = #unitprice#,
 			amount = #amount#,
+			productid = #productid#,
 			taxamount = #taxamount#,
 			note = #note#,
 			rank = #rank#,

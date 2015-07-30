@@ -59,6 +59,11 @@ public class WarehouseDto extends BaseAction {
 	 * 产品ID号
 	 */
 	private String productid;
+	
+	/**
+	 * 产品名
+	 */
+	private String productname;
 
 	/**
 	 * 入出库数量
@@ -482,5 +487,13 @@ public class WarehouseDto extends BaseAction {
 
 	public void setPlandate(String plandate) {
 		this.plandate = plandate;
+	}
+
+	public String getProductname() {
+		return productname;
+	}
+
+	public void setProductname(String productname) {
+		this.productname = productname;
 	}
 }

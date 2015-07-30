@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import com.cn.common.util.Constants;
 import com.cn.common.util.DateUtil;
@@ -16,6 +17,7 @@ import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.CustomerDao;
 import com.cn.dsyg.dao.FinanceDao;
+import com.cn.dsyg.dao.ProductDao;
 import com.cn.dsyg.dao.PurchaseDao;
 import com.cn.dsyg.dao.PurchaseItemDao;
 import com.cn.dsyg.dao.SalesDao;
@@ -25,6 +27,7 @@ import com.cn.dsyg.dao.WarehouseDao;
 import com.cn.dsyg.dao.WarehouserptDao;
 import com.cn.dsyg.dto.CustomerDto;
 import com.cn.dsyg.dto.FinanceDto;
+import com.cn.dsyg.dto.ProductDto;
 import com.cn.dsyg.dto.PurchaseDto;
 import com.cn.dsyg.dto.PurchaseItemDto;
 import com.cn.dsyg.dto.SalesDto;
@@ -54,6 +57,32 @@ public class WarehouseServiceImpl implements WarehouseService {
 	private SupplierDao supplierDao;
 	private CustomerDao customerDao;
 	private FinanceDao financeDao;
+	private ProductDao productDao;
+	
+	@Override
+	public Page queryWarehouseRefundByPage(String warehousetype, String theme1,
+			String warehousename, Page page) {
+		warehousename = StringUtil.replaceDatabaseKeyword_mysql(warehousename);
+		//查询总记录数
+		int totalCount = warehouseDao.queryWarehouseRefundCountByPage(warehousetype, theme1, warehousename);
+		page.setTotalCount(totalCount);
+		if(totalCount % page.getPageSize() > 0) {
+			page.setTotalPage(totalCount / page.getPageSize() + 1);
+		} else {
+			page.setTotalPage(totalCount / page.getPageSize());
+		}
+		//翻页查询记录
+		List<WarehouseDto> list = warehouseDao.queryWarehouseRefundByPage(warehousetype, theme1, warehousename,
+				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		if(list != null && list.size() > 0) {
+			for(WarehouseDto warehouseDto : list) {
+				ProductDto product = productDao.queryProductByID(warehouseDto.getProductid());
+				warehouseDto.setProductname(product.getTradename());
+			}
+		}
+		page.setItems(list);
+		return page;
+	}
 	
 	@Override
 	public Page queryWarehouseCheckByPage(String parentid,
@@ -576,7 +605,14 @@ public class WarehouseServiceImpl implements WarehouseService {
 
 	@Override
 	public WarehouseDto queryWarehouseByID(String id) {
-		return warehouseDao.queryWarehouseByID(id);
+		WarehouseDto warehouse = warehouseDao.queryWarehouseByID(id);
+		if(warehouse != null) {
+			ProductDto product = productDao.queryProductByID(warehouse.getProductid());
+			if(product != null) {
+				warehouse.setProductname(product.getTradename());
+			}
+		}
+		return warehouse;
 	}
 	
 	@Override
@@ -603,6 +639,22 @@ public class WarehouseServiceImpl implements WarehouseService {
 	@Override
 	public void insertWarehouse(WarehouseDto warehouse) {
 		warehouseDao.insertWarehouse(warehouse);
+	}
+	
+	@Override
+	public String insertRefundWarehouse(WarehouseDto warehouse) {
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String belongto = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG);
+		//库存单号
+		String uuid = UUID.randomUUID().toString();
+		uuid = uuid.substring(uuid.length() - 8, uuid.length());
+		String warehouseno = Constants.WAREHOUSE_NO_PRE + belongto + sdf.format(date) + uuid;
+		
+		warehouse.setWarehouseno(warehouseno);
+		
+		warehouseDao.insertWarehouse(warehouse);
+		return warehouseno;
 	}
 
 	@Override
@@ -680,5 +732,13 @@ public class WarehouseServiceImpl implements WarehouseService {
 
 	public void setCustomerDao(CustomerDao customerDao) {
 		this.customerDao = customerDao;
+	}
+
+	public ProductDao getProductDao() {
+		return productDao;
+	}
+
+	public void setProductDao(ProductDao productDao) {
+		this.productDao = productDao;
 	}
 }

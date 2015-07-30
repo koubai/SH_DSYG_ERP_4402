@@ -190,6 +190,8 @@ public class Constants {
 	public final static int WAREHOUSERPT_TYPE_REFUND = 3;
 	//发货单数据来源：4为手动录入
 	public final static int WAREHOUSERPT_TYPE_INPUT = 4;
+	//发货单数据来源：5为损毁
+	public final static int WAREHOUSERPT_TYPE_BROKEN = 5;
 	
 	//财务记录数据来源类型
 	//采购单

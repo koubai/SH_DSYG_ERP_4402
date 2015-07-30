@@ -307,6 +307,64 @@ public class ProductAction extends BaseAction {
 		return SUCCESS;
 	}
 	
+	//单个产品选择页面
+	/**
+	 * 显示单个产品选择页面
+	 * @return
+	 */
+	public String showProductSingleSelectPage() {
+		try {
+			this.clearMessages();
+			//这里产品选择页面，不需要关键字检索
+			strKeyword = "";
+			startIndex = 0;
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			queryData();
+		} catch(Exception e) {
+			log.error("showProductSingleSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询产品（单个产品选择页面）
+	 * @return
+	 */
+	public String queryProductSingleSelectPage() {
+		try {
+			this.clearMessages();
+			startIndex = 0;
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
+			queryData();
+		} catch(Exception e) {
+			log.error("queryProductSingleSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页产品（单个产品选择页面）
+	 * @return
+	 */
+	public String turnProductSingleSelectPage() {
+		try {
+			this.clearMessages();
+			queryData();
+		} catch(Exception e) {
+			log.error("turnProductSingleSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
 	/**
 	 * 初期化字典数据
 	 */

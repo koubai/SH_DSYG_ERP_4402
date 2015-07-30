@@ -50,6 +50,18 @@
 			<result name="*">/page/product/selectproduct.jsp</result>
 		</action>
 		
+		<action name="showProductSingleSelectPage" class="productAction" method="showProductSingleSelectPage">
+			<result name="*">/page/product/selectsingleproduct.jsp</result>
+		</action>
+		
+		<action name="queryProductSingleSelectPage" class="productAction" method="queryProductSingleSelectPage">
+			<result name="*">/page/product/selectsingleproduct.jsp</result>
+		</action>
+		
+		<action name="turnProductSingleSelectPage" class="productAction" method="turnProductSingleSelectPage">
+			<result name="*">/page/product/selectsingleproduct.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

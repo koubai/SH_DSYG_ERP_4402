@@ -287,7 +287,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		//预入库时间
 		warehouse.setPlandate(purchase.getPlandate());
 		
-		//入库单号
+		//库存单号
 		String uuid = UUID.randomUUID().toString();
 		uuid = uuid.substring(uuid.length() - 8, uuid.length());
 		String warehouseno = Constants.WAREHOUSE_NO_PRE + belongto + sdf.format(date) + uuid;

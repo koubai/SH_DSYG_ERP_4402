@@ -66,6 +66,34 @@
 			<result name="*">/page/warehouse/warehousechecklist.jsp</result>
 		</action>
 		
+		<action name="showWarehouseRefundAction" class="warehouseRefundAction" method="showWarehouseRefundAction">
+			<result name="*">/page/warehouse/warehouserefundlist.jsp</result>
+		</action>
+		
+		<action name="queryWarehouseRefundAction" class="warehouseRefundAction" method="queryWarehouseRefundAction">
+			<result name="*">/page/warehouse/warehouserefundlist.jsp</result>
+		</action>
+		
+		<action name="turmWarehouseRefundAction" class="warehouseRefundAction" method="turmWarehouseRefundAction">
+			<result name="*">/page/warehouse/warehouserefundlist.jsp</result>
+		</action>
+		
+		<action name="showAddWarehouseRefundAction" class="warehouseRefundAction" method="showAddWarehouseRefundAction">
+			<result name="*">/page/warehouse/addwarehouse.jsp</result>
+		</action>
+		
+		<action name="addWarehouseRefundAction" class="warehouseRefundAction" method="addWarehouseRefundAction">
+			<result name="*">/page/warehouse/addwarehouse.jsp</result>
+		</action>
+		
+		<action name="showUpdWarehouseRefundAction" class="warehouseRefundAction" method="showUpdWarehouseRefundAction">
+			<result name="*">/page/warehouse/updwarehouse.jsp</result>
+		</action>
+		
+		<action name="updWarehouseRefundAction" class="warehouseRefundAction" method="updWarehouseRefundAction">
+			<result name="*">/page/warehouse/updwarehouse.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

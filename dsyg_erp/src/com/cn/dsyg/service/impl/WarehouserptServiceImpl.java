@@ -269,6 +269,7 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 		}
 		warehouserptDao.updateWarehouserpt(warehouserpt);
 		
+		//快递信息
 		//判断是否有对应的财务记录
 		FinanceDto ff = financeDao.queryFinanceByInvoiceid(warehouserpt.getWarehouseno(), "" + Constants.FINANCE_TYPE_DELIVERY);
 		if(ff == null) {
@@ -297,16 +298,16 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 			finance.setAmount(warehouserpt.getExpresstaxamount());
 			//负责人
 			finance.setHandler(warehouserpt.getUpdateuid());
-			//供应商信息
-			finance.setCustomerid(Long.valueOf(warehouserpt.getSupplierid()));
-			finance.setCustomername(warehouserpt.getSuppliername());
-			finance.setCustomertel(warehouserpt.getSuppliertel());
-			finance.setCustomermanager(warehouserpt.getSuppliermanager());
-			finance.setCustomeraddress(warehouserpt.getSupplieraddress());
-			finance.setCustomermail(warehouserpt.getSuppliermail());
+			//快递信息
+			finance.setCustomerid(Long.valueOf(warehouserpt.getExpressid()));
+			finance.setCustomername(warehouserpt.getExpressname());
+			finance.setCustomertel(warehouserpt.getExpresstel());
+			finance.setCustomermanager(warehouserpt.getExpressmanager());
+			finance.setCustomeraddress(warehouserpt.getExpressaddress());
+			finance.setCustomermail(warehouserpt.getExpressmail());
 			finance.setRank(Constants.ROLE_RANK_OPERATOR);
-			//状态=付款申请
-			finance.setStatus(Constants.FINANCE_STATUS_PAY_APPLY);
+			//状态=开票完了=============//付款申请
+			finance.setStatus(Constants.FINANCE_STATUS_PAY_INVOICE);
 			finance.setCreateuid(warehouserpt.getUpdateuid());
 			finance.setUpdateuid(warehouserpt.getUpdateuid());
 			financeDao.insertFinance(finance);
@@ -318,13 +319,13 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 			ff.setAmount(warehouserpt.getExpresstaxamount());
 			//负责人
 			ff.setHandler(warehouserpt.getUpdateuid());
-			//供应商信息
-			ff.setCustomerid(Long.valueOf(warehouserpt.getSupplierid()));
-			ff.setCustomername(warehouserpt.getSuppliername());
-			ff.setCustomertel(warehouserpt.getSuppliertel());
-			ff.setCustomermanager(warehouserpt.getSuppliermanager());
-			ff.setCustomeraddress(warehouserpt.getSupplieraddress());
-			ff.setCustomermail(warehouserpt.getSuppliermail());
+			//快递信息
+			ff.setCustomerid(Long.valueOf(warehouserpt.getExpressid()));
+			ff.setCustomername(warehouserpt.getExpressname());
+			ff.setCustomertel(warehouserpt.getExpresstel());
+			ff.setCustomermanager(warehouserpt.getExpressmanager());
+			ff.setCustomeraddress(warehouserpt.getExpressaddress());
+			ff.setCustomermail(warehouserpt.getExpressmail());
 			ff.setUpdateuid(warehouserpt.getUpdateuid());
 			financeDao.updateFinance(ff);
 		}

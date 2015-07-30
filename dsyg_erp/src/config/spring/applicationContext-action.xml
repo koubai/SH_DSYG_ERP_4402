@@ -2,6 +2,16 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
 
+	<!-- WarehouseRefund -->
+	<bean id="warehouseRefundAction" class="com.cn.dsyg.action.WarehouseRefundAction" scope="session">
+		<property name="dict01Service">
+			<ref bean="dict01Service" />
+		</property>
+		<property name="warehouseService">
+			<ref bean="warehouseService" />
+		</property>
+	</bean>
+
 	<!-- warehousecheck -->
 	<bean id="warehouseCheckAction" class="com.cn.dsyg.action.WarehouseCheckAction" scope="session">
 		<property name="dict01Service">

@@ -100,7 +100,6 @@ public class WarehouseCheckAction extends BaseAction {
 	public String turnWarehouseCheckAction() {
 		try {
 			this.clearMessages();
-			//页面数据初期化
 			queryData();
 		} catch(Exception e) {
 			log.error("turnWarehouseCheckAction error:" + e);

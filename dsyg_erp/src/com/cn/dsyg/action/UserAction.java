@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
+import com.cn.common.util.MD5Util;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.RoleDto;
@@ -49,6 +50,9 @@ public class UserAction extends BaseAction {
 	//修改用户
 	private UserDto updUserDto;
 	private String updUserid;
+	
+	//修改密码
+	private UserDto updUserPsdDto;
 
 	//用户选择页面=================
 	//用户名
@@ -62,6 +66,64 @@ public class UserAction extends BaseAction {
 	//一页显示记录数
 	private Integer intSelectPageSize;
 	//用户选择页面=================
+	
+	/**
+	 * 显示修改密码页面
+	 * @return
+	 */
+	public String showUpdUserPsdAction() {
+		try {
+			this.clearMessages();
+			updUserPsdDto = new UserDto();
+		} catch(Exception e) {
+			log.error("showUpdUserPsdAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 修改密码
+	 * @return
+	 */
+	public String updUserPsdAction() {
+		try {
+			this.clearMessages();
+			if(updUserPsdDto == null) {
+				this.addActionMessage("原始密码不能为空！");
+				return "checkerror";
+			}
+			if(StringUtil.isBlank(updUserPsdDto.getOldpassword())) {
+				this.addActionMessage("原始密码不能为空！");
+				return "checkerror";
+			}
+			
+			if(StringUtil.isBlank(updUserPsdDto.getPassword())) {
+				this.addActionMessage("请输入新密码！");
+				return "checkerror";
+			}
+			if(!updUserPsdDto.getPassword().equals(updUserPsdDto.getRepassword())) {
+				this.addActionMessage("两次密码不一致！");
+				return "checkerror";
+			}
+			//判断旧密码是否正确
+			String currUser = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			UserDto user = userService.queryUserByID(currUser);
+			if(!user.getPassword().equals(MD5Util.md5(updUserPsdDto.getOldpassword()))) {
+				this.addActionMessage("旧密码不正确！");
+				return "checkerror";
+			}
+			
+			updUserPsdDto.setUserid(currUser);
+			userService.updPassword(updUserPsdDto);
+			this.addActionMessage("密码修改成功！");
+			updUserPsdDto = new UserDto();
+		} catch(Exception e) {
+			log.error("updUserPsdAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 	
 	/**
 	 * 显示用户修改页面
@@ -489,5 +551,13 @@ public class UserAction extends BaseAction {
 
 	public void setUpdUserid(String updUserid) {
 		this.updUserid = updUserid;
+	}
+
+	public UserDto getUpdUserPsdDto() {
+		return updUserPsdDto;
+	}
+
+	public void setUpdUserPsdDto(UserDto updUserPsdDto) {
+		this.updUserPsdDto = updUserPsdDto;
 	}
 }

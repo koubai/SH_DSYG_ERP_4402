@@ -14,6 +14,17 @@ import com.cn.dsyg.dto.WarehouseDto;
 public interface WarehouseService {
 	
 	/**
+	 * 翻页查询退换货记录
+	 * @param warehousetype
+	 * @param theme1
+	 * @param warehousename
+	 * @param page
+	 * @return
+	 */
+	public Page queryWarehouseRefundByPage(String warehousetype,
+			String theme1, String warehousename, Page page);
+	
+	/**
 	 * 库存盘点
 	 * @param parentid
 	 * @param warehousetype
@@ -139,6 +150,13 @@ public interface WarehouseService {
 	 * @param warehouse
 	 */
 	public void insertWarehouse(WarehouseDto warehouse);
+	
+	/**
+	 * 新增退换货数据
+	 * @param warehouse
+	 * @return
+	 */
+	public String insertRefundWarehouse(WarehouseDto warehouse);
 	
 	/**
 	 * 修改数据

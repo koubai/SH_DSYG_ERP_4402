@@ -20,6 +20,30 @@ import com.cn.dsyg.dto.WarehouseProductDto;
 public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
 	
 	@Override
+	public List<WarehouseDto> queryWarehouseRefundByPage(String warehousetype,
+			String theme1, String warehousename, int start, int end) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("warehousetype", warehousetype);
+		paramMap.put("theme1", theme1);
+		paramMap.put("warehousename", warehousename);
+		paramMap.put("start", start);
+		paramMap.put("end", end);
+		@SuppressWarnings("unchecked")
+		List<WarehouseDto> list = getSqlMapClientTemplate().queryForList("queryWarehouseRefundByPage", paramMap);
+		return list;
+	}
+
+	@Override
+	public int queryWarehouseRefundCountByPage(String warehousetype,
+			String theme1, String warehousename) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("warehousetype", warehousetype);
+		paramMap.put("theme1", theme1);
+		paramMap.put("warehousename", warehousename);
+		return (Integer) getSqlMapClientTemplate().queryForObject("queryWarehouseRefundCountByPage", paramMap);
+	}
+	
+	@Override
 	public List<WarehouseProductDto> queryWarehouseProductByPage(String parentid, String warehousetype,
 			String warehouseno, String theme1, String productid, String tradename,
 			String typeno, String color, String warehousename, int start, int end) {
