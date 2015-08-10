@@ -145,6 +145,14 @@ public class ChartServiceImpl implements ChartService{
     	return list;
     }
 
+	// 取得销售额数据
+	public List<ChartDto> getSaleTotalData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
+    	List<ChartDto>  list = new ArrayList<ChartDto>();
+        list = querySaleTotalByDate(theme, from_date, to_date, dur_type, handerList);
+    	
+    	return list;
+    }
+    
     // get 采购 data by date
 	public List<ChartDto> queryPurchaseByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		try {
@@ -295,6 +303,30 @@ public class ChartServiceImpl implements ChartService{
 		}
 	}
 	
+    // get Sale Total data by date
+	public List<ChartDto> querySaleTotalByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+		try {
+			if (ctx != null){
+	        	chartDao = (ChartDao)ctx.getBean("chartDao");
+		        System.out.println("chartDao not null" );
+			}else
+		        System.out.println("chartDao is null" );
+				
+			List<ChartDto> list = chartDao.querySaleTotalByDate(theme1, from_date, to_date, dur_type, handerList);
+	        System.out.println("querySaleTotalByDate theme1:" + theme1);
+	        System.out.println("querySaleTotalByDate from_date:" + from_date);
+	        System.out.println("querySaleTotalByDate to_date:" + to_date);
+	        System.out.println("querySaleTotalByDate handerList:" + handerList);
+	        System.out.println("querySaleTotalByDate list:" + list.size());
+			return list;		
+		}catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
+	
 	// 从数据库中取得各类数据，放入JSON，由年单位转为月数组，并排序
     public JSONArray getData(String pattern, String from_date, String to_date, String dur_type, String handerList) {  
     	int i_fy;
@@ -349,6 +381,10 @@ public class ChartServiceImpl implements ChartService{
         	// get Saler's detail data 
         	else if (pattern.equals("7")){
         		list = getCustomerData("", from_date, to_date, dur_type, handerList);
+        	}
+        	// get Sale summary data 
+        	else if (pattern.equals("8")){
+        		list = getSaleTotalData("", from_date, to_date, dur_type, handerList);
         	}
         	
             Map<String, String> item_map = null;

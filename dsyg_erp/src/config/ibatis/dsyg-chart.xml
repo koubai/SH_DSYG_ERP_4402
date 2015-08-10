@@ -925,4 +925,41 @@
 			order by id
 	</select>
 	
+	
+	<select id="querySaleTotalByDate" parameterClass="java.util.Map" resultMap="ChartDto">
+		select '' id, '' handler, '' theme1, CONCAT(years,'-',months,'-',days) as pur_year,
+			sum(pur_sum_data) 'pur_month01',   
+			NULL 'pur_month02',   
+			NULL 'pur_month03',   
+			NULL 'pur_month04',   
+			NULL 'pur_month05',   
+			NULL 'pur_month06',   
+			NULL 'pur_month07',   
+			NULL 'pur_month08',   
+			NULL 'pur_month09',   
+			NULL 'pur_month10',   
+			NULL 'pur_month11',   
+			NULL 'pur_month12'   
+		from(   
+			select DATE_FORMAT(T.bookdate,'%y') as years, DATE_FORMAT(T.bookdate,'%m') months,DATE_FORMAT(T.bookdate,'%d') days, T.theme1, TU.userid as id, TU.username as handler, T.taxamount as pur_sum_data     
+			from etb_sales T, tbuser TU
+			where 1=1 
+			and T.handler = TU.userid
+			<isNotEmpty prepend="and" property="theme1">
+				T.theme1 = #theme1#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="from_date">
+				T.bookdate <![CDATA[>=]]> #from_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="to_date">
+				T.bookdate <![CDATA[<=]]> #to_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="handerList">
+				T.handler in ( $handerList$ )			
+			</isNotEmpty>
+		)as test 
+			group by pur_year
+			order by id
+	</select>
+	
 </sqlMap>
