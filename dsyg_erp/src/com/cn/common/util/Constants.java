@@ -17,6 +17,8 @@ public class Constants {
 	public final static String DOCUMENT_NO_PRE = "WDN";
 	//采购单单号前缀
 	public final static String PURCHASE_NO_PRE = "CGD";
+	//采购订单号前缀
+	public final static String PURCHASE_ORDER_PRE = "DS";
 	//销售单单号前缀
 	public final static String SALES_NO_PRE = "XSD";
 	//入库单前缀
@@ -46,6 +48,9 @@ public class Constants {
 	public final static String SYSTEM_BELONG = "belongto";
 	//多语言
 	public final static String SYSTEM_LANGUAGE = "language";
+	//仓库名
+	public final static String SYSTEM_WAREHOUSE_NAME = "warehouse_name";
+	
 	//URL后缀名
 	public final static String URL_SUFFIX = ".shtml";
 	//ul编码为空字符串
@@ -93,8 +98,14 @@ public class Constants {
 	//颜色
 	public final static String DICT_COLOR_TYPE = "color";
 	
+	//支付方式
+	public final static String DICT_PAY_TYPE = "pay";
+	
 	//税率
 	public final static String DICT_RATE = "rate";
+	
+	//采购订单号番号
+	public final static String DICT_PURCHASE_ORDER = "purchaseorder";
 	
 	//财务主题
 	public final static String FINANCE_THEME = "financetheme";
@@ -194,9 +205,9 @@ public class Constants {
 	public final static int WAREHOUSERPT_TYPE_BROKEN = 5;
 	
 	//财务记录数据来源类型
-	//采购单
+	//入库单
 	public final static int FINANCE_TYPE_PURCHASE = 1;
-	//销售单
+	//出库单
 	public final static int FINANCE_TYPE_SALES = 2;
 	//快递
 	public final static int FINANCE_TYPE_DELIVERY = 3;
@@ -216,22 +227,24 @@ public class Constants {
 	//采购单状态
 	//采购单新增
 	public final static int PURCHASE_STATUS_NEW = 10;
-	//采购单付款申请
-	public final static int PURCHASE_STATUS_PAY_APPLY = 20;
-	//采购单付款审批
-	public final static int PURCHASE_STATUS_PAY_APPROVE = 30;
-	//采购单已开票
-	public final static int PURCHASE_STATUS_PAY_INVOICE = 40;
+	//采购入库确认
+	public final static int PURCHASE_STATUS_WAREHOUSE_OK = 20;
 	
 	//销售单状态
 	//采购单新增
 	public final static int SALES_STATUS_NEW = 10;
-	//销售单开票申请
-	public final static int SALES_STATUS_BILL_APPLY = 20;
-	//销售单开票审批
-	public final static int SALES_STATUS_BILL_APPROVE = 30;
-	//销售单已开票
-	public final static int SALES_STATUS_BILL_OK = 40;
+	//销售单入库确认
+	public final static int SALES_STATUS_WAREHOUSE_OK = 20;
+		
+	//入出库单状态
+	//新增
+	public final static int WAREHOUSERPT_STATUS_NEW = 10;
+	//付款申请/开票申请
+	public final static int WAREHOUSERPT_STATUS_APPLY = 20;
+	//付款审批/开票审批
+	public final static int WAREHOUSERPT_STATUS_APPROVE = 30;
+	//已开票
+	public final static int WAREHOUSERPT_STATUS_INVOICE = 40;
 	
 	//财务状态
 	//新增

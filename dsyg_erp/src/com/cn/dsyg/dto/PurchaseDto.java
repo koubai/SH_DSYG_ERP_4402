@@ -36,7 +36,7 @@ public class PurchaseDto extends BaseAction {
 	private String theme1;
 
 	/**
-	 * 采购主题2
+	 * 采购订单号
 	 */
 	private String theme2;
 

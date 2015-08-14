@@ -24,14 +24,15 @@ public class ProductServiceImpl implements ProductService {
 	private Dict01Dao dict01Dao;
 
 	@Override
-	public Page queryProductByPage(String fieldno, String keyword, String tradename,
+	public Page queryProductByPage(String fieldno, String item01, String keyword, String tradename,
 				String typeno, String color, String supplierId, String status, Page page) {
 		keyword = StringUtil.replaceDatabaseKeyword_mysql(keyword);
 		tradename = StringUtil.replaceDatabaseKeyword_mysql(tradename);
 		typeno = StringUtil.replaceDatabaseKeyword_mysql(typeno);
+		item01 = StringUtil.replaceDatabaseKeyword_mysql(item01);
 		
 		//查询总记录数
-		int totalCount = productDao.queryProductCountByPage(fieldno, keyword, tradename, typeno, color, supplierId, status);
+		int totalCount = productDao.queryProductCountByPage(fieldno, item01, keyword, tradename, typeno, color, supplierId, status);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -39,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
 			page.setTotalPage(totalCount / page.getPageSize());
 		}
 		//翻页查询记录
-		List<ProductDto> list = productDao.queryProductByPage(fieldno, keyword, tradename, typeno, color, supplierId, status,
+		List<ProductDto> list = productDao.queryProductByPage(fieldno, item01, keyword, tradename, typeno, color, supplierId, status,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		page.setItems(list);
 		return page;

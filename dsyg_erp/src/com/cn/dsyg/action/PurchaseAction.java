@@ -62,6 +62,8 @@ public class PurchaseAction extends BaseAction {
 	private List<Dict01Dto> unitList;
 	//产地
 	private List<Dict01Dto> makeareaList;
+	//支付方式
+	private List<Dict01Dto> payTypeList;
 		
 	//新增
 	private PurchaseDto addPurchaseDto;
@@ -102,6 +104,11 @@ public class PurchaseAction extends BaseAction {
 			if(colorList != null && colorList.size() > 0) {
 				for(Dict01Dto dict : colorList) {
 					dictMap.put(Constants.DICT_COLOR_TYPE + "_" + dict.getCode(), dict.getFieldname());
+				}
+			}
+			if(payTypeList != null && payTypeList.size() > 0) {
+				for(Dict01Dto dict : payTypeList) {
+					dictMap.put(Constants.DICT_PAY_TYPE + "_" + dict.getCode(), dict.getFieldname());
 				}
 			}
 			
@@ -228,8 +235,9 @@ public class PurchaseAction extends BaseAction {
 			}
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
-			String purchaseno = purchaseService.addPurchase(addPurchaseDto, addPurchaseItemList, username);
-			this.addActionMessage("采购单添加成功！采购单号为：" + purchaseno);
+			String purchaseorder = purchaseService.addPurchase(addPurchaseDto, addPurchaseItemList, username);
+			this.addActionMessage("采购单添加成功！采购订单号为：" + purchaseorder);
+			//this.addActionMessage("采购单添加成功！");
 			
 			//清空数据
 			addPurchaseDto = new PurchaseDto();
@@ -330,22 +338,30 @@ public class PurchaseAction extends BaseAction {
 			this.addActionMessage("采购日期不能为空！");
 			return false;
 		}
+//		if(StringUtil.isBlank(purchase.getTheme2())) {
+//			this.addActionMessage("采购订单号不能为空！");
+//			return false;
+//		}
 		if(purchase.getPurchasedate() == null) {
 			this.addActionMessage("采购日期不能为空！");
 			return false;
 		}
-		if(StringUtil.isBlank(purchase.getHandler())) {
-			this.addActionMessage("经手人不能为空！");
+		if(StringUtil.isBlank(purchase.getRes01())) {
+			this.addActionMessage("请选择支付方式！");
 			return false;
 		}
-		if(StringUtil.isBlank(purchase.getTheme1())) {
-			this.addActionMessage("请选择采购主题！");
-			return false;
-		}
-		if(StringUtil.isBlank(purchase.getWarehouse())) {
-			this.addActionMessage("仓库不能为空！");
-			return false;
-		}
+//		if(StringUtil.isBlank(purchase.getHandler())) {
+//			this.addActionMessage("经手人不能为空！");
+//			return false;
+//		}
+//		if(StringUtil.isBlank(purchase.getTheme1())) {
+//			this.addActionMessage("请选择采购主题！");
+//			return false;
+//		}
+//		if(StringUtil.isBlank(purchase.getWarehouse())) {
+//			this.addActionMessage("仓库不能为空！");
+//			return false;
+//		}
 //		if(purchase.getSupplierid() == null) {
 //			this.addActionMessage("请选择供应商！");
 //			return false;
@@ -403,6 +419,8 @@ public class PurchaseAction extends BaseAction {
 		makeareaList = dict01Service.queryDict01ByFieldcode(Constants.DICT_MAKEAREA, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 		//颜色
 		colorList = dict01Service.queryDict01ByFieldcode(Constants.DICT_COLOR_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		//支付方式
+		payTypeList = dict01Service.queryDict01ByFieldcode(Constants.DICT_PAY_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 	}
 
 	public int getStartIndex() {
@@ -571,5 +589,13 @@ public class PurchaseAction extends BaseAction {
 
 	public void setPurchaseItemList(List<PurchaseItemDto> purchaseItemList) {
 		this.purchaseItemList = purchaseItemList;
+	}
+
+	public List<Dict01Dto> getPayTypeList() {
+		return payTypeList;
+	}
+
+	public void setPayTypeList(List<Dict01Dto> payTypeList) {
+		this.payTypeList = payTypeList;
 	}
 }

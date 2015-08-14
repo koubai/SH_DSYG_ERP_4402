@@ -62,6 +62,18 @@
 			<result name="*">/page/product/selectsingleproduct.jsp</result>
 		</action>
 		
+		<action name="showSalesProductSelectPage" class="productAction" method="showSalesProductSelectPage">
+			<result name="*">/page/product/selectsalesproduct.jsp</result>
+		</action>
+		
+		<action name="querySalesProductSelectPage" class="productAction" method="querySalesProductSelectPage">
+			<result name="*">/page/product/selectsalesproduct.jsp</result>
+		</action>
+		
+		<action name="turnSalesProductSelectPage" class="productAction" method="turnSalesProductSelectPage">
+			<result name="*">/page/product/selectsalesproduct.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

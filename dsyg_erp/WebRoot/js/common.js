@@ -1,3 +1,33 @@
+function checkRadioTd(obj, evt) {
+	var tr = obj.parentNode;
+	var tds = tr.getElementsByTagName("td");
+	var inputs = tds[0].getElementsByTagName("input");
+	inputs[0].checked = true;
+	var e = (evt) ? evt : window.event;
+	//防止冒泡
+	if(window.event) {
+		e.cancelBubble = true;
+	} else {
+		e.stopPropagation();
+	}
+}
+
+function checkRadioTr(tr, evt) {
+	var tds = tr.getElementsByTagName("td");
+	var inputs = tds[0].getElementsByTagName("input");
+	inputs[0].checked = true;
+}
+
+function checkCheckboxTr(tr, evt) {
+	var tds = tr.getElementsByTagName("td");
+	var inputs = tds[0].getElementsByTagName("input");
+	if(inputs[0].checked) {
+		inputs[0].checked = false;
+	} else {
+		inputs[0].checked = true;
+	}
+}
+
 /**
  * 取得时间
  * @return 返回格式为yyyyMMddHHmmss的字符串

@@ -43,6 +43,30 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 	private FinanceDao financeDao;
 	
 	@Override
+	public void approveWarehouserpt(String id, String userid, String status) {
+		WarehouserptDto warehouserpt = warehouserptDao.queryWarehouserptByID(id);
+		if(warehouserpt != null) {
+			warehouserpt.setUpdateuid(userid);
+			//更新采购单状态
+			warehouserpt.setStatus(Integer.valueOf(status));
+			warehouserptDao.updateWarehouserpt(warehouserpt);
+			
+			//更新财务数据状态
+			FinanceDto finance = financeDao.queryFinanceByInvoiceid(warehouserpt.getWarehouseno(), "");
+			if(finance != null) {
+				if(status.equals("" + Constants.FINANCE_STATUS_PAY_INVOICE)) {
+					//开票日期=当天
+					finance.setReceiptdate(DateUtil.dateToShortStr(new Date()));
+				}
+				//确认者=当前用户
+				finance.setApproverid(userid);
+				finance.setStatus(Integer.valueOf(status));
+				financeDao.updateFinance(finance);
+			}
+		}
+	}
+	
+	@Override
 	public List<WarehouserptDto> queryAllWarehouserptToExport(String status,
 			String warehousetype, String warehouseno, String theme1,
 			String parentid, String supplierid, String productid) {
@@ -77,11 +101,12 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 
 	@Override
 	public Page queryWarehouserptByPage(String status, String warehousetype,
-			String warehouseno, String theme1, String parentid,
-			String supplierid, String productid, Page page) {
+			String warehouseno, String theme1, String parentid, String supplierid,
+			String productid, String beginDate, String endDate, Page page) {
 		
 		//查询总记录数
-		int totalCount = warehouserptDao.queryWarehouserptCountByPage(status, warehousetype, warehouseno, theme1, parentid, supplierid, productid);
+		int totalCount = warehouserptDao.queryWarehouserptCountByPage(status, warehousetype,
+				warehouseno, theme1, parentid, supplierid, productid, beginDate, endDate);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -89,7 +114,8 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 			page.setTotalPage(totalCount / page.getPageSize());
 		}
 		//翻页查询记录
-		List<WarehouserptDto> list = warehouserptDao.queryWarehouserptByPage(status, warehousetype, warehouseno, theme1, parentid, supplierid, productid,
+		List<WarehouserptDto> list = warehouserptDao.queryWarehouserptByPage(status, warehousetype,
+				warehouseno, theme1, parentid, supplierid, productid, beginDate, endDate,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		page.setItems(list);
 		return page;
@@ -290,14 +316,15 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 			//发票号
 			String receiptid = Constants.FINANCE_NO_PRE + belongto + sdf.format(date);
 			finance.setReceiptid(receiptid);
-			//开票日期
-			//finance.setReceiptdate(receiptdate);
+			//开票日期=当天
+			finance.setReceiptdate(DateUtil.dateToShortStr(date));
 			//结算日期=当天
 			finance.setAccountdate(DateUtil.dateToShortStr(date));
 			//金额=快递金额含税
 			finance.setAmount(warehouserpt.getExpresstaxamount());
 			//负责人
 			finance.setHandler(warehouserpt.getUpdateuid());
+			finance.setApproverid(warehouserpt.getUpdateuid());
 			//快递信息
 			finance.setCustomerid(Long.valueOf(warehouserpt.getExpressid()));
 			finance.setCustomername(warehouserpt.getExpressname());

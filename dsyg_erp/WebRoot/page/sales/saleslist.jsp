@@ -168,9 +168,12 @@
 							<tr class="tittle">
 								<td width="30"></td>
 								<td width="40">序号</td>
-								<td width="80">销售单号</td>
+								<td width="140">销售订单号</td>
+								<!--
 								<td width="60">销售主题</td>
-								<td width="120">仓库</td>
+								-->
+								<td width="60">支付方式</td>
+								<td width="60">仓库</td>
 								<td width="120">客户</td>
 								<td width="60">经手人</td>
 								<td width="80">销售日期</td>
@@ -181,17 +184,26 @@
 							</tr>
 							<s:iterator id="salesList" value="salesList" status="st1">
 								<s:if test="#st1.odd==true">
-									<tr class="tr_bg">
+									<tr class="tr_bg" onclick="checkRadioTr(this, event);">
 								</s:if>
 								<s:else>
-									<tr>
+									<tr onclick="checkRadioTr(this, event);">
 								</s:else>
 									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-									<td><s:property value="salesno"/></td>
+									<td><s:property value="theme2"/></td>
+									<!--
 									<td>
 										<s:iterator id="goodsList" value="goodsList" status="st3">
 											<s:if test="%{goodsList[#st3.index].code == salesList[#st1.index].theme1}">
+												<s:property value="fieldname"/>
+											</s:if>
+										</s:iterator>
+									</td>
+									-->
+									<td>
+										<s:iterator id="payTypeList" value="payTypeList" status="st3">
+											<s:if test="%{payTypeList[#st3.index].code == salesList[#st1.index].res01}">
 												<s:property value="fieldname"/>
 											</s:if>
 										</s:iterator>
@@ -208,13 +220,7 @@
 											新增
 										</s:if>
 										<s:elseif test="%{status == 20}">
-											开票申请
-										</s:elseif>
-										<s:elseif test="%{status == 30}">
-											开票审批
-										</s:elseif>
-										<s:elseif test="%{status == 40}">
-											已开票
+											出库确认
 										</s:elseif>
 										<s:else>
 											<s:property value="status"/>

@@ -50,6 +50,7 @@ public class ProductAction extends BaseAction {
 	private List<Dict01Dto> makeareaList;
 	
 	private String strFieldno;
+	private String strItem01;//包装
 	private String strKeyword;
 	private String strSupplierId;
 	private String strTradename;
@@ -307,6 +308,64 @@ public class ProductAction extends BaseAction {
 		return SUCCESS;
 	}
 	
+	//销售产品选择页面
+	/**
+	 * 显示销售产品选择页面
+	 * @return
+	 */
+	public String showSalesProductSelectPage() {
+		try {
+			this.clearMessages();
+			//这里产品选择页面，不需要关键字检索
+			strKeyword = "";
+			startIndex = 0;
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			queryData();
+		} catch(Exception e) {
+			log.error("showSalesProductSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询产品（销售单选择页面）
+	 * @return
+	 */
+	public String querySalesProductSelectPage() {
+		try {
+			this.clearMessages();
+			startIndex = 0;
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
+			queryData();
+		} catch(Exception e) {
+			log.error("querySalesProductSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页产品（销售单选择页面）
+	 * @return
+	 */
+	public String turnSalesProductSelectPage() {
+		try {
+			this.clearMessages();
+			queryData();
+		} catch(Exception e) {
+			log.error("turnSalesProductSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
 	//单个产品选择页面
 	/**
 	 * 显示单个产品选择页面
@@ -414,6 +473,10 @@ public class ProductAction extends BaseAction {
 			this.addActionMessage("请选择颜色！");
 			return false;
 		}
+		if(StringUtil.isBlank(product.getItem01())) {
+			this.addActionMessage("包装不能为空！");
+			return false;
+		}
 //		if(product.getSupplierid() == null) {
 //			this.addActionMessage("请选择供应商！");
 //			return false;
@@ -442,7 +505,7 @@ public class ProductAction extends BaseAction {
 		initDictList();
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		page = productService.queryProductByPage(strFieldno, strKeyword, strTradename, strTypeno, strColor,
+		page = productService.queryProductByPage(strFieldno, strItem01, strKeyword, strTradename, strTypeno, strColor,
 				strSupplierId, "" + Constants.STATUS_NORMAL, page);
 		productList = (List<ProductDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
@@ -622,5 +685,13 @@ public class ProductAction extends BaseAction {
 
 	public void setProductList(List<ProductDto> productList) {
 		this.productList = productList;
+	}
+
+	public String getStrItem01() {
+		return strItem01;
+	}
+
+	public void setStrItem01(String strItem01) {
+		this.strItem01 = strItem01;
 	}
 }

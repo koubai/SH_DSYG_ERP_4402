@@ -73,6 +73,43 @@ public class WarehouseAction extends BaseAction {
 	}
 	
 	/**
+	 * 查询库存产品页面
+	 * @return
+	 */
+	public String queryWarehouseProductSelectAction() {
+		try {
+			this.clearMessages();
+			//这里产品选择页面，不需要关键字检索
+			startIndex = 0;
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
+			queryData();
+		} catch(Exception e) {
+			log.error("queryWarehouseProductSelectAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页
+	 * @return
+	 */
+	public String turnWarehouseProductSelectAction() {
+		try {
+			this.clearMessages();
+			queryData();
+		} catch(Exception e) {
+			log.error("turnWarehouseProductSelectAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
 	 * 数据查询
 	 */
 	@SuppressWarnings("unchecked")

@@ -36,12 +36,14 @@ public interface WarehouserptService {
 	 * @param parentid
 	 * @param supplierid
 	 * @param productid
+	 * @param beginDate
+	 * @param endDate
 	 * @param page
 	 * @return
 	 */
 	public Page queryWarehouserptByPage(String status, String warehousetype,
 			String warehouseno, String theme1, String parentid, String supplierid,
-			String productid, Page page);
+			String productid, String beginDate, String endDate, Page page);
 	
 	/**
 	 * 根据ID查询数据
@@ -62,4 +64,12 @@ public interface WarehouserptService {
 	 * @param type 1为入库单，2为出库单
 	 */
 	public void updateWarehouserpt(WarehouserptDto warehouserpt, Integer type);
+	
+	/**
+	 * 入出库单财务审核
+	 * @param id
+	 * @param userid
+	 * @param status
+	 */
+	public void approveWarehouserpt(String id, String userid, String status);
 }

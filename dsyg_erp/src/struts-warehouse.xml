@@ -22,6 +22,14 @@
 			<result name="*">/page/warehouse/selectwarehouseproduct.jsp</result>
 		</action>
 		
+		<action name="queryWarehouseProductSelectAction" class="warehouseAction" method="queryWarehouseProductSelectAction">
+			<result name="*">/page/warehouse/selectwarehouseproduct.jsp</result>
+		</action>
+		
+		<action name="turnWarehouseProductSelectAction" class="warehouseAction" method="turnWarehouseProductSelectAction">
+			<result name="*">/page/warehouse/selectwarehouseproduct.jsp</result>
+		</action>
+		
 		<action name="showWarehouseInOkAction" class="warehouseInOkAction" method="showWarehouseInOkAction">
 			<result name="*">/page/warehouse/warehouseinoklist.jsp</result>
 		</action>
