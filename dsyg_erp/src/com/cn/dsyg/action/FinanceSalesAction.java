@@ -164,7 +164,7 @@ public class FinanceSalesAction extends BaseAction {
 		}
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		page = salesService.queryFinanceSalesByPage(strSalesdateLow, strSalesdateHigh, "" + Constants.SALES_STATUS_BILL_APPLY, page);
+		page = salesService.queryFinanceSalesByPage(strSalesdateLow, strSalesdateHigh, "" + Constants.SALES_STATUS_WAREHOUSE_OK, page);
 		salesList = (List<SalesDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}

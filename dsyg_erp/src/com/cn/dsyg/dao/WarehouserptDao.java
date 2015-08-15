@@ -35,13 +35,15 @@ public interface WarehouserptDao {
 	 * @param parentid
 	 * @param supplierid
 	 * @param productid
+	 * @param beginDate
+	 * @param endDate
 	 * @param start
 	 * @param end
 	 * @return
 	 */
 	public List<WarehouserptDto> queryWarehouserptByPage(String status, String warehousetype,
 			String warehouseno, String theme1, String parentid, String supplierid,
-			String productid, int start, int end);
+			String productid, String beginDate, String endDate, int start, int end);
 	
 	/**
 	 * 查询总记录数
@@ -52,10 +54,12 @@ public interface WarehouserptDao {
 	 * @param parentid
 	 * @param supplierid
 	 * @param productid
+	 * @param beginDate
+	 * @param endDate
 	 * @return
 	 */
 	public int queryWarehouserptCountByPage(String status, String warehousetype, String warehouseno,
-			String theme1, String parentid, String supplierid, String productid);
+			String theme1, String parentid, String supplierid, String productid, String beginDate, String endDate);
 	
 	/**
 	 * 根据ID查询数据

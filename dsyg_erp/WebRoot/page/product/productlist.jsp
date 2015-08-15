@@ -148,14 +148,22 @@
 						</div>
 					</div>
 					<div class="box1">
-						<label class="pdf10">关键字</label>
+						<label class="pdf10">包装</label>
 						<div class="box1_left"></div>
 						<div class="box1_center">
-							<s:textfield name="strKeyword" id="strKeyword" cssClass="input80" maxlength="16" theme="simple"></s:textfield>
+							<s:textfield name="strItem01" id="strItem01" cssClass="input120" maxlength="32" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
 					</div>
-					<div class="btn" style="margin-left: 160px;">
+					<div class="box1">
+						<label class="pdf10">关键字</label>
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<s:textfield name="strKeyword" id="strKeyword" cssClass="input120" maxlength="16" theme="simple"></s:textfield>
+						</div>
+						<div class="box1_right"></div>
+					</div>
+					<div class="btn" style="margin-left: 360px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
 							<input type="button" class="input40" value="检索" onclick="queryList();"/>
@@ -185,14 +193,15 @@
 								<td width="60">品名</td>
 								<td width="60">规格</td>
 								<td width="60">颜色</td>
+								<td width="60">形式</td>
 								<td width="60">包装</td>
 							</tr>
 							<s:iterator id="productList" value="productList" status="st1">
 								<s:if test="#st1.odd==true">
-									<tr class="tr_bg">
+									<tr class="tr_bg" onclick="checkRadioTr(this, event);">
 								</s:if>
 								<s:else>
-									<tr>
+									<tr onclick="checkRadioTr(this, event);">
 								</s:else>
 									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
@@ -218,6 +227,9 @@
 										<s:else>
 											<s:property value="packaging"/>
 										</s:else>
+									</td>
+									<td>
+										<s:property value="item01"/>
 									</td>
 								</tr>
 							</s:iterator>

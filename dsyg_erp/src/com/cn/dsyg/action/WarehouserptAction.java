@@ -564,7 +564,7 @@ public class WarehouserptAction extends BaseAction {
 		initDictList();
 		//翻页查询所有预入库待确认数据
 		this.page.setStartIndex(startIndex);
-		page = warehouserptService.queryWarehouserptByPage("", type, "", "", "", "", "", page);
+		page = warehouserptService.queryWarehouserptByPage("", type, "", "", "", "", "", "", "", page);
 		warehouserptList = (List<WarehouserptDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}

@@ -16,7 +16,7 @@
 	
 	function queryList() {
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../product/turnProductSelectPage.action';
+		document.mainform.action = '../warehouse/queryWarehouseProductSelectAction.action';
 		document.mainform.submit();
 	}
 	
@@ -291,14 +291,14 @@
 	function changepagesize(pagesize) {
 		$("#intPageSize").attr("value", pagesize);
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../product/queryProductSelectPage.action';
+		document.mainform.action = '../warehouse/queryWarehouseProductSelectAction.action';
 		document.mainform.submit();
 	}
 	
 	//翻页
 	function changePage(pageNum) {
 		$("#startIndex").attr("value", pageNum);
-		document.mainform.action = '../product/turnProductSelectPage.action';
+		document.mainform.action = '../warehouse/turnWarehouseProductSelectAction.action';
 		document.mainform.submit();
 	}
 

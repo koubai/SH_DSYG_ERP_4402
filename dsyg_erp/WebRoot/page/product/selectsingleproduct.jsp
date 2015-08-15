@@ -159,6 +159,7 @@
 						<td width="60">品名</td>
 						<td width="60">规格</td>
 						<td width="60">颜色</td>
+						<td width="60">形式</td>
 						<td width="60">包装</td>
 					</tr>
 					<s:iterator id="productList" value="productList" status="st1">
@@ -210,6 +211,9 @@
 								<s:else>
 									<s:property value="packaging"/>
 								</s:else>
+							</td>
+							<td>
+								<s:property value="item01"/>
 							</td>
 						</tr>
 					</s:iterator>

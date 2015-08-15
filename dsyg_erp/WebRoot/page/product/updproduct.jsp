@@ -32,8 +32,10 @@
 		var typeno = $("#typeno").val().trim();
 		//颜色
 		var color = $("#color").val().trim();
-		
 		//包装
+		var item01 = $("#item01").val().trim();
+		
+		//形式
 		var list = document.getElementsByName("tmpPackaging");
 		var v = "";
 		for(var j = 0; j < list.length; j++) {
@@ -82,19 +84,24 @@
 			$("#color").focus();
 			return;
 		}
-		if(packaging == "") {
-			alert("请选择包装！");
-			$("#tmpPackaging").focus();
+		if(item01 == "") {
+			alert("包装不能为空！");
+			$("#item01").focus();
 			return;
 		}
-		if(makearea == "") {
-			alert("请选择产地！");
-			$("#makearea").focus();
+		if(packaging == "") {
+			alert("请选择形式！");
+			$("#tmpPackaging").focus();
 			return;
 		}
 		if(unit == "") {
 			alert("请选择单位！");
 			$("#unit").focus();
+			return;
+		}
+		if(makearea == "") {
+			alert("请选择产地！");
+			$("#makearea").focus();
 			return;
 		}
 		
@@ -222,6 +229,18 @@
 								<label class="pdf10"><font color="red">*</font>包装</label>
 							</td>
 							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<s:textfield name="updProductDto.item01" id="item01" maxlength="32" cssStyle="width:300px;" theme="simple"></s:textfield>
+								</div>
+								<div class="box1_right"></div>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10"><font color="red">*</font>形式</label>
+							</td>
+							<td>
 								<s:if test='%{updProductDto.packaging == "1"}'>
 									<input type="radio" name="tmpPackaging" value="1" checked="checked"/>整箱
 									<input type="radio" name="tmpPackaging" value="0"/>乱尺
@@ -235,8 +254,6 @@
 									<input type="radio" name="tmpPackaging" value="0"/>乱尺
 								</s:else>
 							</td>
-						</tr>
-						<tr>
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>产地</label>
 							</td>
@@ -252,6 +269,8 @@
 								</div>
 								<div class="box1_right"></div>
 							</td>
+						</tr>
+						<tr>
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>单位</label>
 							</td>
@@ -267,8 +286,6 @@
 								</div>
 								<div class="box1_right"></div>
 							</td>
-						</tr>
-						<tr>
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>采购价</label>
 							</td>
@@ -279,10 +296,12 @@
 								</div>
 								<div class="box1_right"></div>
 							</td>
+						</tr>
+						<tr>
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>销售价</label>
 							</td>
-							<td>
+							<td colspan="3">
 								<div class="box1_left"></div>
 								<div class="box1_center">
 									<s:textfield name="updProductDto.salesprice" id="salesprice" maxlength="13" cssStyle="width:300px;" theme="simple"></s:textfield>

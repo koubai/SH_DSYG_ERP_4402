@@ -66,14 +66,15 @@
 	</delete>
 	
 	<insert id="insertDict01" parameterClass="com.cn.dsyg.dto.Dict01Dto">
-		insert into tbdict01(fieldcode,fieldname,lang,mean,note,status,createuid,createdate,updateuid,updatedate)
-		values(#fieldcode#,#fieldname#,#lang#,#mean#,#note#,#status#,#createuid#,NOW(),#updateuid#,NOW())
+		insert into tbdict01(fieldcode,fieldname,code,lang,mean,note,status,createuid,createdate,updateuid,updatedate)
+		values(#fieldcode#,#fieldname#,#code#,#lang#,#mean#,#note#,#status#,#createuid#,NOW(),#updateuid#,NOW())
 	</insert>
 	
 	<update id="updateDict01" parameterClass="com.cn.dsyg.dto.Dict01Dto">
 		update tbdict01
 		set fieldname = #fieldname#,
 			mean = #mean#,
+			code = #code#,
 			note = #note#,
 			status = #status#,
 			updateuid = #updateuid#,

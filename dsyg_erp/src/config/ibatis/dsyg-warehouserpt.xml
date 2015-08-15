@@ -99,6 +99,12 @@
 		<isNotEmpty prepend="and" property="supplierid">
 			T.supplierid = #supplierid#
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="beginDate">
+			T.warehousedate <![CDATA[>=]]> #beginDate#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endDate">
+			T.warehousedate <![CDATA[<]]> #endDate#
+		</isNotEmpty>
 		order by T.updatedate desc
 		LIMIT #start#, #end#
 	</select>
@@ -122,6 +128,12 @@
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="supplierid">
 			T.supplierid = #supplierid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="beginDate">
+			T.warehousedate <![CDATA[>=]]> #beginDate#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endDate">
+			T.warehousedate <![CDATA[<]]> #endDate#
 		</isNotEmpty>
 	</select>
 	

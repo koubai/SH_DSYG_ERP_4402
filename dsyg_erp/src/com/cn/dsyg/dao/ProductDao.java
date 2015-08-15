@@ -16,6 +16,7 @@ public interface ProductDao {
 	/**
 	 * 翻页查询信息
 	 * @param fieldno 主题
+	 * @param item01 包装
 	 * @param keyword 关键字
 	 * @param tradename 品名
 	 * @param typeno 规格
@@ -26,7 +27,7 @@ public interface ProductDao {
 	 * @param end
 	 * @return
 	 */
-	public List<ProductDto> queryProductByPage(String fieldno, String keyword, String tradename,
+	public List<ProductDto> queryProductByPage(String fieldno, String item01, String keyword, String tradename,
 			String typeno, String color, String supplierId, String status, int start, int end);
 	
 	/**
@@ -40,7 +41,7 @@ public interface ProductDao {
 	 * @param status 状态
 	 * @return
 	 */
-	public int queryProductCountByPage(String fieldno, String keyword, String tradename,
+	public int queryProductCountByPage(String fieldno, String item01, String keyword, String tradename,
 			String typeno, String color, String supplierId, String status);
 	
 	/**

@@ -163,7 +163,7 @@ public class FinancePurchaseAction extends BaseAction {
 		}
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		page = purchaseService.queryFinancePurchaseByPage(strPurchasedateLow, strPurchasedateHigh, "" + Constants.PURCHASE_STATUS_PAY_APPLY, page);
+		page = purchaseService.queryFinancePurchaseByPage(strPurchasedateLow, strPurchasedateHigh, "" + Constants.PURCHASE_STATUS_WAREHOUSE_OK, page);
 		purchaseList = (List<PurchaseDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}

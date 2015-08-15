@@ -14,6 +14,7 @@ public interface ProductService {
 	/**
 	 * 翻页查询信息
 	 * @param fieldno 主题
+	 * @param item01 包装
 	 * @param keyword 关键字
 	 * @param tradename 品名
 	 * @param typeno 规格
@@ -23,7 +24,7 @@ public interface ProductService {
 	 * @param page
 	 * @return
 	 */
-	public Page queryProductByPage(String fieldno, String keyword, String tradename,
+	public Page queryProductByPage(String fieldno, String item01, String keyword, String tradename,
 			String typeno, String color, String supplierId, String status, Page page);
 	
 	/**

@@ -84,6 +84,12 @@ public class SalesServiceImpl implements SalesService {
 		//rank
 		sales.setRank(Constants.ROLE_RANK_OPERATOR);
 		
+		//经手人默认为当前用户
+		sales.setHandler(userid);
+		
+		//仓库
+		sales.setWarehouse(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_WAREHOUSE_NAME));
+		
 		sales.setUpdateuid(userid);
 		sales.setCreateuid(userid);
 		salesDao.insertSales(sales);
@@ -249,6 +255,9 @@ public class SalesServiceImpl implements SalesService {
 		warehouse.setWarehousetype(Constants.WAREHOUSE_TYPE_OUT);
 		//仓库
 		warehouse.setWarehousename(sales.getWarehouse());
+		
+		//支付方式
+		warehouse.setRes01(sales.getRes01());
 		
 		//出库单号
 		String uuid = UUID.randomUUID().toString();

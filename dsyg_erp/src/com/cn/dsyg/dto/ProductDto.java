@@ -66,7 +66,7 @@ public class ProductDto extends BaseDto {
 	private String color;
 
 	/**
-	 * 包装
+	 * 形式
 	 */
 	private String packaging;
 	
@@ -120,7 +120,7 @@ public class ProductDto extends BaseDto {
 	private String note;
 
 	/**
-	 * 项目1
+	 * 包装
 	 */
 	private String item01;
 

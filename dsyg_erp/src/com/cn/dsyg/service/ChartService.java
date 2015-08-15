@@ -39,6 +39,8 @@ public interface ChartService {
 	public List<ChartDto> queryFinanceByDate(String theme1, String from_date, String to_date, String dur_type, String handerList);
 	public List<ChartDto> querySupplierByDate(String theme1, String from_date, String to_date, String dur_type, String handerList);
 	public List<ChartDto> queryCustomerByDate(String theme1, String from_date, String to_date, String dur_type, String handerList);
+	public List<ChartDto> getSaleTotalData(String theme, String from_date, String to_date, String dur_type, String handerList);
+
 	public Map<String, String> getInitDataMap(int i_fy, int i_ty, int i_fm, int i_tm, String dur_type);  
 	public Map<String, String> setDataMap( Map<String, String> data_map, ChartDto chd );  
     public Date add(Date day, int dist);

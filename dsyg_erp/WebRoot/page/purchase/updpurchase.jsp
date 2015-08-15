@@ -24,6 +24,80 @@
 		}
 	}
 	
+	function calcAmount(obj, type) {
+		var tr = obj.parentNode.parentNode;
+		var tds = tr.getElementsByTagName("td");
+		var inputs = tds[0].getElementsByTagName("input");
+		
+		var rate = parseFloat($("#common_rate").val());
+		if(type == "1") {
+			//是否实数check
+			if(!isReal(obj.value)) {
+				alert("采购金额（未税）格式不正确！");
+				obj.focus();
+				return;
+			}
+			//计算未税金额
+			var purchaseAmount = tds[14].getElementsByTagName("input")[0].value;
+			var taxamount = parseFloat(purchaseAmount) * (1 + parseFloat(rate));
+			//计算含税金额
+			tds[15].getElementsByTagName("input")[0].value = taxamount.toFixed(2);
+			//隐藏域
+			//采购金额未税
+			inputs[12].value = purchaseAmount;
+			inputs[13].value = taxamount.toFixed(2);
+		} else {
+			//是否实数check
+			if(!isReal(obj.value)) {
+				alert("采购金额（含税）格式不正确！");
+				obj.focus();
+				return;
+			}
+			//采购金额已税
+			var purchaseTaxamount = tds[15].getElementsByTagName("input")[0].value;
+			var amount = parseFloat(purchaseTaxamount) / (1 + parseFloat(rate));
+			//计算未税金额
+			tds[14].getElementsByTagName("input")[0].value = amount.toFixed(2);
+			
+			//隐藏域
+			//采购金额未税
+			inputs[12].value = amount.toFixed(2);
+			inputs[13].value = purchaseTaxamount;
+		}
+		
+		//采购金额未税
+		var calcAmount = 0;
+		//已付金额（默认为0）
+		var calcPaidamount = 0;
+		//采购金额含税
+		var calcTaxamount = 0;
+		
+		var rows = document.getElementById("productData").rows;
+		for(var i = 0; i < rows.length; i++) {
+			var childs = rows[i].cells[0].getElementsByTagName("input");
+			if(childs[12].value != "") {
+				calcAmount += parseFloat(childs[12].value);
+			}
+			if(childs[13].value != "") {
+				calcTaxamount += parseFloat(childs[13].value);
+			}
+		}
+		
+		//采购金额不含税
+		$("#totalamount").val(calcAmount);
+		$("#tmpTotalamount").val(calcAmount);
+		
+		//采购金额含税
+		$("#taxamount").val(calcTaxamount);
+		$("#tmpTaxamount").val(calcTaxamount);
+		
+		//已付金额
+		if(paidamount == "") {
+			$("#paidamount").val(calcPaidamount);
+			$("#tmpPaidamount").val(calcPaidamount);
+		}
+	}
+	
 	//计算采购数量及金额
 	function calcquantity(obj, type) {
 		if(type == "1") {
@@ -44,6 +118,13 @@
 			//是否实数check
 			if(!isReal(obj.value)) {
 				alert("采购参考价格式不正确！");
+				obj.focus();
+				return;
+			}
+		} else if(type == "5") {
+			//是否实数check
+			if(!isReal(obj.value)) {
+				alert("采购金额（未税）格式不正确！");
 				obj.focus();
 				return;
 			}
@@ -101,7 +182,7 @@
 		tds[12].innerHTML = remain;
 		//采购金额未税
 		var amount = purchaseQuantity * parseFloat(price);
-		tds[14].innerHTML = amount.toFixed(2);
+		tds[14].getElementsByTagName("input")[0].value = amount.toFixed(2);
 		
 		//补充隐藏TD中的数据内容
 		//===============================================
@@ -136,7 +217,7 @@
 		for(var i = 0; i < rows.length; i++) {
 			var childs = rows[i].cells[0].getElementsByTagName("input");
 			if(childs[12].value != "") {
-				calcAmount += parseInt(childs[12].value);
+				calcAmount += parseFloat(childs[12].value);
 			}
 			if(childs[13].value != "") {
 				calcTaxamount += parseFloat(childs[13].value);
@@ -168,15 +249,19 @@
 	//验证数据格式
 	function checkItem() {
 		//采购单号
-		var purchaseno = $("#purchaseno").val().trim();
+		//var purchaseno = $("#purchaseno").val().trim();
 		//采购日期
 		var tmpPurchasedate = $("#tmpPurchasedate").val().trim();
+		//支付方式
+		var res01 = $("#res01").val().trim();
+		//采购订单号
+		var theme2 = $("#theme2").val().trim();
 		//经手人
-		var handler = $("#handler").val().trim();
+		//var handler = $("#handler").val().trim();
 		//采购主题
-		var theme1 = $("#theme1").val().trim();
+		//var theme1 = $("#theme1").val().trim();
 		//仓库
-		var warehouse = $("#warehouse").val().trim();
+		//var warehouse = $("#warehouse").val().trim();
 		
 		//采购金额合计
 		var tmpTotalamount = $("#tmpTotalamount").val().trim();
@@ -205,11 +290,24 @@
 		//预入库时间
 		var tmpPlandate = $("#tmpPlandate").val().trim();
 		
+		/*
+		if(theme2 == "") {
+			alert("采购订单号不能为空！");
+			$("#theme2").focus();
+			return;
+		}//*/
+		
 		if(tmpPurchasedate == "") {
 			alert("采购日期不能为空！");
 			$("#tmpPurchasedate").focus();
 			return;
 		}
+		if(res01 == "") {
+			alert("请选择支付方式！");
+			$("#res01").focus();
+			return;
+		}
+		/*
 		if(handler == "") {
 			alert("经手人不能为空！");
 			$("#handler").focus();
@@ -225,6 +323,7 @@
 			$("#warehouse").focus();
 			return;
 		}
+		//*/
 		if(supplierid == "") {
 			alert("请选择供应商！");
 			$("#supplierid").focus();
@@ -388,13 +487,13 @@
 	
 	function addProduct() {
 		//采购主题
-		var theme1 = $("#theme1").val().trim();
+		var theme1 = "";//$("#theme1").val().trim();
 		var supplierid = $("#supplierid").val().trim();
-		if(theme1 == "") {
-			alert("请选择采购主题！");
-			$("#theme1").focus();
-			return;
-		}
+		//if(theme1 == "") {
+		//	alert("请选择采购主题！");
+		//	$("#theme1").focus();
+		//	return;
+		//}
 		//if(supplierid == "") {
 		//	alert("请选择供应商！");
 		//	$("#supplierid").focus();
@@ -519,15 +618,14 @@
 						</tr>
 						<tr>
 							<td align="right">
-								<label class="pdf10">采购单号</label>
+								<label class="pdf10"><font color="red">*</font>采购订单号</label>
 							</td>
 							<td colspan="3">
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updPurchaseDto.purchaseno" id="purchaseno" disabled="true" cssStyle="width:300px;" maxlength="8" theme="simple"></s:textfield>
+									<s:textfield name="updPurchaseDto.theme2" disabled="true" id="theme2" cssStyle="width:300px;" maxlength="32" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
-								<div style="margin-top: 9px;"><label>（自动编号）</label></div>
 							</td>
 						</tr>
 						<tr>
@@ -542,6 +640,36 @@
 								</div>
 								<div class="box1_right"></div>
 							</td>
+							<td align="right">
+								<label class="pdf10"><font color="red">*</font>支付方式</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<select name="updPurchaseDto.res01" id="res01" style="width: 300px;">
+										<option value="" selected="selected">请选择</option>
+										<s:iterator value="payTypeList" id="payTypeList" status="st1">
+											<option value="<s:property value="code"/>" <s:if test="%{payTypeList[#st1.index].code == updPurchaseDto.res01}">selected</s:if>><s:property value="fieldname"/></option>
+										</s:iterator>
+									</select>
+								</div>
+								<div class="box1_right"></div>
+							</td>
+						</tr>
+						<!--
+						<tr>
+							<td align="right">
+								<label class="pdf10"><font color="red">*</font>仓库</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<s:textfield name="updPurchaseDto.warehouse" id="warehouse" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
+								</div>
+								<div class="box1_right"></div>
+							</td>
+						</tr>
+						<tr>
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>经手人</label>
 							</td>
@@ -559,8 +687,6 @@
 									<div class="box1_right"></div>
 								</div>
 							</td>
-						</tr>
-						<tr>
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>采购主题</label>
 							</td>
@@ -576,17 +702,8 @@
 								</div>
 								<div class="box1_right"></div>
 							</td>
-							<td align="right">
-								<label class="pdf10"><font color="red">*</font>仓库</label>
-							</td>
-							<td>
-								<div class="box1_left"></div>
-								<div class="box1_center">
-									<s:textfield name="updPurchaseDto.warehouse" id="warehouse" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
-								</div>
-								<div class="box1_right"></div>
-							</td>
 						</tr>
+						-->
 						<tr>
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>供应商</label>
@@ -741,17 +858,17 @@
 											<td style="width: 0px; display: none"></td>
 											<td width="30"></td>
 											<td width="35">序号</td>
-											<td width="40">类型</td>
+											<td width="60">类型</td>
 											<td width="100">品名</td>
 											<td width="90">规格</td>
 											<td width="35">颜色</td>
 											<td width="35">单位</td>
-											<td width="35">包装</td>
+											<td width="35">形式</td>
 											<td width="85">采购数量</td>
 											<td width="85">预入库数</td>
 											<td width="70">已入库数</td>
 											<td width="70">未入库数</td>
-											<td width="90">采购参考价</td>
+											<td width="90">采购单价</td>
 											<td width="110">采购金额（未税）</td>
 											<td width="110">采购金额（含税）</td>
 										</tr>
@@ -824,9 +941,11 @@
 													<td>
 														<input type="text" style="width: 80px;" id="tmpUnitprice_<s:property value="productid"/>" onblur="calcquantity(this, '4');" maxlength="11" value="<s:property value="unitprice"/>"/>
 													</td>
-													<td><s:property value="amount"/></td>
 													<td>
-														<input type="text" style="width: 80px;" id="tmpTaxamount_<s:property value="productid"/>" onblur="calcquantity(this, '3');" maxlength="13" value="<s:property value="taxamount"/>"/>
+														<input type="text" style="width: 80px;" id="tmpAmount_<s:property value="productid"/>" onblur="calcAmount(this, '1');" maxlength="13" value="<s:property value="amount"/>"/>
+													</td>
+													<td>
+														<input type="text" style="width: 80px;" id="tmpTaxamount_<s:property value="productid"/>" onblur="calcAmount(this, '2');" maxlength="13" value="<s:property value="taxamount"/>"/>
 													</td>
 												</tr>
 											</s:iterator>

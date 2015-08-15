@@ -16,17 +16,15 @@
 	
 	function queryList() {
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../product/turnProductSelectPage.action';
+		document.mainform.action = '../product/querySalesProductSelectPage.action';
 		document.mainform.submit();
 	}
 	
 	function showUnit(id){
-		var strSupplierId = document.getElementById("strSupplierId").value;
-		//alert("供应商："+ supplierid + " 品名：" + tradename + " 采购价：" + purchaseprice);
-		
-		var url = '<%=request.getContextPath()%>/purchase/showProductPricePage.action';
+		var strCustomerId = document.getElementById("strCustomerId").value;
+		var url = '<%=request.getContextPath()%>/sales/showProductSalesPricePage.action';
 		//strFlag=1采购单，strFlag=2销售单
-		url += "?strProdoctid=" + id + "&strSupplierid=" + strSupplierId + "&strFlag=1" + "&date=" + new Date();
+		url += "?strProdoctid=" + id + "&strCustomerid=" + strCustomerId + "&strFlag=2" + "&date=" + new Date();
 		window.showModalDialog(url, window, "dialogheight:400px;dialogwidth:600px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 	}
 	
@@ -62,6 +60,7 @@
 			//alert("该产品已存在！");
 			return;
 		}
+		
 		//添加产品信息
 		var tr = obj.parentNode.parentNode;
 		var tds = tr.getElementsByTagName("td");
@@ -107,12 +106,12 @@
 		var sampleflag = inputs[11].value;
 		//采购价格
 		var purchaseprice = inputs[12].value;
-		//销售价格
+		//销售价格（这里使用销售价格）
 		var salesprice = inputs[13].value;
 		//产地
 		var makearea = inputs[14].value;
 		
-		//采购单货物表ID，这里ID为空
+		//销售单货物表ID，这里ID为空
 		var input = createHidden("");
 		td0.appendChild(input);
 		//货物ID
@@ -149,27 +148,27 @@
 		tr.appendChild(td);
 		var input = createHidden(packaging);
 		td0.appendChild(input);
-		//采购单价
-		var input = createHidden(purchaseprice);
+		//销售单价
+		var input = createHidden(salesprice);
 		td0.appendChild(input);
 		
 		//============================
-		//入库数量
+		//出库数量
 		var input = createHiddenAddAlt("", "tmpQuantity_" + id);
 		td0.appendChild(input);
-		//预入库数量
+		//预出库数量
 		var input = createHiddenAddAlt("", "tmpBeforeQuantity_" + id);
 		td0.appendChild(input);
-		//未入库数量
+		//未出库数量
 		var input = createHidden("");
 		td0.appendChild(input);
-		//采购金额未税
+		//销售金额未税
 		var input = createHidden("");
 		td0.appendChild(input);
-		//采购金额已税
+		//销售金额已税
 		var input = createHiddenAddAlt("", "tmpTaxamount_" + id);
 		td0.appendChild(input);
-		//已入库数，默认为0
+		//已出库数，默认为0
 		var input = createHidden("0");
 		td0.appendChild(input);
 		//==============================
@@ -177,34 +176,52 @@
 		var wid = 80;
 		var maxlength = 11;
 		
-		//采购数量
+		//销售数量
 		td = createTdInput("tmpQuantity", wid, maxlength, "calcquantity(this, '1');", id);
 		tr.appendChild(td);
-		//预入库数量
+		//预出库数量
 		td = createTdInput("tmpBeforeQuantity", wid, maxlength, "calcquantity(this, '2');", id);
 		tr.appendChild(td);
 		
-		//已入库数量
+		//已出库数量
 		td = createTd("0");
 		tr.appendChild(td);
 		
-		//未入库数量
+		//未出库数量
 		td = createTd("0");
 		tr.appendChild(td);
 		//单价
-		td = createTdInputAddValue("tmpUnitprice", wid, maxlength, "calcquantity(this, '4');", id, purchaseprice);
+		//单价
+		td = createTdInputAddValue("tmpUnitprice", wid, maxlength, "calcquantity(this, '4');", id, salesprice);
 		//td = createTd(purchaseprice);
 		tr.appendChild(td);
-		//采购金额未税
+		//销售金额未税
 		//td = createTd("0");
 		td = createTdInput("tmpAmount", wid, 13, "calcAmount(this, '1');", id);
 		tr.appendChild(td);
-		//采购金额含税
+		//销售金额含税
 		td = createTdInput("tmpTaxamount", wid, 13, "calcAmount(this, '2');", id);
+		//td = createTdInput("tmpTaxamount", wid, 13, "calcquantity(this, '3');", id);
 		tr.appendChild(td);
 		
 		window.dialogArguments.document.getElementById("productlist").value = productlist + id + ",";
 		window.dialogArguments.document.getElementById("productData").appendChild(tr);
+	}
+	
+	function createTdInputAddValue(name, wid, maxlength, onblurevent, productid, v) {
+		var td = window.dialogArguments.document.createElement("td");
+		var input = window.dialogArguments.document.createElement("input");
+		//input.name = name;
+		input.id = name + "_" + productid;
+		input.style.width = wid + "px";
+		input.setAttribute("maxlength", maxlength);
+		input.type = "text";
+		input.value = v;
+		if(onblurevent != "") {
+			input.setAttribute("onblur", onblurevent); 
+		}
+		td.appendChild(input);
+		return td;
 	}
 	
 	//刷新投标公司序号和斑马线
@@ -245,22 +262,6 @@
 		return td;
 	}
 	
-	function createTdInputAddValue(name, wid, maxlength, onblurevent, productid, v) {
-		var td = window.dialogArguments.document.createElement("td");
-		var input = window.dialogArguments.document.createElement("input");
-		//input.name = name;
-		input.id = name + "_" + productid;
-		input.style.width = wid + "px";
-		input.setAttribute("maxlength", maxlength);
-		input.type = "text";
-		input.value = v;
-		if(onblurevent != "") {
-			input.setAttribute("onblur", onblurevent); 
-		}
-		td.appendChild(input);
-		return td;
-	}
-	
 	function createHidden(s) {
 		var input = window.dialogArguments.document.createElement("input");
 		input.type = "hidden";
@@ -292,14 +293,14 @@
 	function changepagesize(pagesize) {
 		$("#intPageSize").attr("value", pagesize);
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../product/queryProductSelectPage.action';
+		document.mainform.action = '../product/querySalesProductSelectPage.action';
 		document.mainform.submit();
 	}
 	
 	//翻页
 	function changePage(pageNum) {
 		$("#startIndex").attr("value", pageNum);
-		document.mainform.action = '../product/turnProductSelectPage.action';
+		document.mainform.action = '../product/turnSalesProductSelectPage.action';
 		document.mainform.submit();
 	}
 
@@ -335,18 +336,13 @@
 </head>
 <body style="background: url(''); overflow-x:hidden;overflow-y:hidden;">
 <s:form id="mainform" name="mainform" method="POST">
-	<s:hidden name="common_rate" id="common_rate"></s:hidden>
 	<s:hidden name="startIndex" id="startIndex"/>
 	<s:hidden name="intPageSize" id="intPageSize"/>
-	<s:hidden name="strSupplierId" id="strSupplierId"/>
-	<s:hidden name="strFieldno" id="strFieldno"/>
-	<s:hidden name="strKeyword" id="strKeyword"/>
-	<s:hidden name="strFlag" id="strFlag"/>
-	<s:hidden name="strSeq" id="strSeq"/>
+	<s:hidden name="strCustomerId" id="strCustomerId"/>
 	<div id="container" style="width: 100%; height: 100%;">
 		<div class="searchbox">
 			<div class="box1">
-				<label class="pdf10">品名：</label>
+				<label class="pdf10">品名11：</label>
 				<div class="box1_left"></div>
 				<div class="box1_center">
 					<s:textfield name="strTradename" id="strTradename" cssStyle="width:120px;" maxlength="32" theme="simple"></s:textfield>
@@ -434,7 +430,7 @@
 									</s:if>
 								</s:iterator>
 							</td>
-							<td><a href="#" onclick="showUnit('<s:property value="id"/>');"><s:property value="tradename"/></a></td>
+							<td><a href="#" onclick="showUnit('<s:property value="id"/>','<s:property value="supplierid"/>');"><s:property value="tradename"/></a></td>
 							<td><s:property value="typeno"/></td>
 							<td>
 								<s:iterator id="colorList" value="colorList" status="st3">

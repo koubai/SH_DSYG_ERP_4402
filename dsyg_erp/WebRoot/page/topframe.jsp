@@ -12,7 +12,7 @@
 		<!--
 		<td width="24%" height="64"><img src="<%=request.getContextPath()%>/images/logo1.gif" width="262" height="64"></td>
 		-->
-		<td width="61%" height="64"><div style="height: 50px; line-height: 25px;"><font size="4" style="font-weight:bold;" color="white">东升营港ERP</font></div></td>
+		<td width="61%" height="64"><div style="height: 50px; line-height: 25px;"><font size="4" style="font-weight:bold;" color="white">东升盈港ERP</font></div></td>
 		<td width="39%" valign="top">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>

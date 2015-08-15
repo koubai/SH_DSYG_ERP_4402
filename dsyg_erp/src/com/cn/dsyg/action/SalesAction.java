@@ -60,6 +60,8 @@ public class SalesAction extends BaseAction {
 	private List<Dict01Dto> unitList;
 	//产地
 	private List<Dict01Dto> makeareaList;
+	//支付方式
+	private List<Dict01Dto> payTypeList;
 		
 	//新增
 	private SalesDto addSalesDto;
@@ -181,7 +183,8 @@ public class SalesAction extends BaseAction {
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
 			String salesno = salesService.addSales(addSalesDto, addSalesItemList, username);
-			this.addActionMessage("销售单添加成功！销售单号为：" + salesno);
+			//this.addActionMessage("销售单添加成功！销售单号为：" + salesno);
+			this.addActionMessage("销售单添加成功！");
 			
 			//清空数据
 			addSalesDto = new SalesDto();
@@ -281,25 +284,33 @@ public class SalesAction extends BaseAction {
 	 */
 	private boolean checkData(SalesDto sales) {
 		if(sales == null) {
-			this.addActionMessage("销售日期不能为空！");
+			this.addActionMessage("销售订单号不能为空！");
+			return false;
+		}
+		if(StringUtil.isBlank(sales.getTheme2())) {
+			this.addActionMessage("销售订单号不能为空！");
 			return false;
 		}
 		if(sales.getBookdate() == null) {
 			this.addActionMessage("销售日期不能为空！");
 			return false;
 		}
-		if(StringUtil.isBlank(sales.getHandler())) {
-			this.addActionMessage("经手人不能为空！");
+		if(StringUtil.isBlank(sales.getRes01())) {
+			this.addActionMessage("请选择支付方式！");
 			return false;
 		}
-		if(StringUtil.isBlank(sales.getTheme1())) {
-			this.addActionMessage("请选择销售主题！");
-			return false;
-		}
-		if(StringUtil.isBlank(sales.getWarehouse())) {
-			this.addActionMessage("仓库不能为空！");
-			return false;
-		}
+//		if(StringUtil.isBlank(sales.getHandler())) {
+//			this.addActionMessage("经手人不能为空！");
+//			return false;
+//		}
+//		if(StringUtil.isBlank(sales.getTheme1())) {
+//			this.addActionMessage("请选择销售主题！");
+//			return false;
+//		}
+//		if(StringUtil.isBlank(sales.getWarehouse())) {
+//			this.addActionMessage("仓库不能为空！");
+//			return false;
+//		}
 //		if(sales.getCustomerid() == null) {
 //			this.addActionMessage("请选择客户！");
 //			return false;
@@ -353,6 +364,8 @@ public class SalesAction extends BaseAction {
 		makeareaList = dict01Service.queryDict01ByFieldcode(Constants.DICT_MAKEAREA, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 		//颜色
 		colorList = dict01Service.queryDict01ByFieldcode(Constants.DICT_COLOR_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		//支付方式
+		payTypeList = dict01Service.queryDict01ByFieldcode(Constants.DICT_PAY_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 	}
 
 	public SalesService getSalesService() {
@@ -521,5 +534,13 @@ public class SalesAction extends BaseAction {
 
 	public void setSalesItemList(List<SalesItemDto> salesItemList) {
 		this.salesItemList = salesItemList;
+	}
+
+	public List<Dict01Dto> getPayTypeList() {
+		return payTypeList;
+	}
+
+	public void setPayTypeList(List<Dict01Dto> payTypeList) {
+		this.payTypeList = payTypeList;
 	}
 }

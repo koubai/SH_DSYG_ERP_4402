@@ -240,44 +240,10 @@ public class WarehouseServiceImpl implements WarehouseService {
 							//以上2个条件均满足，则更新采购单状态
 							if(b) {
 								PurchaseDto purchaseDto = purchaseDao.queryPurchaseByNo(warehouse.getParentid());
-								//需要更新采购单状态=付款申请
-								purchaseDto.setStatus(Constants.PURCHASE_STATUS_PAY_APPLY);
+								//需要更新采购单状态=入库确认
+								purchaseDto.setStatus(Constants.PURCHASE_STATUS_WAREHOUSE_OK);
 								purchaseDto.setUpdateuid(userid);
 								purchaseDao.updatePurchase(purchaseDto);
-								
-								//新增一条财务记录
-								FinanceDto finance = new FinanceDto();
-								//类型=采购单
-								finance.setFinancetype(Constants.FINANCE_TYPE_PURCHASE);
-								//采购单（付款）
-								finance.setMode("2");
-								finance.setBelongto(belongto);
-								//单据号=采购单号
-								finance.setInvoiceid(purchaseDto.getPurchaseno());
-								//发票号
-								String receiptid = Constants.FINANCE_NO_PRE + belongto + sdf.format(date);
-								finance.setReceiptid(receiptid);
-								//开票日期
-								//finance.setReceiptdate(receiptdate);
-								//结算日期=当天
-								finance.setAccountdate(DateUtil.dateToShortStr(date));
-								//金额=采购金额含税
-								finance.setAmount(purchaseDto.getTaxamount());
-								//负责人
-								finance.setHandler(purchaseDto.getHandler());
-								//供应商信息
-								finance.setCustomerid(purchaseDto.getSupplierid());
-								finance.setCustomername(purchaseDto.getSuppliername());
-								finance.setCustomertel(purchaseDto.getSuppliertel());
-								finance.setCustomermanager(purchaseDto.getSuppliermanager());
-								finance.setCustomeraddress(purchaseDto.getSupplieraddr());
-								finance.setCustomermail(purchaseDto.getSuppliermail());
-								finance.setRank(Constants.ROLE_RANK_OPERATOR);
-								//状态=付款申请
-								finance.setStatus(Constants.FINANCE_STATUS_PAY_APPLY);
-								finance.setCreateuid(userid);
-								finance.setUpdateuid(userid);
-								financeDao.insertFinance(finance);
 							}
 						}
 					}
@@ -330,7 +296,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//快递公司ID==============================这里不做填充，等发货单时填充
 			
 			warehouserpt.setRank(Constants.ROLE_RANK_OPERATOR);
-			warehouserpt.setStatus(Constants.STATUS_NORMAL);
+			warehouserpt.setStatus(Constants.WAREHOUSERPT_STATUS_APPLY);
 			//warehouserpt.setProductid(Long.valueOf(productid));
 			//入库单单号集合
 			warehouserpt.setParentid(warehousenos);
@@ -338,6 +304,40 @@ public class WarehouseServiceImpl implements WarehouseService {
 			warehouserpt.setUpdateuid(userid);
 			
 			warehouserptDao.insertWarehouserpt(warehouserpt);
+			
+			//新增一条财务记录（这里财务记录和入库单关联）
+			FinanceDto finance = new FinanceDto();
+			//类型=入库单
+			finance.setFinancetype(Constants.FINANCE_TYPE_PURCHASE);
+			//采购单（付款）
+			finance.setMode("2");
+			finance.setBelongto(belongto);
+			//单据号=入库单号
+			finance.setInvoiceid(warehouseno);
+			//发票号
+			String receiptid = Constants.FINANCE_NO_PRE + belongto + sdf.format(date);
+			finance.setReceiptid(receiptid);
+			//开票日期
+			//finance.setReceiptdate(receiptdate);
+			//结算日期=当天
+			finance.setAccountdate(DateUtil.dateToShortStr(date));
+			//金额=采购金额含税
+			finance.setAmount(totaltaxamount);
+			//负责人
+			finance.setHandler(userid);
+			//供应商信息
+			finance.setCustomerid(Long.valueOf(supplierid));
+			finance.setCustomername(supplier.getSuppliername());
+			finance.setCustomertel(supplier.getSuppliertel1());
+			finance.setCustomermanager(supplier.getSuppliermanager1());
+			finance.setCustomeraddress(supplier.getSupplieraddress1());
+			finance.setCustomermail(supplier.getSuppliermail1());
+			finance.setRank(Constants.ROLE_RANK_OPERATOR);
+			//状态=付款申请
+			finance.setStatus(Constants.FINANCE_STATUS_PAY_APPLY);
+			finance.setCreateuid(userid);
+			finance.setUpdateuid(userid);
+			financeDao.insertFinance(finance);
 		}
 	}
 	
@@ -456,45 +456,11 @@ public class WarehouseServiceImpl implements WarehouseService {
 							}
 							//以上2个条件均满足，则更新采购单状态
 							if(b) {
-								//需要更新采购单状态=付款申请
+								//需要更新销售单状态=已入库
 								SalesDto salesDto = salesDao.querySalesByNo(warehouse.getParentid());
-								salesDto.setStatus(Constants.SALES_STATUS_BILL_APPLY);
+								salesDto.setStatus(Constants.SALES_STATUS_WAREHOUSE_OK);
 								salesDto.setUpdateuid(userid);
 								salesDao.updateSales(salesDto);
-								
-								//新增一条财务记录
-								FinanceDto finance = new FinanceDto();
-								//类型=采购单
-								finance.setFinancetype(Constants.FINANCE_TYPE_SALES);
-								//采购单（付款）
-								finance.setMode("2");
-								finance.setBelongto(belongto);
-								//单据号=销售单号
-								finance.setInvoiceid(salesDto.getSalesno());
-								//发票号
-								String receiptid = Constants.FINANCE_NO_PRE + belongto + sdf.format(date);
-								finance.setReceiptid(receiptid);
-								//开票日期
-								//finance.setReceiptdate(receiptdate);
-								//结算日期=当天
-								finance.setAccountdate(DateUtil.dateToShortStr(date));
-								//金额=销售金额含税
-								finance.setAmount(salesDto.getTaxamount());
-								//负责人
-								finance.setHandler(salesDto.getHandler());
-								//供应商信息
-								finance.setCustomerid(salesDto.getCustomerid());
-								finance.setCustomername(salesDto.getCustomername());
-								finance.setCustomertel(salesDto.getCustomertel());
-								finance.setCustomermanager(salesDto.getCustomermanager());
-								finance.setCustomeraddress(salesDto.getCustomeraddress());
-								finance.setCustomermail(salesDto.getCustomermail());
-								finance.setRank(Constants.ROLE_RANK_OPERATOR);
-								//状态=开票申请
-								finance.setStatus(Constants.FINANCE_STATUS_PAY_APPLY);
-								finance.setCreateuid(userid);
-								finance.setUpdateuid(userid);
-								financeDao.insertFinance(finance);
 							}
 						}
 					}
@@ -505,8 +471,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//数据来源类型=出库单
 			warehouserpt.setWarehousetype(Constants.WAREHOUSERPT_TYPE_OUT);
 			warehouserpt.setBelongto(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG));
-			//入库单号
-			String warehouseno = Constants.WAREHOUSERPT_IN_NO_PRE + belongto + sdf.format(date);
+			//出库单号
+			String warehouseno = Constants.WAREHOUSERPT_OUT_NO_PRE + belongto + sdf.format(date);
 			warehouserpt.setWarehouseno(warehouseno);
 			//仓库名
 			warehouserpt.setWarehousename(warehousename);
@@ -549,13 +515,47 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//快递公司ID==============================这里不做填充，等发货单时填充
 			
 			warehouserpt.setRank(Constants.ROLE_RANK_OPERATOR);
-			warehouserpt.setStatus(Constants.STATUS_NORMAL);
+			warehouserpt.setStatus(Constants.WAREHOUSERPT_STATUS_APPLY);
 			//入库单单号集合
 			warehouserpt.setParentid(warehousenos);
 			warehouserpt.setCreateuid(userid);
 			warehouserpt.setUpdateuid(userid);
 			
 			warehouserptDao.insertWarehouserpt(warehouserpt);
+			
+			//新增一条财务记录（这里财务记录和出库单关联）
+			FinanceDto finance = new FinanceDto();
+			//类型=销售单
+			finance.setFinancetype(Constants.FINANCE_TYPE_SALES);
+			//销售单（付款）
+			finance.setMode("2");
+			finance.setBelongto(belongto);
+			//单据号=出库单号
+			finance.setInvoiceid(warehouseno);
+			//发票号
+			String receiptid = Constants.FINANCE_NO_PRE + belongto + sdf.format(date);
+			finance.setReceiptid(receiptid);
+			//开票日期
+			//finance.setReceiptdate(receiptdate);
+			//结算日期=当天
+			finance.setAccountdate(DateUtil.dateToShortStr(date));
+			//金额=销售金额含税
+			finance.setAmount(totaltaxamount);
+			//负责人
+			finance.setHandler(userid);
+			//客户信息
+			finance.setCustomerid(Long.valueOf(customerid));
+			finance.setCustomername(customer.getCustomername());
+			finance.setCustomertel(customer.getCustomertel1());
+			finance.setCustomermanager(customer.getCustomermanager1());
+			finance.setCustomeraddress(customer.getCustomeraddress1());
+			finance.setCustomermail(customer.getCustomermail1());
+			finance.setRank(Constants.ROLE_RANK_OPERATOR);
+			//状态=开票申请
+			finance.setStatus(Constants.FINANCE_STATUS_PAY_APPLY);
+			finance.setCreateuid(userid);
+			finance.setUpdateuid(userid);
+			financeDao.insertFinance(finance);
 		}
 	}
 	

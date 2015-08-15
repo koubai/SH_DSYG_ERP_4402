@@ -24,6 +24,80 @@
 		}
 	}
 	
+	function calcAmount(obj, type) {
+		var tr = obj.parentNode.parentNode;
+		var tds = tr.getElementsByTagName("td");
+		var inputs = tds[0].getElementsByTagName("input");
+		
+		var rate = parseFloat($("#common_rate").val());
+		if(type == "1") {
+			//是否实数check
+			if(!isReal(obj.value)) {
+				alert("销售金额（未税）格式不正确！");
+				obj.focus();
+				return;
+			}
+			//计算未税金额
+			var purchaseAmount = tds[14].getElementsByTagName("input")[0].value;
+			var taxamount = parseFloat(purchaseAmount) * (1 + parseFloat(rate));
+			//计算含税金额
+			tds[15].getElementsByTagName("input")[0].value = taxamount.toFixed(2);
+			//隐藏域
+			//销售金额未税
+			inputs[12].value = purchaseAmount;
+			inputs[13].value = taxamount.toFixed(2);
+		} else {
+			//是否实数check
+			if(!isReal(obj.value)) {
+				alert("销售金额（含税）格式不正确！");
+				obj.focus();
+				return;
+			}
+			//销售金额已税
+			var purchaseTaxamount = tds[15].getElementsByTagName("input")[0].value;
+			var amount = parseFloat(purchaseTaxamount) / (1 + parseFloat(rate));
+			//计算未税金额
+			tds[14].getElementsByTagName("input")[0].value = amount.toFixed(2);
+			
+			//隐藏域
+			//销售金额未税
+			inputs[12].value = amount.toFixed(2);
+			inputs[13].value = purchaseTaxamount;
+		}
+		
+		//销售金额未税
+		var calcAmount = 0;
+		//已付金额（默认为0）
+		var calcPaidamount = 0;
+		//销售金额含税
+		var calcTaxamount = 0;
+		
+		var rows = document.getElementById("productData").rows;
+		for(var i = 0; i < rows.length; i++) {
+			var childs = rows[i].cells[0].getElementsByTagName("input");
+			if(childs[12].value != "") {
+				calcAmount += parseFloat(childs[12].value);
+			}
+			if(childs[13].value != "") {
+				calcTaxamount += parseFloat(childs[13].value);
+			}
+		}
+		
+		//销售金额不含税
+		$("#amount").val(calcAmount);
+		$("#tmpAmount").val(calcAmount);
+		
+		//销售金额含税
+		$("#taxamount").val(calcTaxamount);
+		$("#tmpTaxamount").val(calcTaxamount);
+		
+		//已付金额
+		if(paidamount == "") {
+			$("#paidamount").val(calcPaidamount);
+			$("#tmpPaidamount").val(calcPaidamount);
+		}
+	}
+	
 	//计算销售数量及金额
 	function calcquantity(obj, type) {
 		if(type == "1") {
@@ -103,7 +177,7 @@
 		tds[12].innerHTML = remain;
 		//销售金额未税
 		var amount = salesQuantity * parseFloat(price);
-		tds[14].innerHTML = amount.toFixed(2);
+		tds[14].getElementsByTagName("input")[0].value = amount.toFixed(2);
 		
 		//补充隐藏TD中的数据内容
 		//===============================================
@@ -191,15 +265,19 @@
 	//验证数据格式
 	function checkItem() {
 		//销售单号
-		var salesno = $("#salesno").val().trim();
+		//var salesno = $("#salesno").val().trim();
 		//销售日期
 		var tmpBookdate = $("#tmpBookdate").val().trim();
+		//支付方式
+		var res01 = $("#res01").val().trim();
+		//销售订单号
+		var theme2 = $("#theme2").val().trim();
 		//经手人
-		var handler = $("#handler").val().trim();
+		//var handler = $("#handler").val().trim();
 		//销售主题
-		var theme1 = $("#theme1").val().trim();
+		//var theme1 = $("#theme1").val().trim();
 		//仓库
-		var warehouse = $("#warehouse").val().trim();
+		//var warehouse = $("#warehouse").val().trim();
 		
 		//销售金额（不含税）
 		var tmpAmount = $("#tmpAmount").val().trim();
@@ -228,11 +306,23 @@
 		//预出库时间
 		var tmpPlandate = $("#tmpPlandate").val().trim();
 		
+		if(theme2 == "") {
+			alert("销售订单号不能为空！");
+			$("#theme2").focus();
+			return;
+		}
+		
 		if(tmpBookdate == "") {
 			alert("销售日期不能为空！");
 			$("#tmpBookdate").focus();
 			return;
 		}
+		if(res01 == "") {
+			alert("请选择支付方式！");
+			$("#res01").focus();
+			return;
+		}
+		/*
 		if(handler == "") {
 			alert("经手人不能为空！");
 			$("#handler").focus();
@@ -247,9 +337,10 @@
 			alert("仓库不能为空！");
 			$("#warehouse").focus();
 			return;
-		}
+		}//*/
 		if(customerid == "") {
 			alert("请选择客户！");
+		
 			$("#customerid").focus();
 			return;
 		}
@@ -411,17 +502,19 @@
 	
 	function addProduct() {
 		//销售主题
-		var theme1 = $("#theme1").val().trim();
-		if(theme1 == "") {
-			alert("请选择销售主题！");
-			$("#theme1").focus();
-			return;
-		}
+		var theme1 = "";//$("#theme1").val().trim();
+		//if(theme1 == "") {
+		//	alert("请选择销售主题！");
+		//	$("#theme1").focus();
+		//	return;
+		//}
 		var rows = document.getElementById("productData").rows;
 		var seq = rows.length + 1;
 		
 		//这里需要查询库存数据
-		var url = '<%=request.getContextPath()%>/warehouse/showWarehouseProductSelectAction.action';
+		//var url = '<%=request.getContextPath()%>/warehouse/showWarehouseProductSelectAction.action';
+		//url += "?strFieldno=" + theme1 + "&date=" + new Date();
+		var url = '<%=request.getContextPath()%>/product/showSalesProductSelectPage.action';
 		url += "?strFieldno=" + theme1 + "&date=" + new Date();
 		
 		//window.open(url);
@@ -537,15 +630,14 @@
 						</tr>
 						<tr>
 							<td align="right">
-								<label class="pdf10">销售单号</label>
+								<label class="pdf10"><font color="red">*</font>销售订单号</label>
 							</td>
 							<td colspan="3">
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updSalesDto.salesno" id="salesno" disabled="true" cssStyle="width:300px;" maxlength="8" theme="simple"></s:textfield>
+									<s:textfield name="updSalesDto.theme2" id="theme2" cssStyle="width:300px;" maxlength="32" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
-								<div style="margin-top: 9px;"><label>（自动编号）</label></div>
 							</td>
 						</tr>
 						<tr>
@@ -560,6 +652,24 @@
 								</div>
 								<div class="box1_right"></div>
 							</td>
+							<td align="right">
+								<label class="pdf10"><font color="red">*</font>支付方式</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<select name="updSalesDto.res01" id="res01" style="width: 300px;">
+										<option value="" selected="selected">请选择</option>
+										<s:iterator value="payTypeList" id="payTypeList" status="st1">
+											<option value="<s:property value="code"/>" <s:if test="%{payTypeList[#st1.index].code == updSalesDto.res01}">selected</s:if>><s:property value="fieldname"/></option>
+										</s:iterator>
+									</select>
+								</div>
+								<div class="box1_right"></div>
+							</td>
+						</tr>
+						<!--
+						<tr>
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>经手人</label>
 							</td>
@@ -605,6 +715,7 @@
 								<div class="box1_right"></div>
 							</td>
 						</tr>
+						-->
 						<tr>
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>客户</label>
@@ -759,17 +870,17 @@
 											<td style="width: 0px; display: none"></td>
 											<td width="30"></td>
 											<td width="35">序号</td>
-											<td width="40">类型</td>
+											<td width="60">类型</td>
 											<td width="100">品名</td>
 											<td width="90">规格</td>
 											<td width="35">颜色</td>
 											<td width="35">单位</td>
-											<td width="35">包装</td>
+											<td width="35">形式</td>
 											<td width="85">销售数量</td>
 											<td width="85">预出库数</td>
 											<td width="70">已出库数</td>
 											<td width="70">未出库数</td>
-											<td width="90">销售参考价</td>
+											<td width="90">销售单价</td>
 											<td width="110">销售金额（未税）</td>
 											<td width="110">销售金额（含税）</td>
 										</tr>
@@ -842,9 +953,11 @@
 													<td>
 														<input type="text" style="width: 80px;" id="tmpUnitprice_<s:property value="productid"/>" onblur="calcquantity(this, '4');" maxlength="11" value="<s:property value="unitprice"/>"/>
 													</td>
-													<td><s:property value="amount"/></td>
 													<td>
-														<input type="text" style="width: 80px;" id="tmpTaxamount_<s:property value="productid"/>" onblur="calcquantity(this, '3');" maxlength="13" value="<s:property value="taxamount"/>"/>
+														<input type="text" style="width: 80px;" id="tmpAmount_<s:property value="productid"/>" onblur="calcAmount(this, '1');" maxlength="13" value="<s:property value="amount"/>"/>
+													</td>
+													<td>
+														<input type="text" style="width: 80px;" id="tmpTaxamount_<s:property value="productid"/>" onblur="calcAmount(this, '2');" maxlength="13" value="<s:property value="taxamount"/>"/>
 													</td>
 												</tr>
 											</s:iterator>

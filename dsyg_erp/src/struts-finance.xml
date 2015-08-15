@@ -66,6 +66,38 @@
 			<result name="*">/page/finance/updfinance.jsp</result>
 		</action>
 		
+		<action name="updFinanceInStatusAction" class="financeApproveAction" method="updFinanceInStatusAction">
+			<result name="*">/page/finance/financeinlist.jsp</result>
+		</action>
+		
+		<action name="showFinanceInAction" class="financeApproveAction" method="showFinanceInAction">
+			<result name="*">/page/finance/financeinlist.jsp</result>
+		</action>
+		
+		<action name="queryFinanceInAction" class="financeApproveAction" method="queryFinanceInAction">
+			<result name="*">/page/finance/financeinlist.jsp</result>
+		</action>
+		
+		<action name="turnFinanceInAction" class="financeApproveAction" method="turnFinanceInAction">
+			<result name="*">/page/finance/financeinlist.jsp</result>
+		</action>
+		
+		<action name="updFinanceOutStatusAction" class="financeApproveAction" method="updFinanceOutStatusAction">
+			<result name="*">/page/finance/financeoutlist.jsp</result>
+		</action>
+		
+		<action name="showFinanceOutAction" class="financeApproveAction" method="showFinanceOutAction">
+			<result name="*">/page/finance/financeoutlist.jsp</result>
+		</action>
+		
+		<action name="queryFinanceOutAction" class="financeApproveAction" method="queryFinanceOutAction">
+			<result name="*">/page/finance/financeoutlist.jsp</result>
+		</action>
+		
+		<action name="turnFinanceOutAction" class="financeApproveAction" method="turnFinanceOutAction">
+			<result name="*">/page/finance/financeoutlist.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

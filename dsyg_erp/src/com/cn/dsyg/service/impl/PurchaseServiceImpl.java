@@ -10,6 +10,7 @@ import com.cn.common.util.Constants;
 import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
+import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.Dict01Dao;
 import com.cn.dsyg.dao.FinanceDao;
 import com.cn.dsyg.dao.PurchaseDao;
@@ -123,21 +124,60 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public String addPurchase(PurchaseDto purchase,
 			List<PurchaseItemDto> listPurchaseItem, String userid) {
+		//采购订单号
+		String purchaseorder = "";
+		String code = "";
+		Date date = new Date();
+		SimpleDateFormat sdfyear = new SimpleDateFormat("yyyy");
+		String year = sdfyear.format(date);
+		
+		List<Dict01Dto> listDict = dict01Dao.queryDict01ByFieldcode(Constants.DICT_PURCHASE_ORDER + year, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		if(listDict != null && listDict.size() > 0) {
+			Dict01Dto dict = listDict.get(0);
+			code = dict.getCode();
+			//番号+1
+			dict.setCode("" + (Integer.valueOf(dict.getCode()) + 1));
+			dict01Dao.updateDict01(dict);
+		} else {
+			//插入数据
+			Dict01Dto dict = new Dict01Dto();
+			dict.setFieldcode(Constants.DICT_PURCHASE_ORDER + year);
+			dict.setFieldname("采购单番号" + year);
+			//番号默认从1开始
+			dict.setCode("1");
+			code = "1";
+			dict.setLang(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+			dict.setMean("采购单番号" + year);
+			dict.setNote("采购单番号" + year);
+			dict.setStatus(Constants.STATUS_NORMAL);
+			dict.setCreateuid("admin");
+			dict.setUpdateuid("admin");
+			dict01Dao.insertDict01(dict);
+		}
+		code = StringUtil.replenishStr(code, 6);
+		purchaseorder = Constants.PURCHASE_ORDER_PRE + year + code;
+		
 		//生成采购单号
 		String purchaseno = "";
 		String belongto = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG);
 		purchase.setBelongto(belongto);
-		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String uuid = UUID.randomUUID().toString();
 		uuid = uuid.substring(uuid.length() - 8, uuid.length());
 		purchaseno = Constants.PURCHASE_NO_PRE + belongto + sdf.format(date) + uuid;
 		purchase.setPurchaseno(purchaseno);
 		
+		//采购订单号
+		purchase.setTheme2(purchaseorder);
 		//status
 		purchase.setStatus(Constants.PURCHASE_STATUS_NEW);
 		//rank
 		purchase.setRank(Constants.ROLE_RANK_OPERATOR);
+		
+		//经手人默认为自己
+		purchase.setHandler(userid);
+		//仓库名
+		purchase.setWarehouse(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_WAREHOUSE_NAME));
 		
 		purchase.setUpdateuid(userid);
 		purchase.setCreateuid(userid);
@@ -171,7 +211,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 				purchaseItemDao.insertPurchaseItem(purchaseItem);
 			}
 		}
-		return purchaseno;
+		return purchaseorder;
 	}
 
 	@Override
@@ -292,6 +332,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 		uuid = uuid.substring(uuid.length() - 8, uuid.length());
 		String warehouseno = Constants.WAREHOUSE_NO_PRE + belongto + sdf.format(date) + uuid;
 		warehouse.setWarehouseno(warehouseno);
+		
+		//支付方式
+		warehouse.setRes01(purchase.getRes01());
 		
 		warehouse.setBelongto(belongto);
 		//主题

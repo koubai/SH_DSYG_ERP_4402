@@ -140,7 +140,6 @@
 							<tr class="tittle">
 								<td width="40"></td>
 								<td width="40">序号</td>
-								<td width="60">主题</td>
 								<td width="120">仓库</td>
 								<td width="120">品名</td>
 								<td width="120">规格</td>
@@ -155,22 +154,15 @@
 							</tr>
 							<s:iterator id="warehouseOutOkList" value="warehouseOutOkList" status="st1">
 								<s:if test="#st1.odd==true">
-									<tr class="tr_bg">
+									<tr class="tr_bg" onclick="checkCheckboxTr(this, event);">
 								</s:if>
 								<s:else>
-									<tr>
+									<tr onclick="checkCheckboxTr(this, event);">
 								</s:else>
 									<td>
 										<input name="radioKey" type="checkbox" value="<s:property value="ids"/>"/>
 									</td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-									<td>
-										<s:iterator id="goodsList" value="goodsList" status="st3">
-											<s:if test="%{goodsList[#st3.index].code == warehouseOutOkList[#st1.index].theme1}">
-												<s:property value="fieldname"/>
-											</s:if>
-										</s:iterator>
-									</td>
 									<td><s:property value="warehousename"/></td>
 									<td><s:property value="tradename"/></td>
 									<td><s:property value="typeno"/></td>
