@@ -7,6 +7,7 @@ import java.util.Map;
 import com.cn.common.dao.BaseDao;
 import com.cn.dsyg.dao.WarehouseDao;
 import com.cn.dsyg.dto.WarehouseCheckDto;
+import com.cn.dsyg.dto.WarehouseDetailDto;
 import com.cn.dsyg.dto.WarehouseDto;
 import com.cn.dsyg.dto.WarehouseOkDto;
 import com.cn.dsyg.dto.WarehouseProductDto;
@@ -268,5 +269,47 @@ public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
 		paramMap.put("color", color);
 		paramMap.put("warehousename", warehousename);
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryWarehouseCheckCountByPage", paramMap);
+	}
+
+	@Override
+	public List<WarehouseDetailDto> queryWarehouseDetailByPage(String parentid,
+			String keyword, String warehousetype, String warehouseno,
+			String theme1, String productid, String tradename, String typeno,
+			String color, String warehousename, int start, int end) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("parentid", parentid);
+		paramMap.put("keyword", keyword);
+		paramMap.put("warehousetype", warehousetype);
+		paramMap.put("warehouseno", warehouseno);
+		paramMap.put("theme1", theme1);
+		paramMap.put("productid", productid);
+		paramMap.put("tradename", tradename);
+		paramMap.put("typeno", typeno);
+		paramMap.put("color", color);
+		paramMap.put("warehousename", warehousename);
+		paramMap.put("start", start);
+		paramMap.put("end", end);
+		@SuppressWarnings("unchecked")
+		List<WarehouseDetailDto> list = getSqlMapClientTemplate().queryForList("queryWarehouseDetailByPage", paramMap);
+		return list;
+	}
+
+	@Override
+	public int queryWarehouseDetailCountByPage(String parentid, String keyword,
+			String warehousetype, String warehouseno, String theme1,
+			String productid, String tradename, String typeno, String color,
+			String warehousename) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("parentid", parentid);
+		paramMap.put("keyword", keyword);
+		paramMap.put("warehousetype", warehousetype);
+		paramMap.put("warehouseno", warehouseno);
+		paramMap.put("theme1", theme1);
+		paramMap.put("productid", productid);
+		paramMap.put("tradename", tradename);
+		paramMap.put("typeno", typeno);
+		paramMap.put("color", color);
+		paramMap.put("warehousename", warehousename);
+		return (Integer) getSqlMapClientTemplate().queryForObject("queryWarehouseDetailCountByPage", paramMap);
 	}
 }

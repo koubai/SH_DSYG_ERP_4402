@@ -13,6 +13,8 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.cn.common.util.Constants;
+
 /**
  * Excel2007操作类基类
  * @author Frank
@@ -106,6 +108,13 @@ public class Poi2007Base {
 			writeHead(sheet, workbook);
 			//输出数据部分
 			writeData(sheet, workbook);
+			
+			String excelpass = "";
+			if(dictMap.get(Constants.EXCEL_PASS) != null){
+				excelpass = dictMap.get(Constants.EXCEL_PASS);
+			}
+			System.out.println("excelpass is: " + excelpass);
+			sheet.protectSheet(excelpass);
 			
 			//输出Excel
 			out.flush();

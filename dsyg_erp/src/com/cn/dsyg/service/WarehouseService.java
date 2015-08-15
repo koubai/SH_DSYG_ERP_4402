@@ -110,6 +110,25 @@ public interface WarehouseService {
 			String status, String warehousename, Page page);
 	
 	/**
+	 * 产品对比
+	 * @param parentid
+	 * @param keyword
+	 * @param warehousetype
+	 * @param warehouseno
+	 * @param theme1
+	 * @param productid
+	 * @param tradename
+	 * @param typeno
+	 * @param color
+	 * @param warehousename
+	 * @param page
+	 * @return
+	 */
+	public Page queryWarehouseDetailByPage(String parentid, String keyword, String warehousetype,
+			String warehouseno, String theme1, String productid, String tradename,
+			String typeno, String color, String warehousename, Page page);
+	
+	/**
 	 * 根据ID查询数据
 	 * @param id
 	 * @return

@@ -59,6 +59,8 @@ public class WarehouserptAction extends BaseAction {
 	private List<Dict01Dto> unitList;
 	//产地
 	private List<Dict01Dto> makeareaList;
+	//excel密码
+	private String excelPass;
 	
 	//编辑
 	private String updWarehouserptId;
@@ -471,6 +473,7 @@ public class WarehouserptAction extends BaseAction {
 				dictMap.put(Constants.DICT_COLOR_TYPE + "_" + dict.getCode(), dict.getFieldname());
 			}
 		}
+		dictMap.put(Constants.EXCEL_PASS, excelPass);
 		
 		String exceltype = "";
 		if(("" + Constants.WAREHOUSE_TYPE_IN).equals(type)) {
@@ -527,6 +530,7 @@ public class WarehouserptAction extends BaseAction {
 				dictMap.put(Constants.DICT_COLOR_TYPE + "_" + dict.getCode(), dict.getFieldname());
 			}
 		}
+		dictMap.put(Constants.EXCEL_PASS, excelPass);
 		
 		String exceltype = "";
 		if(("" + Constants.WAREHOUSE_TYPE_IN).equals(type)) {
@@ -577,6 +581,11 @@ public class WarehouserptAction extends BaseAction {
 		makeareaList = dict01Service.queryDict01ByFieldcode(Constants.DICT_MAKEAREA, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 		//颜色
 		colorList = dict01Service.queryDict01ByFieldcode(Constants.DICT_COLOR_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		//excel密码
+		List<Dict01Dto> listPass = dict01Service.queryDict01ByFieldcode(Constants.EXCEL_PASS, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		if(listPass != null && listPass.size() > 0) {
+			excelPass = listPass.get(0).getCode();
+		}
 	}
 	
 	public WarehouserptService getWarehouserptService() {
@@ -713,5 +722,13 @@ public class WarehouserptAction extends BaseAction {
 
 	public void setStrExportDetailId(String strExportDetailId) {
 		this.strExportDetailId = strExportDetailId;
+	}
+
+	public String getExcelPass() {
+		return excelPass;
+	}
+
+	public void setExcelPass(String excelPass) {
+		this.excelPass = excelPass;
 	}
 }
