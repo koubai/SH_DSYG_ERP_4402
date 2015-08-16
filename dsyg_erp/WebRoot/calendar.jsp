@@ -108,7 +108,7 @@ $(function() {
 <jsp:include page="./page/info2.jsp" flush="true" />
 	<div class="icons"><a class="home" href="#" onclick="goHome();">返回首页</a><a class="quit" href="#" onclick="logout();">退出</a></div>
 <div id="main" style="width:1060px">
-   <h2 class="top_title"><br><br><a>考勤管理</a></h2>
+   <h2 class="top_title"><br><br><a>欢迎使用DSYG ERP系统。</a></h2>
    <div id='calendar'></div>
    <input type="hidden" name="userId" value="<%=userId%>">
    <input type="hidden" name="userColor" value="<%=userColor%>">

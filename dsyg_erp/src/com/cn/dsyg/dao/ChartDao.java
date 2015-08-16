@@ -3,6 +3,7 @@ package com.cn.dsyg.dao;
 import java.util.List;
 
 import com.cn.dsyg.dto.ChartDto;
+import com.cn.dsyg.dto.ChartSaleTotalDto;
 
 public interface ChartDao {
 	/**
@@ -17,6 +18,6 @@ public interface ChartDao {
 	public List<ChartDto> queryFinanceByDate(String theme1, String from_date, String to_date, String dur_type, String handerList);
 	public List<ChartDto> querySupplierByDate(String theme1, String from_date, String to_date, String dur_type, String handerList);
 	public List<ChartDto> queryCustomerByDate(String theme1, String from_date, String to_date, String dur_type, String handerList);
-	public List<ChartDto> querySaleTotalByDate(String theme1, String from_date, String to_date, String dur_type, String handerList);
+	public List<ChartSaleTotalDto> querySaleTotalByDate(String theme1, String from_date, String to_date, String dur_type, String handerList);
 
 }

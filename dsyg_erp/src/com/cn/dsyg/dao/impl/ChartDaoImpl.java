@@ -7,6 +7,7 @@ import java.util.Map;
 import com.cn.common.dao.BaseDao;
 import com.cn.dsyg.dao.ChartDao;
 import com.cn.dsyg.dto.ChartDto;
+import com.cn.dsyg.dto.ChartSaleTotalDto;
 
 public class ChartDaoImpl extends BaseDao implements ChartDao {
 	/**
@@ -51,14 +52,14 @@ public class ChartDaoImpl extends BaseDao implements ChartDao {
 	}
 
 	
-	public List<ChartDto> querySaleTotalByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+	public List<ChartSaleTotalDto> querySaleTotalByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("theme1", theme1);
 		paramMap.put("from_date", from_date);
 		paramMap.put("to_date", to_date);
 		paramMap.put("handerList", handerList);
 
-		List<ChartDto> list = null;
+		List<ChartSaleTotalDto> list = null;
 		if (dur_type.equals("0")){
 			list = getSqlMapClientTemplate().queryForList("querySaleTotalByDate", paramMap);
 		}

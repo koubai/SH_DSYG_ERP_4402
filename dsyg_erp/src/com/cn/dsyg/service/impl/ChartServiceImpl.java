@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 
 import com.cn.dsyg.dto.ChartDto;
+import com.cn.dsyg.dto.ChartSaleTotalDto;
 import com.cn.dsyg.dao.ChartDao;
 import com.cn.dsyg.service.ChartService;
 import com.cn.dsyg.servlet.ChartServlet;
@@ -146,8 +147,8 @@ public class ChartServiceImpl implements ChartService{
     }
 
 	// 取得销售额数据
-	public List<ChartDto> getSaleTotalData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
-    	List<ChartDto>  list = new ArrayList<ChartDto>();
+	public List<ChartSaleTotalDto> getSaleTotalData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
+    	List<ChartSaleTotalDto>  list = new ArrayList<ChartSaleTotalDto>();
         list = querySaleTotalByDate(theme, from_date, to_date, dur_type, handerList);
     	
     	return list;
@@ -304,7 +305,7 @@ public class ChartServiceImpl implements ChartService{
 	}
 	
     // get Sale Total data by date
-	public List<ChartDto> querySaleTotalByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+	public List<ChartSaleTotalDto> querySaleTotalByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		try {
 			if (ctx != null){
 	        	chartDao = (ChartDao)ctx.getBean("chartDao");
@@ -312,7 +313,7 @@ public class ChartServiceImpl implements ChartService{
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartDto> list = chartDao.querySaleTotalByDate(theme1, from_date, to_date, dur_type, handerList);
+			List<ChartSaleTotalDto> list = chartDao.querySaleTotalByDate(theme1, from_date, to_date, dur_type, handerList);
 	        System.out.println("querySaleTotalByDate theme1:" + theme1);
 	        System.out.println("querySaleTotalByDate from_date:" + from_date);
 	        System.out.println("querySaleTotalByDate to_date:" + to_date);
@@ -352,82 +353,112 @@ public class ChartServiceImpl implements ChartService{
         i_tm =  Integer.parseInt(to_date.substring(5,7));
         
         try {
-        	List<ChartDto>  list = new ArrayList<ChartDto>();
-
-        	// get Buyer's data 
-        	if (pattern.equals("1")){
-        		list = getBuyData("", from_date, to_date, dur_type, handerList);
-        	}
-        	// get Saler's data 
-        	else if (pattern.equals("2")){
-        		list = getSaleData("", from_date, to_date, dur_type, handerList);
-        	}
-        	// get Delivery's data 
-        	else if (pattern.equals("3")){
-        		list = getDeliveryData("", from_date, to_date, dur_type, handerList);
-        	}
-        	// get Account's data 
-        	else if (pattern.equals("4")){
-        		list = getAccountData("", from_date, to_date, dur_type, handerList);
-        	}
-        	// get Saler's detail data 
-        	else if (pattern.equals("5")){
-        		list = getSaleDetailData("", from_date, to_date, dur_type, handerList);
-        	}
-        	// get supplier data 
-        	else if (pattern.equals("6")){
-        		list = getSupplierData("", from_date, to_date, dur_type, handerList);
-        	}
-        	// get Saler's detail data 
-        	else if (pattern.equals("7")){
-        		list = getCustomerData("", from_date, to_date, dur_type, handerList);
-        	}
         	// get Sale summary data 
-        	else if (pattern.equals("8")){
-        		list = getSaleTotalData("", from_date, to_date, dur_type, handerList);
+        	if (pattern.equals("8")){
+            	List<ChartSaleTotalDto>  saletotallist = new ArrayList<ChartSaleTotalDto>();
+            	saletotallist = getSaleTotalData("", from_date, to_date, dur_type, handerList);
+
+                JSONObject item = null;  
+
+            	//Add user information into json array 
+                item = new JSONObject(); 
+
+                if (saletotallist.size()>0) {
+            		item.put("name", "1");            	
+                	ChartSaleTotalDto saletotaldto = saletotallist.get(0);
+
+                	ArrayList<String> arrY=new ArrayList<String>();
+                	if (saletotaldto.getTotaltaxamount()!=null)
+                		arrY.add(saletotaldto.getTotaltaxamount());  
+                	else 
+                		arrY.add("0");
+                	if (saletotaldto.getExpresstaxamount()!=null)
+                		arrY.add(saletotaldto.getExpresstaxamount());  
+                	else 
+                		arrY.add("0");
+                	if (saletotaldto.getBusinesstripamount()!=null)
+                		arrY.add(saletotaldto.getBusinesstripamount());  
+                	else 
+                		arrY.add("0");
+            		
+            		item.put("data", arrY);            	
+                    System.out.println("GetData:" + arrY);
+                    jsonArr.put(item);  		         			        	
+                }        	
+        	} else {
+            	List<ChartDto>  list = new ArrayList<ChartDto>();
+
+            	// get Buyer's data 
+            	if (pattern.equals("1")){
+            		list = getBuyData("", from_date, to_date, dur_type, handerList);
+            	}
+            	// get Saler's data 
+            	else if (pattern.equals("2")){
+            		list = getSaleData("", from_date, to_date, dur_type, handerList);
+            	}
+            	// get Delivery's data 
+            	else if (pattern.equals("3")){
+            		list = getDeliveryData("", from_date, to_date, dur_type, handerList);
+            	}
+            	// get Account's data 
+            	else if (pattern.equals("4")){
+            		list = getAccountData("", from_date, to_date, dur_type, handerList);
+            	}
+            	// get Saler's detail data 
+            	else if (pattern.equals("5")){
+            		list = getSaleDetailData("", from_date, to_date, dur_type, handerList);
+            	}
+            	// get supplier data 
+            	else if (pattern.equals("6")){
+            		list = getSupplierData("", from_date, to_date, dur_type, handerList);
+            	}
+            	// get Saler's detail data 
+            	else if (pattern.equals("7")){
+            		list = getCustomerData("", from_date, to_date, dur_type, handerList);
+            	}
+        		
+                Map<String, String> item_map = null;
+                Map<String, String> temp_item_map = null;
+                Map<String, String> user_item_map = null;
+
+                if (list==null || list.size()<= 0)
+    	            System.out.println("getData list.size is 0 or null");	        	
+    	        if (list.size() > 0) {
+    	            System.out.println("list.size:" + list.size());
+    		        for (int z = 0; z < list.size(); z++) {  
+    		            System.out.println("Z:" + z);
+    		        	ChartDto chd = list.get(z);
+    		        	user_id = chd.getHandler();	        	
+    		            System.out.println("user_id_loop:" + user_id);
+    		        	if (!user_id.equals(tmp_user_id) ){
+    		        		// part of every user_id 
+    			            System.out.println("This user_id is:" + user_id);
+    			            if (temp_item_map != null){
+    			            	// put pre_user's data into array
+    				        	item_map= sort(user_item_map);
+    				        	jsonArr = setJsonData(jsonArr, tmp_user_id,  item_map );
+    			            }
+    			            // initial the user's data map
+    			            temp_item_map = getInitDataMap(i_fy, i_ty, i_fm, i_tm, dur_type);
+    		        	}
+    		            if (temp_item_map != null){
+    		            	// add user data to his data map
+    		            	user_item_map = setDataMap(temp_item_map, chd);
+    		            }
+    		        	tmp_user_id = user_id;	        	
+    		        }	                  
+    	        }
+
+                if (temp_item_map != null){
+    	        	item_map= sort(user_item_map);
+    	        	jsonArr = setJsonData(jsonArr, tmp_user_id,  item_map );
+                }
+                
+                JSONObject[] arr=new JSONObject[jsonArr.length()];
+                System.out.println("JsonArr length:" + jsonArr.length());
+        	    System.out.println("JO: " + jsonArr);  
+        	    setM_jsonArr(jsonArr);            
         	}
-        	
-            Map<String, String> item_map = null;
-            Map<String, String> temp_item_map = null;
-            Map<String, String> user_item_map = null;
-
-            if (list==null || list.size()<= 0)
-	            System.out.println("getData list.size is 0 or null");	        	
-	        if (list.size() > 0) {
-	            System.out.println("list.size:" + list.size());
-		        for (int z = 0; z < list.size(); z++) {  
-		            System.out.println("Z:" + z);
-		        	ChartDto chd = list.get(z);
-		        	user_id = chd.getHandler();	        	
-		            System.out.println("user_id_loop:" + user_id);
-		        	if (!user_id.equals(tmp_user_id) ){
-		        		// part of every user_id 
-			            System.out.println("This user_id is:" + user_id);
-			            if (temp_item_map != null){
-			            	// put pre_user's data into array
-				        	item_map= sort(user_item_map);
-				        	jsonArr = setJsonData(jsonArr, tmp_user_id,  item_map );
-			            }
-			            // initial the user's data map
-			            temp_item_map = getInitDataMap(i_fy, i_ty, i_fm, i_tm, dur_type);
-		        	}
-		            if (temp_item_map != null){
-		            	// add user data to his data map
-		            	user_item_map = setDataMap(temp_item_map, chd);
-		            }
-		        	tmp_user_id = user_id;	        	
-		        }	                  
-	        }
-
-            if (temp_item_map != null){
-	        	item_map= sort(user_item_map);
-	        	jsonArr = setJsonData(jsonArr, tmp_user_id,  item_map );
-            }
-            
-            JSONObject[] arr=new JSONObject[jsonArr.length()];
-            System.out.println("JsonArr length:" + jsonArr.length());
-    	    System.out.println("JO: " + jsonArr);  
-    	    setM_jsonArr(jsonArr);            
 		}
         catch (Exception e) {
 			// TODO Auto-generated catch block
