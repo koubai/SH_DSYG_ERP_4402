@@ -21,6 +21,17 @@
 		document.mainform.submit();
 	}
 	
+	function showDetail() {
+		var id = getSelectedID();
+		if(id == "") {
+			alert("请选择一条记录！");
+			return;
+		} else {
+			document.mainform.action = "../purchase/showUpdPurchaseitemAction.action?updPurchaseId=" + id;
+			document.mainform.submit();
+		}
+	}
+	
 	function upd() {
 		var id = getSelectedID();
 		if(id == "") {
@@ -291,16 +302,7 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="详细" onclick="showBidDetail();" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="导出" onclick="exportData();" />
+										<input class="input80" type="button" value="详细" onclick="showDetail();" />
 									</div>
 									<div class="box1_right"></div>
 								</div>

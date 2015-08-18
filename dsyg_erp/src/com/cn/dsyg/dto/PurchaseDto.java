@@ -161,7 +161,7 @@ public class PurchaseDto extends BaseAction {
 	private Integer status;
 
 	/**
-	 * 预备项目1
+	 * 支付方式
 	 */
 	private String res01;
 

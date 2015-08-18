@@ -42,6 +42,14 @@
 			<result name="*">/page/purchase/productprice.jsp</result>
 		</action>
 		
+		<action name="showUpdPurchaseitemAction" class="purchaseAction" method="showUpdPurchaseitemAction">
+			<result name="*">/page/purchase/updpurchaseitem.jsp</result>
+		</action>
+		
+		<action name="updPurchaseitemAction" class="purchaseAction" method="updPurchaseitemAction">
+			<result name="*">/page/purchase/updpurchaseitem.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

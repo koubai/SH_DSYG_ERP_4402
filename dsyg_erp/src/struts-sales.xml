@@ -38,6 +38,14 @@
 			<result name="*">/page/sales/productsalesprice.jsp</result>
 		</action>
 		
+		<action name="showUpdSalesitemAction" class="salesAction" method="showUpdSalesitemAction">
+			<result name="*">/page/sales/updsalesitem.jsp</result>
+		</action>
+		
+		<action name="updSalesitemAction" class="salesAction" method="updSalesitemAction">
+			<result name="*">/page/sales/updsalesitem.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

@@ -16,6 +16,17 @@
 		$("#container").height(h - 20);
 	});
 	
+	function showDetail() {
+		var id = getSelectedID();
+		if(id == "") {
+			alert("请选择一条记录！");
+			return;
+		} else {
+			document.mainform.action = "../sales/showUpdSalesitemAction.action?updSalesId=" + id;
+			document.mainform.submit();
+		}
+	}
+	
 	function add() {
 		document.mainform.action = "../sales/showAddSalesAction.action";
 		document.mainform.submit();
@@ -286,16 +297,7 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="详细" onclick="" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="履历" onclick="" />
+										<input class="input80" type="button" value="详细" onclick="showDetail();" />
 									</div>
 									<div class="box1_right"></div>
 								</div>

@@ -76,6 +76,67 @@ public class SalesAction extends BaseAction {
 	private String strProdoctid;
 	private String strCustomerid;
 	private List<SalesItemDto> salesItemList;
+	
+	/**
+	 * 显示订单预出库页面
+	 * @return
+	 */
+	public String showUpdSalesitemAction() {
+		try {
+			this.clearMessages();
+			//初期化字典数据
+			initDictList();
+			updSalesItemList = new ArrayList<SalesItemDto>();
+			updSalesDto = salesService.querySalesByID(updSalesId);
+			if(updSalesDto != null) {
+				updSalesItemList = salesItemService.querySalesItemBySalesno(updSalesDto.getSalesno());
+			}
+		} catch(Exception e) {
+			log.error("showUpdSalesitemAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 订单预出库页面
+	 * @return
+	 */
+	public String updSalesitemAction() {
+		try {
+			this.clearMessages();
+			//初期化字典数据
+			initDictList();
+			
+			//验证是否可以更新（状态=新增才可以更新）
+			SalesDto salesDto = salesService.querySalesByID("" + updSalesDto.getId());
+			if(salesDto == null) {
+				this.addActionMessage("该数据不存在！");
+				return "checkerror";
+			}
+			if(salesDto.getStatus() > Constants.SALES_STATUS_NEW) {
+				this.addActionMessage("该数据不能更新！");
+				return "checkerror";
+			}
+			
+			if(updSalesItemList == null || updSalesItemList.size() <= 0) {
+				this.addActionMessage("销售单货物列表不能为空！");
+				return "checkerror";
+			}
+			
+			//当前操作用户ID
+			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			//更新数据
+			salesService.updateSales(updSalesDto, updSalesItemList, username);
+			//刷新页面
+			updSalesItemList = salesItemService.querySalesItemBySalesno(updSalesDto.getSalesno());
+			this.addActionMessage("预出库成功！");
+		} catch(Exception e) {
+			log.error("updSalesitemAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 
 	/**
 	 * 显示更新销售单页面
@@ -122,10 +183,14 @@ public class SalesAction extends BaseAction {
 			if(!checkData(updSalesDto)) {
 				return "checkerror";
 			}
-			if(updSalesItemList == null || updSalesItemList.size() <= 0) {
-				this.addActionMessage("销售单货物列表不能为空！");
-				return "checkerror";
-			}
+			
+			//if("0".equals(updSalesDto.getRes02()) || "2".equals(updSalesDto.getRes02())) {
+				if(updSalesItemList == null || updSalesItemList.size() <= 0) {
+					this.addActionMessage("销售单货物列表不能为空！");
+					return "checkerror";
+				}
+			//}
+			
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
 			//更新数据
@@ -176,10 +241,12 @@ public class SalesAction extends BaseAction {
 			if(!checkData(addSalesDto)) {
 				return "checkerror";
 			}
-			if(addSalesItemList == null || addSalesItemList.size() <= 0) {
-				this.addActionMessage("销售单货物列表不能为空！");
-				return "checkerror";
-			}
+			//if("0".equals(addSalesDto.getRes02()) || "2".equals(addSalesDto.getRes02())) {
+				if(addSalesItemList == null || addSalesItemList.size() <= 0) {
+					this.addActionMessage("销售单货物列表不能为空！");
+					return "checkerror";
+				}
+			//}
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
 			String salesno = salesService.addSales(addSalesDto, addSalesItemList, username);
@@ -295,6 +362,11 @@ public class SalesAction extends BaseAction {
 			this.addActionMessage("销售日期不能为空！");
 			return false;
 		}
+		if(StringUtil.isBlank(sales.getRes02())) {
+			this.addActionMessage("请选择销售方式！");
+			return false;
+		}
+		
 		if(StringUtil.isBlank(sales.getRes01())) {
 			this.addActionMessage("请选择支付方式！");
 			return false;
@@ -315,11 +387,11 @@ public class SalesAction extends BaseAction {
 //			this.addActionMessage("请选择客户！");
 //			return false;
 //		}
-		if(sales.getAmount() == null || sales.getAmount().doubleValue() <= 0) {
+		if(sales.getAmount() == null || sales.getAmount().doubleValue() < 0) {
 			this.addActionMessage("销售金额（不含税）不能小于0！");
 			return false;
 		}
-		if(sales.getTaxamount() == null || sales.getTaxamount().doubleValue() <= 0) {
+		if(sales.getTaxamount() == null || sales.getTaxamount().doubleValue() < 0) {
 			this.addActionMessage("销售金额（含税）不能小于0！");
 			return false;
 		}
