@@ -110,6 +110,9 @@ public class Constants {
 	//财务主题
 	public final static String FINANCE_THEME = "financetheme";
 	
+	//excel密码
+	public final static String EXCEL_PASS = "excelpass";
+	
 	//properties
 	public final static String PROPERTIES_IMAGES_URL = "images_url";
 	public final static String PROPERTIES_IMAGES_PATH = "images_path";

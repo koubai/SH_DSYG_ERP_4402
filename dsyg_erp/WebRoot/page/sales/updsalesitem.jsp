@@ -9,13 +9,17 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
-<title>销售信息输入</title>
+<title>订单详细</title>
 <script type="text/javascript">
-	function add() {
-		if(checkItem()) {
-			if(confirm("确定提交吗？")) {
-				document.mainform.action = "../sales/addSalesAction.action";
-				document.mainform.submit();
+	function upd() {
+		if($("#status").val() != "10") {
+			alert("该数据不可以修改！");
+		} else {
+			if(checkItem()) {
+				if(confirm("确定提交吗？")) {
+					document.mainform.action = "../sales/updSalesitemAction.action";
+					document.mainform.submit();
+				}
 			}
 		}
 	}
@@ -96,7 +100,6 @@
 	
 	//计算销售数量及金额
 	function calcquantity(obj, type) {
-		//var res02 = getRadioValue("salesType");	
 		if(type == "1") {
 			//是否大于0的数字check
 			if(!isNumber(obj.value)) {
@@ -154,6 +157,10 @@
 		//var price = tds[13].innerHTML;
 		var price = prices[0].value;
 		
+		if(price == "") {
+			price = 0;
+		}
+		
 		//已出库数量
 		var outquantity = inputs[14].value;
 		if(outquantity == "") {
@@ -172,10 +179,6 @@
 		//未出库数量=销售数量-预出库数量-已出库数量
 		var remain = salesQuantity - beforeQuantity - outquantity;
 		tds[12].innerHTML = remain;
-		
-		if(price == "") {
-			price = 0;
-		}
 		//销售金额未税
 		var amount = salesQuantity * parseFloat(price);
 		tds[14].getElementsByTagName("input")[0].value = amount.toFixed(2);
@@ -253,18 +256,6 @@
 			inputs[13].value = salesTaxamount;
 		}//*/
 		//===============================================
-	}
-	
-	function getRadioValue(name) {
-		var id = "";
-		var list = document.getElementsByName(name);
-		for(var i = 0; i < list.length; i++) {
-			if(list[i].checked) {
-				id = list[i].value;
-				break;
-			}
-		}
-		return id;
 	}
 	
 	function changeTheme() {
@@ -358,6 +349,7 @@
 		}//*/
 		if(customerid == "") {
 			alert("请选择客户！");
+		
 			$("#customerid").focus();
 			return;
 		}
@@ -480,22 +472,22 @@
 				return false;
 			}
 			
-			td.appendChild(createInput("addSalesItemList[" + i + "].id", id));
-			td.appendChild(createInput("addSalesItemList[" + i + "].productid", productid));
-			td.appendChild(createInput("addSalesItemList[" + i + "].theme1", theme1));
-			td.appendChild(createInput("addSalesItemList[" + i + "].tradename", tradename));
-			td.appendChild(createInput("addSalesItemList[" + i + "].typeno", typeno));
-			td.appendChild(createInput("addSalesItemList[" + i + "].color", color));
-			td.appendChild(createInput("addSalesItemList[" + i + "].unit", unit));
-			td.appendChild(createInput("addSalesItemList[" + i + "].packaging", packaging));
-			td.appendChild(createInput("addSalesItemList[" + i + "].unitprice", unitprice));
+			td.appendChild(createInput("updSalesItemList[" + i + "].id", id));
+			td.appendChild(createInput("updSalesItemList[" + i + "].productid", productid));
+			td.appendChild(createInput("updSalesItemList[" + i + "].theme1", theme1));
+			td.appendChild(createInput("updSalesItemList[" + i + "].tradename", tradename));
+			td.appendChild(createInput("updSalesItemList[" + i + "].typeno", typeno));
+			td.appendChild(createInput("updSalesItemList[" + i + "].color", color));
+			td.appendChild(createInput("updSalesItemList[" + i + "].unit", unit));
+			td.appendChild(createInput("updSalesItemList[" + i + "].packaging", packaging));
+			td.appendChild(createInput("updSalesItemList[" + i + "].unitprice", unitprice));
 			
-			td.appendChild(createInput("addSalesItemList[" + i + "].quantity", quantity));
-			td.appendChild(createInput("addSalesItemList[" + i + "].beforequantity", beforequantity));
-			td.appendChild(createInput("addSalesItemList[" + i + "].outquantity", outquantity));
-			td.appendChild(createInput("addSalesItemList[" + i + "].remainquantity", remainquantity));
-			td.appendChild(createInput("addSalesItemList[" + i + "].amount", amount));
-			td.appendChild(createInput("addSalesItemList[" + i + "].taxamount", taxamount));
+			td.appendChild(createInput("updSalesItemList[" + i + "].quantity", quantity));
+			td.appendChild(createInput("updSalesItemList[" + i + "].beforequantity", beforequantity));
+			td.appendChild(createInput("updSalesItemList[" + i + "].outquantity", outquantity));
+			td.appendChild(createInput("updSalesItemList[" + i + "].remainquantity", remainquantity));
+			td.appendChild(createInput("updSalesItemList[" + i + "].amount", amount));
+			td.appendChild(createInput("updSalesItemList[" + i + "].taxamount", taxamount));
 			
 			tr.appendChild(td);
 			document.getElementById("salesItemTable").appendChild(tr);
@@ -519,7 +511,6 @@
 	}
 	
 	function addProduct() {
-		var customerid = $("#customerid").val().trim();
 		//销售主题
 		var theme1 = "";//$("#theme1").val().trim();
 		//if(theme1 == "") {
@@ -532,7 +523,7 @@
 		
 		//这里需要查询库存数据
 		//var url = '<%=request.getContextPath()%>/warehouse/showWarehouseProductSelectAction.action';
-		//url += "?strFieldno=" + theme1 + "&strCustomerId=" + customerid + "&date=" + new Date();
+		//url += "?strFieldno=" + theme1 + "&date=" + new Date();
 		var url = '<%=request.getContextPath()%>/product/showSalesProductSelectPage.action';
 		url += "?strFieldno=" + theme1 + "&date=" + new Date();
 		
@@ -593,6 +584,18 @@
 		}
 	}
 	
+	function getRadioValue(name) {
+		var id = "";
+		var list = document.getElementsByName(name);
+		for(var i = 0; i < list.length; i++) {
+			if(list[i].checked) {
+				id = list[i].value;
+				break;
+			}
+		}
+		return id;
+	}
+	
 	//用户
 	function selectUser() {
 		var url = "../user/showSelectUserAction.action";
@@ -619,7 +622,7 @@
 				<div class="tittle_left">
 				</div>
 				<div class="tittle_center" style="width:150px;">
-					销售信息输入
+					订单详细
 				</div>
 				<div class="tittle_right">
 				</div>
@@ -628,20 +631,19 @@
 				<s:hidden name="common_rate" id="common_rate"></s:hidden>
 				
 				
-				<s:hidden name="addSalesDto.customerid" id="customerid"></s:hidden>
-				<s:hidden name="addSalesDto.bookdate" id="bookdate"></s:hidden>
-				<s:hidden name="addSalesDto.productlist" id="productlist"></s:hidden>
+				<s:hidden name="updSalesDto.customerid" id="customerid"></s:hidden>
+				<s:hidden name="updSalesDto.bookdate" id="bookdate"></s:hidden>
+				<s:hidden name="updSalesDto.productlist" id="productlist"></s:hidden>
 				
-				<s:hidden name="addSalesDto.taxamount" id="taxamount"></s:hidden>
-				<s:hidden name="addSalesDto.paidamount" id="paidamount"></s:hidden>
-				<s:hidden name="addSalesDto.amount" id="amount"></s:hidden>
+				<s:hidden name="updSalesDto.taxamount" id="taxamount"></s:hidden>
+				<s:hidden name="updSalesDto.paidamount" id="paidamount"></s:hidden>
+				<s:hidden name="updSalesDto.amount" id="amount"></s:hidden>
+				<s:hidden name="updSalesDto.status" id="status"></s:hidden>
 				
-				<s:hidden name="addSalesDto.plandate" id="plandate"></s:hidden>
+				<s:hidden name="updSalesDto.handler" id="handler"></s:hidden>
+				<s:hidden name="updSalesDto.handlername" id="handlername"></s:hidden>
 				
-				<s:hidden name="addSalesDto.handler" id="handler"></s:hidden>
-				<s:hidden name="addSalesDto.handlername" id="handlername"></s:hidden>
-				
-				<s:hidden name="addSalesDto.res02" id="res02"></s:hidden>
+				<s:hidden name="updSalesDto.res02" id="res02"></s:hidden>
 				
 				<div class="searchbox update" style="height:0px;">
 					<table id="salesItemTable" style="display: none;">
@@ -657,7 +659,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="addSalesDto.theme2" id="theme2" cssStyle="width:300px;" maxlength="32" theme="simple"></s:textfield>
+									<s:textfield name="updSalesDto.theme2" id="theme2" disabled="true" cssStyle="width:300px;" maxlength="32" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -667,8 +669,8 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center date_input">
-									<input type="text" id="tmpBookdate" disabled="disabled" style="width:285px;" value="<s:property value="addSalesDto.showBookdate"/>" />
-									<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpBookdate'));"></a>
+									<input type="text" id="tmpBookdate" disabled="disabled" style="width:285px;" value="<s:property value="updSalesDto.showBookdate"/>" />
+									<a class="date" href="javascript:;" onclick=""></a>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -678,20 +680,20 @@
 								<label class="pdf10"><font color="red">*</font>销售方式</label>
 							</td>
 							<td>
-								<s:if test='addSalesDto.res02 == "1"'>
-									<input type="radio" id="tmpRes02" name="salesType" value="0"/>普通　
-									<input type="radio" name="salesType" checked="checked" value="1"/>询价　
-									<input type="radio" name="salesType" value="2"/>询样
+								<s:if test='updSalesDto.res02 == "1"'>
+									<input type="radio" disabled="disabled" id="tmpRes02" name="salesType" value="0"/>普通　
+									<input type="radio" disabled="disabled" name="salesType" checked="checked" value="1"/>询价　
+									<input type="radio" disabled="disabled" name="salesType" value="2"/>询样
 								</s:if>
-								<s:elseif test='addSalesDto.res02 == "2"'>
-									<input type="radio" id="tmpRes02" name="salesType" value="0"/>普通　
-									<input type="radio" name="salesType" value="1"/>询价　
-									<input type="radio" name="salesType" checked="checked" value="2"/>询样
+								<s:elseif test='updSalesDto.res02 == "2"'>
+									<input type="radio" disabled="disabled" id="tmpRes02" name="salesType" value="0"/>普通　
+									<input type="radio" disabled="disabled" name="salesType" value="1"/>询价　
+									<input type="radio" disabled="disabled" name="salesType" checked="checked" value="2"/>询样
 								</s:elseif>
 								<s:else>
-									<input type="radio" id="tmpRes02" name="salesType" checked="checked" value="0"/>普通　
-									<input type="radio" name="salesType" value="1"/>询价　
-									<input type="radio" name="salesType" value="2"/>询样
+									<input type="radio" disabled="disabled" id="tmpRes02" name="salesType" checked="checked" value="0"/>普通　
+									<input type="radio" disabled="disabled" name="salesType" value="1"/>询价　
+									<input type="radio" disabled="disabled" name="salesType" value="2"/>询样
 								</s:else>
 							</td>
 							<td align="right">
@@ -700,10 +702,10 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<select name="addSalesDto.res01" id="res01" style="width: 300px;">
+									<select name="updSalesDto.res01" disabled="disabled" id="res01" style="width: 300px;">
 										<option value="" selected="selected">请选择</option>
 										<s:iterator value="payTypeList" id="payTypeList" status="st1">
-											<option value="<s:property value="code"/>" <s:if test="%{payTypeList[#st1.index].code == addSalesDto.res01}">selected</s:if>><s:property value="fieldname"/></option>
+											<option value="<s:property value="code"/>" <s:if test="%{payTypeList[#st1.index].code == updSalesDto.res01}">selected</s:if>><s:property value="fieldname"/></option>
 										</s:iterator>
 									</select>
 								</div>
@@ -718,7 +720,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<input type="text" id="tmphandlername" disabled="disabled" style="width:285px;" value="<s:property value="addSalesDto.handlername"/>" />
+									<input type="text" id="tmphandlername" disabled="disabled" style="width:285px;" value="<s:property value="updSalesDto.handlername"/>" />
 								</div>
 								<div class="box1_right"></div>
 								<div class="btn">
@@ -737,10 +739,10 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<select name="addSalesDto.theme1" id="theme1" style="width: 300px;" onchange="changeTheme();">
+									<select name="updSalesDto.theme1" id="theme1" disabled="disabled" style="width: 300px;" onchange="changeTheme();">
 										<option value="" selected="selected">请选择</option>
 										<s:iterator value="goodsList" id="goodsList" status="st1">
-											<option value="<s:property value="code"/>" <s:if test="%{goodsList[#st1.index].code == addSalesDto.theme1}">selected</s:if>><s:property value="fieldname"/></option>
+											<option value="<s:property value="code"/>" <s:if test="%{goodsList[#st1.index].code == updSalesDto.theme1}">selected</s:if>><s:property value="fieldname"/></option>
 										</s:iterator>
 									</select>
 								</div>
@@ -752,7 +754,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="addSalesDto.warehouse" id="warehouse" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
+									<s:textfield name="updSalesDto.warehouse" id="warehouse" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -765,13 +767,13 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="addSalesDto.customername" id="customername" maxlength="32" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="updSalesDto.customername" disabled="true" id="customername" maxlength="32" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input40" type="button" value="检索" onclick="selectCustomer();" />
+										<input class="input40" type="button" value="检索" onclick="" />
 									</div>
 									<div class="box1_right"></div>
 								</div>
@@ -782,7 +784,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="addSalesDto.customermanager" id="customermanager" maxlength="16" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="updSalesDto.customermanager" disabled="true" id="customermanager" maxlength="16" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -795,7 +797,7 @@
 							<td colspan="3">
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="addSalesDto.customeraddr" id="customeraddr" maxlength="64" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="updSalesDto.customeraddr" id="customeraddr" maxlength="64" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -808,7 +810,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="addSalesDto.customeraddress" id="customeraddress" maxlength="64" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="updSalesDto.customeraddress" disabled="true" id="customeraddress" maxlength="64" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -818,7 +820,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="addSalesDto.customertel" id="customertel" maxlength="16" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="updSalesDto.customertel" disabled="true" id="customertel" maxlength="16" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -830,7 +832,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="addSalesDto.customerfax" id="customerfax" maxlength="16" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="updSalesDto.customerfax" disabled="true" id="customerfax" maxlength="16" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -840,7 +842,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="addSalesDto.customermail" id="customermail" maxlength="64" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="updSalesDto.customermail" disabled="true" id="customermail" maxlength="64" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -852,7 +854,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<input type="text" id="tmpAmount" maxlength="12" style="width:300px;" value="<s:property value="addSalesDto.amount"/>"/>
+									<input type="text" id="tmpAmount" maxlength="12" disabled="disabled" style="width:300px;" value="<s:property value="updSalesDto.amount"/>"/>
 								</div>
 								<div class="box1_right"></div>
 								<div style="margin-top: 9px;"><label>（不含税）</label></div>
@@ -863,7 +865,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<input type="text" id="tmpTaxamount" maxlength="12" style="width:300px;" value="<s:property value="addSalesDto.taxamount"/>"/>
+									<input type="text" id="tmpTaxamount" maxlength="12" disabled="disabled" style="width:300px;" value="<s:property value="updSalesDto.taxamount"/>"/>
 								</div>
 								<div class="box1_right"></div>
 								<div style="margin-top: 9px;"><label>（含税）</label></div>
@@ -876,7 +878,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<input type="text" id="tmpPaidamount" maxlength="12" style="width:300px;" value="<s:property value="addSalesDto.paidamount"/>"/>
+									<input type="text" id="tmpPaidamount" maxlength="12" disabled="disabled" style="width:300px;" value="<s:property value="updSalesDto.paidamount"/>"/>
 								</div>
 								<div class="box1_right"></div>
 								<div style="margin-top: 9px;"><label>（含税）</label></div>
@@ -887,8 +889,8 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center date_input">
-									<input type="text" id="tmpPlandate" disabled="disabled" style="width:285px;" value="<s:property value="addSalesDto.plandate"/>" />
-									<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpPlandate'));"></a>
+									<input type="text" id="tmpPlandate" disabled="disabled" style="width:285px;" value="<s:property value="updSalesDto.plandate"/>" />
+									<a class="date" href="javascript:;" onclick=""></a>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -927,7 +929,7 @@
 											<td width="110">销售金额（含税）</td>
 										</tr>
 										<tbody id="productData">
-											<s:iterator id="addSalesItemList" value="addSalesItemList" status="st1">
+											<s:iterator id="updSalesItemList" value="updSalesItemList" status="st1">
 												<s:if test="#st1.odd==true">
 													<tr class="tr_bg">
 												</s:if>
@@ -956,7 +958,7 @@
 													<td><s:property value="#st1.index + 1"/></td>
 													<td>
 														<s:iterator id="goodsList" value="goodsList" status="st3">
-															<s:if test="%{goodsList[#st3.index].code == addSalesItemList[#st1.index].theme1}">
+															<s:if test="%{goodsList[#st3.index].code == updSalesItemList[#st1.index].theme1}">
 																<s:property value="fieldname"/>
 															</s:if>
 														</s:iterator>
@@ -965,80 +967,47 @@
 													<td><s:property value="typeno"/></td>
 													<td>
 														<s:iterator id="colorList" value="colorList" status="st3">
-															<s:if test="%{colorList[#st3.index].code == addSalesItemList[#st1.index].color}">
+															<s:if test="%{colorList[#st3.index].code == updSalesItemList[#st1.index].color}">
 																<s:property value="fieldname"/>
 															</s:if>
 														</s:iterator>
 													</td>
 													<td>
 														<s:iterator id="unitList" value="unitList" status="st3">
-															<s:if test="%{unitList[#st3.index].code == addSalesItemList[#st1.index].unit}">
+															<s:if test="%{unitList[#st3.index].code == updSalesItemList[#st1.index].unit}">
 																<s:property value="fieldname"/>
 															</s:if>
 														</s:iterator>
 													</td>
 													<td>
-														<s:if test='%{addSalesItemList[#st1.index].packaging == "1"}'>整箱</s:if>
-														<s:elseif test='%{addSalesItemList[#st1.index].packaging == "0"}'>乱尺</s:elseif>
+														<s:if test='%{updSalesItemList[#st1.index].packaging == "1"}'>整箱</s:if>
+														<s:elseif test='%{updSalesItemList[#st1.index].packaging == "0"}'>乱尺</s:elseif>
 														<s:else>
 															<s:property value="packaging"/>
 														</s:else>
 													</td>
 													<td>
-														<input type="text" style="width: 80px;" id="tmpQuantity_<s:property value="productid"/>" onblur="calcquantity(this, '1');" maxlength="11" value="<s:property value="quantity"/>"/>
+														<input type="text" disabled="disabled" style="width: 80px;" id="tmpQuantity_<s:property value="productid"/>" onblur="calcquantity(this, '1');" maxlength="11" value="<s:property value="quantity"/>"/>
 													</td>
 													<td>
 														<input type="text" style="width: 80px;" id="tmpBeforeQuantity_<s:property value="productid"/>" onblur="calcquantity(this, '2');" maxlength="11" value="<s:property value="beforequantity"/>"/>
 													</td>
 													<td><s:property value="outquantity"/></td>
-													<td><br /></td>
+													<td><s:property value="remainquantity"/></td>
 													<td>
-														<input type="text" style="width: 80px;" id="tmpUnitprice_<s:property value="productid"/>" onblur="calcquantity(this, '4');" maxlength="11" value="<s:property value="unitprice"/>"/>
+														<input type="text" disabled="disabled" style="width: 80px;" id="tmpUnitprice_<s:property value="productid"/>" onblur="calcquantity(this, '4');" maxlength="11" value="<s:property value="unitprice"/>"/>
 													</td>
 													<td>
-														<input type="text" style="width: 80px;" id="tmpAmount_<s:property value="productid"/>" onblur="calcAmount(this, '1');" maxlength="13" value="<s:property value="amount"/>"/>
+														<input type="text" disabled="disabled" style="width: 80px;" id="tmpAmount_<s:property value="productid"/>" onblur="calcAmount(this, '1');" maxlength="13" value="<s:property value="amount"/>"/>
 													</td>
 													<td>
-														<input type="text" style="width: 80px;" id="tmpTaxamount_<s:property value="productid"/>" onblur="calcAmount(this, '2');" maxlength="13" value="<s:property value="taxamount"/>"/>
+														<input type="text" disabled="disabled" style="width: 80px;" id="tmpTaxamount_<s:property value="productid"/>" onblur="calcAmount(this, '2');" maxlength="13" value="<s:property value="taxamount"/>"/>
 													</td>
 												</tr>
 											</s:iterator>
 										</tbody>
 									</table>
 								</div>
-								<table cellpadding="10" style="margin:0 auto;">
-									<tr>
-										<td>
-											<div class="btn1">
-												<div class="btn1_left"></div>
-												<div class="btn1_center">
-													<input class="input80" type="button" onclick="addProduct();" value="新增" />
-												</div>
-												<div class="btn1_right"></div>
-											</div>
-										</td>
-										<!--
-										<td>
-											<div class="btn1">
-												<div class="btn1_left"></div>
-												<div class="btn1_center">
-													<input class="input80" type="button" onclick="updProduct();" value="更改" />
-												</div>
-												<div class="btn1_right"></div>
-											</div>
-										</td>
-										-->
-										<td>
-											<div class="btn1">
-												<div class="btn1_left"></div>
-												<div class="btn1_center">
-													<input class="input80" type="button" onclick="delProduct();" value="删除" />
-												</div>
-												<div class="btn1_right"></div>
-											</div>
-										</td>
-									</tr>
-								</table>
 							</td>
 						</tr>
 					</table>
@@ -1050,7 +1019,7 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="提交" onclick="add();"/>
+										<input class="input80" type="button" value="提交" onclick="upd();"/>
 									</div>
 									<div class="box1_right"></div>
 								</div>

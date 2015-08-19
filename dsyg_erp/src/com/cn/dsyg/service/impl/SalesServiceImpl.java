@@ -106,6 +106,9 @@ public class SalesServiceImpl implements SalesService {
 				salesItem.setCustomerid("" + sales.getCustomerid());
 				salesItem.setPlandate(sales.getPlandate());
 				
+				//销售方式
+				salesItem.setRes02(sales.getRes02());
+				
 				//判断预出库数量是否大于0，若大于0则生产库存记录
 				if(salesItem.getBeforequantity() != null && salesItem.getBeforequantity() > 0) {
 					//新增库存记录
@@ -169,6 +172,9 @@ public class SalesServiceImpl implements SalesService {
 					salesItem.setBelongto(sales.getBelongto());
 					salesItem.setCustomerid("" + sales.getCustomerid());
 					
+					//销售方式
+					salesItem.setRes02(sales.getRes02());
+					
 					//判断预出库数量是!=0，若!=0则生产库存记录，这里不判断是否大于0的情况，考虑可能会增加负的库存记录
 					if(salesItem.getBeforequantity() != null && salesItem.getBeforequantity() != 0) {
 						//新增库存记录
@@ -188,6 +194,9 @@ public class SalesServiceImpl implements SalesService {
 					//修改
 					salesItem.setUpdateuid(userid);
 					salesItem.setStatus(Constants.STATUS_NORMAL);
+					
+					//销售方式
+					salesItem.setRes02(sales.getRes02());
 					
 					//判断预出库数量是!=0，若!=0则生产库存记录，这里不判断是否大于0的情况，考虑可能会增加负的库存记录
 					if(salesItem.getBeforequantity() != null && salesItem.getBeforequantity() != 0) {

@@ -3,6 +3,7 @@ package com.cn.dsyg.dao;
 import java.util.List;
 
 import com.cn.dsyg.dto.WarehouseCheckDto;
+import com.cn.dsyg.dto.WarehouseDetailDto;
 import com.cn.dsyg.dto.WarehouseDto;
 import com.cn.dsyg.dto.WarehouseOkDto;
 import com.cn.dsyg.dto.WarehouseProductDto;
@@ -188,6 +189,45 @@ public interface WarehouseDao {
 	 */
 	public int queryWarehouseCountByPage(String parentid, String warehousetype, String warehouseno,
 			String theme1, String supplierid, String productid, String status, String warehousename);
+	
+	//产品对比
+	/**
+	 * 翻页查询产品对比
+	 * @param parentid
+	 * @param keyword
+	 * @param warehousetype
+	 * @param warehouseno
+	 * @param theme1
+	 * @param productid
+	 * @param tradename
+	 * @param typeno
+	 * @param color
+	 * @param warehousename
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public List<WarehouseDetailDto> queryWarehouseDetailByPage(String parentid, String keyword,
+			String warehousetype, String warehouseno, String theme1, String productid, String tradename,
+			String typeno, String color, String warehousename, int start, int end);
+	
+	/**
+	 * 查询库存产品记录数
+	 * @param parentid
+	 * @param keyword
+	 * @param warehousetype
+	 * @param warehouseno
+	 * @param theme1
+	 * @param productid
+	 * @param tradename
+	 * @param typeno
+	 * @param color
+	 * @param warehousename
+	 * @return
+	 */
+	public int queryWarehouseDetailCountByPage(String parentid, String keyword, String warehousetype,
+			String warehouseno, String theme1, String productid, String tradename,
+			String typeno, String color, String warehousename);
 	
 	/**
 	 * 根据ID查询数据

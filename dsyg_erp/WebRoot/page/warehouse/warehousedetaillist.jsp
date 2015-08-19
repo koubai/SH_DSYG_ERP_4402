@@ -9,81 +9,45 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>
-<title>采购信息一览</title>
+<title>产品对比</title>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var h = screen.availHeight; 
 		$("#container").height(h - 20);
 	});
 	
-	function add() {
-		document.mainform.action = "../purchase/showAddPurchaseAction.action";
-		document.mainform.submit();
-	}
-	
-	function showDetail() {
-		var id = getSelectedID();
-		if(id == "") {
-			alert("请选择一条记录！");
-			return;
-		} else {
-			document.mainform.action = "../purchase/showUpdPurchaseitemAction.action?updPurchaseId=" + id;
-			document.mainform.submit();
-		}
-	}
-	
-	function upd() {
-		var id = getSelectedID();
-		if(id == "") {
-			alert("请选择一条记录！");
-			return;
-		} else {
-			document.mainform.action = "../purchase/showUpdPurchaseAction.action?updPurchaseId=" + id;
-			document.mainform.submit();
-		}
-	}
-	
-	function getSelectedID() {
-		var id = "";
-		var list = document.getElementsByName("radioKey");
-		for(var i = 0; i < list.length; i++) {
-			if(list[i].checked) {
-				id = list[i].value;
-				break;
-			}
-		}
-		return id;
-	}
-	
-	function del() {
-	}
-	
-	//查询日期赋值
-	function setQueryDate() {
-		$("#strPurchasedateLow").attr("value", $("#purchaseDateLow").val());
-		$("#strPurchasedateHigh").attr("value", $("#purchaseDateHigh").val());
-	}
-
 	//查询数据
 	function queryList() {
-		setQueryDate();
-		document.mainform.action = '../purchase/queryPurchaseAction.action';
+		document.mainform.action = '../warehouse/queryWarehouseDetailAction.action';
 		document.mainform.submit();
+	}
+
+	function showPurchase(id){
+		var url = '<%=request.getContextPath()%>/warehouse/showProductPurchasePage.action';
+		//strFlag=1采购单，strFlag=2销售单
+		url += "?strProdoctid=" + id + "&strFlag=1" + "&date=" + new Date();
+		window.showModalDialog(url, window, "dialogheight:400px;dialogwidth:600px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	}
+	
+	function showSales(id){
+		var url = '<%=request.getContextPath()%>/warehouse/showProductSalesPage.action';
+		//strFlag=1采购单，strFlag=2销售单
+		url += "?strProdoctid=" + id + "&strFlag=2" + "&date=" + new Date();
+		window.showModalDialog(url, window, "dialogheight:400px;dialogwidth:600px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 	}
 	
 	//修改pagesize
 	function changepagesize(pagesize) {
 		$("#intPageSize").attr("value", pagesize);
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../purchase/queryPurchaseAction.action';
+		document.mainform.action = '../warehouse/queryWarehouseDetailAction.action';
 		document.mainform.submit();
 	}
 	
 	//翻页
 	function changePage(pageNum) {
-		setQueryDate();
 		$("#startIndex").attr("value", pageNum);
-		document.mainform.action = '../purchase/turnPurchaseAction.action';
+		document.mainform.action = '../warehouse/turnWarehouseDetailAction.action';
 		document.mainform.submit();
 	}
 
@@ -113,12 +77,7 @@
 		} else {
 			alert("页码不能为空！");
 			return;
-		}
-	}
-	
-	function exportData() {
-		document.mainform.action = '../purchase/exportPurchaseList.action';
-		document.mainform.submit();
+		}	
 	}
 </script>
 </head>
@@ -131,34 +90,36 @@
 				<div class="tittle_left">
 				</div>
 				<div class="tittle_center">
-					采购信息一览
+					产品对比表
 				</div>
 				<div class="tittle_right">
 				</div>
 			</div>
 			<s:form id="mainform" name="mainform" method="POST">
 				<s:hidden name="startIndex" id="startIndex"/>
-				<s:hidden name="strPurchasedateLow" id="strPurchasedateLow"/>
-				<s:hidden name="strPurchasedateHigh" id="strPurchasedateHigh"/>
 				<s:hidden name="intPageSize" id="intPageSize"/>
 				<div class="searchbox">
 					<div class="box1">
-						<label class="pdf10">采购日期</label>
+						<label class="pdf10">类型</label>
 						<div class="box1_left"></div>
-						<div class="box1_center date_input">
-							<input type="text" disabled="disabled" style="width: 105px;" id="purchaseDateLow" value="<s:property value="strPurchasedateLow"/>" maxlength="10" />
-							<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('purchaseDateLow'));"></a>
+						<div class="box1_center">
+							<select name="strTheme" id="strTheme" style="width: 150px;">
+								<option value="" selected="selected">请选择</option>
+								<s:iterator value="goodsList" id="goodsList" status="st1">
+									<option value="<s:property value="code"/>" <s:if test="%{goodsList[#st1.index].code == strTheme}">selected</s:if>><s:property value="fieldname"/></option>
+								</s:iterator>
+							</select>
 						</div>
-						<div class="box1_right"></div>
-						<label>-</label>
+					</div>
+					<div class="box1">
+						<label class="pdf10">关键字</label>
 						<div class="box1_left"></div>
-						<div class="box1_center date_input">
-							<input type="text" disabled="disabled" style="width: 105px;" id="purchaseDateHigh" value="<s:property value="strPurchasedateHigh"/>" maxlength="10" />
-							<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('purchaseDateHigh'));"></a>
+						<div class="box1_center">
+							<s:textfield name="strKeyword" id="strKeyword" cssClass="input80" maxlength="16" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
 					</div>
-					<div class="btn" style="margin-left: 160px;">
+					<div class="btn" style="margin-left: 60px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
 							<input type="button" class="input40" value="检索" onclick="queryList();"/>
@@ -169,9 +130,6 @@
 						<s:actionmessage />
 					</div>
 					<div class="icons thums">
-						<a class="add" onclick="add();">增加</a>
-						<a class="edit" onclick="upd();">修改</a>
-						<a class="delete" onclick="del();">删除</a>
 					</div>
 				</div>
 				<div class="data_table" style="padding:0px;">
@@ -182,66 +140,61 @@
 					<div class="tab_content">
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
-								<td width="30"></td>
-								<td width="30">序号</td>
-								<td width="140">采购订单号</td>
-								<!--
-								<td width="60">采购主题</td>
-								-->
-								<td width="60">支付方式</td>
-								<td width="60">仓库</td>
-								<td width="110">供应商</td>
-								<td width="60">经手人</td>
-								<td width="80">采购日期</td>
-								<td width="120">采购金额（不含税）</td>
-								<td width="110">采购金额（含税）</td>
-								<td width="110">已付金额（含税）</td>
-								<td width="80">状态</td>
+								<td width="40">序号</td>
+								<td width="60">主题</td>
+								<td width="120">品名</td>
+								<td width="120">规格</td>
+								<td width="60">颜色</td>
+								<td width="60">包装</td>
+								<td width="80">订单数量</td>
+								<td width="80">库存数量</td>
+								<td width="80">差数</td>
+								<td width="80">采购数量</td>
+								<td width="80">预计交货期</td>
 							</tr>
-							<s:iterator id="purchaseList" value="purchaseList" status="st1">
+							<s:iterator id="warehouseDetailList" value="warehouseDetailList" status="st1">
 								<s:if test="#st1.odd==true">
-									<tr class="tr_bg" onclick="checkRadioTr(this, event);">
+									<tr class="tr_bg">
 								</s:if>
 								<s:else>
-									<tr onclick="checkRadioTr(this, event);">
+									<tr>
 								</s:else>
-									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-									<td><s:property value="theme2"/></td>
-									<!--
 									<td>
 										<s:iterator id="goodsList" value="goodsList" status="st3">
-											<s:if test="%{goodsList[#st3.index].code == purchaseList[#st1.index].theme1}">
+											<s:if test="%{goodsList[#st3.index].code == warehouseDetailList[#st1.index].fieldno}">
 												<s:property value="fieldname"/>
 											</s:if>
 										</s:iterator>
 									</td>
-									-->
+									<td><s:property value="tradename"/></td>
+									<td><s:property value="typeno"/></td>
 									<td>
-										<s:iterator id="payTypeList" value="payTypeList" status="st3">
-											<s:if test="%{payTypeList[#st3.index].code == purchaseList[#st1.index].res01}">
+										<s:iterator id="colorList" value="colorList" status="st3">
+											<s:if test="%{colorList[#st3.index].code == warehouseDetailList[#st1.index].color}">
 												<s:property value="fieldname"/>
 											</s:if>
 										</s:iterator>
 									</td>
-									<td><s:property value="warehouse"/></td>
-									<td><s:property value="suppliername"/></td>
-									<td><s:property value="handlername"/></td>
-									<td><s:property value="showPurchasedate"/></td>
-									<td><s:property value="totalamount"/></td>
-									<td><s:property value="taxamount"/></td>
-									<td><s:property value="paidamount"/></td>
 									<td>
-										<s:if test="%{status == 10}">
-											新增
-										</s:if>
-										<s:elseif test="%{status == 20}">
-											入库确认
-										</s:elseif>
+										<s:if test='%{warehouseDetailList[#st1.index].packaging == "1"}'>整箱</s:if>
+										<s:elseif test='%{warehouseDetailList[#st1.index].packaging == "0"}'>乱尺</s:elseif>
 										<s:else>
-											<s:property value="status"/>
+											<s:property value="packaging"/>
 										</s:else>
 									</td>
+									<td><a href="#" onclick="showSales('<s:property value="id"/>');"><u><s:property value="quantitys"/></u></a></td>
+									<td><s:property value="quantity"/></td>
+									<td>
+										<s:if test="%{warehouseDetailList[#st1.index].diffquantity <= 0}">
+											<span style="color: red"><s:property value="diffquantity"/></span>
+										</s:if>
+										<s:else>
+											<s:property value="diffquantity"/>
+										</s:else>
+									</td>
+									<td><a href="#" onclick="showPurchase('<s:property value="id"/>');"><u><s:property value="quantityp"/></u></a></td>
+									<td><s:property value="plandate"/></td>
 								</tr>
 							</s:iterator>
 						</table>
@@ -295,6 +248,7 @@
 						</ul>
 					</div>
 				</div>
+				<!--
 				<div class="btns" style="margin-top:40px; margin-left:-90px;">
 					<table border="0" style="margin:0 auto;">
 						<tr>
@@ -302,7 +256,16 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="详细" onclick="showDetail();" />
+										<input class="input80" type="button" value="详细" onclick="showBidDetail();" />
+									</div>
+									<div class="box1_right"></div>
+								</div>
+							</td>
+							<td>
+								<div class="btn">
+									<div class="box1_left"></div>
+									<div class="box1_center">
+										<input class="input80" type="button" value="履历" onclick="" />
 									</div>
 									<div class="box1_right"></div>
 								</div>
@@ -310,6 +273,7 @@
 						</tr>
 					</table>
 				</div>
+				-->
 			</s:form>
 		</div>
 	</div>

@@ -156,12 +156,12 @@ public class SalesDto extends BaseAction {
 	private Integer status;
 
 	/**
-	 * 预备项目1
+	 * 支付方式
 	 */
 	private String res01;
 
 	/**
-	 * 预备项目2
+	 * 销售模式（0为普通，1为询价，2为询样）
 	 */
 	private String res02;
 

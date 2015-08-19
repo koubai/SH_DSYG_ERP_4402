@@ -166,7 +166,7 @@ public class SalesItemDto extends BaseAction {
 	private String res01;
 
 	/**
-	 * 预备项目2
+	 * 销售模式（0为普通，1为询价，2为询样）
 	 */
 	private String res02;
 

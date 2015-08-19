@@ -215,6 +215,87 @@
 		<result property="updatedate" column="updatedate" />
 	</resultMap>
 	
+	<!-- WarehouseDetailDto -->
+	<resultMap id="WarehouseDetailDto" class="com.cn.dsyg.dto.WarehouseDetailDto">
+		<result property="id" column="id" />
+		<result property="quantityp" column="quantityp" />
+		<result property="inquantity" column="inquantity" />
+		<result property="outquantity" column="outquantity" />
+		<result property="quantitys" column="quantitys" />
+		<result property="plandate" column="plandate" />
+		<result property="belongto" column="belongto" />
+		<result property="fieldno" column="fieldno" />
+		<result property="brand" column="brand" />
+		<result property="item1" column="item1" />
+		<result property="item2" column="item2" />
+		<result property="item3" column="item3" />
+		<result property="tradename" column="tradename" />
+		<result property="typeno" column="typeno" />
+		<result property="color" column="color" />
+		<result property="packaging" column="packaging" />
+		<result property="unit" column="unit" />
+		<result property="sampleflag" column="sampleflag" />
+		<result property="productname" column="productname" />
+		<result property="makearea" column="makearea" />
+		<result property="supplierid" column="supplierid" />
+		<result property="salesprice" column="salesprice" />
+		<result property="purchaseprice" column="purchaseprice" />
+		<result property="note" column="note" />
+		<result property="item01" column="item01" />
+		<result property="item02" column="item02" />
+		<result property="item03" column="item03" />
+		<result property="item04" column="item04" />
+		<result property="item05" column="item05" />
+		<result property="item06" column="item06" />
+		<result property="item07" column="item07" />
+		<result property="item08" column="item08" />
+		<result property="item09" column="item09" />
+		<result property="item10" column="item10" />
+		<result property="item11" column="item11" />
+		<result property="item12" column="item12" />
+		<result property="item13" column="item13" />
+		<result property="item14" column="item14" />
+		<result property="item15" column="item15" />
+		<result property="item16" column="item16" />
+		<result property="item17" column="item17" />
+		<result property="item18" column="item18" />
+		<result property="item19" column="item19" />
+		<result property="item20" column="item20" />
+		<result property="item21" column="item21" />
+		<result property="item22" column="item22" />
+		<result property="item23" column="item23" />
+		<result property="item24" column="item24" />
+		<result property="item25" column="item25" />
+		<result property="item26" column="item26" />
+		<result property="item27" column="item27" />
+		<result property="item28" column="item28" />
+		<result property="item29" column="item29" />
+		<result property="item30" column="item30" />
+		<result property="pic01" column="pic01" />
+		<result property="pic02" column="pic02" />
+		<result property="pic03" column="pic03" />
+		<result property="pic04" column="pic04" />
+		<result property="pic05" column="pic05" />
+		<result property="pdfpath" column="pdfpath" />
+		<result property="rank" column="rank" />
+		<result property="status" column="status" />
+		<result property="res01" column="res01" />
+		<result property="res02" column="res02" />
+		<result property="res03" column="res03" />
+		<result property="res04" column="res04" />
+		<result property="res05" column="res05" />
+		<result property="res06" column="res06" />
+		<result property="res07" column="res07" />
+		<result property="res08" column="res08" />
+		<result property="res09" column="res09" />
+		<result property="res10" column="res10" />
+		<result property="keyword" column="keyword" />
+		<result property="createuid" column="createuid" />
+		<result property="createdate" column="createdate" />
+		<result property="updateuid" column="updateuid" />
+		<result property="updatedate" column="updatedate" />
+	</resultMap>
+	
 	<select id="queryWarehouseByIds" parameterClass="java.util.Map" resultMap="WarehouseProductDto">
 		select T.* from etb_warehouse T where 1 = 1 and id in ($ids$)
 	</select>
@@ -496,6 +577,97 @@
 			and T.status = #status# and T.productid = #productid# and T.supplierid = #supplierid# and T.warehousename = #warehousename#
 	</select>
 	<!-- WarehouseOk end -->
+	
+	
+	<!-- warehousedetail begin -->
+	<select id="queryWarehouseDetailByPage" parameterClass="java.util.Map" resultMap="WarehouseDetailDto">
+		select * from (
+			SELECT ifnull(S.beforequantityp+S.remainquantityp,0) AS quantityp,ifnull(S.inquantityp,0) AS inquantity,ifnull(S.outquantitys,0) AS outquantity,ifnull(S.beforequantitys+S.remainquantitys,0) AS quantitys,S.plandate,T.id,T.belongto,T.fieldno,T.brand,T.item1,T.item2,T.item3,T.tradename,T.typeno,T.color,T.packaging,T.unit,T.sampleflag,T.productname,T.makearea,T.supplierid,T.salesprice,T.purchaseprice,T.note,T.item01,T.item02,T.item03,T.item04,T.item05,T.item06,T.item07,T.item08,T.item09,T.item10,T.item11,T.item12,T.item13,T.item14,T.item15,T.item16,T.item17,T.item18,T.item19,T.item20,T.item21,T.item22,T.item23,T.item24,T.item25,T.item26,T.item27,T.item28,T.item29,T.item30,T.pic01,T.pic02,T.pic03,T.pic04,T.pic05,T.pdfpath,T.rank,T.status,T.res01,T.res02,T.res03,T.res04,T.res05,T.res06,T.res07,T.res08,T.res09,T.res10,T.keyword,T.createuid,T.createdate,T.updateuid,T.updatedate
+				from (
+					SELECT * FROM (SELECT P.productid,SUM(P.inquantity) AS inquantityp,SUM(P.beforequantity) AS beforequantityp,SUM(P.remainquantity) AS remainquantityp,max(plandate) AS plandate
+					FROM etb_purchaseitem P
+					GROUP BY P.productid) S1
+					LEFT JOIN
+					(SELECT * FROM 
+					(SELECT S.productid as productids,SUM(S.outquantity) AS outquantitys,SUM(S.beforequantity) AS beforequantitys,SUM(S.remainquantity) AS remainquantitys 
+					FROM etb_salesitem S WHERE 1 = 1
+					group by S.productid) S2) S3
+					ON S1.productid = S3.productids
+					UNION
+					SELECT * FROM (SELECT P.productid,SUM(P.inquantity) AS inquantityp,SUM(P.beforequantity) AS beforequantityp,SUM(P.remainquantity) AS remainquantityp,max(plandate) AS plandate
+					FROM etb_purchaseitem P
+					GROUP BY P.productid) S1
+					RIGHT JOIN
+					(SELECT * FROM 
+					(SELECT S.productid as productids,SUM(S.outquantity) AS outquantitys,SUM(S.beforequantity) AS beforequantitys,SUM(S.remainquantity) AS remainquantitys 
+					FROM etb_salesitem S WHERE 1 = 1
+					group by S.productid) S2) S3
+					ON S1.productid = S3.productids
+				) S, etb_product T WHERE T.id = S.productid or T.id = S.productids
+			) A where 1 = 1
+			<isNotEmpty prepend="and" property="tradename">
+				A.tradename like '%$tradename$%' ESCAPE '/'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="typeno">
+				A.typeno like '%$typeno$%' ESCAPE '/'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="color">
+				A.color = #color#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="theme1">
+				A.fieldno = #theme1#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="keyword">
+				A.keyword like '%$keyword$%' ESCAPE '/'
+			</isNotEmpty>
+			ORDER BY A.updatedate,A.id desc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryWarehouseDetailCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from (
+		select * from (
+			SELECT ifnull(S.beforequantityp+S.remainquantityp,0) AS quantityp,ifnull(S.inquantityp,0) AS inquantity,ifnull(S.outquantitys,0) AS outquantity,ifnull(S.beforequantitys+S.remainquantitys,0) AS quantitys,S.plandate,T.id,T.belongto,T.fieldno,T.brand,T.item1,T.item2,T.item3,T.tradename,T.typeno,T.color,T.packaging,T.unit,T.sampleflag,T.productname,T.makearea,T.supplierid,T.salesprice,T.purchaseprice,T.note,T.item01,T.item02,T.item03,T.item04,T.item05,T.item06,T.item07,T.item08,T.item09,T.item10,T.item11,T.item12,T.item13,T.item14,T.item15,T.item16,T.item17,T.item18,T.item19,T.item20,T.item21,T.item22,T.item23,T.item24,T.item25,T.item26,T.item27,T.item28,T.item29,T.item30,T.pic01,T.pic02,T.pic03,T.pic04,T.pic05,T.pdfpath,T.rank,T.status,T.res01,T.res02,T.res03,T.res04,T.res05,T.res06,T.res07,T.res08,T.res09,T.res10,T.keyword,T.createuid,T.createdate,T.updateuid,T.updatedate
+				from (
+					SELECT * FROM (SELECT P.productid,SUM(P.inquantity) AS inquantityp,SUM(P.beforequantity) AS beforequantityp,SUM(P.remainquantity) AS remainquantityp,max(plandate) AS plandate
+					FROM etb_purchaseitem P
+					GROUP BY P.productid) S1
+					LEFT JOIN
+					(SELECT * FROM 
+					(SELECT S.productid as productids,SUM(S.outquantity) AS outquantitys,SUM(S.beforequantity) AS beforequantitys,SUM(S.remainquantity) AS remainquantitys 
+					FROM etb_salesitem S WHERE 1 = 1
+					group by S.productid) S2) S3
+					ON S1.productid = S3.productids
+					UNION
+					SELECT * FROM (SELECT P.productid,SUM(P.inquantity) AS inquantityp,SUM(P.beforequantity) AS beforequantityp,SUM(P.remainquantity) AS remainquantityp,max(plandate) AS plandate
+					FROM etb_purchaseitem P
+					GROUP BY P.productid) S1
+					RIGHT JOIN
+					(SELECT * FROM 
+					(SELECT S.productid as productids,SUM(S.outquantity) AS outquantitys,SUM(S.beforequantity) AS beforequantitys,SUM(S.remainquantity) AS remainquantitys 
+					FROM etb_salesitem S WHERE 1 = 1
+					group by S.productid) S2) S3
+					ON S1.productid = S3.productids
+				) S, etb_product T WHERE T.id = S.productid or T.id = S.productids
+			) A where 1 = 1
+			<isNotEmpty prepend="and" property="tradename">
+				A.tradename like '%$tradename$%' ESCAPE '/'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="typeno">
+				A.typeno like '%$typeno$%' ESCAPE '/'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="color">
+				A.color = #color#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="theme1">
+				A.fieldno = #theme1#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="keyword">
+				A.keyword like '%$keyword$%' ESCAPE '/'
+			</isNotEmpty>
+		) B
+	</select>
+	<!-- warehousedetail end -->
 	
 	<select id="queryWarehouseByPage" parameterClass="java.util.Map" resultMap="WarehouseDto">
 		select T.* from etb_warehouse T where 1 = 1

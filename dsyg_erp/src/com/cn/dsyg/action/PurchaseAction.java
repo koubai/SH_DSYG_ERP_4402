@@ -133,6 +133,68 @@ public class PurchaseAction extends BaseAction {
 	}
 	
 	/**
+	 * 采购单预入库页面
+	 * @return
+	 */
+	public String showUpdPurchaseitemAction() {
+		try {
+			this.clearMessages();
+			//初期化字典数据
+			initDictList();
+			updPurchaseItemList = new ArrayList<PurchaseItemDto>();
+			updPurchaseDto = purchaseService.queryPurchaseByID(updPurchaseId);
+			if(updPurchaseDto != null) {
+				updPurchaseItemList = purchaseItemService.queryPurchaseItemByPurchaseno(updPurchaseDto.getPurchaseno());
+			}
+		} catch(Exception e) {
+			log.error("showUpdPurchaseitemAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 采购单预入库
+	 * @return
+	 */
+	public String updPurchaseitemAction() {
+		try {
+			this.clearMessages();
+			//初期化字典数据
+			initDictList();
+			//验证是否可以更新（状态=新增才可以更新）
+			PurchaseDto purchaseDto = purchaseService.queryPurchaseByID("" + updPurchaseDto.getId());
+			if(purchaseDto == null) {
+				this.addActionMessage("该数据不存在！");
+				return "checkerror";
+			}
+			if(purchaseDto.getStatus() > Constants.PURCHASE_STATUS_NEW) {
+				this.addActionMessage("该数据不能更新！");
+				return "checkerror";
+			}
+			//数据验证
+			if(!checkData(updPurchaseDto)) {
+				return "checkerror";
+			}
+			if(updPurchaseItemList == null || updPurchaseItemList.size() <= 0) {
+				this.addActionMessage("采购单货物列表不能为空！");
+				return "checkerror";
+			}
+			//当前操作用户ID
+			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			//更新数据
+			purchaseService.updatePurchase(updPurchaseDto, updPurchaseItemList, username);
+			//刷新页面
+			updPurchaseItemList = purchaseItemService.queryPurchaseItemByPurchaseno(updPurchaseDto.getPurchaseno());
+			this.addActionMessage("预入库成功！");
+		} catch(Exception e) {
+			log.error("updPurchaseitemAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
 	 * 显示更新采购单页面
 	 * @return
 	 */

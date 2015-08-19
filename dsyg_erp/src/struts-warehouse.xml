@@ -102,6 +102,27 @@
 			<result name="*">/page/warehouse/updwarehouse.jsp</result>
 		</action>
 		
+		
+		<action name="showWarehouseDetailAction" class="warehouseDetailAction" method="showWarehouseDetailAction">
+			<result name="*">/page/warehouse/warehousedetaillist.jsp</result>
+		</action>
+		
+		<action name="queryWarehouseDetailAction" class="warehouseDetailAction" method="queryWarehouseDetailAction">
+			<result name="*">/page/warehouse/warehousedetaillist.jsp</result>
+		</action>
+		
+		<action name="turnWarehouseDetailAction" class="warehouseDetailAction" method="turnWarehouseDetailAction">
+			<result name="*">/page/warehouse/warehousedetaillist.jsp</result>
+		</action>
+		
+		<action name="showProductSalesPage" class="warehouseDetailAction" method="showProductSalesPage">
+			<result name="*">/page/warehouse/productsales.jsp</result>
+		</action>
+		
+		<action name="showProductPurchasePage" class="warehouseDetailAction" method="showProductPurchasePage">
+			<result name="*">/page/warehouse/productpurchase.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

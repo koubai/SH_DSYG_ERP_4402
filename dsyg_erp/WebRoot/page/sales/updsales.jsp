@@ -117,7 +117,7 @@
 		} else if(type == "4") {
 			//是否实数check
 			if(!isReal(obj.value)) {
-				alert("销售参考价格式不正确！");
+				alert("销售价格格式不正确！");
 				obj.focus();
 				return;
 			}
@@ -157,6 +157,10 @@
 		//var price = tds[13].innerHTML;
 		var price = prices[0].value;
 		
+		if(price == "") {
+			price = 0;
+		}
+		
 		//已出库数量
 		var outquantity = inputs[14].value;
 		if(outquantity == "") {
@@ -193,13 +197,12 @@
 		
 		//销售金额已税rate为税率
 		var rate = parseFloat($("#common_rate").val());
-		if(amount != "") {
-			//销售金额已税=未税金额 * (1 + rate)
-			var vv = amount * (1 + rate);
-			inputs[13].value = vv.toFixed(2);
-			//输入框金额也对应变更
-			tds[15].getElementsByTagName("input")[0].value = vv.toFixed(2);
-		}
+		
+		//销售金额已税=未税金额 * (1 + rate)
+		var vv = amount * (1 + rate);
+		inputs[13].value = vv.toFixed(2);
+		//输入框金额也对应变更
+		tds[15].getElementsByTagName("input")[0].value = vv.toFixed(2);
 		
 		//销售金额未税
 		var calcAmount = 0;
@@ -317,6 +320,12 @@
 			$("#tmpBookdate").focus();
 			return;
 		}
+		var res02 = getRadioValue("salesType");
+		if(res02 == "") {
+			alert("请选择销售方式！");
+			$("#tmpRes02").focus();
+			return;
+		}
 		if(res01 == "") {
 			alert("请选择支付方式！");
 			$("#res01").focus();
@@ -414,6 +423,7 @@
 			return;
 		}
 		
+		$("#res02").val(res02);
 		$("#amount").val($("#tmpAmount").val());
 		$("#taxamount").val($("#tmpTaxamount").val());
 		$("#paidamount").val($("#tmpPaidamount").val());
@@ -574,6 +584,18 @@
 		}
 	}
 	
+	function getRadioValue(name) {
+		var id = "";
+		var list = document.getElementsByName(name);
+		for(var i = 0; i < list.length; i++) {
+			if(list[i].checked) {
+				id = list[i].value;
+				break;
+			}
+		}
+		return id;
+	}
+	
 	//用户
 	function selectUser() {
 		var url = "../user/showSelectUserAction.action";
@@ -621,6 +643,8 @@
 				<s:hidden name="updSalesDto.handler" id="handler"></s:hidden>
 				<s:hidden name="updSalesDto.handlername" id="handlername"></s:hidden>
 				
+				<s:hidden name="updSalesDto.res02" id="res02"></s:hidden>
+				
 				<div class="searchbox update" style="height:0px;">
 					<table id="salesItemTable" style="display: none;">
 					</table>
@@ -632,15 +656,13 @@
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>销售订单号</label>
 							</td>
-							<td colspan="3">
+							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
 									<s:textfield name="updSalesDto.theme2" id="theme2" cssStyle="width:300px;" maxlength="32" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
-						</tr>
-						<tr>
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>销售日期</label>
 							</td>
@@ -651,6 +673,28 @@
 									<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpBookdate'));"></a>
 								</div>
 								<div class="box1_right"></div>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10"><font color="red">*</font>销售方式</label>
+							</td>
+							<td>
+								<s:if test='updSalesDto.res02 == "1"'>
+									<input type="radio" disabled="disabled" id="tmpRes02" name="salesType" value="0"/>普通　
+									<input type="radio" disabled="disabled" name="salesType" checked="checked" value="1"/>询价　
+									<input type="radio" disabled="disabled" name="salesType" value="2"/>询样
+								</s:if>
+								<s:elseif test='updSalesDto.res02 == "2"'>
+									<input type="radio" disabled="disabled" id="tmpRes02" name="salesType" value="0"/>普通　
+									<input type="radio" disabled="disabled" name="salesType" value="1"/>询价　
+									<input type="radio" disabled="disabled" name="salesType" checked="checked" value="2"/>询样
+								</s:elseif>
+								<s:else>
+									<input type="radio" disabled="disabled" id="tmpRes02" name="salesType" checked="checked" value="0"/>普通　
+									<input type="radio" disabled="disabled" name="salesType" value="1"/>询价　
+									<input type="radio" disabled="disabled" name="salesType" value="2"/>询样
+								</s:else>
 							</td>
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>支付方式</label>
