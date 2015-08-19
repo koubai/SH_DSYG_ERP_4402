@@ -202,6 +202,15 @@ public class ChartAction extends BaseAction {
         this.str = str;  
     }
     
+    public String showSaleTotalInfoMainChartAction(){  
+    	try{
+            System.out.println("showSaleTotalInfoMainChartAction success"); 
+	        return SUCCESS;  
+		} catch(Exception e) {
+			log.error("showSaleTotalInfoMainChartAction error:" + e);
+			return ERROR;
+		}
+	}
     public String showSaleInfoMainChartAction(){  
     	try{
             System.out.println("showSaleInfoMainChartAction success"); 

@@ -5,6 +5,9 @@
 <struts>
 
 	<package name="chart" extends="struts-erp" namespace="/chart">
+		<action name="showSaleTotalInfoMainChartAction" class="chartAction" method="showSaleTotalInfoMainChartAction">
+			<result name="*">/page/intermana/chart_sale_total.jsp</result>
+		</action>
 		<action name="showSaleInfoMainChartAction" class="chartAction" method="showSaleInfoMainChartAction">
 			<result name="*">/page/intermana/chart_sale.jsp</result>
 		</action>
