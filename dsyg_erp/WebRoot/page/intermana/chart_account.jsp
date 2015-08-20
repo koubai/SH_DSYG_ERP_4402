@@ -150,7 +150,8 @@
 			var today = new Date();
 		   	if (fromDate == null || fromDate ==""){
 		   		fromDate ="1900-01-01";
-		   	}
+		   	} 
+		   		
 		   	var toDate = document.getElementById("toDate").value;
 		   	if (toDate == null || toDate ==""){
 		   		toDate = today.format("yyyy-MM-dd");		
@@ -158,7 +159,8 @@
 		   	for(var i=0;i<rds.length;i++){
 	           	if(rds[i].checked){
 //	        		alert("fromDate:" +fromDate +" toDate:"+toDate + " type:" + rds[i].value);
-		   			ajaxRequestData("getAccountData", fromDate, toDate, rds[i].value, "会计");
+			   		if (IsDate(fromDate) && IsDate(toDate))
+			   			ajaxRequestData("getAccountData", fromDate, toDate, rds[i].value, "会计");
 	           }
 		    }
 		}

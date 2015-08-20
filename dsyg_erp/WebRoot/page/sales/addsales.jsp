@@ -544,7 +544,6 @@
 	}
 	
 	function delProduct() {
-		//获得选择的投标公司
 		var list = document.getElementsByName("itemRadio");
 		var currentProduct = "";
 		for(var i = 0; i < list.length; i++) {

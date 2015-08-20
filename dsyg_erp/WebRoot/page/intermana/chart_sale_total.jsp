@@ -56,7 +56,8 @@
 		   	if (toDate == null || toDate ==""){
 		   		toDate = today.format("yyyy-MM-dd");		
 		   	}
-   			ajaxRequestData("getSaleTotalData", fromDate, toDate, 0, "区间销售额");
+	   		if (IsDate(fromDate) && IsDate(toDate))
+	   			ajaxRequestData("getSaleTotalData", fromDate, toDate, 0, "区间销售额");
 		}
 		
 //		当天销售额,当天快递额,当天出差费,及占总销售额比

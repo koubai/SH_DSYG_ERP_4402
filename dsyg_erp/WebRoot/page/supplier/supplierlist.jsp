@@ -190,10 +190,10 @@
 							</tr>
 							<s:iterator id="listSupplier" value="listSupplier" status="st1">
 								<s:if test="#st1.odd==true">
-									<tr class="tr_bg">
+									<tr class="tr_bg" onclick="checkRadioTr(this, event);">
 								</s:if>
 								<s:else>
-									<tr>
+									<tr onclick="checkRadioTr(this, event);">							
 								</s:else>
 									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>

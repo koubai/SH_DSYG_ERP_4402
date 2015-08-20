@@ -69,7 +69,8 @@
 		   	for(var i=0;i<rds.length;i++){
 	           	if(rds[i].checked){
 //	        		alert("fromDate:" +fromDate +" toDate:"+toDate + " type:" + rds[i].value);
-		   			ajaxRequestData("getCustomerData", fromDate, toDate, rds[i].value, "客户");
+			   		if (IsDate(fromDate) && IsDate(toDate))
+			   			ajaxRequestData("getCustomerData", fromDate, toDate, rds[i].value, "客户");
 	           }
 		    }
 		}

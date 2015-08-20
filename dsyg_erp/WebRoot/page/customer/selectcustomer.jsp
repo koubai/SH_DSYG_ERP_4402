@@ -157,10 +157,10 @@
 					</tr>
 					<s:iterator id="listSelectCustomer" value="listSelectCustomer" status="st1">
 						<s:if test="#st1.odd==true">
-							<tr class="tr_bg">
+							<tr class="tr_bg" onclick="checkRadioCuTr(this, event, 1, 0);">
 						</s:if>
 						<s:else>
-							<tr>
+							<tr onclick="checkRadioCuTr(this, event, 1, 0);">
 						</s:else>
 							<td style="display: none;">
 								<input type="hidden" value="<s:property value="id"/>"/>

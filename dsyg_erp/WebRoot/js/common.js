@@ -28,6 +28,23 @@ function checkCheckboxTr(tr, evt) {
 	}
 }
 
+function checkRadioCuTr(tr, evt, i, j) {
+	var tds = tr.getElementsByTagName("td");
+	var inputs = tds[i].getElementsByTagName("input");
+	inputs[j].checked = true;
+}
+
+function checkCheckboxCuTr(tr, evt, i, j) {
+	var tds = tr.getElementsByTagName("td");
+	var inputs = tds[i].getElementsByTagName("input");
+	if(inputs[j].checked) {
+		inputs[j].checked = false;
+	} else {
+		inputs[j].checked = true;
+	}
+}
+
+
 /**
  * 取得时间
  * @return 返回格式为yyyyMMddHHmmss的字符串

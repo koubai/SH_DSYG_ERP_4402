@@ -402,10 +402,10 @@
 					</tr>
 					<s:iterator id="productList" value="productList" status="st1">
 						<s:if test="#st1.odd==true">
-							<tr class="tr_bg">
+							<tr class="tr_bg" onclick="checkCheckboxCuTr(this, event, 1, 0);">
 						</s:if>
 						<s:else>
-							<tr>
+							<tr onclick="checkCheckboxCuTr(this, event, 1, 0);">
 						</s:else>
 							<td style="display: none;">
 								<input type="hidden" value="<s:property value="id"/>"/>

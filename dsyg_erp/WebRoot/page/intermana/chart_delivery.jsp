@@ -69,7 +69,8 @@
 		   	for(var i=0;i<rds.length;i++){
 	           	if(rds[i].checked){
 //	        		alert("fromDate:" +fromDate +" toDate:"+toDate + " type:" + rds[i].value);
-		   			ajaxRequestData("getDeliveryData", fromDate, toDate, rds[i].value, "快递");
+			   		if (IsDate(fromDate) && IsDate(toDate))
+			   			ajaxRequestData("getDeliveryData", fromDate, toDate, rds[i].value, "快递");
 	           }
 		    }
 		}

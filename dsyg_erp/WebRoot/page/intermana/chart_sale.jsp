@@ -72,7 +72,8 @@
 		   	for(var i=0;i<rds.length;i++){
 	           	if(rds[i].checked){
 //	        		alert("fromDate:" +fromDate +" toDate:"+toDate + " type:" + rds[i].value);
-		   			ajaxRequestData("getSaleData", fromDate, toDate, rds[i].value, "销售");
+			   		if (IsDate(fromDate) && IsDate(toDate))
+			   			ajaxRequestData("getSaleData", fromDate, toDate, rds[i].value, "销售");
 	           }
 		    }
 		}

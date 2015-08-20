@@ -71,7 +71,8 @@
 		   	for(var i=0;i<rds.length;i++){
 	           	if(rds[i].checked){
 //	        		alert("fromDate:" +fromDate +" toDate:"+toDate + " type:" + rds[i].value);
-		   			ajaxRequestData("getPurchaseData", fromDate, toDate, rds[i].value, "采购");
+			   		if (IsDate(fromDate) && IsDate(toDate))
+			   			ajaxRequestData("getPurchaseData", fromDate, toDate, rds[i].value, "采购");
 	           }
 		    }
 		};
