@@ -289,7 +289,7 @@
 		//销售主题
 		//var theme1 = $("#theme1").val().trim();
 		//仓库
-		//var warehouse = $("#warehouse").val().trim();
+		var warehouse = $("#warehouse").val().trim();
 		
 		//销售金额（不含税）
 		var tmpAmount = $("#tmpAmount").val().trim();
@@ -709,6 +709,7 @@
 								<div class="box1_right"></div>
 							</td>
 						</tr>
+						<s:hidden name="addSalesDto.warehouse" id="warehouse"></s:hidden>
 						<!--
 						<tr>
 							<td align="right">

@@ -261,7 +261,7 @@
 		//采购主题
 		//var theme1 = $("#theme1").val().trim();
 		//仓库
-		//var warehouse = $("#warehouse").val().trim();
+		var warehouse = $("#warehouse").val().trim();
 		
 		//采购金额合计
 		var tmpTotalamount = $("#tmpTotalamount").val().trim();
@@ -322,8 +322,7 @@
 			alert("仓库不能为空！");
 			$("#warehouse").focus();
 			return;
-		}
-		//*/
+		}//*/
 		if(supplierid == "") {
 			alert("请选择供应商！");
 			$("#supplierid").focus();
@@ -658,6 +657,7 @@
 								<div class="box1_right"></div>
 							</td>
 						</tr>
+						<s:hidden name="updPurchaseDto.warehouse" id="warehouse"></s:hidden>
 						<!--
 						<tr>
 							<td align="right">

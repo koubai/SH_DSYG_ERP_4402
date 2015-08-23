@@ -280,7 +280,7 @@
 		//采购主题
 		//var theme1 = $("#theme1").val().trim();
 		//仓库
-		//var warehouse = $("#warehouse").val().trim();
+		var warehouse = $("#warehouse").val().trim();
 		
 		//采购金额合计
 		var tmpTotalamount = $("#tmpTotalamount").val().trim();
@@ -681,6 +681,7 @@
 								<div class="box1_right"></div>
 							</td>
 						</tr>
+						<s:hidden name="addPurchaseDto.warehouse" id="warehouse"></s:hidden>
 						<!--
 						<tr>
 							<td align="right">
