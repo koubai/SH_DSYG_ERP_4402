@@ -15,13 +15,15 @@
 	});
 	
 	function showPurchaseNoDetail(theme2) {
+		var seq = "";
+		var supplierid = "";
+		
 		if(theme2 == "") {
 			return;
 		} else {
 			var url = '<%=request.getContextPath()%>/purchase/showUpdPurchaseitemByPurchaseNoAction.action';
 			//strFlag=1采购单，strFlag=2销售单
 			url += "?theme2=" + theme2 + "&strSeq=" + seq + "&strSupplierId=" + supplierid + "&strFlag=1" + "&date=" + new Date();
-			alert(url);
 			window.showModalDialog(url, window, "dialogheight:800px;dialogwidth:1200px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 		}
 	}

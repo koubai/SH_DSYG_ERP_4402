@@ -229,7 +229,7 @@ public class PurchaseAction extends BaseAction {
 	 * 显示更新采购单页面(BY PurchaseNo)
 	 * @return
 	 */
-	public String showUpdPurchaseByPurchaseNoAction() {
+	public String showUpdPurchaseitemByPurchaseNoAction() {
 		try {
 			this.clearMessages();
 			//初期化字典数据

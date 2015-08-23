@@ -49,27 +49,7 @@
 		<result property="updateuid" column="updateuid" />
 		<result property="updatedate" column="updatedate" />
 	</resultMap>
-	
-	<select id="queryPurchaseItemByProductid" parameterClass="java.util.Map" resultMap="PurchaseItemDto">
-		select T.*,
-		(select P.tradename from etb_product P where P.id = T.productid) as tradename,
-		(select P.typeno from etb_product P where P.id = T.productid) as typeno,
-		(select P.color from etb_product P where P.id = T.productid) as color,
-		(select P.packaging from etb_product P where P.id = T.productid) as packaging,
-		(select P.unit from etb_product P where P.id = T.productid) as unit,
-		(select C.suppliername from etb_purchase C where C.purchaseno = T.purchaseno) as suppliername,
-		(select C.purchasedate from etb_purchase C where C.purchaseno = T.purchaseno) as purchasedate
-		from etb_purchaseitem T where 1 = 1
-		<isNotEmpty prepend="and" property="productid">
-			T.productid = #productid#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="supplierid">
-			T.supplierid = #supplierid#
-		</isNotEmpty>
-		order by T.updatedate,T.id desc
-		LIMIT #start#, #end#
-	</select>
-	
+
 	<resultMap id="PurchaseItemDto2" class="com.cn.dsyg.dto.PurchaseItemDto">
 		<result property="id" column="id" />
 		<result property="purchaseno" column="purchaseno" />
@@ -115,7 +95,29 @@
 		<result property="updateuid" column="updateuid" />
 		<result property="updatedate" column="updatedate" />
 	</resultMap>
-	<select id="queryPurchaseItemByPurchaseno" parameterClass="java.util.Map" resultMap="PurchaseItemDto2">
+	
+	<select id="queryPurchaseItemByProductid" parameterClass="java.util.Map" resultMap="PurchaseItemDto2">
+		select T.*,
+		(select P.tradename from etb_product P where P.id = T.productid) as tradename,
+		(select P.typeno from etb_product P where P.id = T.productid) as typeno,
+		(select P.color from etb_product P where P.id = T.productid) as color,
+		(select P.packaging from etb_product P where P.id = T.productid) as packaging,
+		(select P.unit from etb_product P where P.id = T.productid) as unit,
+		(select C.suppliername from etb_purchase C where C.purchaseno = T.purchaseno) as suppliername,
+		(select C.purchasedate from etb_purchase C where C.purchaseno = T.purchaseno) as purchasedate,
+		(select S.theme2 from etb_purchase S where S.purchaseno = T.purchaseno) as bookno
+		from etb_purchaseitem T where 1 = 1
+		<isNotEmpty prepend="and" property="productid">
+			T.productid = #productid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="supplierid">
+			T.supplierid = #supplierid#
+		</isNotEmpty>
+		order by T.updatedate,T.id desc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryPurchaseItemByPurchaseno" parameterClass="java.util.Map" resultMap="PurchaseItemDto">
 		select T.*,
 		(select P.tradename from etb_product P where P.id = T.productid) as tradename,
 		(select P.typeno from etb_product P where P.id = T.productid) as typeno,
@@ -123,8 +125,7 @@
 		(select P.packaging from etb_product P where P.id = T.productid) as packaging,
 		(select P.unit from etb_product P where P.id = T.productid) as unit,
 		(select "") as suppliername,
-		(select "") as purchasedate,
-		(select S.theme2 from etb_purchase S where S.purchaseno = T.purchaseno) as bookno
+		(select "") as purchasedate
 		from etb_purchaseitem T where 1 = 1 and T.status = 1
 		<isNotEmpty prepend="and" property="purchaseno">
 			T.purchaseno = #purchaseno#
