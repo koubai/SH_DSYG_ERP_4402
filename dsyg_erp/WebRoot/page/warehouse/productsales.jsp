@@ -13,6 +13,17 @@
 <script type="text/javascript">
 	$(function() {
 	});
+	
+	function showSaleNoDetail(theme2) {
+		if(theme2 == "") {
+			return;
+		} else {
+			var url = '<%=request.getContextPath()%>/sales/showUpdSalesitemBySalesNoAction.action';
+			//strFlag=1采购单，strFlag=2销售单
+			url += "?theme2=" + theme2 + "&strCustomerid=" + "" + "&strFlag=2" + "&date=" + new Date();
+			window.showModalDialog(url, window, "dialogheight:800px;dialogwidth:1200px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+		}
+	}
 </script>
 </head>
 <body style="background: url(''); overflow-x:hidden;overflow-y:hidden;">
@@ -23,14 +34,15 @@
 				<table width="100%" border="1" cellpadding="5" cellspacing="0">
 				</table>
 			</div>
-			<div class="tab_content" style="height: 300px;">
+			<div class="tab_content" style="height: 300px;"><BR>
+				品名:<s:property value="salesItemList[0].tradename"/>&nbsp&nbsp&nbsp规格:<s:property value="salesItemList[0].typeno"/>&nbsp&nbsp&nbsp颜色:<s:iterator id="colorList" value="colorList" status="st3"><s:if test="%{colorList[#st3.index].code == salesItemList[0].color}"><s:property value="fieldname"/></s:if></s:iterator>&nbsp&nbsp&nbsp包装:<s:property value="salesItemList[0].res01"/>&nbsp&nbsp&nbsp形式:<s:if test='salesItemList[0].packaging == "1"}'>整箱</s:if><s:elseif test='salesItemList[0].packaging == "0"}'>乱尺</s:elseif><s:else>乱尺</s:else>			
 				<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 					<tr class="tittle">
 						<td width="20">序号</td>
 						<td width="60">客户</td>
-						<td width="60">品名</td>
-						<td width="60">销售单号</td>
+						<td width="60">订单号</td>
 						<td width="60">销售数量</td>
+						<td width="60">销售日期</td>
 					</tr>
 					<s:iterator id="salesItemList" value="salesItemList" status="st1">
 						<s:if test="#st1.odd==true">
@@ -41,9 +53,9 @@
 						</s:else>
 							<td><s:property value="#st1.index + 1"/></td>
 							<td><s:property value="customername"/></td>
-							<td><s:property value="tradename"/></td>
-							<td><s:property value="salesno"/></td>
+							<td><a href="#" onclick="showSaleNoDetail('<s:property value="theme2"/>');"><s:property value="theme2"/></a></td>
 							<td><s:property value="quantity"/></td>
+							<td><s:property value="bookdate"/></td>
 						</tr>
 					</s:iterator>
 				</table>

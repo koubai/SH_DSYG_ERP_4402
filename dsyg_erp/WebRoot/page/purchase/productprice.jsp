@@ -39,7 +39,7 @@
 				</table>
 			</div>
 			<div class="tab_content" style="height: 300px;">
-				品名:<s:property value="purchaseItemList[0].tradename"/>&nbsp&nbsp&nbsp规格:<s:property value="purchaseItemList[0].typeno"/>&nbsp&nbsp&nbsp颜色:<s:iterator id="colorList" value="colorList" status="st3"><s:if test="%{colorList[#st3.index].code == purchaseItemList[0].color}"><s:property value="fieldname"/></s:if></s:iterator>&nbsp&nbsp&nbsp包装:<s:property value="purchaseItemList[0].unit"/>&nbsp&nbsp&nbsp形式:<s:if test='purchaseItemList[0].packaging == "1"}'>整箱</s:if><s:elseif test='purchaseItemList[0].packaging == "0"}'>乱尺</s:elseif><s:else>乱尺</s:else>
+				品名:<s:property value="purchaseItemList[0].tradename"/>&nbsp&nbsp&nbsp规格:<s:property value="purchaseItemList[0].typeno"/>&nbsp&nbsp&nbsp颜色:<s:iterator id="colorList" value="colorList" status="st3"><s:if test="%{colorList[#st3.index].code == purchaseItemList[0].color}"><s:property value="fieldname"/></s:if></s:iterator>&nbsp&nbsp&nbsp包装:<s:property value="purchaseItemList[0].res01"/>&nbsp&nbsp&nbsp形式:<s:if test='purchaseItemList[0].packaging == "1"}'>整箱</s:if><s:elseif test='purchaseItemList[0].packaging == "0"}'>乱尺</s:elseif><s:else>乱尺</s:else>
 				<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 					<tr class="tittle">
 						<td width="20">序号</td>
