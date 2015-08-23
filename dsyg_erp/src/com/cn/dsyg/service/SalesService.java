@@ -58,6 +58,15 @@ public interface SalesService {
 	 */
 	public SalesDto querySalesByNo(String salesno);
 	
+
+	/**
+	 * 根据编号查询销售单数据(By theme2)
+	 * @param salesno
+	 * @return
+	 */
+	public SalesDto querySalesByTheme2(String Theme2);
+
+	
 	/**
 	 * 物理删除销售单
 	 * @param id

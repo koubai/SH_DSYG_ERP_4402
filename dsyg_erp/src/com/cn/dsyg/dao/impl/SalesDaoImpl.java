@@ -86,6 +86,19 @@ public class SalesDaoImpl extends BaseDao implements SalesDao {
 	}
 
 	@Override
+	public SalesDto querySalesByTheme2(String theme2) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("theme2", theme2);
+		@SuppressWarnings("unchecked")
+		List<SalesDto> list = getSqlMapClientTemplate().queryForList("querySalesByTheme2", paramMap);
+		if(list != null && list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+	}
+
+	
+	@Override
 	public void deleteSales(String id) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("id", id);

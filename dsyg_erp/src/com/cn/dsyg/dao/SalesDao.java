@@ -66,6 +66,14 @@ public interface SalesDao {
 	 */
 	public SalesDto querySalesByNo(String salesno);
 	
+	
+	/**
+	 * 根据THEME2编号查询销售单数据
+	 * @param theme2
+	 * @return
+	 */
+	public SalesDto querySalesByTheme2(String theme2);
+
 	/**
 	 * 物理删除销售单
 	 * @param id

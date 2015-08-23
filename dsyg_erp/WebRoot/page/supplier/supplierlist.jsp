@@ -149,7 +149,7 @@
 						<label class="pdf10" style="width:120px">供应商名称</label>
 						<div class="box1_left"></div>
 						<div class="box1_center">
-							<s:textfield name="strSupplierName" id="strSupplierName" cssStyle="width:135px;" maxlength="4" theme="simple"></s:textfield>
+							<s:textfield name="strSupplierName" id="strSupplierName" cssStyle="width:135px;" maxlength="50" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
 					</div>

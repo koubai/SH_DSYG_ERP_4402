@@ -24,6 +24,7 @@
 		var strCustomerId = document.getElementById("strCustomerId").value;
 		var url = '<%=request.getContextPath()%>/sales/showProductSalesPricePage.action';
 		//strFlag=1采购单，strFlag=2销售单
+		strCustomerId="";
 		url += "?strProdoctid=" + id + "&strCustomerid=" + strCustomerId + "&strFlag=2" + "&date=" + new Date();
 		window.showModalDialog(url, window, "dialogheight:400px;dialogwidth:600px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 	}
@@ -224,7 +225,6 @@
 		return td;
 	}
 	
-	//刷新投标公司序号和斑马线
 	function refreshParentBidExpertData() {
 		var rows = window.dialogArguments.document.getElementById("productData").rows;
 		for(var i = 0; i < rows.length; i++) {
@@ -342,7 +342,7 @@
 	<div id="container" style="width: 100%; height: 100%;">
 		<div class="searchbox">
 			<div class="box1">
-				<label class="pdf10">品名11：</label>
+				<label class="pdf10">销售品名：</label>
 				<div class="box1_left"></div>
 				<div class="box1_center">
 					<s:textfield name="strTradename" id="strTradename" cssStyle="width:120px;" maxlength="32" theme="simple"></s:textfield>

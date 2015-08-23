@@ -41,6 +41,10 @@
 		<action name="showUpdSalesitemAction" class="salesAction" method="showUpdSalesitemAction">
 			<result name="*">/page/sales/updsalesitem.jsp</result>
 		</action>
+
+		<action name="showUpdSalesitemBySalesNoAction" class="salesAction" method="showUpdSalesitemBySalesNoAction">
+			<result name="*">/page/sales/updsalesitem.jsp</result>
+		</action>
 		
 		<action name="updSalesitemAction" class="salesAction" method="updSalesitemAction">
 			<result name="*">/page/sales/updsalesitem.jsp</result>

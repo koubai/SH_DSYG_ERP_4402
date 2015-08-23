@@ -488,7 +488,9 @@
 	function addProduct() {
 		//采购主题
 		var theme1 = "";//$("#theme1").val().trim();
-		var supplierid = $("#supplierid").val().trim();
+//		var supplierid = $("#supplierid").val().trim();
+		var supplierid = "";
+
 		//if(theme1 == "") {
 		//	alert("请选择采购主题！");
 		//	$("#theme1").focus();

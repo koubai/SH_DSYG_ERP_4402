@@ -29,7 +29,7 @@
 		<action name="showUpdPurchaseAction" class="purchaseAction" method="showUpdPurchaseAction">
 			<result name="*">/page/purchase/updpurchase.jsp</result>
 		</action>
-		
+
 		<action name="updPurchaseAction" class="purchaseAction" method="updPurchaseAction">
 			<result name="*">/page/purchase/updpurchase.jsp</result>
 		</action>
@@ -45,7 +45,11 @@
 		<action name="showUpdPurchaseitemAction" class="purchaseAction" method="showUpdPurchaseitemAction">
 			<result name="*">/page/purchase/updpurchaseitem.jsp</result>
 		</action>
-		
+
+		<action name="showUpdPurchaseitemByPurchaseNoAction" class="purchaseAction" method="showUpdPurchaseitemByPurchaseNoAction">
+			<result name="*">/page/purchase/updpurchaseitem.jsp</result>
+		</action>				
+
 		<action name="updPurchaseitemAction" class="purchaseAction" method="updPurchaseitemAction">
 			<result name="*">/page/purchase/updpurchaseitem.jsp</result>
 		</action>

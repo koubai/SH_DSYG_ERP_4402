@@ -71,7 +71,17 @@ public class SalesAction extends BaseAction {
 	private String updSalesId;
 	private SalesDto updSalesDto;
 	private List<SalesItemDto> updSalesItemList;
+	private String theme2;
 	
+
+	public String getTheme2() {
+		return theme2;
+	}
+
+	public void setTheme2(String theme2) {
+		this.theme2 = theme2;
+	}
+
 	//销售价用
 	private String strProdoctid;
 	private String strCustomerid;
@@ -97,7 +107,28 @@ public class SalesAction extends BaseAction {
 		}
 		return SUCCESS;
 	}
-	
+
+	/**
+	 * 显示订单预出库页面(BySaleNo)
+	 * @return
+	 */
+	public String showUpdSalesitemBySalesNoAction() {
+		try {
+			this.clearMessages();
+			//初期化字典数据
+			initDictList();
+			updSalesItemList = new ArrayList<SalesItemDto>();
+			updSalesDto = salesService.querySalesByTheme2(theme2);
+			if(updSalesDto != null) {
+				updSalesItemList = salesItemService.querySalesItemBySalesno(updSalesDto.getSalesno());
+			}
+		} catch(Exception e) {
+			log.error("showUpdSalesitemBySalesNoAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+		
 	/**
 	 * 订单预出库页面
 	 * @return
@@ -319,7 +350,7 @@ public class SalesAction extends BaseAction {
 		try {
 			this.clearMessages();
 			System.out.println("strProdoctid is: " + strProdoctid + " ,strCustomerid is:" + strCustomerid);
-			salesItemList = salesItemService.querySalesItemByProductid(strProdoctid, strCustomerid, 0, 9);
+			salesItemList = salesItemService.querySalesItemByProductid(strProdoctid, strCustomerid, 0, 99);
 			
 		} catch(Exception e) {
 			log.error("querySalesItemByProductid error:" + e);

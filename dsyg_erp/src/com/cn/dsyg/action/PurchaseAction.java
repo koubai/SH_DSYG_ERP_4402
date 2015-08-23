@@ -73,7 +73,17 @@ public class PurchaseAction extends BaseAction {
 	private String updPurchaseId;
 	private PurchaseDto updPurchaseDto;
 	private List<PurchaseItemDto> updPurchaseItemList;
+	private String theme2;
 	
+
+	public String getTheme2() {
+		return theme2;
+	}
+
+	public void setTheme2(String theme2) {
+		this.theme2 = theme2;
+	}
+
 	//采购价用
 	private String strProdoctid;
 	private String strSupplierid;
@@ -210,6 +220,27 @@ public class PurchaseAction extends BaseAction {
 			}
 		} catch(Exception e) {
 			log.error("showUpdPurchaseAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 显示更新采购单页面(BY PurchaseNo)
+	 * @return
+	 */
+	public String showUpdPurchaseByPurchaseNoAction() {
+		try {
+			this.clearMessages();
+			//初期化字典数据
+			initDictList();
+			updPurchaseItemList = new ArrayList<PurchaseItemDto>();
+			updPurchaseDto = purchaseService.queryPurchaseByTheme2(theme2);
+			if(updPurchaseDto != null) {
+				updPurchaseItemList = purchaseItemService.queryPurchaseItemByPurchaseno(updPurchaseDto.getPurchaseno());
+			}
+		} catch(Exception e) {
+			log.error("showUpdPurchaseByPurchaseNoAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;

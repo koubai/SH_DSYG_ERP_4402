@@ -87,9 +87,8 @@ public class SalesItemDto extends BaseAction {
 	 * 订单日期（显示用）
 	 */
 	private String showBookdate;
-	//==================
 	
-
+	
 	/**
 	 * 销售数量
 	 */
@@ -569,5 +568,5 @@ public class SalesItemDto extends BaseAction {
 
 	public void setShowBookdate(String showBookdate) {
 		this.showBookdate = showBookdate;
-	}
+	}	
 }

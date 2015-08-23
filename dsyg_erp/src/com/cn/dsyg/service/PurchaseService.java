@@ -51,6 +51,13 @@ public interface PurchaseService {
 	 * @return
 	 */
 	public PurchaseDto queryPurchaseByID(String id);
+
+	/**
+	 * 根据theme2查询采购单数据
+	 * @param theme2
+	 * @return
+	 */
+	public PurchaseDto queryPurchaseByTheme2(String theme2);
 	
 	/**
 	 * 物理删除采购单

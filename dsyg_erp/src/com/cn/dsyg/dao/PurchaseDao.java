@@ -79,6 +79,14 @@ public interface PurchaseDao {
 	public PurchaseDto queryPurchaseByNo(String purchaseno);
 	
 	/**
+	 * 根据采购编号查询采购单数据
+	 * @param theme2
+	 * @return
+	 */
+	public PurchaseDto queryPurchaseByTheme2(String theme2);
+
+	
+	/**
 	 * 物理删除采购单
 	 * @param id
 	 */

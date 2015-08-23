@@ -339,6 +339,11 @@ public class SalesServiceImpl implements SalesService {
 		return salesDao.querySalesByNo(salesno);
 	}
 
+	public SalesDto querySalesByTheme2(String theme2){
+		return salesDao.querySalesByTheme2(theme2);
+	}
+
+	
 	@Override
 	public void deleteSales(String id) {
 		salesDao.deleteSales(id);

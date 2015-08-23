@@ -116,6 +116,18 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return purchase;
 	}
 
+	public PurchaseDto queryPurchaseByTheme2(String theme2){
+		PurchaseDto purchase = purchaseDao.queryPurchaseByTheme2(theme2);
+		if(purchase != null) {
+			UserDto user = userDao.queryUserByID(purchase.getHandler());
+			if(user != null) {
+				purchase.setHandlername(user.getUsername());
+			}
+		}
+		return purchase;
+	}
+
+	
 	@Override
 	public void deletePurchase(String id) {
 		purchaseDao.deletePurchase(id);

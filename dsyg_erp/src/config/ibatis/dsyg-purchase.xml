@@ -121,6 +121,11 @@
 		select * from etb_purchase where 
 			purchaseno = #purchaseno#
 	</select>
+
+	<select id="queryPurchaseByTheme2" parameterClass="java.util.Map" resultMap="PurchaseDto">
+		select * from etb_purchase where 
+			theme2 = #theme2#
+	</select>
 	
 	<delete id="deletePurchase" parameterClass="java.util.Map">
 		delete from etb_purchase where id = #id#

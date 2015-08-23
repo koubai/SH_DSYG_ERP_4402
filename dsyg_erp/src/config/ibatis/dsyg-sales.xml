@@ -107,6 +107,11 @@
 		select * from etb_sales where 
 			salesno = #salesno#
 	</select>
+
+	<select id="querySalesByTheme2" parameterClass="java.util.Map" resultMap="SalesDto">
+		select * from etb_sales where 
+			theme2 = #theme2#
+	</select>
 	
 	<delete id="deleteSales" parameterClass="java.util.Map">
 		delete from etb_sales where id = #id#

@@ -13,6 +13,19 @@
 <script type="text/javascript">
 	$(function() {
 	});
+	
+	function showPurchaseNoDetail(theme2) {
+		if(theme2 == "") {
+			return;
+		} else {
+			var url = '<%=request.getContextPath()%>/purchase/showUpdPurchaseitemByPurchaseNoAction.action';
+			//strFlag=1采购单，strFlag=2销售单
+			url += "?theme2=" + theme2 + "&strSeq=" + seq + "&strSupplierId=" + supplierid + "&strFlag=1" + "&date=" + new Date();
+			alert(url);
+			window.showModalDialog(url, window, "dialogheight:800px;dialogwidth:1200px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+		}
+	}
+
 </script>
 </head>
 <body style="background: url(''); overflow-x:hidden;overflow-y:hidden;">
@@ -24,11 +37,12 @@
 				</table>
 			</div>
 			<div class="tab_content" style="height: 300px;">
+				品名:<s:property value="purchaseItemList[0].tradename"/>&nbsp&nbsp&nbsp规格:<s:property value="purchaseItemList[0].typeno"/>&nbsp&nbsp&nbsp颜色:<s:iterator id="colorList" value="colorList" status="st3"><s:if test="%{colorList[#st3.index].code == purchaseItemList[0].color}"><s:property value="fieldname"/></s:if></s:iterator>&nbsp&nbsp&nbsp包装:<s:property value="purchaseItemList[0].unit"/>&nbsp&nbsp&nbsp形式:<s:if test='purchaseItemList[0].packaging == "1"}'>整箱</s:if><s:elseif test='purchaseItemList[0].packaging == "0"}'>乱尺</s:elseif><s:else>乱尺</s:else>
 				<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 					<tr class="tittle">
 						<td width="20">序号</td>
 						<td width="60">供应商</td>
-						<td width="60">品名</td>
+						<td width="60">采购单号</td>
 						<td width="60">采购价</td>
 						<td width="60">采购日期</td>
 					</tr>
@@ -41,7 +55,7 @@
 						</s:else>
 							<td><s:property value="#st1.index + 1"/></td>
 							<td><s:property value="suppliername"/></td>
-							<td><s:property value="tradename"/></td>
+							<td><a href="#" onclick="showPurchaseNoDetail('<s:property value="theme2"/>');"><s:property value="theme2"/></a></td>
 							<td><s:property value="unitprice"/></td>
 							<td><s:property value="showPurchasedate"/></td>
 						</tr>
