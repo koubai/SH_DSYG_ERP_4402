@@ -53,6 +53,8 @@ public class PurchaseAction extends BaseAction {
 	private String strPurchasedateLow;
 	//采购日期终
 	private String strPurchasedateHigh;
+	//采购单号
+	private String strTheme2;
 	
 	//采购主题
 	private List<Dict01Dto> goodsList;
@@ -75,15 +77,6 @@ public class PurchaseAction extends BaseAction {
 	private List<PurchaseItemDto> updPurchaseItemList;
 	private String theme2;
 	
-
-	public String getTheme2() {
-		return theme2;
-	}
-
-	public void setTheme2(String theme2) {
-		this.theme2 = theme2;
-	}
-
 	//采购价用
 	private String strProdoctid;
 	private String strSupplierid;
@@ -358,6 +351,7 @@ public class PurchaseAction extends BaseAction {
 			page = new Page(intPageSize);
 			strPurchasedateLow = "";
 			strPurchasedateHigh = "";
+			strTheme2 = "";
 			purchaseList = new ArrayList<PurchaseDto>();
 		} catch(Exception e) {
 			log.error("showPurchaseAction error:" + e);
@@ -490,7 +484,7 @@ public class PurchaseAction extends BaseAction {
 		initDictList();
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		page = purchaseService.queryPurchaseByPage(strPurchasedateLow, strPurchasedateHigh, page);
+		page = purchaseService.queryPurchaseByPage(strPurchasedateLow, strPurchasedateHigh, strTheme2, page);
 		purchaseList = (List<PurchaseDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -690,5 +684,21 @@ public class PurchaseAction extends BaseAction {
 
 	public void setPayTypeList(List<Dict01Dto> payTypeList) {
 		this.payTypeList = payTypeList;
+	}
+
+	public String getStrTheme2() {
+		return strTheme2;
+	}
+
+	public void setStrTheme2(String strTheme2) {
+		this.strTheme2 = strTheme2;
+	}
+	
+	public String getTheme2() {
+		return theme2;
+	}
+
+	public void setTheme2(String theme2) {
+		this.theme2 = theme2;
 	}
 }

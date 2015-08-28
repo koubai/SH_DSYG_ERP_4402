@@ -38,19 +38,21 @@ public interface SalesDao {
 	 * 根据条件查询满足条件的销售单数量
 	 * @param bookdateLow
 	 * @param bookdateHigh
+	 * @param theme2
 	 * @return
 	 */
-	public int querySalesCountByPage(String bookdateLow, String bookdateHigh);
+	public int querySalesCountByPage(String bookdateLow, String bookdateHigh, String theme2);
 	
 	/**
 	 * 翻页查询满足条件的销售数据
 	 * @param bookdateLow
 	 * @param bookdateHigh
+	 * @param theme2
 	 * @param start
 	 * @param end
 	 * @return
 	 */
-	public List<SalesDto> querySalesByPage(String bookdateLow, String bookdateHigh, int start, int end);
+	public List<SalesDto> querySalesByPage(String bookdateLow, String bookdateHigh, String theme2, int start, int end);
 	
 	/**
 	 * 根据ID查询销售单数据

@@ -153,6 +153,14 @@
 						</div>
 						<div class="box1_right"></div>
 					</div>
+					<div class="box1">
+						<label class="pdf10">销售订单号</label>
+						<div class="box1_left"></div>
+						<div class="box1_center date_input">
+							<s:textfield name="strTheme2" cssStyle="width:200px;" id="strTheme2" theme="simple"></s:textfield>
+						</div>
+						<div class="box1_right"></div>
+					</div>
 					<div class="btn" style="margin-left: 160px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">

@@ -158,6 +158,11 @@ public class PurchaseItemDto extends BaseAction {
 	 * 状态
 	 */
 	private Integer status;
+	
+	/**
+	 * 包装
+	 */
+	private String item01;
 
 	/**
 	 * 预备项目1
@@ -568,5 +573,13 @@ public class PurchaseItemDto extends BaseAction {
 
 	public void setShowPurchasedate(String showPurchasedate) {
 		this.showPurchasedate = showPurchasedate;
+	}
+
+	public String getItem01() {
+		return item01;
+	}
+
+	public void setItem01(String item01) {
+		this.item01 = item01;
 	}
 }

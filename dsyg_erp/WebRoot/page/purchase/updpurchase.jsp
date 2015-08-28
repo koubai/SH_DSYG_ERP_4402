@@ -870,9 +870,10 @@
 											<td width="85">预入库数</td>
 											<td width="70">已入库数</td>
 											<td width="70">未入库数</td>
-											<td width="90">采购单价</td>
+											<td width="90">未税单价</td>
 											<td width="110">采购金额（未税）</td>
 											<td width="110">采购金额（含税）</td>
+											<td width="110">包装</td>
 										</tr>
 										<tbody id="productData">
 											<s:iterator id="updPurchaseItemList" value="updPurchaseItemList" status="st1">
@@ -948,6 +949,9 @@
 													</td>
 													<td>
 														<input type="text" style="width: 80px;" id="tmpTaxamount_<s:property value="productid"/>" onblur="calcAmount(this, '2');" maxlength="13" value="<s:property value="taxamount"/>"/>
+													</td>
+													<td>
+														<s:property value="item01"/>
 													</td>
 												</tr>
 											</s:iterator>

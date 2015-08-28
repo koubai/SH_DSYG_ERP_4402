@@ -39,10 +39,11 @@ public interface SalesService {
 	 * 翻页查询满足条件的销售数据
 	 * @param bookdateLow
 	 * @param bookdateHigh
+	 * @param theme2
 	 * @param page
 	 * @return
 	 */
-	public Page querySalesByPage(String bookdateLow, String bookdateHigh, Page page);
+	public Page querySalesByPage(String bookdateLow, String bookdateHigh, String theme2, Page page);
 	
 	/**
 	 * 根据ID查询销售单数据
