@@ -46,6 +46,32 @@ public class ProductServiceImpl implements ProductService {
 		return page;
 	}
 
+	
+	
+	@Override
+	public Page queryProductCostCheckByPage(String fieldno, String item01, String keyword, String tradename,
+				String typeno, String color, String supplierId, String belongto, String status, Page page) {
+		keyword = StringUtil.replaceDatabaseKeyword_mysql(keyword);
+		tradename = StringUtil.replaceDatabaseKeyword_mysql(tradename);
+		typeno = StringUtil.replaceDatabaseKeyword_mysql(typeno);
+		item01 = StringUtil.replaceDatabaseKeyword_mysql(item01);
+		
+		//查询总记录数
+		int totalCount = productDao.queryProductCountByPage(fieldno, item01, keyword, tradename, typeno, color, supplierId, status);
+		page.setTotalCount(totalCount);
+		if(totalCount % page.getPageSize() > 0) {
+			page.setTotalPage(totalCount / page.getPageSize() + 1);
+		} else {
+			page.setTotalPage(totalCount / page.getPageSize());
+		}
+		//翻页查询记录
+		List<ProductDto> list = productDao.queryProductCostCheckByPage(fieldno, item01, keyword, tradename, typeno, color, supplierId, belongto, status,
+				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		page.setItems(list);
+		return page;
+	}
+	
+	
 	@Override
 	public ProductDto queryProductByID(String id) {
 		return productDao.queryProductByID(id);

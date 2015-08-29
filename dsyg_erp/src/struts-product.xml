@@ -74,6 +74,15 @@
 			<result name="*">/page/product/selectsalesproduct.jsp</result>
 		</action>
 		
+		<action name="showProductCostCheckAction" class="productCostCheckAction" method="showProductCostCheckAction">
+			<result name="*">/page/product/productcostchecklist.jsp</result>
+		</action>
+		<action name="queryProductCostCheckAction" class="productCostCheckAction" method="queryProductCostCheckAction">
+			<result name="*">/page/product/productcostchecklist.jsp</result>
+		</action>
+		<action name="turnProductCostCheckAction" class="productCostCheckAction" method="turnProductCostCheckAction">
+			<result name="*">/page/product/productcostchecklist.jsp</result>
+		</action>
 	</package>
 
 </struts>
