@@ -12,6 +12,7 @@ import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.ProductCostDto;
+import com.cn.dsyg.dto.ProductDto;
 import com.cn.dsyg.dto.WarehouseCheckDto;
 import com.cn.dsyg.service.Dict01Service;
 import com.cn.dsyg.service.ProductService;
@@ -41,6 +42,7 @@ public class ProductCostCheckAction extends BaseAction {
 	private List<ProductCostDto> productCostCheckList;
 	
 	private String strTheme;
+	private String strTradename;
 
 	//采购主题
 	private List<Dict01Dto> goodsList;
@@ -123,11 +125,15 @@ public class ProductCostCheckAction extends BaseAction {
 		initDictList();
 		//翻页查询所有 产品总记录
 		this.page.setStartIndex(startIndex);
-		page = productService.queryProductCostCheckByPage("", "",
-				"", strTheme, "", "", "", "", "", page);
+		
+		page = productService.queryProductCostCheckByPage(strTheme, "",
+				"",strTradename, "", "", "", "", "" + Constants.STATUS_NORMAL, page);
+//		String fieldno, String item01, String keyword, String tradename,
+//		String typeno, String color, String supplierId, String belongto, "" + Constants.STATUS_NORMAL, page
 		productCostCheckList = (List<ProductCostDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
+	
 	
 	/**
 	 * 初期化字典数据
@@ -235,4 +241,13 @@ public class ProductCostCheckAction extends BaseAction {
 	public void setProductCostCheckList(List<ProductCostDto> productCostCheckList) {
 		this.productCostCheckList = productCostCheckList;
 	}
+
+	public String getStrTradename() {
+		return strTradename;
+	}
+
+	public void setStrTradename(String strTradename) {
+		this.strTradename = strTradename;
+	}
+
 }

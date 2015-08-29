@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="/WEB-INF/c.tld" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -97,6 +98,14 @@
 							</select>
 						</div>
 					</div>
+					<div class="box1">
+						<label class="pdf10">品名：</label>
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<s:textfield name="strTradename" id="strTradename" cssStyle="width:120px;" maxlength="32" theme="simple"></s:textfield>
+						</div>
+						<div class="box1_right"></div>
+					</div>					
 					<div class="btn" style="margin-left: 60px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
@@ -154,14 +163,14 @@
 									</td>
 									<td><s:property value="item10"/></td>
 									<td>
-										<s:if test='%{warehouseCheckList[#st1.index].packaging == "1"}'>整箱</s:if>
-										<s:elseif test='%{warehouseCheckList[#st1.index].packaging == "0"}'>乱尺</s:elseif>
+										<s:if test='%{productCostCheckList[#st1.index].packaging == "1"}'>整箱</s:if>
+										<s:elseif test='%{productCostCheckList[#st1.index].packaging == "0"}'>乱尺</s:elseif>
 										<s:else>
 											<s:property value="packaging"/>
 										</s:else>
 									</td>
 									<td><s:property value="suppliername"/></td>
-									<td><s:property value="productcost"/></td>
+									<td><fmt:formatNumber value="${productcost}" pattern="#0.00" /></td>
 								</tr>
 							</s:iterator>
 						</table>

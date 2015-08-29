@@ -57,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
 		item01 = StringUtil.replaceDatabaseKeyword_mysql(item01);
 		
 		//查询总记录数
-		int totalCount = productDao.queryProductCountByPage(fieldno, item01, keyword, tradename, typeno, color, supplierId, status);
+		int totalCount = productDao.queryProductCostCountByPage(fieldno, item01, keyword, tradename, typeno, color, supplierId, belongto, status);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);

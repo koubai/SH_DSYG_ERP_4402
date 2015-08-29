@@ -61,6 +61,21 @@ public interface ProductDao {
 			String typeno, String color, String supplierId, String status);
 	
 	/**
+	 * 查询翻页数据数量
+	 * @param fieldno 主题
+	 * @param keyword 关键字
+	 * @param tradename 品名
+	 * @param typeno 规格
+	 * @param color 颜色
+	 * @param supplierId 供应商
+	 * @param belongto
+	 * @param status 状态
+	 * @return
+	 */
+	public int queryProductCostCountByPage(String fieldno, String item01, String keyword, String tradename,
+			String typeno, String color, String supplierId, String belongto, String status);
+
+	/**
 	 * 根据ID查询数据
 	 * @param id
 	 * @return

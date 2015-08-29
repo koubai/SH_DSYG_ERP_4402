@@ -73,6 +73,23 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
 	}
 
 	@Override
+	public int queryProductCostCountByPage(String fieldno, String item01, String keyword, String tradename,
+			String typeno, String color, String supplierId, String belongto, String status) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("fieldno", fieldno);
+		paramMap.put("item01", item01);
+		paramMap.put("keyword", keyword);
+		paramMap.put("tradename", tradename);
+		paramMap.put("typeno", typeno);
+		paramMap.put("color", color);
+		paramMap.put("supplierid", supplierId);
+		paramMap.put("belongto", belongto);
+		paramMap.put("status", status);
+		return (Integer) getSqlMapClientTemplate().queryForObject("queryProductCostCountByPage", paramMap);
+	}	
+	
+	
+	@Override
 	public ProductDto queryProductByID(String id) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("id", id);
