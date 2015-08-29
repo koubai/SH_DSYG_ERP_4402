@@ -160,6 +160,11 @@ public class SalesItemDto extends BaseAction {
 	private Integer status;
 
 	/**
+	 * 包装
+	 */
+	private String item01;
+	
+	/**
 	 * 预备项目1
 	 */
 	private String res01;
@@ -568,5 +573,13 @@ public class SalesItemDto extends BaseAction {
 
 	public void setShowBookdate(String showBookdate) {
 		this.showBookdate = showBookdate;
+	}
+
+	public String getItem01() {
+		return item01;
+	}
+
+	public void setItem01(String item01) {
+		this.item01 = item01;
 	}	
 }

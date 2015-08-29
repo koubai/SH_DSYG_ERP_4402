@@ -99,9 +99,9 @@
 		var unit = inputs[7].value;
 		//单位名
 		var unitName = inputs[8].value;
-		//包装
+		//形式
 		var packaging = inputs[9].value;
-		//包装名
+		//形式名
 		var packagingName = inputs[10].value;
 		//是否样品
 		var sampleflag = inputs[11].value;
@@ -111,6 +111,8 @@
 		var salesprice = inputs[13].value;
 		//产地
 		var makearea = inputs[14].value;
+		//包装
+		var item01 = inputs[15].value;
 		
 		//销售单货物表ID，这里ID为空
 		var input = createHidden("");
@@ -203,6 +205,10 @@
 		//销售金额含税
 		td = createTdInput("tmpTaxamount", wid, 13, "calcAmount(this, '2');", id);
 		//td = createTdInput("tmpTaxamount", wid, 13, "calcquantity(this, '3');", id);
+		tr.appendChild(td);
+		
+		//包装
+		td = createTd(item01);
 		tr.appendChild(td);
 		
 		window.dialogArguments.document.getElementById("productlist").value = productlist + id + ",";
@@ -419,6 +425,7 @@
 								<input type="hidden" value="<s:property value="purchaseprice"/>"/>
 								<input type="hidden" value="<s:property value="salesprice"/>"/>
 								<input type="hidden" value="<s:property value="makearea"/>"/>
+								<input type="hidden" value="<s:property value="item01"/>"/>
 							</td>
 							<!-- <td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td> -->
 							<td><input name="radioKey" type="checkbox" value="<s:property value="id"/>"/></td>

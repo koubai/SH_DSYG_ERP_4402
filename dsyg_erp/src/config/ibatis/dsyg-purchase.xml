@@ -98,6 +98,9 @@
 		<isNotEmpty prepend="and" property="purchasedateHigh">
 			T.purchasedate <![CDATA[<]]> #purchasedateHigh#
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="theme2">
+			T.theme2 = #theme2#
+		</isNotEmpty>
 	</select>
 	
 	<select id="queryPurchaseByPage" parameterClass="java.util.Map" resultMap="PurchaseDto">
@@ -107,6 +110,9 @@
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="purchasedateHigh">
 			T.purchasedate <![CDATA[<=]]> #purchasedateHigh#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="theme2">
+			T.theme2 = #theme2#
 		</isNotEmpty>
 		order by T.updatedate desc
 		LIMIT #start#, #end#

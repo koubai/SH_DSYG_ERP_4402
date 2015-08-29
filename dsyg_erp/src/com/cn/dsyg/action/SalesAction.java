@@ -51,6 +51,8 @@ public class SalesAction extends BaseAction {
 	private String strSalesdateLow;
 	//销售日期终
 	private String strSalesdateHigh;
+	//销售单号
+	private String strTheme2;
 	
 	//销售主题
 	private List<Dict01Dto> goodsList;
@@ -72,15 +74,6 @@ public class SalesAction extends BaseAction {
 	private SalesDto updSalesDto;
 	private List<SalesItemDto> updSalesItemList;
 	private String theme2;
-	
-
-	public String getTheme2() {
-		return theme2;
-	}
-
-	public void setTheme2(String theme2) {
-		this.theme2 = theme2;
-	}
 
 	//销售价用
 	private String strProdoctid;
@@ -312,6 +305,7 @@ public class SalesAction extends BaseAction {
 			page = new Page(intPageSize);
 			strSalesdateLow = "";
 			strSalesdateHigh = "";
+			strTheme2 = "";
 			salesList = new ArrayList<SalesDto>();
 		} catch(Exception e) {
 			log.error("showSalesAction error:" + e);
@@ -445,7 +439,7 @@ public class SalesAction extends BaseAction {
 		initDictList();
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		page = salesService.querySalesByPage(strSalesdateLow, strSalesdateHigh, page);
+		page = salesService.querySalesByPage(strSalesdateLow, strSalesdateHigh, strTheme2, page);
 		salesList = (List<SalesDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -645,5 +639,21 @@ public class SalesAction extends BaseAction {
 
 	public void setPayTypeList(List<Dict01Dto> payTypeList) {
 		this.payTypeList = payTypeList;
+	}
+
+	public String getStrTheme2() {
+		return strTheme2;
+	}
+
+	public void setStrTheme2(String strTheme2) {
+		this.strTheme2 = strTheme2;
+	}
+	
+	public String getTheme2() {
+		return theme2;
+	}
+
+	public void setTheme2(String theme2) {
+		this.theme2 = theme2;
 	}
 }

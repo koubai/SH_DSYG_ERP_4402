@@ -40,10 +40,11 @@ public interface PurchaseService {
 	 * 翻页查询满足条件的采购数据
 	 * @param purchasedateLow
 	 * @param purchasedateHigh
+	 * @param theme2 单号
 	 * @param page
 	 * @return
 	 */
-	public Page queryPurchaseByPage(String purchasedateLow, String purchasedateHigh, Page page);
+	public Page queryPurchaseByPage(String purchasedateLow, String purchasedateHigh, String theme2, Page page);
 	
 	/**
 	 * 根据ID查询采购单数据

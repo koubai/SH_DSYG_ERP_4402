@@ -129,10 +129,10 @@ public class SalesServiceImpl implements SalesService {
 	}
 
 	@Override
-	public Page querySalesByPage(String bookdateLow, String bookdateHigh,
+	public Page querySalesByPage(String bookdateLow, String bookdateHigh, String theme2,
 			Page page) {
 		//查询总记录数
-		int totalCount = salesDao.querySalesCountByPage(bookdateLow, bookdateHigh);
+		int totalCount = salesDao.querySalesCountByPage(bookdateLow, bookdateHigh, theme2);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -140,7 +140,7 @@ public class SalesServiceImpl implements SalesService {
 			page.setTotalPage(totalCount / page.getPageSize());
 		}
 		//翻页查询记录
-		List<SalesDto> list = salesDao.querySalesByPage(bookdateLow, bookdateHigh,
+		List<SalesDto> list = salesDao.querySalesByPage(bookdateLow, bookdateHigh, theme2,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		if(list != null && list.size() > 0) {
 			for(SalesDto sales : list) {

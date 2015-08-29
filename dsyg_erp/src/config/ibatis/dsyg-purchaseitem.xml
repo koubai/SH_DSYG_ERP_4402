@@ -34,6 +34,9 @@
 		<result property="note" column="note" />
 		<result property="rank" column="rank" />
 		<result property="status" column="status" />
+		
+		<result property="item01" column="item01" />
+		
 		<result property="res01" column="res01" />
 		<result property="res02" column="res02" />
 		<result property="res03" column="res03" />
@@ -125,6 +128,7 @@
 		(select P.color from etb_product P where P.id = T.productid) as color,
 		(select P.packaging from etb_product P where P.id = T.productid) as packaging,
 		(select P.unit from etb_product P where P.id = T.productid) as unit,
+		(select P.item01 from etb_product P where P.id = T.productid) as item01,
 		(select "") as suppliername,
 		(select "") as purchasedate
 		from etb_purchaseitem T where 1 = 1 and T.status = 1
