@@ -16,4 +16,4 @@
 		//window.parent.location.href = '<c:url value="/home/showManageHomeAction.action"></c:url>';
 	}
 </script>
-<div class="user2"><span>用户：<%=session.getAttribute("user_name")%></span><span>登录时间：<%=session.getAttribute("login_time")%></span></div>
+<div class="user2"><span>用户：<%=session.getAttribute("user_name")%></span>&nbsp&nbsp<span>登录时间：<%=session.getAttribute("login_time")%></span></div>
