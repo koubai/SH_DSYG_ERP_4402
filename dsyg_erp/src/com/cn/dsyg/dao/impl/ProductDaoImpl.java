@@ -16,6 +16,21 @@ import com.cn.dsyg.dto.ProductDto;
  * @create 2015-5-19下午1:47:37
  */
 public class ProductDaoImpl extends BaseDao implements ProductDao {
+	
+	@Override
+	public ProductDto queryProductByLogicId(String tradename, String typeno,
+			String color) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("tradename", tradename);
+		paramMap.put("typeno", typeno);
+		paramMap.put("color", color);
+		@SuppressWarnings("unchecked")
+		List<ProductDto> list = getSqlMapClientTemplate().queryForList("queryProductByLogicId", paramMap);
+		if(list != null && list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+	}
 
 	@Override
 	public List<ProductDto> queryProductByPage(String fieldno, String item01, String keyword, String tradename,

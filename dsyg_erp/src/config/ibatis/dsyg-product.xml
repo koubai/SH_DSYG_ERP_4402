@@ -79,6 +79,19 @@
 		<result property="updatedate" column="updatedate" />
 	</resultMap>
 	
+	<select id="queryProductByLogicId" parameterClass="java.util.Map" resultMap="ProductDto">
+		select * from etb_product T where 1 = 1 and status = 1
+		<isNotEmpty prepend="and" property="tradename">
+			T.tradename = #tradename#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="typeno">
+			T.typeno = #typeno#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="color1">
+			T.color1 = #color1#
+		</isNotEmpty>
+	</select>
+	
 	<select id="queryProductByPage" parameterClass="java.util.Map" resultMap="ProductDto">
 		select T.* from etb_product T where 1 = 1
 		<isNotEmpty prepend="and" property="status">

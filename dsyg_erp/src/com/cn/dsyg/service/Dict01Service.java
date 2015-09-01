@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cn.common.util.Page;
 import com.cn.dsyg.dto.Dict01Dto;
+import com.cn.dsyg.dto.FeatureDto;
 
 /**
  * @name Dict01Service.java
@@ -37,6 +38,14 @@ public interface Dict01Service {
 	 * @return
 	 */
 	public List<Dict01Dto> queryDict01ByFieldcode(String fieldcode, String lang);
+	
+	/**
+	 * 根据fieldcode查询特征列表
+	 * @param fieldcode
+	 * @param lang
+	 * @return
+	 */
+	public List<FeatureDto> queryFeatureByFieldcode(String fieldcode, String lang);
 	
 	/**
 	 * 查询大分类数据（没有其他）

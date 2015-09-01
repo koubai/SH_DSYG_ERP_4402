@@ -128,7 +128,7 @@
 		(select P.color from etb_product P where P.id = T.productid) as color,
 		(select P.packaging from etb_product P where P.id = T.productid) as packaging,
 		(select P.unit from etb_product P where P.id = T.productid) as unit,
-		(select P.item01 from etb_product P where P.id = T.productid) as item01,
+		(select P.item10 from etb_product P where P.id = T.productid) as item01,
 		(select "") as suppliername,
 		(select "") as purchasedate
 		from etb_purchaseitem T where 1 = 1 and T.status = 1

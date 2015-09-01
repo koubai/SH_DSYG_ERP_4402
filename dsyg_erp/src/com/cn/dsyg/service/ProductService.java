@@ -43,6 +43,14 @@ public interface ProductService {
 	public Page queryProductCostCheckByPage(String fieldno, String item01, String keyword, String tradename,
 			String typeno, String color, String supplierId, String belongto, String status, Page page);
 	
+	/**
+	 * 根据产品名称，型号，颜色（逻辑主键）查询产品
+	 * @param tradename
+	 * @param typeno
+	 * @param color
+	 * @return
+	 */
+	public ProductDto queryProductByLogicId(String tradename, String typeno, String color);
 	
 	/**
 	 * 根据ID查询数据

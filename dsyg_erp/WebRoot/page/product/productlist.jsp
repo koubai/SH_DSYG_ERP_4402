@@ -151,7 +151,7 @@
 						<label class="pdf10">包装</label>
 						<div class="box1_left"></div>
 						<div class="box1_center">
-							<s:textfield name="strItem01" id="strItem01" cssClass="input120" maxlength="32" theme="simple"></s:textfield>
+							<s:textfield name="strItem10" id="strItem10" cssClass="input120" maxlength="32" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
 					</div>
@@ -229,7 +229,7 @@
 										</s:else>
 									</td>
 									<td>
-										<s:property value="item01"/>
+										<s:property value="item10"/>
 									</td>
 								</tr>
 							</s:iterator>

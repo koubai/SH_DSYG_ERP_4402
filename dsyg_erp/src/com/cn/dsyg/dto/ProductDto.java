@@ -49,7 +49,7 @@ public class ProductDto extends BaseDto {
 	 * 类型3
 	 */
 	private String item3;
-
+	
 	/**
 	 * 品名
 	 */
@@ -120,7 +120,7 @@ public class ProductDto extends BaseDto {
 	private String note;
 
 	/**
-	 * 包装
+	 * 项目1
 	 */
 	private String item01;
 
@@ -165,7 +165,7 @@ public class ProductDto extends BaseDto {
 	private String item09;
 
 	/**
-	 * 项目10
+	 * 包装
 	 */
 	private String item10;
 
@@ -268,6 +268,16 @@ public class ProductDto extends BaseDto {
 	 * 项目30
 	 */
 	private String item30;
+	
+	/**
+	 * 图片网络访问地址
+	 */
+	private String imageurl;
+	
+	/**
+	 * PDF文件访问地址
+	 */
+	private String pdfurl;
 
 	/**
 	 * 图片1路径
@@ -990,5 +1000,21 @@ public class ProductDto extends BaseDto {
 
 	public void setBrokennum(String brokennum) {
 		this.brokennum = brokennum;
+	}
+
+	public String getImageurl() {
+		return imageurl;
+	}
+
+	public void setImageurl(String imageurl) {
+		this.imageurl = imageurl;
+	}
+
+	public String getPdfurl() {
+		return pdfurl;
+	}
+
+	public void setPdfurl(String pdfurl) {
+		this.pdfurl = pdfurl;
 	}
 }

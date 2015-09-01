@@ -22,6 +22,21 @@ public class ProductServiceImpl implements ProductService {
 	
 	private ProductDao productDao;
 	private Dict01Dao dict01Dao;
+	
+	@Override
+	public ProductDto queryProductByLogicId(String tradename, String typeno,
+			String color) {
+		ProductDto product = productDao.queryProductByLogicId(tradename, typeno, color);
+		if(product != null) {
+			//图片和PDF文件显示地址
+			String imageurl = PropertiesConfig.getPropertiesValueByKey(Constants.PROPERTIES_IMAGES_URL);
+			String pdfurl = PropertiesConfig.getPropertiesValueByKey(Constants.PROPERTIES_PDF_URL);
+			product.setImageurl(imageurl);
+			product.setPdfurl(pdfurl);
+			return product;
+		}
+		return null;
+	}
 
 	@Override
 	public Page queryProductByPage(String fieldno, String item01, String keyword, String tradename,
@@ -74,7 +89,16 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public ProductDto queryProductByID(String id) {
-		return productDao.queryProductByID(id);
+		ProductDto product = productDao.queryProductByID(id);
+		if(product != null) {
+			//图片和PDF文件显示地址
+			String imageurl = PropertiesConfig.getPropertiesValueByKey(Constants.PROPERTIES_IMAGES_URL);
+			String pdfurl = PropertiesConfig.getPropertiesValueByKey(Constants.PROPERTIES_PDF_URL);
+			product.setImageurl(imageurl);
+			product.setPdfurl(pdfurl);
+			return product;
+		}
+		return null;
 	}
 
 	@Override

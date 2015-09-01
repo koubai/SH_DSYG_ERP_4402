@@ -17,7 +17,7 @@
 <body bgcolor="#ffffff">
 	<div id="containermain">
 		<div class=content>
-			<p class="session_txt">出错啦！。</p>
+			<p class="session_txt">出错啦！</p>
 		</div>
 	</div>
 </body>

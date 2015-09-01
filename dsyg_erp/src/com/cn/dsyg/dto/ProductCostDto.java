@@ -990,5 +990,4 @@ public class ProductCostDto extends BaseDto {
 	public void setProductcost(BigDecimal productcost) {
 		this.productcost = productcost;
 	}
-
 }

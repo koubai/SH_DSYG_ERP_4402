@@ -213,7 +213,7 @@
 								</s:else>
 							</td>
 							<td>
-								<s:property value="item01"/>
+								<s:property value="item10"/>
 							</td>
 						</tr>
 					</s:iterator>

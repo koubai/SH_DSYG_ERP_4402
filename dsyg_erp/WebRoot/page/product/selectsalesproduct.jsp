@@ -112,7 +112,7 @@
 		//产地
 		var makearea = inputs[14].value;
 		//包装
-		var item01 = inputs[15].value;
+		var item10 = inputs[15].value;
 		
 		//销售单货物表ID，这里ID为空
 		var input = createHidden("");
@@ -208,7 +208,7 @@
 		tr.appendChild(td);
 		
 		//包装
-		td = createTd(item01);
+		td = createTd(item10);
 		tr.appendChild(td);
 		
 		window.dialogArguments.document.getElementById("productlist").value = productlist + id + ",";
@@ -425,7 +425,7 @@
 								<input type="hidden" value="<s:property value="purchaseprice"/>"/>
 								<input type="hidden" value="<s:property value="salesprice"/>"/>
 								<input type="hidden" value="<s:property value="makearea"/>"/>
-								<input type="hidden" value="<s:property value="item01"/>"/>
+								<input type="hidden" value="<s:property value="item10"/>"/>
 							</td>
 							<!-- <td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td> -->
 							<td><input name="radioKey" type="checkbox" value="<s:property value="id"/>"/></td>
@@ -454,7 +454,7 @@
 								</s:else>
 							</td>
 							<td>
-								<s:property value="item01"/>
+								<s:property value="item10"/>
 							</td>
 						</tr>
 					</s:iterator>

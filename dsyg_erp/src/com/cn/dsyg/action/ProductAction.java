@@ -1,5 +1,6 @@
 package com.cn.dsyg.action;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,10 +9,12 @@ import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
+import com.cn.common.util.FileUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.Dict01Dto;
+import com.cn.dsyg.dto.FeatureDto;
 import com.cn.dsyg.dto.ProductDto;
 import com.cn.dsyg.service.Dict01Service;
 import com.cn.dsyg.service.ProductService;
@@ -48,9 +51,13 @@ public class ProductAction extends BaseAction {
 	private List<Dict01Dto> unitList;
 	//产地
 	private List<Dict01Dto> makeareaList;
+	//电线特征列表
+	private List<FeatureDto> featureList01;
+	//套管特征列表
+	private List<FeatureDto> featureList02;
 	
 	private String strFieldno;
-	private String strItem01;//包装
+	private String strItem10;//包装
 	private String strKeyword;
 	private String strSupplierId;
 	private String strTradename;
@@ -62,10 +69,23 @@ public class ProductAction extends BaseAction {
 	
 	//新增
 	private ProductDto addProductDto;
+	private File addPicFile01;
+	private File addPicFile02;
+	private File addPicFile03;
+	private File addPdfFile;
+	//对应的文件名
+	private String file01Name;
+	private String file02Name;
+	private String file03Name;
+	private String file04Name;
 	
 	//修改
 	private String updProductId;
 	private ProductDto updProductDto;
+	private File updPicFile01;
+	private File updPicFile02;
+	private File updPicFile03;
+	private File updPdfFile;
 	
 	//删除
 	private String delProductId;
@@ -105,6 +125,9 @@ public class ProductAction extends BaseAction {
 			this.clearMessages();
 			//初期化字典数据
 			initDictList();
+			updPicFile01 = null;
+			updPicFile02 = null;
+			updPicFile03 = null;
 			updProductDto = productService.queryProductByID(updProductId);
 		} catch(Exception e) {
 			log.error("showUpdProductAction error:" + e);
@@ -126,10 +149,81 @@ public class ProductAction extends BaseAction {
 			if(!checkData(updProductDto)) {
 				return "checkerror";
 			}
+			//判断逻辑主键是否唯一
+			ProductDto pro = productService.queryProductByLogicId(updProductDto.getTradename(),
+					updProductDto.getTypeno(), updProductDto.getColor());
+			if(pro != null && !pro.getId().equals(updProductDto.getId())) {
+				this.addActionMessage("已存在相同产品名称、产品规格和颜色的产品！");
+				return "checkerror";
+			}
+			
+			//文件目录
+			String image_path = PropertiesConfig.getPropertiesValueByKey(Constants.PROPERTIES_IMAGES_PATH);
+			String pdf_path = PropertiesConfig.getPropertiesValueByKey(Constants.PROPERTIES_PDF_PATH);
+			
+			//保存文件到指定目录
+			String oldpic1 = "";
+			String oldpic2 = "";
+			String oldpic3 = "";
+			String oldpdf = "";
+			ProductDto oldProduct = productService.queryProductByID(updProductId);
+			
+			if(updPicFile01 != null) {
+				String newfile01 = FileUtil.uploadFile(updPicFile01, image_path, file01Name);
+				updProductDto.setPic01(newfile01);
+				oldpic1 = oldProduct.getPic01();
+			}
+			if(updPicFile02 != null) {
+				String newfile02 = FileUtil.uploadFile(updPicFile02, image_path, file02Name);
+				updProductDto.setPic02(newfile02);
+				oldpic2 = oldProduct.getPic02();
+			}
+			if(updPicFile03 != null) {
+				String newfile03 = FileUtil.uploadFile(updPicFile03, image_path, file03Name);
+				updProductDto.setPic03(newfile03);
+				oldpic3 = oldProduct.getPic03();
+			}
+			if(updPdfFile != null) {
+				String newfile04 = FileUtil.uploadFile(updPdfFile, pdf_path, file04Name);
+				updProductDto.setPdfpath(newfile04);
+				oldpdf = oldProduct.getPdfpath();
+			}
+			
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
 			updProductDto.setUpdateuid(username);
 			productService.updateProduct(updProductDto);
+			this.addActionMessage("更新成功！");
+			//清空数据
+			updPicFile01 = null;
+			updPicFile02 = null;
+			updPicFile03 = null;
+			updPdfFile = null;
+			
+			//如果更新前有图片，更新后没有图片，则删除原图片
+			if(StringUtil.isNotBlank(oldProduct.getPic01()) && StringUtil.isBlank(updProductDto.getPic01())) {
+				oldpic1 = oldProduct.getPic01();
+			}
+			if(StringUtil.isNotBlank(oldProduct.getPic02()) && StringUtil.isBlank(updProductDto.getPic02())) {
+				oldpic2 = oldProduct.getPic02();
+			}
+			if(StringUtil.isNotBlank(oldProduct.getPic03()) && StringUtil.isBlank(updProductDto.getPic03())) {
+				oldpic3 = oldProduct.getPic03();
+			}
+			
+			//判断是否需要删除原来文件
+			if(StringUtil.isNotBlank(oldpic1)) {
+				FileUtil.deleteFile(oldpic1, image_path);
+			}
+			if(StringUtil.isNotBlank(oldpic2)) {
+				FileUtil.deleteFile(oldpic2, image_path);
+			}
+			if(StringUtil.isNotBlank(oldpic3)) {
+				FileUtil.deleteFile(oldpic3, image_path);
+			}
+			if(StringUtil.isNotBlank(oldpdf)) {
+				FileUtil.deleteFile(oldpdf, pdf_path);
+			}
 			this.addActionMessage("修改成功！");
 		} catch(Exception e) {
 			log.error("updProductAction error:" + e);
@@ -146,6 +240,7 @@ public class ProductAction extends BaseAction {
 		try {
 			this.clearMessages();
 			addProductDto = new ProductDto();
+			addProductDto.setRank(Constants.ROLE_RANK_OPERATOR);
 			//初期化字典数据
 			initDictList();
 		} catch(Exception e) {
@@ -168,10 +263,47 @@ public class ProductAction extends BaseAction {
 			if(!checkData(addProductDto)) {
 				return "checkerror";
 			}
+			
+			//判断逻辑主键是否唯一（产品名称、产品规格和颜色）
+			ProductDto pro = productService.queryProductByLogicId(addProductDto.getTradename(),
+					addProductDto.getTypeno(), addProductDto.getColor());
+			if(pro != null) {
+				this.addActionMessage("已存在相同产品名称、产品规格和颜色的产品！");
+				return "checkerror";
+			}
+			if(addPdfFile == null) {
+				this.addActionMessage("请选择对应PDF文件！");
+				return "checkerror";
+			}
+			
+			//文件目录
+			String image_path = PropertiesConfig.getPropertiesValueByKey(Constants.PROPERTIES_IMAGES_PATH);
+			String pdf_path = PropertiesConfig.getPropertiesValueByKey(Constants.PROPERTIES_PDF_PATH);
+			
+			//保存文件到指定目录
+			if(addPicFile01 != null) {
+				String newfile01 = FileUtil.uploadFile(addPicFile01, image_path, file01Name);
+				addProductDto.setPic01(newfile01);
+			}
+			if(addPicFile02 != null) {
+				String newfile02 = FileUtil.uploadFile(addPicFile02, image_path, file02Name);
+				addProductDto.setPic02(newfile02);
+			}
+			if(addPicFile03 != null) {
+				String newfile03 = FileUtil.uploadFile(addPicFile03, image_path, file03Name);
+				addProductDto.setPic03(newfile03);
+			}
+			
+			String newfile04 = FileUtil.uploadFile(addPdfFile, pdf_path, file04Name);
+			addProductDto.setPdfpath(newfile04);
+			
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
-			addProductDto.setCreateuid(username);
 			addProductDto.setUpdateuid(username);
+			addProductDto.setCreateuid(username);
+			//默认状态=有效
+			addProductDto.setStatus(Constants.STATUS_NORMAL);
+			
 			productService.insertProduct(addProductDto);
 			this.addActionMessage("添加成功！");
 			addProductDto = new ProductDto();
@@ -195,6 +327,7 @@ public class ProductAction extends BaseAction {
 			intPageSize = 10;
 			strFieldno = "";
 			strKeyword = "";
+			strItem10 = "";
 			strTradename = "";
 			strTypeno = "";
 			strColor = "";
@@ -441,6 +574,10 @@ public class ProductAction extends BaseAction {
 		makeareaList = dict01Service.queryDict01ByFieldcode(Constants.DICT_MAKEAREA, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 		//颜色
 		colorList = dict01Service.queryDict01ByFieldcode(Constants.DICT_COLOR_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		//电线特征列表
+		featureList01 = dict01Service.queryFeatureByFieldcode(Constants.DICT_GOODS_TYPE_CODE_01, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		//套管特征列表
+		featureList02 = dict01Service.queryFeatureByFieldcode(Constants.DICT_GOODS_TYPE_CODE_02, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 	}
 	
 	/**
@@ -473,7 +610,7 @@ public class ProductAction extends BaseAction {
 			this.addActionMessage("请选择颜色！");
 			return false;
 		}
-		if(StringUtil.isBlank(product.getItem01())) {
+		if(StringUtil.isBlank(product.getItem10())) {
 			this.addActionMessage("包装不能为空！");
 			return false;
 		}
@@ -488,6 +625,52 @@ public class ProductAction extends BaseAction {
 		if(product.getSalesprice() == null || product.getSalesprice().doubleValue() < 0) {
 			this.addActionMessage("销售指导价必须为大于0的数！");
 			return false;
+		}
+		
+		if(Constants.DICT_GOODS_TYPE_CODE_01.equals(product.getFieldno())) {
+			//电线，需要验证单选框数据
+			if(StringUtil.isBlank(product.getItem01())) {
+				this.addActionMessage("请选择耐温！");
+				return false;
+			}
+			if(StringUtil.isBlank(product.getItem02())) {
+				this.addActionMessage("请选择耐压！");
+				return false;
+			}
+			if(StringUtil.isBlank(product.getItem03())) {
+				this.addActionMessage("请选择材质！");
+				return false;
+			}
+//			if(StringUtil.isBlank(product.getItem04())) {
+//				this.addActionMessage("请选择环保！");
+//				return false;
+//			}
+		} else if(Constants.DICT_GOODS_TYPE_CODE_02.equals(product.getFieldno())) {
+			//套管，需要验证单选框数据
+			if(StringUtil.isBlank(product.getItem01())) {
+				this.addActionMessage("请选择耐温！");
+				return false;
+			}
+			if(StringUtil.isBlank(product.getItem02())) {
+				this.addActionMessage("请选择耐压！");
+				return false;
+			}
+			if(StringUtil.isBlank(product.getItem03())) {
+				this.addActionMessage("请选择绝缘！");
+				return false;
+			}
+			if(StringUtil.isBlank(product.getItem04())) {
+				this.addActionMessage("请选择收缩比！");
+				return false;
+			}
+			if(StringUtil.isBlank(product.getItem05())) {
+				this.addActionMessage("请选择材质！");
+				return false;
+			}
+//			if(StringUtil.isBlank(product.getItem06())) {
+//				this.addActionMessage("请选择环保！");
+//				return false;
+//			}
 		}
 		
 		return true;
@@ -505,7 +688,7 @@ public class ProductAction extends BaseAction {
 		initDictList();
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		page = productService.queryProductByPage(strFieldno, strItem01, strKeyword, strTradename, strTypeno, strColor,
+		page = productService.queryProductByPage(strFieldno, strItem10, strKeyword, strTradename, strTypeno, strColor,
 				strSupplierId, "" + Constants.STATUS_NORMAL, page);
 		productList = (List<ProductDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
@@ -687,11 +870,123 @@ public class ProductAction extends BaseAction {
 		this.productList = productList;
 	}
 
-	public String getStrItem01() {
-		return strItem01;
+	public String getStrItem10() {
+		return strItem10;
 	}
 
-	public void setStrItem01(String strItem01) {
-		this.strItem01 = strItem01;
+	public void setStrItem10(String strItem10) {
+		this.strItem10 = strItem10;
+	}
+
+	public File getAddPicFile01() {
+		return addPicFile01;
+	}
+
+	public void setAddPicFile01(File addPicFile01) {
+		this.addPicFile01 = addPicFile01;
+	}
+
+	public File getAddPicFile02() {
+		return addPicFile02;
+	}
+
+	public void setAddPicFile02(File addPicFile02) {
+		this.addPicFile02 = addPicFile02;
+	}
+
+	public File getAddPicFile03() {
+		return addPicFile03;
+	}
+
+	public void setAddPicFile03(File addPicFile03) {
+		this.addPicFile03 = addPicFile03;
+	}
+
+	public File getAddPdfFile() {
+		return addPdfFile;
+	}
+
+	public void setAddPdfFile(File addPdfFile) {
+		this.addPdfFile = addPdfFile;
+	}
+
+	public String getFile01Name() {
+		return file01Name;
+	}
+
+	public void setFile01Name(String file01Name) {
+		this.file01Name = file01Name;
+	}
+
+	public String getFile02Name() {
+		return file02Name;
+	}
+
+	public void setFile02Name(String file02Name) {
+		this.file02Name = file02Name;
+	}
+
+	public String getFile03Name() {
+		return file03Name;
+	}
+
+	public void setFile03Name(String file03Name) {
+		this.file03Name = file03Name;
+	}
+
+	public String getFile04Name() {
+		return file04Name;
+	}
+
+	public void setFile04Name(String file04Name) {
+		this.file04Name = file04Name;
+	}
+
+	public File getUpdPicFile01() {
+		return updPicFile01;
+	}
+
+	public void setUpdPicFile01(File updPicFile01) {
+		this.updPicFile01 = updPicFile01;
+	}
+
+	public File getUpdPicFile02() {
+		return updPicFile02;
+	}
+
+	public void setUpdPicFile02(File updPicFile02) {
+		this.updPicFile02 = updPicFile02;
+	}
+
+	public File getUpdPicFile03() {
+		return updPicFile03;
+	}
+
+	public void setUpdPicFile03(File updPicFile03) {
+		this.updPicFile03 = updPicFile03;
+	}
+
+	public File getUpdPdfFile() {
+		return updPdfFile;
+	}
+
+	public void setUpdPdfFile(File updPdfFile) {
+		this.updPdfFile = updPdfFile;
+	}
+
+	public List<FeatureDto> getFeatureList01() {
+		return featureList01;
+	}
+
+	public void setFeatureList01(List<FeatureDto> featureList01) {
+		this.featureList01 = featureList01;
+	}
+
+	public List<FeatureDto> getFeatureList02() {
+		return featureList02;
+	}
+
+	public void setFeatureList02(List<FeatureDto> featureList02) {
+		this.featureList02 = featureList02;
 	}
 }
