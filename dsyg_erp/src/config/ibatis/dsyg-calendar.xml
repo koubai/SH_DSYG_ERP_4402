@@ -46,6 +46,7 @@
 	<update id="updateCalendar01" parameterClass="com.cn.dsyg.dto.CalendarDto">
 		update calendar
 		set title=#title#,
+			color=#color#,
 			start=#start#,
 			end=#end#,
 			<isNotEmpty property="allDay">

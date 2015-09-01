@@ -83,14 +83,11 @@ public class EventdoServlet extends HttpServlet {
 				isallday = "0";
 			}
 			
-			//String[] colors = {"#360","#f30","#06c"};
-			//int index = (int)(Math.random()*colors.length);
 			CalendarDto calendar = new CalendarDto();
 			calendar.setTitle(events);
 			calendar.setStart(start);
 			calendar.setEnd(end);
 			calendar.setAllDay(Integer.parseInt(isallday));
-			//calendar.setColor(colors[index]);
 			System.out.println("events:" + events);
 			calendar.setColor(userColor);
 			calendar.setUserid(userId);
@@ -105,10 +102,9 @@ public class EventdoServlet extends HttpServlet {
 			}
 		}else if("edit".equals(action)) {
 			System.out.println("Edit");
-			Integer id =  Integer.parseInt(request.getParameter("id"));
+			Integer event_id =  Integer.parseInt(request.getParameter("id"));
 			String userid = (String)session.getAttribute("user_id");
-//			String userName = request.getParameter("userName");
-			if (userCheck(id,userid)){
+			if (userCheck(event_id,userid)){
 				String events = request.getParameter("event");//事件内容
 				String isallday = request.getParameter("isallday");//是否是全天事件
 				String isend = request.getParameter("isend");//是否有结束时间
@@ -137,16 +133,13 @@ public class EventdoServlet extends HttpServlet {
 				System.out.println("end"+end);
 				System.out.println("isallday"+isallday);
 				
-				//String[] colors = {"#360","#f30","#06c"};
-				//int index = (int)(Math.random()*colors.length);
 				CalendarDto calendar = new CalendarDto();
 				calendar.setTitle(events);
 				calendar.setStart(start);
 				calendar.setEnd(end);
 				calendar.setAllDay(Integer.parseInt(isallday));
-				//calendar.setColor(colors[index]);
 				calendar.setColor(userColor);
-				calendar.setId(id);
+				calendar.setId(event_id);
 				boolean b = calendarService.modify(calendar);
 				if(b){
 					out.print("1");
@@ -160,15 +153,13 @@ public class EventdoServlet extends HttpServlet {
 		}else if("del".equals(action)){
 			System.out.println("Del");
 			if (request.getParameter("id") != null){
-				Integer id =  Integer.parseInt(request.getParameter("id"));
+				Integer event_id =  Integer.parseInt(request.getParameter("id"));
 				String userid = (String)session.getAttribute("user_id");
 				System.out.println("id:"+request.getParameter("id"));
 				System.out.println("userid:"+userid);
-				//String userid = (String)session.getAttribute("user_id");
-				//System.out.println("userName" + userName);
-				if (userCheck(id,userid)){
-					if(id > 0){
-						boolean b = calendarService.del(id);
+				if (userCheck(event_id,userid)){
+					if(event_id > 0){
+						boolean b = calendarService.del(event_id);
 						if(b){
 							out.print("1");
 						}else {
@@ -185,13 +176,13 @@ public class EventdoServlet extends HttpServlet {
 			}
 		}else if("drag".equals(action)) {
 			System.out.println("Drag");
-			Integer id =  Integer.parseInt(request.getParameter("id"));
+			Integer event_id =  Integer.parseInt(request.getParameter("id"));
 			String userid = (String)session.getAttribute("user_id");
-			if (userCheck(id,userid)){
+			if (userCheck(event_id,userid)){
 				Integer daydiff = Integer.parseInt(request.getParameter("daydiff")) * 24 * 60 * 60;
 				Integer minudiff = Integer.parseInt(request.getParameter("minudiff")) * 60;
 				String allday = request.getParameter("allday");
-				CalendarDto calendar = calendarService.findById(id);
+				CalendarDto calendar = calendarService.findById(event_id);
 				String start = calendar.getStart();
 				long lstart = DateUtil.string2long(start);				
 				String end = calendar.getEnd();
@@ -220,7 +211,6 @@ public class EventdoServlet extends HttpServlet {
 						calendar.setEnd(DateUtil.long2string(lend + difftime));
 					}
 				}
-		//		System.out.println(sql);
 				boolean b = calendarService.modify(calendar);
 				if(b){
 					out.print("1");
@@ -234,12 +224,12 @@ public class EventdoServlet extends HttpServlet {
 		}else if("resize".equals(action)){
 			System.out.println("Resize");
 
-			Integer id =  Integer.parseInt(request.getParameter("id"));
+			Integer event_id =  Integer.parseInt(request.getParameter("id"));
 			String userid = (String)session.getAttribute("user_id");
-			if (userCheck(id,userid)){
+			if (userCheck(event_id,userid)){
 				Integer daydiff = Integer.parseInt(request.getParameter("daydiff")) * 24 * 60 * 60;
 				Integer minudiff = Integer.parseInt(request.getParameter("minudiff")) * 60;
-				CalendarDto calendar = calendarService.findById(id);
+				CalendarDto calendar = calendarService.findById(event_id);
 				String start = calendar.getStart();
 				long lstart = DateUtil.string2long(start);
 				String end = calendar.getEnd();
@@ -250,7 +240,6 @@ public class EventdoServlet extends HttpServlet {
 					long lend = DateUtil.string2long(end);
 					calendar.setEnd(DateUtil.long2string(lend + difftime));
 				}
-		//		System.out.println(sql);
 				boolean b = calendarService.modify(calendar);
 				if(b){
 					out.print("1");
@@ -270,9 +259,9 @@ public class EventdoServlet extends HttpServlet {
 		System.out.println("userid:" + userid);
 		try{
 			CalendarDto calendar = calendarService.findById(id);
-			String chkUser = calendar.getUserid();
-			System.out.println("chkUser:" + chkUser);
-			if (userid.equals(chkUser)){
+			String event_userId = calendar.getUserid();
+			System.out.println("event_userId:" + event_userId);
+			if (userid.equals(event_userId)){
 				return true;
 			}
 		} catch (Exception e){			

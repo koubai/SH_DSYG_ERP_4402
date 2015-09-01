@@ -48,7 +48,7 @@
     <input type="hidden" name="action" value="<%=action%>">
     <input type="hidden" name="userId" value="<%=userId%>">
     <input type="text" name="userNm" value="<%=userNm%>" disabled="true">
-	<input id="color1" type="text" name="userColor" value="<%=userColor%>" />
+	<input id="color1" type="text" name="userColor" value="<%=userColor%>" >
     <p>日程内容：<input type="text" class="input" name="event" id="event" style="width:320px" placeholder="记录你将要做的一件事..."></p>
     <p>开始时间：<input type="text" class="input datepicker" name="startdate" id="startdate" value="<%=date%>" readonly>
     <span id="sel_start" style="display:none;"><select name="s_hour">
@@ -134,14 +134,14 @@
 <% 
 	}else if("edit".equals(action)){
 		System.out.println("Now is edit");	
-		Integer id = Integer.parseInt(request.getParameter("id"));
-		System.out.println("id:" + String.valueOf(id));	
-		CalendarDto calendar = calendarService.findById(id);
+		Integer event_id = Integer.parseInt(request.getParameter("id"));
+		System.out.println("event_id:" + String.valueOf(event_id));	
+		CalendarDto calendar = calendarService.findById(event_id);
 		String title = calendar.getTitle();// 事件标题
 		String start = calendar.getStart();// 事件开始时间
 		String end = calendar.getEnd();// 结束时间
 		Integer allDay = calendar.getAllDay();// 是否为全天事件
-		String color = calendar.getColor();// 事件的背景
+		String userColor = calendar.getColor();// 事件的背景
 		String eventUser = String.valueOf(calendar.getUserName());//事件创建者
 		System.out.println("eventUser:" + eventUser);	
 		
@@ -173,19 +173,17 @@
 		}
 		String userId = (String)session.getAttribute("user_id");	
 		System.out.println("session user_id:" + userId);	
-		userId = (String)request.getParameter("userId");	
-		System.out.println("requext UserId:" + userId);	
-		String userColor = (String)session.getAttribute("user_color");
-		System.out.println("session user color:" + userColor);	
+		userId = (String)request.getParameter("userId");	 
+		System.out.println("requext UserId:" + userId);	 
 %>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery-ui.css">
 <div class="fancy">
 	<h3>编辑事件</h3>(<%=eventUser%>)
     <form id="add_form" action="${pageContext.request.contextPath}/EventdoServlet.servlet" method="post">
     <input type="hidden" name="action" value="<%=action%>">
-    <input type="hidden" name="id" id="eventid" value="<%=id%>">
+    <input type="hidden" name="id" id="eventid" value="<%=event_id%>">
     <input type="hidden" name="userId" id="userId" value="<%=userId%>">
-    <input type="hidden" name="userColor" id="userColor" value="<%=userColor%>">
+    <input id="color1" type="text" name="userColor" value="<%=userColor%>">
     <p>日程内容：<input type="text" class="input" name="event" id="event" style="width:320px" placeholder="记录你将要做的一件事..." value="<%=title%>"></p>
     <p>开始时间：<input type="text" class="input datepicker" name="startdate" id="startdate" value="<%=start_d %>" readonly>
     <span id="sel_start" <%if("".equals(start_h)){ %>style="display: none;"<%} %> ><select name="s_hour">
