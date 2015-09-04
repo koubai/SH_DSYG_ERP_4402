@@ -215,14 +215,14 @@
 											男
 										</s:else>
 									</td>
-									<td><s:property value="birthday"/></td>
+									<td><s:property value="showbirthday"/></td>
 									<td><s:property value="post"/></td>
 									<td><s:property value="phone"/></td>
 									<td><s:property value="address"/></td>
-									<td><s:property value="employeddate"/></td>
-									<td><s:property value="retiredate"/></td>
+									<td><s:property value="showemployeddate"/></td>
+									<td><s:property value="showretiredate"/></td>
 									<td><s:property value="superior"/></td>
-									<td><s:property value="registdate"/></td>
+									<td><s:property value="showregistdate"/></td>
 									<td>
 										<div noWrap style="width:150px;text-overflow:ellipsis;overflow:hidden">
 											<s:property value="note"/>

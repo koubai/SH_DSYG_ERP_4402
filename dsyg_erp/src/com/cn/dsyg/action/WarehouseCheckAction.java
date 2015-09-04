@@ -1,17 +1,25 @@
 package com.cn.dsyg.action;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
+import com.cn.common.factory.Poi2007Base;
+import com.cn.common.factory.PoiFactory;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
+import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.Dict01Dto;
+import com.cn.dsyg.dto.PurchaseDto;
 import com.cn.dsyg.dto.WarehouseCheckDto;
+import com.cn.dsyg.dto.WarehouserptDto;
 import com.cn.dsyg.service.Dict01Service;
 import com.cn.dsyg.service.WarehouseService;
 
@@ -47,7 +55,9 @@ public class WarehouseCheckAction extends BaseAction {
 	private List<Dict01Dto> unitList;
 	//产地
 	private List<Dict01Dto> makeareaList;
-	
+	//excel密码
+	private String excelPass;
+
 	/**
 	 * 库存盘点页面
 	 * @return
@@ -108,6 +118,56 @@ public class WarehouseCheckAction extends BaseAction {
 		return SUCCESS;
 	}
 	
+	//导出盘点数据
+	public String exportWarehouserCheckAction() {
+		try {
+			System.out.println("333333333333333333");
+			this.clearMessages();
+			initDictList();
+			//字典数据组织个MAP
+			Map<String, String> dictMap = new HashMap<String, String>();
+			if(goodsList != null && goodsList.size() > 0) {
+				for(Dict01Dto dict : goodsList) {
+					dictMap.put(Constants.DICT_GOODS_TYPE + "_" + dict.getCode(), dict.getFieldname());
+				}
+			}
+			if(unitList != null && unitList.size() > 0) {
+				for(Dict01Dto dict : unitList) {
+					dictMap.put(Constants.DICT_UNIT_TYPE + "_" + dict.getCode(), dict.getFieldname());
+				}
+			}
+			if(makeareaList != null && makeareaList.size() > 0) {
+				for(Dict01Dto dict : makeareaList) {
+					dictMap.put(Constants.DICT_MAKEAREA + "_" + dict.getCode(), dict.getFieldname());
+				}
+			}
+			if(colorList != null && colorList.size() > 0) {
+				for(Dict01Dto dict : colorList) {
+					dictMap.put(Constants.DICT_COLOR_TYPE + "_" + dict.getCode(), dict.getFieldname());
+				}
+			}
+			dictMap.put(Constants.EXCEL_PASS, excelPass);
+			
+			String name = StringUtil.createFileName(Constants.EXCEL_TYPE_WAREHOUSCHECK);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_WAREHOUSCHECK);
+			
+			//查询所有审价履历
+			List<WarehouseCheckDto> list = warehouseService.queryWarehouseCheckToExcel("", "", "", 
+					strTheme, "", "", "", "", "");
+			
+			base.setDatas(list);
+			base.setSheetName(Constants.EXCEL_TYPE_WAREHOUSCHECK);
+			base.setDictMap(dictMap);
+			base.exportExcel(response.getOutputStream());
+		} catch(Exception e) {
+			log.error("exportAuditHist error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
 	/**
 	 * 数据查询
 	 */
@@ -143,6 +203,11 @@ public class WarehouseCheckAction extends BaseAction {
 		makeareaList = dict01Service.queryDict01ByFieldcode(Constants.DICT_MAKEAREA, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 		//颜色
 		colorList = dict01Service.queryDict01ByFieldcode(Constants.DICT_COLOR_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		//excel密码
+		List<Dict01Dto> listPass = dict01Service.queryDict01ByFieldcode(Constants.EXCEL_PASS, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		if(listPass != null && listPass.size() > 0) {
+			excelPass = listPass.get(0).getCode();
+		}
 	}
 
 	public Dict01Service getDict01Service() {
@@ -231,5 +296,13 @@ public class WarehouseCheckAction extends BaseAction {
 
 	public void setWarehouseCheckList(List<WarehouseCheckDto> warehouseCheckList) {
 		this.warehouseCheckList = warehouseCheckList;
+	}
+	
+	public String getExcelPass() {
+		return excelPass;
+	}
+
+	public void setExcelPass(String excelPass) {
+		this.excelPass = excelPass;
 	}
 }

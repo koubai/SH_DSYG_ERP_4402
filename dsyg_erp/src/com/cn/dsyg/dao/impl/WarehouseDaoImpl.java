@@ -312,4 +312,24 @@ public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
 		paramMap.put("warehousename", warehousename);
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryWarehouseDetailCountByPage", paramMap);
 	}
+
+	@Override
+	public List<WarehouseCheckDto> queryWarehouseCheckToExcel(String parentid,
+			String warehousetype, String warehouseno, String theme1,
+			String productid, String tradename, String typeno, String color,
+			String warehousename) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("parentid", parentid);
+		paramMap.put("warehousetype", warehousetype);
+		paramMap.put("warehouseno", warehouseno);
+		paramMap.put("theme1", theme1);
+		paramMap.put("productid", productid);
+		paramMap.put("tradename", tradename);
+		paramMap.put("typeno", typeno);
+		paramMap.put("color", color);
+		paramMap.put("warehousename", warehousename);
+		@SuppressWarnings("unchecked")
+		List<WarehouseCheckDto> list = getSqlMapClientTemplate().queryForList("queryWarehouseCheckToExcel", paramMap);
+		return list;
+	}
 }

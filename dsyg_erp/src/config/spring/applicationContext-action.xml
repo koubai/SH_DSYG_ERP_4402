@@ -82,6 +82,13 @@
 		</property>
 	</bean>
 
+	<!-- 销售报告信息 -->
+	<bean id="salesReportAction" class="com.cn.dsyg.action.SalesReportAction" scope="session">
+		<property name="salesReportService">
+			<ref bean="salesReportService" />
+		</property>
+	</bean>
+
 	<!-- 员工档案信息 -->
 	<bean id="personalAction" class="com.cn.dsyg.action.PersonalAction" scope="session">
 		<property name="personalService">

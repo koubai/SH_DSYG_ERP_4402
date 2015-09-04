@@ -62,6 +62,14 @@
 			<result name="success">/page/download.jsp</result>
 		</action>
 		
+		<action name="showUpdWarehouserptOutItemAction" class="warehouserptAction" method="showUpdWarehouserptOutItemAction">
+			<result name="*">/page/warehouserpt/updwarehouserptoutitem.jsp</result>
+		</action>
+	
+		<action name="showUpdWarehouserptInItemAction" class="warehouserptAction" method="showUpdWarehouserptInItemAction">
+			<result name="*">/page/warehouserpt/updwarehouserptinitem.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

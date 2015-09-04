@@ -90,6 +90,25 @@ public class WarehouserptAction extends BaseAction {
 		return SUCCESS;
 	}
 	
+	
+	//发货单
+	/**
+	 * 发货单详细页面
+	 * @return
+	 */
+	public String showUpdWarehouserptOutItemAction() {
+		try {
+			this.clearMessages();
+			updWarehouserptDto = warehouserptService.queryWarehouserptByID(updWarehouserptId);
+			//初期化字典数据
+			initDictList();
+		} catch(Exception e) {
+			log.error("showUpdWarehouserptOutItemAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
 	/**
 	 * 修改发货单
 	 * @return
@@ -256,6 +275,23 @@ public class WarehouserptAction extends BaseAction {
 			initDictList();
 		} catch(Exception e) {
 			log.error("showUpdWarehouserptInAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 入库单详细页面
+	 * @return
+	 */
+	public String showUpdWarehouserptInItemAction() {
+		try {
+			this.clearMessages();
+			updWarehouserptDto = warehouserptService.queryWarehouserptByID(updWarehouserptId);
+			//初期化字典数据
+			initDictList();
+		} catch(Exception e) {
+			log.error("showUpdWarehouserptInItemAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;

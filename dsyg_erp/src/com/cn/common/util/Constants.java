@@ -8,7 +8,9 @@ package com.cn.common.util;
  * @version 1.0
  */
 public class Constants {
-	
+
+	//销售报告编号前缀
+	public final static String SALESREPORT_NO_PRE = "BGN";
 	//资产编号前缀
 	public final static String ASSETS_NO_PRE = "ZCN";
 	//员工编号前缀
@@ -43,6 +45,8 @@ public class Constants {
 	public final static String EXCEL_TYPE_WAREHOUSERPT_IN_DETAIL_LIST = "warehouserpt_in_detail";
 	//出库单明细数据
 	public final static String EXCEL_TYPE_WAREHOUSERPT_OUT_DETAIL_LIST = "warehouserpt_out_detail";
+	//库存盘点数据
+	public final static String EXCEL_TYPE_WAREHOUSCHECK = "warehousercheck";
 	
 	//当前系统所属地
 	public final static String SYSTEM_BELONG = "belongto";

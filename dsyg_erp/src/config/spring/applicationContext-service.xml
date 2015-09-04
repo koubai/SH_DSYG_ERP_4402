@@ -336,6 +336,19 @@
 		</property>
 	</bean>
 	
+	<!-- 销售报告信息 -->
+	<bean id="salesReportService" class="com.cn.dsyg.service.impl.SalesReportServiceImpl" >
+		<property name="salesReportDao">
+			<ref local="salesReportDao"/>
+		</property>
+	</bean>
+	
+	<bean id="salesReportDao" class="com.cn.dsyg.dao.impl.SalesReportDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
 	<!-- 文件物品信息 -->
 	<bean id="documentService" class="com.cn.dsyg.service.impl.DocumentServiceImpl" >
 		<property name="documentDao">

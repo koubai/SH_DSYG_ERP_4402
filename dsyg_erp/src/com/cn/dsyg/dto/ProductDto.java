@@ -113,6 +113,8 @@ public class ProductDto extends BaseDto {
 	private String hasbroken;
 	//退货或破损数量
 	private String brokennum;
+	//订单号
+	private String parentid;
 	
 	/**
 	 * 备注
@@ -1016,5 +1018,13 @@ public class ProductDto extends BaseDto {
 
 	public void setPdfurl(String pdfurl) {
 		this.pdfurl = pdfurl;
+	}
+
+	public String getParentid() {
+		return parentid;
+	}
+
+	public void setParentid(String parentid) {
+		this.parentid = parentid;
 	}
 }

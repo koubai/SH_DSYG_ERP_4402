@@ -126,25 +126,30 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 		WarehouserptDto rpt = warehouserptDao.queryWarehouserptByID(id);
 		if(rpt != null) {
 			//查询对应的库存记录列表
-			if(StringUtil.isNotBlank(rpt.getProductinfo())) {
+			if(StringUtil.isNotBlank(rpt.getProductinfo()) && StringUtil.isNotBlank(rpt.getParentid())) {
 				List<ProductDto> list = new ArrayList<ProductDto>();
 				String[] infos = rpt.getProductinfo().split("#");
-				for(String info : infos) {
-					if(StringUtil.isNotBlank(info)) {
-						String[] ll = info.split(",");
-						ProductDto product = productDao.queryProductByID(ll[0]);
-						if(product != null) {
-							//货物数量
-							product.setNum(ll[1]);
-							//货物金额
-							product.setAmount(ll[2]);
-							product.setHasbroken("0");
-							product.setBrokennum("0");
-							list.add(product);
+				String[] parents = rpt.getParentid().split(",");
+				if(infos.length == parents.length){
+					for(int i=0; i<infos.length; i++) {
+						if(StringUtil.isNotBlank(infos[i])) {
+							String[] ll = infos[i].split(",");
+							ProductDto product = productDao.queryProductByID(ll[0]);
+							WarehouseDto warehouse = warehouseDao.queryWarehouseByWarehouseno(parents[i]);
+							if(product != null) {
+								//货物数量
+								product.setNum(ll[1]);
+								//货物金额
+								product.setAmount(ll[2]);
+								product.setHasbroken("0");
+								product.setBrokennum("0");
+								product.setParentid(warehouse.getParentid());;
+								list.add(product);
+							}
 						}
 					}
+					rpt.setListProduct(list);
 				}
-				rpt.setListProduct(list);
 			}
 		}
 		return rpt;

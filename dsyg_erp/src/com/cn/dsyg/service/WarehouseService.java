@@ -3,6 +3,7 @@ package com.cn.dsyg.service;
 import java.util.List;
 
 import com.cn.common.util.Page;
+import com.cn.dsyg.dto.WarehouseCheckDto;
 import com.cn.dsyg.dto.WarehouseDto;
 
 /**
@@ -41,6 +42,23 @@ public interface WarehouseService {
 	public Page queryWarehouseCheckByPage(String parentid, String warehousetype,
 			String warehouseno, String theme1, String productid, String tradename,
 			String typeno, String color, String warehousename, Page page);
+	
+	/**
+	 * 库存盘点
+	 * @param parentid
+	 * @param warehousetype
+	 * @param warehouseno
+	 * @param theme1
+	 * @param productid
+	 * @param tradename
+	 * @param typeno
+	 * @param color
+	 * @param warehousename
+	 * @return
+	 */
+	public List<WarehouseCheckDto> queryWarehouseCheckToExcel(String parentid, String warehousetype,
+			String warehouseno, String theme1, String productid, String tradename,
+			String typeno, String color, String warehousename);
 	
 	//库存产品
 	/**

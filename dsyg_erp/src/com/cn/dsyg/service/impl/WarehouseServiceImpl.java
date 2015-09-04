@@ -186,6 +186,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//入库单号集合
 			String warehousenos = "";
 			int count = 0;
+			//产品信息
+			String productinfo = "";
 			//含税金额合计
 			BigDecimal totaltaxamount = new BigDecimal(0);
 			for(int i = 0; i < idList.length; i++) {
@@ -211,6 +213,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 						//计算当前集集的库存数量
 						count += warehouse.getQuantity();
 						warehousenos += warehouse.getWarehouseno() + ",";
+						productinfo += warehouse.getProductid() + "," + warehouse.getQuantity() + "," + warehouse.getTaxamount() + "#";
 						
 						//计算含税金额
 						totaltaxamount = totaltaxamount.add(warehouse.getTaxamount());
@@ -262,6 +265,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//主题
 			//warehouserpt.setTheme1(list.get(0).getTheme1());
 			//产品信息
+			/*
 			String productinfo = "";
 
 
@@ -269,7 +273,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 			for (Iterator<?> it = key.iterator(); it.hasNext();) {
 				String k = (String) it.next();
 				productinfo += k + "," + quantityMap.get(k) + "," + amountMap.get(k) + "#";
-			}
+			} */
 			
 			warehouserpt.setProductinfo(productinfo);
 			//入库单RPT日期
@@ -389,6 +393,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 			String customerid = "";
 			//入库单号集合
 			String warehousenos = "";
+			//产品信息
+			String productinfo = "";
 			//产品合集
 			Map<String, Integer> quantityMap = new HashMap<String, Integer>();
 			Map<String, BigDecimal> amountMap = new HashMap<String, BigDecimal>();
@@ -428,6 +434,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 						//计算当前集集的库存数量
 						//count += warehouse.getQuantity();
 						warehousenos += warehouse.getWarehouseno() + ",";
+						productinfo += warehouse.getProductid() + "," + warehouse.getQuantity() + "," + warehouse.getTaxamount() + "#";
 						
 						//计算含税金额
 						totaltaxamount = totaltaxamount.add(warehouse.getTaxamount());
@@ -479,12 +486,13 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//主题
 			//warehouserpt.setTheme1(list.get(0).getTheme1());
 			//产品信息
+			/*
 			String productinfo = "";
 			Set<?> key = quantityMap.keySet();
 			for (Iterator<?> it = key.iterator(); it.hasNext();) {
 				String k = (String) it.next();
 				productinfo += k + "," + quantityMap.get(k) + "," + amountMap.get(k) + "#";
-			}
+			} */
 			warehouserpt.setProductinfo(productinfo);
 			//入库单RPT日期
 			warehouserpt.setWarehousedate(DateUtil.dateToShortStr(date));
@@ -767,5 +775,13 @@ public class WarehouseServiceImpl implements WarehouseService {
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		page.setItems(list);
 		return page;
+	}
+
+	@Override
+	public List<WarehouseCheckDto> queryWarehouseCheckToExcel(String parentid,
+			String warehousetype, String warehouseno, String theme1,
+			String productid, String tradename, String typeno, String color,
+			String warehousename) {
+		return warehouseDao.queryWarehouseCheckToExcel(parentid, warehousetype, warehouseno, theme1, productid, tradename, typeno, color, warehousename);
 	}
 }

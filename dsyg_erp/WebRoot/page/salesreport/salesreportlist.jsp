@@ -8,14 +8,15 @@
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
-<title>文件物品信息一览</title>
+<title>销售报告信息一览</title>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var h = screen.availHeight; 
 		$("#container").height(h - 60);
 	});
+
 	function add() {
-		document.mainform.action = '<c:url value="/document/showAddEtbDocumentAction.action"></c:url>';
+		document.mainform.action = '<c:url value="/salesreport/showAddSalesReportAction.action"></c:url>';
 		document.mainform.submit();
 	}
 	
@@ -25,7 +26,7 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
-			document.mainform.action = '<c:url value="/document/showUpdEtbDocumentAction.action"></c:url>' + "?updateDocumentNo=" + id;
+			document.mainform.action = '<c:url value="/salesreport/showUpdSalesReportAction.action"></c:url>' + "?updateSalesReportNo=" + id;
 			document.mainform.submit();
 		}
 	}
@@ -37,7 +38,7 @@
 			return;
 		} else {
 			if(confirm("确定删除该记录吗？")) {
-				document.mainform.action = '<c:url value="/document/delEtbDocumentAction.action"></c:url>' + "?delDocumentNo=" + id;
+				document.mainform.action = '<c:url value="/salesreport/delSalesReportAction.action"></c:url>' + "?delSalesReportNo=" + id;
 				document.mainform.submit();
 			}
 		}
@@ -56,19 +57,19 @@
 	}
 	
 	function exportExcel() {
-		document.mainform.action = '<c:url value="/document/exportEtbDocumentAction.action"></c:url>';
+		document.mainform.action = '<c:url value="/salesreport/exportSalesReportAction.action"></c:url>';
 		document.mainform.submit();
 	}
 	
 	function queryList() {
-		document.mainform.action = '<c:url value="/document/queryEtbDocumentList.action"></c:url>';
+		document.mainform.action = '<c:url value="/salesreport/querySalesReportList.action"></c:url>';
 		document.mainform.submit();
 	}
 	
 	//翻页
 	function changePage(pageNum) {
 		document.getElementById("startIndex").value = pageNum;
-		document.mainform.action = '<c:url value="/document/turnEtbDocumentPage.action"></c:url>';
+		document.mainform.action = '<c:url value="/salesreport/turnSalesReportPage.action"></c:url>';
 		document.mainform.submit();
 	}
 	
@@ -76,7 +77,7 @@
 	function changepagesize(pagesize) {
 		$("#intPageSize").attr("value", pagesize);
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../document/queryEtbDocumentList.action';
+		document.mainform.action = '../salesreport/querySalesReportList.action';
 		document.mainform.submit();
 	}
 
@@ -119,7 +120,7 @@
 				<div class="tittle_left">
 				</div>
 				<div class="tittle_center">
-					文件物品信息一览
+					销售报告信息一览
 				</div>
 				<div class="tittle_right">
 				</div>
@@ -129,26 +130,26 @@
 				<s:hidden name="intPageSize" id="intPageSize"/>
 				<div class="searchbox update">
 					<div class="box1">
-						<label class="pdf10" style="width:120px">文件编号检索 FROM</label>
+						<label class="pdf10" style="width:120px">报告编号检索 FROM</label>
 						<div class="box1_left"></div>
 						<div class="box1_center">
-							<s:textfield name="strDocumentNoLow" id="strDocumentNoLow" cssStyle="width:135px;" maxlength="4" theme="simple"></s:textfield>
+							<s:textfield name="strSalesReportNoLow" id="strSalesReportNoLow" cssStyle="width:135px;" maxlength="32" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
 						<label>TO</label>
 						<div class="box1_left"></div>
 						<div class="box1_center">
-							<s:textfield name="strDocumentNoHigh" id="strDocumentNoHigh" cssStyle="width:135px;" maxlength="4" theme="simple"></s:textfield>
+							<s:textfield name="strSalesReportNoHigh" id="strSalesReportNoHigh" cssStyle="width:135px;" maxlength="32" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
 					</div>
 				</div>
 				<div class="searchbox update">
 					<div class="box1" >
-						<label class="pdf10" style="width:120px">文件名</label>
+						<label class="pdf10" style="width:120px">报告名</label>
 						<div class="box1_left"></div>
 						<div class="box1_center">
-							<s:textfield name="strDocumentName" id="strDocumentName" cssStyle="width:135px;" maxlength="4" theme="simple"></s:textfield>
+							<s:textfield name="strSalesReportName" id="strSalesReportName" cssStyle="width:135px;" maxlength="128" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
 					</div>
@@ -177,32 +178,44 @@
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
 								<td width="5%"></td>
-								<td width="10%">序号</td>
-								<td width="15%">文件编号</td>
-								<td width="20%">文件名</td>
+								<td width="5%">序号</td>
+								<td width="15%">报告编号</td>
+								<td width="15%">报告名</td>
+								<td width="15%">用途</td>
 								<td width="10%">负责人</td>
 								<td width="10%">登记日期</td>
-								<td width="10%">确认者</td>
-								<td width="20%">备注</td>
+								<td width="10%">文件1</td>
+								<td width="10%">文件2</td>
+								<td width="10%">文件3</td>
+								<td width="10%">备注</td>
 							</tr>
-							<s:iterator id="listDocument" value="listDocument" status="st1">
+							<s:iterator id="listSalesReport" value="listSalesReport" status="st1">
 								<s:if test="#st1.odd==true">
-									<tr class="tr_bg">
+									<tr class="tr_bg" onclick="checkRadioTr(this, event);">
 								</s:if>
 								<s:else>
-									<tr>
+									<tr onclick="checkRadioTr(this, event);">
 								</s:else>
-									<td><input name="radioKey" type="radio" value="<s:property value="documentno"/>"/></td>
+									<td><input name="radioKey" type="radio" value="<s:property value="salesreportno"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-									<td><s:property value="documentno"/></td>
+									<td><s:property value="salesreportno"/></td>
 									<td>
 										<div noWrap style="text-overflow:ellipsis;overflow:hidden">
-											<s:property value="documentname"/>
+											<s:property value="salesreportname"/>
 										</div>
 									</td>
+									<td><s:property value="purpose"/></td>
 									<td><s:property value="handler"/></td>
 									<td><s:property value="showregisterdate"/></td>
-									<td><s:property value="approverid"/></td>
+									<td>
+										<a target="_blank" href="<s:property value="reporturl"/><s:property value="reportpath01"/>"><s:property value="reportpath01"/></a>
+									</td>
+									<td>
+										<a target="_blank" href="<s:property value="reporturl"/><s:property value="reportpath02"/>"><s:property value="reportpath02"/></a>
+									</td>
+									<td>
+										<a target="_blank" href="<s:property value="reporturl"/><s:property value="reportpath03"/>"><s:property value="reportpath03"/></a>
+									</td>
 									<td>
 										<div noWrap style="width:150px;text-overflow:ellipsis;overflow:hidden">
 											<s:property value="note"/>

@@ -203,7 +203,7 @@
 									</td>
 									<td><s:property value="purpose"/></td>
 									<td><s:property value="handler"/></td>
-									<td><s:property value="registerdate"/></td>
+									<td><s:property value="showregisterdate"/></td>
 									<td>
 										<div noWrap style="width:150px;text-overflow:ellipsis;overflow:hidden">
 											<s:property value="note"/>

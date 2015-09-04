@@ -48,6 +48,8 @@
 	<include file="struts-personal.xml"></include>
 	<!-- document -->
 	<include file="struts-document.xml"></include>
+	<!-- salesreport -->
+	<include file="struts-salesreport.xml"></include>
 	
 	<package name="index" extends="struts-default, json-default" namespace="/index">
 		

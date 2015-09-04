@@ -35,6 +35,10 @@ public class PoiFactory {
 			//出库单明细数据
 			return new PoiWarehouserptOutDetail();
 		}
+		if(Constants.EXCEL_TYPE_WAREHOUSCHECK.equals(type)) {
+			//库存盘点数据
+			return new PoiWarehouseCheck();
+		}
 		return null;
 	}
 }

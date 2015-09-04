@@ -58,6 +58,23 @@ public interface WarehouseDao {
 			String typeno, String color, String warehousename, int start, int end);
 	
 	/**
+	 * 库存盘点
+	 * @param parentid
+	 * @param warehousetype
+	 * @param warehouseno
+	 * @param theme1
+	 * @param productid
+	 * @param tradename
+	 * @param typeno
+	 * @param color
+	 * @param warehousename
+	 * @return
+	 */
+	public List<WarehouseCheckDto> queryWarehouseCheckToExcel(String parentid, String warehousetype,
+			String warehouseno, String theme1, String productid, String tradename,
+			String typeno, String color, String warehousename);
+	
+	/**
 	 * 查询库存盘点记录数
 	 * @param parentid
 	 * @param warehousetype

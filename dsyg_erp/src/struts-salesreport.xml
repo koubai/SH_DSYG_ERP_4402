@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="salesreport" extends="struts-erp" namespace="/salesreport">
+	
+		<action name="showSalesReportAction" class="salesReportAction" method="showSalesReportAction">
+			<result name="*">/page/salesreport/salesreportlist.jsp</result>
+		</action>
+		
+		<action name="querySalesReportList" class="salesReportAction" method="querySalesReportList">
+			<result name="success">/page/salesreport/salesreportlist.jsp</result>
+		</action>
+		
+		<action name="turnSalesReportPage" class="salesReportAction" method="turnSalesReportPage">
+			<result name="success">/page/salesreport/salesreportlist.jsp</result>
+		</action>
+		
+		<action name="showAddSalesReportAction" class="salesReportAction" method="showAddSalesReportAction">
+			<result name="*">/page/salesreport/addsalesreport.jsp</result>
+		</action>
+		
+		<action name="addSalesReportAction" class="salesReportAction" method="addSalesReportAction">
+			<result name="success">/page/salesreport/addsalesreport.jsp</result>
+			<result name="checkerror">/page/salesreport/addsalesreport.jsp</result>
+		</action>
+		
+		<action name="showUpdSalesReportAction" class="salesReportAction" method="showUpdSalesReportAction">
+			<result name="success">/page/salesreport/updsalesreport.jsp</result>
+			<result name="checkerror">/page/salesreport/updsalesreport.jsp</result>
+		</action>
+		
+		<action name="updSalesReportAction" class="salesReportAction" method="updSalesReportAction">
+			<result name="success">/page/salesreport/updsalesreport.jsp</result>
+			<result name="checkerror">/page/salesreport/updsalesreport.jsp</result>
+		</action>
+		
+		<action name="delSalesReportAction" class="salesReportAction" method="delSalesReportAction">
+			<result name="success">/page/salesreport/salesreportlist.jsp</result>
+			<result name="checkerror">/page/salesreport/salesreportlist.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>
