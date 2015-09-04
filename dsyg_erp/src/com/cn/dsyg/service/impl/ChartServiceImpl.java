@@ -91,78 +91,78 @@ public class ChartServiceImpl implements ChartService{
 	}
 
 	// 取得销售数据
-	public List<ChartDto> getSaleData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
+	public List<ChartDto> getSaleData(String belongto, String theme, String from_date, String to_date, String dur_type, String handerList) {  
     	List<ChartDto>  list = new ArrayList<ChartDto>();
-        list = querySalesByDate(theme, from_date, to_date, dur_type, handerList);
+        list = querySalesByDate(belongto, theme, from_date, to_date, dur_type, handerList);
     	
     	return list;
     }
 
 	// 取得销售详细数据
-	public List<ChartDto> getSaleDetailData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
+	public List<ChartDto> getSaleDetailData(String belongto, String theme, String from_date, String to_date, String dur_type, String handerList) {  
     	List<ChartDto>  list = new ArrayList<ChartDto>();
-        list = querySalesDetailByDate(theme, from_date, to_date, dur_type, handerList);
+        list = querySalesDetailByDate(belongto, theme, from_date, to_date, dur_type, handerList);
     	
     	return list;
     }
     
 	// 取得采购数据
-    public List<ChartDto> getBuyData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
+    public List<ChartDto> getBuyData(String belongto, String theme, String from_date, String to_date, String dur_type, String handerList) {  
     	List<ChartDto>  list = new ArrayList<ChartDto>();
-        list = queryPurchaseByDate(theme, from_date, to_date, dur_type, handerList);
+        list = queryPurchaseByDate(belongto, theme, from_date, to_date, dur_type, handerList);
     	
     	return list;
     }
 
 	// 取得快递数据
-    public List<ChartDto> getDeliveryData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
+    public List<ChartDto> getDeliveryData(String belongto, String theme, String from_date, String to_date, String dur_type, String handerList) {  
     	List<ChartDto>  list = new ArrayList<ChartDto>();
-        list = queryWareHouseRptByDate(theme, from_date, to_date, dur_type, handerList);
+        list = queryWareHouseRptByDate(belongto, theme, from_date, to_date, dur_type, handerList);
     	
     	return list;
     }
     
 	// 取得会计数据
-    public List<ChartDto> getAccountData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
+    public List<ChartDto> getAccountData(String belongto, String theme, String from_date, String to_date, String dur_type, String handerList) {  
     	List<ChartDto>  list = new ArrayList<ChartDto>();
-        list = queryFinanceByDate(theme, from_date, to_date, dur_type, handerList);
+        list = queryFinanceByDate(belongto, theme, from_date, to_date, dur_type, handerList);
     	
     	return list;
     }
 
     // 取得供应商数据
-    public List<ChartDto> getSupplierData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
+    public List<ChartDto> getSupplierData(String belongto, String theme, String from_date, String to_date, String dur_type, String handerList) {  
     	List<ChartDto>  list = new ArrayList<ChartDto>();
-        list = querySupplierByDate(theme, from_date, to_date, dur_type, handerList);
+        list = querySupplierByDate(belongto, theme, from_date, to_date, dur_type, handerList);
     	
     	return list;
     }
 
     // 取得客户数据
-    public List<ChartDto> getCustomerData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
+    public List<ChartDto> getCustomerData(String belongto, String theme, String from_date, String to_date, String dur_type, String handerList) {  
     	List<ChartDto>  list = new ArrayList<ChartDto>();
-        list = queryCustomerByDate(theme, from_date, to_date, dur_type, handerList);
+        list = queryCustomerByDate(belongto, theme, from_date, to_date, dur_type, handerList);
     	
     	return list;
     }
 
 	// 取得销售额数据
-	public List<ChartSaleTotalDto> getSaleTotalData(String theme, String from_date, String to_date, String dur_type, String handerList) {  
+	public List<ChartSaleTotalDto> getSaleTotalData(String belongto, String theme, String from_date, String to_date, String dur_type, String handerList) {  
     	List<ChartSaleTotalDto>  list = new ArrayList<ChartSaleTotalDto>();
-        list = querySaleTotalByDate(theme, from_date, to_date, dur_type, handerList);
+        list = querySaleTotalByDate(belongto, theme, from_date, to_date, dur_type, handerList);
     	
     	return list;
     }
     
     // get 采购 data by date
-	public List<ChartDto> queryPurchaseByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+	public List<ChartDto> queryPurchaseByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		try {
 			if (ctx != null){
 	        	chartDao = (ChartDao)ctx.getBean("chartDao");
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartDto> list = chartDao.queryPurchaseByDate(theme1, from_date, to_date, dur_type, handerList);
+			List<ChartDto> list = chartDao.queryPurchaseByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
 	        System.out.println("queryPurchaseByDate theme1:" + theme1);
 	        System.out.println("queryPurchaseByDate from_date:" + from_date);
 	        System.out.println("queryPurchaseByDate to_date:" + to_date);
@@ -176,14 +176,14 @@ public class ChartServiceImpl implements ChartService{
 	}
 
     // get 销售 data by date
-	public List<ChartDto> querySalesByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+	public List<ChartDto> querySalesByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		try {
 			if (ctx != null){
 	        	chartDao = (ChartDao)ctx.getBean("chartDao");
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartDto> list = chartDao.querySalesByDate(theme1, from_date, to_date, dur_type, handerList);
+			List<ChartDto> list = chartDao.querySalesByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
 	        System.out.println("querySalesByDate theme1:" + theme1);
 	        System.out.println("querySalesByDate from_date:" + from_date);
 	        System.out.println("querySalesByDate to_date:" + to_date);
@@ -197,14 +197,14 @@ public class ChartServiceImpl implements ChartService{
 	}
 
 	// get 销售 data by date
-	public List<ChartDto> querySalesDetailByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+	public List<ChartDto> querySalesDetailByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		try {
 			if (ctx != null){
 	        	chartDao = (ChartDao)ctx.getBean("chartDao");
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartDto> list = chartDao.querySalesDetailByDate(theme1, from_date, to_date, dur_type, handerList);
+			List<ChartDto> list = chartDao.querySalesDetailByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
 	        System.out.println("queryDetailSalesByDate theme1:" + theme1);
 	        System.out.println("queryDetailSalesByDate from_date:" + from_date);
 	        System.out.println("queryDetailSalesByDate to_date:" + to_date);
@@ -218,7 +218,7 @@ public class ChartServiceImpl implements ChartService{
 	}
 
     // get 库存 data by date
-	public List<ChartDto> queryWareHouseRptByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+	public List<ChartDto> queryWareHouseRptByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		try {
 			if (ctx != null){
 	        	chartDao = (ChartDao)ctx.getBean("chartDao");
@@ -226,7 +226,7 @@ public class ChartServiceImpl implements ChartService{
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartDto> list = chartDao.queryWareHouseRptByDate(theme1, from_date, to_date, dur_type, handerList);
+			List<ChartDto> list = chartDao.queryWareHouseRptByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
 	        System.out.println("queryWareHouseRptByDate theme1:" + theme1);
 	        System.out.println("queryWareHouseRptByDate from_date:" + from_date);
 	        System.out.println("queryWareHouseRptByDate to_date:" + to_date);
@@ -240,7 +240,7 @@ public class ChartServiceImpl implements ChartService{
 	}
 
     // get 财务 data by date
-	public List<ChartDto> queryFinanceByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+	public List<ChartDto> queryFinanceByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		try {
 			if (ctx != null){
 	        	chartDao = (ChartDao)ctx.getBean("chartDao");
@@ -248,7 +248,7 @@ public class ChartServiceImpl implements ChartService{
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartDto> list = chartDao.queryFinanceByDate(theme1, from_date, to_date, dur_type, handerList);
+			List<ChartDto> list = chartDao.queryFinanceByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
 	        System.out.println("queryFinanceByDate theme1:" + theme1);
 	        System.out.println("queryFinanceByDate from_date:" + from_date);
 	        System.out.println("queryFinanceByDate to_date:" + to_date);
@@ -262,7 +262,7 @@ public class ChartServiceImpl implements ChartService{
 	}
 	
     // get supplier data by date
-	public List<ChartDto> querySupplierByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+	public List<ChartDto> querySupplierByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		try {
 			if (ctx != null){
 	        	chartDao = (ChartDao)ctx.getBean("chartDao");
@@ -270,7 +270,7 @@ public class ChartServiceImpl implements ChartService{
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartDto> list = chartDao.querySupplierByDate(theme1, from_date, to_date, dur_type, handerList);
+			List<ChartDto> list = chartDao.querySupplierByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
 	        System.out.println("querySupplierByDate theme1:" + theme1);
 	        System.out.println("querySupplierByDate from_date:" + from_date);
 	        System.out.println("querySupplierByDate to_date:" + to_date);
@@ -283,7 +283,7 @@ public class ChartServiceImpl implements ChartService{
 		}
 	}
     // get customer data by date
-	public List<ChartDto> queryCustomerByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+	public List<ChartDto> queryCustomerByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		try {
 			if (ctx != null){
 	        	chartDao = (ChartDao)ctx.getBean("chartDao");
@@ -291,7 +291,7 @@ public class ChartServiceImpl implements ChartService{
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartDto> list = chartDao.queryCustomerByDate(theme1, from_date, to_date, dur_type, handerList);
+			List<ChartDto> list = chartDao.queryCustomerByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
 	        System.out.println("queryCustomerByDate theme1:" + theme1);
 	        System.out.println("queryCustomerByDate from_date:" + from_date);
 	        System.out.println("queryCustomerByDate to_date:" + to_date);
@@ -305,7 +305,7 @@ public class ChartServiceImpl implements ChartService{
 	}
 	
     // get Sale Total data by date
-	public List<ChartSaleTotalDto> querySaleTotalByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+	public List<ChartSaleTotalDto> querySaleTotalByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		try {
 			if (ctx != null){
 	        	chartDao = (ChartDao)ctx.getBean("chartDao");
@@ -313,7 +313,7 @@ public class ChartServiceImpl implements ChartService{
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartSaleTotalDto> list = chartDao.querySaleTotalByDate(theme1, from_date, to_date, dur_type, handerList);
+			List<ChartSaleTotalDto> list = chartDao.querySaleTotalByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
 	        System.out.println("querySaleTotalByDate theme1:" + theme1);
 	        System.out.println("querySaleTotalByDate from_date:" + from_date);
 	        System.out.println("querySaleTotalByDate to_date:" + to_date);
@@ -329,7 +329,7 @@ public class ChartServiceImpl implements ChartService{
 	
 	
 	// 从数据库中取得各类数据，放入JSON，由年单位转为月数组，并排序
-    public JSONArray getData(String pattern, String from_date, String to_date, String dur_type, String handerList) {  
+    public JSONArray getData(String belongto, String pattern, String from_date, String to_date, String dur_type, String handerList) {  
     	int i_fy;
     	int i_ty;
     	int i_fm;
@@ -356,7 +356,7 @@ public class ChartServiceImpl implements ChartService{
         	// get Sale summary data 
         	if (pattern.equals("8")){
             	List<ChartSaleTotalDto>  saletotallist = new ArrayList<ChartSaleTotalDto>();
-            	saletotallist = getSaleTotalData("", from_date, to_date, dur_type, handerList);
+            	saletotallist = getSaleTotalData(belongto, "", from_date, to_date, dur_type, handerList);
 
                 JSONObject item = null;  
 
@@ -390,31 +390,31 @@ public class ChartServiceImpl implements ChartService{
 
             	// get Buyer's data 
             	if (pattern.equals("1")){
-            		list = getBuyData("", from_date, to_date, dur_type, handerList);
+            		list = getBuyData(belongto, "", from_date, to_date, dur_type, handerList);
             	}
             	// get Saler's data 
             	else if (pattern.equals("2")){
-            		list = getSaleData("", from_date, to_date, dur_type, handerList);
+            		list = getSaleData(belongto, "", from_date, to_date, dur_type, handerList);
             	}
             	// get Delivery's data 
             	else if (pattern.equals("3")){
-            		list = getDeliveryData("", from_date, to_date, dur_type, handerList);
+            		list = getDeliveryData(belongto, "", from_date, to_date, dur_type, handerList);
             	}
             	// get Account's data 
             	else if (pattern.equals("4")){
-            		list = getAccountData("", from_date, to_date, dur_type, handerList);
+            		list = getAccountData(belongto, "", from_date, to_date, dur_type, handerList);
             	}
             	// get Saler's detail data 
             	else if (pattern.equals("5")){
-            		list = getSaleDetailData("", from_date, to_date, dur_type, handerList);
+            		list = getSaleDetailData(belongto, "", from_date, to_date, dur_type, handerList);
             	}
             	// get supplier data 
             	else if (pattern.equals("6")){
-            		list = getSupplierData("", from_date, to_date, dur_type, handerList);
+            		list = getSupplierData(belongto, "", from_date, to_date, dur_type, handerList);
             	}
             	// get Saler's detail data 
             	else if (pattern.equals("7")){
-            		list = getCustomerData("", from_date, to_date, dur_type, handerList);
+            		list = getCustomerData(belongto, "", from_date, to_date, dur_type, handerList);
             	}
         		
                 Map<String, String> item_map = null;

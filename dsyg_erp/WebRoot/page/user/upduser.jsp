@@ -137,6 +137,30 @@
 							</td>
 						</tr>
 						<tr>
+							<td>
+								所属地
+								<select name="userDto.belongto" id="belongto" style="width: 100px;">
+									<s:if test="userDto.belongto == 0">
+										<option value="0" selected="selected">上海</option>
+										<option value="1" >深圳</option>
+										<option value="99" >全部</option>
+									</s:if>
+									<s:elseif test="userDto.belongto == 1">
+										<option value="0" >上海</option>
+										<option value="1" selected="selected">深圳</option>
+										<option value="99" >全部</option>
+									</s:elseif>
+									<s:elseif test="userDto.belongto == 99">
+										<option value="0" >上海</option>
+										<option value="1" >深圳</option>
+										<option value="99" selected="selected">全部</option>
+									</s:elseif>
+									<s:else>
+									</s:else>
+								</select>
+							</td>						
+						</tr>
+						<tr>
 							<td align="right">
 								<label class="pdf10">备注</label>
 							</td>

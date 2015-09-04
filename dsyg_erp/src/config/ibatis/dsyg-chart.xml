@@ -38,18 +38,21 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.purchasedate,'%y') as years, DATE_FORMAT(T.purchasedate,'%m') months,  T.theme1, TU.userid as id, TU.username as handler, T.totalamount as pur_sum_data     
-			from etb_purchase T, tbuser TU			
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1, TU.userid as id, TU.username as handler, sum(T.taxamount) as pur_sum_data     
+			from etb_warehouse T, tbuser TU			
 			where 1=1 
+			and T.belongto = #belongto#
+			and T.warehousetype='1'
+			and T.status='99'
 			and T.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="from_date">
-				T.purchasedate <![CDATA[>=]]> #from_date#
+				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.purchasedate <![CDATA[<=]]> #to_date#
+				T.warehousedate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
@@ -73,18 +76,21 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.purchasedate,'%y') as years, DATE_FORMAT(T.purchasedate,'%m') months,  T.theme1, TU.userid as id, TU.username as handler, T.totalamount as pur_sum_data     
-			from etb_purchase T, tbuser TU			
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1, TU.userid as id, TU.username as handler, sum(T.taxamount) as pur_sum_data     
+			from etb_warehouse T, tbuser TU			
 			where 1=1 
+			and T.belongto = #belongto#
+			and T.warehousetype='1'
+			and T.status='99'
 			and T.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="from_date">
-				T.purchasedate <![CDATA[>=]]> #from_date#
+				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.purchasedate <![CDATA[<=]]> #to_date#
+				T.warehousedate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
@@ -108,18 +114,21 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.purchasedate,'%y') as years, DATE_FORMAT(T.purchasedate,'%m') months,  T.theme1, TU.userid as id, TU.username as handler, T.totalamount as pur_sum_data     
-			from etb_purchase T, tbuser TU			
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1, TU.userid as id, TU.username as handler, sum(T.taxamount) as pur_sum_data     
+			from etb_warehouse T, tbuser TU			
 			where 1=1 
+			and T.belongto = #belongto#
+			and T.warehousetype='1'
+			and T.status='99'
 			and T.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="from_date">
-				T.purchasedate <![CDATA[>=]]> #from_date#
+				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.purchasedate <![CDATA[<=]]> #to_date#
+				T.warehousedate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
@@ -143,18 +152,21 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.purchasedate,'%y') as years, DATE_FORMAT(T.purchasedate,'%m') months,  T.theme1, TU.userid as id, TU.username as handler, T.totalamount as pur_sum_data     
-			from etb_purchase T, tbuser TU			
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1, TU.userid as id, TU.username as handler, sum(T.taxamount) as pur_sum_data     
+			from etb_warehouse T, tbuser TU			
 			where 1=1 
+			and T.belongto = #belongto#
+			and T.warehousetype='1'
+			and T.status='99'
 			and T.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="from_date">
-				T.purchasedate <![CDATA[>=]]> #from_date#
+				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.purchasedate <![CDATA[<=]]> #to_date#
+				T.warehousedate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
@@ -179,19 +191,22 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.bookdate,'%y') as years, DATE_FORMAT(T.bookdate,'%m') months, T.theme1, TU.userid as id,TU.username as handler2, TC.customertype as typ, TC.customername, T.taxamount as pur_sum_data     
-			from etb_sales T, etb_customer TC, tbuser TU
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, T.theme1, TU.userid as id,TU.username as handler2, TC.customertype as typ, TC.customername, T.taxamount as pur_sum_data     
+			from etb_warehouse T, etb_customer TC, tbuser TU
 			where 1=1
-  			and T.customerid = TC.id
-  			and T.handler = TU.userid
+			and T.belongto = #belongto#
+			and T.warehousetype='2'
+			and T.status='99'
+			and T.supplierid = TC.id
+			and T.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="from_date">
-				T.bookdate <![CDATA[>=]]> #from_date#
+				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.bookdate <![CDATA[<=]]> #to_date#
+				T.warehousedate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
@@ -217,19 +232,22 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.bookdate,'%y') as years, DATE_FORMAT(T.bookdate,'%m') months, T.theme1, TU.userid as id,TU.username as handler2, TC.customertype as typ, TC.customername, T.taxamount as pur_sum_data     
-			from etb_sales T, etb_customer TC, tbuser TU
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, T.theme1, TU.userid as id,TU.username as handler2, TC.customertype as typ, TC.customername, T.taxamount as pur_sum_data     
+			from etb_warehouse T, etb_customer TC, tbuser TU
 			where 1=1
-  			and T.customerid = TC.id
-  			and T.handler = TU.userid
+			and T.belongto = #belongto#
+			and T.warehousetype='2'
+			and T.status='99'
+			and T.supplierid = TC.id
+			and T.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="from_date">
-				T.bookdate <![CDATA[>=]]> #from_date#
+				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.bookdate <![CDATA[<=]]> #to_date#
+				T.warehousedate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
@@ -254,19 +272,22 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.bookdate,'%y') as years, DATE_FORMAT(T.bookdate,'%m') months, T.theme1, TU.userid as id,TU.username as handler2, TC.customertype as typ, TC.customername, T.taxamount as pur_sum_data     
-			from etb_sales T, etb_customer TC, tbuser TU
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, T.theme1, TU.userid as id,TU.username as handler2, TC.customertype as typ, TC.customername, T.taxamount as pur_sum_data     
+			from etb_warehouse T, etb_customer TC, tbuser TU
 			where 1=1
-  			and T.customerid = TC.id
-  			and T.handler = TU.userid
+			and T.belongto = #belongto#
+			and T.warehousetype='2'
+			and T.status='99'
+			and T.supplierid = TC.id
+			and T.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="from_date">
-				T.bookdate <![CDATA[>=]]> #from_date#
+				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.bookdate <![CDATA[<=]]> #to_date#
+				T.warehousedate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
@@ -291,19 +312,22 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.bookdate,'%y') as years, DATE_FORMAT(T.bookdate,'%m') months, T.theme1, TU.userid as id,TU.username as handler2, TC.customertype as typ, TC.customername, T.taxamount as pur_sum_data     
-			from etb_sales T, etb_customer TC, tbuser TU
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, T.theme1, TU.userid as id,TU.username as handler2, TC.customertype as typ, TC.customername, T.taxamount as pur_sum_data     
+			from etb_warehouse T, etb_customer TC, tbuser TU
 			where 1=1
-  			and T.customerid = TC.id
-  			and T.handler = TU.userid
+			and T.belongto = #belongto#
+			and T.warehousetype='2'
+			and T.status='99'
+			and T.supplierid = TC.id
+			and T.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="from_date">
-				T.bookdate <![CDATA[>=]]> #from_date#
+				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.bookdate <![CDATA[<=]]> #to_date#
+				T.warehousedate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
@@ -329,18 +353,21 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.bookdate,'%y') as years, DATE_FORMAT(T.bookdate,'%m') months, T.theme1, TU.userid as id, TU.username as handler, T.taxamount as pur_sum_data     
-			from etb_sales T, tbuser TU
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1, TU.userid as id, TU.username as handler, sum(T.taxamount) as pur_sum_data     
+			from etb_warehouse T, tbuser TU			
 			where 1=1 
+			and T.belongto = #belongto#
+			and T.warehousetype='2'
+			and T.status='99'
 			and T.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="from_date">
-				T.bookdate <![CDATA[>=]]> #from_date#
+				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.bookdate <![CDATA[<=]]> #to_date#
+				T.warehousedate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
@@ -364,18 +391,21 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.bookdate,'%y') as years, DATE_FORMAT(T.bookdate,'%m') months, T.theme1, TU.userid as id, TU.username as handler, T.taxamount as pur_sum_data     
-			from etb_sales T, tbuser TU
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1, TU.userid as id, TU.username as handler, sum(T.taxamount) as pur_sum_data     
+			from etb_warehouse T, tbuser TU			
 			where 1=1 
+			and T.belongto = #belongto#
+			and T.warehousetype='2'
+			and T.status='99'
 			and T.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="from_date">
-				T.bookdate <![CDATA[>=]]> #from_date#
+				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.bookdate <![CDATA[<=]]> #to_date#
+				T.warehousedate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
@@ -399,18 +429,21 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.bookdate,'%y') as years, DATE_FORMAT(T.bookdate,'%m') months, T.theme1, TU.userid as id, TU.username as handler, T.taxamount as pur_sum_data     
-			from etb_sales T, tbuser TU
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1, TU.userid as id, TU.username as handler, sum(T.taxamount) as pur_sum_data     
+			from etb_warehouse T, tbuser TU			
 			where 1=1 
+			and T.belongto = #belongto#
+			and T.warehousetype='2'
+			and T.status='99'
 			and T.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="from_date">
-				T.bookdate <![CDATA[>=]]> #from_date#
+				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.bookdate <![CDATA[<=]]> #to_date#
+				T.warehousedate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
@@ -435,23 +468,22 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, T.theme1, TU.id as id, TU.deliveryname as handler, T.expresstaxamount as pur_sum_data     
-			from etb_warehouserpt T, etb_delivery TU
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, T.theme as theme1, TU.id as id, TU.deliveryname as handler, T.amount as pur_sum_data     
+			from etb_finance T, etb_delivery TU
 			where 1=1 
-			and T.expressid = TU.id
-			<isNotEmpty prepend="and" property="theme1">
-				T.theme1 = #theme1#
-			</isNotEmpty>
+			and T.belongto = #belongto#
+			and T.financetype='3'
+			and T.status='99'
+			and T.customerid = TU.id
 			<isNotEmpty prepend="and" property="from_date">
-				T.warehousedate <![CDATA[>=]]> #from_date#
+				T.accountdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.warehousedate <![CDATA[<=]]> #to_date#
+				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
-			</isNotEmpty>
-			
+			</isNotEmpty>			
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -471,27 +503,27 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, T.theme1, TU.id as id, TU.deliveryname as handler, T.expresstaxamount as pur_sum_data     
-			from etb_warehouserpt T, etb_delivery TU
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, T.theme as theme1, TU.id as id, TU.deliveryname as handler, T.amount as pur_sum_data     
+			from etb_finance T, etb_delivery TU
 			where 1=1 
-			and T.expressid = TU.id
-			<isNotEmpty prepend="and" property="theme1">
-				T.theme1 = #theme1#
-			</isNotEmpty>
+			and T.belongto = #belongto#
+			and T.financetype='3'
+			and T.status='99'
+			and T.customerid = TU.id
 			<isNotEmpty prepend="and" property="from_date">
-				T.warehousedate <![CDATA[>=]]> #from_date#
+				T.accountdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.warehousedate <![CDATA[<=]]> #to_date#
+				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
-			</isNotEmpty>
-			
+			</isNotEmpty>			
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
 	</select>
+	
 	<select id="queryDeliveryByDateQ" parameterClass="java.util.Map" resultMap="ChartDto">
 		select id, handler, theme1, years as pur_year, 
 			SUM(case when months in (01, 02, 03) then pur_sum_data else 0 end) 'pur_month01',   
@@ -507,18 +539,18 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, T.theme1, TU.id as id, TU.deliveryname as handler, T.expresstaxamount as pur_sum_data     
-			from etb_warehouserpt T, etb_delivery TU
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, T.theme as theme1, TU.id as id, TU.deliveryname as handler, T.amount as pur_sum_data     
+			from etb_finance T, etb_delivery TU
 			where 1=1 
-			and T.expressid = TU.id
-			<isNotEmpty prepend="and" property="theme1">
-				T.theme1 = #theme1#
-			</isNotEmpty>
+			and T.belongto = #belongto#
+			and T.financetype='3'
+			and T.status='99'
+			and T.customerid = TU.id
 			<isNotEmpty prepend="and" property="from_date">
-				T.warehousedate <![CDATA[>=]]> #from_date#
+				T.accountdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.warehousedate <![CDATA[<=]]> #to_date#
+				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
@@ -543,23 +575,22 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, T.theme1, TU.id as id, TU.deliveryname as handler, T.expresstaxamount as pur_sum_data     
-			from etb_warehouserpt T, etb_delivery TU
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, T.theme as theme1, TU.id as id, TU.deliveryname as handler, T.amount as pur_sum_data     
+			from etb_finance T, etb_delivery TU
 			where 1=1 
-			and T.expressid = TU.id
-			<isNotEmpty prepend="and" property="theme1">
-				T.theme1 = #theme1#
-			</isNotEmpty>
+			and T.belongto = #belongto#
+			and T.financetype='3'
+			and T.status='99'
+			and T.customerid = TU.id
 			<isNotEmpty prepend="and" property="from_date">
-				T.warehousedate <![CDATA[>=]]> #from_date#
+				T.accountdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.warehousedate <![CDATA[<=]]> #to_date#
+				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
-			</isNotEmpty>
-			
+			</isNotEmpty>			
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -586,6 +617,7 @@
 			and T.financetype = TU.code
 			and TU.fieldcode = 'finance'
 			and TU.fieldname = 'type'
+			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
 				T.receiptdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
@@ -617,6 +649,7 @@
 			and T.financetype = TU.code
 			and TU.fieldcode = 'finance'
 			and TU.fieldname = 'type'
+			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
 				T.receiptdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
@@ -648,6 +681,7 @@
 			and T.financetype = TU.code
 			and TU.fieldcode = 'finance'
 			and TU.fieldname = 'type'
+			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
 				T.receiptdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
@@ -679,6 +713,7 @@
 			and T.financetype = TU.code
 			and TU.fieldcode = 'finance'
 			and TU.fieldname = 'type'
+			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
 				T.receiptdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
@@ -689,42 +724,7 @@
 			group by id, handler, pur_year
 			order by id
 	</select>
-	
-	<select id="queryFinanceByDate_bak" parameterClass="java.util.Map" resultMap="ChartDto">
-		select handler, financetype, years as pur_year, 
-			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
-			SUM(case when months=02 then pur_sum_data else 0 end) 'pur_month02',   
-			SUM(case when months=03 then pur_sum_data else 0 end) 'pur_month03',   
-			SUM(case when months=04 then pur_sum_data else 0 end) 'pur_month04',   
-			SUM(case when months=05 then pur_sum_data else 0 end) 'pur_month05',   
-			SUM(case when months=06 then pur_sum_data else 0 end) 'pur_month06',   
-			SUM(case when months=07 then pur_sum_data else 0 end) 'pur_month07',   
-			SUM(case when months=08 then pur_sum_data else 0 end) 'pur_month08',   
-			SUM(case when months=09 then pur_sum_data else 0 end) 'pur_month09',   
-			SUM(case when months=10 then pur_sum_data else 0 end) 'pur_month10',   
-			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
-			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
-		from(   
-			select DATE_FORMAT(T.receiptdate,'%y') as years, DATE_FORMAT(T.receiptdate,'%m') months, T.financetype as financetype, TU.username as handler, T.amount as pur_sum_data     
-			from etb_finance T, tbuser TU
-			where 1=1 
-			and T.handler = TU.userid
-			<isNotEmpty prepend="and" property="theme1">
-				T.financetype = #theme1#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property="from_date">
-				T.receiptdate <![CDATA[>=]]> #from_date#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property="to_date">
-				T.receiptdate <![CDATA[<=]]> #to_date#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property="handerList">
-				T.handler in ( $handerList$ )			
-			</isNotEmpty>			
-		)as test 
-			group by handler, financetype, pur_year
-	</select>
-	
+		
 	<select id="querySupplierByDateM" parameterClass="java.util.Map" resultMap="ChartDto">
 		select id, handler, "" as theme1, years as pur_year, 
 			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
@@ -745,6 +745,7 @@
 			where 1=1 
 			and T.customerid = TU.id
 			and	T.financetype = '1'
+			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
 				T.receiptdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
@@ -778,6 +779,7 @@
 			where 1=1 
 			and T.customerid = TU.id
 			and	T.financetype = '1'
+			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
 				T.receiptdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
@@ -811,6 +813,7 @@
 			where 1=1 
 			and T.customerid = TU.id
 			and	T.financetype = '1'
+			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
 				T.receiptdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
@@ -845,6 +848,7 @@
 			where 1=1 
 			and T.customerid = TU.id
 			and	T.financetype = '2'
+			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
 				T.receiptdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
@@ -878,6 +882,7 @@
 			where 1=1 
 			and T.customerid = TU.id
 			and	T.financetype = '2'
+			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
 				T.receiptdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
@@ -911,6 +916,7 @@
 			where 1=1 
 			and T.customerid = TU.id
 			and	T.financetype = '2'
+			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
 				T.receiptdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
@@ -938,8 +944,9 @@
 			select sum(T.totaltaxamount) as totaltaxamount, sum(T.expresstaxamount) as expresstaxamount, test2.businesstripamount as businesstripamount
 			from etb_warehouserpt T right JOIN (SELECT sum(amount) as businesstripamount FROM etb_finance F 
 				where 1=1 
-				and F.financetype='5'
-				and F.mode='2'
+				and F.financetype='4'
+				and F.theme='03'
+				and F.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
 				F.accountdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
@@ -947,8 +954,9 @@
 				F.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			) as test2
-			on 
-			<isNotEmpty prepend="" property="from_date">
+			on 1=1 
+			and T.belongto = #belongto#
+			<isNotEmpty prepend="and" property="from_date">
 				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">

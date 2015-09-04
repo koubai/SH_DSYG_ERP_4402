@@ -78,6 +78,8 @@ public class ChartServlet extends HttpServlet {
         System.out.println("request.dur_type:" + dur_type);
         String handerList=request.getParameter("handerList");  
         System.out.println("request.handerList:" + handerList);
+        String belongto=(String)request.getSession().getAttribute("belongto");  
+        System.out.println("request.belongto:" + belongto);
         
         ServletContext servletContext = request.getSession().getServletContext();
     	ctx= WebApplicationContextUtils.getWebApplicationContext(servletContext);
@@ -88,35 +90,35 @@ public class ChartServlet extends HttpServlet {
     	chartService.setCtx(ctx);    	
         // Get Saler's individual data
         if (act.equals("getPurchaseData")){
-            jsonArr = chartService.getData("1",from_date, to_date, dur_type, handerList);        	
+            jsonArr = chartService.getData(belongto, "1",from_date, to_date, dur_type, handerList);        	
         } 
         // Get Buyer's individual data
         else if (act.equals("getSaleData")){
-            jsonArr = chartService.getData("2", from_date, to_date, dur_type, handerList);        	
+            jsonArr = chartService.getData(belongto, "2", from_date, to_date, dur_type, handerList);        	
         }
         // Get Delivery's individual data
         else if (act.equals("getDeliveryData")){
-            jsonArr = chartService.getData("3", from_date, to_date, dur_type, handerList);        	
+            jsonArr = chartService.getData(belongto, "3", from_date, to_date, dur_type, handerList);        	
         }
         // Get Accounting's individual data
         else if (act.equals("getAccountData")){
-            jsonArr = chartService.getData("4", from_date, to_date, dur_type, handerList);        	
+            jsonArr = chartService.getData(belongto, "4", from_date, to_date, dur_type, handerList);        	
         }
         // Get Saler's detail individual data
         else if (act.equals("getSaleDetailData")){
-            jsonArr = chartService.getData("5", from_date, to_date, dur_type, handerList);        	
+            jsonArr = chartService.getData(belongto, "5", from_date, to_date, dur_type, handerList);        	
         }
         // Get Saler's detail individual data
         else if (act.equals("getSupplierData")){
-            jsonArr = chartService.getData("6", from_date, to_date, dur_type, handerList);        	
+            jsonArr = chartService.getData(belongto, "6", from_date, to_date, dur_type, handerList);        	
         }
         // Get Saler's detail individual data
         else if (act.equals("getCustomerData")){
-            jsonArr = chartService.getData("7", from_date, to_date, dur_type, handerList);        	
+            jsonArr = chartService.getData(belongto, "7", from_date, to_date, dur_type, handerList);        	
         }
         // Get Sale summary data
         else if (act.equals("getSaleTotalData")){
-            jsonArr = chartService.getData("8", from_date, to_date, dur_type, handerList);        	
+            jsonArr = chartService.getData(belongto, "8", from_date, to_date, dur_type, handerList);        	
         }
         
         out.println(jsonArr.toString());  
