@@ -161,6 +161,11 @@ public class Constants {
 	public final static String SESSION_USER_ID = "user_id";
 	
 	/**
+	 * 用户所属
+	 */
+	public final static String SESSION_BELONGTO = "belongto";
+
+	/**
 	 * 用户名
 	 */
 	public final static String SESSION_USER_NAME = "user_name";

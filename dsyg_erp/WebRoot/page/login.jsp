@@ -68,6 +68,22 @@ a { color:#FFF}
 					</td>
 				</tr>
 				<tr>
+<!--				<select name="userDto.belongto" id="belongto" style="width: 100px;">
+					<td align="right">登录地</td>
+					<td>
+					<div class="box1">
+							<div>
+									<option value="0" >上海</option>
+									<option value="1" >深圳</option>
+								</select>
+ 							</div>
+						</div>
+					</div>
+					<td>
+-->
+				<input name="userDto.belongto" type="hidden" style="width:200px;" maxlength="20" id="belongto" value="0"/>
+				</tr>
+				<tr>
 					<td align="right">用户名</td>
 					<td>
 						<div class="box1">
@@ -127,6 +143,7 @@ a { color:#FFF}
 					</td>
 				</tr>
 			</table>
+			
 			<div class="yzk_bottom2">
 				<p>上海東升盈港企業发展有限公司 <span style=" margin-left:40px; font-weight:normal; font-size:12px; color:#959595;">Copyright＠ D.S.Y.G Trade LTD. ALL Rights Reserved.</span></p>
 				<div class="contactus">

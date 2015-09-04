@@ -18,6 +18,11 @@ public class UserDto extends BaseDto {
 	private String userid;
 
 	/**
+	 * 用户所属
+	 */
+	private String belongto;
+
+	/**
 	 * 用户名
 	 */
 	private String username;
@@ -185,6 +190,15 @@ public class UserDto extends BaseDto {
 	public void setOldpassword(String oldpassword) {
 		this.oldpassword = oldpassword;
 	}
+
+	public String getBelongto() {
+		return belongto;
+	}
+
+	public void setBelongto(String belongto) {
+		this.belongto = belongto;
+	}
+
 /*
 	public String getUsercolor() {
 		return usercolor;

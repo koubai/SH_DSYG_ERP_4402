@@ -15,8 +15,9 @@ public class ChartDaoImpl extends BaseDao implements ChartDao {
 	 * @param fieldcode
 	 * @return
 	 */
-	public List<ChartDto> queryPurchaseByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+	public List<ChartDto> queryPurchaseByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("belongto", belongto);
 		paramMap.put("theme1", theme1);
 		paramMap.put("from_date", from_date);
 		paramMap.put("to_date", to_date);
@@ -33,8 +34,9 @@ public class ChartDaoImpl extends BaseDao implements ChartDao {
 		return list;
 	}
 
-	public List<ChartDto> querySalesByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+	public List<ChartDto> querySalesByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("belongto", belongto);
 		paramMap.put("theme1", theme1);
 		paramMap.put("from_date", from_date);
 		paramMap.put("to_date", to_date);
@@ -52,8 +54,9 @@ public class ChartDaoImpl extends BaseDao implements ChartDao {
 	}
 
 	
-	public List<ChartSaleTotalDto> querySaleTotalByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+	public List<ChartSaleTotalDto> querySaleTotalByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("belongto", belongto);
 		paramMap.put("theme1", theme1);
 		paramMap.put("from_date", from_date);
 		paramMap.put("to_date", to_date);
@@ -67,8 +70,9 @@ public class ChartDaoImpl extends BaseDao implements ChartDao {
 	}
 	
 	
-	public List<ChartDto> querySalesDetailByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+	public List<ChartDto> querySalesDetailByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("belongto", belongto);
 		paramMap.put("theme1", theme1);
 		paramMap.put("from_date", from_date);
 		paramMap.put("to_date", to_date);
@@ -85,8 +89,9 @@ public class ChartDaoImpl extends BaseDao implements ChartDao {
 		return list;
 	}
 
-	public List<ChartDto> queryWareHouseRptByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+	public List<ChartDto> queryWareHouseRptByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("belongto", belongto);
 		paramMap.put("theme1", theme1);
 		paramMap.put("from_date", from_date);
 		paramMap.put("to_date", to_date);
@@ -104,8 +109,9 @@ public class ChartDaoImpl extends BaseDao implements ChartDao {
 		return list;
 	}
 
-	public List<ChartDto> queryFinanceByDate(String theme1, String from_date, String to_date, String dur_type, String handerList){
+	public List<ChartDto> queryFinanceByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList){
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("belongto", belongto);
 		paramMap.put("theme1", theme1);
 		paramMap.put("from_date", from_date);
 		paramMap.put("to_date", to_date);
@@ -122,8 +128,9 @@ public class ChartDaoImpl extends BaseDao implements ChartDao {
 		return list;
 	}
 
-	public List<ChartDto> querySupplierByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+	public List<ChartDto> querySupplierByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("belongto", belongto);
 		paramMap.put("theme1", theme1);
 		paramMap.put("from_date", from_date);
 		paramMap.put("to_date", to_date);
@@ -140,8 +147,9 @@ public class ChartDaoImpl extends BaseDao implements ChartDao {
 		return list;
 	}
 
-	public List<ChartDto> queryCustomerByDate(String theme1, String from_date, String to_date, String dur_type, String handerList) {
+	public List<ChartDto> queryCustomerByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("belongto", belongto);
 		paramMap.put("theme1", theme1);
 		paramMap.put("from_date", from_date);
 		paramMap.put("to_date", to_date);

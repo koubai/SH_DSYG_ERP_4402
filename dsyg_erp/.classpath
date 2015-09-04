@@ -5,5 +5,8 @@
 	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_6_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.42"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.6.0_45"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.42/lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

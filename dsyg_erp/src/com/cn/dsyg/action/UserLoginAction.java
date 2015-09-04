@@ -84,6 +84,13 @@ public class UserLoginAction extends BaseAction {
 				this.addActionMessage("验证码不正确！");
 				return ERROR;
 			}
+
+			String belongto= userDto.getBelongto();
+			if(StringUtil.isBlank(belongto)) {
+				this.addActionMessage("所属地不能为空！");
+				return ERROR;
+			}
+			
 			//验证登录密码
 			UserDto user = userService.queryUserByID(userDto.getUserid());
 			if(user == null) {
@@ -99,11 +106,21 @@ public class UserLoginAction extends BaseAction {
 				this.addActionMessage("非有效用户！");
 				return ERROR;
 			}
+
+			//判断用户所属是否是正确
+			if(!user.getBelongto().equals(belongto) && !user.getBelongto().equals("99")) {
+				this.addActionMessage("非有效用户所属！");
+				return ERROR;
+			}
+			log.info("Belongto()=" + belongto);
+			log.info("user.getBelongto()=" + user.getBelongto());
+
 			//用户权限
 			RoleDto role = roleService.queryRoleByCode(user.getRolecode());
 			ActionContext.getContext().getSession().put(Constants.SESSION_ROLE_RANK, role.getRank());
 			ActionContext.getContext().getSession().put(Constants.SESSION_USER_ID, userDto.getUserid());
 			ActionContext.getContext().getSession().put(Constants.SESSION_USER_NAME, user.getUsername());
+			ActionContext.getContext().getSession().put(Constants.SESSION_BELONGTO, belongto);
 //			ActionContext.getContext().getSession().put(Constants.SESSION_USER_COLOR, userDto.getUsercolor());
 			ActionContext.getContext().getSession().put(Constants.SESSION_LOGIN_TIME, DateUtil.dateToLogintime(new Date()));
 			ActionContext.getContext().getSession().put(Constants.SESSION_ISLOGIN, Constants.SESSION_FLAG_IS_LOGIN);
@@ -115,6 +132,8 @@ public class UserLoginAction extends BaseAction {
 			ActionContext.getContext().getSession().put(Constants.SESSION_RESOURCE_MAP, map);
 			log.info(userDto.getUserid() + " login success.");
 		} catch(Exception e) {
+			log.info("CCC");
+
 			log.error("loginAction error:" + e);
 			return ERROR;
 		}
