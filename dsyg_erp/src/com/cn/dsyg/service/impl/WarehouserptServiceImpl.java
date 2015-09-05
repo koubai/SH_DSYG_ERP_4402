@@ -17,11 +17,14 @@ import com.cn.dsyg.dao.FinanceDao;
 import com.cn.dsyg.dao.ProductDao;
 import com.cn.dsyg.dao.PurchaseDao;
 import com.cn.dsyg.dao.PurchaseItemDao;
+import com.cn.dsyg.dao.SalesDao;
 import com.cn.dsyg.dao.WarehouseDao;
 import com.cn.dsyg.dao.WarehouserptDao;
 import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.FinanceDto;
 import com.cn.dsyg.dto.ProductDto;
+import com.cn.dsyg.dto.PurchaseDto;
+import com.cn.dsyg.dto.SalesDto;
 import com.cn.dsyg.dto.WarehouseDto;
 import com.cn.dsyg.dto.WarehouserptDto;
 import com.cn.dsyg.service.WarehouserptService;
@@ -39,6 +42,7 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 	private WarehouseDao warehouseDao;
 	private PurchaseItemDao purchaseItemDao;
 	private PurchaseDao purchaseDao;
+	private SalesDao salesDao;
 	private Dict01Dao dict01Dao;
 	private FinanceDao financeDao;
 	
@@ -136,6 +140,14 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 							String[] ll = infos[i].split(",");
 							ProductDto product = productDao.queryProductByID(ll[0]);
 							WarehouseDto warehouse = warehouseDao.queryWarehouseByWarehouseno(parents[i]);
+							String parentid = "";
+							if(rpt.getWarehousetype() == 1){
+								PurchaseDto purchase = purchaseDao.queryPurchaseByNo(warehouse.getParentid());
+								parentid = purchase == null ? "" : purchase.getTheme2();
+							} else {
+								SalesDto sales = salesDao.querySalesByNo(warehouse.getParentid());
+								parentid = sales == null ? "" : sales.getTheme2();
+							}
 							if(product != null) {
 								//货物数量
 								product.setNum(ll[1]);
@@ -143,7 +155,7 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 								product.setAmount(ll[2]);
 								product.setHasbroken("0");
 								product.setBrokennum("0");
-								product.setParentid(warehouse.getParentid());;
+								product.setParentid(parentid);;
 								list.add(product);
 							}
 						}
@@ -417,5 +429,13 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 
 	public void setFinanceDao(FinanceDao financeDao) {
 		this.financeDao = financeDao;
+	}
+
+	public SalesDao getSalesDao() {
+		return salesDao;
+	}
+
+	public void setSalesDao(SalesDao salesDao) {
+		this.salesDao = salesDao;
 	}
 }

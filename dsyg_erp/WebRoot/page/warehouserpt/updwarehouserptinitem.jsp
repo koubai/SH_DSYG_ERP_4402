@@ -483,7 +483,7 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="返回" onclick="goBack();"/>
+										<input class="input80" type="button" value="返回" onclick="window.close();"/>
 									</div>
 									<div class="box1_right"></div>
 								</div>
