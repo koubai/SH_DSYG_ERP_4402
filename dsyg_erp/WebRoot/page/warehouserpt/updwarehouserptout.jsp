@@ -144,9 +144,9 @@
 		return true;
 	}
 	
-	function exportData() {
+	function exportData(isInter) {
 		var id = ${updWarehouserptId};
-		window.location.href = "../warehouserpt/exportWarehouserptOutDetailAction.action?strExportDetailId=" + id;
+		window.location.href = "../warehouserpt/exportWarehouserptOutDetailAction.action?strExportDetailId=" + id + "&strInter=" + isInter;
 	}
 	
 	//快递
@@ -484,7 +484,16 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="导出" onclick="exportData();"/>
+										<input class="input80" type="button" value="出货单导出" onclick="exportData(1);"/>
+									</div>
+									<div class="box1_right"></div>
+								</div>
+							</td>
+							<td>
+								<div class="btn">
+									<div class="box1_left"></div>
+									<div class="box1_center">
+										<input class="input80" type="button" style="width:90px" value="出货清单导出" onclick="exportData(2);"/>
 									</div>
 									<div class="box1_right"></div>
 								</div>

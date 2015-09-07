@@ -70,6 +70,7 @@ public class WarehouserptAction extends BaseAction {
 	
 	//导出明细
 	private String strExportDetailId;
+	private String strInter;
 	
 	
 	//发货单
@@ -513,11 +514,21 @@ public class WarehouserptAction extends BaseAction {
 		
 		String exceltype = "";
 		if(("" + Constants.WAREHOUSE_TYPE_IN).equals(type)) {
-			//入库单明细
-			exceltype = Constants.EXCEL_TYPE_WAREHOUSERPT_IN_DETAIL_LIST;
+			if(strInter != null && strInter.equals("1")){
+				//入库单
+				exceltype = Constants.EXCEL_TYPE_WAREHOUSERPT_IN_DETAIL_INTER_LIST;
+			} else {
+				//入库单明细
+				exceltype = Constants.EXCEL_TYPE_WAREHOUSERPT_IN_DETAIL_LIST;
+			}
 		} else {
-			//出库单明细
-			exceltype = Constants.EXCEL_TYPE_WAREHOUSERPT_OUT_DETAIL_LIST;
+			if(strInter != null && strInter.equals("1")){
+				//出库单
+				exceltype = Constants.EXCEL_TYPE_WAREHOUSERPT_OUT_DETAIL_INTER_LIST;
+			} else {
+				//出库单明细
+				exceltype = Constants.EXCEL_TYPE_WAREHOUSERPT_OUT_DETAIL_LIST;
+			}
 		}
 		String name = StringUtil.createFileName(exceltype);
 		response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
@@ -766,5 +777,15 @@ public class WarehouserptAction extends BaseAction {
 
 	public void setExcelPass(String excelPass) {
 		this.excelPass = excelPass;
+	}
+
+
+	public String getStrInter() {
+		return strInter;
+	}
+
+
+	public void setStrInter(String strInter) {
+		this.strInter = strInter;
 	}
 }
