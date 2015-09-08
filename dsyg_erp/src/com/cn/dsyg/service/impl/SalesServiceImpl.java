@@ -79,6 +79,13 @@ public class SalesServiceImpl implements SalesService {
 		salesno = Constants.SALES_NO_PRE + belongto + sdf.format(date) + uuid;
 		sales.setSalesno(salesno);
 		
+		String theme2 = "";
+		if(!"0".equals(sales.getRes02())) {
+			//销售方式为询价询样时，订单号自动生成
+			uuid = uuid.substring(uuid.length() - 8, uuid.length());
+			theme2 = Constants.SALES_DD_PRE + belongto + sdf.format(date) + uuid;
+			sales.setTheme2(theme2);
+		}
 		//status
 		sales.setStatus(Constants.SALES_STATUS_NEW);
 		//rank
@@ -98,6 +105,8 @@ public class SalesServiceImpl implements SalesService {
 			for(SalesItemDto salesItem : listSalesItem) {
 				//销售单号
 				salesItem.setSalesno(salesno);
+				//用户自己输入的订单号
+				salesItem.setTheme2(sales.getTheme2());
 				salesItem.setUpdateuid(userid);
 				salesItem.setCreateuid(userid);
 				salesItem.setStatus(Constants.STATUS_NORMAL);
@@ -125,7 +134,7 @@ public class SalesServiceImpl implements SalesService {
 				salesItemDao.insertSalesItem(salesItem);
 			}
 		}
-		return salesno;
+		return theme2;
 	}
 
 	@Override
@@ -166,6 +175,8 @@ public class SalesServiceImpl implements SalesService {
 					//新增
 					//销售单号
 					salesItem.setSalesno(sales.getSalesno());
+					//用户自己输入的订单号
+					salesItem.setTheme2(sales.getTheme2());
 					salesItem.setUpdateuid(userid);
 					salesItem.setCreateuid(userid);
 					salesItem.setStatus(Constants.STATUS_NORMAL);
@@ -279,6 +290,8 @@ public class SalesServiceImpl implements SalesService {
 		warehouse.setBelongto(belongto);
 		//主题
 		warehouse.setTheme1(sales.getTheme1());
+		//用户自己输入的订单号
+		warehouse.setTheme2(sales.getTheme2());
 		//产品ID
 		warehouse.setProductid("" + salesItem.getProductid());
 		//出库数量=预出库数（这里是出库，所以是负数）

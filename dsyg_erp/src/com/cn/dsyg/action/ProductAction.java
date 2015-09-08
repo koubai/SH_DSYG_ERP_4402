@@ -304,6 +304,7 @@ public class ProductAction extends BaseAction {
 			//默认状态=有效
 			addProductDto.setStatus(Constants.STATUS_NORMAL);
 			
+			addProductDto.setSampleflag("0");
 			productService.insertProduct(addProductDto);
 			this.addActionMessage("添加成功！");
 			addProductDto = new ProductDto();

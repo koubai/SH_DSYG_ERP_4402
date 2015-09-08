@@ -201,6 +201,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 				purchaseItem.setPurchaseno(purchaseno);
 				purchaseItem.setUpdateuid(userid);
 				purchaseItem.setCreateuid(userid);
+				//用户自己输入的订单号
+				purchaseItem.setTheme2(purchase.getTheme2());
 				purchaseItem.setStatus(Constants.STATUS_NORMAL);
 				purchaseItem.setBelongto(belongto);
 				purchaseItem.setRank(Constants.ROLE_RANK_OPERATOR);
@@ -243,6 +245,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 					//新增
 					//采购单号
 					purchaseItem.setPurchaseno(purchase.getPurchaseno());
+					//用户自己输入的订单号
+					purchaseItem.setTheme2(purchase.getTheme2());
 					purchaseItem.setUpdateuid(userid);
 					purchaseItem.setCreateuid(userid);
 					purchaseItem.setStatus(Constants.STATUS_NORMAL);
@@ -332,6 +336,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 		WarehouseDto warehouse = new WarehouseDto();
 		//数据来源单号=采购单
 		warehouse.setParentid(purchase.getPurchaseno());
+		//用户自己输入的订单号
+		warehouse.setTheme2(purchase.getTheme2());
 		//库存类型=入库单
 		warehouse.setWarehousetype(Constants.WAREHOUSE_TYPE_IN);
 		//仓库

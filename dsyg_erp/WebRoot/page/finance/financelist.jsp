@@ -174,9 +174,9 @@
 								<td width="80">联系人</td>
 								<td width="80">经手人</td>
 								<td width="120">单据日期</td>
-								<td width="110">金额（含税）</td>
-								<td width="110">结算日期</td>
-								<td width="80">状态</td>
+								<td width="100">金额（含税）</td>
+								<td width="80">结算日期</td>
+								<td width="110">状态</td>
 							</tr>
 							<s:iterator id="financeList" value="financeList" status="st1">
 								<s:if test="#st1.odd==true">
@@ -217,30 +217,30 @@
 									<td><s:property value="amount"/></td>
 									<td><s:property value="showAccountdate"/></td>
 									<td>
-										<s:if test="%{status == 10}">
-											新增
+										<s:if test="financetype == 2">
+											<s:if test="%{status == 1}">
+												未对帐
+											</s:if>
+											<s:elseif test="%{status == 10}">
+												已对帐, 未开票
+											</s:elseif>
+											<s:elseif test="%{status == 20}">
+												已开票, 未收款
+											</s:elseif>
+											<s:elseif test="%{status == 99}">
+												已开票, 已收款
+											</s:elseif>
 										</s:if>
-										<s:elseif test="%{status == 20}">
-											<s:if test="financetype == 2">
-												开票申请
-											</s:if>
-											<s:else>
-												付款申请
-											</s:else>
-										</s:elseif>
-										<s:elseif test="%{status == 30}">
-											<s:if test="financetype == 2">
-												开票审批
-											</s:if>
-											<s:else>
-												付款审批
-											</s:else>
-										</s:elseif>
-										<s:elseif test="%{status == 40}">
-											已开票
-										</s:elseif>
 										<s:else>
-											<s:property value="status"/>
+											<s:if test="%{status == 1}">
+												未收到发票, 未付款
+											</s:if>
+											<s:elseif test="%{status == 10}">
+												收到发票, 安排付款
+											</s:elseif>
+											<s:elseif test="%{status == 99}">
+												收到发票, 已付款
+											</s:elseif>
 										</s:else>
 									</td>
 								</tr>

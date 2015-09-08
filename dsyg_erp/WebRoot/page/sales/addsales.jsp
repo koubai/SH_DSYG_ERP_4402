@@ -318,10 +318,14 @@
 		//预出库时间
 		var tmpPlandate = $("#tmpPlandate").val().trim();
 		
-		if(theme2 == "") {
-			alert("销售订单号不能为空！");
-			$("#theme2").focus();
-			return;
+		var res02 = getRadioValue("salesType");
+		if(res02 == "0") {
+			//销售方式为普通的时候订单号不可以为空
+			if(theme2 == "") {
+				alert("销售订单号不能为空！");
+				$("#theme2").focus();
+				return;
+			}
 		}
 		
 		if(tmpBookdate == "") {
@@ -329,7 +333,6 @@
 			$("#tmpBookdate").focus();
 			return;
 		}
-		var res02 = getRadioValue("salesType");
 		if(res02 == "") {
 			alert("请选择销售方式！");
 			$("#tmpRes02").focus();
@@ -609,6 +612,15 @@
 	function goList() {
 		window.location.href = "../sales/querySalesAction.action";
 	}
+	
+	function checkSalesType(obj) {
+		if(obj.value == "0") {
+			$("#theme2").attr("disabled", "");
+		} else {
+			$("#theme2").val("");
+			$("#theme2").attr("disabled", "disabled");
+		}
+	}
 </script>
 </head>
 <body>
@@ -656,7 +668,12 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="addSalesDto.theme2" id="theme2" cssStyle="width:300px;" maxlength="32" theme="simple"></s:textfield>
+									<s:if test='%{addSalesDto.res02 == "0" || addSalesDto.res02 == "" || addSalesDto.res02 == null}'>
+										<s:textfield name="addSalesDto.theme2" id="theme2" cssStyle="width:300px;" maxlength="32" theme="simple"></s:textfield>
+									</s:if>
+									<s:else>
+										<s:textfield name="addSalesDto.theme2" disabled="true" id="theme2" cssStyle="width:300px;" maxlength="32" theme="simple"></s:textfield>
+									</s:else>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -678,19 +695,19 @@
 							</td>
 							<td>
 								<s:if test='addSalesDto.res02 == "1"'>
-									<input type="radio" id="tmpRes02" name="salesType" value="0"/>普通　
-									<input type="radio" name="salesType" checked="checked" value="1"/>询价　
-									<input type="radio" name="salesType" value="2"/>询样
+									<input type="radio" id="tmpRes02" onclick="checkSalesType(this);" name="salesType" value="0"/>普通　
+									<input type="radio" name="salesType" onclick="checkSalesType(this);" checked="checked" value="1"/>询价　
+									<input type="radio" name="salesType" onclick="checkSalesType(this);" value="2"/>询样
 								</s:if>
 								<s:elseif test='addSalesDto.res02 == "2"'>
-									<input type="radio" id="tmpRes02" name="salesType" value="0"/>普通　
-									<input type="radio" name="salesType" value="1"/>询价　
-									<input type="radio" name="salesType" checked="checked" value="2"/>询样
+									<input type="radio" id="tmpRes02" onclick="checkSalesType(this);" name="salesType" value="0"/>普通　
+									<input type="radio" name="salesType" onclick="checkSalesType(this);" value="1"/>询价　
+									<input type="radio" name="salesType" onclick="checkSalesType(this);" checked="checked" value="2"/>询样
 								</s:elseif>
 								<s:else>
-									<input type="radio" id="tmpRes02" name="salesType" checked="checked" value="0"/>普通　
-									<input type="radio" name="salesType" value="1"/>询价　
-									<input type="radio" name="salesType" value="2"/>询样
+									<input type="radio" id="tmpRes02" onclick="checkSalesType(this);" name="salesType" checked="checked" value="0"/>普通　
+									<input type="radio" name="salesType" onclick="checkSalesType(this);" value="1"/>询价　
+									<input type="radio" name="salesType" onclick="checkSalesType(this);" value="2"/>询样
 								</s:else>
 							</td>
 							<td align="right">

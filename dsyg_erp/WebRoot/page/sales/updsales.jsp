@@ -659,7 +659,12 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updSalesDto.theme2" id="theme2" cssStyle="width:300px;" maxlength="32" theme="simple"></s:textfield>
+									<s:if test='%{updSalesDto.res02 == "0" || updSalesDto.res02 == "" || updSalesDto.res02 == null}'>
+										<s:textfield name="updSalesDto.theme2" id="theme2" cssStyle="width:300px;" maxlength="32" theme="simple"></s:textfield>
+									</s:if>
+									<s:else>
+										<s:textfield name="updSalesDto.theme2" disabled="true" id="theme2" cssStyle="width:300px;" maxlength="32" theme="simple"></s:textfield>
+									</s:else>
 								</div>
 								<div class="box1_right"></div>
 							</td>

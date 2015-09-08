@@ -23,6 +23,8 @@ public class Constants {
 	public final static String PURCHASE_ORDER_PRE = "DS";
 	//销售单单号前缀
 	public final static String SALES_NO_PRE = "XSD";
+	//销售单订单号前缀（销售方式为询价询样时，自动采番）
+	public final static String SALES_DD_PRE = "DD";
 	//入库单前缀
 	public final static String WAREHOUSERPT_IN_NO_PRE = "RKD";
 	//出库单前缀
@@ -253,24 +255,24 @@ public class Constants {
 	public final static int SALES_STATUS_WAREHOUSE_OK = 20;
 		
 	//入出库单状态
-	//新增
-	public final static int WAREHOUSERPT_STATUS_NEW = 10;
-	//付款申请/开票申请
-	public final static int WAREHOUSERPT_STATUS_APPLY = 20;
-	//付款审批/开票审批
-	public final static int WAREHOUSERPT_STATUS_APPROVE = 30;
-	//已开票
-	public final static int WAREHOUSERPT_STATUS_INVOICE = 40;
+	//未付款，未付款
+	public final static int WAREHOUSERPT_STATUS_NEW = 1;
+	//收到发票，安排付款/已对帐, 未开票
+	public final static int WAREHOUSERPT_STATUS_APPLY = 10;
+	//已开票, 未收款（出库单）
+	public final static int WAREHOUSERPT_STATUS_APPROVE = 20;
+	//已开票, 已收款/付款 (完成)
+	public final static int WAREHOUSERPT_STATUS_INVOICE = 99;
 	
 	//财务状态
-	//新增
-	public final static int FINANCE_STATUS_NEW = 10;
-	//付款申请 OR 开票申请
-	public final static int FINANCE_STATUS_PAY_APPLY = 20;
-	//付款审批 OR 开票审批
-	public final static int FINANCE_STATUS_PAY_APPROVE = 30;
-	//已开票
-	public final static int FINANCE_STATUS_PAY_INVOICE = 40;
+	//未收到发票, 未付款
+	public final static int FINANCE_STATUS_NEW = 1;
+	//收到发票, 安排付款
+	public final static int FINANCE_STATUS_PAY_APPLY = 10;
+	//----------备用状态
+	public final static int FINANCE_STATUS_PAY_APPROVE = 20;
+	//收到发票, 已付款 (完成)
+	public final static int FINANCE_STATUS_PAY_INVOICE = 99;
 	
 	//删除标记
 	/**

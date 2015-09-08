@@ -319,7 +319,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//单据号=入库单号
 			finance.setInvoiceid(warehouseno);
 			//发票号
-			String receiptid = Constants.FINANCE_NO_PRE + belongto + sdf.format(date);
+			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMddHHmmss");
+			String receiptid = Constants.FINANCE_NO_PRE + belongto + sdf1.format(date);
 			finance.setReceiptid(receiptid);
 			//开票日期
 			//finance.setReceiptdate(receiptdate);
@@ -541,7 +542,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//单据号=出库单号
 			finance.setInvoiceid(warehouseno);
 			//发票号
-			String receiptid = Constants.FINANCE_NO_PRE + belongto + sdf.format(date);
+			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMddHHmmss");
+			String receiptid = Constants.FINANCE_NO_PRE + belongto + sdf1.format(date);
 			finance.setReceiptid(receiptid);
 			//开票日期
 			//finance.setReceiptdate(receiptdate);
@@ -661,6 +663,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 		String warehouseno = Constants.WAREHOUSE_NO_PRE + belongto + sdf.format(date) + uuid;
 		
 		warehouse.setWarehouseno(warehouseno);
+		warehouse.setWarehousename(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_WAREHOUSE_NAME));
 		
 		warehouseDao.insertWarehouse(warehouse);
 		return warehouseno;

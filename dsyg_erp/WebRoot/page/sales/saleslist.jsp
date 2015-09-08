@@ -22,8 +22,10 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
-			document.mainform.action = "../sales/showUpdSalesitemAction.action?updSalesId=" + id;
-			document.mainform.submit();
+			var url = "<%=request.getContextPath()%>/sales/showUpdSalesitemAction.action?updSalesId=" + id + "&date=" + new Date();
+			window.showModalDialog(url, window, "dialogheight:680px;dialogwidth:1200px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no;");
+			//document.mainform.action = "../sales/showUpdSalesitemAction.action?updSalesId=" + id;
+			//document.mainform.submit();
 		}
 	}
 	

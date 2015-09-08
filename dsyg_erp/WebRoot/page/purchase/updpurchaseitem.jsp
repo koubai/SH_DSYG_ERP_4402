@@ -4,6 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<base target="_self"/>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
@@ -17,7 +18,7 @@
 		} else {
 			if(checkItem()) {
 				if(confirm("确定修改吗？")) {
-					document.mainform.action = "../purchase/updPurchaseitemAction.action";
+					document.mainform.action = '../purchase/updPurchaseitemAction.action';
 					document.mainform.submit();
 				}
 			}
@@ -580,9 +581,10 @@
 	}
 </script>
 </head>
-<body>
+<body scroll="no">
 	<div id="containermain">
 		<div class="content">
+			<!--
 			<div class="tittle">
 				<div class="tittle_left">
 				</div>
@@ -592,6 +594,7 @@
 				<div class="tittle_right">
 				</div>
 			</div>
+			-->
 			<s:form id="mainform" name="mainform" method="POST">
 				<s:hidden name="common_rate" id="common_rate"></s:hidden>
 				
@@ -976,7 +979,10 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
+										<!--
 										<input class="input80" type="button" value="返回" onclick="goPurchaseList();"/>
+										-->
+										<input class="input80" type="button" value="关闭" onclick="window.close();"/>
 									</div>
 									<div class="box1_right"></div>
 								</div>

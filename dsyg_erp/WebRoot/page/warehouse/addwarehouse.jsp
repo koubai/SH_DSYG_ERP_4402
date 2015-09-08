@@ -29,7 +29,7 @@
 		//主题
 		var theme1 = $("#theme1").val().trim();
 		//仓库名
-		var warehousename = $("#warehousename").val().trim();
+		//var warehousename = $("#warehousename").val().trim();
 		//产品ID
 		var productid = $("#productid").val().trim();
 		//数量
@@ -47,11 +47,11 @@
 			$("#theme1").focus();
 			return;
 		}
-		if(warehousename == "") {
-			alert("仓库名不能为空！");
-			$("#warehousename").focus();
-			return;
-		}
+		//if(warehousename == "") {
+		//	alert("仓库名不能为空！");
+		//	$("#warehousename").focus();
+		//	return;
+		//}
 		if(productid == "") {
 			alert("请选择一个产品！");
 			$("#productname").focus();
@@ -175,18 +175,6 @@
 								<div class="box1_right"></div>
 							</td>
 							<td align="right">
-								<label class="pdf10"><font color="red">*</font>仓库</label>
-							</td>
-							<td>
-								<div class="box1_left"></div>
-								<div class="box1_center">
-									<s:textfield name="addWarehouseDto.warehousename" id="warehousename" cssStyle="width:300px;" maxlength="32" theme="simple"></s:textfield>
-								</div>
-								<div class="box1_right"></div>
-							</td>
-						</tr>
-						<tr>
-							<td align="right">
 								<label class="pdf10"><font color="red">*</font>产品</label>
 							</td>
 							<td>
@@ -203,10 +191,12 @@
 									<div class="box1_right"></div>
 								</div>
 							</td>
+						</tr>
+						<tr>
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>数量</label>
 							</td>
-							<td>
+							<td colspan="3">
 								<div class="box1_left"></div>
 								<div class="box1_center">
 									<s:textfield name="addWarehouseDto.quantity" id="quantity" maxlength="16" cssStyle="width:300px;" theme="simple"></s:textfield>

@@ -273,9 +273,13 @@ public class SalesAction extends BaseAction {
 			//}
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
-			String salesno = salesService.addSales(addSalesDto, addSalesItemList, username);
-			//this.addActionMessage("销售单添加成功！销售单号为：" + salesno);
-			this.addActionMessage("销售单添加成功！");
+			String theme2 = salesService.addSales(addSalesDto, addSalesItemList, username);
+			if(!"0".equals(addSalesDto.getRes02())) {
+				//销售方式为询价询样时，订单号自动生成
+				this.addActionMessage("销售单添加成功！销售订单号为：" + theme2);
+			} else {
+				this.addActionMessage("销售单添加成功！");
+			}
 			
 			//清空数据
 			addSalesDto = new SalesDto();
@@ -379,9 +383,12 @@ public class SalesAction extends BaseAction {
 			this.addActionMessage("销售订单号不能为空！");
 			return false;
 		}
-		if(StringUtil.isBlank(sales.getTheme2())) {
-			this.addActionMessage("销售订单号不能为空！");
-			return false;
+		//销售方式=普通的时候，订单号不能为空
+		if(sales.getRes02() != null && "0".equals(sales.getRes02())) {
+			if(StringUtil.isBlank(sales.getTheme2())) {
+				this.addActionMessage("销售订单号不能为空！");
+				return false;
+			}
 		}
 		if(sales.getBookdate() == null) {
 			this.addActionMessage("销售日期不能为空！");

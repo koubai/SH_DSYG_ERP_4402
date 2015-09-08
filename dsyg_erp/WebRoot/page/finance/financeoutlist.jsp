@@ -160,35 +160,73 @@
 									<td><s:property value="showWarehousedate"/></td>
 									<td><s:property value="totaltaxamount"/></td>
 									<td>
-										<s:if test="%{status == 10}">
-											新增
+										<s:if test="%{warehousetype == 1}">
+											<s:if test="%{status == 1}">
+												未收到发票, 未付款
+											</s:if>
+											<s:elseif test="%{status == 10}">
+												收到发票, 安排付款
+											</s:elseif>
+											<s:elseif test="%{status == 99}">
+												收到发票, 已付款
+											</s:elseif>
+											<s:else>
+												<s:property value="status"/>
+											</s:else>
 										</s:if>
-										<s:elseif test="%{status == 20}">
-											开票申请
-										</s:elseif>
-										<s:elseif test="%{status == 30}">
-											开票审批
-										</s:elseif>
-										<s:elseif test="%{status == 40}">
-											已开票
+										<s:elseif test="%{warehousetype == 2}">
+											<s:if test="%{status == 1}">
+												未对帐
+											</s:if>
+											<s:elseif test="%{status == 10}">
+												已对帐, 未开票
+											</s:elseif>
+											<s:elseif test="%{status == 20}">
+												已开票, 未收款
+											</s:elseif>
+											<s:elseif test="%{status == 99}">
+												已开票, 已收款
+											</s:elseif>
+											<s:else>
+												<s:property value="status"/>
+											</s:else>
 										</s:elseif>
 										<s:else>
 											<s:property value="status"/>
 										</s:else>
 									</td>
 									<td>
-										<s:if test="%{status == 20}">
-											<input type="button" value="开票审批" onclick="upd('<s:property value="id"/>', '30')"/>
+										<s:if test="%{warehousetype == 1}">
+											<s:if test="%{status == 1}">
+												<input type="button" value="收到发票" onclick="upd('<s:property value="id"/>', '10')"/>
+											</s:if>
+											<s:elseif test="%{status == 10}">
+												<input type="button" value="付款" onclick="upd('<s:property value="id"/>', '99')"/>
+											</s:elseif>
+											<s:elseif test="%{status == 99}">
+												已付款
+											</s:elseif>
+											<s:else>
+												<s:property value="status"/>
+											</s:else>
 										</s:if>
-										<s:elseif test="%{status == 30}">
-											<input type="button" value="开票" onclick="upd('<s:property value="id"/>', '40')"/>
+										<s:elseif test="%{warehousetype == 2}">
+											<s:if test="%{status == 1}">
+												<input type="button" value="已对帐" onclick="upd('<s:property value="id"/>', '10')"/>
+											</s:if>
+											<s:elseif test="%{status == 10}">
+												<input type="button" value="已开票" onclick="upd('<s:property value="id"/>', '20')"/>
+											</s:elseif>
+											<s:elseif test="%{status == 20}">
+												<input type="button" value="已收款" onclick="upd('<s:property value="id"/>', '99')"/>
+											</s:elseif>
+											<s:elseif test="%{status == 99}">
+												已收款
+											</s:elseif>
+											<s:else>
+												<s:property value="status"/>
+											</s:else>
 										</s:elseif>
-										<s:elseif test="%{status == 40}">
-											已开票
-										</s:elseif>
-										<s:else>
-											<s:property value="status"/>
-										</s:else>
 									</td>
 								</tr>
 							</s:iterator>
