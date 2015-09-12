@@ -9,7 +9,7 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>
-<title>账目管理</title>
+<title>样品管理</title>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var h = screen.availHeight; 
@@ -17,24 +17,18 @@
 	});
 	
 	function add() {
-		document.mainform.action = "../finance/showAddFinanceAction.action";
+		document.mainform.action = "../sample/showAddSampleAction.action";
 		document.mainform.submit();
 	}
 	
 	function upd() {
 		var id = getSelectedID();
-		var alt = getSelectedAlt();
 		if(id == "") {
 			alert("请选择一条记录！");
 			return;
 		} else {
-			if(alt == "") {
-				alert("该记录没有关联单据号，不能修改！");
-				return;
-			} else {
-				document.mainform.action = "../finance/showUpdFinanceAction.action?updFinanceId=" + id;
-				document.mainform.submit();
-			}
+			document.mainform.action = "../sample/showUpdSampleAction.action?updSampleId=" + id;
+			document.mainform.submit();
 		}
 	}
 	
@@ -50,28 +44,16 @@
 		return id;
 	}
 	
-	function getSelectedAlt() {
-		var alt = "";
-		var list = document.getElementsByName("radioKey");
-		for(var i = 0; i < list.length; i++) {
-			if(list[i].checked) {
-				alt = list[i].alt;
-				break;
-			}
-		}
-		return alt;
-	}
-	
 	//查询日期赋值
 	function setQueryDate() {
-		$("#strReceiptdateLow").attr("value", $("#receiptdateLow").val());
-		$("#strReceiptdateHigh").attr("value", $("#receiptdateHigh").val());
+		$("#strPurchasedateLow").attr("value", $("#purchaseDateLow").val());
+		$("#strPurchasedateHigh").attr("value", $("#purchaseDateHigh").val());
 	}
 
 	//查询数据
 	function queryList() {
 		setQueryDate();
-		document.mainform.action = '../finance/queryFinanceAction.action';
+		document.mainform.action = '../sample/querySampleAction.action';
 		document.mainform.submit();
 	}
 	
@@ -79,7 +61,7 @@
 	function changepagesize(pagesize) {
 		$("#intPageSize").attr("value", pagesize);
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../finance/queryFinanceAction.action';
+		document.mainform.action = '../sample/querySampleAction.action';
 		document.mainform.submit();
 	}
 	
@@ -87,7 +69,7 @@
 	function changePage(pageNum) {
 		setQueryDate();
 		$("#startIndex").attr("value", pageNum);
-		document.mainform.action = '../finance/turnFinanceAction.action';
+		document.mainform.action = '../sample/turnSampleAction.action';
 		document.mainform.submit();
 	}
 
@@ -130,34 +112,16 @@
 				<div class="tittle_left">
 				</div>
 				<div class="tittle_center">
-					账目管理
+					样品管理
 				</div>
 				<div class="tittle_right">
 				</div>
 			</div>
 			<s:form id="mainform" name="mainform" method="POST">
 				<s:hidden name="startIndex" id="startIndex"/>
-				<s:hidden name="strReceiptdateLow" id="strReceiptdateLow"/>
-				<s:hidden name="strReceiptdateHigh" id="strReceiptdateHigh"/>
 				<s:hidden name="intPageSize" id="intPageSize"/>
 				<div class="searchbox">
-					<div class="box1">
-						<label class="pdf10">单据日期</label>
-						<div class="box1_left"></div>
-						<div class="box1_center date_input">
-							<input type="text" disabled="disabled" style="width: 105px;" id="receiptdateLow" value="<s:property value="strReceiptdateLow"/>" maxlength="10" />
-							<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('receiptdateLow'));"></a>
-						</div>
-						<div class="box1_right"></div>
-						<label>-</label>
-						<div class="box1_left"></div>
-						<div class="box1_center date_input">
-							<input type="text" disabled="disabled" style="width: 105px;" id="receiptdateHigh" value="<s:property value="strReceiptdateHigh"/>" maxlength="10" />
-							<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('receiptdateHigh'));"></a>
-						</div>
-						<div class="box1_right"></div>
-					</div>
-					<div class="btn" style="margin-left: 160px;">
+					<div class="btn" style="margin-right: 200px; float: right;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
 							<input type="button" class="input40" value="检索" onclick="queryList();"/>
@@ -170,9 +134,6 @@
 					<div class="icons thums">
 						<a class="add" onclick="add();">增加</a>
 						<a class="edit" onclick="upd();">修改</a>
-						<!--
-						<a class="delete" onclick="del();">删除</a>
-						-->
 					</div>
 				</div>
 				<div class="data_table" style="padding:0px;">
@@ -183,83 +144,54 @@
 					<div class="tab_content">
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
-								<td width="30"></td>
-								<td width="30">序号</td>
-								<td width="100">账目编号</td>
-								<td width="120">关联单据编号</td>
-								<td width="80">主题</td>
-								<td width="110">对象</td>
-								<td width="80">联系人</td>
-								<td width="80">经手人</td>
-								<td width="120">单据日期</td>
-								<td width="100">金额（含税）</td>
-								<td width="80">结算日期</td>
-								<td width="130">状态</td>
+								<td width="20"></td>
+								<td width="40">序号</td>
+								<td width="100">仓库</td>
+								<td width="120">品名</td>
+								<td width="100">规格</td>
+								<td width="60">颜色</td>
+								<td width="60">形式</td>
+								<td width="100">包装</td>
+								<td width="60">样品数量</td>
+								<td width="140">更新时间</td>
 							</tr>
-							<s:iterator id="financeList" value="financeList" status="st1">
+							<s:iterator id="sampleList" value="sampleList" status="st1">
 								<s:if test="#st1.odd==true">
 									<tr class="tr_bg" onclick="checkRadioTr(this, event);">
 								</s:if>
 								<s:else>
 									<tr onclick="checkRadioTr(this, event);">
 								</s:else>
-									<td><input name="radioKey" type="radio" alt="<s:property value="invoiceid"/>" value="<s:property value="id"/>"/></td>
+									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-									<td><s:property value="receiptid"/></td>
-									<td><s:property value="invoiceid"/></td>
 									<td>
-										<s:if test="financetype == 1">
-											采购
-										</s:if>
-										<s:elseif test="financetype == 2">
-											订单
-										</s:elseif>
-										<s:elseif test="financetype == 3">
-											物流
-										</s:elseif>
-										<s:elseif test="financetype == 4">
-											<s:iterator id="financeDictList" value="financeDictList" status="st3">
-												<s:if test="%{financeDictList[#st3.index].code == financeList[#st1.index].theme}">
-													<s:property value="fieldname"/>
-												</s:if>
-											</s:iterator>
-										</s:elseif>
+										<s:property value="warehousename"/>
+									</td>
+									<td><s:property value="tradename"/></td>
+									<td><s:property value="typeno"/></td>
+									<td>
+										<s:iterator id="colorList" value="colorList" status="st3">
+											<s:if test="%{colorList[#st3.index].code == sampleList[#st1.index].color}">
+												<s:property value="fieldname"/>
+											</s:if>
+										</s:iterator>
+									</td>
+									<td>
+										<s:if test='%{sampleList[#st1.index].packaging == "1"}'>整箱</s:if>
+										<s:elseif test='%{sampleList[#st1.index].packaging == "0"}'>乱尺</s:elseif>
+										<s:elseif test='%{sampleList[#st1.index].packaging == "2"}'>样品</s:elseif>
 										<s:else>
-											<s:property value="financetype"/>
+											<s:property value="packaging"/>
 										</s:else>
 									</td>
-									<td><s:property value="customername"/></td>
-									<td><s:property value="customermanager"/></td>
-									<td><s:property value="handlername"/></td>
-									<td><s:property value="showReceiptdate"/></td>
-									<td><s:property value="amount"/></td>
-									<td><s:property value="showAccountdate"/></td>
 									<td>
-										<s:if test="financetype == 2">
-											<s:if test="%{status == 1}">
-												未对帐
-											</s:if>
-											<s:elseif test="%{status == 10}">
-												已对帐, 未开票
-											</s:elseif>
-											<s:elseif test="%{status == 20}">
-												已开票, 未收款
-											</s:elseif>
-											<s:elseif test="%{status == 99}">
-												已开票, 已收款
-											</s:elseif>
-										</s:if>
-										<s:else>
-											<s:if test="%{status == 1}">
-												未收到发票, 未付款
-											</s:if>
-											<s:elseif test="%{status == 10}">
-												收到发票, 安排付款
-											</s:elseif>
-											<s:elseif test="%{status == 99}">
-												收到发票, 已付款
-											</s:elseif>
-										</s:else>
+										<s:property value="item10"/>
+									</td>
+									<td>
+										<s:property value="quantity"/>
+									</td>
+									<td>
+										<s:date name="updatedate" format="yyyy/MM/dd HH:mm:ss"/>
 									</td>
 								</tr>
 							</s:iterator>
@@ -313,30 +245,6 @@
 							</li>
 						</ul>
 					</div>
-				</div>
-				<div class="btns" style="margin-top:40px; margin-left:-90px;">
-					<table border="0" style="margin:0 auto;">
-						<tr>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="详细" onclick="showBidDetail();" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="履历" onclick="" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-						</tr>
-					</table>
 				</div>
 			</s:form>
 		</div>

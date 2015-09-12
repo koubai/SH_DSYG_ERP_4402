@@ -3,6 +3,22 @@
 
 <beans>
 
+	<!-- Sample -->
+	<bean id="sampleService" class="com.cn.dsyg.service.impl.SampleServiceImpl" >
+		<property name="sampleDao">
+			<ref local="sampleDao"/>
+		</property>
+		<property name="productDao">
+			<ref local="productDao"/>
+		</property>
+	</bean>
+	
+	<bean id="sampleDao" class="com.cn.dsyg.dao.impl.SampleDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+
 	<!-- Chart -->
 	<bean id="chartService" class="com.cn.dsyg.service.impl.ChartServiceImpl" >
 		<property name="chartDao">

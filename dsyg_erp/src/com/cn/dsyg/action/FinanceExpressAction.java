@@ -18,26 +18,25 @@ import com.cn.dsyg.service.FinanceService;
 import com.opensymphony.xwork2.ActionContext;
 
 /**
- * @name FinanceAction.java
+ * @name FinanceExpressAction.java
  * @author Frank
- * @time 2015-6-27下午11:50:52
+ * @time 2015-9-9下午11:06:30
  * @version 1.0
  */
-public class FinanceAction extends BaseAction {
+public class FinanceExpressAction extends BaseAction {
 
-	private static final long serialVersionUID = 1458515012654870733L;
-	private static final Logger log = LogManager.getLogger(FinanceAction.class);
-
+	private static final long serialVersionUID = -2791663852145584131L;
+	private static final Logger log = LogManager.getLogger(FinanceExpressAction.class);
+	
 	private FinanceService financeService;
 	private Dict01Service dict01Service;
-	
+
 	//页码
 	private int startIndex;
 	//翻页page
 	private Page page;
 	//一页显示数据条数
 	private Integer intPageSize;
-	
 	private List<FinanceDto> financeList;
 	
 	//财务主题字典
@@ -57,31 +56,27 @@ public class FinanceAction extends BaseAction {
 	private String updFinanceId;
 	
 	/**
-	 * 显示修改财务记录页面
+	 * 显示修改快递单页面
 	 * @return
 	 */
-	public String showUpdFinanceAction() {
+	public String showUpdFinanceExpressAction() {
 		try {
 			this.clearMessages();
-			//财务主题
-			financeDictList = dict01Service.queryDict01ByFieldcode(Constants.FINANCE_THEME, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 			updFinanceDto = financeService.queryFinanceByID(updFinanceId);
 		} catch(Exception e) {
-			log.error("showUpdFinanceAction error:" + e);
+			log.error("showUpdFinanceExpressAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
 	}
 	
 	/**
-	 * 修改财务记录
+	 * 修改快递单
 	 * @return
 	 */
-	public String updFinanceAction() {
+	public String updFinanceExpressAction() {
 		try {
 			this.clearMessages();
-			//财务主题
-			financeDictList = dict01Service.queryDict01ByFieldcode(Constants.FINANCE_THEME, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 			//数据验证
 			if(!checkData(updFinanceDto)) {
 				return "checkerror";
@@ -92,69 +87,64 @@ public class FinanceAction extends BaseAction {
 			financeService.updateFinance(updFinanceDto);
 			this.addActionMessage("修改成功！");
 		} catch(Exception e) {
-			log.error("updFinanceAction error:" + e);
+			log.error("updFinanceExpressAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
 	}
 	
 	/**
-	 * 显示新增财务记录页面
+	 * 显示新增快递单页面
 	 * @return
 	 */
-	public String showAddFinanceAction() {
+	public String showAddFinanceExpressAction() {
 		try {
 			this.clearMessages();
 			addFinanceDto = new FinanceDto();
-			//财务主题
-			financeDictList = dict01Service.queryDict01ByFieldcode(Constants.FINANCE_THEME, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
-			//默认收款
-			addFinanceDto.setMode("1");
-			//财务类型为手动输入
-			addFinanceDto.setFinancetype(Constants.WAREHOUSERPT_TYPE_INPUT);
 		} catch(Exception e) {
-			log.error("showAddFinanceAction error:" + e);
+			log.error("showAddFinanceExpressAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
 	}
 	
 	/**
-	 * 新增财务记录
+	 * 新增快递单
 	 * @return
 	 */
-	public String addFinanceAction() {
+	public String addFinanceExpressAction() {
 		try {
 			this.clearMessages();
-			//财务主题
-			financeDictList = dict01Service.queryDict01ByFieldcode(Constants.FINANCE_THEME, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 			//数据验证
 			if(!checkData(addFinanceDto)) {
 				return "checkerror";
 			}
+			addFinanceDto.setFinancetype(Constants.FINANCE_TYPE_DELIVERY);
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
-			addFinanceDto.setCreateuid(username);
 			addFinanceDto.setUpdateuid(username);
+			addFinanceDto.setCreateuid(username);
+			//付款
+			addFinanceDto.setMode("2");
+			//经手人
+			addFinanceDto.setHandler(username);
+			//状态=新增
+			//addFinanceDto.setStatus(Constants.FINANCE_STATUS_NEW);
 			String no = financeService.insertFinance(addFinanceDto);
 			this.addActionMessage("添加成功！账目编号为：" + no);
 			addFinanceDto = new FinanceDto();
-			//默认收款
-			addFinanceDto.setMode("1");
-			//财务类型为手动输入
-			addFinanceDto.setFinancetype(Constants.WAREHOUSERPT_TYPE_INPUT);
 		} catch(Exception e) {
-			log.error("addFinanceAction error:" + e);
+			log.error("addFinanceExpressAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
 	}
 	
 	/**
-	 * 显示账目管理页面
+	 * 显示财务快递单列表页面
 	 * @return
 	 */
-	public String showFinanceAction() {
+	public String showFinanceExpressAction() {
 		try {
 			this.clearMessages();
 			//页面数据初期化
@@ -166,17 +156,17 @@ public class FinanceAction extends BaseAction {
 			strReceiptdateHigh = "";
 			financeList = new ArrayList<FinanceDto>();
 		} catch(Exception e) {
-			log.error("showFinanceAction error:" + e);
+			log.error("showFinanceExpressAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
 	}
 	
 	/**
-	 * 查询账目
+	 * 查询财务快递单
 	 * @return
 	 */
-	public String queryFinanceAction() {
+	public String queryFinanceExpressAction() {
 		try {
 			this.clearMessages();
 			//页面数据初期化
@@ -188,7 +178,7 @@ public class FinanceAction extends BaseAction {
 			page = new Page(intPageSize);
 			queryData();
 		} catch(Exception e) {
-			log.error("queryFinanceAction error:" + e);
+			log.error("queryFinanceExpressAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -198,74 +188,16 @@ public class FinanceAction extends BaseAction {
 	 * 翻页
 	 * @return
 	 */
-	public String turnFinanceAction() {
+	public String turnFinanceExpressAction() {
 		try {
 			this.clearMessages();
 			//页面数据初期化
 			queryData();
 		} catch(Exception e) {
-			log.error("turnFinanceAction error:" + e);
+			log.error("turnFinanceExpressAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
-	}
-	
-	/**
-	 * 验证数据
-	 * @param finance
-	 * @return
-	 */
-	private boolean checkData(FinanceDto finance) {
-		if(finance == null) {
-			this.addActionMessage("经手人不能为空！！");
-			return false;
-		}
-//		if(StringUtil.isBlank(finance.getReceiptid())) {
-//			this.addActionMessage("账目编号不能为空！");
-//			return false;
-//		}
-		if(StringUtil.isBlank(finance.getHandler())) {
-			this.addActionMessage("经手人不能为空！");
-			return false;
-		}
-//		if(StringUtil.isBlank(finance.getInvoiceid())) {
-//			this.addActionMessage("关联单据编号不能为空！");
-//			return false;
-//		}
-//		if(StringUtil.isBlank(finance.getReceiptdate())) {
-//			this.addActionMessage("单据日期不能为空！");
-//			return false;
-//		}
-		if(StringUtil.isBlank(finance.getTheme())) {
-			this.addActionMessage("请选择主题！");
-			return false;
-		}
-		if(StringUtil.isBlank(finance.getMode())) {
-			this.addActionMessage("请选择方式！");
-			return false;
-		}
-//		if(StringUtil.isBlank(finance.getCustomername())) {
-//			this.addActionMessage("对象不能为空！");
-//			return false;
-//		}
-//		if(StringUtil.isBlank(finance.getCustomermanager())) {
-//			this.addActionMessage("联系人不能为空！");
-//			return false;
-//		}
-		if(finance.getAmount() == null) {
-			this.addActionMessage("金额合计不能为空！");
-			return false;
-		}
-		if(StringUtil.isBlank(finance.getAccountdate())) {
-			this.addActionMessage("结算日期不能为空！");
-			return false;
-		}
-		if(finance.getStatus() == null) {
-			this.addActionMessage("请选择状态！");
-			return false;
-		}
-		
-		return true;
 	}
 	
 	/**
@@ -280,10 +212,60 @@ public class FinanceAction extends BaseAction {
 		financeDictList = dict01Service.queryDict01ByFieldcode(Constants.FINANCE_THEME, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		page = financeService.queryFinanceByPage("", "", "",
+		//这里只查询快递财务记录
+		page = financeService.queryFinanceByPage("", "" + Constants.FINANCE_TYPE_DELIVERY, "",
 				"", "", strReceiptdateLow, strReceiptdateHigh, page);
 		financeList = (List<FinanceDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
+	}
+	
+	/**
+	 * 验证数据
+	 * @param finance
+	 * @return
+	 */
+	private boolean checkData(FinanceDto finance) {
+		if(finance == null) {
+			this.addActionMessage("请选择快递！");
+			return false;
+		}
+		if(finance.getCustomerid() == null) {
+			this.addActionMessage("请选择快递！");
+			return false;
+		}
+		if(StringUtil.isBlank(finance.getCustomername())) {
+			this.addActionMessage("快递名称不能为空！");
+			return false;
+		}
+		if(StringUtil.isBlank(finance.getCustomeraddress())) {
+			this.addActionMessage("快递地址不能为空！");
+			return false;
+		}
+		if(finance.getAmount() == null) {
+			this.addActionMessage("转运费用合计不能为空！");
+			return false;
+		}
+		if(StringUtil.isBlank(finance.getCustomermanager())) {
+			this.addActionMessage("快递联系人不能为空！");
+			return false;
+		}
+		if(StringUtil.isBlank(finance.getCustomertel())) {
+			this.addActionMessage("快递联系人电话不能为空！");
+			return false;
+		}
+		if(StringUtil.isBlank(finance.getReceiptdate())) {
+			this.addActionMessage("单据日期不能为空！");
+			return false;
+		}
+		if(StringUtil.isBlank(finance.getCustomermail())) {
+			this.addActionMessage("信箱不能为空！");
+			return false;
+		}
+		if(finance.getStatus() == null) {
+			this.addActionMessage("请选择状态！");
+			return false;
+		}
+		return true;
 	}
 
 	public FinanceService getFinanceService() {
@@ -292,6 +274,14 @@ public class FinanceAction extends BaseAction {
 
 	public void setFinanceService(FinanceService financeService) {
 		this.financeService = financeService;
+	}
+
+	public Dict01Service getDict01Service() {
+		return dict01Service;
+	}
+
+	public void setDict01Service(Dict01Service dict01Service) {
+		this.dict01Service = dict01Service;
 	}
 
 	public int getStartIndex() {
@@ -326,6 +316,14 @@ public class FinanceAction extends BaseAction {
 		this.financeList = financeList;
 	}
 
+	public List<Dict01Dto> getFinanceDictList() {
+		return financeDictList;
+	}
+
+	public void setFinanceDictList(List<Dict01Dto> financeDictList) {
+		this.financeDictList = financeDictList;
+	}
+
 	public String getStrReceiptdateLow() {
 		return strReceiptdateLow;
 	}
@@ -340,22 +338,6 @@ public class FinanceAction extends BaseAction {
 
 	public void setStrReceiptdateHigh(String strReceiptdateHigh) {
 		this.strReceiptdateHigh = strReceiptdateHigh;
-	}
-
-	public Dict01Service getDict01Service() {
-		return dict01Service;
-	}
-
-	public void setDict01Service(Dict01Service dict01Service) {
-		this.dict01Service = dict01Service;
-	}
-
-	public List<Dict01Dto> getFinanceDictList() {
-		return financeDictList;
-	}
-
-	public void setFinanceDictList(List<Dict01Dto> financeDictList) {
-		this.financeDictList = financeDictList;
 	}
 
 	public FinanceDto getAddFinanceDto() {

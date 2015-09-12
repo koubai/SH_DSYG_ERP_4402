@@ -98,6 +98,34 @@
 			<result name="*">/page/finance/financeoutlist.jsp</result>
 		</action>
 		
+		<action name="showFinanceExpressAction" class="financeExpressAction" method="showFinanceExpressAction">
+			<result name="*">/page/finance/financeexpresslist.jsp</result>
+		</action>
+		
+		<action name="queryFinanceExpressAction" class="financeExpressAction" method="queryFinanceExpressAction">
+			<result name="*">/page/finance/financeexpresslist.jsp</result>
+		</action>
+		
+		<action name="turnFinanceExpressAction" class="financeExpressAction" method="turnFinanceExpressAction">
+			<result name="*">/page/finance/financeexpresslist.jsp</result>
+		</action>
+		
+		<action name="showAddFinanceExpressAction" class="financeExpressAction" method="showAddFinanceExpressAction">
+			<result name="*">/page/finance/addfinanceexpress.jsp</result>
+		</action>
+		
+		<action name="addFinanceExpressAction" class="financeExpressAction" method="addFinanceExpressAction">
+			<result name="*">/page/finance/addfinanceexpress.jsp</result>
+		</action>
+		
+		<action name="showUpdFinanceExpressAction" class="financeExpressAction" method="showUpdFinanceExpressAction">
+			<result name="*">/page/finance/updfinanceexpress.jsp</result>
+		</action>
+		
+		<action name="updFinanceExpressAction" class="financeExpressAction" method="updFinanceExpressAction">
+			<result name="*">/page/finance/updfinanceexpress.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

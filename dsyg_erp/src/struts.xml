@@ -12,6 +12,8 @@
 	
 	<constant name="struts.multipart.saveDir" value="/tmp"/>
 	
+	<!-- sample -->
+	<include file="struts-sample.xml"></include>
 	<!-- user -->
 	<include file="struts-user.xml"></include>
 	<!-- chart -->

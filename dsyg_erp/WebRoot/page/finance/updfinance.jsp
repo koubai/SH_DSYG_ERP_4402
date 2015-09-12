@@ -315,30 +315,40 @@
 									<s:else>
 										<select id="status1" style="width: 300px;">
 									</s:else>
-										<option value="" selected="selected">请选择</option>
-										<s:if test="%{updFinanceDto.status == 10}">
+										<s:if test="%{updFinanceDto.status == 1}">
 											<option value="">请选择</option>
-											<option value="10" selected="selected">新增</option>
-											<option value="40">收款完了</option>
-											<option value="50">已开票</option>
+											<option value="1" selected="selected">未对帐</option>
+											<option value="10">已对帐, 未开票</option>
+											<option value="20">已开票, 未收款</option>
+											<option value="99">已开票, 已收款</option>
 										</s:if>
-										<s:elseif test="%{updFinanceDto.status == 40}">
+										<s:elseif test="%{updFinanceDto.status == 10}">
 											<option value="">请选择</option>
-											<option value="10">新增</option>
-											<option value="40" selected="selected">收款完了</option>
-											<option value="50">已开票</option>
+											<option value="1">未对帐</option>
+											<option value="10" selected="selected">已对帐, 未开票</option>
+											<option value="20">已开票, 未收款</option>
+											<option value="99">已开票, 已收款</option>
 										</s:elseif>
-										<s:elseif test="%{updFinanceDto.status == 50}">
+										<s:elseif test="%{updFinanceDto.status == 20}">
 											<option value="">请选择</option>
-											<option value="10">新增</option>
-											<option value="40">收款完了</option>
-											<option value="50" selected="selected">已开票</option>
+											<option value="1">未对帐</option>
+											<option value="10">已对帐, 未开票</option>
+											<option value="20" selected="selected">已开票, 未收款</option>
+											<option value="99">已开票, 已收款</option>
+										</s:elseif>
+										<s:elseif test="%{updFinanceDto.status == 99}">
+											<option value="">请选择</option>
+											<option value="1">未对帐</option>
+											<option value="10">已对帐, 未开票</option>
+											<option value="20">已开票, 未收款</option>
+											<option value="99" selected="selected">已开票, 已收款</option>
 										</s:elseif>
 										<s:else>
 											<option value="" selected="selected">请选择</option>
-											<option value="10">新增</option>
-											<option value="40">收款完了</option>
-											<option value="50">已开票</option>
+											<option value="1">未对帐</option>
+											<option value="10">已对帐, 未开票</option>
+											<option value="20">已开票, 未收款</option>
+											<option value="99">已开票, 已收款</option>
 										</s:else>
 									</select>
 									<s:if test='%{updFinanceDto.mode == "2"}'>
@@ -347,54 +357,29 @@
 									<s:else>
 										<select id="status2" style="width: 300px;display: none;">
 									</s:else>
-										<option value="" selected="selected">请选择</option>
-										<s:if test="%{updFinanceDto.status == 10}">
+										<s:if test="%{updFinanceDto.status == 1}">
 											<option value="">请选择</option>
-											<option value="10" selected="selected">新增</option>
-											<option value="20">付款申请</option>
-											<option value="30">付款审批</option>
-											<option value="40">付款完了</option>
-											<option value="50">已开票</option>
+											<option value="1" selected="selected">未收到发票, 未付款</option>
+											<option value="10">收到发票, 安排付款</option>
+											<option value="99">收到发票, 已付款</option>
 										</s:if>
-										<s:elseif test="%{updFinanceDto.status == 20}">
+										<s:elseif test="%{updFinanceDto.status == 10}">
 											<option value="">请选择</option>
-											<option value="10">新增</option>
-											<option value="20" selected="selected">付款申请</option>
-											<option value="30">付款审批</option>
-											<option value="40">付款完了</option>
-											<option value="50">已开票</option>
+											<option value="1">未收到发票, 未付款</option>
+											<option value="10" selected="selected">收到发票, 安排付款</option>
+											<option value="99">收到发票, 已付款</option>
 										</s:elseif>
-										<s:elseif test="%{updFinanceDto.status == 30}">
+										<s:elseif test="%{updFinanceDto.status == 99}">
 											<option value="">请选择</option>
-											<option value="10">新增</option>
-											<option value="20">付款申请</option>
-											<option value="30" selected="selected">付款审批</option>
-											<option value="40">付款完了</option>
-											<option value="50">已开票</option>
-										</s:elseif>
-										<s:elseif test="%{updFinanceDto.status == 40}">
-											<option value="">请选择</option>
-											<option value="10">新增</option>
-											<option value="20">付款申请</option>
-											<option value="30">付款审批</option>
-											<option value="40" selected="selected">付款完了</option>
-											<option value="50">已开票</option>
-										</s:elseif>
-										<s:elseif test="%{updFinanceDto.status == 50}">
-											<option value="">请选择</option>
-											<option value="10">新增</option>
-											<option value="20">付款申请</option>
-											<option value="30">付款审批</option>
-											<option value="40">付款完了</option>
-											<option value="50" selected="selected">已开票</option>
+											<option value="1">未收到发票, 未付款</option>
+											<option value="10">收到发票, 安排付款</option>
+											<option value="99" selected="selected">收到发票, 已付款</option>
 										</s:elseif>
 										<s:else>
 											<option value="" selected="selected">请选择</option>
-											<option value="10">新增</option>
-											<option value="20">付款申请</option>
-											<option value="30">付款审批</option>
-											<option value="40">付款完了</option>
-											<option value="50">已开票</option>
+											<option value="1">未收到发票, 未付款</option>
+											<option value="10">收到发票, 安排付款</option>
+											<option value="99">收到发票, 已付款</option>
 										</s:else>
 									</select>
 								</div>

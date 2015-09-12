@@ -42,7 +42,7 @@ public class FinanceDto extends BaseDto {
 	private String belongto;
 
 	/**
-	 * 单据号
+	 * 关联单据号
 	 */
 	private String invoiceid;
 

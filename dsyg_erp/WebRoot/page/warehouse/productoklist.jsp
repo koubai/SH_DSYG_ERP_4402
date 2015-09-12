@@ -153,7 +153,6 @@
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
 								<td width="40">序号</td>
-								<td width="60">主题</td>
 								<td width="120">仓库</td>
 								<td width="120">品名</td>
 								<td width="120">规格</td>
@@ -170,13 +169,6 @@
 									<tr>
 								</s:else>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-									<td>
-										<s:iterator id="goodsList" value="goodsList" status="st3">
-											<s:if test="%{goodsList[#st3.index].code == warehouseOkList[#st1.index].theme1}">
-												<s:property value="fieldname"/>
-											</s:if>
-										</s:iterator>
-									</td>
 									<td><s:property value="warehousename"/></td>
 									<td><s:property value="tradename"/></td>
 									<td><s:property value="typeno"/></td>

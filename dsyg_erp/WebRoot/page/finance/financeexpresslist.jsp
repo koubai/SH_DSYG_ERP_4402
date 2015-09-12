@@ -9,7 +9,7 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>
-<title>账目管理</title>
+<title>快递单管理</title>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var h = screen.availHeight; 
@@ -17,7 +17,7 @@
 	});
 	
 	function add() {
-		document.mainform.action = "../finance/showAddFinanceAction.action";
+		document.mainform.action = "../finance/showAddFinanceExpressAction.action";
 		document.mainform.submit();
 	}
 	
@@ -28,26 +28,14 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
-			if(alt == "") {
-				alert("该记录没有关联单据号，不能修改！");
+			if(alt != "") {
+				alert("该记录有关联单据号，不能修改！");
 				return;
 			} else {
-				document.mainform.action = "../finance/showUpdFinanceAction.action?updFinanceId=" + id;
+				document.mainform.action = "../finance/showUpdFinanceExpressAction.action?updFinanceId=" + id;
 				document.mainform.submit();
 			}
 		}
-	}
-	
-	function getSelectedID() {
-		var id = "";
-		var list = document.getElementsByName("radioKey");
-		for(var i = 0; i < list.length; i++) {
-			if(list[i].checked) {
-				id = list[i].value;
-				break;
-			}
-		}
-		return id;
 	}
 	
 	function getSelectedAlt() {
@@ -62,6 +50,18 @@
 		return alt;
 	}
 	
+	function getSelectedID() {
+		var id = "";
+		var list = document.getElementsByName("radioKey");
+		for(var i = 0; i < list.length; i++) {
+			if(list[i].checked) {
+				id = list[i].value;
+				break;
+			}
+		}
+		return id;
+	}
+	
 	//查询日期赋值
 	function setQueryDate() {
 		$("#strReceiptdateLow").attr("value", $("#receiptdateLow").val());
@@ -71,7 +71,7 @@
 	//查询数据
 	function queryList() {
 		setQueryDate();
-		document.mainform.action = '../finance/queryFinanceAction.action';
+		document.mainform.action = '../finance/queryFinanceExpressAction.action';
 		document.mainform.submit();
 	}
 	
@@ -79,7 +79,7 @@
 	function changepagesize(pagesize) {
 		$("#intPageSize").attr("value", pagesize);
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../finance/queryFinanceAction.action';
+		document.mainform.action = '../finance/queryFinanceExpressAction.action';
 		document.mainform.submit();
 	}
 	
@@ -87,7 +87,7 @@
 	function changePage(pageNum) {
 		setQueryDate();
 		$("#startIndex").attr("value", pageNum);
-		document.mainform.action = '../finance/turnFinanceAction.action';
+		document.mainform.action = '../finance/turnFinanceExpressAction.action';
 		document.mainform.submit();
 	}
 
@@ -130,7 +130,7 @@
 				<div class="tittle_left">
 				</div>
 				<div class="tittle_center">
-					账目管理
+					快递单管理
 				</div>
 				<div class="tittle_right">
 				</div>
@@ -186,15 +186,11 @@
 								<td width="30"></td>
 								<td width="30">序号</td>
 								<td width="100">账目编号</td>
-								<td width="120">关联单据编号</td>
-								<td width="80">主题</td>
-								<td width="110">对象</td>
-								<td width="80">联系人</td>
+								<td width="100">主题</td>
 								<td width="80">经手人</td>
 								<td width="120">单据日期</td>
 								<td width="100">金额（含税）</td>
-								<td width="80">结算日期</td>
-								<td width="130">状态</td>
+								<td width="110">状态</td>
 							</tr>
 							<s:iterator id="financeList" value="financeList" status="st1">
 								<s:if test="#st1.odd==true">
@@ -206,7 +202,6 @@
 									<td><input name="radioKey" type="radio" alt="<s:property value="invoiceid"/>" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
 									<td><s:property value="receiptid"/></td>
-									<td><s:property value="invoiceid"/></td>
 									<td>
 										<s:if test="financetype == 1">
 											采购
@@ -228,12 +223,9 @@
 											<s:property value="financetype"/>
 										</s:else>
 									</td>
-									<td><s:property value="customername"/></td>
-									<td><s:property value="customermanager"/></td>
 									<td><s:property value="handlername"/></td>
 									<td><s:property value="showReceiptdate"/></td>
 									<td><s:property value="amount"/></td>
-									<td><s:property value="showAccountdate"/></td>
 									<td>
 										<s:if test="financetype == 2">
 											<s:if test="%{status == 1}">
@@ -313,30 +305,6 @@
 							</li>
 						</ul>
 					</div>
-				</div>
-				<div class="btns" style="margin-top:40px; margin-left:-90px;">
-					<table border="0" style="margin:0 auto;">
-						<tr>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="详细" onclick="showBidDetail();" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="履历" onclick="" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-						</tr>
-					</table>
 				</div>
 			</s:form>
 		</div>

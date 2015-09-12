@@ -425,7 +425,7 @@
 								<input type="hidden" value="<s:property value="unit"/>"/>
 								<input type="hidden" value="<s:iterator id="unitList" value="unitList" status="st3"><s:if test="%{unitList[#st3.index].code == productList[#st1.index].unit}"><s:property value="fieldname"/></s:if></s:iterator>"/>
 								<input type="hidden" value="<s:property value="packaging"/>"/>
-								<input type="hidden" value="<s:if test='%{productList[#st1.index].packaging == "1"}'>整箱</s:if><s:elseif test='%{productList[#st1.index].packaging == "0"}'>乱尺</s:elseif><s:else>乱尺</s:else>"/>
+								<input type="hidden" value="<s:if test='%{productList[#st1.index].packaging == "1"}'>整箱</s:if><s:elseif test='%{productList[#st1.index].packaging == "0"}'>乱尺</s:elseif><s:elseif test='%{productList[#st1.index].packaging == "2"}'>样品</s:elseif><s:else>乱尺</s:else>"/>
 								<input type="hidden" value="<s:property value="sampleflag"/>"/>
 								<input type="hidden" value="<s:property value="purchaseprice"/>"/>
 								<input type="hidden" value="<s:property value="salesprice"/>"/>
@@ -454,6 +454,7 @@
 							<td>
 								<s:if test='%{productList[#st1.index].packaging == "1"}'>整箱</s:if>
 								<s:elseif test='%{productList[#st1.index].packaging == "0"}'>乱尺</s:elseif>
+								<s:elseif test='%{productList[#st1.index].packaging == "2"}'>样品</s:elseif>
 								<s:else>
 									<s:property value="packaging"/>
 								</s:else>

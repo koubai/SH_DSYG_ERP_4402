@@ -2,6 +2,29 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
 
+	<!-- Sample -->
+	<bean id="sampleAction" class="com.cn.dsyg.action.SampleAction" scope="session">
+		<property name="dict01Service">
+			<ref bean="dict01Service" />
+		</property>
+		<property name="productService">
+			<ref bean="productService" />
+		</property>
+		<property name="sampleService">
+			<ref bean="sampleService" />
+		</property>
+	</bean>
+
+	<!-- FinanceExpress -->
+	<bean id="financeExpressAction" class="com.cn.dsyg.action.FinanceExpressAction" scope="session">
+		<property name="dict01Service">
+			<ref bean="dict01Service" />
+		</property>
+		<property name="financeService">
+			<ref bean="financeService" />
+		</property>
+	</bean>
+
 	<!-- FinanceApprove -->
 	<bean id="financeApproveAction" class="com.cn.dsyg.action.FinanceApproveAction" scope="session">
 		<property name="dict01Service">

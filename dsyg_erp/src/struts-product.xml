@@ -74,6 +74,18 @@
 			<result name="*">/page/product/selectsalesproduct.jsp</result>
 		</action>
 		
+		<action name="showSampleProductSelectPage" class="productAction" method="showSampleProductSelectPage">
+			<result name="*">/page/product/selectsampleproduct.jsp</result>
+		</action>
+		
+		<action name="querySampleProductSelectPage" class="productAction" method="querySampleProductSelectPage">
+			<result name="*">/page/product/selectsampleproduct.jsp</result>
+		</action>
+		
+		<action name="turnSampleProductSelectPage" class="productAction" method="turnSampleProductSelectPage">
+			<result name="*">/page/product/selectsampleproduct.jsp</result>
+		</action>
+		
 		<action name="showProductCostCheckAction" class="productCostCheckAction" method="showProductCostCheckAction">
 			<result name="*">/page/product/productcostchecklist.jsp</result>
 		</action>

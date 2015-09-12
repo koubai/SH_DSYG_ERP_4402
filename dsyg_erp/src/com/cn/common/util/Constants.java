@@ -265,13 +265,13 @@ public class Constants {
 	public final static int WAREHOUSERPT_STATUS_INVOICE = 99;
 	
 	//财务状态
-	//未收到发票, 未付款
+	//未收到发票, 未付款/未对帐
 	public final static int FINANCE_STATUS_NEW = 1;
-	//收到发票, 安排付款
+	//收到发票, 安排付款/已对帐, 未开票
 	public final static int FINANCE_STATUS_PAY_APPLY = 10;
-	//----------备用状态
+	//已开票, 未收款
 	public final static int FINANCE_STATUS_PAY_APPROVE = 20;
-	//收到发票, 已付款 (完成)
+	//收到发票, 已付款 (完成)/已开票, 已收款
 	public final static int FINANCE_STATUS_PAY_INVOICE = 99;
 	
 	//删除标记

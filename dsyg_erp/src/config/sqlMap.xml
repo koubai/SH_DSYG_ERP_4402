@@ -28,5 +28,6 @@
 	<sqlMap resource="/config/ibatis/dsyg-document.xml" />
 	<sqlMap resource="/config/ibatis/dsyg-personal.xml" />
 	<sqlMap resource="/config/ibatis/dsyg-salesreport.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-sample.xml" />
 	
 </sqlMapConfig>

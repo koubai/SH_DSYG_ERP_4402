@@ -193,7 +193,6 @@ public class ProductAction extends BaseAction {
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
 			updProductDto.setUpdateuid(username);
 			productService.updateProduct(updProductDto);
-			this.addActionMessage("更新成功！");
 			//清空数据
 			updPicFile01 = null;
 			updPicFile02 = null;
@@ -437,6 +436,64 @@ public class ProductAction extends BaseAction {
 			queryData();
 		} catch(Exception e) {
 			log.error("turnProductSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	//样品产品选择页面
+	/**
+	 * 显示产品选择页面
+	 * @return
+	 */
+	public String showSampleProductSelectPage() {
+		try {
+			this.clearMessages();
+			//这里产品选择页面，不需要关键字检索
+			strKeyword = "";
+			startIndex = 0;
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			queryData();
+		} catch(Exception e) {
+			log.error("showSampleProductSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询产品（选择页面）
+	 * @return
+	 */
+	public String querySampleProductSelectPage() {
+		try {
+			this.clearMessages();
+			startIndex = 0;
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
+			queryData();
+		} catch(Exception e) {
+			log.error("querySampleProductSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页产品（选择页面）
+	 * @return
+	 */
+	public String turnSampleProductSelectPage() {
+		try {
+			this.clearMessages();
+			queryData();
+		} catch(Exception e) {
+			log.error("turnSampleProductSelectPage error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
