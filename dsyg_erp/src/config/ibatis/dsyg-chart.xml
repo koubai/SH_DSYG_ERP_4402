@@ -611,7 +611,7 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.receiptdate,'%y') as years, DATE_FORMAT(T.receiptdate,'%m') months, TU.code as id, TU.mean as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.code as id, TU.mean as handler, T.amount as pur_sum_data     
 			from etb_finance T, tbdict01 TU
 			where 1=1 
 			and T.financetype = TU.code
@@ -619,10 +619,10 @@
 			and TU.fieldname = 'type'
 			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
-				T.receiptdate <![CDATA[>=]]> #from_date#
+				T.accountdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.receiptdate <![CDATA[<=]]> #to_date#
+				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 		)as test 
 			group by id, handler, pur_year
@@ -643,7 +643,7 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.receiptdate,'%y') as years, DATE_FORMAT(T.receiptdate,'%m') months, TU.code as id, TU.mean as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.code as id, TU.mean as handler, T.amount as pur_sum_data     
 			from etb_finance T, tbdict01 TU
 			where 1=1 
 			and T.financetype = TU.code
@@ -651,10 +651,10 @@
 			and TU.fieldname = 'type'
 			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
-				T.receiptdate <![CDATA[>=]]> #from_date#
+				T.accountdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.receiptdate <![CDATA[<=]]> #to_date#
+				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 		)as test 
 			group by id, handler, pur_year
@@ -675,7 +675,7 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.receiptdate,'%y') as years, DATE_FORMAT(T.receiptdate,'%m') months, TU.code as id, TU.mean as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.code as id, TU.mean as handler, T.amount as pur_sum_data     
 			from etb_finance T, tbdict01 TU
 			where 1=1 
 			and T.financetype = TU.code
@@ -683,10 +683,10 @@
 			and TU.fieldname = 'type'
 			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
-				T.receiptdate <![CDATA[>=]]> #from_date#
+				T.accountdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.receiptdate <![CDATA[<=]]> #to_date#
+				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 		)as test 
 			group by id, handler, pur_year
@@ -707,7 +707,7 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.receiptdate,'%y') as years, DATE_FORMAT(T.receiptdate,'%m') months, TU.code as id, TU.mean as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.code as id, TU.mean as handler, T.amount as pur_sum_data     
 			from etb_finance T, tbdict01 TU
 			where 1=1 
 			and T.financetype = TU.code
@@ -715,10 +715,10 @@
 			and TU.fieldname = 'type'
 			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
-				T.receiptdate <![CDATA[>=]]> #from_date#
+				T.accountdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.receiptdate <![CDATA[<=]]> #to_date#
+				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 		)as test 
 			group by id, handler, pur_year
@@ -740,17 +740,17 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.receiptdate,'%y') as years, DATE_FORMAT(T.receiptdate,'%m') months, TU.id as id, TU.suppliername as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.suppliername as handler, T.amount as pur_sum_data     
 			from etb_finance T, etb_supplier TU
 			where 1=1 
 			and T.customerid = TU.id
 			and	T.financetype = '1'
 			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
-				T.receiptdate <![CDATA[>=]]> #from_date#
+				T.accountdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.receiptdate <![CDATA[<=]]> #to_date#
+				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
@@ -774,17 +774,17 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.receiptdate,'%y') as years, DATE_FORMAT(T.receiptdate,'%m') months, TU.id as id, TU.suppliername as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.suppliername as handler, T.amount as pur_sum_data     
 			from etb_finance T, etb_supplier TU
 			where 1=1 
 			and T.customerid = TU.id
 			and	T.financetype = '1'
 			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
-				T.receiptdate <![CDATA[>=]]> #from_date#
+				T.accountdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.receiptdate <![CDATA[<=]]> #to_date#
+				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
@@ -808,17 +808,17 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.receiptdate,'%y') as years, DATE_FORMAT(T.receiptdate,'%m') months, TU.id as id, TU.suppliername as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.suppliername as handler, T.amount as pur_sum_data     
 			from etb_finance T, etb_supplier TU
 			where 1=1 
 			and T.customerid = TU.id
 			and	T.financetype = '1'
 			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
-				T.receiptdate <![CDATA[>=]]> #from_date#
+				T.accountdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.receiptdate <![CDATA[<=]]> #to_date#
+				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
@@ -843,17 +843,17 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.receiptdate,'%y') as years, DATE_FORMAT(T.receiptdate,'%m') months, TU.id as id, TU.customername as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.customername as handler, T.amount as pur_sum_data     
 			from etb_finance T, etb_customer TU
 			where 1=1 
 			and T.customerid = TU.id
 			and	T.financetype = '2'
 			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
-				T.receiptdate <![CDATA[>=]]> #from_date#
+				T.accountdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.receiptdate <![CDATA[<=]]> #to_date#
+				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
@@ -877,17 +877,17 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.receiptdate,'%y') as years, DATE_FORMAT(T.receiptdate,'%m') months, TU.id as id, TU.customername as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.customername as handler, T.amount as pur_sum_data     
 			from etb_finance T, etb_customer TU
 			where 1=1 
 			and T.customerid = TU.id
 			and	T.financetype = '2'
 			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
-				T.receiptdate <![CDATA[>=]]> #from_date#
+				T.accountdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.receiptdate <![CDATA[<=]]> #to_date#
+				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
@@ -911,17 +911,17 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.receiptdate,'%y') as years, DATE_FORMAT(T.receiptdate,'%m') months, TU.id as id, TU.customername as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.customername as handler, T.amount as pur_sum_data     
 			from etb_finance T, etb_customer TU
 			where 1=1 
 			and T.customerid = TU.id
 			and	T.financetype = '2'
 			and T.belongto = #belongto#
 			<isNotEmpty prepend="and" property="from_date">
-				T.receiptdate <![CDATA[>=]]> #from_date#
+				T.accountdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.receiptdate <![CDATA[<=]]> #to_date#
+				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
@@ -941,26 +941,42 @@
 	<select id="querySaleTotalByDate" parameterClass="java.util.Map" resultMap="ChartSaleTotalDto">
 		select totaltaxamount, expresstaxamount, businesstripamount
 		from(   
-			select sum(T.totaltaxamount) as totaltaxamount, sum(T.expresstaxamount) as expresstaxamount, test2.businesstripamount as businesstripamount
-			from etb_warehouserpt T right JOIN (SELECT sum(amount) as businesstripamount FROM etb_finance F 
-				where 1=1 
-				and F.financetype='4'
-				and F.theme='03'
-				and F.belongto = #belongto#
-			<isNotEmpty prepend="and" property="from_date">
-				F.accountdate <![CDATA[>=]]> #from_date#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property="to_date">
-				F.accountdate <![CDATA[<=]]> #to_date#
-			</isNotEmpty>
-			) as test2
+			select sum(T.amount) as totaltaxamount, test3.expresstaxamount as expresstaxamount, test3.businesstripamount as businesstripamount
+			from etb_finance T right JOIN (
+				SELECT sum(F2.amount) as expresstaxamount, test2.businesstripamount as businesstripamount FROM etb_finance F2 right JOIN 
+					(SELECT sum(F.amount) as businesstripamount  FROM etb_finance F 
+										where 1=1 
+										and F.financetype='4'
+										and F.theme='03'
+										and F.belongto = #belongto#
+										and F.status='99'
+										<isNotEmpty prepend="and" property="from_date">
+											F.accountdate <![CDATA[>=]]> #from_date#
+										</isNotEmpty>
+										<isNotEmpty prepend="and" property="to_date">
+											F.accountdate <![CDATA[<=]]> #to_date#
+										</isNotEmpty>
+					) as test2
+					on 1=1 
+					and F2.financetype='3'
+					and F2.belongto = #belongto#
+					and F2.status='99'					
+					<isNotEmpty prepend="and" property="from_date">
+						F2.accountdate <![CDATA[>=]]> #from_date#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="to_date">
+						F2.accountdate <![CDATA[<=]]> #to_date#
+					</isNotEmpty>
+			) as test3
 			on 1=1 
 			and T.belongto = #belongto#
+			and T.status='99'
+			and T.financetype='2'
 			<isNotEmpty prepend="and" property="from_date">
-				T.warehousedate <![CDATA[>=]]> #from_date#
+				T.accountdate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="to_date">
-				T.warehousedate <![CDATA[<=]]> #to_date#
+				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
 		)as test 
 	</select>

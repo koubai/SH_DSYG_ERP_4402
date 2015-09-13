@@ -134,8 +134,7 @@
 								<td width="60">颜色</td>
 								<td width="60">包装</td>
 								<td width="60">形式</td>
-								<td width="120">供应商</td>
-								<td width="80">平均成本价格</td>
+								<td width="140">平均成本价格(含税)</td>
 							</tr>
 							<s:iterator id="warehouseCheckList" value="productCostCheckList" status="st1">
 								<s:if test="#st1.odd==true">
@@ -169,7 +168,6 @@
 											<s:property value="packaging"/>
 										</s:else>
 									</td>
-									<td><s:property value="suppliername"/></td>
 									<td><fmt:formatNumber value="${productcost}" pattern="#0.00" /></td>
 								</tr>
 							</s:iterator>

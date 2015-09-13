@@ -293,6 +293,7 @@ public class ProductAction extends BaseAction {
 				addProductDto.setPic03(newfile03);
 			}
 			
+			
 			String newfile04 = FileUtil.uploadFile(addPdfFile, pdf_path, file04Name);
 			addProductDto.setPdfpath(newfile04);
 			
