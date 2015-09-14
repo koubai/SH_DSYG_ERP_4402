@@ -37,6 +37,11 @@ public class WarehouseDetailDto extends BaseDto {
 	private int quantity;
 
 	/**
+	 * 库存数量(addition refund)
+	 */
+	private int quantityw;
+
+	/**
 	 * 订单数量
 	 */
 	private int quantitys;
@@ -1018,7 +1023,7 @@ public class WarehouseDetailDto extends BaseDto {
 	}
 
 	public int getQuantity() {
-		return inquantity - outquantity;
+		return inquantity - outquantity - quantityw;
 	}
 
 	public void setQuantity(int quantity) {
@@ -1034,7 +1039,7 @@ public class WarehouseDetailDto extends BaseDto {
 	}
 
 	public int getDiffquantity() {
-		return inquantity - outquantity - quantitys;
+		return inquantity - outquantity - quantitys - quantityw;
 	}
 
 	public void setDiffquantity(int diffquantity) {
@@ -1048,4 +1053,14 @@ public class WarehouseDetailDto extends BaseDto {
 	public void setPlandate(Date plandate) {
 		this.plandate = plandate;
 	}
+
+	public int getQuantityw() {
+		return quantityw;
+	}
+
+	public void setQuantityw(int quantityw) {
+		this.quantityw = quantityw;
+	}
+
+
 }

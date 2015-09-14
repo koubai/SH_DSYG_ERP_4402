@@ -222,6 +222,7 @@
 		<result property="inquantity" column="inquantity" />
 		<result property="outquantity" column="outquantity" />
 		<result property="quantitys" column="quantitys" />
+		<result property="quantityw" column="quantityw" />
 		<result property="plandate" column="plandate" />
 		<result property="belongto" column="belongto" />
 		<result property="fieldno" column="fieldno" />
@@ -621,27 +622,46 @@
 	<!-- warehousedetail begin -->
 	<select id="queryWarehouseDetailByPage" parameterClass="java.util.Map" resultMap="WarehouseDetailDto">
 		select * from (
-			SELECT ifnull(S.beforequantityp+S.remainquantityp,0) AS quantityp,ifnull(S.inquantityp,0) AS inquantity,ifnull(S.outquantitys,0) AS outquantity,ifnull(S.beforequantitys+S.remainquantitys,0) AS quantitys,S.plandate,T.id,T.belongto,T.fieldno,T.brand,T.item1,T.item2,T.item3,T.tradename,T.typeno,T.color,T.packaging,T.unit,T.sampleflag,T.productname,T.makearea,T.supplierid,T.salesprice,T.purchaseprice,T.note,T.item01,T.item02,T.item03,T.item04,T.item05,T.item06,T.item07,T.item08,T.item09,T.item10,T.item11,T.item12,T.item13,T.item14,T.item15,T.item16,T.item17,T.item18,T.item19,T.item20,T.item21,T.item22,T.item23,T.item24,T.item25,T.item26,T.item27,T.item28,T.item29,T.item30,T.pic01,T.pic02,T.pic03,T.pic04,T.pic05,T.pdfpath,T.rank,T.status,T.res01,T.res02,T.res03,T.res04,T.res05,T.res06,T.res07,T.res08,T.res09,T.res10,T.keyword,T.createuid,T.createdate,T.updateuid,T.updatedate
+			SELECT ifnull(S.beforequantityp+S.remainquantityp,0) AS quantityp,ifnull(S.inquantityp,0) AS inquantity,ifnull(S.outquantitys,0) AS outquantity,ifnull(S.beforequantitys+S.remainquantitys,0) AS quantitys,ifnull(S.quantityw,0) AS quantityw,S.plandate,T.id,T.belongto,T.fieldno,T.brand,T.item1,T.item2,T.item3,T.tradename,T.typeno,T.color,T.packaging,T.unit,T.sampleflag,T.productname,T.makearea,T.supplierid,T.salesprice,T.purchaseprice,T.note,T.item01,T.item02,T.item03,T.item04,T.item05,T.item06,T.item07,T.item08,T.item09,T.item10,T.item11,T.item12,T.item13,T.item14,T.item15,T.item16,T.item17,T.item18,T.item19,T.item20,T.item21,T.item22,T.item23,T.item24,T.item25,T.item26,T.item27,T.item28,T.item29,T.item30,T.pic01,T.pic02,T.pic03,T.pic04,T.pic05,T.pdfpath,T.rank,T.status,T.res01,T.res02,T.res03,T.res04,T.res05,T.res06,T.res07,T.res08,T.res09,T.res10,T.keyword,T.createuid,T.createdate,T.updateuid,T.updatedate
 				from (
 					SELECT * FROM (SELECT P.productid,SUM(P.inquantity) AS inquantityp,SUM(P.beforequantity) AS beforequantityp,SUM(P.remainquantity) AS remainquantityp,max(plandate) AS plandate
 					FROM etb_purchaseitem P
 					GROUP BY P.productid) S1
 					LEFT JOIN
+					
 					(SELECT * FROM 
 					(SELECT S.productid as productids,SUM(S.outquantity) AS outquantitys,SUM(S.beforequantity) AS beforequantitys,SUM(S.remainquantity) AS remainquantitys 
 					FROM etb_salesitem S WHERE 1 = 1
 					group by S.productid) S2) S3
 					ON S1.productid = S3.productids
+
+					LEFT JOIN
+					(SELECT * FROM 
+					(SELECT W.productid as productidw,SUM(W.quantity) AS quantityw
+					FROM etb_warehouse W WHERE 1 = 1
+					and warehousetype = '3'
+					group by W.productid) S2) S4
+					ON S1.productid = S4.productidw
+					
 					UNION
 					SELECT * FROM (SELECT P.productid,SUM(P.inquantity) AS inquantityp,SUM(P.beforequantity) AS beforequantityp,SUM(P.remainquantity) AS remainquantityp,max(plandate) AS plandate
 					FROM etb_purchaseitem P
 					GROUP BY P.productid) S1
+					
 					RIGHT JOIN
 					(SELECT * FROM 
 					(SELECT S.productid as productids,SUM(S.outquantity) AS outquantitys,SUM(S.beforequantity) AS beforequantitys,SUM(S.remainquantity) AS remainquantitys 
 					FROM etb_salesitem S WHERE 1 = 1
 					group by S.productid) S2) S3
 					ON S1.productid = S3.productids
+					
+					RIGHT JOIN
+					(SELECT * FROM 
+					(SELECT W.productid as productidw,SUM(W.quantity) AS quantityw
+					FROM etb_warehouse W WHERE 1 = 1
+					and warehousetype = '3'
+					group by W.productid) S2) S4
+					ON S1.productid = S4.productidw
 				) S, etb_product T WHERE T.id = S.productid or T.id = S.productids
 			) A where 1 = 1
 			<isNotEmpty prepend="and" property="tradename">
@@ -666,27 +686,46 @@
 	<select id="queryWarehouseDetailCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from (
 		select * from (
-			SELECT ifnull(S.beforequantityp+S.remainquantityp,0) AS quantityp,ifnull(S.inquantityp,0) AS inquantity,ifnull(S.outquantitys,0) AS outquantity,ifnull(S.beforequantitys+S.remainquantitys,0) AS quantitys,S.plandate,T.id,T.belongto,T.fieldno,T.brand,T.item1,T.item2,T.item3,T.tradename,T.typeno,T.color,T.packaging,T.unit,T.sampleflag,T.productname,T.makearea,T.supplierid,T.salesprice,T.purchaseprice,T.note,T.item01,T.item02,T.item03,T.item04,T.item05,T.item06,T.item07,T.item08,T.item09,T.item10,T.item11,T.item12,T.item13,T.item14,T.item15,T.item16,T.item17,T.item18,T.item19,T.item20,T.item21,T.item22,T.item23,T.item24,T.item25,T.item26,T.item27,T.item28,T.item29,T.item30,T.pic01,T.pic02,T.pic03,T.pic04,T.pic05,T.pdfpath,T.rank,T.status,T.res01,T.res02,T.res03,T.res04,T.res05,T.res06,T.res07,T.res08,T.res09,T.res10,T.keyword,T.createuid,T.createdate,T.updateuid,T.updatedate
+			SELECT ifnull(S.beforequantityp+S.remainquantityp,0) AS quantityp,ifnull(S.inquantityp,0) AS inquantity,ifnull(S.outquantitys,0) AS outquantity,ifnull(S.beforequantitys+S.remainquantitys,0) AS quantitys,ifnull(S.quantityw,0) AS quantityw,S.plandate,T.id,T.belongto,T.fieldno,T.brand,T.item1,T.item2,T.item3,T.tradename,T.typeno,T.color,T.packaging,T.unit,T.sampleflag,T.productname,T.makearea,T.supplierid,T.salesprice,T.purchaseprice,T.note,T.item01,T.item02,T.item03,T.item04,T.item05,T.item06,T.item07,T.item08,T.item09,T.item10,T.item11,T.item12,T.item13,T.item14,T.item15,T.item16,T.item17,T.item18,T.item19,T.item20,T.item21,T.item22,T.item23,T.item24,T.item25,T.item26,T.item27,T.item28,T.item29,T.item30,T.pic01,T.pic02,T.pic03,T.pic04,T.pic05,T.pdfpath,T.rank,T.status,T.res01,T.res02,T.res03,T.res04,T.res05,T.res06,T.res07,T.res08,T.res09,T.res10,T.keyword,T.createuid,T.createdate,T.updateuid,T.updatedate
 				from (
 					SELECT * FROM (SELECT P.productid,SUM(P.inquantity) AS inquantityp,SUM(P.beforequantity) AS beforequantityp,SUM(P.remainquantity) AS remainquantityp,max(plandate) AS plandate
 					FROM etb_purchaseitem P
 					GROUP BY P.productid) S1
 					LEFT JOIN
+					
 					(SELECT * FROM 
 					(SELECT S.productid as productids,SUM(S.outquantity) AS outquantitys,SUM(S.beforequantity) AS beforequantitys,SUM(S.remainquantity) AS remainquantitys 
 					FROM etb_salesitem S WHERE 1 = 1
 					group by S.productid) S2) S3
 					ON S1.productid = S3.productids
+
+					LEFT JOIN
+					(SELECT * FROM 
+					(SELECT W.productid as productidw,SUM(W.quantity) AS quantityw
+					FROM etb_warehouse W WHERE 1 = 1
+					and warehousetype = '3'
+					group by W.productid) S2) S4
+					ON S1.productid = S4.productidw
+					
 					UNION
 					SELECT * FROM (SELECT P.productid,SUM(P.inquantity) AS inquantityp,SUM(P.beforequantity) AS beforequantityp,SUM(P.remainquantity) AS remainquantityp,max(plandate) AS plandate
 					FROM etb_purchaseitem P
 					GROUP BY P.productid) S1
+					
 					RIGHT JOIN
 					(SELECT * FROM 
 					(SELECT S.productid as productids,SUM(S.outquantity) AS outquantitys,SUM(S.beforequantity) AS beforequantitys,SUM(S.remainquantity) AS remainquantitys 
 					FROM etb_salesitem S WHERE 1 = 1
 					group by S.productid) S2) S3
 					ON S1.productid = S3.productids
+					
+					RIGHT JOIN
+					(SELECT * FROM 
+					(SELECT W.productid as productidw,SUM(W.quantity) AS quantityw
+					FROM etb_warehouse W WHERE 1 = 1
+					and warehousetype = '3'
+					group by W.productid) S2) S4
+					ON S1.productid = S4.productidw
 				) S, etb_product T WHERE T.id = S.productid or T.id = S.productids
 			) A where 1 = 1
 			<isNotEmpty prepend="and" property="tradename">
