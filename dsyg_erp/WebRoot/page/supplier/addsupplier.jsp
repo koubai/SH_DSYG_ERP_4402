@@ -27,11 +27,12 @@
 		var suppliername = $("#suppliername").val().trim();
 		var tmpnote = $("#tmpnote").val();
 		$("#note").attr("value", tmpnote);
-		if(id == "") {
+/*		if(id == "") {
 			alert("供应商代码不能为空！");
 			$("#id").focus();
 			return;
 		}
+*/		
 		if(suppliername == "") {
 			alert("供应商名称不能为空！");
 			$("#suppliername").focus();
@@ -124,6 +125,7 @@
 			</div>
 		</div>
 		<s:form id="mainform" name="mainform" method="POST">
+			<s:hidden name="addSupplierDto.id" id="id"></s:hidden>
 			<s:hidden name="addSupplierDto.note" id="note"></s:hidden>
 			<s:hidden name="addSupplierDto.suppliermail1" id="suppliermail1"></s:hidden>
 			<s:hidden name="addSupplierDto.suppliermail2" id="suppliermail2"></s:hidden>
@@ -135,18 +137,8 @@
 		</div>
 		<table style="margin-left: 50px; margin-top: 30px;" border="0" cellspacing="15" cellpadding="0">
 			<tr>
-				<td width="120"><font color="red">*</font>供应商代码</td>
+				<td width="120"><font color="red">*</font>供应商名称</td>
 				<td width="500">
-					<div class="box1_left"></div>
-					<div class="box1_center">
-						<s:textfield name="addSupplierDto.id" id="id" cssStyle="width:350px;" maxlength="4" theme="simple"></s:textfield>
-					</div>
-					<div class="box1_right"></div>
-				</td>
-			</tr>
-			<tr>
-				<td><font color="red">*</font>供应商名称</td>
-				<td>
 					<div class="box1_left"></div>
 					<div class="box1_center">
 						<s:textfield name="addSupplierDto.suppliername" id="suppliername" cssStyle="width:350px;" maxlength="40" theme="simple"></s:textfield>

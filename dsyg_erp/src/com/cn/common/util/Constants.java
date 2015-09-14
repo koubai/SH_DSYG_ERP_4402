@@ -116,6 +116,15 @@ public class Constants {
 	
 	//采购订单号番号
 	public final static String DICT_PURCHASE_ORDER = "purchaseorder";
+
+	//供应商番号
+	public final static String DICT_SUPPLIER_ORDER = "suppliererorder";
+
+	//客户番号
+	public final static String DICT_CUSTOMER_ORDER = "customerorder";
+
+	//快递商番号
+	public final static String DICT_EXPRESSER_ORDER = "expresserorder";
 	
 	//财务主题
 	public final static String FINANCE_THEME = "financetheme";

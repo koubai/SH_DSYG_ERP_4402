@@ -27,11 +27,12 @@
 		var deliveryname = $("#deliveryname").val().trim();
 		var tmpnote = $("#tmpnote").val();
 		$("#note").attr("value", tmpnote);
-		if(id == "") {
+/*		if(id == "") {
 			alert("快递代码不能为空！");
 			$("#id").focus();
 			return;
 		}
+*/		
 		if(deliveryname == "") {
 			alert("快递名称不能为空！");
 			$("#deliveryname").focus();
@@ -124,6 +125,7 @@
 			</div>
 		</div>
 		<s:form id="mainform" name="mainform" method="POST">
+			<s:hidden name="addDeliveryDto.id" id="id"></s:hidden >
 			<s:hidden name="addDeliveryDto.note" id="note"></s:hidden>
 			<s:hidden name="addDeliveryDto.deliverymail1" id="deliverymail1"></s:hidden>
 			<s:hidden name="addDeliveryDto.deliverymail2" id="deliverymail2"></s:hidden>
@@ -135,18 +137,8 @@
 		</div>
 		<table style="margin-left: 50px; margin-top: 30px;" border="0" cellspacing="15" cellpadding="0">
 			<tr>
-				<td width="120"><font color="red">*</font>快递代码</td>
+				<td width="120"><font color="red">*</font>快递名称</td>
 				<td width="500">
-					<div class="box1_left"></div>
-					<div class="box1_center">
-						<s:textfield name="addDeliveryDto.id" id="id" cssStyle="width:350px;" maxlength="4" theme="simple"></s:textfield>
-					</div>
-					<div class="box1_right"></div>
-				</td>
-			</tr>
-			<tr>
-				<td><font color="red">*</font>快递名称</td>
-				<td>
 					<div class="box1_left"></div>
 					<div class="box1_center">
 						<s:textfield name="addDeliveryDto.deliveryname" id="deliveryname" cssStyle="width:350px;" maxlength="40" theme="simple"></s:textfield>

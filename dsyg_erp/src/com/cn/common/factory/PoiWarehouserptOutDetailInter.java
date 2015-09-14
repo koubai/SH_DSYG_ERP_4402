@@ -216,36 +216,42 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 		XSSFCell cell_cus = row2.createCell(0);
 		XSSFCell cell_del = row2.createCell(4);
 		cell_cus.setCellValue("客户：" + warehouserpt.getSuppliername());
-		cell_del.setCellValue("快递：" + warehouserpt.getExpressname());
+		if (warehouserpt.getExpressname()!=null)
+			cell_del.setCellValue("快递：" + warehouserpt.getExpressname());
 		XSSFRow row3 = sheet.createRow(5);
 		XSSFCell cell_cus_add = row3.createCell(0);
 		XSSFCell cell_del_add = row3.createCell(4);
 		//XSSFCell cell_sum = row3.createCell(8);
 		cell_cus_add.setCellValue("客户地址：" + warehouserpt.getSupplieraddress());
-		cell_del_add.setCellValue("快递公司地址：" + warehouserpt.getExpressname());
+		if (warehouserpt.getExpressname()!=null)
+			cell_del_add.setCellValue("快递公司地址：" + warehouserpt.getExpressname());
 		//cell_sum.setCellValue("转运费用合计：" + warehouserpt.getExpresstaxamount());
 		XSSFRow row4 = sheet.createRow(6);
 		XSSFCell cell_cus_mng = row4.createCell(0);
 		XSSFCell cell_del_mng = row4.createCell(4);
 		cell_cus_mng.setCellValue("联系人：" + warehouserpt.getSuppliermanager());
-		cell_del_mng.setCellValue("联系人：" + warehouserpt.getExpressmanager());
+		if (warehouserpt.getExpressname()!=null)
+			cell_del_mng.setCellValue("联系人：" + warehouserpt.getExpressmanager());
 		XSSFRow row5 = sheet.createRow(7);
 		XSSFCell cell_cus_tel = row5.createCell(0);
 		XSSFCell cell_del_tel = row5.createCell(4);
 		cell_cus_tel.setCellValue("联系人电话：" + warehouserpt.getSuppliertel());
-		cell_del_tel.setCellValue("联系人电话：" + warehouserpt.getExpresstel());
+		if (warehouserpt.getExpressname()!=null)
+			cell_del_tel.setCellValue("联系人电话：" + warehouserpt.getExpresstel());
 		XSSFRow row6 = sheet.createRow(8);
 		XSSFCell cell_cus_fax = row6.createCell(0);
 		XSSFCell cell_del_fax = row6.createCell(4);
 		XSSFCell cell_date = row6.createCell(7);
 		cell_cus_fax.setCellValue("联系人传真：" + warehouserpt.getSupplierfax());
-		cell_del_fax.setCellValue("联系人传真：" + warehouserpt.getExpressfax());
+		if (warehouserpt.getExpressname()!=null)
+			cell_del_fax.setCellValue("联系人传真：" + warehouserpt.getExpressfax());
 		cell_date.setCellValue("发货日期：" + warehouserpt.getShowWarehousedate());
 		XSSFRow row7 = sheet.createRow(9);
 		XSSFCell cell_cus_mail = row7.createCell(0);
 		XSSFCell cell_del_mail = row7.createCell(4);
 		cell_cus_mail.setCellValue("联系人信箱：" + warehouserpt.getSuppliermail());
-		cell_del_mail.setCellValue("联系人信箱：" + warehouserpt.getExpressmail());
+		if (warehouserpt.getExpressname()!=null)
+			cell_del_mail.setCellValue("联系人信箱：" + warehouserpt.getExpressmail());
 
 		XSSFRow row8 = sheet.createRow(11);
 		XSSFCell cell_detail = row8.createCell(0);

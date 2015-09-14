@@ -199,6 +199,9 @@
 		<property name="supplierDao">
 			<ref local="supplierDao"/>
 		</property>
+		<property name="dict01Dao">
+			<ref local="dict01Dao"/>
+		</property>
 	</bean>
 	
 	<bean id="supplierDao" class="com.cn.dsyg.dao.impl.SupplierDaoImpl">
@@ -321,6 +324,9 @@
 		<property name="customerDao">
 			<ref local="customerDao"/>
 		</property>
+		<property name="dict01Dao">
+			<ref local="dict01Dao"/>
+		</property>
 	</bean>
 	
 	<bean id="customerDao" class="com.cn.dsyg.dao.impl.CustomerDaoImpl">
@@ -333,6 +339,9 @@
 	<bean id="deliveryService" class="com.cn.dsyg.service.impl.DeliveryServiceImpl" >
 		<property name="deliveryDao">
 			<ref local="deliveryDao"/>
+		</property>
+		<property name="dict01Dao">
+			<ref local="dict01Dao"/>
 		</property>
 	</bean>
 	

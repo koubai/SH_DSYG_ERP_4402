@@ -288,6 +288,7 @@ public class DeliveryAction extends BaseAction {
 			addDeliveryDto.setStatus(Constants.STATUS_NORMAL);
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			addDeliveryDto.setCreateuid(username);
+			addDeliveryDto.setBelongto((String)ActionContext.getContext().getSession().get(Constants.SESSION_BELONGTO));
 			deliveryService.insertEtbDelivery(addDeliveryDto);
 			this.addActionMessage("添加快递成功！");
 			addDeliveryDto = new DeliveryDto();

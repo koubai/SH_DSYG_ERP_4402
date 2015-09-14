@@ -179,9 +179,9 @@
 							<tr class="tittle">
 								<td width="5%"></td>
 								<td width="5%">序号</td>
-								<td width="5%">客户编号</td>
+								<!--  <td width="5%">客户编号</td>-->
 								<td width="15%">客户名称</td>
-								<td width="15%">客户地址</td>
+								<td width="20%">客户地址</td>
 								<td width="10%">联系人</td>
 								<td width="10%">电话</td>
 								<td width="10%">传真</td>
@@ -190,14 +190,14 @@
 							</tr>
 							<s:iterator id="listCustomer" value="listCustomer" status="st1">
 								<s:if test="#st1.odd==true">
-									<tr class="tr_bg">
+									<tr class="tr_bg" onclick="checkRadioTr(this, event);">
 								</s:if>
 								<s:else>
-									<tr>
+									<tr onclick="checkRadioTr(this, event);">							
 								</s:else>
 									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-									<td><s:property value="id"/></td>
+									<!-- <td><s:property value="id"/></td> -->
 									<td>
 										<div noWrap style="text-overflow:ellipsis;overflow:hidden">
 											<s:property value="customername"/>

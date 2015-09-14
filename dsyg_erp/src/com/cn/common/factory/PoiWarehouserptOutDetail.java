@@ -203,11 +203,11 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 		XSSFCellStyle style_other = workbook.createCellStyle();
 		
 		row = sheet.createRow(num + 12);
-		XSSFCell cell11 = row.createCell(6);
+		XSSFCell cell11 = row.createCell(5);
 		cell11.setCellValue("总计:");
 		cell11.setCellStyle(style_other);
 		XSSFCell cell12 = row.createCell(7);
-		cell12.setCellValue(warehouserpt.getTotalnum());
+		cell12.setCellValue(warehouserpt.getTotalnum()+" / ");
 		cell12.setCellStyle(style_other);
 		XSSFCell cell13 = row.createCell(8);
 		cell13.setCellValue(warehouserpt.getTotaltaxamount().toString());

@@ -4,8 +4,11 @@ import java.util.List;
 
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
+import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
+import com.cn.dsyg.dao.Dict01Dao;
 import com.cn.dsyg.dao.SupplierDao;
+import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.SupplierDto;
 import com.cn.dsyg.service.SupplierService;
 
@@ -18,6 +21,15 @@ import com.cn.dsyg.service.SupplierService;
 public class SupplierServiceImpl implements SupplierService {
 	
 	private SupplierDao supplierDao;
+	private Dict01Dao dict01Dao;
+
+	public Dict01Dao getDict01Dao() {
+		return dict01Dao;
+	}
+
+	public void setDict01Dao(Dict01Dao dict01Dao) {
+		this.dict01Dao = dict01Dao;
+	}
 
 	@Override
 	public SupplierDto queryAllSupplierByID(String ID) {
@@ -63,6 +75,34 @@ public class SupplierServiceImpl implements SupplierService {
 
 	@Override
 	public void insertSupplier(SupplierDto supplier) {
+		//供应商番号
+		String code = "";
+		
+		List<Dict01Dto> listDict = dict01Dao.queryDict01ByFieldcode(Constants.DICT_SUPPLIER_ORDER, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		if(listDict != null && listDict.size() > 0) {
+			Dict01Dto dict = listDict.get(0);
+			code = dict.getCode();
+			//番号+1
+			dict.setCode("" + (Integer.valueOf(dict.getCode()) + 1));
+			dict01Dao.updateDict01(dict);
+			code = "" + (Integer.valueOf(dict.getCode()) + 1);
+		} else {
+			//插入数据
+			Dict01Dto dict = new Dict01Dto();
+			dict.setFieldcode(Constants.DICT_SUPPLIER_ORDER);
+			dict.setFieldname("供应商番号");
+			//番号默认从1开始
+			dict.setCode("1");
+			code = "1";
+			dict.setLang(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+			dict.setMean("供应商番号");
+			dict.setNote("供应商番号");
+			dict.setStatus(Constants.STATUS_NORMAL);
+			dict.setCreateuid("admin");
+			dict.setUpdateuid("admin");
+			dict01Dao.insertDict01(dict);
+		}
+		supplier.setId(Integer.valueOf(code));
 		supplierDao.insertSupplier(supplier);
 	}
 

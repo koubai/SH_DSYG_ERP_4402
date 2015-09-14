@@ -198,8 +198,8 @@
 							<tr class="tittle">
 								<td width="5%"></td>
 								<td width="5%">序号</td>
-								<td width="5%">客户编号</td>
-								<td width="15%">客户名称</td>
+								<!-- <td width="5%">客户编号</td> -->
+								<td width="20%">客户名称</td>
 								<td width="25%">客户地址</td>
 								<td width="10%">联系人</td>
 								<td width="10%">客户类型</td>
@@ -215,7 +215,7 @@
 									<td>
 									<input type="checkbox" name="listCustomer[<s:property value="#st1.index"/>].checkKey" onclick="check(this);" /></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-									<td><s:property value="id"/></td>
+									<!-- <td><s:property value="id"/></td> -->
 									<td>
 										<div noWrap style="text-overflow:ellipsis;overflow:hidden">
 											<s:property value="customername"/>

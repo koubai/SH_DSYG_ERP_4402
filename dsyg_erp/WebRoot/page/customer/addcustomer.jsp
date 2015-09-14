@@ -27,11 +27,12 @@
 		var customername = $("#customername").val().trim();
 		var tmpnote = $("#tmpnote").val();
 		$("#note").attr("value", tmpnote);
-		if(id == "") {
+/*		if(id == "") {
 			alert("客户代码不能为空！");
 			$("#id").focus();
 			return;
 		}
+*/		
 		if(customername == "") {
 			alert("客户名称不能为空！");
 			$("#customername").focus();
@@ -123,6 +124,7 @@
 			</div>
 		</div>
 		<s:form id="mainform" name="mainform" method="POST">
+			<s:hidden name="addCustomerDto.id" id="id"></s:hidden>
 			<s:hidden name="addCustomerDto.note" id="note"></s:hidden>
 			<s:hidden name="addCustomerDto.customermail1" id="customermail1"></s:hidden>
 			<s:hidden name="addCustomerDto.customermail2" id="customermail2"></s:hidden>
@@ -134,18 +136,8 @@
 		</div>
 		<table style="margin-left: 50px; margin-top: 30px;" border="0" cellspacing="15" cellpadding="0">
 			<tr>
-				<td width="120"><font color="red">*</font>客户代码</td>
+				<td width="120"><font color="red">*</font>客户名称</td>
 				<td width="500">
-					<div class="box1_left"></div>
-					<div class="box1_center">
-						<s:textfield name="addCustomerDto.id" id="id" cssStyle="width:350px;" maxlength="4" theme="simple"></s:textfield>
-					</div>
-					<div class="box1_right"></div>
-				</td>
-			</tr>
-			<tr>
-				<td><font color="red">*</font>客户名称</td>
-				<td>
 					<div class="box1_left"></div>
 					<div class="box1_center">
 						<s:textfield name="addCustomerDto.customername" id="customername" cssStyle="width:350px;" maxlength="40" theme="simple"></s:textfield>

@@ -278,11 +278,12 @@ public class SupplierAction extends BaseAction {
 			if(supplier != null) {
 				this.addActionMessage("供应商代码已经存在！");
 				return "checkerror";
-			}
+			}				
 			//保存数据
 			addSupplierDto.setStatus(Constants.STATUS_NORMAL);
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			addSupplierDto.setCreateuid(username);
+			addSupplierDto.setBelongto((String)ActionContext.getContext().getSession().get(Constants.SESSION_BELONGTO));
 			supplierService.insertSupplier(addSupplierDto);
 			this.addActionMessage("添加供应商成功！");
 			addSupplierDto = new SupplierDto();

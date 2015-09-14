@@ -170,9 +170,9 @@
 							<tr class="tittle">
 								<td width="5%"></td>
 								<td width="5%">序号</td>
-								<td width="5%">快递编号</td>
-								<td width="15%">快递名称</td>
-								<td width="15%">快递地址</td>
+								<!-- <td width="5%">快递编号</td> -->
+								<td width="15%">快递商名称</td>
+								<td width="20%">快递商地址</td>
 								<td width="10%">联系人</td>
 								<td width="10%">电话</td>
 								<td width="10%">传真</td>
@@ -188,7 +188,7 @@
 								</s:else>
 									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-									<td><s:property value="id"/></td>
+									<!-- <td><s:property value="id"/></td> -->
 									<td>
 										<div noWrap style="text-overflow:ellipsis;overflow:hidden">
 											<s:property value="deliveryname"/>

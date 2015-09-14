@@ -179,7 +179,7 @@
 							<tr class="tittle">
 								<td width="5%"></td>
 								<td width="5%">序号</td>
-								<td width="10%">供应商编号</td>
+								<!-- <td width="10%">供应商编号</td> -->
 								<td width="10%">供应商名称</td>
 								<td width="15%">供应商地址</td>
 								<td width="10%">联系人</td>
@@ -197,7 +197,7 @@
 								</s:else>
 									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-									<td><s:property value="id"/></td>
+									<!-- <td><s:property value="id"/></td> -->
 									<td>
 										<div noWrap style="text-overflow:ellipsis;overflow:hidden">
 											<s:property value="suppliername"/>

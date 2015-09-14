@@ -358,6 +358,7 @@ public class CustomerAction extends BaseAction {
 			addCustomerDto.setStatus(Constants.STATUS_NORMAL);
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			addCustomerDto.setCreateuid(username);
+			addCustomerDto.setBelongto((String)ActionContext.getContext().getSession().get(Constants.SESSION_BELONGTO));
 			customerService.insertEtbCustomer(addCustomerDto);
 			this.addActionMessage("添加客户成功！");
 			addCustomerDto = new CustomerDto();

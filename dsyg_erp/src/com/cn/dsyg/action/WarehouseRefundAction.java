@@ -134,6 +134,8 @@ public class WarehouseRefundAction extends BaseAction {
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
 			addWarehouseDto.setCreateuid(username);
 			addWarehouseDto.setUpdateuid(username);
+			addWarehouseDto.setBelongto((String) ActionContext.getContext().getSession().get(Constants.SESSION_BELONGTO));
+			addWarehouseDto.setWarehousename("SH01");
 			String warehouseno = warehouseService.insertRefundWarehouse(addWarehouseDto);
 			
 			this.addActionMessage("添加成功！库存单号：" + warehouseno);
@@ -239,10 +241,11 @@ public class WarehouseRefundAction extends BaseAction {
 			this.addActionMessage("请选择类型！");
 			return false;
 		}
-		if(StringUtil.isBlank(warehouse.getWarehousename())) {
+/*		if(StringUtil.isBlank(warehouse.getWarehousename())) {
 			this.addActionMessage("仓库不能为空！");
 			return false;
 		}
+*/		
 		if(StringUtil.isBlank(warehouse.getProductid())) {
 			this.addActionMessage("产品不能为空！");
 			return false;
