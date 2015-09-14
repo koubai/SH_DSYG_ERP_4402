@@ -119,23 +119,25 @@ public class PoiWarehouserptIn extends Poi2007Base {
 			cell11.setCellValue(StringUtil.getStr(warehouserpt.getSupplieraddress()));
 			cell12.setCellStyle(style);
 			cell12.setCellValue(StringUtil.getStr(warehouserpt.getSuppliermail()));
-			cell13.setCellStyle(style);
-			cell13.setCellValue(StringUtil.getStr(warehouserpt.getExpressname()));
-			cell14.setCellStyle(style);
-			cell14.setCellValue(StringUtil.getStr(warehouserpt.getExpressmanager()));
-			cell15.setCellStyle(style);
-			cell15.setCellValue(StringUtil.getStr(warehouserpt.getExpresstel()));
-			cell16.setCellStyle(style);
-			cell16.setCellValue(StringUtil.getStr(warehouserpt.getExpressaddress()));
-			cell17.setCellStyle(style);
-			cell17.setCellValue(StringUtil.getStr(warehouserpt.getExpressfax()));
-			cell18.setCellStyle(style);
-			cell18.setCellValue(StringUtil.getStr(warehouserpt.getExpressmail()));
-			cell19.setCellStyle(style);
-			if(warehouserpt.getExpresstaxamount() != null) {
-				cell19.setCellValue("" + warehouserpt.getExpresstaxamount());
-			} else {
-				cell19.setCellValue("");
+			if (warehouserpt.getExpressname() != null){
+				cell13.setCellStyle(style);
+				cell13.setCellValue(StringUtil.getStr(warehouserpt.getExpressname()));
+				cell14.setCellStyle(style);
+				cell14.setCellValue(StringUtil.getStr(warehouserpt.getExpressmanager()));
+				cell15.setCellStyle(style);
+				cell15.setCellValue(StringUtil.getStr(warehouserpt.getExpresstel()));
+				cell16.setCellStyle(style);
+				cell16.setCellValue(StringUtil.getStr(warehouserpt.getExpressaddress()));
+				cell17.setCellStyle(style);
+				cell17.setCellValue(StringUtil.getStr(warehouserpt.getExpressfax()));
+				cell18.setCellStyle(style);
+				cell18.setCellValue(StringUtil.getStr(warehouserpt.getExpressmail()));
+				cell19.setCellStyle(style);
+				if(warehouserpt.getExpresstaxamount() != null) {
+					cell19.setCellValue("" + warehouserpt.getExpresstaxamount());
+				} else {
+					cell19.setCellValue("");
+				}				
 			}
 			cell20.setCellStyle(style);
 			cell20.setCellValue(warehouserpt.getApproverid());
