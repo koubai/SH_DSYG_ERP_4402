@@ -78,6 +78,10 @@
 			<result name="success">/page/download.jsp</result>
 		</action>
 		
+		<action name="checkProductQuantity" class="warehouseCheckAction" method="checkProductQuantity">
+			<result name="*">/page/warehouse/warehousechecklist.jsp</result>
+		</action>
+		
 		<action name="showWarehouseRefundAction" class="warehouseRefundAction" method="showWarehouseRefundAction">
 			<result name="*">/page/warehouse/warehouserefundlist.jsp</result>
 		</action>

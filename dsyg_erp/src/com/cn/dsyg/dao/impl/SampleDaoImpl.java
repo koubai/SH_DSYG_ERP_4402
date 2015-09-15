@@ -30,11 +30,12 @@ public class SampleDaoImpl extends BaseDao implements SampleDao {
 
 	@Override
 	public List<SampleDto> querySampleByPage(String warehousename,
-			String productid, String status, int start, int end) {
+			String productid, String status, String tradename, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("warehousename", warehousename);
 		paramMap.put("productid", productid);
 		paramMap.put("status", status);
+		paramMap.put("tradename", tradename);
 		paramMap.put("start", start);
 		paramMap.put("end", end);
 		@SuppressWarnings("unchecked")
@@ -44,11 +45,12 @@ public class SampleDaoImpl extends BaseDao implements SampleDao {
 
 	@Override
 	public int querySampleCountByPage(String warehousename, String productid,
-			String status) {
+			String status, String tradename) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("warehousename", warehousename);
 		paramMap.put("productid", productid);
 		paramMap.put("status", status);
+		paramMap.put("tradename", tradename);
 		return (Integer) getSqlMapClientTemplate().queryForObject("querySampleCountByPage", paramMap);
 	}
 

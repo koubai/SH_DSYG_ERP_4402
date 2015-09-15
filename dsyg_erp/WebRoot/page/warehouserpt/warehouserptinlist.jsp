@@ -145,7 +145,6 @@
 					</div>
 					<div class="icons thums">
 						<a class="edit" onclick="upd();">编辑</a>
-						<a class="add" onclick="add();">增加</a>
 						<!--
 						<a class="delete" onclick="del();">删除</a>
 						-->

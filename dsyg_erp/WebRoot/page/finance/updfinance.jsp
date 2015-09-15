@@ -9,7 +9,7 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
-<title>账目信息输入</title>
+<title>账目信息更新</title>
 <script type="text/javascript">
 	function upd() {
 		if(checkItem()) {
@@ -30,8 +30,8 @@
 		var invoiceid = $("#invoiceid").val().trim();
 		//单据日期
 		var tmpReceiptdate = $("#tmpReceiptdate").val().trim();
-		//主题
-		var theme = $("#theme").val().trim();
+		//类型
+		var financetype = $("#financetype").val().trim();
 		//方式
 		var mode = $("#mode").val().trim();
 		//对象
@@ -58,10 +58,20 @@
 		}
 		if(tmpReceiptdate == "") {
 		}
-		if(theme == "") {
+		if(financetype == "") {
 			alert("请选择主题！");
 			$("#theme").focus();
 			return;
+		} else {
+			if(financetype == "4") {
+				//主题
+				var theme = $("#theme").val().trim();
+				if(theme == "") {
+					alert("请选择主题！");
+					$("#theme").focus();
+					return;
+				}
+			}
 		}
 		if(mode == "") {
 			alert("请选择方式！");
@@ -151,7 +161,6 @@
 			<s:form id="mainform" name="mainform" method="POST">
 				<s:hidden name="updFinanceDto.receiptdate" id="receiptdate"></s:hidden>
 				<s:hidden name="updFinanceDto.accountdate" id="accountdate"></s:hidden>
-				<s:hidden name="updFinanceDto.financetype" id="financetype"></s:hidden>
 				<s:hidden name="updFinanceDto.status" id="status"></s:hidden>
 				
 				<s:hidden name="updFinanceDto.handler" id="handler"></s:hidden>
@@ -198,7 +207,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updFinanceDto.invoiceid" disabled="true" id="invoiceid" cssStyle="width:300px;" maxlength="16" theme="simple"></s:textfield>
+									<s:textfield name="updFinanceDto.invoiceid" id="invoiceid" cssStyle="width:300px;" maxlength="16" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -221,12 +230,35 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<select name="updFinanceDto.theme" id="theme" style="width: 300px;">
-										<option value="" selected="selected">请选择</option>
-										<s:iterator value="financeDictList" id="financeDictList" status="st1">
-											<option value="<s:property value="code"/>" <s:if test="%{financeDictList[#st1.index].code == updFinanceDto.theme}">selected</s:if>><s:property value="fieldname"/></option>
-										</s:iterator>
-									</select>
+									<s:if test='updFinanceDto.financetype == "4"'>
+										<s:hidden name="updFinanceDto.financetype" id="financetype"></s:hidden>
+										<select name="updFinanceDto.theme" id="theme" style="width: 300px;">
+											<option value="" selected="selected">请选择</option>
+											<s:iterator value="financeDictList" id="financeDictList" status="st1">
+												<option value="<s:property value="code"/>" <s:if test="%{financeDictList[#st1.index].code == updFinanceDto.theme}">selected</s:if>><s:property value="fieldname"/></option>
+											</s:iterator>
+										</select>
+									</s:if>
+									<s:else>
+										<select name="updFinanceDto.financetype" id="financetype" style="width: 300px;">
+											<option value="" selected="selected">请选择</option>
+											<s:if test='updFinanceDto.financetype == "1"'>
+												<option value="1" selected="selected">采购</option>
+												<option value="2">订单</option>
+												<option value="3">物流</option>
+											</s:if>
+											<s:elseif test='updFinanceDto.financetype == "2"'>
+												<option value="1">采购</option>
+												<option value="2" selected="selected">订单</option>
+												<option value="3">物流</option>
+											</s:elseif>
+											<s:elseif test='updFinanceDto.financetype == "3"'>
+												<option value="1">采购</option>
+												<option value="2">订单</option>
+												<option value="3" selected="selected">物流</option>
+											</s:elseif>
+										</select>
+									</s:else>
 								</div>
 								<div class="box1_right"></div>
 							</td>

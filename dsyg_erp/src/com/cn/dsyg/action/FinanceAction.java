@@ -236,9 +236,16 @@ public class FinanceAction extends BaseAction {
 //			this.addActionMessage("单据日期不能为空！");
 //			return false;
 //		}
-		if(StringUtil.isBlank(finance.getTheme())) {
+		if(finance.getFinancetype() == null) {
 			this.addActionMessage("请选择主题！");
 			return false;
+		} else {
+			if(finance.getFinancetype() == Constants.WAREHOUSERPT_TYPE_INPUT) {
+				if(StringUtil.isBlank(finance.getTheme())) {
+					this.addActionMessage("请选择主题！");
+					return false;
+				}
+			}
 		}
 		if(StringUtil.isBlank(finance.getMode())) {
 			this.addActionMessage("请选择方式！");

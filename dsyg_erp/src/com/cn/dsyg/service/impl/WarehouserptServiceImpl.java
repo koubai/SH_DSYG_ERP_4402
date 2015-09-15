@@ -343,6 +343,7 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 			finance.setHandler(warehouserpt.getUpdateuid());
 			finance.setApproverid(warehouserpt.getUpdateuid());
 			//快递信息
+			finance.setRes09(warehouserpt.getExpressno());
 			finance.setCustomerid(Long.valueOf(warehouserpt.getExpressid()));
 			finance.setCustomername(warehouserpt.getExpressname());
 			finance.setCustomertel(warehouserpt.getExpresstel());
@@ -364,6 +365,7 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 			//负责人
 			ff.setHandler(warehouserpt.getUpdateuid());
 			//快递信息
+			ff.setRes09(warehouserpt.getExpressno());
 			ff.setCustomerid(Long.valueOf(warehouserpt.getExpressid()));
 			ff.setCustomername(warehouserpt.getExpressname());
 			ff.setCustomertel(warehouserpt.getExpresstel());

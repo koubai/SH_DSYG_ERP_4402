@@ -23,11 +23,12 @@ public interface SampleService {
 	 * @param warehousename
 	 * @param productid
 	 * @param status
+	 * @param tradename
 	 * @param page
 	 * @return
 	 */
 	public Page querySampleByPage(String warehousename,
-			String productid, String status, Page page);
+			String productid, String status, String tradename, Page page);
 	
 	/**
 	 * 新增记录

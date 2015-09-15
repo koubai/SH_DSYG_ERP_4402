@@ -3,6 +3,19 @@
 
 <beans>
 
+	<!-- qa -->
+	<bean id="qaService" class="com.cn.dsyg.service.impl.QaServiceImpl" >
+		<property name="qaDao">
+			<ref local="qaDao"/>
+		</property>
+	</bean>
+	
+	<bean id="qaDao" class="com.cn.dsyg.dao.impl.QaDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+
 	<!-- Sample -->
 	<bean id="sampleService" class="com.cn.dsyg.service.impl.SampleServiceImpl" >
 		<property name="sampleDao">
@@ -10,6 +23,9 @@
 		</property>
 		<property name="productDao">
 			<ref local="productDao"/>
+		</property>
+		<property name="customerDao">
+			<ref local="customerDao"/>
 		</property>
 	</bean>
 	
@@ -324,9 +340,6 @@
 		<property name="customerDao">
 			<ref local="customerDao"/>
 		</property>
-		<property name="dict01Dao">
-			<ref local="dict01Dao"/>
-		</property>
 	</bean>
 	
 	<bean id="customerDao" class="com.cn.dsyg.dao.impl.CustomerDaoImpl">
@@ -339,9 +352,6 @@
 	<bean id="deliveryService" class="com.cn.dsyg.service.impl.DeliveryServiceImpl" >
 		<property name="deliveryDao">
 			<ref local="deliveryDao"/>
-		</property>
-		<property name="dict01Dao">
-			<ref local="dict01Dao"/>
 		</property>
 	</bean>
 	

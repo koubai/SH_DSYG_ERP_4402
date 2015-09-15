@@ -116,7 +116,7 @@ public class Constants {
 	
 	//采购订单号番号
 	public final static String DICT_PURCHASE_ORDER = "purchaseorder";
-
+	
 	//供应商番号
 	public final static String DICT_SUPPLIER_ORDER = "suppliererorder";
 
@@ -219,6 +219,8 @@ public class Constants {
 	public final static int WAREHOUSE_TYPE_IN = 1;
 	//库存类型：2为出库单
 	public final static int WAREHOUSE_TYPE_OUT = 2;
+	//库存类型：3为盘点
+	public final static int WAREHOUSE_TYPE_PD = 3;
 	
 	//发货单数据来源：1为入库单
 	public final static int WAREHOUSERPT_TYPE_IN = 1;

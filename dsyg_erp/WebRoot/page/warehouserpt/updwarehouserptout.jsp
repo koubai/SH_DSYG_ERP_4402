@@ -24,6 +24,8 @@
 	function checkItem() {
 		//快递ID
 		var expressid = $("#expressid").val().trim();
+		//快单号
+		var expressno = $("#expressno").val().trim();
 		//快递名
 		var expressname = $("#expressname").val().trim();
 		//快递地址
@@ -45,6 +47,11 @@
 		if(expressid == "") {
 			alert("请选择快递！");
 			$("#expressid").focus();
+			return;
+		}
+		if(expressno == "") {
+			alert("快递单号不能为空！");
+			$("#expressno").focus();
 			return;
 		}
 		if(expressname == "") {
@@ -220,8 +227,14 @@
 								</div>
 							</td>
 							<td align="right">
+								<label class="pdf10">快递单号</label>
 							</td>
 							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<s:textfield name="updWarehouserptDto.expressno" id="expressno" cssStyle="width:120px;" maxlength="32" theme="simple"></s:textfield>
+								</div>
+								<div class="box1_right"></div>
 							</td>
 						</tr>
 						<tr>
@@ -442,7 +455,12 @@
 													</s:else>
 												</td>
 												<td>
-													<s:property value="num"/>
+													<s:if test="num < 0">
+														<s:property value="num * -1"/>
+													</s:if>
+													<s:else>
+														<s:property value="num"/>
+													</s:else>
 												</td>
 												<td>
 													<s:property value="amount"/>

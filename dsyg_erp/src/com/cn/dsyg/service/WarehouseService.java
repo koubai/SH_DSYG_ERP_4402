@@ -3,6 +3,7 @@ package com.cn.dsyg.service;
 import java.util.List;
 
 import com.cn.common.util.Page;
+import com.cn.dsyg.dto.ProductQuantityDto;
 import com.cn.dsyg.dto.WarehouseCheckDto;
 import com.cn.dsyg.dto.WarehouseDto;
 
@@ -13,6 +14,22 @@ import com.cn.dsyg.dto.WarehouseDto;
  * @version 1.0
  */
 public interface WarehouseService {
+	
+	/**
+	 * 根据产品ID盘点库存数量
+	 * @param productid
+	 * @param num
+	 * @param userid
+	 * @return
+	 */
+	public boolean checkProductQuantity(String productid, String num, String userid);
+	
+	/**
+	 * 根据产品ID查询库存数量
+	 * @param productid
+	 * @return
+	 */
+	public ProductQuantityDto queryProductQuantityById(String productid);
 	
 	/**
 	 * 翻页查询退换货记录

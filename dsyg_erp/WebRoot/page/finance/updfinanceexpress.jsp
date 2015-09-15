@@ -26,6 +26,8 @@
 		var receiptid = $("#receiptid").val().trim();
 		//快递ID
 		var expressid = $("#expressid").val().trim();
+		//快递单号
+		var res09 = $("#res09").val().trim();
 		//快递名
 		var expressname = $("#expressname").val().trim();
 		//快递地址
@@ -46,6 +48,11 @@
 		if(expressid == "") {
 			alert("请选择快递！");
 			$("#expressid").focus();
+			return;
+		}
+		if(res09 == "") {
+			alert("快递单号不能为空！");
+			$("#res09").focus();
 			return;
 		}
 		if(expressname == "") {
@@ -171,9 +178,15 @@
 									<div class="box1_right"></div>
 								</div>
 							</td>
-							<td>
+							<td align="right">
+								<label class="pdf10">快递单号</label>
 							</td>
 							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<s:textfield name="updFinanceDto.res09" id="res09" cssStyle="width:300px;" maxlength="32" theme="simple"></s:textfield>
+								</div>
+								<div class="box1_right"></div>
 							</td>
 						</tr>
 						<tr>
@@ -248,10 +261,10 @@
 								</div>
 								<div class="box1_right"></div>
 							</td>
-							<td align="right">
+							<td align="right" style="display: none;">
 								<label class="pdf10"><font color="red">*</font>状态</label>
 							</td>
-							<td>
+							<td style="display: none;">
 								<div class="box1_left"></div>
 								<div class="box1_center">
 									<select id="status" name="updFinanceDto.status" style="width: 300px;">

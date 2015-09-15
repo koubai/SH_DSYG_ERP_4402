@@ -15,5 +15,45 @@
 		parent.window.frames['mainFrame'].location = '<%=request.getContextPath()%>/frame/showMainFrameAction.action';
 		//window.parent.location.href = '<c:url value="/home/showManageHomeAction.action"></c:url>';
 	}
+	
+	$(function() {
+		setInterval("queryQa()", 60000);
+	});
+	
+	function queryQa() {
+		$.ajax({
+			type: "POST",
+	 		url:  '${pageContext.request.contextPath}/qa/queryQaCountAction.action?time=' + new Date(),
+	 		data: "",
+	   		dataType:"json",
+			success: function(data) {
+				if(data == "0") {
+					//没有新的Q/A数据
+					hideQa();
+				//} else if(data == "user is not login.") {
+				//	alert("user is not login.");
+				} else {
+					//有新的Q/A数据
+					showQa();
+				}
+			},
+			error:function(data){
+				//alert("data1=" + data);
+			}
+		});
+	}
+	
+	function showQa() {
+		$("#qaDiv").css("display", "block");
+	}
+	
+	function hideQa() {
+		//$("#qaDiv").css("display", "none");
+		//显示Q/A页面
+		parent.window.frames['mainFrame'].location = '<%=request.getContextPath()%>/qa/queryQaAction.action';
+	}
 </script>
-<div class="user"><span>用户：<%=session.getAttribute("user_name")%></span><span>登录时间：<%=session.getAttribute("login_time")%></span></div>
+<div class="user">
+	<div id="qaDiv" style="position:absolute; margin-top:-3px; margin-right: 165px; display: none;"><img width="19" height="19" style="cursor: pointer;" onclick="hideQa();" alt="" src="<%=request.getContextPath()%>/images/mail.jpg" /></div>
+	<span>用户：<%=session.getAttribute("user_name")%></span><span>登录时间：<%=session.getAttribute("login_time")%></span>
+</div>

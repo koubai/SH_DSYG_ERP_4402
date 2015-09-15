@@ -187,6 +187,7 @@
 								<td width="30">序号</td>
 								<td width="100">账目编号</td>
 								<td width="100">主题</td>
+								<td width="100">快递单号</td>
 								<td width="80">经手人</td>
 								<td width="120">单据日期</td>
 								<td width="100">金额（含税）</td>
@@ -223,6 +224,7 @@
 											<s:property value="financetype"/>
 										</s:else>
 									</td>
+									<td><s:property value="res09"/></td>
 									<td><s:property value="handlername"/></td>
 									<td><s:property value="showReceiptdate"/></td>
 									<td><s:property value="amount"/></td>

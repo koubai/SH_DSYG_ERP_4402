@@ -177,7 +177,7 @@ public class FinanceDto extends BaseDto {
 	private String res08;
 
 	/**
-	 * 预备项目9
+	 * 快递单号
 	 */
 	private String res09;
 

@@ -34,6 +34,11 @@ public class WarehouseCheckDto extends BaseDto {
 	 * 仓库名
 	 */
 	private String warehousename;
+	
+	/**
+	 * 产品ID
+	 */
+	private String productid;
 
 	/**
 	 * 品牌
@@ -988,5 +993,13 @@ public class WarehouseCheckDto extends BaseDto {
 
 	public void setSuppliername(String suppliername) {
 		this.suppliername = suppliername;
+	}
+
+	public String getProductid() {
+		return productid;
+	}
+
+	public void setProductid(String productid) {
+		this.productid = productid;
 	}
 }

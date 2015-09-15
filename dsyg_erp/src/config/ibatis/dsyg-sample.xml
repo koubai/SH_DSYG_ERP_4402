@@ -9,6 +9,7 @@
 		<result property="warehousename" column="warehousename" />
 		<result property="belongto" column="belongto" />
 		<result property="productid" column="productid" />
+		<result property="tradename" column="tradename" />
 		<result property="quantity" column="quantity" />
 		<result property="note" column="note" />
 		<result property="rank" column="rank" />
@@ -25,34 +26,50 @@
 	</resultMap>
 	
 	<select id="querySampleId" parameterClass="java.util.Map" resultMap="SampleDto">
-		select * from etb_sample T where 1 = 1 and id = #id#
+		select T.*,
+		(select P.tradename from etb_product P where P.id = T.productid) as tradename
+		from etb_sample T where 1 = 1 and id = #id#
 	</select>
 	
 	<select id="querySampleByPage" parameterClass="java.util.Map" resultMap="SampleDto">
-		select T.* from etb_sample T where 1 = 1
-		<isNotEmpty prepend="and" property="status">
-			T.status = #status#
+		select * from (
+			select T.*,
+			(select P.tradename from etb_product P where P.id = T.productid) as tradename
+			from etb_sample T where 1 = 1
+			<isNotEmpty prepend="and" property="status">
+				T.status = #status#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="productid">
+				T.productid = #productid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="warehousename">
+				T.warehousename = #warehousename#
+			</isNotEmpty>
+		) A where 1 = 1
+		<isNotEmpty prepend="and" property="tradename">
+			A.tradename like '%$tradename$%' ESCAPE '/'
 		</isNotEmpty>
-		<isNotEmpty prepend="and" property="productid">
-			T.productid = #productid#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="warehousename">
-			T.warehousename = #warehousename#
-		</isNotEmpty>
-		order by T.updatedate desc, T.id desc
+		order by A.updatedate desc, A.id desc
 		LIMIT #start#, #end#
 	</select>
 	
 	<select id="querySampleCountByPage" resultClass="int" parameterClass="java.util.Map">
-		select count(*) from etb_sample T where 1 = 1
-		<isNotEmpty prepend="and" property="status">
-			T.status = #status#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="productid">
-			T.productid = #productid#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="warehousename">
-			T.warehousename = #warehousename#
+		select count(*) from (
+			select T.*,
+			(select P.tradename from etb_product P where P.id = T.productid) as tradename
+			from etb_sample T where 1 = 1
+			<isNotEmpty prepend="and" property="status">
+				T.status = #status#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="productid">
+				T.productid = #productid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="warehousename">
+				T.warehousename = #warehousename#
+			</isNotEmpty>
+		) A where 1 = 1
+		<isNotEmpty prepend="and" property="tradename">
+			A.tradename like '%$tradename$%' ESCAPE '/'
 		</isNotEmpty>
 	</select>
 	

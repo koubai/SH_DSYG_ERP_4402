@@ -9,28 +9,12 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>
-<title>样品管理</title>
+<title>咨询Q/A管理</title>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var h = screen.availHeight; 
 		$("#container").height(h - 20);
 	});
-	
-	function add() {
-		document.mainform.action = "../sample/showAddSampleAction.action";
-		document.mainform.submit();
-	}
-	
-	function upd() {
-		var id = getSelectedID();
-		if(id == "") {
-			alert("请选择一条记录！");
-			return;
-		} else {
-			document.mainform.action = "../sample/showUpdSampleAction.action?updSampleId=" + id;
-			document.mainform.submit();
-		}
-	}
 	
 	function getSelectedID() {
 		var id = "";
@@ -53,7 +37,7 @@
 	//查询数据
 	function queryList() {
 		setQueryDate();
-		document.mainform.action = '../sample/querySampleAction.action';
+		document.mainform.action = '../qa/queryQaAction.action';
 		document.mainform.submit();
 	}
 	
@@ -61,7 +45,7 @@
 	function changepagesize(pagesize) {
 		$("#intPageSize").attr("value", pagesize);
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../sample/querySampleAction.action';
+		document.mainform.action = '../qa/queryQaAction.action';
 		document.mainform.submit();
 	}
 	
@@ -69,7 +53,7 @@
 	function changePage(pageNum) {
 		setQueryDate();
 		$("#startIndex").attr("value", pageNum);
-		document.mainform.action = '../sample/turnSampleAction.action';
+		document.mainform.action = '../qa/turnQaAction.action';
 		document.mainform.submit();
 	}
 
@@ -101,6 +85,12 @@
 			return;
 		}	
 	}
+	
+	function showDetail(id) {
+		var url = '<%=request.getContextPath()%>/qa/showQaDetailAction.action';
+		url += "?detailQaId=" + id + "&date=" + new Date();
+		window.showModalDialog(url, window, "dialogheight:370px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	}
 </script>
 </head>
 <body>
@@ -112,7 +102,7 @@
 				<div class="tittle_left">
 				</div>
 				<div class="tittle_center">
-					样品管理
+					咨询Q/A管理
 				</div>
 				<div class="tittle_right">
 				</div>
@@ -121,14 +111,6 @@
 				<s:hidden name="startIndex" id="startIndex"/>
 				<s:hidden name="intPageSize" id="intPageSize"/>
 				<div class="searchbox">
-					<div class="box1">
-						<label class="pdf10">品名</label>
-						<div class="box1_left"></div>
-						<div class="box1_center">
-							<s:textfield name="strTradename" id="strTradename" cssClass="input120" maxlength="32" theme="simple"></s:textfield>
-						</div>
-						<div class="box1_right"></div>
-					</div>
 					<div class="btn" style="margin-right: 200px; float: right;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
@@ -139,10 +121,6 @@
 					<div class="box1" style="margin-top:-3px; margin-left: -240px; color: red;">
 						<s:actionmessage />
 					</div>
-					<div class="icons thums">
-						<a class="add" onclick="add();">增加</a>
-						<a class="edit" onclick="upd();">修改</a>
-					</div>
 				</div>
 				<div class="data_table" style="padding:0px;">
 					<div class="tab_tittle">
@@ -152,58 +130,50 @@
 					<div class="tab_content">
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
-								<td width="20"></td>
-								<td width="40">序号</td>
-								<td width="120">品名</td>
-								<td width="100">规格</td>
-								<td width="60">颜色</td>
-								<td width="60">形式</td>
-								<td width="100">包装</td>
-								<td width="100">客户</td>
-								<td width="60">样品数量</td>
-								<td width="100">备注</td>
-								<td width="140">更新时间</td>
+								<td width="50">序号</td>
+								<td width="100">标题</td>
+								<td width="80">姓名</td>
+								<td width="100">公司名称</td>
+								<td width="120">地址</td>
+								<td width="120">电话</td>
+								<td width="80">状态</td>
+								<td width="80"></td>
 							</tr>
-							<s:iterator id="sampleList" value="sampleList" status="st1">
+							<s:iterator id="qaList" value="qaList" status="st1">
 								<s:if test="#st1.odd==true">
-									<tr class="tr_bg" onclick="checkRadioTr(this, event);">
+									<tr class="tr_bg">
 								</s:if>
 								<s:else>
-									<tr onclick="checkRadioTr(this, event);">
+									<tr>
 								</s:else>
-									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-									<td><s:property value="tradename"/></td>
-									<td><s:property value="typeno"/></td>
 									<td>
-										<s:iterator id="colorList" value="colorList" status="st3">
-											<s:if test="%{colorList[#st3.index].code == sampleList[#st1.index].color}">
-												<s:property value="fieldname"/>
-											</s:if>
-										</s:iterator>
+										<div noWrap title="<s:property value="title"/>" style="width:90px;text-overflow:ellipsis;overflow:hidden">
+											<s:property value="title"/>
+										</div>
+									</td>
+									<td><s:property value="fullname"/></td>
+									<td>
+										<div noWrap title="<s:property value="company"/>" style="width:90px;text-overflow:ellipsis;overflow:hidden">
+											<s:property value="company"/>
+										</div>
 									</td>
 									<td>
-										<s:if test='%{sampleList[#st1.index].packaging == "1"}'>整箱</s:if>
-										<s:elseif test='%{sampleList[#st1.index].packaging == "0"}'>乱尺</s:elseif>
-										<s:elseif test='%{sampleList[#st1.index].packaging == "2"}'>样品</s:elseif>
+										<div noWrap title="<s:property value="address"/>" style="width:110px;text-overflow:ellipsis;overflow:hidden">
+											<s:property value="address"/>
+										</div>
+									</td>
+									<td><s:property value="tell" /></td>
+									<td>
+										<s:if test='status == "2"'>
+											已读
+										</s:if>
 										<s:else>
-											<s:property value="packaging"/>
+											未读
 										</s:else>
 									</td>
 									<td>
-										<s:property value="item10"/>
-									</td>
-									<td>
-										<s:property value="customername"/>
-									</td>
-									<td>
-										<s:property value="quantity"/>
-									</td>
-									<td>
-										<s:property value="note"/>
-									</td>
-									<td>
-										<s:date name="updatedate" format="yyyy/MM/dd HH:mm:ss"/>
+										<input type="button" value="明细" onclick="showDetail('<s:property value="id"/>');"/>
 									</td>
 								</tr>
 							</s:iterator>

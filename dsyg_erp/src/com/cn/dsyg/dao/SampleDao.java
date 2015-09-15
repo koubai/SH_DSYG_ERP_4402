@@ -24,22 +24,24 @@ public interface SampleDao {
 	 * @param warehousename
 	 * @param productid
 	 * @param status
+	 * @param tradename
 	 * @param start
 	 * @param end
 	 * @return
 	 */
 	public List<SampleDto> querySampleByPage(String warehousename,
-			String productid, String status, int start, int end);
+			String productid, String status, String tradename, int start, int end);
 	
 	/**
 	 * 查询总记录数字
 	 * @param warehousename
 	 * @param productid
 	 * @param status
+	 * @param tradename
 	 * @return
 	 */
 	public int querySampleCountByPage(String warehousename,
-			String productid, String status);
+			String productid, String status, String tradename);
 	
 	/**
 	 * 新增记录

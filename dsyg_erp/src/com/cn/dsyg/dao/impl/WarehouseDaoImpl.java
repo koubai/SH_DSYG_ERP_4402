@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.cn.common.dao.BaseDao;
 import com.cn.dsyg.dao.WarehouseDao;
+import com.cn.dsyg.dto.ProductQuantityDto;
 import com.cn.dsyg.dto.WarehouseCheckDto;
 import com.cn.dsyg.dto.WarehouseDetailDto;
 import com.cn.dsyg.dto.WarehouseDto;
@@ -19,6 +20,18 @@ import com.cn.dsyg.dto.WarehouseProductDto;
  * @version 1.0
  */
 public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
+	
+	@Override
+	public ProductQuantityDto queryProductQuantityById(String productid) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("productid", productid);
+		@SuppressWarnings("unchecked")
+		List<ProductQuantityDto> list = getSqlMapClientTemplate().queryForList("queryProductQuantityById", paramMap);
+		if(list != null && list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+	}
 	
 	@Override
 	public List<WarehouseDto> queryWarehouseRefundByPage(String warehousetype,

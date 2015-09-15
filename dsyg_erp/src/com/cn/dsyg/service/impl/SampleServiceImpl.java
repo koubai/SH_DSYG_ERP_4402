@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
+import com.cn.dsyg.dao.CustomerDao;
 import com.cn.dsyg.dao.ProductDao;
 import com.cn.dsyg.dao.SampleDao;
+import com.cn.dsyg.dto.CustomerDto;
 import com.cn.dsyg.dto.ProductDto;
 import com.cn.dsyg.dto.SampleDto;
 import com.cn.dsyg.service.SampleService;
@@ -20,6 +22,7 @@ public class SampleServiceImpl implements SampleService {
 	
 	private SampleDao sampleDao;
 	private ProductDao productDao;
+	private CustomerDao customerDao;
 
 	@Override
 	public SampleDto querySampleId(String id) {
@@ -31,17 +34,22 @@ public class SampleServiceImpl implements SampleService {
 			sample.setColor(product.getColor());
 			sample.setPackaging(product.getPackaging());
 			sample.setItem10(product.getItem10());
+			CustomerDto customer = customerDao.queryAllEtbCustomerByID(sample.getRes01());
+			if(customer != null) {
+				sample.setCustomername(customer.getCustomername());
+			}
 		}
 		return sample;
 	}
 
 	@Override
 	public Page querySampleByPage(String warehousename, String productid,
-			String status, Page page) {
+			String status, String tradename, Page page) {
 		warehousename = StringUtil.replaceDatabaseKeyword_mysql(warehousename);
+		tradename = StringUtil.replaceDatabaseKeyword_mysql(tradename);
 		
 		//查询总记录数
-		int totalCount = sampleDao.querySampleCountByPage(warehousename, productid, status);
+		int totalCount = sampleDao.querySampleCountByPage(warehousename, productid, status, tradename);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -49,7 +57,7 @@ public class SampleServiceImpl implements SampleService {
 			page.setTotalPage(totalCount / page.getPageSize());
 		}
 		//翻页查询记录
-		List<SampleDto> list = sampleDao.querySampleByPage(warehousename, productid, status,
+		List<SampleDto> list = sampleDao.querySampleByPage(warehousename, productid, status, tradename,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		if(list != null && list.size() > 0) {
 			for(SampleDto sample : list) {
@@ -60,6 +68,10 @@ public class SampleServiceImpl implements SampleService {
 					sample.setColor(product.getColor());
 					sample.setPackaging(product.getPackaging());
 					sample.setItem10(product.getItem10());
+					CustomerDto customer = customerDao.queryAllEtbCustomerByID(sample.getRes01());
+					if(customer != null) {
+						sample.setCustomername(customer.getCustomername());
+					}
 				}
 			}
 		}
@@ -91,6 +103,14 @@ public class SampleServiceImpl implements SampleService {
 
 	public void setProductDao(ProductDao productDao) {
 		this.productDao = productDao;
+	}
+
+	public CustomerDao getCustomerDao() {
+		return customerDao;
+	}
+
+	public void setCustomerDao(CustomerDao customerDao) {
+		this.customerDao = customerDao;
 	}
 
 }

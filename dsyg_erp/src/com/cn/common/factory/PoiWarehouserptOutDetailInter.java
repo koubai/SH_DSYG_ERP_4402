@@ -110,7 +110,16 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 					cell7.setCellStyle(style);
 					cell7.setCellValue(dictMap.get(Constants.DICT_UNIT_TYPE + "_" + product.getUnit()));
 					cell8.setCellStyle(style);
-					cell8.setCellValue(product.getNum());
+					if(product.getNum() != null && !"".equals(product.getNum())) {
+						int n = Integer.valueOf(product.getNum());
+						if(n < 0) {
+							cell8.setCellValue("" + (n * -1));
+						} else {
+							cell8.setCellValue(product.getNum());
+						}
+					} else {
+						cell8.setCellValue("");
+					}
 					//cell9.setCellStyle(style);
 					//cell9.setCellValue(product.getAmount());
 					num++;

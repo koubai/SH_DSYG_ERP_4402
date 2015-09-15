@@ -128,6 +128,10 @@ public class WarehouserptAction extends BaseAction {
 				this.addActionMessage("请选择快递！");
 				return "checkerror";
 			}
+			if(StringUtil.isBlank(updWarehouserptDto.getExpressno())) {
+				this.addActionMessage("快递单号不能为空！");
+				return "checkerror";
+			}
 			if(StringUtil.isBlank(updWarehouserptDto.getExpressname())) {
 				this.addActionMessage("快递名称不能为空！");
 				return "checkerror";
@@ -314,6 +318,10 @@ public class WarehouserptAction extends BaseAction {
 			}
 			if(StringUtil.isBlank(updWarehouserptDto.getExpressid())) {
 				this.addActionMessage("请选择快递！");
+				return "checkerror";
+			}
+			if(StringUtil.isBlank(updWarehouserptDto.getExpressno())) {
+				this.addActionMessage("快递单号不能为空！");
 				return "checkerror";
 			}
 			if(StringUtil.isBlank(updWarehouserptDto.getExpressname())) {

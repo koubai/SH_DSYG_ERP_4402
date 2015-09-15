@@ -152,7 +152,19 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 					cell6.setCellStyle(style);
 					cell6.setCellValue(dictMap.get(Constants.DICT_UNIT_TYPE + "_" + product.getUnit()));
 					cell7.setCellStyle(style);
-					cell7.setCellValue(product.getNum());
+					//cell7.setCellValue(product.getNum());
+					
+					if(product.getNum() != null && !"".equals(product.getNum())) {
+						int n = Integer.valueOf(product.getNum());
+						if(n < 0) {
+							cell7.setCellValue("" + (n * -1));
+						} else {
+							cell7.setCellValue(product.getNum());
+						}
+					} else {
+						cell7.setCellValue("");
+					}
+					
 					cell8.setCellStyle(style);
 					cell8.setCellValue(product.getAmount());
 					cell9.setCellValue(product.getParentid());

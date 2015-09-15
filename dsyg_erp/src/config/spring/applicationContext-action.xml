@@ -2,6 +2,13 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
 
+	<!-- Qa -->
+	<bean id="qaAction" class="com.cn.dsyg.action.QaAction" scope="session">
+		<property name="qaService">
+			<ref bean="qaService" />
+		</property>
+	</bean>
+
 	<!-- Sample -->
 	<bean id="sampleAction" class="com.cn.dsyg.action.SampleAction" scope="session">
 		<property name="dict01Service">

@@ -66,6 +66,19 @@
 		}	
 	}
 	
+	function productCheck(id) {
+		//盘点
+		var num = $("#" + "num_" + id).val();
+		//判断数字是否合法
+		if(!isNumber(num)) {
+			alert("盘点数量必须是大于0的数字！");
+			$("#" + "num_" + id).focus();
+			return;
+		}
+		document.mainform.action = '../warehouse/checkProductQuantity.action?strCheckProductid=' + id + "&strCheckProductNum=" + num;
+		document.mainform.submit();
+	}
+	
 	function exportData() {
 		document.mainform.action = '../warehouse/exportWarehouserCheckAction.action';
 		document.mainform.submit();
@@ -109,7 +122,7 @@
 						</div>
 						<div class="box1_right"></div>
 					</div>
-					<div class="box1" style="margin-top:-3px; margin-left: -240px; color: red;">
+					<div class="box1" style="margin-top:-4px; margin-left: 210px; color: red; font-size: 14px;">
 						<s:actionmessage />
 					</div>
 					<div class="icons thums">
@@ -132,6 +145,7 @@
 								<td width="60">包装</td>
 								<td width="120">供应商</td>
 								<td width="80">库存数量</td>
+								<td width="150">盘点数量</td>
 							</tr>
 							<s:iterator id="warehouseCheckList" value="warehouseCheckList" status="st1">
 								<s:if test="#st1.odd==true">
@@ -167,6 +181,9 @@
 									</td>
 									<td><s:property value="suppliername"/></td>
 									<td><s:property value="warehouseamount"/></td>
+									<td>
+										<input type="text" style="width: 100px;" maxlength="10" id="num_<s:property value="productid"/>" value="<s:property value="warehouseamount"/>"/><input type="button" value="盘点" onclick="productCheck('<s:property value="productid"/>')"/>
+									</td>
 								</tr>
 							</s:iterator>
 						</table>

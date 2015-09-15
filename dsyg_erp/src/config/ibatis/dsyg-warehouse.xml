@@ -65,6 +65,7 @@
 		<result property="belongto" column="belongto" />
 		<result property="fieldno" column="fieldno" />
 		<result property="warehousename" column="warehousename" />
+		<result property="productid" column="productid" />
 		<result property="brand" column="brand" />
 		<result property="item1" column="item1" />
 		<result property="item2" column="item2" />
@@ -297,8 +298,17 @@
 		<result property="updatedate" column="updatedate" />
 	</resultMap>
 	
+	<resultMap id="ProductQuantityDto" class="com.cn.dsyg.dto.ProductQuantityDto">
+		<result property="productid" column="productid" />
+		<result property="quantity" column="quantity" />
+	</resultMap>
+	
 	<select id="queryWarehouseByIds" parameterClass="java.util.Map" resultMap="WarehouseProductDto">
 		select T.* from etb_warehouse T where 1 = 1 and id in ($ids$)
+	</select>
+	
+	<select id="queryProductQuantityById" parameterClass="java.util.Map" resultMap="ProductQuantityDto">
+		select SUM(T.quantity) as quantity,T.productid from etb_warehouse T where 1 = 1 and productid = #productid#
 	</select>
 	
 	<!-- warehouserefund begin -->
@@ -377,7 +387,7 @@
 	
 	<select id="queryWarehouseCheckByPage" parameterClass="java.util.Map" resultMap="WarehouseCheckDto">
 		select * from (
-			SELECT T.id,T.belongto,T.fieldno,S.warehousename,T.brand,T.item1,T.item2,T.item3,T.tradename,T.typeno,T.color,T.packaging,T.unit,T.sampleflag,T.productname,T.makearea,T.supplierid,T.salesprice,T.purchaseprice,S.warehouseamount,T.note,T.item01,T.item02,T.item03,T.item04,T.item05,T.item06,T.item07,T.item08,T.item09,T.item10,T.item11,T.item12,T.item13,T.item14,T.item15,T.item16,T.item17,T.item18,T.item19,T.item20,T.item21,T.item22,T.item23,T.item24,T.item25,T.item26,T.item27,T.item28,T.item29,T.item30,T.pic01,T.pic02,T.pic03,T.pic04,T.pic05,T.pdfpath,T.rank,T.status,T.res01,T.res02,T.res03,T.res04,T.res05,T.res06,T.res07,T.res08,T.res09,T.res10,T.keyword,T.createuid,T.createdate,T.updateuid,T.updatedate,
+			SELECT T.id,T.belongto,T.fieldno,S.productid,S.warehousename,T.brand,T.item1,T.item2,T.item3,T.tradename,T.typeno,T.color,T.packaging,T.unit,T.sampleflag,T.productname,T.makearea,T.supplierid,T.salesprice,T.purchaseprice,S.warehouseamount,T.note,T.item01,T.item02,T.item03,T.item04,T.item05,T.item06,T.item07,T.item08,T.item09,T.item10,T.item11,T.item12,T.item13,T.item14,T.item15,T.item16,T.item17,T.item18,T.item19,T.item20,T.item21,T.item22,T.item23,T.item24,T.item25,T.item26,T.item27,T.item28,T.item29,T.item30,T.pic01,T.pic02,T.pic03,T.pic04,T.pic05,T.pdfpath,T.rank,T.status,T.res01,T.res02,T.res03,T.res04,T.res05,T.res06,T.res07,T.res08,T.res09,T.res10,T.keyword,T.createuid,T.createdate,T.updateuid,T.updatedate,
 				(select SS.suppliername from etb_supplier SS where SS.id = T.supplierid) as suppliername
 				from (
 					SELECT W.productid,W.warehousename,SUM(W.quantity) AS warehouseamount FROM etb_warehouse W WHERE 1 = 1
@@ -418,7 +428,7 @@
 	<select id="queryWarehouseCheckCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from (
 			select * from (
-			SELECT T.id,T.belongto,T.fieldno,S.warehousename,T.brand,T.item1,T.item2,T.item3,T.tradename,T.typeno,T.color,T.packaging,T.unit,T.sampleflag,T.productname,T.makearea,T.supplierid,T.salesprice,T.purchaseprice,S.warehouseamount,T.note,T.item01,T.item02,T.item03,T.item04,T.item05,T.item06,T.item07,T.item08,T.item09,T.item10,T.item11,T.item12,T.item13,T.item14,T.item15,T.item16,T.item17,T.item18,T.item19,T.item20,T.item21,T.item22,T.item23,T.item24,T.item25,T.item26,T.item27,T.item28,T.item29,T.item30,T.pic01,T.pic02,T.pic03,T.pic04,T.pic05,T.pdfpath,T.rank,T.status,T.res01,T.res02,T.res03,T.res04,T.res05,T.res06,T.res07,T.res08,T.res09,T.res10,T.keyword,T.createuid,T.createdate,T.updateuid,T.updatedate
+			SELECT T.id,T.belongto,T.fieldno,S.productid,S.warehousename,T.brand,T.item1,T.item2,T.item3,T.tradename,T.typeno,T.color,T.packaging,T.unit,T.sampleflag,T.productname,T.makearea,T.supplierid,T.salesprice,T.purchaseprice,S.warehouseamount,T.note,T.item01,T.item02,T.item03,T.item04,T.item05,T.item06,T.item07,T.item08,T.item09,T.item10,T.item11,T.item12,T.item13,T.item14,T.item15,T.item16,T.item17,T.item18,T.item19,T.item20,T.item21,T.item22,T.item23,T.item24,T.item25,T.item26,T.item27,T.item28,T.item29,T.item30,T.pic01,T.pic02,T.pic03,T.pic04,T.pic05,T.pdfpath,T.rank,T.status,T.res01,T.res02,T.res03,T.res04,T.res05,T.res06,T.res07,T.res08,T.res09,T.res10,T.keyword,T.createuid,T.createdate,T.updateuid,T.updatedate
 				from (
 					SELECT W.productid,W.warehousename,SUM(W.quantity) AS warehouseamount FROM etb_warehouse W WHERE 1 = 1
 					<isNotEmpty prepend="and" property="parentid">

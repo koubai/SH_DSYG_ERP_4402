@@ -42,6 +42,9 @@ public class SampleAction extends BaseAction {
 	
 	private List<SampleDto> sampleList;
 	
+	//查询条件
+	private String strTradename;
+	
 	//采购主题
 	private List<Dict01Dto> goodsList;
 	//颜色
@@ -210,7 +213,7 @@ public class SampleAction extends BaseAction {
 		initDictList();
 		//翻页查询所有入库汇总记录
 		this.page.setStartIndex(startIndex);
-		page = sampleService.querySampleByPage("", "", "", page);
+		page = sampleService.querySampleByPage("", "", "", strTradename, page);
 		sampleList = (List<SampleDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -241,6 +244,10 @@ public class SampleAction extends BaseAction {
 		}
 		if(StringUtil.isBlank(sample.getProductid())) {
 			this.addActionMessage("请选择产品！");
+			return false;
+		}
+		if(StringUtil.isBlank(sample.getRes01())) {
+			this.addActionMessage("请选择客户！");
 			return false;
 		}
 		if(StringUtil.isBlank(sample.getQuantity())) {
@@ -364,5 +371,13 @@ public class SampleAction extends BaseAction {
 
 	public void setUpdSampleId(String updSampleId) {
 		this.updSampleId = updSampleId;
+	}
+
+	public String getStrTradename() {
+		return strTradename;
+	}
+
+	public void setStrTradename(String strTradename) {
+		this.strTradename = strTradename;
 	}
 }

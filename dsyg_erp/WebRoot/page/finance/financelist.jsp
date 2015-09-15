@@ -28,13 +28,13 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
-			if(alt == "") {
-				alert("该记录没有关联单据号，不能修改！");
-				return;
-			} else {
+			//if(alt == "") {
+			//	alert("该记录没有关联单据号，不能修改！");
+			//	return;
+			//} else {
 				document.mainform.action = "../finance/showUpdFinanceAction.action?updFinanceId=" + id;
 				document.mainform.submit();
-			}
+			//}
 		}
 	}
 	

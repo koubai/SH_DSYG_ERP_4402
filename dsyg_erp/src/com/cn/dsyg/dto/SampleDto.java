@@ -82,9 +82,14 @@ public class SampleDto extends BaseDto {
 	private Integer status;
 	
 	/**
-	 * 预备项目1
+	 * 客户ID
 	 */
 	private String res01;
+	
+	/**
+	 * 客户名
+	 */
+	private String customername;
 
 	/**
 	 * 预备项目2
@@ -304,5 +309,13 @@ public class SampleDto extends BaseDto {
 
 	public void setItem10(String item10) {
 		this.item10 = item10;
+	}
+
+	public String getCustomername() {
+		return customername;
+	}
+
+	public void setCustomername(String customername) {
+		this.customername = customername;
 	}
 }

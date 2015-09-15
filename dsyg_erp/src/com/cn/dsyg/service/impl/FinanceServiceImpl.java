@@ -77,7 +77,7 @@ public class FinanceServiceImpl implements FinanceService {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String uuid = UUID.randomUUID().toString();
 		uuid = uuid.substring(uuid.length() - 8, uuid.length());
-		no = Constants.FINANCE_NO_PRE + belongto + sdf.format(date) + uuid;
+		no = Constants.FINANCE_NO_PRE + belongto + sdf.format(date);// + uuid;
 		
 		if(StringUtil.isBlank(finance.getReceiptdate())) {
 			finance.setReceiptdate(null);

@@ -4,10 +4,8 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 import com.cn.common.util.Constants;
@@ -28,6 +26,7 @@ import com.cn.dsyg.dao.WarehouserptDao;
 import com.cn.dsyg.dto.CustomerDto;
 import com.cn.dsyg.dto.FinanceDto;
 import com.cn.dsyg.dto.ProductDto;
+import com.cn.dsyg.dto.ProductQuantityDto;
 import com.cn.dsyg.dto.PurchaseDto;
 import com.cn.dsyg.dto.PurchaseItemDto;
 import com.cn.dsyg.dto.SalesDto;
@@ -59,6 +58,77 @@ public class WarehouseServiceImpl implements WarehouseService {
 	private CustomerDao customerDao;
 	private FinanceDao financeDao;
 	private ProductDao productDao;
+	
+	@Override
+	public boolean checkProductQuantity(String productid, String num, String userid) {
+		//查询原始库存
+		ProductQuantityDto p = warehouseDao.queryProductQuantityById(productid);
+		if(p != null) {
+			if(p.getQuantity() != null && !"".equals(p.getQuantity())) {
+				//有库存数据
+				//判断库存数量和输入的数量是否相等
+				int oldNum = Integer.valueOf(p.getQuantity());
+				int newNum = Integer.valueOf(num);
+				if(oldNum != newNum) {
+					//需要新增库存数据
+					int addNum = newNum - oldNum;
+					
+					ProductDto product = productDao.queryProductByID(productid);
+					
+					Date date = new Date();
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+					String belongto = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG);
+					
+					WarehouseDto warehouse = new WarehouseDto();
+					//数据来源单号=盘点
+					warehouse.setParentid("PD");
+					//库存类型=盘点
+					warehouse.setWarehousetype(Constants.WAREHOUSE_TYPE_PD);
+					//仓库
+					warehouse.setWarehousename(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_WAREHOUSE_NAME));
+					//预入库时间
+					warehouse.setPlandate(DateUtil.dateToShortStr(date));
+					
+					//库存单号
+					String uuid = UUID.randomUUID().toString();
+					uuid = uuid.substring(uuid.length() - 8, uuid.length());
+					String warehouseno = Constants.WAREHOUSE_NO_PRE + belongto + sdf.format(date) + uuid;
+					warehouse.setWarehouseno(warehouseno);
+					
+					//支付方式
+					warehouse.setRes01("");
+					
+					warehouse.setBelongto(belongto);
+					//主题
+					warehouse.setTheme1(product.getFieldno());
+					//产品ID
+					warehouse.setProductid("" + productid);
+					//入库数量=预入库数
+					warehouse.setQuantity(addNum);
+					
+					//入库日期=当天
+					warehouse.setWarehousedate(DateUtil.dateToShortStr(new Date()));
+					warehouse.setRank(Constants.ROLE_RANK_OPERATOR);
+					//入库单数据状态=新增
+					warehouse.setStatus(Constants.WAREHOUSE_STATUS_NEW);
+					
+					warehouse.setUpdateuid(userid);
+					warehouse.setCreateuid(userid);
+					
+					warehouseDao.insertWarehouse(warehouse);
+				}
+				return true;
+			}
+		} else {
+			//没有库存数据
+		}
+		return false;
+	}
+	
+	@Override
+	public ProductQuantityDto queryProductQuantityById(String productid) {
+		return warehouseDao.queryProductQuantityById(productid);
+	}
 	
 	@Override
 	public Page queryWarehouseRefundByPage(String warehousetype, String theme1,
@@ -339,7 +409,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 			finance.setCustomermail(supplier.getSuppliermail1());
 			finance.setRank(Constants.ROLE_RANK_OPERATOR);
 			//状态=付款申请
-			finance.setStatus(Constants.FINANCE_STATUS_PAY_APPLY);
+			finance.setStatus(Constants.FINANCE_STATUS_NEW);
 			finance.setCreateuid(userid);
 			finance.setUpdateuid(userid);
 			financeDao.insertFinance(finance);
@@ -562,7 +632,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 			finance.setCustomermail(customer.getCustomermail1());
 			finance.setRank(Constants.ROLE_RANK_OPERATOR);
 			//状态=开票申请
-			finance.setStatus(Constants.FINANCE_STATUS_PAY_APPLY);
+			finance.setStatus(Constants.FINANCE_STATUS_NEW);
 			finance.setCreateuid(userid);
 			finance.setUpdateuid(userid);
 			financeDao.insertFinance(finance);

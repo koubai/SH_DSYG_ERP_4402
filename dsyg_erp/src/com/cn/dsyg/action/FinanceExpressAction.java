@@ -1,6 +1,7 @@
 package com.cn.dsyg.action;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
@@ -8,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
+import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
@@ -101,6 +103,8 @@ public class FinanceExpressAction extends BaseAction {
 		try {
 			this.clearMessages();
 			addFinanceDto = new FinanceDto();
+			//默认为新增
+			addFinanceDto.setStatus(Constants.FINANCE_STATUS_NEW);
 		} catch(Exception e) {
 			log.error("showAddFinanceExpressAction error:" + e);
 			return ERROR;
@@ -128,6 +132,9 @@ public class FinanceExpressAction extends BaseAction {
 			addFinanceDto.setMode("2");
 			//经手人
 			addFinanceDto.setHandler(username);
+			//结算日期=当天
+			Date date = new Date();
+			addFinanceDto.setAccountdate(DateUtil.dateToShortStr(date));
 			//状态=新增
 			//addFinanceDto.setStatus(Constants.FINANCE_STATUS_NEW);
 			String no = financeService.insertFinance(addFinanceDto);

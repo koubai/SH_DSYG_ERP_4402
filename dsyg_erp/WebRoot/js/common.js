@@ -18,6 +18,12 @@ function checkRadioTr(tr, evt) {
 	inputs[0].checked = true;
 }
 
+function checkRadioTr1(tr, evt) {
+	var tds = tr.getElementsByTagName("td");
+	var inputs = tds[1].getElementsByTagName("input");
+	inputs[1].checked = true;
+}
+
 function checkCheckboxTr(tr, evt) {
 	var tds = tr.getElementsByTagName("td");
 	var inputs = tds[0].getElementsByTagName("input");

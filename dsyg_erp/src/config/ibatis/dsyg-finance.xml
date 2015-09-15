@@ -118,6 +118,7 @@
 		update etb_finance
 		set receiptdate = #receiptdate#,
 			accountdate = #accountdate#,
+			invoiceid = #invoiceid#,
 			theme = #theme#,
 			mode = #mode#,
 			amount = #amount#,

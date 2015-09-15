@@ -1,6 +1,5 @@
 package com.cn.dsyg.action;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,11 +16,10 @@ import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.Dict01Dto;
-import com.cn.dsyg.dto.PurchaseDto;
 import com.cn.dsyg.dto.WarehouseCheckDto;
-import com.cn.dsyg.dto.WarehouserptDto;
 import com.cn.dsyg.service.Dict01Service;
 import com.cn.dsyg.service.WarehouseService;
+import com.opensymphony.xwork2.ActionContext;
 
 /**
  * @name 库存盘点
@@ -57,6 +55,37 @@ public class WarehouseCheckAction extends BaseAction {
 	private List<Dict01Dto> makeareaList;
 	//excel密码
 	private String excelPass;
+	
+	//盘点的产品ID
+	private String strCheckProductid;
+	//盘点的库存值
+	private String strCheckProductNum;
+	
+	/**
+	 * 盘点
+	 * @return
+	 */
+	public String checkProductQuantity() {
+		try {
+			this.clearMessages();
+			//当前操作用户ID
+			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			//查询原始库存
+			boolean b = warehouseService.checkProductQuantity(strCheckProductid, strCheckProductNum, username);
+			if(b) {
+				this.addActionMessage("盘点成功！");
+			} else {
+				//没有库存数据
+				this.addActionMessage("没有该产品的库存数据！");
+			}
+			//刷新页面
+			queryData();
+		} catch(Exception e) {
+			log.error("showWarehouseCheckAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 
 	/**
 	 * 库存盘点页面
@@ -304,5 +333,21 @@ public class WarehouseCheckAction extends BaseAction {
 
 	public void setExcelPass(String excelPass) {
 		this.excelPass = excelPass;
+	}
+
+	public String getStrCheckProductid() {
+		return strCheckProductid;
+	}
+
+	public void setStrCheckProductid(String strCheckProductid) {
+		this.strCheckProductid = strCheckProductid;
+	}
+
+	public String getStrCheckProductNum() {
+		return strCheckProductNum;
+	}
+
+	public void setStrCheckProductNum(String strCheckProductNum) {
+		this.strCheckProductNum = strCheckProductNum;
 	}
 }
