@@ -67,6 +67,23 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 				finance.setStatus(Integer.valueOf(status));
 				financeDao.updateFinance(finance);
 			}
+			
+			//状态=99，更新warehouse表数据
+			if(status.equals("" + Constants.FINANCE_STATUS_PAY_INVOICE)) {
+				String parentid = warehouserpt.getParentid();
+				if(StringUtil.isNotBlank(parentid)) {
+					String[] ids = parentid.split(",");
+					for(String warehouseno : ids) {
+						if(StringUtil.isNotBlank(warehouseno)) {
+							WarehouseDto warehouse = warehouseDao.queryWarehouseByWarehouseno(warehouseno);
+							if(warehouse != null) {
+								warehouse.setStatus(Constants.WAREHOUSE_STATUS_FINISHED);
+								warehouseDao.updateWarehouse(warehouse);
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 	

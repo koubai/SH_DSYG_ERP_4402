@@ -252,6 +252,8 @@ public class Constants {
 	public final static int WAREHOUSE_STATUS_SEND = 30;
 	//退货OR损毁
 	public final static int WAREHOUSE_STATUS_REFUND = 40;
+	//已付款
+	public final static int WAREHOUSE_STATUS_FINISHED = 99;
 	
 	//采购单状态
 	//采购单新增
