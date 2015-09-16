@@ -1,4 +1,4 @@
-package com.cn.dsyg.service.impl;
+﻿package com.cn.dsyg.service.impl;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -68,7 +68,7 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 				financeDao.updateFinance(finance);
 			}
 			
-			//状态=99，更新warehouse表数据
+			//状态=99时，更新warehouse表数据
 			if(status.equals("" + Constants.FINANCE_STATUS_PAY_INVOICE)) {
 				String parentid = warehouserpt.getParentid();
 				if(StringUtil.isNotBlank(parentid)) {
