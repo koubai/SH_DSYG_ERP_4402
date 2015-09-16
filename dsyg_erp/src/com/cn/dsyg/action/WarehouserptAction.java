@@ -519,23 +519,28 @@ public class WarehouserptAction extends BaseAction {
 			}
 		}
 		dictMap.put(Constants.EXCEL_PASS, excelPass);
-		
+
+		WarehouserptDto rpt;
 		String exceltype = "";
 		if(("" + Constants.WAREHOUSE_TYPE_IN).equals(type)) {
 			if(strInter != null && strInter.equals("1")){
 				//入库单
 				exceltype = Constants.EXCEL_TYPE_WAREHOUSERPT_IN_DETAIL_INTER_LIST;
+				rpt = warehouserptService.queryWarehouserptInterByID(strExportDetailId);
 			} else {
 				//入库单明细
 				exceltype = Constants.EXCEL_TYPE_WAREHOUSERPT_IN_DETAIL_LIST;
+				rpt = warehouserptService.queryWarehouserptByID(strExportDetailId);
 			}
 		} else {
 			if(strInter != null && strInter.equals("1")){
 				//出库单
 				exceltype = Constants.EXCEL_TYPE_WAREHOUSERPT_OUT_DETAIL_INTER_LIST;
+				rpt = warehouserptService.queryWarehouserptInterByID(strExportDetailId);
 			} else {
 				//出库单明细
 				exceltype = Constants.EXCEL_TYPE_WAREHOUSERPT_OUT_DETAIL_LIST;
+				rpt = warehouserptService.queryWarehouserptByID(strExportDetailId);
 			}
 		}
 		String name = StringUtil.createFileName(exceltype);
@@ -544,7 +549,6 @@ public class WarehouserptAction extends BaseAction {
 		Poi2007Base base = PoiFactory.getPoi(exceltype);
 		//根据ID查询数据
 		List<WarehouserptDto> list = new ArrayList<WarehouserptDto>();
-		WarehouserptDto rpt = warehouserptService.queryWarehouserptByID(strExportDetailId);
 		if(rpt != null) {
 			list.add(rpt);
 		} else {
