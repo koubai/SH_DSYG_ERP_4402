@@ -166,6 +166,50 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 		}
 		return rpt;
 	}
+	
+	@Override
+	public WarehouserptDto queryWarehouserptInterByID(String id) {
+		WarehouserptDto rpt = warehouserptDao.queryWarehouserptByID(id);
+		if(rpt != null) {
+			//查询对应的库存记录列表
+			if(StringUtil.isNotBlank(rpt.getProductinfo())) {
+				List<ProductDto> list = new ArrayList<ProductDto>();
+				String[] infos = rpt.getProductinfo().split("#");
+				for(int i=0; i<infos.length; i++) {
+					if(StringUtil.isNotBlank(infos[i])) {
+						String[] ll = infos[i].split(",");
+						ProductDto product = productDao.queryProductByID(ll[0]);
+						if(product != null) {
+							boolean isInlist = false;
+							int index = 0;
+							for (int j = 0; j < list.size(); j++) { 
+								if(list.get(j).getId() == Long.parseLong(ll[0])){
+									isInlist = true;
+									index = j;
+								}
+							}
+							if(isInlist){
+								//货物数量
+								list.get(index).setNum(String.valueOf(Integer.parseInt(list.get(index).getNum()) + Integer.parseInt(ll[1])));
+								//货物金额
+								list.get(index).setAmount(String.valueOf(Double.parseDouble(list.get(index).getAmount()) + Double.parseDouble(ll[2])));
+							} else {
+								//货物数量
+								product.setNum(ll[1]);
+								//货物金额
+								product.setAmount(ll[2]);
+								product.setHasbroken("0");
+								product.setBrokennum("0");
+								list.add(product);
+							}
+						}
+					}
+				}
+				rpt.setListProduct(list);
+			}
+		}
+		return rpt;
+	}
 
 	@Override
 	public void insertWarehouserpt(WarehouserptDto warehouserpt) {

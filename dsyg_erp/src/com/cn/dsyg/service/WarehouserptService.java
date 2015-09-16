@@ -53,6 +53,13 @@ public interface WarehouserptService {
 	public WarehouserptDto queryWarehouserptByID(String id);
 	
 	/**
+	 * 根据ID查询数据
+	 * @param id
+	 * @return
+	 */
+	public WarehouserptDto queryWarehouserptInterByID(String id);
+	
+	/**
 	 * 新增数据
 	 * @param warehouserpt
 	 */
