@@ -1,4 +1,4 @@
-﻿package com.cn.dsyg.service.impl;
+package com.cn.dsyg.service.impl;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -412,8 +412,8 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 			finance.setCustomeraddress(warehouserpt.getExpressaddress());
 			finance.setCustomermail(warehouserpt.getExpressmail());
 			finance.setRank(Constants.ROLE_RANK_OPERATOR);
-			//状态=开票完了=============//付款申请
-			finance.setStatus(Constants.FINANCE_STATUS_PAY_INVOICE);
+			//状态=新增
+			finance.setStatus(Constants.FINANCE_STATUS_NEW);
 			finance.setCreateuid(warehouserpt.getUpdateuid());
 			finance.setUpdateuid(warehouserpt.getUpdateuid());
 			financeDao.insertFinance(finance);

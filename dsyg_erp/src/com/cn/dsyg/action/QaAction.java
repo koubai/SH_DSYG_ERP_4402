@@ -112,6 +112,9 @@ public class QaAction extends BaseAction {
 			if(intPageSize == null) {
 				intPageSize = 10;
 			}
+			if(queryQaDto == null) {
+				queryQaDto = new QaDto();
+			}
 			page = new Page(intPageSize);
 			queryData();
 		} catch(Exception e) {
