@@ -48,12 +48,16 @@
 	}
 	
 	function hideQa() {
+		$("#qaDiv").css("display", "none");
+	}
+	
+	function goQa() {
 		//$("#qaDiv").css("display", "none");
 		//显示Q/A页面
 		parent.window.frames['mainFrame'].location = '<%=request.getContextPath()%>/qa/queryQaAction.action';
 	}
 </script>
 <div class="user">
-	<div id="qaDiv" style="position:absolute; margin-top:-3px; margin-right: 165px; display: none;"><img width="19" height="19" style="cursor: pointer;" onclick="hideQa();" alt="" src="<%=request.getContextPath()%>/images/mail.jpg" /></div>
+	<div id="qaDiv" style="position:absolute; margin-top:-3px; margin-right: 165px; display: none;"><img width="19" height="19" style="cursor: pointer;" onclick="goQa();" alt="" src="<%=request.getContextPath()%>/images/mail.jpg" /></div>
 	<span>用户：<%=session.getAttribute("user_name")%></span><span>登录时间：<%=session.getAttribute("login_time")%></span>
 </div>
