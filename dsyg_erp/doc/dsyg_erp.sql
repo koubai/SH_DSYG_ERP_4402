@@ -265,11 +265,11 @@ CREATE TABLE `etb_finance` (
   `updateuid` varchar(32) DEFAULT NULL COMMENT '更新者',
   `updatedate` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 /*Data for the table `etb_finance` */
 
-insert  into `etb_finance`(`id`,`financetype`,`theme`,`mode`,`belongto`,`invoiceid`,`receiptid`,`receiptdate`,`accountdate`,`amount`,`handler`,`approverid`,`customerid`,`customername`,`customertel`,`customermanager`,`customeraddress`,`customermail`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (42,1,NULL,'2','0','RKD0150916223918','CWN020150916223918','2015-09-16 00:00:00','2015-09-16 00:00:00','4285.71','admin','admin',17,'通力','13912345678','王小姐','上海','wang@163.com',NULL,50,99,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-16 22:39:18','admin','2015-09-16 22:53:27'),(43,3,NULL,'2','0','RKD0150916223918','CWN020150916223944','2015-09-16 00:00:00','2015-09-16 00:00:00','2.00','admin','admin',3,'test3','111111','test','111','11@sina.cn',NULL,50,99,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'aa111',NULL,'admin','2015-09-16 22:39:44','admin','2015-09-16 22:39:44');
+insert  into `etb_finance`(`id`,`financetype`,`theme`,`mode`,`belongto`,`invoiceid`,`receiptid`,`receiptdate`,`accountdate`,`amount`,`handler`,`approverid`,`customerid`,`customername`,`customertel`,`customermanager`,`customeraddress`,`customermail`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (42,1,NULL,'2','0','RKD0150916223918','CWN020150916223918','2015-09-16 00:00:00','2015-09-16 00:00:00','4285.71','admin','admin',17,'通力','13912345678','王小姐','上海','wang@163.com',NULL,50,99,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-16 22:39:18','admin','2015-09-16 22:53:27'),(43,3,NULL,'2','0','RKD0150916223918','CWN020150916223944','2015-09-16 00:00:00','2015-09-16 00:00:00','2.00','admin','admin',3,'test3','111111','test','111','11@sina.cn',NULL,50,99,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'aa111',NULL,'admin','2015-09-16 22:39:44','admin','2015-09-16 22:39:44'),(44,2,NULL,'2','0','CKD0150916230316','CWN020150916230316','2015-09-16 00:00:00','2015-09-16 00:00:00','362.70','admin','admin',5,'通力','13912345678','王小姐','上海','wang@163.com',NULL,50,99,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-16 23:03:16','admin','2015-09-16 23:03:38');
 
 /*Table structure for table `etb_personal` */
 
@@ -315,6 +315,36 @@ CREATE TABLE `etb_personal` (
 /*Data for the table `etb_personal` */
 
 insert  into `etb_personal`(`id`,`userid`,`belongto`,`userno`,`registdate`,`username`,`sex`,`birthday`,`post`,`superior`,`phone`,`tell`,`address`,`employeddate`,`retiredate`,`personaldesc`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (1,NULL,NULL,'1','2015-05-30 00:00:00','1',0,NULL,'','','','','','2012-01-01 00:00:00','2015-08-08 00:00:00',NULL,'',0,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-06-06 23:09:11','admin11','2015-06-06 23:33:08'),(2,NULL,NULL,'YG10001','2015-05-05 00:00:00','丁丁一',1,NULL,'销售员','陈一','13912345678','02112345678','浦东新区北蔡','2013-01-01 00:00:00','2015-06-01 00:00:00','11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111','11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111',0,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-06-06 23:34:48','admin11','2015-06-07 00:06:47'),(3,NULL,'0','YGN020150723230251de7a7baa','2015-07-23 00:00:00','abda',0,'2015-07-10 00:00:00','22','11','333333','','','2015-07-17 00:00:00','2015-07-24 00:00:00','','',0,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin11','2015-07-23 23:02:51',NULL,NULL);
+
+/*Table structure for table `etb_position` */
+
+DROP TABLE IF EXISTS `etb_position`;
+
+CREATE TABLE `etb_position` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `belongto` varchar(16) DEFAULT NULL,
+  `productid` varchar(20) DEFAULT NULL COMMENT '产品ID',
+  `amount` int(11) DEFAULT NULL COMMENT '数量',
+  `warehousename` varchar(64) DEFAULT NULL COMMENT '仓库名',
+  `productposition` varchar(32) DEFAULT NULL COMMENT '位置',
+  `note` varchar(500) DEFAULT NULL,
+  `rank` int(2) DEFAULT NULL,
+  `status` int(4) DEFAULT NULL,
+  `res01` varchar(32) DEFAULT NULL,
+  `res02` varchar(32) DEFAULT NULL,
+  `res03` varchar(32) DEFAULT NULL,
+  `res04` varchar(32) DEFAULT NULL,
+  `res05` varchar(32) DEFAULT NULL,
+  `createuid` varchar(32) DEFAULT NULL,
+  `createdate` datetime DEFAULT NULL,
+  `updateuid` varchar(32) DEFAULT NULL,
+  `updatedate` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+/*Data for the table `etb_position` */
+
+insert  into `etb_position`(`id`,`belongto`,`productid`,`amount`,`warehousename`,`productposition`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (1,'0','23',221,'SH01','fff',NULL,50,1,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-19 15:34:56','admin','2015-09-19 15:35:17'),(2,'0','22',11,'SH01','rrr',NULL,50,1,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-19 15:35:00','admin','2015-09-19 15:35:00');
 
 /*Table structure for table `etb_price` */
 
@@ -612,9 +642,11 @@ CREATE TABLE `etb_sales` (
   `updateuid` varchar(32) DEFAULT NULL COMMENT '更新者',
   `updatedate` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 /*Data for the table `etb_sales` */
+
+insert  into `etb_sales`(`id`,`salesno`,`belongto`,`theme1`,`theme2`,`warehouse`,`customerid`,`customername`,`customertel`,`customermanager`,`customeraddress`,`customerfax`,`customermail`,`handler`,`bookdate`,`plandate`,`amount`,`taxamount`,`paidamount`,`unpaidamount`,`approverid`,`productlist`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (25,'XSD0201509162303064794b149','0',NULL,'12212111111','SH01',5,'通力','13912345678','王小姐','上海','13912345678','wang@163.com','admin','2015-09-16 00:00:00','2015-09-16','310.00','362.70','0.00',NULL,NULL,'25,21,',NULL,50,20,'02','0',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-16 23:03:06','admin','2015-09-16 23:03:16');
 
 /*Table structure for table `etb_salesitem` */
 
@@ -656,9 +688,11 @@ CREATE TABLE `etb_salesitem` (
   `updateuid` varchar(32) DEFAULT NULL COMMENT '更新者',
   `updatedate` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
 /*Data for the table `etb_salesitem` */
+
+insert  into `etb_salesitem`(`id`,`salesno`,`belongto`,`theme1`,`theme2`,`productid`,`quantity`,`outquantity`,`beforequantity`,`remainquantity`,`unitprice`,`amount`,`taxamount`,`plandate`,`handler`,`customerid`,`approverid`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (45,'XSD0201509162303064794b149','0','01','12212111111','25',1,1,0,0,'66.00','66.00','77.22','2015-09-16',NULL,5,NULL,NULL,50,1,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-16 23:03:06','admin','2015-09-16 23:03:06'),(46,'XSD0201509162303064794b149','0','01','12212111111','21',2,2,0,0,'122.00','244.00','285.48','2015-09-16',NULL,5,NULL,NULL,50,1,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-16 23:03:06','admin','2015-09-16 23:03:06');
 
 /*Table structure for table `etb_sample` */
 
@@ -789,11 +823,11 @@ CREATE TABLE `etb_warehouse` (
   `updateuid` varchar(32) DEFAULT NULL COMMENT '更新者',
   `updatedate` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=177 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=180 DEFAULT CHARSET=utf8;
 
 /*Data for the table `etb_warehouse` */
 
-insert  into `etb_warehouse`(`id`,`parentid`,`warehousetype`,`warehouseno`,`warehousename`,`belongto`,`theme1`,`theme2`,`productid`,`quantity`,`actualquantity`,`unitprice`,`amount`,`taxamount`,`warehousedate`,`plandate`,`handler`,`supplierid`,`approverid`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (175,'CGD0201509162239011a156d5a',1,'KCN02015091622390224e67173','SH01','0',NULL,'DS2015000022','22',11,NULL,'111.00','1221.00','1428.57','2015-09-16 00:00:00','2015-09-16','admin',17,NULL,NULL,50,99,'01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-16 22:39:02','admin','2015-09-16 22:53:27'),(176,'CGD0201509162239011a156d5a',1,'KCN020150916223902dabbdfc7','SH01','0',NULL,'DS2015000022','23',22,NULL,'111.00','2442.00','2857.14','2015-09-16 00:00:00','2015-09-16','admin',17,NULL,NULL,50,99,'01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-16 22:39:02','admin','2015-09-16 22:53:27');
+insert  into `etb_warehouse`(`id`,`parentid`,`warehousetype`,`warehouseno`,`warehousename`,`belongto`,`theme1`,`theme2`,`productid`,`quantity`,`actualquantity`,`unitprice`,`amount`,`taxamount`,`warehousedate`,`plandate`,`handler`,`supplierid`,`approverid`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (175,'CGD0201509162239011a156d5a',1,'KCN02015091622390224e67173','SH01','0',NULL,'DS2015000022','22',11,NULL,'111.00','1221.00','1428.57','2015-09-16 00:00:00','2015-09-16','admin',17,NULL,NULL,50,99,'01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-16 22:39:02','admin','2015-09-16 22:53:27'),(176,'CGD0201509162239011a156d5a',1,'KCN020150916223902dabbdfc7','SH01','0',NULL,'DS2015000022','23',22,NULL,'111.00','2442.00','2857.14','2015-09-16 00:00:00','2015-09-16','admin',17,NULL,NULL,50,99,'01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-16 22:39:02','admin','2015-09-16 22:53:27'),(177,'XSD0201509162303064794b149',2,'KCN0201509162303066cd0bc4f','SH01','0',NULL,'12212111111','25',-1,NULL,'66.00','66.00','77.22','2015-09-16 00:00:00','2015-09-16','admin',5,NULL,NULL,50,99,'02',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-16 23:03:06','admin','2015-09-16 23:03:38'),(178,'XSD0201509162303064794b149',2,'KCN02015091623030663a61b89','SH01','0',NULL,'12212111111','21',-2,NULL,'122.00','244.00','285.48','2015-09-16 00:00:00','2015-09-16','admin',5,NULL,NULL,50,99,'02',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-16 23:03:06','admin','2015-09-16 23:03:38'),(179,'PD',3,'KCN02015091915351726a2e396','SH01','0','01',NULL,'23',199,NULL,NULL,NULL,NULL,'2015-09-19 00:00:00','2015-09-19',NULL,NULL,NULL,NULL,50,10,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-19 15:35:17','admin','2015-09-19 15:35:17');
 
 /*Table structure for table `etb_warehouserpt` */
 
@@ -850,11 +884,11 @@ CREATE TABLE `etb_warehouserpt` (
   `updateuid` varchar(32) DEFAULT NULL COMMENT '更新者',
   `updatedate` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 
 /*Data for the table `etb_warehouserpt` */
 
-insert  into `etb_warehouserpt`(`id`,`warehousetype`,`warehouseno`,`warehousename`,`productinfo`,`belongto`,`theme1`,`theme2`,`parentid`,`totaltaxamount`,`totalnum`,`warehousedate`,`handler`,`supplierid`,`suppliername`,`suppliertel`,`suppliermanager`,`supplieraddress`,`supplierfax`,`suppliermail`,`expressid`,`expressname`,`expresstel`,`expressfax`,`expressmanager`,`expressaddress`,`expressmail`,`expressno`,`expressamount`,`expresstaxamount`,`expressnote`,`approverid`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (61,1,'RKD0150916223918','SH01','22,11,1428.57#23,22,2857.14#','0',NULL,NULL,'KCN02015091622390224e67173,KCN020150916223902dabbdfc7,','4285.71',33,'2015-09-16 00:00:00','',17,'通力','13912345678','王小姐','上海','13912345678','wang@163.com','3','test3','111111','111','test','111','11@sina.cn','aa111',NULL,'2.00',NULL,NULL,'a',50,99,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-16 22:39:18','admin','2015-09-16 22:53:27');
+insert  into `etb_warehouserpt`(`id`,`warehousetype`,`warehouseno`,`warehousename`,`productinfo`,`belongto`,`theme1`,`theme2`,`parentid`,`totaltaxamount`,`totalnum`,`warehousedate`,`handler`,`supplierid`,`suppliername`,`suppliertel`,`suppliermanager`,`supplieraddress`,`supplierfax`,`suppliermail`,`expressid`,`expressname`,`expresstel`,`expressfax`,`expressmanager`,`expressaddress`,`expressmail`,`expressno`,`expressamount`,`expresstaxamount`,`expressnote`,`approverid`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`res06`,`res07`,`res08`,`res09`,`res10`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (61,1,'RKD0150916223918','SH01','22,11,1428.57#23,22,2857.14#','0',NULL,NULL,'KCN02015091622390224e67173,KCN020150916223902dabbdfc7,','4285.71',33,'2015-09-16 00:00:00','',17,'通力','13912345678','王小姐','上海','13912345678','wang@163.com','3','test3','111111','111','test','111','11@sina.cn','aa111',NULL,'2.00',NULL,NULL,'a',50,99,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-16 22:39:18','admin','2015-09-16 22:53:27'),(62,2,'CKD0150916230316','SH01','25,-1,77.22#21,-2,285.48#','0',NULL,NULL,'KCN0201509162303066cd0bc4f,KCN02015091623030663a61b89,','362.70',NULL,'2015-09-16 00:00:00','',5,'通力','13912345678','王小姐','上海','13912345678','wang@163.com',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,50,99,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-16 23:03:16','admin','2015-09-16 23:03:38');
 
 /*Table structure for table `tbdict01` */
 
