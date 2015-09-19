@@ -128,6 +128,11 @@ public class ProductAction extends BaseAction {
 			updPicFile01 = null;
 			updPicFile02 = null;
 			updPicFile03 = null;
+			updPdfFile = null;
+			file01Name = "";
+			file02Name = "";
+			file03Name = "";
+			file04Name = "";
 			updProductDto = productService.queryProductByID(updProductId);
 		} catch(Exception e) {
 			log.error("showUpdProductAction error:" + e);
@@ -240,6 +245,14 @@ public class ProductAction extends BaseAction {
 			this.clearMessages();
 			addProductDto = new ProductDto();
 			addProductDto.setRank(Constants.ROLE_RANK_OPERATOR);
+			addPdfFile = null;
+			addPicFile01 = null;
+			addPicFile02 = null;
+			addPicFile03 = null;
+			file01Name = "";
+			file02Name = "";
+			file03Name = "";
+			file04Name = "";
 			//初期化字典数据
 			initDictList();
 		} catch(Exception e) {

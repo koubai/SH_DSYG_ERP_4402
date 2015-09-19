@@ -536,6 +536,18 @@
 								<div class="box1_right"></div>
 							</td>
 						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10">UL型号/编号</label>
+							</td>
+							<td colspan="3">
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<s:textfield name="updProductDto.item09" id="item09" maxlength="32" cssStyle="width:300px;" theme="simple"></s:textfield>
+								</div>
+								<div class="box1_right"></div>
+							</td>
+						</tr>
 						<s:if test='updProductDto.fieldno == "01"'>
 							<tr id="fieldno01">
 						</s:if>
@@ -661,7 +673,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="td_tittle"><span>*</span>PDF上传：</td>
+							<td class="td_tittle"><font color="red">*</font>PDF上传：</td>
 							<td>
 								<input type="file" name="updPdfFile" id="updPdfFile" style="width: 500px;"/><br />
 								<a target="_blank" href="<s:property value="updProductDto.pdfurl"/><s:property value="updProductDto.pdfpath"/>"><s:property value="updProductDto.pdfpath"/></a>

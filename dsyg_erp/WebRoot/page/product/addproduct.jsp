@@ -500,6 +500,18 @@
 								<div class="box1_right"></div>
 							</td>
 						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10">UL型号/编号</label>
+							</td>
+							<td colspan="3">
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<s:textfield name="addProductDto.item09" id="item09" maxlength="32" cssStyle="width:300px;" theme="simple"></s:textfield>
+								</div>
+								<div class="box1_right"></div>
+							</td>
+						</tr>
 						<s:if test='addProductDto.fieldno == "01"'>
 							<tr id="fieldcode01">
 						</s:if>
@@ -620,7 +632,7 @@
 						</tr>
 						<tr>
 							<td align="right">
-								<label class="pdf10">PDF上传</label>
+								<label class="pdf10"><font color="red">*</font>PDF上传</label>
 							</td>
 							<td colspan="3">
 								<input type="file" name="addPdfFile" style="width: 500px;" id="addPdfFile"/>

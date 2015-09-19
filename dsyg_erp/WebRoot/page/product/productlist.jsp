@@ -195,6 +195,7 @@
 								<td width="60">颜色</td>
 								<td width="60">形式</td>
 								<td width="60">包装</td>
+								<td width="60">UL型号/编号</td>
 							</tr>
 							<s:iterator id="productList" value="productList" status="st1">
 								<s:if test="#st1.odd==true">
@@ -231,6 +232,9 @@
 									</td>
 									<td>
 										<s:property value="item10"/>
+									</td>
+									<td>
+										<s:property value="item09"/>
 									</td>
 								</tr>
 							</s:iterator>

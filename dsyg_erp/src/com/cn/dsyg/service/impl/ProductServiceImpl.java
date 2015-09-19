@@ -136,7 +136,7 @@ public class ProductServiceImpl implements ProductService {
 		if(dictType != null) {
 			type = dictType.getFieldname();
 		}
-		//productname=品牌-类型-品名-规格-颜色-包装-是否样品		
+		//productname=品牌-类型-品名-规格-颜色-包装-是否样品
 		String productname = product.getBrand() + "-" + type + "-" + product.getTradename() + "-" + product.getTypeno() + "-" + color + "-" + packaging;
 		product.setProductname(productname);
 		
@@ -219,13 +219,17 @@ public class ProductServiceImpl implements ProductService {
 				keyword += dict.getFieldname() + ",";
 			}
 		}
-		//包装
+		//形式
 		if(StringUtil.isNotBlank(product.getPackaging())) {
 			if(Constants.DICT_PACKAGING_TYPE_CODE_1.equals(product.getPackaging())) {
 				keyword += "乱尺,";
 			} else if(Constants.DICT_PACKAGING_TYPE_CODE_0.equals(product.getPackaging())) {
 				keyword += "整箱,";
 			}
+		}
+		//包装
+		if(StringUtil.isNotBlank(product.getItem10())) {
+			keyword += product.getItem09() + ",";
 		}
 		//产地
 		if(StringUtil.isNotBlank(product.getMakearea())) {
@@ -234,6 +238,10 @@ public class ProductServiceImpl implements ProductService {
 			if(dict != null) {
 				keyword += dict.getFieldname() + ",";
 			}
+		}
+		//UL型号/编号
+		if(StringUtil.isNotBlank(product.getItem09())) {
+			keyword += product.getItem09() + ",";
 		}
 		return keyword;
 	}
