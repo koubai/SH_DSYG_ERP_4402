@@ -3,6 +3,19 @@
 
 <beans>
 
+	<!-- position -->
+	<bean id="positionService" class="com.cn.dsyg.service.impl.PositionServiceImpl" >
+		<property name="positionDao">
+			<ref local="positionDao"/>
+		</property>
+	</bean>
+	
+	<bean id="positionDao" class="com.cn.dsyg.dao.impl.PositionDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+
 	<!-- qa -->
 	<bean id="qaService" class="com.cn.dsyg.service.impl.QaServiceImpl" >
 		<property name="qaDao">
@@ -167,6 +180,9 @@
 		</property>
 		<property name="productDao">
 			<ref local="productDao"/>
+		</property>
+		<property name="positionDao">
+			<ref local="positionDao"/>
 		</property>
 	</bean>
 	

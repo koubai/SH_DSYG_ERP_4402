@@ -75,6 +75,13 @@
 			$("#" + "num_" + id).focus();
 			return;
 		}
+		var position = $("#" + "position_" + id).val().trim();
+		if(position == "") {
+			alert("盘点不能为空！");
+			$("#" + "position_" + id).focus();
+			return;
+		}
+		$("#strPosition").val(position);
 		document.mainform.action = '../warehouse/checkProductQuantity.action?strCheckProductid=' + id + "&strCheckProductNum=" + num;
 		document.mainform.submit();
 	}
@@ -102,6 +109,7 @@
 			<s:form id="mainform" name="mainform" method="POST">
 				<s:hidden name="startIndex" id="startIndex"/>
 				<s:hidden name="intPageSize" id="intPageSize"/>
+				<s:hidden name="strPosition" id="strPosition"/>
 				<div class="searchbox">
 					<div class="box1">
 						<label class="pdf10">类型</label>
@@ -138,13 +146,13 @@
 							<tr class="tittle">
 								<td width="40">序号</td>
 								<td width="60">主题</td>
-								<td width="120">仓库</td>
 								<td width="120">品名</td>
 								<td width="120">规格</td>
 								<td width="60">颜色</td>
 								<td width="60">包装</td>
 								<td width="120">供应商</td>
 								<td width="80">库存数量</td>
+								<td width="150">库存位置</td>
 								<td width="150">盘点数量</td>
 							</tr>
 							<s:iterator id="warehouseCheckList" value="warehouseCheckList" status="st1">
@@ -162,7 +170,6 @@
 											</s:if>
 										</s:iterator>
 									</td>
-									<td><s:property value="warehousename"/></td>
 									<td><s:property value="tradename"/></td>
 									<td><s:property value="typeno"/></td>
 									<td>
@@ -181,6 +188,9 @@
 									</td>
 									<td><s:property value="suppliername"/></td>
 									<td><s:property value="warehouseamount"/></td>
+									<td>
+										<input type="text" style="width: 100px;" maxlength="32" id="position_<s:property value="productid"/>" value="<s:property value="warehouseposition"/>"/>
+									</td>
 									<td>
 										<input type="text" style="width: 100px;" maxlength="10" id="num_<s:property value="productid"/>" value="<s:property value="warehouseamount"/>"/><input type="button" value="盘点" onclick="productCheck('<s:property value="productid"/>')"/>
 									</td>

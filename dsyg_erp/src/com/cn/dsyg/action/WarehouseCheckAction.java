@@ -60,6 +60,8 @@ public class WarehouseCheckAction extends BaseAction {
 	private String strCheckProductid;
 	//盘点的库存值
 	private String strCheckProductNum;
+	//盘点库存位置
+	private String strPosition;
 	
 	/**
 	 * 盘点
@@ -71,7 +73,7 @@ public class WarehouseCheckAction extends BaseAction {
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
 			//查询原始库存
-			boolean b = warehouseService.checkProductQuantity(strCheckProductid, strCheckProductNum, username);
+			boolean b = warehouseService.checkProductQuantity(strCheckProductid, strCheckProductNum, strPosition, username);
 			if(b) {
 				this.addActionMessage("盘点成功！");
 			} else {
@@ -349,5 +351,13 @@ public class WarehouseCheckAction extends BaseAction {
 
 	public void setStrCheckProductNum(String strCheckProductNum) {
 		this.strCheckProductNum = strCheckProductNum;
+	}
+
+	public String getStrPosition() {
+		return strPosition;
+	}
+
+	public void setStrPosition(String strPosition) {
+		this.strPosition = strPosition;
 	}
 }

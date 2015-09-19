@@ -36,6 +36,11 @@ public class WarehouseCheckDto extends BaseDto {
 	private String warehousename;
 	
 	/**
+	 * 库存位置
+	 */
+	private String warehouseposition;
+	
+	/**
 	 * 产品ID
 	 */
 	private String productid;
@@ -1001,5 +1006,13 @@ public class WarehouseCheckDto extends BaseDto {
 
 	public void setProductid(String productid) {
 		this.productid = productid;
+	}
+
+	public String getWarehouseposition() {
+		return warehouseposition;
+	}
+
+	public void setWarehouseposition(String warehouseposition) {
+		this.warehouseposition = warehouseposition;
 	}
 }

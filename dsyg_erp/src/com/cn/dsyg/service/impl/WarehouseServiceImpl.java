@@ -15,6 +15,7 @@ import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.CustomerDao;
 import com.cn.dsyg.dao.FinanceDao;
+import com.cn.dsyg.dao.PositionDao;
 import com.cn.dsyg.dao.ProductDao;
 import com.cn.dsyg.dao.PurchaseDao;
 import com.cn.dsyg.dao.PurchaseItemDao;
@@ -25,6 +26,7 @@ import com.cn.dsyg.dao.WarehouseDao;
 import com.cn.dsyg.dao.WarehouserptDao;
 import com.cn.dsyg.dto.CustomerDto;
 import com.cn.dsyg.dto.FinanceDto;
+import com.cn.dsyg.dto.PositionDto;
 import com.cn.dsyg.dto.ProductDto;
 import com.cn.dsyg.dto.ProductQuantityDto;
 import com.cn.dsyg.dto.PurchaseDto;
@@ -58,11 +60,15 @@ public class WarehouseServiceImpl implements WarehouseService {
 	private CustomerDao customerDao;
 	private FinanceDao financeDao;
 	private ProductDao productDao;
+	private PositionDao positionDao;
 	
 	@Override
-	public boolean checkProductQuantity(String productid, String num, String userid) {
+	public boolean checkProductQuantity(String productid, String num, String productposition, String userid) {
 		//查询原始库存
 		ProductQuantityDto p = warehouseDao.queryProductQuantityById(productid);
+		//仓库
+		String warehousename = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_WAREHOUSE_NAME);
+		String belongto = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG);
 		if(p != null) {
 			if(p.getQuantity() != null && !"".equals(p.getQuantity())) {
 				//有库存数据
@@ -77,7 +83,6 @@ public class WarehouseServiceImpl implements WarehouseService {
 					
 					Date date = new Date();
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-					String belongto = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG);
 					
 					WarehouseDto warehouse = new WarehouseDto();
 					//数据来源单号=盘点
@@ -85,7 +90,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 					//库存类型=盘点
 					warehouse.setWarehousetype(Constants.WAREHOUSE_TYPE_PD);
 					//仓库
-					warehouse.setWarehousename(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_WAREHOUSE_NAME));
+					warehouse.setWarehousename(warehousename);
 					//预入库时间
 					warehouse.setPlandate(DateUtil.dateToShortStr(date));
 					
@@ -116,6 +121,28 @@ public class WarehouseServiceImpl implements WarehouseService {
 					warehouse.setCreateuid(userid);
 					
 					warehouseDao.insertWarehouse(warehouse);
+				}
+				//查询盘点表的数据
+				PositionDto position = positionDao.queryPositionByLogicId(productid, warehousename);
+				if(position == null) {
+					//没有位置数据，则新增一条记录
+					position = new PositionDto();
+					position.setAmount(num);
+					position.setBelongto(belongto);
+					position.setCreateuid(userid);
+					position.setUpdateuid(userid);
+					position.setProductid(productid);
+					position.setProductposition(productposition);
+					position.setRank(Constants.ROLE_RANK_OPERATOR);
+					position.setStatus(Constants.STATUS_NORMAL);
+					position.setWarehousename(warehousename);
+					positionDao.insertPosition(position);
+				} else {
+					//更新数据
+					position.setAmount(num);
+					position.setUpdateuid(userid);
+					position.setProductposition(productposition);
+					positionDao.updatePosition(position);
 				}
 				return true;
 			}
@@ -176,6 +203,16 @@ public class WarehouseServiceImpl implements WarehouseService {
 		List<WarehouseCheckDto> list = warehouseDao.queryWarehouseCheckByPage(parentid, warehousetype,
 				warehouseno, theme1, productid, tradename, typeno, color, warehousename,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		if(list != null && list.size() > 0) {
+			for(WarehouseCheckDto warehouseCheck : list) {
+				PositionDto position = positionDao.queryPositionByLogicId(warehouseCheck.getProductid(), warehouseCheck.getWarehousename());
+				if(position != null) {
+					warehouseCheck.setWarehouseposition(position.getProductposition());
+				} else {
+					warehouseCheck.setWarehouseposition("");
+				}
+			}
+		}
 		page.setItems(list);
 		return page;
 	}
@@ -856,5 +893,13 @@ public class WarehouseServiceImpl implements WarehouseService {
 			String productid, String tradename, String typeno, String color,
 			String warehousename) {
 		return warehouseDao.queryWarehouseCheckToExcel(parentid, warehousetype, warehouseno, theme1, productid, tradename, typeno, color, warehousename);
+	}
+
+	public PositionDao getPositionDao() {
+		return positionDao;
+	}
+
+	public void setPositionDao(PositionDao positionDao) {
+		this.positionDao = positionDao;
 	}
 }

@@ -19,10 +19,11 @@ public interface WarehouseService {
 	 * 根据产品ID盘点库存数量
 	 * @param productid
 	 * @param num
+	 * @param position
 	 * @param userid
 	 * @return
 	 */
-	public boolean checkProductQuantity(String productid, String num, String userid);
+	public boolean checkProductQuantity(String productid, String num, String position, String userid);
 	
 	/**
 	 * 根据产品ID查询库存数量

@@ -21,7 +21,7 @@ function checkRadioTr(tr, evt) {
 function checkRadioTr1(tr, evt) {
 	var tds = tr.getElementsByTagName("td");
 	var inputs = tds[1].getElementsByTagName("input");
-	inputs[1].checked = true;
+	inputs[0].checked = true;
 }
 
 function checkCheckboxTr(tr, evt) {
