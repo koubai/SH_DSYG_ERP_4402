@@ -176,6 +176,11 @@ public class WarehouseServiceImpl implements WarehouseService {
 			for(WarehouseDto warehouseDto : list) {
 				ProductDto product = productDao.queryProductByID(warehouseDto.getProductid());
 				warehouseDto.setProductname(product.getTradename());
+				warehouseDto.setTypeno(product.getTypeno());
+				warehouseDto.setColor(product.getColor());
+				warehouseDto.setPackaging(product.getPackaging());
+				warehouseDto.setUnit(product.getUnit());
+				warehouseDto.setItem10(product.getItem10());
 			}
 		}
 		page.setItems(list);
@@ -506,7 +511,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//产品合集
 			Map<String, Integer> quantityMap = new HashMap<String, Integer>();
 			Map<String, BigDecimal> amountMap = new HashMap<String, BigDecimal>();
-			//int count = 0;
+			int count = 0;
 			//含税金额合计
 			BigDecimal totaltaxamount = new BigDecimal(0);
 			for(int i = 0; i < idList.length; i++) {
@@ -540,7 +545,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 						warehouse.setStatus(Constants.WAREHOUSE_STATUS_OK);
 						
 						//计算当前集集的库存数量
-						//count += warehouse.getQuantity();
+						count += warehouse.getQuantity();
 						warehousenos += warehouse.getWarehouseno() + ",";
 						productinfo += warehouse.getProductid() + "," + warehouse.getQuantity() + "," + warehouse.getTaxamount() + "#";
 						
@@ -605,11 +610,11 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//入库单RPT日期
 			warehouserpt.setWarehousedate(DateUtil.dateToShortStr(date));
 			
-			//入库数量，由于会对应多个货物，故这里的数量不需要了。
-//			if(count < 0) {
-//				count = -1 * count;
-//			}
-//			warehouserpt.setTotalnum(count);
+			//入库数量
+			if(count < 0) {
+				count = -1 * count;
+			}
+			warehouserpt.setTotalnum(count);
 			
 			//含税金额
 			warehouserpt.setTotaltaxamount(totaltaxamount);
@@ -728,6 +733,11 @@ public class WarehouseServiceImpl implements WarehouseService {
 			ProductDto product = productDao.queryProductByID(warehouse.getProductid());
 			if(product != null) {
 				warehouse.setProductname(product.getTradename());
+				warehouse.setTypeno(product.getTypeno());
+				warehouse.setColor(product.getColor());
+				warehouse.setPackaging(product.getPackaging());
+				warehouse.setUnit(product.getUnit());
+				warehouse.setItem10(product.getItem10());
 			}
 		}
 		return warehouse;
@@ -771,6 +781,15 @@ public class WarehouseServiceImpl implements WarehouseService {
 		
 		warehouse.setWarehouseno(warehouseno);
 		warehouse.setWarehousename(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_WAREHOUSE_NAME));
+		ProductDto product = productDao.queryProductByID(warehouse.getProductid());
+		//产品信息
+		warehouse.setTheme1(product.getFieldno());
+		warehouse.setWarehousedate(DateUtil.dateToShortStr(date));
+		warehouse.setPlandate(DateUtil.dateToShortStr(date));
+		warehouse.setHandler(warehouse.getUpdateuid());
+		warehouse.setSupplierid(product.getSupplierid());
+		warehouse.setRank(Constants.ROLE_RANK_OPERATOR);
+		warehouse.setStatus(Constants.FINANCE_STATUS_PAY_INVOICE);
 		
 		warehouseDao.insertWarehouse(warehouse);
 		return warehouseno;

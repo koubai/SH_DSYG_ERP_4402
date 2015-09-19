@@ -11,6 +11,12 @@ import com.cn.common.action.BaseAction;
  * @time 2015-5-19下午9:20:14
  * @version 1.0
  */
+/**
+ * @name WarehouseDto.java
+ * @author Frank
+ * @time 2015-9-19下午4:38:11
+ * @version 1.0
+ */
 public class WarehouseDto extends BaseAction {
 
 	private static final long serialVersionUID = -1820867715011735185L;
@@ -59,11 +65,38 @@ public class WarehouseDto extends BaseAction {
 	 * 产品ID号
 	 */
 	private String productid;
-	
+
+	//
 	/**
 	 * 产品名
 	 */
 	private String productname;
+	
+	/**
+	 * 规格
+	 */
+	private String typeno;
+
+	/**
+	 * 颜色
+	 */
+	private String color;
+
+	/**
+	 * 形式
+	 */
+	private String packaging;
+	
+	/**
+	 * 包装
+	 */
+	private String item10;
+	
+	/**
+	 * 单位
+	 */
+	private String unit;
+	//
 
 	/**
 	 * 入出库数量
@@ -495,5 +528,45 @@ public class WarehouseDto extends BaseAction {
 
 	public void setProductname(String productname) {
 		this.productname = productname;
+	}
+
+	public String getTypeno() {
+		return typeno;
+	}
+
+	public void setTypeno(String typeno) {
+		this.typeno = typeno;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getPackaging() {
+		return packaging;
+	}
+
+	public void setPackaging(String packaging) {
+		this.packaging = packaging;
+	}
+
+	public String getItem10() {
+		return item10;
+	}
+
+	public void setItem10(String item10) {
+		this.item10 = item10;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
 	}
 }

@@ -42,11 +42,11 @@
 			$("#warehousetype").focus();
 			return;
 		}
-		if(theme1 == "") {
-			alert("请选择主题！");
-			$("#theme1").focus();
-			return;
-		}
+		//if(theme1 == "") {
+		//	alert("请选择主题！");
+		//	$("#theme1").focus();
+		//	return;
+		//}
 		//if(warehousename == "") {
 		//	alert("仓库名不能为空！");
 		//	$("#warehousename").focus();
@@ -84,11 +84,6 @@
 	
 	function selectProduct() {
 		var strFieldno = $("#theme1").val();
-		if(strFieldno == "") {
-			alert("请选择主题！");
-			$("#theme1").focus();
-			return;
-		}
 		var url = "../product/showProductSingleSelectPage.action?strFieldno=" + strFieldno;
 		url += "&date=" + new Date();
 		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
@@ -142,27 +137,36 @@
 											<option value="">请选择</option>
 											<option value="3" selected="selected">退货</option>
 											<option value="5">损毁</option>
+											<option value="6">库存修正</option>
 										</s:if>
 										<s:elseif test="%{addWarehouseDto.warehousetype == 5}">
 											<option value="">请选择</option>
 											<option value="3">退货</option>
 											<option value="5" selected="selected">损毁</option>
+											<option value="6">库存修正</option>
+										</s:elseif>
+										<s:elseif test="%{addWarehouseDto.warehousetype == 6}">
+											<option value="">请选择</option>
+											<option value="3">退货</option>
+											<option value="5">损毁</option>
+											<option value="6" selected="selected">库存修正</option>
 										</s:elseif>
 										<s:else>
 											<option value="" selected="selected">请选择</option>
 											<option value="3">退货</option>
 											<option value="5">损毁</option>
+											<option value="6">库存修正</option>
 										</s:else>
 									</select>
 								</div>
 								<div class="box1_right"></div>
 							</td>
 						</tr>
-						<tr>
+						<tr style="display: none;">
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>主题</label>
 							</td>
-							<td>
+							<td colspan="3">
 								<div class="box1_left"></div>
 								<div class="box1_center">
 									<select name="addWarehouseDto.theme1" id="theme1" style="width: 300px;" onchange="changeTheme();">
@@ -174,6 +178,8 @@
 								</div>
 								<div class="box1_right"></div>
 							</td>
+						</tr>
+						<tr>
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>产品</label>
 							</td>
@@ -191,12 +197,10 @@
 									<div class="box1_right"></div>
 								</div>
 							</td>
-						</tr>
-						<tr>
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>数量</label>
 							</td>
-							<td colspan="3">
+							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
 									<s:textfield name="addWarehouseDto.quantity" id="quantity" maxlength="16" cssStyle="width:300px;" theme="simple"></s:textfield>

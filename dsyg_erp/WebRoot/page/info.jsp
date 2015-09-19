@@ -4,7 +4,9 @@
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
 <script type="text/javascript">
 	function logout() {
-		window.parent.location.href = '<c:url value="/login/logoutAction.action"></c:url>';
+		if(confirm("确定退出吗？")) {
+			window.parent.location.href = '<c:url value="/login/logoutAction.action"></c:url>';
+		}
 	}
 	
 	function goHome() {
@@ -12,7 +14,7 @@
 		for(var i = 0; i < urlList.length; i++) {
 			urlList[i].style.color = "";
 		}
-		parent.window.frames['mainFrame'].location = '<%=request.getContextPath()%>/frame/showMainFrameAction.action';
+		parent.window.frames['mainFrame'].location = '<%=request.getContextPath()%>/intermana/showCalendarAction.action';
 		//window.parent.location.href = '<c:url value="/home/showManageHomeAction.action"></c:url>';
 	}
 	

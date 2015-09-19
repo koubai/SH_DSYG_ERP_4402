@@ -314,7 +314,7 @@
 	<!-- warehouserefund begin -->
 	<select id="queryWarehouseRefundByPage" parameterClass="java.util.Map" resultMap="WarehouseDto">
 		select * from (
-			SELECT * from etb_warehouse W where 1 = 1 and warehousetype in (3,5)
+			SELECT * from etb_warehouse W where 1 = 1 and warehousetype in (3,5,6)
 			<isNotEmpty prepend="and" property="warehousetype">
 				W.warehousetype = #warehousetype#
 			</isNotEmpty>
@@ -331,7 +331,7 @@
 	
 	<select id="queryWarehouseRefundCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from (
-			SELECT * from etb_warehouse W where 1 = 1 and warehousetype in (3,5)
+			SELECT * from etb_warehouse W where 1 = 1 and warehousetype in (3,5,6)
 			<isNotEmpty prepend="and" property="warehousetype">
 				W.warehousetype = #warehousetype#
 			</isNotEmpty>

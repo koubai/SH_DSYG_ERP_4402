@@ -9,7 +9,7 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>
-<title>退换货</title>
+<title>库存修正</title>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var h = screen.availHeight; 
@@ -105,7 +105,7 @@
 				<div class="tittle_left">
 				</div>
 				<div class="tittle_center">
-					退换货
+					库存修正
 				</div>
 				<div class="tittle_right">
 				</div>
@@ -114,7 +114,7 @@
 				<s:hidden name="startIndex" id="startIndex"/>
 				<s:hidden name="intPageSize" id="intPageSize"/>
 				<div class="searchbox">
-					<div class="box1">
+					<div class="box1" style="display: none;">
 						<label class="pdf10">类型</label>
 						<div class="box1_left"></div>
 						<div class="box1_center">
@@ -126,17 +126,17 @@
 							</select>
 						</div>
 					</div>
-					<div class="btn" style="margin-left: 60px;">
-						<div class="box1_left"></div>
-						<div class="box1_center">
-							<input type="button" class="input40" value="检索" onclick="queryList();"/>
-						</div>
-						<div class="box1_right"></div>
-					</div>
 					<div class="box1" style="margin-top:-3px; margin-left: -240px; color: red;">
 						<s:actionmessage />
 					</div>
 					<div class="icons thums">
+						<div class="btn" style="position: absolute; margin-top: -7px; margin-left: -100px;">
+							<div class="box1_left"></div>
+							<div class="box1_center">
+								<input type="button" class="input40" value="检索" onclick="queryList();"/>
+							</div>
+							<div class="box1_right"></div>
+						</div>
 						<a class="add" onclick="add();">增加</a>
 						<a class="edit" onclick="upd();">修改</a>
 					</div>
@@ -151,11 +151,15 @@
 							<tr class="tittle">
 								<td width="40"></td>
 								<td width="40">序号</td>
-								<td width="60">主题</td>
 								<td width="80">类型</td>
-								<td width="120">仓库</td>
 								<td width="120">品名</td>
+								<td width="120">规格</td>
+								<td width="60">颜色</td>
+								<td width="60">单位</td>
+								<td width="60">形式</td>
+								<td width="60">包装</td>
 								<td width="80">入库数量</td>
+								<td width="120">备注</td>
 							</tr>
 							<s:iterator id="warehouseList" value="warehouseList" status="st1">
 								<s:if test="#st1.odd==true">
@@ -167,26 +171,48 @@
 									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
 									<td>
-										<s:iterator id="goodsList" value="goodsList" status="st3">
-											<s:if test="%{goodsList[#st3.index].code == warehouseList[#st1.index].theme1}">
-												<s:property value="fieldname"/>
-											</s:if>
-										</s:iterator>
-									</td>
-									<td>
 										<s:if test="%{warehouseList[#st1.index].warehousetype == 3}">
 											退货
 										</s:if>
 										<s:elseif test="%{warehouseList[#st1.index].warehousetype == 5}">
 											损毁
 										</s:elseif>
+										<s:elseif test="%{warehouseList[#st1.index].warehousetype == 6}">
+											库存修正
+										</s:elseif>
 										<s:else>
 											<s:property value="warehousetype"/>
 										</s:else>
 									</td>
-									<td><s:property value="warehousename"/></td>
 									<td><s:property value="productname"/></td>
+									<td><s:property value="typeno"/></td>
+									<td>
+										<s:iterator id="colorList" value="colorList" status="st3">
+											<s:if test="%{colorList[#st3.index].code == warehouseList[#st1.index].color}">
+												<s:property value="fieldname"/>
+											</s:if>
+										</s:iterator>
+									</td>
+									<td>
+										<s:iterator id="unitList" value="unitList" status="st3">
+											<s:if test="%{unitList[#st3.index].code == warehouseList[#st1.index].unit}">
+												<s:property value="fieldname"/>
+											</s:if>
+										</s:iterator>
+									</td>
+									<td>
+										<s:if test='%{warehouseList[#st1.index].packaging == "1"}'>整箱</s:if>
+										<s:elseif test='%{warehouseList[#st1.index].packaging == "0"}'>乱尺</s:elseif>
+										<s:elseif test='%{warehouseList[#st1.index].packaging == "2"}'>样品</s:elseif>
+										<s:else>
+											<s:property value="packaging"/>
+										</s:else>
+									</td>
+									<td>
+										<s:property value="item10"/>
+									</td>
 									<td><s:property value="quantity"/></td>
+									<td><s:property value="note"/></td>
 								</tr>
 							</s:iterator>
 						</table>

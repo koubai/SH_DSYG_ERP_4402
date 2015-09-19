@@ -111,7 +111,7 @@
 				<s:hidden name="intPageSize" id="intPageSize"/>
 				<s:hidden name="strPosition" id="strPosition"/>
 				<div class="searchbox">
-					<div class="box1">
+					<div class="box1" style="display: none;">
 						<label class="pdf10">类型</label>
 						<div class="box1_left"></div>
 						<div class="box1_center">
@@ -123,17 +123,17 @@
 							</select>
 						</div>
 					</div>
-					<div class="btn" style="margin-left: 60px;">
-						<div class="box1_left"></div>
-						<div class="box1_center">
-							<input type="button" class="input40" value="检索" onclick="queryList();"/>
-						</div>
-						<div class="box1_right"></div>
-					</div>
 					<div class="box1" style="margin-top:-4px; margin-left: 210px; color: red; font-size: 14px;">
 						<s:actionmessage />
 					</div>
 					<div class="icons thums">
+						<div class="btn" style="margin-right: 100px; margin-top: -7px;">
+							<div class="box1_left"></div>
+							<div class="box1_center">
+								<input type="button" class="input40" value="检索" onclick="queryList();"/>
+							</div>
+							<div class="box1_right"></div>
+						</div>
 					</div>
 				</div>
 				<div class="data_table" style="padding:0px;">
@@ -145,12 +145,11 @@
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
 								<td width="40">序号</td>
-								<td width="60">主题</td>
 								<td width="120">品名</td>
 								<td width="120">规格</td>
 								<td width="60">颜色</td>
+								<td width="60">形式</td>
 								<td width="60">包装</td>
-								<td width="120">供应商</td>
 								<td width="80">库存数量</td>
 								<td width="150">库存位置</td>
 								<td width="150">盘点数量</td>
@@ -163,13 +162,6 @@
 									<tr>
 								</s:else>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-									<td>
-										<s:iterator id="goodsList" value="goodsList" status="st3">
-											<s:if test="%{goodsList[#st3.index].code == warehouseCheckList[#st1.index].fieldno}">
-												<s:property value="fieldname"/>
-											</s:if>
-										</s:iterator>
-									</td>
 									<td><s:property value="tradename"/></td>
 									<td><s:property value="typeno"/></td>
 									<td>
@@ -182,11 +174,14 @@
 									<td>
 										<s:if test='%{warehouseCheckList[#st1.index].packaging == "1"}'>整箱</s:if>
 										<s:elseif test='%{warehouseCheckList[#st1.index].packaging == "0"}'>乱尺</s:elseif>
+										<s:elseif test='%{warehouseCheckList[#st1.index].packaging == "2"}'>样品</s:elseif>
 										<s:else>
 											<s:property value="packaging"/>
 										</s:else>
 									</td>
-									<td><s:property value="suppliername"/></td>
+									<td>
+										<s:property value="item10"/>
+									</td>
 									<td><s:property value="warehouseamount"/></td>
 									<td>
 										<input type="text" style="width: 100px;" maxlength="32" id="position_<s:property value="productid"/>" value="<s:property value="warehouseposition"/>"/>

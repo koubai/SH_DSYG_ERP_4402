@@ -135,7 +135,6 @@ public class WarehouseRefundAction extends BaseAction {
 			addWarehouseDto.setCreateuid(username);
 			addWarehouseDto.setUpdateuid(username);
 			addWarehouseDto.setBelongto((String) ActionContext.getContext().getSession().get(Constants.SESSION_BELONGTO));
-			addWarehouseDto.setWarehousename("SH01");
 			String warehouseno = warehouseService.insertRefundWarehouse(addWarehouseDto);
 			
 			this.addActionMessage("添加成功！库存单号：" + warehouseno);
@@ -230,13 +229,13 @@ public class WarehouseRefundAction extends BaseAction {
 	 */
 	private boolean checkData(WarehouseDto warehouse) {
 		if(warehouse == null) {
-			this.addActionMessage("主题不能为空！");
+			this.addActionMessage("请选择类型！");
 			return false;
 		}
-		if(warehouse.getTheme1() == null) {
-			this.addActionMessage("主题不能为空！");
-			return false;
-		}
+//		if(warehouse.getTheme1() == null) {
+//			this.addActionMessage("主题不能为空！");
+//			return false;
+//		}
 		if(warehouse.getWarehousetype() == null) {
 			this.addActionMessage("请选择类型！");
 			return false;

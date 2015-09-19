@@ -9,7 +9,7 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
-<title>退换货信息编辑</title>
+<title>库存修正信息编辑</title>
 <script type="text/javascript">
 	function upd() {
 		if(checkItem()) {
@@ -28,8 +28,6 @@
 		var warehousetype = $("#warehousetype").val().trim();
 		//主题
 		var theme1 = $("#theme1").val().trim();
-		//仓库名
-		var warehousename = $("#warehousename").val().trim();
 		//产品ID
 		var productid = $("#productid").val().trim();
 		//数量
@@ -42,16 +40,11 @@
 			$("#warehousetype").focus();
 			return;
 		}
-		if(theme1 == "") {
-			alert("请选择主题！");
-			$("#theme1").focus();
-			return;
-		}
-		if(warehousename == "") {
-			alert("仓库名不能为空！");
-			$("#warehousename").focus();
-			return;
-		}
+		//if(theme1 == "") {
+		//	alert("请选择主题！");
+		//	$("#theme1").focus();
+		//	return;
+		//}
 		if(productid == "") {
 			alert("请选择一个产品！");
 			$("#productname").focus();
@@ -89,11 +82,6 @@
 	
 	function selectProduct() {
 		var strFieldno = $("#theme1").val();
-		if(strFieldno == "") {
-			alert("请选择主题！");
-			$("#theme1").focus();
-			return;
-		}
 		var url = "../product/showProductSingleSelectPage.action?strFieldno=" + strFieldno;
 		url += "&date=" + new Date();
 		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
@@ -147,23 +135,32 @@
 											<option value="">请选择</option>
 											<option value="3" selected="selected">退货</option>
 											<option value="5">损毁</option>
+											<option value="6">库存修正</option>
 										</s:if>
 										<s:elseif test="%{updWarehouseDto.warehousetype == 5}">
 											<option value="">请选择</option>
 											<option value="3">退货</option>
 											<option value="5" selected="selected">损毁</option>
+											<option value="6">库存修正</option>
+										</s:elseif>
+										<s:elseif test="%{updWarehouseDto.warehousetype == 6}">
+											<option value="">请选择</option>
+											<option value="3">退货</option>
+											<option value="5">损毁</option>
+											<option value="6" selected="selected">库存修正</option>
 										</s:elseif>
 										<s:else>
 											<option value="" selected="selected">请选择</option>
 											<option value="3">退货</option>
 											<option value="5">损毁</option>
+											<option value="6">库存修正</option>
 										</s:else>
 									</select>
 								</div>
 								<div class="box1_right"></div>
 							</td>
 						</tr>
-						<tr>
+						<tr style="display: none;">
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>主题</label>
 							</td>
@@ -176,16 +173,6 @@
 											<option value="<s:property value="code"/>" <s:if test="%{goodsList[#st1.index].code == updWarehouseDto.theme1}">selected</s:if>><s:property value="fieldname"/></option>
 										</s:iterator>
 									</select>
-								</div>
-								<div class="box1_right"></div>
-							</td>
-							<td align="right">
-								<label class="pdf10"><font color="red">*</font>仓库</label>
-							</td>
-							<td>
-								<div class="box1_left"></div>
-								<div class="box1_center">
-									<s:textfield name="updWarehouseDto.warehousename" id="warehousename" cssStyle="width:300px;" maxlength="32" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
