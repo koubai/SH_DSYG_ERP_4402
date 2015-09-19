@@ -131,6 +131,22 @@
 			<result name="*">/page/warehouse/productpurchase.jsp</result>
 		</action>
 		
+		<action name="showPositionCollectAction" class="warehouseCheckAction" method="showPositionCollectAction">
+			<result name="*">/page/warehouse/positioncollectlist.jsp</result>
+		</action>
+		
+		<action name="queryPositionCollectAction" class="warehouseCheckAction" method="queryPositionCollectAction">
+			<result name="*">/page/warehouse/positioncollectlist.jsp</result>
+		</action>
+		
+		<action name="turnPositionCollectAction" class="warehouseCheckAction" method="turnPositionCollectAction">
+			<result name="*">/page/warehouse/positioncollectlist.jsp</result>
+		</action>
+		
+		<action name="showCollectDetailAction" class="warehouseCheckAction" method="showCollectDetailAction">
+			<result name="*">/page/warehouse/positiondetail.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

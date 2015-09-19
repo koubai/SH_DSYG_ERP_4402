@@ -54,6 +54,10 @@
 			<result name="*">/page/purchase/updpurchaseitem.jsp</result>
 		</action>
 		
+		<action name="delPurchaseAction" class="purchaseAction" method="delPurchaseAction">
+			<result name="*">/page/purchase/purchaselist.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

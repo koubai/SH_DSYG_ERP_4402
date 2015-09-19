@@ -9,7 +9,7 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>
-<title>库存盘点</title>
+<title>盘点一览</title>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var h = screen.availHeight; 
@@ -18,22 +18,25 @@
 	
 	//查询数据
 	function queryList() {
-		document.mainform.action = '../warehouse/queryWarehouseCheckAction.action';
+		$("#strCheckday").val($("#checkday").val());
+		document.mainform.action = '../warehouse/queryPositionCollectAction.action';
 		document.mainform.submit();
 	}
 	
 	//修改pagesize
 	function changepagesize(pagesize) {
+		$("#strCheckday").val($("#checkday").val());
 		$("#intPageSize").attr("value", pagesize);
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../warehouse/queryWarehouseCheckAction.action';
+		document.mainform.action = '../warehouse/queryPositionCollectAction.action';
 		document.mainform.submit();
 	}
 	
 	//翻页
 	function changePage(pageNum) {
+		$("#strCheckday").val($("#checkday").val());
 		$("#startIndex").attr("value", pageNum);
-		document.mainform.action = '../warehouse/turnWarehouseCheckAction.action';
+		document.mainform.action = '../warehouse/turnPositionCollectAction.action';
 		document.mainform.submit();
 	}
 
@@ -66,34 +69,16 @@
 		}	
 	}
 	
-	function productCheck(id) {
-		//盘点
-		var num = $("#" + "num_" + id).val();
-		//判断数字是否合法
-		if(!isNumber(num)) {
-			alert("盘点数量必须是大于0的数字！");
-			$("#" + "num_" + id).focus();
-			return;
-		}
-		var position = $("#" + "position_" + id).val().trim();
-		if(position == "") {
-			alert("盘点不能为空！");
-			$("#" + "position_" + id).focus();
-			return;
-		}
-		$("#strPosition").val(position);
-		document.mainform.action = '../warehouse/checkProductQuantity.action?strCheckProductid=' + id + "&strCheckProductNum=" + num;
+	//盘点
+	function showCheck() {
+		document.mainform.action = '../warehouse/showWarehouseCheckAction.action';
 		document.mainform.submit();
 	}
 	
-	function exportData() {
-		document.mainform.action = '../warehouse/exportWarehouserCheckAction.action';
-		document.mainform.submit();
-	}
-	
-	function goCollect() {
-		document.mainform.action = '../warehouse/queryPositionCollectAction.action';
-		document.mainform.submit();
+	function showDetail(day, user) {
+		var url = '<%=request.getContextPath()%>/warehouse/showCollectDetailAction.action';
+		url += "?strDay=" + day + "&strUser=" + user + "&date=" + new Date();
+		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 	}
 </script>
 </head>
@@ -106,7 +91,7 @@
 				<div class="tittle_left">
 				</div>
 				<div class="tittle_center">
-					库存盘点
+					盘点一览
 				</div>
 				<div class="tittle_right">
 				</div>
@@ -114,21 +99,18 @@
 			<s:form id="mainform" name="mainform" method="POST">
 				<s:hidden name="startIndex" id="startIndex"/>
 				<s:hidden name="intPageSize" id="intPageSize"/>
-				<s:hidden name="strPosition" id="strPosition"/>
+				<s:hidden name="strCheckday" id="strCheckday"/>
 				<div class="searchbox">
-					<div class="box1" style="display: none;">
-						<label class="pdf10">类型</label>
+					<div class="box1">
+						<label class="pdf10">盘点日期</label>
 						<div class="box1_left"></div>
-						<div class="box1_center">
-							<select name="strTheme" id="strTheme" style="width: 150px;">
-								<option value="" selected="selected">请选择</option>
-								<s:iterator value="goodsList" id="goodsList" status="st1">
-									<option value="<s:property value="code"/>" <s:if test="%{goodsList[#st1.index].code == strTheme}">selected</s:if>><s:property value="fieldname"/></option>
-								</s:iterator>
-							</select>
+						<div class="box1_center date_input">
+							<input type="text" disabled="disabled" style="width: 105px;" id="checkday" value="<s:property value="strCheckday"/>" maxlength="10" />
+							<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('checkday'));"></a>
 						</div>
+						<div class="box1_right"></div>
 					</div>
-					<div class="box1" style="margin-top:-4px; margin-left: 210px; color: red; font-size: 14px;">
+					<div class="box1" style="margin-top:-3px; margin-left: -240px; color: red;">
 						<s:actionmessage />
 					</div>
 					<div class="icons thums">
@@ -142,7 +124,7 @@
 						<div class="btn" style="margin-right: 40px; margin-top: -7px;">
 							<div class="box1_left"></div>
 							<div class="box1_center">
-								<input class="input40" type="button" value="返回" onclick="goCollect();"/>
+								<input type="button" class="input40" value="盘点" onclick="showCheck();"/>
 							</div>
 							<div class="box1_right"></div>
 						</div>
@@ -157,16 +139,12 @@
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
 								<td width="40">序号</td>
-								<td width="120">品名</td>
-								<td width="120">规格</td>
-								<td width="60">颜色</td>
-								<td width="60">形式</td>
-								<td width="60">包装</td>
-								<td width="80">库存数量</td>
-								<td width="150">库存位置</td>
-								<td width="150">盘点数量</td>
+								<td width="120">盘点日期</td>
+								<td width="120">盘点人</td>
+								<td width="120">盘点产品数</td>
+								<td width="60"></td>
 							</tr>
-							<s:iterator id="warehouseCheckList" value="warehouseCheckList" status="st1">
+							<s:iterator id="positionCollectList" value="positionCollectList" status="st1">
 								<s:if test="#st1.odd==true">
 									<tr class="tr_bg">
 								</s:if>
@@ -174,33 +152,10 @@
 									<tr>
 								</s:else>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-									<td><s:property value="tradename"/></td>
-									<td><s:property value="typeno"/></td>
-									<td>
-										<s:iterator id="colorList" value="colorList" status="st3">
-											<s:if test="%{colorList[#st3.index].code == warehouseCheckList[#st1.index].color}">
-												<s:property value="fieldname"/>
-											</s:if>
-										</s:iterator>
-									</td>
-									<td>
-										<s:if test='%{warehouseCheckList[#st1.index].packaging == "1"}'>整箱</s:if>
-										<s:elseif test='%{warehouseCheckList[#st1.index].packaging == "0"}'>乱尺</s:elseif>
-										<s:elseif test='%{warehouseCheckList[#st1.index].packaging == "2"}'>样品</s:elseif>
-										<s:else>
-											<s:property value="packaging"/>
-										</s:else>
-									</td>
-									<td>
-										<s:property value="item10"/>
-									</td>
-									<td><s:property value="warehouseamount"/></td>
-									<td>
-										<input type="text" style="width: 100px;" maxlength="32" id="position_<s:property value="productid"/>" value="<s:property value="warehouseposition"/>"/>
-									</td>
-									<td>
-										<input type="text" style="width: 100px;" maxlength="10" id="num_<s:property value="productid"/>" value="<s:property value="checkAmount"/>"/><input type="button" value="盘点" onclick="productCheck('<s:property value="productid"/>')"/>
-									</td>
+									<td><s:property value="checkday"/></td>
+									<td><s:property value="handlername"/></td>
+									<td><s:property value="num"/></td>
+									<td><input type="button" value="盘点明细" onclick="showDetail('<s:property value="checkday"/>', '<s:property value="handler"/>');"/></td>
 								</tr>
 							</s:iterator>
 						</table>
@@ -254,47 +209,6 @@
 						</ul>
 					</div>
 				</div>
-				<div class="btns" style="margin-top:40px; margin-left:-90px;">
-					<table border="0" style="margin:0 auto;">
-						<tr>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="导出" onclick="exportData();" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-						</tr>
-					</table>
-				</div>
-				<!--
-				<div class="btns" style="margin-top:40px; margin-left:-90px;">
-					<table border="0" style="margin:0 auto;">
-						<tr>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="详细" onclick="showBidDetail();" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="履历" onclick="" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-						</tr>
-					</table>
-				</div>
-				-->
 			</s:form>
 		</div>
 	</div>

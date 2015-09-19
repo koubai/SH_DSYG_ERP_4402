@@ -41,6 +41,16 @@ public class WarehouseCheckDto extends BaseDto {
 	private String warehouseposition;
 	
 	/**
+	 * 最新盘点数量
+	 */
+	private String checkAmount;
+	
+	/**
+	 * 最新盘点人
+	 */
+	private String handlename;
+	
+	/**
 	 * 产品ID
 	 */
 	private String productid;
@@ -1014,5 +1024,21 @@ public class WarehouseCheckDto extends BaseDto {
 
 	public void setWarehouseposition(String warehouseposition) {
 		this.warehouseposition = warehouseposition;
+	}
+
+	public String getCheckAmount() {
+		return checkAmount;
+	}
+
+	public void setCheckAmount(String checkAmount) {
+		this.checkAmount = checkAmount;
+	}
+
+	public String getHandlename() {
+		return handlename;
+	}
+
+	public void setHandlename(String handlename) {
+		this.handlename = handlename;
 	}
 }

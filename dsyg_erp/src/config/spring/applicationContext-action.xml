@@ -60,6 +60,9 @@
 		<property name="warehouseService">
 			<ref bean="warehouseService" />
 		</property>
+		<property name="positionService">
+			<ref bean="positionService" />
+		</property>
 	</bean>
 
 	<!-- warehousedetail -->

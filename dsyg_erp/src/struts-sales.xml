@@ -50,6 +50,10 @@
 			<result name="*">/page/sales/updsalesitem.jsp</result>
 		</action>
 		
+		<action name="delSalesAction" class="salesAction" method="delSalesAction">
+			<result name="*">/page/sales/saleslist.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

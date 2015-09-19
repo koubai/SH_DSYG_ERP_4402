@@ -22,6 +22,7 @@ import com.cn.dsyg.dao.PurchaseItemDao;
 import com.cn.dsyg.dao.SalesDao;
 import com.cn.dsyg.dao.SalesItemDao;
 import com.cn.dsyg.dao.SupplierDao;
+import com.cn.dsyg.dao.UserDao;
 import com.cn.dsyg.dao.WarehouseDao;
 import com.cn.dsyg.dao.WarehouserptDao;
 import com.cn.dsyg.dto.CustomerDto;
@@ -34,6 +35,7 @@ import com.cn.dsyg.dto.PurchaseItemDto;
 import com.cn.dsyg.dto.SalesDto;
 import com.cn.dsyg.dto.SalesItemDto;
 import com.cn.dsyg.dto.SupplierDto;
+import com.cn.dsyg.dto.UserDto;
 import com.cn.dsyg.dto.WarehouseCheckDto;
 import com.cn.dsyg.dto.WarehouseDetailDto;
 import com.cn.dsyg.dto.WarehouseDto;
@@ -61,6 +63,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 	private FinanceDao financeDao;
 	private ProductDao productDao;
 	private PositionDao positionDao;
+	private UserDao userDao;
 	
 	@Override
 	public boolean checkProductQuantity(String productid, String num, String productposition, String userid) {
@@ -84,65 +87,74 @@ public class WarehouseServiceImpl implements WarehouseService {
 					Date date = new Date();
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 					
-					WarehouseDto warehouse = new WarehouseDto();
-					//数据来源单号=盘点
-					warehouse.setParentid("PD");
-					//库存类型=盘点
-					warehouse.setWarehousetype(Constants.WAREHOUSE_TYPE_PD);
-					//仓库
-					warehouse.setWarehousename(warehousename);
-					//预入库时间
-					warehouse.setPlandate(DateUtil.dateToShortStr(date));
-					
-					//库存单号
-					String uuid = UUID.randomUUID().toString();
-					uuid = uuid.substring(uuid.length() - 8, uuid.length());
-					String warehouseno = Constants.WAREHOUSE_NO_PRE + belongto + sdf.format(date) + uuid;
-					warehouse.setWarehouseno(warehouseno);
-					
-					//支付方式
-					warehouse.setRes01("");
-					
-					warehouse.setBelongto(belongto);
-					//主题
-					warehouse.setTheme1(product.getFieldno());
-					//产品ID
-					warehouse.setProductid("" + productid);
-					//入库数量=预入库数
-					warehouse.setQuantity(addNum);
-					
-					//入库日期=当天
-					warehouse.setWarehousedate(DateUtil.dateToShortStr(new Date()));
-					warehouse.setRank(Constants.ROLE_RANK_OPERATOR);
-					//入库单数据状态=新增
-					warehouse.setStatus(Constants.WAREHOUSE_STATUS_NEW);
-					
-					warehouse.setUpdateuid(userid);
-					warehouse.setCreateuid(userid);
-					
-					warehouseDao.insertWarehouse(warehouse);
+//					WarehouseDto warehouse = new WarehouseDto();
+//					//数据来源单号=盘点
+//					warehouse.setParentid("PD");
+//					//库存类型=盘点
+//					warehouse.setWarehousetype(Constants.WAREHOUSE_TYPE_PD);
+//					//仓库
+//					warehouse.setWarehousename(warehousename);
+//					//预入库时间
+//					warehouse.setPlandate(DateUtil.dateToShortStr(date));
+//					
+//					//库存单号
+//					String uuid = UUID.randomUUID().toString();
+//					uuid = uuid.substring(uuid.length() - 8, uuid.length());
+//					String warehouseno = Constants.WAREHOUSE_NO_PRE + belongto + sdf.format(date) + uuid;
+//					warehouse.setWarehouseno(warehouseno);
+//					
+//					//支付方式
+//					warehouse.setRes01("");
+//					
+//					warehouse.setBelongto(belongto);
+//					//主题
+//					warehouse.setTheme1(product.getFieldno());
+//					//产品ID
+//					warehouse.setProductid("" + productid);
+//					//入库数量=预入库数
+//					warehouse.setQuantity(addNum);
+//					
+//					//入库日期=当天
+//					warehouse.setWarehousedate(DateUtil.dateToShortStr(new Date()));
+//					warehouse.setRank(Constants.ROLE_RANK_OPERATOR);
+//					//入库单数据状态=新增
+//					warehouse.setStatus(Constants.WAREHOUSE_STATUS_NEW);
+//					
+//					warehouse.setUpdateuid(userid);
+//					warehouse.setCreateuid(userid);
+//					
+//					warehouseDao.insertWarehouse(warehouse);
 				}
+				String checkday = DateUtil.dateToShortStr(new Date());
 				//查询盘点表的数据
-				PositionDto position = positionDao.queryPositionByLogicId(productid, warehousename);
-				if(position == null) {
+				List<PositionDto> list = positionDao.queryPositionByLogicId("", productid, checkday);
+				if(list != null && list.size() > 0) {
+					PositionDto position = list.get(0);
+					//更新数据
+					position.setAmount("" + newNum);
+					position.setBeforeamount("" + oldNum);
+					position.setHandler(userid);
+					position.setUpdateuid(userid);
+					position.setProductposition(productposition);
+					positionDao.updatePosition(position);
+				} else {
 					//没有位置数据，则新增一条记录
+					//新增盘点记录
+					PositionDto position = new PositionDto();
 					position = new PositionDto();
-					position.setAmount(num);
+					position.setAmount("" + newNum);
+					position.setBeforeamount("" + oldNum);
 					position.setBelongto(belongto);
 					position.setCreateuid(userid);
 					position.setUpdateuid(userid);
 					position.setProductid(productid);
+					position.setCheckday(checkday);
 					position.setProductposition(productposition);
 					position.setRank(Constants.ROLE_RANK_OPERATOR);
 					position.setStatus(Constants.STATUS_NORMAL);
 					position.setWarehousename(warehousename);
+					position.setHandler(userid);
 					positionDao.insertPosition(position);
-				} else {
-					//更新数据
-					position.setAmount(num);
-					position.setUpdateuid(userid);
-					position.setProductposition(productposition);
-					positionDao.updatePosition(position);
 				}
 				return true;
 			}
@@ -175,12 +187,14 @@ public class WarehouseServiceImpl implements WarehouseService {
 		if(list != null && list.size() > 0) {
 			for(WarehouseDto warehouseDto : list) {
 				ProductDto product = productDao.queryProductByID(warehouseDto.getProductid());
-				warehouseDto.setProductname(product.getTradename());
-				warehouseDto.setTypeno(product.getTypeno());
-				warehouseDto.setColor(product.getColor());
-				warehouseDto.setPackaging(product.getPackaging());
-				warehouseDto.setUnit(product.getUnit());
-				warehouseDto.setItem10(product.getItem10());
+				if(product != null) {
+					warehouseDto.setProductname(product.getTradename());
+					warehouseDto.setTypeno(product.getTypeno());
+					warehouseDto.setColor(product.getColor());
+					warehouseDto.setPackaging(product.getPackaging());
+					warehouseDto.setUnit(product.getUnit());
+					warehouseDto.setItem10(product.getItem10());
+				}
 			}
 		}
 		page.setItems(list);
@@ -210,9 +224,13 @@ public class WarehouseServiceImpl implements WarehouseService {
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		if(list != null && list.size() > 0) {
 			for(WarehouseCheckDto warehouseCheck : list) {
-				PositionDto position = positionDao.queryPositionByLogicId(warehouseCheck.getProductid(), warehouseCheck.getWarehousename());
-				if(position != null) {
+				List<PositionDto> listPosition = positionDao.queryPositionByLogicId("", warehouseCheck.getProductid(), "");
+				if(listPosition != null && listPosition.size() > 0) {
+					PositionDto position = listPosition.get(0);
 					warehouseCheck.setWarehouseposition(position.getProductposition());
+					warehouseCheck.setCheckAmount(position.getAmount());
+					UserDto user = userDao.queryUserByID(position.getHandler());
+					warehouseCheck.setHandlename(user.getUsername());
 				} else {
 					warehouseCheck.setWarehouseposition("");
 				}
@@ -920,5 +938,13 @@ public class WarehouseServiceImpl implements WarehouseService {
 
 	public void setPositionDao(PositionDao positionDao) {
 		this.positionDao = positionDao;
+	}
+
+	public UserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
 	}
 }

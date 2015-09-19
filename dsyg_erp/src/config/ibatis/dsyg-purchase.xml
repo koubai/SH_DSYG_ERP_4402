@@ -91,7 +91,7 @@
 	<!-- finance -->
 	
 	<select id="queryPurchaseCountByPage" resultClass="int" parameterClass="java.util.Map">
-		select count(*) from etb_purchase T where 1 = 1
+		select count(*) from etb_purchase T where 1 = 1 and status > 0
 		<isNotEmpty prepend="and" property="purchasedateLow">
 			T.purchasedate <![CDATA[>=]]> #purchasedateLow#
 		</isNotEmpty>
@@ -104,7 +104,7 @@
 	</select>
 	
 	<select id="queryPurchaseByPage" parameterClass="java.util.Map" resultMap="PurchaseDto">
-		select T.* from etb_purchase T where 1 = 1
+		select T.* from etb_purchase T where 1 = 1 and status > 0
 		<isNotEmpty prepend="and" property="purchasedateLow">
 			T.purchasedate <![CDATA[>=]]> #purchasedateLow#
 		</isNotEmpty>

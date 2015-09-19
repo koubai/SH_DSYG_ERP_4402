@@ -61,10 +61,11 @@ public interface PurchaseService {
 	public PurchaseDto queryPurchaseByTheme2(String theme2);
 	
 	/**
-	 * 物理删除采购单
+	 * 逻辑删除采购单
 	 * @param id
+	 * @param userid
 	 */
-	public void deletePurchase(String id);
+	public void deletePurchase(String id, String userid);
 	
 	/**
 	 * 新增采购单和产品

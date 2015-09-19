@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.cn.common.dao.BaseDao;
 import com.cn.dsyg.dao.PositionDao;
+import com.cn.dsyg.dto.PositionCollectDto;
 import com.cn.dsyg.dto.PositionDto;
 
 /**
@@ -15,18 +16,48 @@ import com.cn.dsyg.dto.PositionDto;
  * @version 1.0
  */
 public class PositionDaoImpl extends BaseDao implements PositionDao {
+	
+	@Override
+	public List<PositionCollectDto> queryPositionCollectByDay(String handler,
+			String checkday) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("handler", handler);
+		paramMap.put("checkday", checkday);
+		@SuppressWarnings("unchecked")
+		List<PositionCollectDto> list = getSqlMapClientTemplate().queryForList("queryPositionCollectByDay", paramMap);
+		return list;
+	}
 
 	@Override
-	public PositionDto queryPositionByLogicId(String productid, String warehousename) {
+	public List<PositionCollectDto> queryPositionCollectByPage(String handler,
+			String checkday, int start, int end) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("handler", handler);
+		paramMap.put("checkday", checkday);
+		paramMap.put("start", start);
+		paramMap.put("end", end);
+		@SuppressWarnings("unchecked")
+		List<PositionCollectDto> list = getSqlMapClientTemplate().queryForList("queryPositionCollectByPage", paramMap);
+		return list;
+	}
+
+	@Override
+	public int queryPositionCollectCountByPage(String handler, String checkday) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("handler", handler);
+		paramMap.put("checkday", checkday);
+		return (Integer) getSqlMapClientTemplate().queryForObject("queryPositionCollectCountByPage", paramMap);
+	}
+
+	@Override
+	public List<PositionDto> queryPositionByLogicId(String userid, String productid, String checkday) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("productid", productid);
-		paramMap.put("warehousename", warehousename);
+		paramMap.put("checkday", checkday);
+		paramMap.put("handler", userid);
 		@SuppressWarnings("unchecked")
 		List<PositionDto> list = getSqlMapClientTemplate().queryForList("queryPositionByLogicId", paramMap);
-		if(list != null && list.size() > 0) {
-			return list.get(0);
-		}
-		return null;
+		return list;
 	}
 
 	@Override

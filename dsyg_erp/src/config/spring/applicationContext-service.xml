@@ -8,6 +8,12 @@
 		<property name="positionDao">
 			<ref local="positionDao"/>
 		</property>
+		<property name="userDao">
+			<ref local="userDao"/>
+		</property>
+		<property name="productDao">
+			<ref local="productDao"/>
+		</property>
 	</bean>
 	
 	<bean id="positionDao" class="com.cn.dsyg.dao.impl.PositionDaoImpl">
@@ -183,6 +189,9 @@
 		</property>
 		<property name="positionDao">
 			<ref local="positionDao"/>
+		</property>
+		<property name="userDao">
+			<ref local="userDao"/>
 		</property>
 	</bean>
 	

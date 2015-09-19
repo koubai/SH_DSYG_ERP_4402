@@ -10,6 +10,7 @@ import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
 import com.cn.common.util.MD5Util;
 import com.cn.common.util.Page;
+import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.RoleDto;
 import com.cn.dsyg.dto.UserDto;
@@ -195,10 +196,17 @@ public class UserAction extends BaseAction {
 			if(!checkData(addUserDto, "1")) {
 				return "checkerror";
 			}
+			//逻辑主键check
+			UserDto uu = userService.queryUserByID(addUserDto.getUserid());
+			if(uu != null) {
+				this.addActionMessage("用户ID" + addUserDto.getUserid() + "已存在！");
+				return "checkerror";
+			}
 			//当前操作用户ID
 			String currUser = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
 			addUserDto.setCreateuid(currUser);
 			addUserDto.setUpdateuid(currUser);
+			addUserDto.setBelongto(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG));
 			userService.insertUser(addUserDto);
 			//新增用户成功
 			this.addActionMessage("添加成功！");

@@ -358,8 +358,13 @@ public class SalesServiceImpl implements SalesService {
 
 	
 	@Override
-	public void deleteSales(String id) {
-		salesDao.deleteSales(id);
+	public void deleteSales(String id, String userid) {
+		SalesDto sales = salesDao.querySalesByID(id);
+		if(sales != null) {
+			sales.setStatus(Constants.STATUS_DEL);
+			sales.setUpdateuid(userid);
+			salesDao.updateSales(sales);
+		}
 	}
 
 	@Override

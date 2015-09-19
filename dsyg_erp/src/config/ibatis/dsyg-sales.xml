@@ -77,7 +77,7 @@
 	<!-- finance -->
 	
 	<select id="querySalesCountByPage" resultClass="int" parameterClass="java.util.Map">
-		select count(*) from etb_sales T where 1 = 1
+		select count(*) from etb_sales T where 1 = 1 and status > 0
 		<isNotEmpty prepend="and" property="bookdateLow">
 			T.bookdate <![CDATA[>=]]> #bookdateLow#
 		</isNotEmpty>
@@ -90,7 +90,7 @@
 	</select>
 	
 	<select id="querySalesByPage" parameterClass="java.util.Map" resultMap="SalesDto">
-		select T.* from etb_sales T where 1 = 1
+		select T.* from etb_sales T where 1 = 1 and status > 0
 		<isNotEmpty prepend="and" property="bookdateLow">
 			T.bookdate <![CDATA[>=]]> #bookdateLow#
 		</isNotEmpty>

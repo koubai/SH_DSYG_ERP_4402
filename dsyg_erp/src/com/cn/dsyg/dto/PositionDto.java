@@ -28,14 +28,49 @@ public class PositionDto extends BaseDto {
 	 * 产品ID
 	 */
 	private String productid;
+	
+	/**
+	 * 品名
+	 */
+	private String tradename;
+
+	/**
+	 * 规格
+	 */
+	private String typeno;
+
+	/**
+	 * 颜色
+	 */
+	private String color;
+
+	/**
+	 * 形式
+	 */
+	private String packaging;
+	
+	/**
+	 * 包装
+	 */
+	private String item10;
+	
+	/**
+	 * 单位
+	 */
+	private String unit;
 
 	/**
 	 * 盘点数量
 	 */
 	private String amount;
+	
+	/**
+	 * 盘点前库存数量
+	 */
+	private String beforeamount;
 
 	/**
-	 * 仓库明
+	 * 仓库名
 	 */
 	private String warehousename;
 
@@ -43,6 +78,21 @@ public class PositionDto extends BaseDto {
 	 * 产品所在位置
 	 */
 	private String productposition;
+	
+	/**
+	 * 盘点日期，格式yyyy-MM-dd
+	 */
+	private String checkday;
+	
+	/**
+	 * 盘点人
+	 */
+	private String handler;
+	
+	/**
+	 * 盘点人名
+	 */
+	private String handlername;
 
 	/**
 	 * 备注
@@ -246,5 +296,85 @@ public class PositionDto extends BaseDto {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getBeforeamount() {
+		return beforeamount;
+	}
+
+	public void setBeforeamount(String beforeamount) {
+		this.beforeamount = beforeamount;
+	}
+
+	public String getCheckday() {
+		return checkday;
+	}
+
+	public void setCheckday(String checkday) {
+		this.checkday = checkday;
+	}
+
+	public String getHandler() {
+		return handler;
+	}
+
+	public void setHandler(String handler) {
+		this.handler = handler;
+	}
+
+	public String getTradename() {
+		return tradename;
+	}
+
+	public void setTradename(String tradename) {
+		this.tradename = tradename;
+	}
+
+	public String getTypeno() {
+		return typeno;
+	}
+
+	public void setTypeno(String typeno) {
+		this.typeno = typeno;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getPackaging() {
+		return packaging;
+	}
+
+	public void setPackaging(String packaging) {
+		this.packaging = packaging;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	public String getHandlername() {
+		return handlername;
+	}
+
+	public void setHandlername(String handlername) {
+		this.handlername = handlername;
+	}
+
+	public String getItem10() {
+		return item10;
+	}
+
+	public void setItem10(String item10) {
+		this.item10 = item10;
 	}
 }

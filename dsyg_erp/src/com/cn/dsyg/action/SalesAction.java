@@ -74,11 +74,43 @@ public class SalesAction extends BaseAction {
 	private SalesDto updSalesDto;
 	private List<SalesItemDto> updSalesItemList;
 	private String theme2;
+	
+	//删除
+	private String delSalesId;
 
 	//销售价用
 	private String strProdoctid;
 	private String strCustomerid;
 	private List<SalesItemDto> salesItemList;
+	
+	/**
+	 * 删除销售单
+	 * @return
+	 */
+	public String delSalesAction() {
+		try {
+			this.clearMessages();
+			SalesDto sales = salesService.querySalesByID(delSalesId);
+			if(sales != null) {
+				if(sales.getStatus() != Constants.SALES_STATUS_NEW) {
+					this.addActionMessage("该数据不可以删除！");
+				} else {
+					//当前操作用户ID
+					String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+					salesService.deleteSales(delSalesId, username);
+					this.addActionMessage("删除成功！");
+				}
+			} else {
+				this.addActionMessage("该数据不存在！");
+			}
+			//刷新页面
+			queryData();
+		} catch(Exception e) {
+			log.error("exportAuditHist error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 	
 	/**
 	 * 显示订单预出库页面
@@ -662,5 +694,13 @@ public class SalesAction extends BaseAction {
 
 	public void setTheme2(String theme2) {
 		this.theme2 = theme2;
+	}
+
+	public String getDelSalesId() {
+		return delSalesId;
+	}
+
+	public void setDelSalesId(String delSalesId) {
+		this.delSalesId = delSalesId;
 	}
 }

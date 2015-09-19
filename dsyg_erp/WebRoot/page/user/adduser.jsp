@@ -180,16 +180,6 @@
 							</td>
 						</tr>
 						<tr>
-							<td>
-								所属地
-								<select name="userDto.belongto" id="belongto" style="width: 100px;">
-									<option value="0" >上海</option>
-									<option value="1" >深圳</option>
-									<option value="99" >全部</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
 							<td align="right">
 								<label class="pdf10">备注</label>
 							</td>

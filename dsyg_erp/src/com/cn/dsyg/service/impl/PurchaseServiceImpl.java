@@ -129,8 +129,13 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 	
 	@Override
-	public void deletePurchase(String id) {
-		purchaseDao.deletePurchase(id);
+	public void deletePurchase(String id, String userid) {
+		PurchaseDto purchase = purchaseDao.queryPurchaseByID(id);
+		if(purchase != null) {
+			purchase.setStatus(Constants.STATUS_DEL);
+			purchase.setUpdateuid(userid);
+			purchaseDao.updatePurchase(purchase);
+		}
 	}
 	
 	@Override

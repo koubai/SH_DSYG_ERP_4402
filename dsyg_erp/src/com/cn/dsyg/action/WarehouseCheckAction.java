@@ -16,8 +16,11 @@ import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.Dict01Dto;
+import com.cn.dsyg.dto.PositionCollectDto;
+import com.cn.dsyg.dto.PositionDto;
 import com.cn.dsyg.dto.WarehouseCheckDto;
 import com.cn.dsyg.service.Dict01Service;
+import com.cn.dsyg.service.PositionService;
 import com.cn.dsyg.service.WarehouseService;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -34,6 +37,7 @@ public class WarehouseCheckAction extends BaseAction {
 	
 	private Dict01Service dict01Service;
 	private WarehouseService warehouseService;
+	private PositionService positionService;
 	
 	//页码
 	private int startIndex;
@@ -41,6 +45,17 @@ public class WarehouseCheckAction extends BaseAction {
 	private Page page;
 	//一页显示数据条数
 	private Integer intPageSize;
+	//盘点集集
+	private List<PositionCollectDto> positionCollectList;
+	//盘点日期
+	private String strCheckday;
+	
+	//页码
+	private int checkStartIndex;
+	//翻页page
+	private Page checkPage;
+	//一页显示数据条数
+	private Integer checkIntPageSize;
 	private List<WarehouseCheckDto> warehouseCheckList;
 	
 	private String strTheme;
@@ -63,6 +78,151 @@ public class WarehouseCheckAction extends BaseAction {
 	//盘点库存位置
 	private String strPosition;
 	
+	//盘点明细
+	private String strDay;
+	private String strUser;
+	private List<PositionDto> positionDetailList;
+	
+	/**
+	 * 盘点明细
+	 * @return
+	 */
+	public String showCollectDetailAction() {
+		try {
+			this.clearMessages();
+			//初期化字典数据
+			initDictList();
+			positionDetailList = new ArrayList<PositionDto>();
+			positionDetailList = positionService.queryPositionListByLogicId(strUser, "", strDay);
+		} catch(Exception e) {
+			log.error("showCollectDetailAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 盘点集集页面
+	 * @return
+	 */
+	public String showPositionCollectAction() {
+		try {
+			this.clearMessages();
+			//页面数据初期化
+			startIndex = 0;
+			strCheckday = "";
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			positionCollectList = new ArrayList<PositionCollectDto>();
+		} catch(Exception e) {
+			log.error("showPositionCollectAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询盘点集集
+	 * @return
+	 */
+	public String queryPositionCollectAction() {
+		try {
+			this.clearMessages();
+			//页面数据初期化
+			startIndex = 0;
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
+			queryData();
+		} catch(Exception e) {
+			log.error("queryPositionCollectAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页
+	 * @return
+	 */
+	public String turnPositionCollectAction() {
+		try {
+			this.clearMessages();
+			queryData();
+		} catch(Exception e) {
+			log.error("turnPositionCollectAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	//
+	
+	/**
+	 * 库存盘点页面
+	 * @return
+	 */
+	public String showWarehouseCheckAction() {
+		try {
+			this.clearMessages();
+			//页面数据初期化
+			checkStartIndex = 0;
+			strTheme = "";
+			//默认10条
+			checkIntPageSize = 10;
+			checkPage = new Page(checkIntPageSize);
+			warehouseCheckList = new ArrayList<WarehouseCheckDto>();
+			
+			strDay = "";
+			//初期化字典数据
+			initDictList();
+			queryData_check();
+		} catch(Exception e) {
+			log.error("showWarehouseCheckAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询仓库盘点
+	 * @return
+	 */
+	public String queryWarehouseCheckAction() {
+		try {
+			this.clearMessages();
+			//页面数据初期化
+			checkStartIndex = 0;
+			//默认10条
+			if(checkIntPageSize == null) {
+				checkIntPageSize = 10;
+			}
+			checkPage = new Page(checkIntPageSize);
+			queryData_check();
+		} catch(Exception e) {
+			log.error("queryWarehouseCheckAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页
+	 * @return
+	 */
+	public String turnWarehouseCheckAction() {
+		try {
+			this.clearMessages();
+			queryData_check();
+		} catch(Exception e) {
+			log.error("turnWarehouseCheckAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
 	/**
 	 * 盘点
 	 * @return
@@ -81,69 +241,9 @@ public class WarehouseCheckAction extends BaseAction {
 				this.addActionMessage("没有该产品的库存数据！");
 			}
 			//刷新页面
-			queryData();
+			queryData_check();
 		} catch(Exception e) {
 			log.error("showWarehouseCheckAction error:" + e);
-			return ERROR;
-		}
-		return SUCCESS;
-	}
-
-	/**
-	 * 库存盘点页面
-	 * @return
-	 */
-	public String showWarehouseCheckAction() {
-		try {
-			this.clearMessages();
-			//页面数据初期化
-			startIndex = 0;
-			strTheme = "";
-			//默认10条
-			intPageSize = 10;
-			page = new Page(intPageSize);
-			warehouseCheckList = new ArrayList<WarehouseCheckDto>();
-			//初期化字典数据
-			initDictList();
-		} catch(Exception e) {
-			log.error("showWarehouseCheckAction error:" + e);
-			return ERROR;
-		}
-		return SUCCESS;
-	}
-	
-	/**
-	 * 查询仓库盘点
-	 * @return
-	 */
-	public String queryWarehouseCheckAction() {
-		try {
-			this.clearMessages();
-			//页面数据初期化
-			startIndex = 0;
-			//默认10条
-			if(intPageSize == null) {
-				intPageSize = 10;
-			}
-			page = new Page(intPageSize);
-			queryData();
-		} catch(Exception e) {
-			log.error("queryWarehouseCheckAction error:" + e);
-			return ERROR;
-		}
-		return SUCCESS;
-	}
-	
-	/**
-	 * 翻页
-	 * @return
-	 */
-	public String turnWarehouseCheckAction() {
-		try {
-			this.clearMessages();
-			queryData();
-		} catch(Exception e) {
-			log.error("turnWarehouseCheckAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -152,7 +252,6 @@ public class WarehouseCheckAction extends BaseAction {
 	//导出盘点数据
 	public String exportWarehouserCheckAction() {
 		try {
-			System.out.println("333333333333333333");
 			this.clearMessages();
 			initDictList();
 			//字典数据组织个MAP
@@ -211,10 +310,27 @@ public class WarehouseCheckAction extends BaseAction {
 		initDictList();
 		//翻页查询所有入库汇总记录
 		this.page.setStartIndex(startIndex);
-		page = warehouseService.queryWarehouseCheckByPage("", "",
-				"", strTheme, "", "", "", "", "", page);
-		warehouseCheckList = (List<WarehouseCheckDto>) page.getItems();
+		page = positionService.queryPositionCollectByPage("", strCheckday, page);
+		positionCollectList = (List<PositionCollectDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
+	}
+	
+	/**
+	 * 数据查询
+	 */
+	@SuppressWarnings("unchecked")
+	private void queryData_check() {
+		if(checkPage == null) {
+			checkPage = new Page(checkIntPageSize);
+		}
+		//初期化字典数据
+		initDictList();
+		//翻页查询所有入库汇总记录
+		this.checkPage.setStartIndex(checkStartIndex);
+		checkPage = warehouseService.queryWarehouseCheckByPage("", "",
+				"", strTheme, "", "", "", "", "", checkPage);
+		warehouseCheckList = (List<WarehouseCheckDto>) checkPage.getItems();
+		this.setStartIndex(checkPage.getStartIndex());
 	}
 	
 	/**
@@ -359,5 +475,77 @@ public class WarehouseCheckAction extends BaseAction {
 
 	public void setStrPosition(String strPosition) {
 		this.strPosition = strPosition;
+	}
+
+	public PositionService getPositionService() {
+		return positionService;
+	}
+
+	public void setPositionService(PositionService positionService) {
+		this.positionService = positionService;
+	}
+
+	public List<PositionCollectDto> getPositionCollectList() {
+		return positionCollectList;
+	}
+
+	public void setPositionCollectList(List<PositionCollectDto> positionCollectList) {
+		this.positionCollectList = positionCollectList;
+	}
+
+	public String getStrCheckday() {
+		return strCheckday;
+	}
+
+	public void setStrCheckday(String strCheckday) {
+		this.strCheckday = strCheckday;
+	}
+
+	public int getCheckStartIndex() {
+		return checkStartIndex;
+	}
+
+	public void setCheckStartIndex(int checkStartIndex) {
+		this.checkStartIndex = checkStartIndex;
+	}
+
+	public Page getCheckPage() {
+		return checkPage;
+	}
+
+	public void setCheckPage(Page checkPage) {
+		this.checkPage = checkPage;
+	}
+
+	public Integer getCheckIntPageSize() {
+		return checkIntPageSize;
+	}
+
+	public void setCheckIntPageSize(Integer checkIntPageSize) {
+		this.checkIntPageSize = checkIntPageSize;
+	}
+
+	public String getStrDay() {
+		return strDay;
+	}
+
+	public void setStrDay(String strDay) {
+		this.strDay = strDay;
+	}
+
+	public List<PositionDto> getPositionDetailList() {
+		return positionDetailList;
+	}
+
+	public void setPositionDetailList(List<PositionDto> positionDetailList) {
+		this.positionDetailList = positionDetailList;
+	}
+
+	public String getStrUser() {
+		return strUser;
+	}
+
+	public void setStrUser(String strUser) {
+		this.strUser = strUser;
 	}
 }

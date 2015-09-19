@@ -9,8 +9,11 @@
 		<result property="belongto" column="belongto" />
 		<result property="productid" column="productid" />
 		<result property="amount" column="amount" />
+		<result property="beforeamount" column="beforeamount" />
 		<result property="warehousename" column="warehousename" />
 		<result property="productposition" column="productposition" />
+		<result property="checkday" column="checkday" />
+		<result property="handler" column="handler" />
 		<result property="note" column="note" />
 		<result property="rank" column="rank" />
 		<result property="status" column="status" />
@@ -25,14 +28,64 @@
 		<result property="updatedate" column="updatedate" />
 	</resultMap>
 	
+	<resultMap id="PositionCollectDto" class="com.cn.dsyg.dto.PositionCollectDto">
+		<result property="handler" column="handler" />
+		<result property="checkday" column="checkday" />
+		<result property="num" column="num" />
+	</resultMap>
+	
+	<select id="queryPositionCollectByDay" parameterClass="java.util.Map" resultMap="PositionCollectDto">
+		select A.* from (
+			select T.handler,T.checkday,count(T.checkday) as num from etb_position T where 1 = 1 and status = 1
+			<isNotEmpty prepend="and" property="handler">
+				T.handler = #handler#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="checkday">
+				T.checkday = #checkday#
+			</isNotEmpty>
+			group by T.handler,T.checkday
+		) A order by A.num desc
+	</select>
+	
+	<select id="queryPositionCollectByPage" parameterClass="java.util.Map" resultMap="PositionCollectDto">
+		select A.* from (
+			select T.handler,T.checkday,count(T.checkday) as num from etb_position T where 1 = 1 and status = 1
+			<isNotEmpty prepend="and" property="handler">
+				T.handler = #handler#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="checkday">
+				T.checkday = #checkday#
+			</isNotEmpty>
+			group by T.handler,T.checkday
+		) A order by A.num desc,A.handler asc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryPositionCollectCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from (
+			select T.handler,T.checkday,count(T.checkday) as num from etb_position T where 1 = 1 and status = 1
+			<isNotEmpty prepend="and" property="handler">
+				T.handler = #handler#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="checkday">
+				T.checkday = #checkday#
+			</isNotEmpty>
+			group by T.handler,T.checkday
+		) A
+	</select>
+	
 	<select id="queryPositionByLogicId" parameterClass="java.util.Map" resultMap="PositionDto">
 		select * from etb_position T where 1 = 1 and status = 1
 		<isNotEmpty prepend="and" property="productid">
 			T.productid = #productid#
 		</isNotEmpty>
-		<isNotEmpty prepend="and" property="warehousename">
-			T.warehousename = #warehousename#
+		<isNotEmpty prepend="and" property="handler">
+			T.handler = #handler#
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="checkday">
+			T.checkday = #checkday#
+		</isNotEmpty>
+		order by checkday desc
 	</select>
 	
 	<select id="queryPositionById" parameterClass="java.util.Map" resultMap="PositionDto">
@@ -43,17 +96,19 @@
 	</select>
 	
 	<insert id="insertPosition" parameterClass="com.cn.dsyg.dto.PositionDto">
-		insert into etb_position(belongto,productid,amount,warehousename,productposition,
+		insert into etb_position(belongto,productid,amount,beforeamount,warehousename,productposition,checkday,handler,
 			note,rank,status,res01,res02,res03,res04,res05,createuid,createdate,updateuid,updatedate)
-		values(#belongto#,#productid#,#amount#,#warehousename#,#productposition#,
+		values(#belongto#,#productid#,#amount#,#beforeamount#,#warehousename#,#productposition#,#checkday#,#handler#,
 			#note#,#rank#,#status#,#res01#,#res02#,#res03#,#res04#,#res05#,#createuid#,NOW(),#updateuid#,NOW())
 	</insert>
 	
 	<update id="updatePosition" parameterClass="com.cn.dsyg.dto.PositionDto">
 		update etb_position
 		set amount = #amount#,
+			beforeamount = #beforeamount#,
 			warehousename = #warehousename#,
 			productposition = #productposition#,
+			handler = #handler#,
 			note = #note#,
 			rank = #rank#,
 			status = #status#,

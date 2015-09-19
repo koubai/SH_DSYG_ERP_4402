@@ -58,6 +58,16 @@
 	}
 	
 	function del() {
+		var id = getSelectedID();
+		if(id == "") {
+			alert("请选择一条记录！");
+			return;
+		} else {
+			if(confirm("确定删除吗？")) {
+				document.mainform.action = "../purchase/delPurchaseAction.action?delPurchaseId=" + id;
+				document.mainform.submit();
+			}
+		}
 	}
 	
 	//查询日期赋值

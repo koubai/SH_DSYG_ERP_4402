@@ -29,7 +29,7 @@
 		var list = document.getElementsByName("radioKey");
 		for(var i = 0; i < list.length; i++) {
 			if(list[i].checked) {
-				id = list[i].value;
+				id = "'" + list[i].value + "'";
 				//添加父页面记录
 				if (userIdList == "")
 					userIdList = userIdList + id;
@@ -37,7 +37,8 @@
 					userIdList = userIdList + "," + id;
 			}
 		}
-		window.dialogArguments.document.getElementById("handerList").value=userIdList; 
+		//window.dialogArguments.document.getElementById("showHanderList").value=userIdList;
+		window.dialogArguments.document.getElementById("handerList").value=userIdList;
 		window.close();
 	}
 

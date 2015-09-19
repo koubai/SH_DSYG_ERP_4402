@@ -69,10 +69,11 @@ public interface SalesService {
 
 	
 	/**
-	 * 物理删除销售单
+	 * 逻辑删除销售单
 	 * @param id
+	 * @param userid
 	 */
-	public void deleteSales(String id);
+	public void deleteSales(String id, String userid);
 	
 	/**
 	 * 新增销售单

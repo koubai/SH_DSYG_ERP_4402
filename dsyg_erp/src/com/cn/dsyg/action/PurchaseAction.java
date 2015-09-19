@@ -77,10 +77,42 @@ public class PurchaseAction extends BaseAction {
 	private List<PurchaseItemDto> updPurchaseItemList;
 	private String theme2;
 	
+	//删除
+	private String delPurchaseId;
+	
 	//采购价用
 	private String strProdoctid;
 	private String strSupplierid;
 	private List<PurchaseItemDto> purchaseItemList;
+	
+	/**
+	 * 删除采购单
+	 * @return
+	 */
+	public String delPurchaseAction() {
+		try {
+			this.clearMessages();
+			PurchaseDto purchase = purchaseService.queryPurchaseByID(delPurchaseId);
+			if(purchase != null) {
+				if(purchase.getStatus() != Constants.PURCHASE_STATUS_NEW) {
+					this.addActionMessage("该数据不可以删除！");
+				} else {
+					//当前操作用户ID
+					String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+					purchaseService.deletePurchase(delPurchaseId, username);
+					this.addActionMessage("删除成功！");
+				}
+			} else {
+				this.addActionMessage("该数据不存在！");
+			}
+			//刷新页面
+			queryData();
+		} catch(Exception e) {
+			log.error("exportAuditHist error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 	
 	//数据导出
 	public String exportPurchaseList() {
@@ -344,6 +376,8 @@ public class PurchaseAction extends BaseAction {
 	public String showPurchaseAction() {
 		try {
 			this.clearMessages();
+			delPurchaseId = "";
+			updPurchaseId = "";
 			//页面数据初期化
 			startIndex = 0;
 			//默认10条
@@ -478,6 +512,8 @@ public class PurchaseAction extends BaseAction {
 	 */
 	@SuppressWarnings("unchecked")
 	private void queryData() {
+		delPurchaseId = "";
+		updPurchaseId = "";
 		if(page == null) {
 			page = new Page(intPageSize);
 		}
@@ -700,5 +736,13 @@ public class PurchaseAction extends BaseAction {
 
 	public void setTheme2(String theme2) {
 		this.theme2 = theme2;
+	}
+
+	public String getDelPurchaseId() {
+		return delPurchaseId;
+	}
+
+	public void setDelPurchaseId(String delPurchaseId) {
+		this.delPurchaseId = delPurchaseId;
 	}
 }
