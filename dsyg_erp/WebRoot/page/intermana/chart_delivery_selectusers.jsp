@@ -152,10 +152,10 @@
 					</tr>
 					<s:iterator id="deliveryList" value="deliveryList" status="st1">
 						<s:if test="#st1.odd==true">
-							<tr class="tr_bg">
+							<tr class="tr_bg" onclick="checkCheckboxTr1(this, event)">
 						</s:if>
 						<s:else>
-							<tr>
+							<tr onclick="checkCheckboxTr1(this, event)">
 						</s:else>
 							<td style="display: none;">
 								<input type="hidden" value="<s:property value="tmp_id"/>"/>

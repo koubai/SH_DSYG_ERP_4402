@@ -34,6 +34,16 @@ function checkCheckboxTr(tr, evt) {
 	}
 }
 
+function checkCheckboxTr1(tr, evt) {
+	var tds = tr.getElementsByTagName("td");
+	var inputs = tds[1].getElementsByTagName("input");
+	if(inputs[0].checked) {
+		inputs[0].checked = false;
+	} else {
+		inputs[0].checked = true;
+	}
+}
+
 function checkRadioCuTr(tr, evt, i, j) {
 	var tds = tr.getElementsByTagName("td");
 	var inputs = tds[i].getElementsByTagName("input");

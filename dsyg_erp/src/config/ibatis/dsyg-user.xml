@@ -39,6 +39,11 @@
 			userid = #userid#
 	</select>
 	
+	<select id="queryMulUserByID" parameterClass="java.util.Map" resultMap="UserDto">
+		select * from tbuser where 
+			userid in ($userids$)
+	</select>
+	
 	<select id="queryAllUser" parameterClass="java.util.Map" resultMap="UserDto">
 		select * from tbuser where 1 = 1 and status = 1 order by createdate desc
 	</select>

@@ -37,6 +37,13 @@ public interface UserDao {
 	public UserDto queryUserByID(String userid);
 	
 	/**
+	 * 根据多个登录ID查询数据
+	 * @param userids
+	 * @return
+	 */
+	public List<UserDto> queryMulUserByID(String userids);
+	
+	/**
 	 * 查询所有数据
 	 * @return
 	 */

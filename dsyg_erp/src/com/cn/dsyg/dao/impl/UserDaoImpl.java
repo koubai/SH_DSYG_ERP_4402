@@ -46,6 +46,15 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 		}
 		return null;
 	}
+	
+	@Override
+	public List<UserDto> queryMulUserByID(String userids) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("userids", userids);
+		@SuppressWarnings("unchecked")
+		List<UserDto> list = getSqlMapClientTemplate().queryForList("queryMulUserByID", paramMap);
+		return list;
+	}
 
 	@Override
 	public List<UserDto> queryAllUser() {

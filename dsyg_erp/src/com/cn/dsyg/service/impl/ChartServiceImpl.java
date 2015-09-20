@@ -19,15 +19,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 
+import com.cn.common.util.StringUtil;
+import com.cn.dsyg.dao.ChartDao;
+import com.cn.dsyg.dao.UserDao;
 import com.cn.dsyg.dto.ChartDto;
 import com.cn.dsyg.dto.ChartSaleTotalDto;
-import com.cn.dsyg.dao.ChartDao;
+import com.cn.dsyg.dto.UserDto;
 import com.cn.dsyg.service.ChartService;
 import com.cn.dsyg.servlet.ChartServlet;
 
 public class ChartServiceImpl implements ChartService{
 
 	private ChartDao chartDao;
+	private UserDao userDao;
 	private ApplicationContext ctx;
 	private static final Logger log = LogManager.getLogger(ChartServlet.class);
 
@@ -162,13 +166,15 @@ public class ChartServiceImpl implements ChartService{
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartDto> list = chartDao.queryPurchaseByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
-	        System.out.println("queryPurchaseByDate theme1:" + theme1);
-	        System.out.println("queryPurchaseByDate from_date:" + from_date);
-	        System.out.println("queryPurchaseByDate to_date:" + to_date);
-	        System.out.println("queryPurchaseByDate handerList:" + handerList);
-	        System.out.println("queryPurchaseByDate list:" + list.size());
-			return list;		
+			List<ChartDto> alllist = new ArrayList<ChartDto>();
+			if(StringUtil.isNotBlank(handerList)) {
+				String ss[] = handerList.split(",");
+				for(String s : ss) {
+					List<ChartDto> list = chartDao.queryPurchaseByDate(belongto, theme1, from_date, to_date, dur_type, s);
+					alllist.addAll(list);
+				}
+			}
+			return alllist;
 		}catch (Exception e){
 			e.printStackTrace();
 			return null;
@@ -183,13 +189,15 @@ public class ChartServiceImpl implements ChartService{
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartDto> list = chartDao.querySalesByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
-	        System.out.println("querySalesByDate theme1:" + theme1);
-	        System.out.println("querySalesByDate from_date:" + from_date);
-	        System.out.println("querySalesByDate to_date:" + to_date);
-	        System.out.println("querySalesByDate handerList:" + handerList);
-	        System.out.println("querySalesByDate list:" + list.size());
-			return list;		
+			List<ChartDto> alllist = new ArrayList<ChartDto>();
+			if(StringUtil.isNotBlank(handerList)) {
+				String ss[] = handerList.split(",");
+				for(String s : ss) {
+					List<ChartDto> list = chartDao.querySalesByDate(belongto, theme1, from_date, to_date, dur_type, s);
+					alllist.addAll(list);
+				}
+			}
+			return alllist;		
 		}catch (Exception e){
 			e.printStackTrace();
 			return null;
@@ -204,13 +212,15 @@ public class ChartServiceImpl implements ChartService{
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartDto> list = chartDao.querySalesDetailByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
-	        System.out.println("queryDetailSalesByDate theme1:" + theme1);
-	        System.out.println("queryDetailSalesByDate from_date:" + from_date);
-	        System.out.println("queryDetailSalesByDate to_date:" + to_date);
-	        System.out.println("queryDetailSalesByDate handerList:" + handerList);
-	        System.out.println("queryDetailSalesByDate list:" + list.size());
-			return list;		
+			List<ChartDto> alllist = new ArrayList<ChartDto>();
+			if(StringUtil.isNotBlank(handerList)) {
+				String ss[] = handerList.split(",");
+				for(String s : ss) {
+					List<ChartDto> list = chartDao.querySalesDetailByDate(belongto, theme1, from_date, to_date, dur_type, s);
+					alllist.addAll(list);
+				}
+			}
+			return alllist;
 		}catch (Exception e){
 			e.printStackTrace();
 			return null;
@@ -225,14 +235,16 @@ public class ChartServiceImpl implements ChartService{
 		        System.out.println("chartDao not null" );
 			}else
 		        System.out.println("chartDao is null" );
-				
-			List<ChartDto> list = chartDao.queryWareHouseRptByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
-	        System.out.println("queryWareHouseRptByDate theme1:" + theme1);
-	        System.out.println("queryWareHouseRptByDate from_date:" + from_date);
-	        System.out.println("queryWareHouseRptByDate to_date:" + to_date);
-	        System.out.println("queryWareHouseRptByDate handerList:" + handerList);
-	        System.out.println("queryWareHouseRptByDate list:" + list.size());
-			return list;		
+			
+			List<ChartDto> alllist = new ArrayList<ChartDto>();
+			if(StringUtil.isNotBlank(handerList)) {
+				String ss[] = handerList.split(",");
+				for(String s : ss) {
+					List<ChartDto> list = chartDao.queryWareHouseRptByDate(belongto, theme1, from_date, to_date, dur_type, s);
+					alllist.addAll(list);
+				}
+			}
+			return alllist;
 		}catch (Exception e){
 			e.printStackTrace();
 			return null;
@@ -248,13 +260,15 @@ public class ChartServiceImpl implements ChartService{
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartDto> list = chartDao.queryFinanceByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
-	        System.out.println("queryFinanceByDate theme1:" + theme1);
-	        System.out.println("queryFinanceByDate from_date:" + from_date);
-	        System.out.println("queryFinanceByDate to_date:" + to_date);
-	        System.out.println("queryFinanceByDate handerList:" + handerList);
-	        System.out.println("queryFinanceByDate list:" + list.size());
-			return list;		
+			List<ChartDto> alllist = new ArrayList<ChartDto>();
+			if(StringUtil.isNotBlank(handerList)) {
+				String ss[] = handerList.split(",");
+				for(String s : ss) {
+					List<ChartDto> list = chartDao.queryFinanceByDate(belongto, theme1, from_date, to_date, dur_type, s);
+					alllist.addAll(list);
+				}
+			}
+			return alllist;
 		}catch (Exception e){
 			e.printStackTrace();
 			return null;
@@ -270,13 +284,15 @@ public class ChartServiceImpl implements ChartService{
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartDto> list = chartDao.querySupplierByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
-	        System.out.println("querySupplierByDate theme1:" + theme1);
-	        System.out.println("querySupplierByDate from_date:" + from_date);
-	        System.out.println("querySupplierByDate to_date:" + to_date);
-	        System.out.println("querySupplierByDate handerList:" + handerList);
-	        System.out.println("querySupplierByDate list:" + list.size());
-			return list;		
+			List<ChartDto> alllist = new ArrayList<ChartDto>();
+			if(StringUtil.isNotBlank(handerList)) {
+				String ss[] = handerList.split(",");
+				for(String s : ss) {
+					List<ChartDto> list = chartDao.querySupplierByDate(belongto, theme1, from_date, to_date, dur_type, s);
+					alllist.addAll(list);
+				}
+			}
+			return alllist;
 		}catch (Exception e){
 			e.printStackTrace();
 			return null;
@@ -291,13 +307,15 @@ public class ChartServiceImpl implements ChartService{
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartDto> list = chartDao.queryCustomerByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
-	        System.out.println("queryCustomerByDate theme1:" + theme1);
-	        System.out.println("queryCustomerByDate from_date:" + from_date);
-	        System.out.println("queryCustomerByDate to_date:" + to_date);
-	        System.out.println("queryCustomerByDate handerList:" + handerList);
-	        System.out.println("queryCustomerByDate list:" + list.size());
-			return list;		
+			List<ChartDto> alllist = new ArrayList<ChartDto>();
+			if(StringUtil.isNotBlank(handerList)) {
+				String ss[] = handerList.split(",");
+				for(String s : ss) {
+					List<ChartDto> list = chartDao.queryCustomerByDate(belongto, theme1, from_date, to_date, dur_type, s);
+					alllist.addAll(list);
+				}
+			}
+			return alllist;
 		}catch (Exception e){
 			e.printStackTrace();
 			return null;
@@ -313,13 +331,15 @@ public class ChartServiceImpl implements ChartService{
 			}else
 		        System.out.println("chartDao is null" );
 				
-			List<ChartSaleTotalDto> list = chartDao.querySaleTotalByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
-	        System.out.println("querySaleTotalByDate theme1:" + theme1);
-	        System.out.println("querySaleTotalByDate from_date:" + from_date);
-	        System.out.println("querySaleTotalByDate to_date:" + to_date);
-	        System.out.println("querySaleTotalByDate handerList:" + handerList);
-	        System.out.println("querySaleTotalByDate list:" + list.size());
-			return list;		
+			List<ChartSaleTotalDto> alllist = new ArrayList<ChartSaleTotalDto>();
+			if(StringUtil.isNotBlank(handerList)) {
+				String ss[] = handerList.split(",");
+				for(String s : ss) {
+					List<ChartSaleTotalDto> list = chartDao.querySaleTotalByDate(belongto, theme1, from_date, to_date, dur_type, s);
+					alllist.addAll(list);
+				}
+			}
+			return alllist;
 		}catch (Exception e){
 			e.printStackTrace();
 			return null;
@@ -430,7 +450,7 @@ public class ChartServiceImpl implements ChartService{
     		        	ChartDto chd = list.get(z);
     		        	user_id = chd.getHandler();	        	
     		            System.out.println("user_id_loop:" + user_id);
-    		        	if (!user_id.equals(tmp_user_id) ){
+    		        	if (!tmp_user_id.equals(user_id)){
     		        		// part of every user_id 
     			            System.out.println("This user_id is:" + user_id);
     			            if (temp_item_map != null){
@@ -612,7 +632,11 @@ public class ChartServiceImpl implements ChartService{
         item = new JSONObject(); 
         String tmp_Series_X = getSeries_X();
 
-		item.put("name", use_id.replace("\"", ""));            	
+        if(StringUtil.isNotBlank(use_id)) {
+        	item.put("name", use_id.replace("\"", ""));
+        } else {
+        	item.put("name", use_id);
+        }
     	Set sortSet = item_map.entrySet(); 
         Iterator ii = sortSet.iterator();
         ArrayList arrY=new ArrayList();
@@ -634,5 +658,13 @@ public class ChartServiceImpl implements ChartService{
         jsonArr.put(item);  		         			        	
         return jsonArr;  
     }
+
+	public UserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
 
 }

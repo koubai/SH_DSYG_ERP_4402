@@ -37,7 +37,7 @@
 					userIdList = userIdList + "," + id;
 			}
 		}
-		window.dialogArguments.document.getElementById("handerList").value=userIdList; 
+		window.dialogArguments.document.getElementById("handerList").value=userIdList;
 		window.close();
 	}
 
@@ -147,15 +147,15 @@
 						<td style="display: none;"></td>
 						<td width="20"></td>
 						<td width="20">序号</td>
-						<td width="60">用户ID</td>
+						<td width="60">供应商ID</td>
 						<td width="60">用户名</td>
 					</tr>
 					<s:iterator id="supplierList" value="supplierList" status="st1">
 						<s:if test="#st1.odd==true">
-							<tr class="tr_bg">
+							<tr class="tr_bg" onclick="checkCheckboxTr1(this, event)">
 						</s:if>
 						<s:else>
-							<tr>
+							<tr onclick="checkCheckboxTr1(this, event)">
 						</s:else>
 							<td style="display: none;">
 								<input type="hidden" value="<s:property value="tmp_id"/>"/>
@@ -163,7 +163,7 @@
 								<input type="hidden" value="<s:property value="suppliername"/>"/>
 							</td>
 							<!-- <td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td> -->
-							<td><input name="radioKey" type="checkbox" value="<s:property value="userid"/>"/></td>
+							<td><input name="radioKey" type="checkbox" value="<s:property value="id"/>"/></td>
 							<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
 							<td><s:property value="id"/></td>
 							<td><s:property value="suppliername"/></td>

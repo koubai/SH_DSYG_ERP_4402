@@ -143,7 +143,6 @@
                 async: false,
                 success: function (data) {
 	       			var pie_data = getPieData(data, tit);
-//	       			alert("pie_data:"+pie_data);
         			drawPie(pie_data, tit);
         			o_data = getChartData(data);
         			drawChart(fromDate, toDate, dur_type, o_data, tit);

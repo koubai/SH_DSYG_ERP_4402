@@ -59,6 +59,9 @@
 		<property name="chartDao">
 			<ref local="chartDao"/>
 		</property>
+		<property name="userDao">
+			<ref local="userDao"/>
+		</property>
 	</bean>
 	
 	<bean id="chartDao" class="com.cn.dsyg.dao.impl.ChartDaoImpl">
