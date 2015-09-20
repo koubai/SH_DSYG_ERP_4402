@@ -11,7 +11,7 @@
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/highcharts.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>		
-		
+		<jsp:include  page="chart_common.jsp"/> 
 		<!-- 2. Add the JavaScript to initialize the chart on document ready -->
 		<script type="text/javascript">
 		$(function () {  

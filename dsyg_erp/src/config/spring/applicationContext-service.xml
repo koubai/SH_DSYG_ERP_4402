@@ -387,6 +387,9 @@
 		<property name="deliveryDao">
 			<ref local="deliveryDao"/>
 		</property>
+		<property name="dict01Dao">
+			<ref local="dict01Dao"/>
+		</property>
 	</bean>
 	
 	<bean id="deliveryDao" class="com.cn.dsyg.dao.impl.DeliveryDaoImpl">

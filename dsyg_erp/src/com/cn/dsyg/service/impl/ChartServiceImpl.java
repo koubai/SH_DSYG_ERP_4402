@@ -173,6 +173,9 @@ public class ChartServiceImpl implements ChartService{
 					List<ChartDto> list = chartDao.queryPurchaseByDate(belongto, theme1, from_date, to_date, dur_type, s);
 					alllist.addAll(list);
 				}
+			} else {
+				List<ChartDto> list = chartDao.queryPurchaseByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
+				alllist.addAll(list);
 			}
 			return alllist;
 		}catch (Exception e){
@@ -196,6 +199,9 @@ public class ChartServiceImpl implements ChartService{
 					List<ChartDto> list = chartDao.querySalesByDate(belongto, theme1, from_date, to_date, dur_type, s);
 					alllist.addAll(list);
 				}
+			} else {
+				List<ChartDto> list = chartDao.querySalesByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
+				alllist.addAll(list);
 			}
 			return alllist;		
 		}catch (Exception e){
@@ -219,6 +225,9 @@ public class ChartServiceImpl implements ChartService{
 					List<ChartDto> list = chartDao.querySalesDetailByDate(belongto, theme1, from_date, to_date, dur_type, s);
 					alllist.addAll(list);
 				}
+			} else {
+				List<ChartDto> list = chartDao.querySalesDetailByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
+				alllist.addAll(list);
 			}
 			return alllist;
 		}catch (Exception e){
@@ -243,6 +252,9 @@ public class ChartServiceImpl implements ChartService{
 					List<ChartDto> list = chartDao.queryWareHouseRptByDate(belongto, theme1, from_date, to_date, dur_type, s);
 					alllist.addAll(list);
 				}
+			} else {
+				List<ChartDto> list = chartDao.queryWareHouseRptByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
+				alllist.addAll(list);
 			}
 			return alllist;
 		}catch (Exception e){
@@ -267,6 +279,9 @@ public class ChartServiceImpl implements ChartService{
 					List<ChartDto> list = chartDao.queryFinanceByDate(belongto, theme1, from_date, to_date, dur_type, s);
 					alllist.addAll(list);
 				}
+			} else {
+				List<ChartDto> list = chartDao.queryFinanceByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
+				alllist.addAll(list);
 			}
 			return alllist;
 		}catch (Exception e){
@@ -291,6 +306,9 @@ public class ChartServiceImpl implements ChartService{
 					List<ChartDto> list = chartDao.querySupplierByDate(belongto, theme1, from_date, to_date, dur_type, s);
 					alllist.addAll(list);
 				}
+			} else {
+				List<ChartDto> list = chartDao.querySupplierByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
+				alllist.addAll(list);
 			}
 			return alllist;
 		}catch (Exception e){
@@ -314,6 +332,9 @@ public class ChartServiceImpl implements ChartService{
 					List<ChartDto> list = chartDao.queryCustomerByDate(belongto, theme1, from_date, to_date, dur_type, s);
 					alllist.addAll(list);
 				}
+			} else {
+				List<ChartDto> list = chartDao.queryCustomerByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
+				alllist.addAll(list);
 			}
 			return alllist;
 		}catch (Exception e){
@@ -338,6 +359,9 @@ public class ChartServiceImpl implements ChartService{
 					List<ChartSaleTotalDto> list = chartDao.querySaleTotalByDate(belongto, theme1, from_date, to_date, dur_type, s);
 					alllist.addAll(list);
 				}
+			} else {
+				List<ChartSaleTotalDto> list = chartDao.querySaleTotalByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
+				alllist.addAll(list);
 			}
 			return alllist;
 		}catch (Exception e){
