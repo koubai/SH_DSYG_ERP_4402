@@ -20,7 +20,12 @@
 		}
 	}
 	
+	var checkflag = false;
+	
 	function calcAmount(obj, type) {
+		if(checkflag) {
+			return;
+		}
 		var tr = obj.parentNode.parentNode;
 		var tds = tr.getElementsByTagName("td");
 		var inputs = tds[0].getElementsByTagName("input");
@@ -30,7 +35,9 @@
 			//是否实数check
 			if(!isReal(obj.value)) {
 				alert("销售金额（未税）格式不正确！");
+				checkflag = ture;
 				obj.focus();
+				checkflag = false;
 				return;
 			}
 			//计算未税金额
@@ -46,7 +53,9 @@
 			//是否实数check
 			if(!isReal(obj.value)) {
 				alert("销售金额（含税）格式不正确！");
+				checkflag = ture;
 				obj.focus();
+				checkflag = false;
 				return;
 			}
 			//销售金额已税
@@ -96,33 +105,44 @@
 	
 	//计算销售数量及金额
 	function calcquantity(obj, type) {
+		if(checkflag) {
+			return;
+		}
 		//var res02 = getRadioValue("salesType");	
 		if(type == "1") {
 			//是否大于0的数字check
 			if(!isNumber(obj.value)) {
 				alert("销售数量必须是大于0的数字！");
+				checkflag = ture;
 				obj.focus();
+				checkflag = false;
 				return;
 			}
 		} else if(type == "2") {
 			//是否整数字check
 			if(!checkInteger(obj.value)) {
 				alert("预出库数必须整数！");
+				checkflag = ture;
 				obj.focus();
+				checkflag = false;
 				return;
 			}
 		} else if(type == "4") {
 			//是否实数check
 			if(!isReal(obj.value)) {
 				alert("销售价格格式不正确！");
+				checkflag = ture;
 				obj.focus();
+				checkflag = false;
 				return;
 			}
 		} else {
 			//是否实数check
 			if(!isReal(obj.value)) {
 				alert("销售金额（含税）格式不正确！");
+				checkflag = ture;
 				obj.focus();
+				checkflag = false;
 				return;
 			}
 		}
@@ -165,7 +185,9 @@
 		//逻辑check
 		if(beforeQuantity > salesQuantity || (outquantity + beforeQuantity) < 0 || (outquantity + beforeQuantity) > salesQuantity) {
 			alert("预出库数不在正确范围！");
+			checkflag = ture;
 			obj.focus();
+			checkflag = false;
 			return;
 		}
 			
