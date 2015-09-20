@@ -50,6 +50,10 @@
 			<result name="*">/page/finance/financelist.jsp</result>
 		</action>
 		
+		<action name="updFinanceStatusAction" class="financeAction" method="updFinanceStatusAction">
+			<result name="*">/page/finance/financelist.jsp</result>
+		</action>
+		
 		<action name="showAddFinanceAction" class="financeAction" method="showAddFinanceAction">
 			<result name="*">/page/finance/addfinance.jsp</result>
 		</action>

@@ -106,6 +106,12 @@
 		<property name="userDao">
 			<ref local="userDao"/>
 		</property>
+		<property name="warehouserptDao">
+			<ref local="warehouserptDao"/>
+		</property>
+		<property name="warehouseDao">
+			<ref local="warehouseDao"/>
+		</property>
 	</bean>
 	
 	<bean id="financeDao" class="com.cn.dsyg.dao.impl.FinanceDaoImpl">

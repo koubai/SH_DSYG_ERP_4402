@@ -11,8 +11,12 @@ import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.FinanceDao;
 import com.cn.dsyg.dao.UserDao;
+import com.cn.dsyg.dao.WarehouseDao;
+import com.cn.dsyg.dao.WarehouserptDao;
 import com.cn.dsyg.dto.FinanceDto;
 import com.cn.dsyg.dto.UserDto;
+import com.cn.dsyg.dto.WarehouseDto;
+import com.cn.dsyg.dto.WarehouserptDto;
 import com.cn.dsyg.service.FinanceService;
 
 /**
@@ -24,6 +28,8 @@ import com.cn.dsyg.service.FinanceService;
 public class FinanceServiceImpl implements FinanceService {
 	
 	private FinanceDao financeDao;
+	private WarehouserptDao warehouserptDao;
+	private WarehouseDao warehouseDao;
 	private UserDao userDao;
 
 	@Override
@@ -94,6 +100,36 @@ public class FinanceServiceImpl implements FinanceService {
 		if(StringUtil.isBlank(finance.getReceiptdate())) {
 			finance.setReceiptdate(null);
 		}
+		FinanceDto oldFinance = financeDao.queryFinanceByID("" + finance.getId());
+		//判断是否是入出库单的财务记录
+		if(oldFinance.getFinancetype() == Constants.FINANCE_TYPE_PURCHASE || oldFinance.getFinancetype() == Constants.FINANCE_TYPE_SALES) {
+			//判断财务记录的状态是否修改
+			if(oldFinance.getStatus() != finance.getStatus()) {
+				//修改对应的入出库单状态
+				WarehouserptDto warehouserpt = warehouserptDao.queryWarehouserptByNo(finance.getInvoiceid());
+				if(warehouserpt != null) {
+					warehouserpt.setStatus(finance.getStatus());
+					warehouserpt.setUpdateuid(finance.getUpdateuid());
+					warehouserptDao.updateWarehouserpt(warehouserpt);
+					//判断是否需要修改库存表的状态，当且仅当更新前的财务记录状态=99
+					if(oldFinance.getStatus() == Constants.FINANCE_STATUS_PAY_INVOICE) {
+						String parentid = warehouserpt.getParentid();
+						if(StringUtil.isNotBlank(parentid)) {
+							String[] ids = parentid.split(",");
+							for(String warehouseno : ids) {
+								if(StringUtil.isNotBlank(warehouseno)) {
+									WarehouseDto warehouse = warehouseDao.queryWarehouseByWarehouseno(warehouseno);
+									if(warehouse != null) {
+										warehouse.setStatus(Constants.WAREHOUSE_STATUS_OK);
+										warehouseDao.updateWarehouse(warehouse);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 		financeDao.updateFinance(finance);
 	}
 
@@ -111,5 +147,21 @@ public class FinanceServiceImpl implements FinanceService {
 
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
+	}
+
+	public WarehouserptDao getWarehouserptDao() {
+		return warehouserptDao;
+	}
+
+	public void setWarehouserptDao(WarehouserptDao warehouserptDao) {
+		this.warehouserptDao = warehouserptDao;
+	}
+
+	public WarehouseDao getWarehouseDao() {
+		return warehouseDao;
+	}
+
+	public void setWarehouseDao(WarehouseDao warehouseDao) {
+		this.warehouseDao = warehouseDao;
 	}
 }

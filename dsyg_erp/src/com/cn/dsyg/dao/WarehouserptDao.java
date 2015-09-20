@@ -69,6 +69,13 @@ public interface WarehouserptDao {
 	public WarehouserptDto queryWarehouserptByID(String id);
 	
 	/**
+	 * 根据入出库单查询数据
+	 * @param warehouseno
+	 * @return
+	 */
+	public WarehouserptDto queryWarehouserptByNo(String warehouseno);
+	
+	/**
 	 * 新增数据
 	 * @param warehouserpt
 	 */

@@ -141,6 +141,10 @@
 		select T.* from etb_warehouserpt T where T.id = #id#
 	</select>
 	
+	<select id="queryWarehouserptByNo" parameterClass="java.util.Map" resultMap="WarehouserptDto">
+		select T.* from etb_warehouserpt T where T.warehouseno = #warehouseno#
+	</select>
+	
 	<insert id="insertWarehouserpt" parameterClass="com.cn.dsyg.dto.WarehouserptDto">
 		insert into etb_warehouserpt(warehousetype,warehouseno,warehousename,belongto,theme1,theme2,parentid,totaltaxamount,totalnum,productinfo,
 			warehousedate,handler,supplierid,suppliername,suppliertel,suppliermanager,supplieraddress,suppliermail,supplierfax,

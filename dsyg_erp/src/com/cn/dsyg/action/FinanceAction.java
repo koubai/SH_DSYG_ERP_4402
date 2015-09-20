@@ -15,6 +15,7 @@ import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.FinanceDto;
 import com.cn.dsyg.service.Dict01Service;
 import com.cn.dsyg.service.FinanceService;
+import com.cn.dsyg.service.WarehouserptService;
 import com.opensymphony.xwork2.ActionContext;
 
 /**
@@ -30,6 +31,7 @@ public class FinanceAction extends BaseAction {
 
 	private FinanceService financeService;
 	private Dict01Service dict01Service;
+	private WarehouserptService warehouserptService;
 	
 	//页码
 	private int startIndex;
@@ -55,6 +57,33 @@ public class FinanceAction extends BaseAction {
 	//修改
 	private FinanceDto updFinanceDto;
 	private String updFinanceId;
+	
+	private String updStatusFinanceId;
+	private String updStatus;
+	
+	/**
+	 * 更新物流状态
+	 * @return
+	 */
+	public String updFinanceStatusAction() {
+		try {
+			this.clearMessages();
+			//当前操作用户ID
+			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			FinanceDto finance = financeService.queryFinanceByID(updStatusFinanceId);
+			if(finance != null) {
+				finance.setUpdateuid(username);
+				finance.setStatus(Integer.valueOf(updStatus));
+				financeService.updateFinance(finance);
+			}
+			//刷新页面
+			queryData();
+		} catch(Exception e) {
+			log.error("updFinanceOutStatusAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 	
 	/**
 	 * 显示修改财务记录页面
@@ -387,5 +416,29 @@ public class FinanceAction extends BaseAction {
 
 	public void setUpdFinanceId(String updFinanceId) {
 		this.updFinanceId = updFinanceId;
+	}
+
+	public WarehouserptService getWarehouserptService() {
+		return warehouserptService;
+	}
+
+	public void setWarehouserptService(WarehouserptService warehouserptService) {
+		this.warehouserptService = warehouserptService;
+	}
+
+	public String getUpdStatusFinanceId() {
+		return updStatusFinanceId;
+	}
+
+	public void setUpdStatusFinanceId(String updStatusFinanceId) {
+		this.updStatusFinanceId = updStatusFinanceId;
+	}
+
+	public String getUpdStatus() {
+		return updStatus;
+	}
+
+	public void setUpdStatus(String updStatus) {
+		this.updStatus = updStatus;
 	}
 }

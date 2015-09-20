@@ -16,9 +16,11 @@
 		$("#container").height(h - 20);
 	});
 	
-	function upd(id, status) {
-		document.mainform.action = "../finance/updFinanceOutStatusAction.action?updWarehouserptId=" + id + "&updWarehouserptStatus=" + status;
-		document.mainform.submit();
+	function upd(id, status, tip) {
+		if(confirm(tip)) {
+			document.mainform.action = "../finance/updFinanceOutStatusAction.action?updWarehouserptId=" + id + "&updWarehouserptStatus=" + status;
+			document.mainform.submit();
+		}
 	}
 	
 	//查询日期赋值
@@ -198,10 +200,10 @@
 									<td>
 										<s:if test="%{warehousetype == 1}">
 											<s:if test="%{status == 1}">
-												<input type="button" value="收到发票" onclick="upd('<s:property value="id"/>', '10')"/>
+												<input type="button" value="收到发票" onclick="upd('<s:property value="id"/>', '10', '确定收到发票吗？')"/>
 											</s:if>
 											<s:elseif test="%{status == 10}">
-												<input type="button" value="付款" onclick="upd('<s:property value="id"/>', '99')"/>
+												<input type="button" value="付款" onclick="upd('<s:property value="id"/>', '99', '确定付款吗？')"/>
 											</s:elseif>
 											<s:elseif test="%{status == 99}">
 												已付款
@@ -212,13 +214,13 @@
 										</s:if>
 										<s:elseif test="%{warehousetype == 2}">
 											<s:if test="%{status == 1}">
-												<input type="button" value="已对帐" onclick="upd('<s:property value="id"/>', '10')"/>
+												<input type="button" value="已对账" onclick="upd('<s:property value="id"/>', '10', '确定已对账吗？')"/>
 											</s:if>
 											<s:elseif test="%{status == 10}">
-												<input type="button" value="已开票" onclick="upd('<s:property value="id"/>', '20')"/>
+												<input type="button" value="已开票" onclick="upd('<s:property value="id"/>', '20', '确定已开票吗？')"/>
 											</s:elseif>
 											<s:elseif test="%{status == 20}">
-												<input type="button" value="已收款" onclick="upd('<s:property value="id"/>', '99')"/>
+												<input type="button" value="已收款" onclick="upd('<s:property value="id"/>', '99', '确定已收款吗？')"/>
 											</s:elseif>
 											<s:elseif test="%{status == 99}">
 												已收款

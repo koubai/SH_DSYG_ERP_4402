@@ -179,8 +179,8 @@
 									</td>
 									<td><s:property value="item01"/></td>
 									<td>
-										<s:if test='%{warehouseDetailList[#st1.index].packaging == "1"}'>整箱</s:if>
-										<s:elseif test='%{warehouseDetailList[#st1.index].packaging == "0"}'>乱尺</s:elseif>
+										<s:if test='%{warehouseDetailList[#st1.index].packaging == "0"}'>整箱</s:if>
+										<s:elseif test='%{warehouseDetailList[#st1.index].packaging == "1"}'>乱尺</s:elseif>
 										<s:else>
 											<s:property value="packaging"/>
 										</s:else>

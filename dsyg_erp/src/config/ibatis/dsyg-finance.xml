@@ -65,7 +65,7 @@
 		<isNotEmpty prepend="and" property="receiptdateHigh">
 			T.receiptdate <![CDATA[<]]> #receiptdateHigh#
 		</isNotEmpty>
-		order by T.updatedate,T.id desc
+		order by T.updatedate desc,T.id desc
 		LIMIT #start#, #end#
 	</select>
 	

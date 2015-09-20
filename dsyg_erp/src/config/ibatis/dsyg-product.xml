@@ -118,7 +118,7 @@
 		<isNotEmpty prepend="and" property="keyword">
 			T.keyword like '%$keyword$%' ESCAPE '/'
 		</isNotEmpty>
-		order by T.updatedate desc,T.id desc
+		order by T.id asc
 		LIMIT #start#, #end#
 	</select>
 	

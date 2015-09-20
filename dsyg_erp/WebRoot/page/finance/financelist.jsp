@@ -38,6 +38,13 @@
 		}
 	}
 	
+	function auditor(id, status, tip) {
+		if(confirm(tip)) {
+			document.mainform.action = "../finance/updFinanceStatusAction.action?updStatusFinanceId=" + id + "&updStatus=" + status;
+			document.mainform.submit();
+		}
+	}
+	
 	function getSelectedID() {
 		var id = "";
 		var list = document.getElementsByName("radioKey");
@@ -195,6 +202,7 @@
 								<td width="100">金额（含税）</td>
 								<td width="80">结算日期</td>
 								<td width="130">状态</td>
+								<td width="80"></td>
 							</tr>
 							<s:iterator id="financeList" value="financeList" status="st1">
 								<s:if test="#st1.odd==true">
@@ -260,6 +268,22 @@
 												收到发票, 已付款
 											</s:elseif>
 										</s:else>
+									</td>
+									<td>
+										<s:if test="financetype == 3">
+											<s:if test="%{status == 1}">
+												<input type="button" value="收到发票" onclick="auditor('<s:property value="id"/>', '10', '确定收到发票吗？')"/>
+											</s:if>
+											<s:elseif test="%{status == 10}">
+												<input type="button" value="付款" onclick="auditor('<s:property value="id"/>', '99', '确定付款吗？')"/>
+											</s:elseif>
+											<s:elseif test="%{status == 99}">
+												已付款
+											</s:elseif>
+											<s:else>
+												<s:property value="status"/>
+											</s:else>
+										</s:if>
 									</td>
 								</tr>
 							</s:iterator>

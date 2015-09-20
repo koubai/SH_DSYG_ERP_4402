@@ -102,7 +102,7 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 					cell5.setCellStyle(style);
 					cell5.setCellValue(dictMap.get(Constants.DICT_COLOR_TYPE + "_" + product.getColor()));
 					cell6.setCellStyle(style);
-					if("1".equals(product.getPackaging())) {
+					if("0".equals(product.getPackaging())) {
 						cell6.setCellValue("整箱");
 					} else {
 						cell6.setCellValue("乱尺");

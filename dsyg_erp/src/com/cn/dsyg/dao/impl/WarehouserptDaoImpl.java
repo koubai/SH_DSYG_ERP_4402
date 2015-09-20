@@ -85,6 +85,18 @@ public class WarehouserptDaoImpl extends BaseDao implements WarehouserptDao {
 		}
 		return null;
 	}
+	
+	@Override
+	public WarehouserptDto queryWarehouserptByNo(String warehouseno) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("warehouseno", warehouseno);
+		@SuppressWarnings("unchecked")
+		List<WarehouserptDto> list = getSqlMapClientTemplate().queryForList("queryWarehouserptByNo", paramMap);
+		if(list != null && list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+	}
 
 	@Override
 	public void insertWarehouserpt(WarehouserptDto warehouserpt) {

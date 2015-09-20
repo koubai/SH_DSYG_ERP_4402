@@ -90,7 +90,7 @@ public class PoiWarehouseCheck extends Poi2007Base {
 			cell4.setCellStyle(style);
 			cell5.setCellValue(dictMap.get(Constants.DICT_COLOR_TYPE + "_" + warehouseCheck.getColor()));
 			cell5.setCellStyle(style);
-			if("1".equals(warehouseCheck.getPackaging())) {
+			if("0".equals(warehouseCheck.getPackaging())) {
 				cell6.setCellValue("整箱");
 			} else {
 				cell6.setCellValue("乱尺");

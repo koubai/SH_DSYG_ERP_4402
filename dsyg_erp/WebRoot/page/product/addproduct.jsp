@@ -433,16 +433,16 @@
 							</td>
 							<td>
 								<s:if test='%{addProductDto.packaging == "1"}'>
-									<input type="radio" name="tmpPackaging" value="1" checked="checked"/>整箱
-									<input type="radio" name="tmpPackaging" value="0"/>乱尺
+									<input type="radio" name="tmpPackaging" value="0"/>整箱
+									<input type="radio" name="tmpPackaging" value="1" checked="checked"/>乱尺
 								</s:if>
 								<s:elseif test='%{addProductDto.packaging == "0"}'>
-									<input type="radio" name="tmpPackaging" value="1"/>整箱
-									<input type="radio" name="tmpPackaging" value="0" checked="checked"/>乱尺
+									<input type="radio" name="tmpPackaging" value="0" checked="checked"/>整箱
+									<input type="radio" name="tmpPackaging" value="1"/>乱尺
 								</s:elseif>
 								<s:else>
-									<input type="radio" name="tmpPackaging" value="1"/>整箱
-									<input type="radio" name="tmpPackaging" value="0"/>乱尺
+									<input type="radio" name="tmpPackaging" value="0"/>整箱
+									<input type="radio" name="tmpPackaging" value="1"/>乱尺
 								</s:else>
 							</td>
 						</tr>
@@ -517,6 +517,7 @@
 						</s:if>
 						<s:else>
 							<tr style="display: none;" id="fieldcode01">
+						</s:else>
 							<td class="td_tittle"><label class="pdf10"><font color="red">*</font>特征编辑：</label></td>
 							<td>
 								<s:iterator value="featureList01" id="featureList01" status="st1">
@@ -554,13 +555,13 @@
 									</dl>
 								</s:iterator>
 							</td>
-						</s:else>
 						</tr>
 						<s:if test='addProductDto.fieldno == "02"'>
 							<tr id="fieldcode02">
 						</s:if>
 						<s:else>
 							<tr style="display: none;" id="fieldcode02">
+						</s:else>
 							<td class="td_tittle"><label class="pdf10"><font color="red">*</font>特征编辑：</label></td>
 							<td>
 								<s:iterator value="featureList02" id="featureList02" status="st1">
@@ -604,7 +605,6 @@
 									</dl>
 								</s:iterator>
 							</td>
-						</s:else>
 						</tr>
 						<tr>
 							<td align="right">
