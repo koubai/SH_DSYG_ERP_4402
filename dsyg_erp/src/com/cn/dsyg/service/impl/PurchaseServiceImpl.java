@@ -204,6 +204,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 			for(PurchaseItemDto purchaseItem : listPurchaseItem) {
 				//采购单号
 				purchaseItem.setPurchaseno(purchaseno);
+				purchaseItem.setHandler(userid);
 				purchaseItem.setUpdateuid(userid);
 				purchaseItem.setCreateuid(userid);
 				//用户自己输入的订单号

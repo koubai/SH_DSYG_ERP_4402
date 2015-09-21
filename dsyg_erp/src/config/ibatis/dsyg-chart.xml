@@ -38,13 +38,16 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1, TU.userid as id, TU.username as handler, sum(T.taxamount) as pur_sum_data     
-			from etb_warehouse T, tbuser TU			
+		select M.*, sum(M.taxamount) as pur_sum_data from(
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1 as theme1, P.handler as id, TU.username as handler,  T.taxamount as taxamount
+			from etb_warehouse T , etb_purchaseitem P ,tbuser TU	
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='1'
 			and T.status='99'
-			and T.handler = TU.userid
+			and T.parentid = P.purchaseno 
+			and T.productid= P.productid
+			and P.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
@@ -57,6 +60,8 @@
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
+		)M
+			group by years, months, theme1, id
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -76,13 +81,16 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1, TU.userid as id, TU.username as handler, sum(T.taxamount) as pur_sum_data     
-			from etb_warehouse T, tbuser TU			
+		select M.*, sum(M.taxamount) as pur_sum_data from(
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1 as theme1, P.handler as id, TU.username as handler,  T.taxamount as taxamount
+			from etb_warehouse T , etb_purchaseitem P ,tbuser TU	
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='1'
 			and T.status='99'
-			and T.handler = TU.userid
+			and T.parentid = P.purchaseno 
+			and T.productid= P.productid
+			and P.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
@@ -95,6 +103,8 @@
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
+		)M
+			group by years, months, theme1, id
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -114,13 +124,16 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1, TU.userid as id, TU.username as handler, sum(T.taxamount) as pur_sum_data     
-			from etb_warehouse T, tbuser TU			
+		select M.*, sum(M.taxamount) as pur_sum_data from(
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1 as theme1, P.handler as id, TU.username as handler,  T.taxamount as taxamount
+			from etb_warehouse T , etb_purchaseitem P ,tbuser TU	
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='1'
 			and T.status='99'
-			and T.handler = TU.userid
+			and T.parentid = P.purchaseno 
+			and T.productid= P.productid
+			and P.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
@@ -133,6 +146,8 @@
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
+		)M
+			group by years, months, theme1, id
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -152,13 +167,16 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1, TU.userid as id, TU.username as handler, sum(T.taxamount) as pur_sum_data     
-			from etb_warehouse T, tbuser TU			
+		select M.*, sum(M.taxamount) as pur_sum_data from(
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1 as theme1, P.handler as id, TU.username as handler,  T.taxamount as taxamount
+			from etb_warehouse T , etb_purchaseitem P ,tbuser TU	
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='1'
 			and T.status='99'
-			and T.handler = TU.userid
+			and T.parentid = P.purchaseno 
+			and T.productid= P.productid
+			and P.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
@@ -171,6 +189,8 @@
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
+		)M
+			group by years, months, theme1, id
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -191,14 +211,17 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, T.theme1, TU.userid as id,TU.username as handler2, TC.customertype as typ, TC.customername, T.taxamount as pur_sum_data     
-			from etb_warehouse T, etb_customer TC, tbuser TU
+		select M.*, sum(M.taxamount) as pur_sum_data from(
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1 as theme1, S.handler as id, TU.username as handler2, TC.customertype as typ, TC.customername, T.taxamount as taxamount
+			from etb_warehouse T , etb_salesitem S,etb_customer TC,tbuser TU	
 			where 1=1
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
 			and T.status='99'
+			and T.parentid = S.salesno
+			and T.productid= S.productid
 			and T.supplierid = TC.id
-			and T.handler = TU.userid
+			and S.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
@@ -211,8 +234,10 @@
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
+		)M
+			group by years, months, theme1, id
 		)as test 
-			group by id, handler2, theme1, typ, pur_year
+			group by id, handler, theme1, pur_year
 			order by id
 	</select>	
 
@@ -232,14 +257,17 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, T.theme1, TU.userid as id,TU.username as handler2, TC.customertype as typ, TC.customername, T.taxamount as pur_sum_data     
-			from etb_warehouse T, etb_customer TC, tbuser TU
+		select M.*, sum(M.taxamount) as pur_sum_data from(
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1 as theme1, S.handler as id, TU.username as handler2, TC.customertype as typ, TC.customername, T.taxamount as taxamount
+			from etb_warehouse T , etb_salesitem S,etb_customer TC,tbuser TU	
 			where 1=1
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
 			and T.status='99'
+			and T.parentid = S.salesno
+			and T.productid= S.productid
 			and T.supplierid = TC.id
-			and T.handler = TU.userid
+			and S.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
@@ -252,8 +280,10 @@
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
+		)M
+			group by years, months, theme1, id
 		)as test 
-			group by id, handler2, theme1, typ, pur_year
+			group by id, handler, theme1, pur_year
 			order by id
 	</select>
 
@@ -272,14 +302,17 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, T.theme1, TU.userid as id,TU.username as handler2, TC.customertype as typ, TC.customername, T.taxamount as pur_sum_data     
-			from etb_warehouse T, etb_customer TC, tbuser TU
+		select M.*, sum(M.taxamount) as pur_sum_data from(
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1 as theme1, S.handler as id, TU.username as handler2, TC.customertype as typ, TC.customername, T.taxamount as taxamount
+			from etb_warehouse T , etb_salesitem S,etb_customer TC,tbuser TU	
 			where 1=1
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
 			and T.status='99'
+			and T.parentid = S.salesno
+			and T.productid= S.productid
 			and T.supplierid = TC.id
-			and T.handler = TU.userid
+			and S.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
@@ -292,8 +325,10 @@
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
+		)M
+			group by years, months, theme1, id
 		)as test 
-			group by id, handler2, theme1, typ, pur_year
+			group by id, handler, theme1, pur_year
 			order by id
 	</select>
 
@@ -312,14 +347,17 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, T.theme1, TU.userid as id,TU.username as handler2, TC.customertype as typ, TC.customername, T.taxamount as pur_sum_data     
-			from etb_warehouse T, etb_customer TC, tbuser TU
+		select M.*, sum(M.taxamount) as pur_sum_data from(
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1 as theme1, S.handler as id, TU.username as handler2, TC.customertype as typ, TC.customername, T.taxamount as taxamount
+			from etb_warehouse T , etb_salesitem S,etb_customer TC,tbuser TU	
 			where 1=1
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
 			and T.status='99'
+			and T.parentid = S.salesno
+			and T.productid= S.productid
 			and T.supplierid = TC.id
-			and T.handler = TU.userid
+			and S.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
@@ -332,8 +370,10 @@
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
+		)M
+			group by years, months, theme1, id
 		)as test 
-			group by id, handler2, theme1, typ, pur_year
+			group by id, handler, theme1, pur_year
 			order by id
 	</select>
 
@@ -353,13 +393,16 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1, TU.userid as id, TU.username as handler, sum(T.taxamount) as pur_sum_data     
-			from etb_warehouse T, tbuser TU			
+		select M.*, sum(M.taxamount) as pur_sum_data from(
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1 as theme1, S.handler as id, TU.username as handler,  T.taxamount as taxamount
+			from etb_warehouse T , etb_salesitem S ,tbuser TU					
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
 			and T.status='99'
-			and T.handler = TU.userid
+			and T.parentid = S.salesno
+			and T.productid= S.productid
+			and S.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
@@ -372,6 +415,8 @@
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
+		)M
+			group by years, months, theme1, id
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -391,13 +436,16 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1, TU.userid as id, TU.username as handler, sum(T.taxamount) as pur_sum_data     
-			from etb_warehouse T, tbuser TU			
+		select M.*, sum(M.taxamount) as pur_sum_data from(
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1 as theme1, S.handler as id, TU.username as handler,  T.taxamount as taxamount
+			from etb_warehouse T , etb_salesitem S ,tbuser TU					
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
 			and T.status='99'
-			and T.handler = TU.userid
+			and T.parentid = S.salesno
+			and T.productid= S.productid
+			and S.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
@@ -410,6 +458,8 @@
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
+		)M
+			group by years, months, theme1, id
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -429,13 +479,16 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1, TU.userid as id, TU.username as handler, sum(T.taxamount) as pur_sum_data     
-			from etb_warehouse T, tbuser TU			
+		select M.*, sum(M.taxamount) as pur_sum_data from(
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months,  T.theme1 as theme1, S.handler as id, TU.username as handler,  T.taxamount as taxamount
+			from etb_warehouse T , etb_salesitem S ,tbuser TU					
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
 			and T.status='99'
-			and T.handler = TU.userid
+			and T.parentid = S.salesno
+			and T.productid= S.productid
+			and S.handler = TU.userid
 			<isNotEmpty prepend="and" property="theme1">
 				T.theme1 = #theme1#
 			</isNotEmpty>
@@ -448,6 +501,8 @@
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
+		)M
+			group by years, months, theme1, id
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -468,7 +523,7 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, T.theme as theme1, TU.id as id, TU.deliveryname as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, T.theme as theme1, TU.id as id, TU.deliveryname as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, etb_delivery TU
 			where 1=1 
 			and T.belongto = #belongto#
@@ -484,6 +539,7 @@
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>			
+			group by years, months, theme1			
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -503,7 +559,7 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, T.theme as theme1, TU.id as id, TU.deliveryname as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, T.theme as theme1, TU.id as id, TU.deliveryname as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, etb_delivery TU
 			where 1=1 
 			and T.belongto = #belongto#
@@ -519,6 +575,7 @@
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
+			group by years, months, theme1			
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -539,7 +596,7 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, T.theme as theme1, TU.id as id, TU.deliveryname as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, T.theme as theme1, TU.id as id, TU.deliveryname as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, etb_delivery TU
 			where 1=1 
 			and T.belongto = #belongto#
@@ -555,7 +612,7 @@
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
 			</isNotEmpty>
-			
+			group by years, months, theme1						
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -575,7 +632,7 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, T.theme as theme1, TU.id as id, TU.deliveryname as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, T.theme as theme1, TU.id as id, TU.deliveryname as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, etb_delivery TU
 			where 1=1 
 			and T.belongto = #belongto#
@@ -590,7 +647,8 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
-			</isNotEmpty>			
+			</isNotEmpty>
+			group by years, months, theme1			
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -611,7 +669,7 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.code as id, TU.mean as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.code as id, TU.mean as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, tbdict01 TU
 			where 1=1 
 			and T.financetype = TU.code
@@ -624,6 +682,7 @@
 			<isNotEmpty prepend="and" property="to_date">
 				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
+			group by years, months, id			
 		)as test 
 			group by id, handler, pur_year
 			order by id
@@ -643,7 +702,7 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.code as id, TU.mean as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.code as id, TU.mean as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, tbdict01 TU
 			where 1=1 
 			and T.financetype = TU.code
@@ -656,6 +715,7 @@
 			<isNotEmpty prepend="and" property="to_date">
 				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
+			group by years, months, id			
 		)as test 
 			group by id, handler, pur_year
 			order by id
@@ -675,7 +735,7 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.code as id, TU.mean as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.code as id, TU.mean as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, tbdict01 TU
 			where 1=1 
 			and T.financetype = TU.code
@@ -688,6 +748,7 @@
 			<isNotEmpty prepend="and" property="to_date">
 				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
+			group by years, months, id			
 		)as test 
 			group by id, handler, pur_year
 			order by id
@@ -707,7 +768,7 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.code as id, TU.mean as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.code as id, TU.mean as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, tbdict01 TU
 			where 1=1 
 			and T.financetype = TU.code
@@ -720,6 +781,7 @@
 			<isNotEmpty prepend="and" property="to_date">
 				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
+			group by years, months, id			
 		)as test 
 			group by id, handler, pur_year
 			order by id
@@ -740,7 +802,7 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.suppliername as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.suppliername as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, etb_supplier TU
 			where 1=1 
 			and T.customerid = TU.id
@@ -755,6 +817,7 @@
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
+			group by years, months		
 		)as test 
 			group by id, handler, pur_year
 			order by id
@@ -774,7 +837,7 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.suppliername as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.suppliername as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, etb_supplier TU
 			where 1=1 
 			and T.customerid = TU.id
@@ -789,6 +852,7 @@
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
+			group by years, months		
 		)as test 
 			group by id, handler, pur_year
 			order by id
@@ -808,7 +872,7 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.suppliername as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.suppliername as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, etb_supplier TU
 			where 1=1 
 			and T.customerid = TU.id
@@ -823,6 +887,7 @@
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
+			group by years, months			
 		)as test 
 			group by id, handler, pur_year
 			order by id
@@ -843,7 +908,7 @@
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.customername as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.customername as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, etb_customer TU
 			where 1=1 
 			and T.customerid = TU.id
@@ -858,6 +923,7 @@
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
+			group by years, months			
 		)as test 
 			group by id, handler, pur_year
 			order by id
@@ -877,7 +943,7 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.customername as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.customername as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, etb_customer TU
 			where 1=1 
 			and T.customerid = TU.id
@@ -892,6 +958,7 @@
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
+			group by years, months			
 		)as test 
 			group by id, handler, pur_year
 			order by id
@@ -911,7 +978,7 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.customername as handler, T.amount as pur_sum_data     
+			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.customername as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, etb_customer TU
 			where 1=1 
 			and T.customerid = TU.id
@@ -926,6 +993,7 @@
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
+			group by years, months			
 		)as test 
 			group by id, handler, pur_year
 			order by id

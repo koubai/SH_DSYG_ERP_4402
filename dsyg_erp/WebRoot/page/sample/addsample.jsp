@@ -179,7 +179,7 @@
 						</tr>
 						<tr>
 							<td align="right">
-								<label class="pdf10">备注</label>
+								<label class="pdf10"><font color="red">*</font>备注</label>
 							</td>
 							<td colspan="3">
 								<textarea rows="5" cols="150" style="width:895px;" id="tempNote"><s:property value="addSampleDto.note"/></textarea>

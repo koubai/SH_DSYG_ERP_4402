@@ -107,6 +107,7 @@ public class SalesServiceImpl implements SalesService {
 				salesItem.setSalesno(salesno);
 				//用户自己输入的订单号
 				salesItem.setTheme2(sales.getTheme2());
+				salesItem.setHandler(userid);
 				salesItem.setUpdateuid(userid);
 				salesItem.setCreateuid(userid);
 				salesItem.setStatus(Constants.STATUS_NORMAL);

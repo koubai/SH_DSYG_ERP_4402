@@ -207,10 +207,10 @@
 							</tr>
 							<s:iterator id="listCustomer" value="listCustomer" status="st1">
 								<s:if test="#st1.odd==true">
-									<tr class="tr_bg">
+									<tr class="tr_bg" onclick="checkRadioCuTr(this, event, 1, 0);">
 								</s:if>
 								<s:else>
-									<tr>
+									<tr onclick="checkRadioCuTr(this, event, 1, 0);">
 								</s:else>
 									<td>
 									<input type="checkbox" name="listCustomer[<s:property value="#st1.index"/>].checkKey" onclick="check(this);" /></td>

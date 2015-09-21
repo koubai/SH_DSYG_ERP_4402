@@ -126,6 +126,20 @@ public class FinanceServiceImpl implements FinanceService {
 								}
 							}
 						}
+					} else {
+						String parentid = warehouserpt.getParentid();
+						if(StringUtil.isNotBlank(parentid)) {
+							String[] ids = parentid.split(",");
+							for(String warehouseno : ids) {
+								if(StringUtil.isNotBlank(warehouseno)) {
+									WarehouseDto warehouse = warehouseDao.queryWarehouseByWarehouseno(warehouseno);
+									if(warehouse != null) {
+										warehouse.setStatus(Constants.WAREHOUSE_STATUS_FINISHED);
+										warehouseDao.updateWarehouse(warehouse);
+									}
+								}
+							}
+						}						
 					}
 				}
 			}

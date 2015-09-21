@@ -222,15 +222,15 @@
 				</td>
 			</tr>
 			<tr>
-				<td>档案</td>
+				<td>信息及档案</td>
 				<td colspan="3">
-					<textarea name="" id="tmppersonaldesc" cols="" rows="5" style="width:430px;"><s:property value="addPersonalDto.personaldesc"/></textarea>
+					<textarea name="" id="tmppersonaldesc" cols="" rows="15" style="width:430px;"><s:property value="addPersonalDto.personaldesc"/></textarea>
 				</td>
 			</tr>
 			<tr>
 				<td>备注</td>
 				<td colspan="3">
-					<textarea name="" id="tmpnote" cols="" rows="5" style="width:430px;"><s:property value="addPersonalDto.note"/></textarea>
+					<textarea name="" id="tmpnote" cols="" rows="3" style="width:430px;"><s:property value="addPersonalDto.note"/></textarea>
 				</td>
 			</tr>
 			<tr>

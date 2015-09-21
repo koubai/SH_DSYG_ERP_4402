@@ -93,6 +93,7 @@
 	<s:hidden name="file01Name" id="file01Name"></s:hidden>
 	<s:hidden name="file02Name" id="file02Name"></s:hidden>
 	<s:hidden name="file03Name" id="file03Name"></s:hidden>
+	<s:hidden name="addSalesReportDto.salesreportno" id="salesreportno"></s:hidden>
 	<div id="container" style="width: 100%; height: 100%;">
 		<div class="content" style="margin-top: 0px;">
 			<div class="tittle" style="width:750px">
@@ -110,17 +111,6 @@
 			<s:actionmessage />
 		</div>
 		<table style="margin-left: 50px; margin-top: 30px;" border="0" cellspacing="15" cellpadding="0">
-			<tr>
-				<td width="130">
-					<label class="pdf10">报告编号</label></td>
-				<td width="500">
-					<div class="box1_left"></div>
-					<div class="box1_center">
-						<s:textfield name="addSalesReportDto.salesreportno" disabled="true" id="salesreportno" cssStyle="width:350px;" maxlength="32" theme="simple"></s:textfield>
-					</div>
-					<div class="box1_right"></div>
-				</td>
-			</tr>
 			<tr>
 				<td><label class="pdf10"><font color="red">*</font>报告名</label></td>
 				<td>

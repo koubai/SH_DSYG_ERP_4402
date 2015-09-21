@@ -430,7 +430,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//快递公司ID==============================这里不做填充，等发货单时填充
 			
 			warehouserpt.setRank(Constants.ROLE_RANK_OPERATOR);
-			warehouserpt.setStatus(Constants.WAREHOUSERPT_STATUS_APPLY);
+			warehouserpt.setStatus(Constants.FINANCE_STATUS_NEW);
 			//warehouserpt.setProductid(Long.valueOf(productid));
 			//入库单单号集合
 			warehouserpt.setParentid(warehousenos);
@@ -654,7 +654,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//快递公司ID==============================这里不做填充，等发货单时填充
 			
 			warehouserpt.setRank(Constants.ROLE_RANK_OPERATOR);
-			warehouserpt.setStatus(Constants.WAREHOUSERPT_STATUS_APPLY);
+			warehouserpt.setStatus(Constants.FINANCE_STATUS_NEW);
 			//入库单单号集合
 			warehouserpt.setParentid(warehousenos);
 			warehouserpt.setCreateuid(userid);
