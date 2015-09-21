@@ -383,7 +383,7 @@
 											<option value="99">已开票, 已收款</option>
 										</s:else>
 									</select>
-									<s:if test='%{updFinanceDto.mode == "2"}'>
+									<s:if test='%{updFinanceDto.mode == "1"}'>
 										<select id="status2" style="width: 300px;">
 									</s:if>
 									<s:else>
