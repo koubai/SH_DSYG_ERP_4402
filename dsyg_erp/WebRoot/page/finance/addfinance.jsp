@@ -330,7 +330,7 @@
 									<s:else>
 										<select id="status1" style="width: 300px;display: none;">
 									</s:else>
-										<s:if test="%{updFinanceDto.status == 2}">
+										<s:if test="%{updFinanceDto.status == 1}">
 											<option value="">请选择</option>
 											<option value="1" selected="selected">未收到发票, 未付款</option>
 											<option value="10">收到发票, 安排付款</option>
