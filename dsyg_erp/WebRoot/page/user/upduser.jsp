@@ -137,7 +137,8 @@
 							</td>
 						</tr>
 						<tr>
-							<td align="right">
+							<hidden name="updUserDto.belongto" id="belongto" value="0"></hidden>
+							<!-- <td align="right">
 								所属地
 								<select name="updUserDto.belongto" id="belongto" style="width: 100px;">
 									<s:if test="updUserDto.belongto == 0">
@@ -158,7 +159,7 @@
 									<s:else>
 									</s:else>
 								</select>
-							</td>						
+							</td> -->						
 							<td align="right"></td>
 							<td align="right"></td>
 							<td align="right"></td>
