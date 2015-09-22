@@ -325,12 +325,12 @@
 								<div class="box1_left"></div>
 								<div class="box1_center">
 									<s:if test='%{updFinanceDto.mode == "2"}'>
-										<select id="status1" style="width: 300px;display: none;">
+										<select id="status1" style="width: 300px;">
 									</s:if>
 									<s:else>
-										<select id="status1" style="width: 300px;">
+										<select id="status1" style="width: 300px;display: none;">
 									</s:else>
-										<s:if test="%{updFinanceDto.status == 1}">
+										<s:if test="%{updFinanceDto.status == 2}">
 											<option value="">请选择</option>
 											<option value="1" selected="selected">未收到发票, 未付款</option>
 											<option value="10">收到发票, 安排付款</option>
@@ -355,7 +355,7 @@
 											<option value="99">收到发票, 已付款</option>
 										</s:else>
 									</select>
-									<s:if test='%{updFinanceDto.mode == "2"}'>
+									<s:if test='%{updFinanceDto.mode == "1"}'>
 										<select id="status2" style="width: 300px;">
 									</s:if>
 									<s:else>

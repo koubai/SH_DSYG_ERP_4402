@@ -666,8 +666,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 			FinanceDto finance = new FinanceDto();
 			//类型=销售单
 			finance.setFinancetype(Constants.FINANCE_TYPE_SALES);
-			//销售单（付款）
-			finance.setMode("2");
+			//销售单（收款）
+			finance.setMode("1");
 			finance.setBelongto(belongto);
 			//单据号=出库单号
 			finance.setInvoiceid(warehouseno);
