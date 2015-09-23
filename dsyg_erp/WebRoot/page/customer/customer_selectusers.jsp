@@ -30,7 +30,7 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
-			window.dialogArguments.document.getElementById(customerindex).value=id; 
+			getOpener().document.getElementById(customerindex).value=id; 
 			window.close();
 		}
 	}

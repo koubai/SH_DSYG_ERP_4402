@@ -72,8 +72,8 @@
 	//页面关闭响应
 	//window.onunload = function() {
 		//刷新父页面
-		//window.dialogArguments.document.mainform.action = '<c:url value="/personal/queryEtbPersonalList.action"></c:url>';
-		//window.dialogArguments.document.mainform.submit();
+		//getOpener().document.mainform.action = '<c:url value="/personal/queryEtbPersonalList.action"></c:url>';
+		//getOpener().document.mainform.submit();
 	//};
 	
 	function closepage() {

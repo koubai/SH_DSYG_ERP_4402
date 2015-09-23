@@ -1,3 +1,31 @@
+function getOpener() {
+	var obj = window.dialogArguments;
+	if(obj == null || obj == undefined || obj == "undefined") {
+		obj = window.opener;
+	} else {
+		obj = window.dialogArguments;
+	}
+	return obj;
+}
+
+function getOpenerElement(id) {
+	var obj = window.dialogArguments;
+	if(obj == null || obj == undefined || obj == "undefined") {
+		return window.opener.document.getElementById(id);
+	} else {
+		return  window.dialogArguments.document.getElementById(id);
+	}
+}
+
+function getOpenerElementValue(id) {
+	var obj = window.dialogArguments;
+	if(obj == null || obj == undefined || obj == "undefined") {
+		return window.opener.document.getElementById(id).value;
+	} else {
+		return window.dialogArguments.document.getElementById(id).value;
+	}
+}
+
 function checkRadioTd(obj, evt) {
 	var tr = obj.parentNode;
 	var tds = tr.getElementsByTagName("td");

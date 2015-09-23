@@ -57,7 +57,7 @@
 	//
 	function addProductToParent(obj, id) {
 		//验证该产品是否在产品列表中
-		var productlist = window.dialogArguments.document.getElementById("productlist").value;
+		var productlist = getOpener().document.getElementById("productlist").value;
 		var products = "," + productlist;
 		if(products.indexOf("," + id + ",") >= 0) {
 			//alert("该产品已存在！");
@@ -68,13 +68,13 @@
 		var tds = tr.getElementsByTagName("td");
 		var inputs = tds[0].getElementsByTagName("input");
 		
-		var td0 = window.dialogArguments.document.createElement("td");
+		var td0 = getOpener().document.createElement("td");
 		td0.style.display = "none";
-		var tr = window.dialogArguments.document.createElement("tr");
+		var tr = getOpener().document.createElement("tr");
 		tr.appendChild(td0);
-		var td = window.dialogArguments.document.createElement("td");
+		var td = getOpener().document.createElement("td");
 		//单选框
-		var radio = window.dialogArguments.document.createElement("input");
+		var radio = getOpener().document.createElement("input");
 		radio.name = "itemRadio";
 		radio.type = "radio";
 		radio.value = id;
@@ -210,13 +210,13 @@
 		td = createTd(item10);
 		tr.appendChild(td);
 		
-		window.dialogArguments.document.getElementById("productlist").value = productlist + id + ",";
-		window.dialogArguments.document.getElementById("productData").appendChild(tr);
+		getOpener().document.getElementById("productlist").value = productlist + id + ",";
+		getOpener().document.getElementById("productData").appendChild(tr);
 	}
 	
 	//刷新投标公司序号和斑马线
 	function refreshParentBidExpertData() {
-		var rows = window.dialogArguments.document.getElementById("productData").rows;
+		var rows = getOpener().document.getElementById("productData").rows;
 		for(var i = 0; i < rows.length; i++) {
 			var num = i + 1;
 			rows[i].cells[2].innerHTML = num;
@@ -232,14 +232,14 @@
 	}
 	
 	function createTd(s) {
-		var td = window.dialogArguments.document.createElement("td");
-		td.appendChild(window.dialogArguments.document.createTextNode(s));
+		var td = getOpener().document.createElement("td");
+		td.appendChild(getOpener().document.createTextNode(s));
 		return td;
 	}
 	
 	function createTdInput(name, wid, maxlength, onblurevent, productid) {
-		var td = window.dialogArguments.document.createElement("td");
-		var input = window.dialogArguments.document.createElement("input");
+		var td = getOpener().document.createElement("td");
+		var input = getOpener().document.createElement("input");
 		//input.name = name;
 		input.id = name + "_" + productid;
 		input.style.width = wid + "px";
@@ -253,8 +253,8 @@
 	}
 	
 	function createTdInputAddValue(name, wid, maxlength, onblurevent, productid, v) {
-		var td = window.dialogArguments.document.createElement("td");
-		var input = window.dialogArguments.document.createElement("input");
+		var td = getOpener().document.createElement("td");
+		var input = getOpener().document.createElement("input");
 		//input.name = name;
 		input.id = name + "_" + productid;
 		input.style.width = wid + "px";
@@ -269,14 +269,14 @@
 	}
 	
 	function createHidden(s) {
-		var input = window.dialogArguments.document.createElement("input");
+		var input = getOpener().document.createElement("input");
 		input.type = "hidden";
 		input.value = s;
 		return input;
 	}
 	
 	function createHiddenAddAlt(s, id) {
-		var input = window.dialogArguments.document.createElement("input");
+		var input = getOpener().document.createElement("input");
 		input.type = "hidden";
 		input.value = s;
 		input.alt = id;

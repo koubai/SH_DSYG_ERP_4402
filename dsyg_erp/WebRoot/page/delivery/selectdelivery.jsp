@@ -40,13 +40,13 @@
 		var expressfax = inputs[5].value;
 		var expressmail = inputs[6].value;
 		
-		window.dialogArguments.document.getElementById("expressid").value = id;
-		window.dialogArguments.document.getElementById("expressname").value = expressname;
-		window.dialogArguments.document.getElementById("expressmanager").value = expressmanager;
-		window.dialogArguments.document.getElementById("expressaddress").value = expressaddress;
-		window.dialogArguments.document.getElementById("expresstel").value = expresstel;
-		window.dialogArguments.document.getElementById("expressfax").value = expressfax;
-		window.dialogArguments.document.getElementById("expressmail").value = expressmail;
+		getOpener().document.getElementById("expressid").value = id;
+		getOpener().document.getElementById("expressname").value = expressname;
+		getOpener().document.getElementById("expressmanager").value = expressmanager;
+		getOpener().document.getElementById("expressaddress").value = expressaddress;
+		getOpener().document.getElementById("expresstel").value = expresstel;
+		getOpener().document.getElementById("expressfax").value = expressfax;
+		getOpener().document.getElementById("expressmail").value = expressmail;
 		
 		window.close();
 	}

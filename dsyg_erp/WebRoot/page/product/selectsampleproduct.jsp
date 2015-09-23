@@ -78,8 +78,8 @@
 		//包装
 		var item10 = inputs[15].value;
 		
-		window.dialogArguments.document.getElementById("productid").value = id;
-		window.dialogArguments.document.getElementById("tradename").value = tradename;
+		getOpener().document.getElementById("productid").value = id;
+		getOpener().document.getElementById("tradename").value = tradename;
 	}
 	
 	function getSelectedID() {

@@ -40,13 +40,13 @@
 		var supplierfax = inputs[5].value;
 		var suppliermail = inputs[6].value;
 		
-		window.dialogArguments.document.getElementById("supplierid").value = id;
-		window.dialogArguments.document.getElementById("suppliername").value = suppliername;
-		window.dialogArguments.document.getElementById("suppliermanager").value = suppliermanager;
-		window.dialogArguments.document.getElementById("suppliermanageraddr").value = suppliermanageraddr;
-		window.dialogArguments.document.getElementById("suppliertel").value = suppliertel;
-		window.dialogArguments.document.getElementById("supplierfax").value = supplierfax;
-		window.dialogArguments.document.getElementById("suppliermail").value = suppliermail;
+		getOpener().document.getElementById("supplierid").value = id;
+		getOpener().document.getElementById("suppliername").value = suppliername;
+		getOpener().document.getElementById("suppliermanager").value = suppliermanager;
+		getOpener().document.getElementById("suppliermanageraddr").value = suppliermanageraddr;
+		getOpener().document.getElementById("suppliertel").value = suppliertel;
+		getOpener().document.getElementById("supplierfax").value = supplierfax;
+		getOpener().document.getElementById("suppliermail").value = suppliermail;
 		
 		window.close();
 	}

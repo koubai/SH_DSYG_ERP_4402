@@ -37,8 +37,8 @@
 					userIdList = userIdList + "," + id;
 			}
 		}
-		//window.dialogArguments.document.getElementById("showHanderList").value=userIdList;
-		window.dialogArguments.document.getElementById("handerList").value=userIdList;
+		//getOpener().document.getElementById("showHanderList").value=userIdList;
+		getOpener().document.getElementById("handerList").value=userIdList;
 		window.close();
 	}
 

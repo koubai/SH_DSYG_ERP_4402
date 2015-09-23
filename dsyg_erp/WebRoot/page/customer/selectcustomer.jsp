@@ -40,13 +40,13 @@
 		var customerfax = inputs[5].value;
 		var customermail = inputs[6].value;
 		
-		window.dialogArguments.document.getElementById("customerid").value = id;
-		window.dialogArguments.document.getElementById("customername").value = customername;
-		window.dialogArguments.document.getElementById("customermanager").value = customermanager;
-		window.dialogArguments.document.getElementById("customeraddress").value = customeraddress;
-		window.dialogArguments.document.getElementById("customertel").value = customertel;
-		window.dialogArguments.document.getElementById("customerfax").value = customerfax;
-		window.dialogArguments.document.getElementById("customermail").value = customermail;
+		getOpener().document.getElementById("customerid").value = id;
+		getOpener().document.getElementById("customername").value = customername;
+		getOpener().document.getElementById("customermanager").value = customermanager;
+		getOpener().document.getElementById("customeraddress").value = customeraddress;
+		getOpener().document.getElementById("customertel").value = customertel;
+		getOpener().document.getElementById("customerfax").value = customerfax;
+		getOpener().document.getElementById("customermail").value = customermail;
 		
 		window.close();
 	}

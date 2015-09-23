@@ -38,9 +38,9 @@
 		//品名
 		var tradename = inputs[3].value;
 		
-		window.dialogArguments.document.getElementById("productid").value = id;
-		window.dialogArguments.document.getElementById("productname").value = tradename;
-		window.dialogArguments.document.getElementById("tmpProductname").value = tradename;
+		getOpener().document.getElementById("productid").value = id;
+		getOpener().document.getElementById("productname").value = tradename;
+		getOpener().document.getElementById("tmpProductname").value = tradename;
 		window.close();
 	}
 	

@@ -15,7 +15,7 @@
 	//页面关闭响应
 	window.onunload = function() {
 		//刷新父页面
-		window.dialogArguments.window.location = window.dialogArguments.window.location;
+		getOpener().window.location = getOpener().window.location;
 	};
 </script>
 </head>

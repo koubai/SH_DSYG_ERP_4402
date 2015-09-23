@@ -35,9 +35,9 @@
 		var userid = inputs[0].value;
 		var username = inputs[1].value;
 		
-		window.dialogArguments.document.getElementById("handler").value = userid;
-		window.dialogArguments.document.getElementById("handlername").value = username;
-		window.dialogArguments.document.getElementById("tmphandlername").value = username;
+		getOpener().document.getElementById("handler").value = userid;
+		getOpener().document.getElementById("handlername").value = username;
+		getOpener().document.getElementById("tmphandlername").value = username;
 		
 		window.close();
 	}
