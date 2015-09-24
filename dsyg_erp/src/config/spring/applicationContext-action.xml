@@ -176,6 +176,13 @@
 		</property>
 	</bean>
 
+	<!-- 请款 -->
+	<bean id="requestcashAction" class="com.cn.dsyg.action.RequestCashAction" scope="session">
+		<property name="requestcashService">
+			<ref bean="requestcashService"/>
+		</property>
+	</bean>
+
 	<!-- Sales -->
 	<bean id="salesAction" class="com.cn.dsyg.action.SalesAction" scope="session">
 		<property name="salesService">

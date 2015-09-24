@@ -452,5 +452,19 @@
 			<ref bean="sqlMapClient"/>
 		</property>
 	</bean>
+
+	<!-- 请款信息 -->
+	<bean id="requestcashService" class="com.cn.dsyg.service.impl.RequestCashServiceImpl" >
+		<property name="requestcashDao">
+			<ref local="requestcashDao"/>
+		</property>
+	</bean>
+	
+	<bean id="requestcashDao" class="com.cn.dsyg.dao.impl.RequestCashDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
 	
 </beans>
