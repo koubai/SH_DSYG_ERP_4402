@@ -114,4 +114,12 @@ public class RequestCashServiceImpl implements RequestCashService {
 	public void setRequestCashDao(RequestCashDao requestcashDao) {
 		this.requestcashDao = requestcashDao;
 	}
+
+	public RequestCashDao getRequestcashDao() {
+		return requestcashDao;
+	}
+
+	public void setRequestcashDao(RequestCashDao requestcashDao) {
+		this.requestcashDao = requestcashDao;
+	}
 }

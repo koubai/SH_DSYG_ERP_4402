@@ -1,8 +1,13 @@
 package com.cn.dsyg.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import com.cn.common.util.Constants;
+import com.cn.common.util.PropertiesConfig;
+import com.cn.dsyg.dao.Dict01Dao;
 import com.cn.dsyg.dao.SalesItemDao;
+import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.SalesItemDto;
 import com.cn.dsyg.service.SalesItemService;
 
@@ -15,10 +20,26 @@ import com.cn.dsyg.service.SalesItemService;
 public class SalesItemServiceImpl implements SalesItemService {
 	
 	private SalesItemDao salesItemDao;
+	private Dict01Dao dict01Dao;
 
 	@Override
 	public List<SalesItemDto> querySalesItemBySalesno(String salesno) {
-		return salesItemDao.querySalesItemBySalesno(salesno);
+		List<SalesItemDto> list = salesItemDao.querySalesItemBySalesno(salesno);
+		if(list != null && list.size() > 0) {
+			for(SalesItemDto item : list) {
+				BigDecimal rate = new BigDecimal(1);
+				//税率
+				List<Dict01Dto> listRate = dict01Dao.queryDict01ByFieldcode(Constants.DICT_RATE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+				if(listRate != null && listRate.size() > 0) {
+					rate = rate.add(new BigDecimal(listRate.get(0).getCode()));
+				}
+				if(item.getUnitprice() != null) {
+					//计算税后价格，保留4位有效数字
+					item.setTaxunitprice(item.getUnitprice().multiply(rate).setScale(4, BigDecimal.ROUND_HALF_UP));
+				}
+			}
+		}
+		return list;
 	}
 
 	@Override
@@ -53,5 +74,13 @@ public class SalesItemServiceImpl implements SalesItemService {
 
 	public void setSalesItemDao(SalesItemDao salesItemDao) {
 		this.salesItemDao = salesItemDao;
+	}
+
+	public Dict01Dao getDict01Dao() {
+		return dict01Dao;
+	}
+
+	public void setDict01Dao(Dict01Dao dict01Dao) {
+		this.dict01Dao = dict01Dao;
 	}
 }

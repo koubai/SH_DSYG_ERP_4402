@@ -41,10 +41,10 @@
 				return;
 			}
 			//计算未税金额
-			var purchaseAmount = tds[14].getElementsByTagName("input")[0].value;
+			var purchaseAmount = tds[15].getElementsByTagName("input")[0].value;
 			var taxamount = parseFloat(purchaseAmount) * (1 + parseFloat(rate));
 			//计算含税金额
-			tds[15].getElementsByTagName("input")[0].value = taxamount.toFixed(2);
+			tds[16].getElementsByTagName("input")[0].value = taxamount.toFixed(2);
 			//隐藏域
 			//销售金额未税
 			inputs[12].value = purchaseAmount;
@@ -59,10 +59,10 @@
 				return;
 			}
 			//销售金额已税
-			var purchaseTaxamount = tds[15].getElementsByTagName("input")[0].value;
+			var purchaseTaxamount = tds[16].getElementsByTagName("input")[0].value;
 			var amount = parseFloat(purchaseTaxamount) / (1 + parseFloat(rate));
 			//计算未税金额
-			tds[14].getElementsByTagName("input")[0].value = amount.toFixed(2);
+			tds[15].getElementsByTagName("input")[0].value = amount.toFixed(2);
 			
 			//隐藏域
 			//销售金额未税
@@ -89,17 +89,17 @@
 		}
 		
 		//销售金额不含税
-		$("#amount").val(calcAmount);
-		$("#tmpAmount").val(calcAmount);
+		$("#amount").val(calcAmount.toFixed(2));
+		$("#tmpAmount").val(calcAmount.toFixed(2));
 		
 		//销售金额含税
-		$("#taxamount").val(calcTaxamount);
-		$("#tmpTaxamount").val(calcTaxamount);
+		$("#taxamount").val(calcTaxamount.toFixed(2));
+		$("#tmpTaxamount").val(calcTaxamount.toFixed(2));
 		
 		//已付金额
 		if(paidamount == "") {
-			$("#paidamount").val(calcPaidamount);
-			$("#tmpPaidamount").val(calcPaidamount);
+			$("#paidamount").val(calcPaidamount.toFixed(2));
+			$("#tmpPaidamount").val(calcPaidamount.toFixed(2));
 		}
 	}
 	
@@ -130,7 +130,16 @@
 		} else if(type == "4") {
 			//是否实数check
 			if(!isReal(obj.value)) {
-				alert("销售价格格式不正确！");
+				alert("未税单价格式不正确！");
+				checkflag = ture;
+				obj.focus();
+				checkflag = false;
+				return;
+			}
+		} else if(type == "6") {
+			//是否实数check
+			if(!isReal(obj.value)) {
+				alert("已税单价格式不正确！");
 				checkflag = ture;
 				obj.focus();
 				checkflag = false;
@@ -155,7 +164,7 @@
 		//销售单货物数量
 		var salesQuantity = inputQuantitys[0].value;
 		//销售金额已税
-		var salesTaxamount = tds[15].getElementsByTagName("input")[0].value;
+		var salesTaxamount = tds[16].getElementsByTagName("input")[0].value;
 		//预出库数量
 		var beforeQuantity = beforeQuantitys[0].value;
 		if(salesQuantity == "") {
@@ -169,10 +178,26 @@
 			beforeQuantity = parseInt(beforeQuantity);
 		}
 		
+		//rate为税率
+		var rate = parseFloat($("#common_rate").val());
+		
 		//单价
 		var prices = tds[13].getElementsByTagName("input");
 		//var price = tds[13].innerHTML;
 		var price = prices[0].value;
+		//含税单价
+		var taxprices = tds[14].getElementsByTagName("input")[0].value;
+		
+		if(type == "6") {
+			//计算未税单价
+			price = parseFloat(taxprices) / (1 + rate);
+			tds[13].getElementsByTagName("input")[0].value = price.toFixed(4);
+		}
+		if(type == "4") {
+			//计算已税单价
+			taxprices = parseFloat(price) * (1 + rate);
+			tds[14].getElementsByTagName("input")[0].value = taxprices.toFixed(4);
+		}
 		
 		//已出库数量
 		var outquantity = inputs[14].value;
@@ -200,7 +225,7 @@
 		}
 		//销售金额未税
 		var amount = salesQuantity * parseFloat(price);
-		tds[14].getElementsByTagName("input")[0].value = amount.toFixed(2);
+		tds[15].getElementsByTagName("input")[0].value = amount.toFixed(2);
 		
 		//补充隐藏TD中的数据内容
 		//===============================================
@@ -214,14 +239,12 @@
 		//销售金额未税
 		inputs[12].value = amount.toFixed(2);
 		
-		//销售金额已税rate为税率
-		var rate = parseFloat($("#common_rate").val());
-		
+		//销售金额已税
 		//销售金额已税=未税金额 * (1 + rate)
 		var vv = amount * (1 + rate);
 		inputs[13].value = vv.toFixed(2);
 		//输入框金额也对应变更
-		tds[15].getElementsByTagName("input")[0].value = vv.toFixed(2);
+		tds[16].getElementsByTagName("input")[0].value = vv.toFixed(2);
 		
 		//销售金额未税
 		var calcAmount = 0;
@@ -242,17 +265,17 @@
 		}
 		
 		//销售金额不含税
-		$("#amount").val(calcAmount);
-		$("#tmpAmount").val(calcAmount);
+		$("#amount").val(calcAmount.toFixed(2));
+		$("#tmpAmount").val(calcAmount.toFixed(2));
 		
 		//销售金额含税
-		$("#taxamount").val(calcTaxamount);
-		$("#tmpTaxamount").val(calcTaxamount);
+		$("#taxamount").val(calcTaxamount.toFixed(2));
+		$("#tmpTaxamount").val(calcTaxamount.toFixed(2));
 		
 		//已付金额
 		if(paidamount == "") {
-			$("#paidamount").val(calcPaidamount);
-			$("#tmpPaidamount").val(calcPaidamount);
+			$("#paidamount").val(calcPaidamount.toFixed(2));
+			$("#tmpPaidamount").val(calcPaidamount.toFixed(2));
 		}
 		/*
 		if(salesTaxamount == "") {
@@ -962,6 +985,7 @@
 											<td width="70">已出库数</td>
 											<td width="70">未出库数</td>
 											<td width="90">未税单价</td>
+											<td width="90">已税单价</td>
 											<td width="110">销售金额（未税）</td>
 											<td width="110">销售金额（含税）</td>
 											<td width="110">包装</td>
@@ -1035,6 +1059,9 @@
 													<td><br /></td>
 													<td>
 														<input type="text" style="width: 80px;" id="tmpUnitprice_<s:property value="productid"/>" onblur="calcquantity(this, '4');" maxlength="11" value="<s:property value="unitprice"/>"/>
+													</td>
+													<td>
+														<input type="text" style="width: 80px;" id="tmpTaxUnitprice_<s:property value="productid"/>" onblur="calcquantity(this, '6');" maxlength="11" value="<s:property value="taxunitprice"/>"/>
 													</td>
 													<td>
 														<input type="text" style="width: 80px;" id="tmpAmount_<s:property value="productid"/>" onblur="calcAmount(this, '1');" maxlength="13" value="<s:property value="amount"/>"/>

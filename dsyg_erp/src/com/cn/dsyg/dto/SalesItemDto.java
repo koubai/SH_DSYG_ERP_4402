@@ -113,6 +113,11 @@ public class SalesItemDto extends BaseAction {
 	 * 销售单价
 	 */
 	private BigDecimal unitprice;
+	
+	/**
+	 * 销售单价（税后）
+	 */
+	private BigDecimal taxunitprice;
 
 	/**
 	 * 金额
@@ -581,5 +586,13 @@ public class SalesItemDto extends BaseAction {
 
 	public void setItem01(String item01) {
 		this.item01 = item01;
+	}
+
+	public BigDecimal getTaxunitprice() {
+		return taxunitprice;
+	}
+
+	public void setTaxunitprice(BigDecimal taxunitprice) {
+		this.taxunitprice = taxunitprice;
 	}	
 }

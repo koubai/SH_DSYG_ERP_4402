@@ -62,6 +62,8 @@
 			return;
 		}
 		
+		var rate = $("#common_rate").val();
+		
 		//添加产品信息
 		var tr = obj.parentNode.parentNode;
 		var tds = tr.getElementsByTagName("td");
@@ -105,10 +107,19 @@
 		var packagingName = inputs[10].value;
 		//是否样品
 		var sampleflag = inputs[11].value;
-		//采购价格
+		
+		//采购价格（税前）
 		var purchaseprice = inputs[12].value;
-		//销售价格（这里使用销售价格）
+		//采购价格（税后）
+		var purchasetaxprice = parseFloat(purchaseprice) * (1 + parseFloat(rate));
+		purchasetaxprice = purchasetaxprice.toFixed(4);
+		
+		//销售价格
 		var salesprice = inputs[13].value;
+		//销售价格（税后）
+		var salestaxprice = parseFloat(salesprice) * (1 + parseFloat(rate));
+		salestaxprice = salestaxprice.toFixed(4);
+		
 		//产地
 		var makearea = inputs[14].value;
 		//包装
@@ -193,11 +204,16 @@
 		//未出库数量
 		td = createTd("0");
 		tr.appendChild(td);
-		//单价
-		//单价
+		
+		//税前单价
 		td = createTdInputAddValue("tmpUnitprice", wid, maxlength, "calcquantity(this, '4');", id, salesprice);
 		//td = createTd(purchaseprice);
 		tr.appendChild(td);
+		
+		//税后单价
+		td = createTdInputAddValue("tmpTaxUnitprice", wid, maxlength, "calcquantity(this, '6');", id, salestaxprice);
+		tr.appendChild(td);
+		
 		//销售金额未税
 		//td = createTd("0");
 		td = createTdInput("tmpAmount", wid, 13, "calcAmount(this, '1');", id);
@@ -342,6 +358,7 @@
 </head>
 <body style="background: url(''); overflow-x:hidden;overflow-y:hidden;">
 <s:form id="mainform" name="mainform" method="POST">
+	<s:hidden name="common_rate" id="common_rate"></s:hidden>
 	<s:hidden name="startIndex" id="startIndex"/>
 	<s:hidden name="intPageSize" id="intPageSize"/>
 	<s:hidden name="strCustomerId" id="strCustomerId"/>

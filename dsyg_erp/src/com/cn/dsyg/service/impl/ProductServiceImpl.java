@@ -229,7 +229,7 @@ public class ProductServiceImpl implements ProductService {
 		}
 		//包装
 		if(StringUtil.isNotBlank(product.getItem10())) {
-			keyword += product.getItem09() + ",";
+			keyword += product.getItem10() + ",";
 		}
 		//产地
 		if(StringUtil.isNotBlank(product.getMakearea())) {

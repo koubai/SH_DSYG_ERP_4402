@@ -159,7 +159,7 @@
 								<td width="60">颜色</td>
 								<td width="60">形式</td>
 								<td width="100">包装</td>
-								<td width="100">客户</td>
+								<td width="100">供应商／客户</td>
 								<td width="60">样品数量</td>
 								<td width="100">备注</td>
 								<td width="140">更新时间</td>

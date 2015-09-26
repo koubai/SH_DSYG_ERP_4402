@@ -156,6 +156,9 @@
 		<property name="salesItemDao">
 			<ref local="salesItemDao"/>
 		</property>
+		<property name="dict01Dao">
+			<ref local="dict01Dao"/>
+		</property>
 	</bean>
 	
 	<bean id="salesItemDao" class="com.cn.dsyg.dao.impl.SalesItemDaoImpl">
@@ -280,6 +283,9 @@
 	<bean id="purchaseItemService" class="com.cn.dsyg.service.impl.PurchaseItemServiceImpl" >
 		<property name="purchaseItemDao">
 			<ref local="purchaseItemDao"/>
+		</property>
+		<property name="dict01Dao">
+			<ref local="dict01Dao"/>
 		</property>
 	</bean>
 	
@@ -452,7 +458,7 @@
 			<ref bean="sqlMapClient"/>
 		</property>
 	</bean>
-
+	
 	<!-- 请款信息 -->
 	<bean id="requestcashService" class="com.cn.dsyg.service.impl.RequestCashServiceImpl" >
 		<property name="requestcashDao">
@@ -465,6 +471,5 @@
 			<ref bean="sqlMapClient"/>
 		</property>
 	</bean>
-	
 	
 </beans>

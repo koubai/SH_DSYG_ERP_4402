@@ -110,9 +110,14 @@ public class PurchaseItemDto extends BaseAction {
 	private Integer remainquantity;
 
 	/**
-	 * 采购单价
+	 * 采购单价（税前）
 	 */
 	private BigDecimal unitprice;
+	
+	/**
+	 * 采购单价（税后）
+	 */
+	private BigDecimal taxunitprice;
 
 	/**
 	 * 金额(未税)
@@ -581,5 +586,13 @@ public class PurchaseItemDto extends BaseAction {
 
 	public void setItem01(String item01) {
 		this.item01 = item01;
+	}
+
+	public BigDecimal getTaxunitprice() {
+		return taxunitprice;
+	}
+
+	public void setTaxunitprice(BigDecimal taxunitprice) {
+		this.taxunitprice = taxunitprice;
 	}
 }

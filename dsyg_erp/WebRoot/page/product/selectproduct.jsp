@@ -63,6 +63,7 @@
 			//alert("该产品已存在！");
 			return;
 		}
+		var rate = $("#common_rate").val();
 		//添加产品信息
 		var tr = obj.parentNode.parentNode;
 		var tds = tr.getElementsByTagName("td");
@@ -106,10 +107,19 @@
 		var packagingName = inputs[10].value;
 		//是否样品
 		var sampleflag = inputs[11].value;
-		//采购价格
+		
+		//采购价格（税前）
 		var purchaseprice = inputs[12].value;
+		//采购价格（税后）
+		var purchasetaxprice = parseFloat(purchaseprice) * (1 + parseFloat(rate));
+		purchasetaxprice = purchasetaxprice.toFixed(4);
+		
 		//销售价格
 		var salesprice = inputs[13].value;
+		//销售价格（税后）
+		var salestaxprice = parseFloat(salesprice) * (1 + parseFloat(rate));
+		salestaxprice = salestaxprice.toFixed(4);
+		
 		//产地
 		var makearea = inputs[14].value;
 		//包装
@@ -194,10 +204,16 @@
 		//未入库数量
 		td = createTd("0");
 		tr.appendChild(td);
-		//单价
+		
+		//税前单价
 		td = createTdInputAddValue("tmpUnitprice", wid, maxlength, "calcquantity(this, '4');", id, purchaseprice);
 		//td = createTd(purchaseprice);
 		tr.appendChild(td);
+		
+		//税后
+		td = createTdInputAddValue("tmpTaxUnitprice", wid, maxlength, "calcquantity(this, '6');", id, purchasetaxprice);
+		tr.appendChild(td);
+		
 		//采购金额未税
 		//td = createTd("0");
 		td = createTdInput("tmpAmount", wid, 13, "calcAmount(this, '1');", id);
