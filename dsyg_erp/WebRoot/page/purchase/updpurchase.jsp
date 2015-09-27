@@ -142,7 +142,7 @@
 		} else if(type == "6") {
 			//是否实数check
 			if(!isReal(obj.value)) {
-				alert("已税单价格式不正确！");
+				alert("含税单价格式不正确！");
 				checkflag = ture;
 				obj.focus();
 				checkflag = false;
@@ -920,9 +920,9 @@
 											<td width="70">已入库数</td>
 											<td width="70">未入库数</td>
 											<td width="90">未税单价</td>
-											<td width="90">已税单价</td>
+											<td width="90" style="background:#86e657;">含税单价</td>
 											<td width="110">采购金额（未税）</td>
-											<td width="110">采购金额（含税）</td>
+											<td width="110" style="background:#86e657;">采购金额（含税）</td>
 											<td width="110">包装</td>
 										</tr>
 										<tbody id="productData">

@@ -139,7 +139,7 @@
 		} else if(type == "6") {
 			//是否实数check
 			if(!isReal(obj.value)) {
-				alert("已税单价格式不正确！");
+				alert("含税单价格式不正确！");
 				checkflag = ture;
 				obj.focus();
 				checkflag = false;
@@ -194,7 +194,7 @@
 			tds[13].getElementsByTagName("input")[0].value = price.toFixed(4);
 		}
 		if(type == "4") {
-			//计算已税单价
+			//计算含税单价
 			taxprices = parseFloat(price) * (1 + rate);
 			tds[14].getElementsByTagName("input")[0].value = taxprices.toFixed(4);
 		}
@@ -970,25 +970,25 @@
 								</div>
 								<div class="tab_content" style="height: 175px;">
 									<table id="productTable" class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
-										<tr style="background:#eee; border-top:black solid 1px;">
+										<tr style="border-top:black solid 1px;">
 											<td style="width: 0px; display: none"></td>
-											<td width="30"></td>
-											<td width="35">序号</td>
-											<td width="60">类型</td>
-											<td width="100">品名</td>
-											<td width="90">规格</td>
-											<td width="35">颜色</td>
-											<td width="35">单位</td>
-											<td width="35">形式</td>
-											<td width="85">销售数量</td>
-											<td width="85">预出库数</td>
-											<td width="70">已出库数</td>
-											<td width="70">未出库数</td>
-											<td width="90">未税单价</td>
-											<td width="90">已税单价</td>
-											<td width="110">销售金额（未税）</td>
-											<td width="110">销售金额（含税）</td>
-											<td width="110">包装</td>
+											<td width="30" ></td>
+											<td width="35" >序号</td>
+											<td width="60" >类型</td>
+											<td width="100" >品名</td>
+											<td width="90" >规格</td>
+											<td width="35" >颜色</td>
+											<td width="35" >单位</td>
+											<td width="35" >形式</td>
+											<td width="85" >销售数量</td>
+											<td width="85" >预出库数</td>
+											<td width="70" >已出库数</td>
+											<td width="70" >未出库数</td>
+											<td width="90" >未税单价</td>
+											<td width="90" style="background:#86e657;">含税单价</td>
+											<td width="110" >销售金额（未税）</td>
+											<td width="110" style="background:#86e657;">销售金额（含税）</td>
+											<td width="110" >包装</td>
 										</tr>
 										<tbody id="productData">
 											<s:iterator id="addSalesItemList" value="addSalesItemList" status="st1">

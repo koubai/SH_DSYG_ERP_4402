@@ -45,7 +45,7 @@
 						<td width="20">序号</td>
 						<td width="60">供应商</td>
 						<td width="60">采购单号</td>
-						<td width="60">采购价</td>
+						<td width="60">采购价(未税)</td>
 						<td width="60">采购日期</td>
 					</tr>
 					<s:iterator id="purchaseItemList" value="purchaseItemList" status="st1">
