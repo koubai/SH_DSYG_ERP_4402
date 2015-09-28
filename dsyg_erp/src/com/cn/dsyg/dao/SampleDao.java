@@ -3,6 +3,7 @@ package com.cn.dsyg.dao;
 import java.util.List;
 
 import com.cn.dsyg.dto.SampleDto;
+import com.cn.dsyg.dto.SampleTotleDto;
 
 /**
  * @name SampleDao.java
@@ -11,6 +12,13 @@ import com.cn.dsyg.dto.SampleDto;
  * @version 1.0
  */
 public interface SampleDao {
+	
+	/**
+	 * 根据产品ID汇总
+	 * @param productid
+	 * @return
+	 */
+	public SampleTotleDto querySampleNumByProductId(String productid);
 
 	/**
 	 * 根据ID查询记录
@@ -25,12 +33,13 @@ public interface SampleDao {
 	 * @param productid
 	 * @param status
 	 * @param tradename
+	 * @param customername
 	 * @param start
 	 * @param end
 	 * @return
 	 */
 	public List<SampleDto> querySampleByPage(String warehousename,
-			String productid, String status, String tradename, int start, int end);
+			String productid, String status, String tradename, String customername, int start, int end);
 	
 	/**
 	 * 查询总记录数字
@@ -38,10 +47,11 @@ public interface SampleDao {
 	 * @param productid
 	 * @param status
 	 * @param tradename
+	 * @param customername
 	 * @return
 	 */
 	public int querySampleCountByPage(String warehousename,
-			String productid, String status, String tradename);
+			String productid, String status, String tradename, String customername);
 	
 	/**
 	 * 新增记录

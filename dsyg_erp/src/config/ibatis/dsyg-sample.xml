@@ -11,6 +11,9 @@
 		<result property="productid" column="productid" />
 		<result property="tradename" column="tradename" />
 		<result property="quantity" column="quantity" />
+		<result property="customertype" column="customertype" />
+		<result property="customerid" column="customerid" />
+		<result property="customername" column="customername" />
 		<result property="note" column="note" />
 		<result property="rank" column="rank" />
 		<result property="status" column="status" />
@@ -24,6 +27,16 @@
 		<result property="updateuid" column="updateuid" />
 		<result property="updatedate" column="updatedate" />
 	</resultMap>
+	
+	<resultMap id="SampleTotleDto" class="com.cn.dsyg.dto.SampleTotleDto">
+		<result property="productid" column="productid" />
+		<result property="total" column="total" />
+	</resultMap>
+	
+	<select id="querySampleNumByProductId" parameterClass="java.util.Map" resultMap="SampleTotleDto">
+		select productid,sum(quantity) as total from etb_sample where productid = #productid#
+			group by productid
+	</select>
 	
 	<select id="querySampleId" parameterClass="java.util.Map" resultMap="SampleDto">
 		select T.*,
@@ -49,6 +62,9 @@
 		<isNotEmpty prepend="and" property="tradename">
 			A.tradename like '%$tradename$%' ESCAPE '/'
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="customername">
+			A.customername like '%$customername$%' ESCAPE '/'
+		</isNotEmpty>
 		order by A.updatedate desc, A.id desc
 		LIMIT #start#, #end#
 	</select>
@@ -71,12 +87,15 @@
 		<isNotEmpty prepend="and" property="tradename">
 			A.tradename like '%$tradename$%' ESCAPE '/'
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="customername">
+			A.customername like '%$customername$%' ESCAPE '/'
+		</isNotEmpty>
 	</select>
 	
 	<insert id="insertSample" parameterClass="com.cn.dsyg.dto.SampleDto">
-		insert into etb_sample(warehousename,belongto,productid,quantity,note,rank,
+		insert into etb_sample(warehousename,belongto,productid,quantity,customertype,customerid,customername,note,rank,
 			status,res01,res02,res03,res04,res05,createuid,createdate,updateuid,updatedate)
-		values(#warehousename#,#belongto#,#productid#,#quantity#,#note#,#rank#,
+		values(#warehousename#,#belongto#,#productid#,#quantity#,#customertype#,#customerid#,#customername#,#note#,#rank#,
 			#status#,#res01#,#res02#,#res03#,#res04#,#res05#,#createuid#,NOW(),#updateuid#,NOW())
 	</insert>
 	
@@ -86,6 +105,9 @@
 			belongto = #belongto#,
 			productid = #productid#,
 			quantity = #quantity#,
+			customertype = #customertype#,
+			customerid = #customerid#,
+			customername = #customername#,
 			note = #note#,
 			rank = #rank#,
 			status = #status#,

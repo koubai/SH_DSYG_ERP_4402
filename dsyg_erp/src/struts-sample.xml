@@ -34,6 +34,10 @@
 			<result name="*">/page/sample/updsample.jsp</result>
 		</action>
 		
+		<action name="showSampleSumAction" class="sampleAction" method="showSampleSumAction">
+			<result name="*">/page/sample/samplesum.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

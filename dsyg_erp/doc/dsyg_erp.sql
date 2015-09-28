@@ -707,6 +707,9 @@ CREATE TABLE `etb_sample` (
   `belongto` varchar(16) DEFAULT NULL,
   `productid` varchar(20) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
+  `customertype` int(4) DEFAULT NULL COMMENT '客户类型，1为供应商，2为客户',
+  `customerid` varchar(20) DEFAULT NULL,
+  `customername` varchar(64) DEFAULT NULL,
   `note` varchar(500) DEFAULT NULL,
   `rank` int(2) DEFAULT NULL,
   `status` int(4) DEFAULT NULL,
@@ -720,11 +723,11 @@ CREATE TABLE `etb_sample` (
   `updateuid` varchar(32) DEFAULT NULL,
   `updatedate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 /*Data for the table `etb_sample` */
 
-insert  into `etb_sample`(`id`,`warehousename`,`belongto`,`productid`,`quantity`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (2,'SH01','0','20',21,'aa',50,1,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-13 00:14:30','admin','2015-09-13 00:14:30'),(3,'SH01','0','21',21,'aa',50,1,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-13 00:14:30','admin','2015-09-13 00:14:30'),(4,'SH01','0','22',21,'aa',50,1,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-13 00:14:30','admin','2015-09-13 00:14:30'),(5,'SH01','0','23',21,'aa',50,1,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-13 00:14:30','admin','2015-09-13 00:14:30'),(6,'SH01','0','1',21,'aa',50,1,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-13 00:14:30','admin','2015-09-13 00:14:30'),(7,'SH01','0','2',21,'aa',50,1,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-13 00:14:30','admin','2015-09-13 00:14:30'),(8,'SH01','0','3',21,'aa',50,1,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-13 00:14:30','admin','2015-09-13 00:14:30'),(9,'SH01','0','4',21,'aa',50,1,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-13 00:14:30','admin','2015-09-13 00:14:30'),(10,'SH01','0','5',21,'aa',50,1,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-13 00:14:30','admin','2015-09-13 00:14:30'),(11,'SH01','0','6',21,'aa',50,1,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-13 00:14:30','admin','2015-09-13 00:14:30'),(12,'SH01','0','7',21,'aa',50,1,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-13 00:14:30','admin','2015-09-13 00:14:30'),(13,'SH01','0','8',5555555,'aa',50,1,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-13 00:14:30','admin','2015-09-13 00:24:05'),(14,'SH01','0','9',2111,'aa111a',50,1,'2',NULL,NULL,NULL,NULL,'admin','2015-09-13 00:14:30','admin','2015-09-14 23:57:07'),(15,'SH01','0','25',11,'afdsa',50,1,'11',NULL,NULL,NULL,NULL,'admin','2015-09-14 23:57:36','admin','2015-09-14 23:57:36');
+insert  into `etb_sample`(`id`,`warehousename`,`belongto`,`productid`,`quantity`,`customertype`,`customerid`,`customername`,`note`,`rank`,`status`,`res01`,`res02`,`res03`,`res04`,`res05`,`createuid`,`createdate`,`updateuid`,`updatedate`) values (15,'SH01','0','9',-111,2,'5','通力','afdsa',50,1,'11',NULL,NULL,NULL,NULL,'admin','2015-09-14 23:57:36','admin','2015-09-28 21:25:11'),(16,'SH01','0','3',111,1,'3','供应商4','aa12',50,1,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-28 00:17:28','admin','2015-09-28 00:25:22'),(17,'SH01','0','9',110,1,'10','供应商10','da',50,1,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-28 00:58:13','admin','2015-09-28 21:25:25'),(18,'SH01','0','7',-3,2,'1','test11','ss',50,1,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-28 21:25:46','admin','2015-09-28 21:25:46'),(19,'SH01','0','10',4,1,'17','通力','da',50,1,NULL,NULL,NULL,NULL,NULL,'admin','2015-09-28 21:26:04','admin','2015-09-28 21:26:04');
 
 /*Table structure for table `etb_supplier` */
 

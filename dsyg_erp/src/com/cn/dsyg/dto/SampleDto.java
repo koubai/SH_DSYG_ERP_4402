@@ -67,6 +67,26 @@ public class SampleDto extends BaseDto {
 	private String quantity;
 	
 	/**
+	 * 数量（显示用）
+	 */
+	private String showQuantity;
+	
+	/**
+	 * 客户类型，1为供应商，2为客户
+	 */
+	private String customertype;
+	
+	/**
+	 * 客户ID
+	 */
+	private String customerid;
+	
+	/**
+	 * 客户名
+	 */
+	private String customername;
+	
+	/**
 	 * 备注
 	 */
 	private String note;
@@ -85,11 +105,6 @@ public class SampleDto extends BaseDto {
 	 * 客户ID
 	 */
 	private String res01;
-	
-	/**
-	 * 客户名
-	 */
-	private String customername;
 
 	/**
 	 * 预备项目2
@@ -317,5 +332,37 @@ public class SampleDto extends BaseDto {
 
 	public void setCustomername(String customername) {
 		this.customername = customername;
+	}
+
+	public String getCustomertype() {
+		return customertype;
+	}
+
+	public void setCustomertype(String customertype) {
+		this.customertype = customertype;
+	}
+
+	public String getCustomerid() {
+		return customerid;
+	}
+
+	public void setCustomerid(String customerid) {
+		this.customerid = customerid;
+	}
+
+	public String getShowQuantity() {
+		if(quantity != null && !"".equals(quantity)) {
+			int tmp = Integer.valueOf(quantity);
+			if(tmp <= 0) {
+				showQuantity = "" + (tmp * -1);
+			} else {
+				showQuantity = quantity;
+			}
+		}
+		return showQuantity;
+	}
+
+	public void setShowQuantity(String showQuantity) {
+		this.showQuantity = showQuantity;
 	}
 }

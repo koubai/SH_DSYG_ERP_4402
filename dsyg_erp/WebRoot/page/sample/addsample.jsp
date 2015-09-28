@@ -32,7 +32,12 @@
 		//客户名
 		var customername = $("#customername").val().trim();
 		
-		var quantity = $("#quantity").val().trim();
+		//供应商ID
+		var supplierid = $("#supplierid").val().trim();
+		//供应商名
+		var suppliername = $("#suppliername").val().trim();
+		
+		var tmpQuantity = $("#tmpQuantity").val().trim();
 		var tempNote = $("#tempNote").val().trim();
 		
 		if(productid == "") {
@@ -46,26 +51,57 @@
 			return;
 		}
 		
-		
-		if(customerid == "") {
-			alert("请选择客户！");
-			$("#customerid").focus();
+		var list = document.getElementsByName("tmpType");
+		var type = "";
+		for(var i = 0; i < list.length; i++) {
+			if(list[i].checked) {
+				type = list[i].value;
+				break;
+			}
+		}
+		if(type == "") {
+			alert("请选择类型！");
 			return;
 		}
-		if(customername == "") {
-			alert("请选择客户！");
-			$("#customername").focus();
-			return;
+		
+		if(type == "1") {
+			if(supplierid == "") {
+				alert("请选择供应商！");
+				$("#supplierid").focus();
+				return;
+			}
+			if(suppliername == "") {
+				alert("请选择供应商！");
+				$("#suppliername").focus();
+				return;
+			}
+			$("#customertype").val(type);
+			$("#sampleCustomerid").val(supplierid);
+			$("#sampleCustomername").val(suppliername);
+		} else if(type == "2") {
+			if(customerid == "") {
+				alert("请选择客户！");
+				$("#customerid").focus();
+				return;
+			}
+			if(customername == "") {
+				alert("请选择客户！");
+				$("#customername").focus();
+				return;
+			}
+			$("#customertype").val(type);
+			$("#sampleCustomerid").val(customerid);
+			$("#sampleCustomername").val(customername);
 		}
 		
-		if(quantity == "") {
+		if(tmpQuantity == "") {
 			alert("数量不能为空！");
-			$("#quantity").focus();
+			$("#tmpQuantity").focus();
 			return;
 		}
-		if(!isNumber(quantity)) {
+		if(!isNumber(tmpQuantity)) {
 			alert("数量必须是大于0的数字！");
-			$("#quantity").focus();
+			$("#tmpQuantity").focus();
 			return;
 		}
 		if(tempNote ==  "") {
@@ -78,6 +114,7 @@
 			$("#tempNote").focus();
 			return false;
 		}
+		$("#quantity").val(tmpQuantity);
 		//备注
 		$("#note").val($("#tempNote").val());
 		return true;
@@ -96,6 +133,41 @@
 		var url = "../customer/showSelectCustomerAction.action";
 		url += "?date=" + new Date();
 		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	}
+	
+	//供应商
+	function selectSupplier() {
+		var url = "../supplier/showSelectSupplierAction.action";
+		url += "?date=" + new Date();
+		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	}
+	
+	function selectType(obj) {
+		if(obj.checked) {
+			if(obj.value == "1") {
+				//供应商
+				$("#labSupplier").show();
+				$("#suppliername").show();
+				$("#btnSupplier").show();
+				$("#labCustomer").hide();
+				$("#customername").hide();
+				$("#btnCustomer").hide();
+				
+				$("#customername").val("");
+				$("#customerid").val("");
+			} else if(obj.value == "2") {
+				//客户
+				$("#labSupplier").hide();
+				$("#suppliername").hide();
+				$("#btnSupplier").hide();
+				$("#labCustomer").show();
+				$("#customername").show();
+				$("#btnCustomer").show();
+				
+				$("#suppliername").val("");
+				$("#supplierid").val("");
+			}
+		}
 	}
 	
 	function goBack() {
@@ -118,7 +190,12 @@
 			<s:form id="mainform" name="mainform" method="POST" enctype="multipart/form-data">
 				<s:hidden name="addSampleDto.note" id="note"></s:hidden>
 				<s:hidden name="addSampleDto.productid" id="productid"></s:hidden>
-				<s:hidden name="addSampleDto.res01" id="customerid"></s:hidden>
+				
+				<s:hidden name="addSampleDto.quantity" id="quantity"></s:hidden>
+				
+				<s:hidden name="addSampleDto.customertype" id="customertype"></s:hidden>
+				<s:hidden name="addSampleDto.customerid" id="sampleCustomerid"></s:hidden>
+				<s:hidden name="addSampleDto.customername" id="sampleCustomername"></s:hidden>
 				<div class="searchbox update" style="height:0px;">
 					<table width="100%" border="0" cellpadding="5" cellspacing="0">
 						<tr>
@@ -143,7 +220,37 @@
 								</div>
 							</td>
 							<td align="right">
-								<label class="pdf10"><font color="red">*</font>客户</label>
+								<label class="pdf10"><font color="red">*</font>类型</label>
+							</td>
+							<td>
+								<s:if test='addSampleDto.customertype == "1"'>
+									<input name="tmpType" type="radio" checked="checked" value="1" onclick="selectType(this);"/>收到
+									<input name="tmpType" type="radio" value="2" onclick="selectType(this);"/>送出
+								</s:if>
+								<s:elseif test='addSampleDto.customertype == "2"'>
+									<input name="tmpType" type="radio" value="1" onclick="selectType(this);"/>收到
+									<input name="tmpType" type="radio" checked="checked" value="2" onclick="selectType(this);"/>送出
+								</s:elseif>
+								<s:else>
+									<input name="tmpType" type="radio" value="1" onclick="selectType(this);"/>收到
+									<input name="tmpType" type="radio" checked="checked" value="2" onclick="selectType(this);"/>送出
+								</s:else>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<s:if test='addSampleDto.customertype == "1"'>
+									<label class="pdf10" id="labCustomer" style="display: none;"><font color="red">*</font>客户</label>
+									<label class="pdf10" id="labSupplier"><font color="red">*</font>供应商</label>
+								</s:if>
+								<s:elseif test='addSampleDto.customertype == "2"'>
+									<label class="pdf10" id="labCustomer"><font color="red">*</font>客户</label>
+									<label class="pdf10" id="labSupplier" style="display: none;"><font color="red">*</font>供应商</label>
+								</s:elseif>
+								<s:else>
+									<label class="pdf10" id="labCustomer"><font color="red">*</font>客户</label>
+									<label class="pdf10" id="labSupplier" style="display: none;"><font color="red">*</font>供应商</label>
+								</s:else>
 							</td>
 							<td>
 								<div class="box1_left"></div>
@@ -153,26 +260,55 @@
 									<input type="hidden" id="customertel"/>
 									<input type="hidden" id="customerfax"/>
 									<input type="hidden" id="customermail"/>
-									<s:textfield name="addSampleDto.customername" id="customername" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
+									<input type="hidden" id="customerid" value="<s:property value="addSampleDto.customerid"/>"/>
+									
+									<input type="hidden" id="suppliermanager"/>
+									<input type="hidden" id="suppliermanageraddr"/>
+									<input type="hidden" id="suppliertel"/>
+									<input type="hidden" id="supplierfax"/>
+									<input type="hidden" id="suppliermail"/>
+									<input type="hidden" id="supplierid" value="<s:property value="addSampleDto.customerid"/>"/>
+									
+									<s:if test='addSampleDto.customertype == "1"'>
+										<input type="text" id="customername" style="width:300px; display: none;" maxlength="64" value=""/>
+										<input type="text" id="suppliername" style="width:300px;" maxlength="64" value="<s:property value="addSampleDto.customername"/>"/>
+									</s:if>
+									<s:elseif test='addSampleDto.customertype == "2"'>
+										<input type="text" id="customername" style="width:300px;" maxlength="64" value="<s:property value="addSampleDto.customername"/>"/>
+										<input type="text" id="suppliername" style="width:300px; display: none;" maxlength="64" value=""/>
+									</s:elseif>
+									<s:else>
+										<input type="text" id="customername" style="width:300px;" maxlength="64" value="<s:property value="addSampleDto.customername"/>"/>
+										<input type="text" id="suppliername" style="width:300px; display: none;" maxlength="64" value=""/>
+									</s:else>
 								</div>
 								<div class="box1_right"></div>
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input40" type="button" value="检索" onclick="selectCustomer();" />
+										<s:if test='addSampleDto.customertype == "1"'>
+											<input id="btnCustomer" class="input40" style="display: none;" type="button" value="检索" onclick="selectCustomer();" />
+											<input id="btnSupplier" class="input40" type="button" value="检索" onclick="selectSupplier();" />
+										</s:if>
+										<s:elseif test='addSampleDto.customertype == "2"'>
+											<input id="btnCustomer" class="input40" type="button" value="检索" onclick="selectCustomer();" />
+											<input id="btnSupplier" class="input40" style="display: none;" type="button" value="检索" onclick="selectSupplier();" />
+										</s:elseif>
+										<s:else>
+											<input id="btnCustomer" class="input40" type="button" value="检索" onclick="selectCustomer();" />
+											<input id="btnSupplier" class="input40" style="display: none;" type="button" value="检索" onclick="selectSupplier();" />
+										</s:else>
 									</div>
 									<div class="box1_right"></div>
 								</div>
 							</td>
-						</tr>
-						<tr>
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>数量</label>
 							</td>
-							<td colspan="3">
+							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="addSampleDto.quantity" id="quantity" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
+									<input type="text" id="tmpQuantity" style="width:300px;" maxlength="64" value="<s:property value="addSampleDto.showQuantity"/>"/>
 								</div>
 								<div class="box1_right"></div>
 							</td>
