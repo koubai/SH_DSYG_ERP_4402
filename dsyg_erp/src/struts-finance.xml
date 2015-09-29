@@ -130,6 +130,10 @@
 			<result name="*">/page/finance/updfinanceexpress.jsp</result>
 		</action>
 		
+		<action name="showEtbPregatheringAction" class="pregatheringAction" method="showEtbPregatheringAction">
+			<result name="*">/page/pregathering/gatheringlist.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

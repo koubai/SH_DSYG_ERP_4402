@@ -472,4 +472,16 @@
 		</property>
 	</bean>
 	
+	<!-- 信息 -->
+	<bean id="pregatheringService" class="com.cn.dsyg.service.impl.PregatheringServiceImpl" >
+		<property name="pregatheringDao">
+			<ref local="pregatheringDao"/>
+		</property>
+	</bean>
+	
+	<bean id="pregatheringDao" class="com.cn.dsyg.dao.impl.PregatheringDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
 </beans>
