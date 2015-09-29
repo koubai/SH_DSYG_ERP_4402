@@ -13,6 +13,7 @@ import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.SampleDto;
+import com.cn.dsyg.dto.SampleTotleDto;
 import com.cn.dsyg.service.Dict01Service;
 import com.cn.dsyg.service.ProductService;
 import com.cn.dsyg.service.SampleService;
@@ -43,7 +44,10 @@ public class SampleAction extends BaseAction {
 	private List<SampleDto> sampleList;
 	
 	//查询条件
+	//品名
 	private String strTradename;
+	//客户名
+	private String strCustomername;
 	
 	//采购主题
 	private List<Dict01Dto> goodsList;
@@ -60,6 +64,25 @@ public class SampleAction extends BaseAction {
 	//修改
 	private SampleDto updSampleDto;
 	private String updSampleId;
+	
+	//样品汇总
+	private String strProductid;
+	private SampleTotleDto sampleTotleDto;
+	
+	/**
+	 * 显示样品汇总页面
+	 * @return
+	 */
+	public String showSampleSumAction() {
+		try {
+			this.clearMessages();
+			sampleTotleDto = sampleService.querySampleNumByProductId(strProductid);
+		} catch(Exception e) {
+			log.error("showSampleSumAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 	
 	/**
 	 * 显示修改样品页面
@@ -152,6 +175,8 @@ public class SampleAction extends BaseAction {
 		try {
 			this.clearMessages();
 			updSampleId = "";
+			strTradename = "";
+			strCustomername = "";
 			sampleList = new ArrayList<SampleDto>();
 			startIndex = 0;
 			//默认10条
@@ -213,7 +238,7 @@ public class SampleAction extends BaseAction {
 		initDictList();
 		//翻页查询所有入库汇总记录
 		this.page.setStartIndex(startIndex);
-		page = sampleService.querySampleByPage("", "", "", strTradename, page);
+		page = sampleService.querySampleByPage("", "", "", strTradename, strCustomername, page);
 		sampleList = (List<SampleDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -246,8 +271,32 @@ public class SampleAction extends BaseAction {
 			this.addActionMessage("请选择产品！");
 			return false;
 		}
-		if(StringUtil.isBlank(sample.getRes01())) {
-			this.addActionMessage("请选择客户！");
+		if(StringUtil.isBlank(sample.getCustomertype())) {
+			this.addActionMessage("请选择类型！");
+			return false;
+		}
+		if("1".equals(sample.getCustomertype())) {
+			//供应商
+			if(StringUtil.isBlank(sample.getCustomerid())) {
+				this.addActionMessage("请选择供应商！");
+				return false;
+			}
+			if(StringUtil.isBlank(sample.getCustomername())) {
+				this.addActionMessage("请选择供应商！");
+				return false;
+			}
+		} else if("2".equals(sample.getCustomertype())) {
+			//客户
+			if(StringUtil.isBlank(sample.getCustomerid())) {
+				this.addActionMessage("请选择客户！");
+				return false;
+			}
+			if(StringUtil.isBlank(sample.getCustomername())) {
+				this.addActionMessage("请选择客户！");
+				return false;
+			}
+		} else {
+			this.addActionMessage("类型不正确！");
 			return false;
 		}
 		if(StringUtil.isBlank(sample.getQuantity())) {
@@ -379,5 +428,29 @@ public class SampleAction extends BaseAction {
 
 	public void setStrTradename(String strTradename) {
 		this.strTradename = strTradename;
+	}
+
+	public String getStrCustomername() {
+		return strCustomername;
+	}
+
+	public void setStrCustomername(String strCustomername) {
+		this.strCustomername = strCustomername;
+	}
+
+	public String getStrProductid() {
+		return strProductid;
+	}
+
+	public void setStrProductid(String strProductid) {
+		this.strProductid = strProductid;
+	}
+
+	public SampleTotleDto getSampleTotleDto() {
+		return sampleTotleDto;
+	}
+
+	public void setSampleTotleDto(SampleTotleDto sampleTotleDto) {
+		this.sampleTotleDto = sampleTotleDto;
 	}
 }

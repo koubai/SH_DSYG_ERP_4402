@@ -2,6 +2,7 @@ package com.cn.dsyg.service;
 
 import com.cn.common.util.Page;
 import com.cn.dsyg.dto.SampleDto;
+import com.cn.dsyg.dto.SampleTotleDto;
 
 /**
  * @name SampleService.java
@@ -10,6 +11,13 @@ import com.cn.dsyg.dto.SampleDto;
  * @version 1.0
  */
 public interface SampleService {
+	
+	/**
+	 * 根据产品ID汇总
+	 * @param productid
+	 * @return
+	 */
+	public SampleTotleDto querySampleNumByProductId(String productid);
 
 	/**
 	 * 根据ID查询记录
@@ -24,11 +32,12 @@ public interface SampleService {
 	 * @param productid
 	 * @param status
 	 * @param tradename
+	 * @param customername
 	 * @param page
 	 * @return
 	 */
 	public Page querySampleByPage(String warehousename,
-			String productid, String status, String tradename, Page page);
+			String productid, String status, String tradename, String customername, Page page);
 	
 	/**
 	 * 新增记录
