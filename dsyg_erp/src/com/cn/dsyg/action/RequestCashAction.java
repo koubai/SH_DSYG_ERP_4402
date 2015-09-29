@@ -19,7 +19,7 @@ import com.cn.dsyg.service.RequestCashService;
 import com.opensymphony.xwork2.ActionContext;
 
 /**
- * 销售报告Action
+ * 请款报告Action
  * @author 
  * @time 
  * @version 1.0
@@ -47,58 +47,58 @@ public class RequestCashAction extends BaseAction {
 	private Integer intPageSize;
 	
 	/**
-	 * 销售报告列表
+	 * 请款报告列表
 	 */
 	private List<RequestCashDto> listRequestCash;
 	
 	/**
-	 * 销售报告编号（起）
+	 * 请款报告编号（起）
 	 */
 	private String strRequestCashNoLow;
 	
 	/**
-	 * 销售报告编号（终）
+	 * 请款报告编号（终）
 	 */
 	private String strRequestCashNoHigh;
 	
 	/**
-	 * 销售报告名称
+	 * 请款报告名称
 	 */
 	private String strRequestCashName;
 	
 	/**
-	 * 新增销售报告对象
+	 * 新增请款报告对象
 	 */
 	private RequestCashDto addRequestCashDto;
 	
 	/**
-	 * 修改的销售报告编号
+	 * 修改的请款报告编号
 	 */
 	private String updateRequestCashNo;
 	
 	/**
-	 * 修改销售报告对象
+	 * 修改请款报告对象
 	 */
 	private RequestCashDto updateRequestCashDto;
 	
 	/**
-	 * 删除的销售报告编号
+	 * 删除的请款报告编号
 	 */
 	private String delRequestCashNo;
 	
 	/**
-	 * ajax查询条件-销售报告编号
+	 * ajax查询条件-请款报告编号
 	 */
 	private String queryRequestCashNo;
 	
-	//销售报告查询页面（共通）
+	//请款报告查询页面（共通）
 	/**
-	 * 销售报告信息页码
+	 * 请款报告信息页码
 	 */
 	private int startIndexRequestCash;
 	
 	/**
-	 * 销售报告信息翻页
+	 * 请款报告信息翻页
 	 */
 	private Page pageRequestCash;
 	
@@ -128,7 +128,7 @@ public class RequestCashAction extends BaseAction {
 	private File updReportFile03;
 
 	/**
-	 * 显示销售报告页面
+	 * 显示请款报告页面
 	 * @return
 	 */
 	public String showRequestCashAction() {
@@ -155,7 +155,7 @@ public class RequestCashAction extends BaseAction {
 	}
 	
 	/**
-	 * 查询销售报告列表
+	 * 查询请款报告列表
 	 * @return
 	 */
 	public String queryRequestCashList() {
@@ -191,7 +191,7 @@ public class RequestCashAction extends BaseAction {
 	}
 	
 	/**
-	 * 翻页查询所有销售报告列表
+	 * 翻页查询所有请款报告列表
 	 */
 	@SuppressWarnings("unchecked")
 	private void queryRequestCash() {
@@ -199,7 +199,7 @@ public class RequestCashAction extends BaseAction {
 		if(page == null) {
 			page = new Page(intPageSize);
 		}
-		//翻页查询所有销售报告
+		//翻页查询所有请款报告
 		this.page.setStartIndex(startIndex);
 		page = requestCashService.queryRequestCashByPage(page, strRequestCashNoLow, strRequestCashNoHigh, strRequestCashName);
 		listRequestCash = (List<RequestCashDto>) page.getItems();
@@ -208,7 +208,7 @@ public class RequestCashAction extends BaseAction {
 	}
 	
 	/**
-	 * 显示添加销售报告页面
+	 * 显示添加请款报告页面
 	 * @return
 	 */
 	public String showAddRequestCashAction() {
@@ -222,7 +222,7 @@ public class RequestCashAction extends BaseAction {
 	}
 	
 	/**
-	 * 添加销售报告
+	 * 添加请款报告
 	 * @return
 	 */
 	public String addRequestCashAction() {
@@ -234,10 +234,10 @@ public class RequestCashAction extends BaseAction {
 			}
 			log.info("addRequestCashDto.getRequestCashno()=" + addRequestCashDto.getRequestcashno());
 			log.info("addRequestCashDto.getRequestCashname()=" + addRequestCashDto.getRequestcashname());
-			//校验销售报告代码是否存在
+			//校验请款报告代码是否存在
 			RequestCashDto requestCash = requestCashService.queryAllRequestCashByID(addRequestCashDto.getRequestcashno()+"");
 			if(requestCash != null) {
-				this.addActionMessage("销售报告已经存在！");
+				this.addActionMessage("请款报告已经存在！");
 				return "checkerror";
 			}
 			
@@ -263,10 +263,10 @@ public class RequestCashAction extends BaseAction {
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			addRequestCashDto.setCreateuid(username);
 			String requestCashno = requestCashService.insertRequestCash(addRequestCashDto);
-			this.addActionMessage("添加销售报告成功！销售报告编号为：" + requestCashno);
+			this.addActionMessage("添加请款报告成功！请款报告编号为：" + requestCashno);
 			addRequestCashDto = new RequestCashDto();
 		} catch(Exception e) {
-			this.addActionMessage("系统异常，添加销售报告失败！");
+			this.addActionMessage("系统异常，添加请款报告失败！");
 			log.error("addRequestCashAction error:" + e);
 			return "checkerror";
 		}
@@ -274,7 +274,7 @@ public class RequestCashAction extends BaseAction {
 	}
 	
 	/**
-	 * 显示修改销售报告页面
+	 * 显示修改请款报告页面
 	 * @return
 	 */
 	public String showUpdRequestCashAction() {
@@ -290,7 +290,7 @@ public class RequestCashAction extends BaseAction {
 				return "checkerror";
 			}
 		} catch(Exception e) {
-			this.addActionMessage("系统错误，查询销售报告异常！");
+			this.addActionMessage("系统错误，查询请款报告异常！");
 			log.error("showUpdRequestCashAction error:" + e);
 			return "checkerror";
 		}
@@ -298,7 +298,7 @@ public class RequestCashAction extends BaseAction {
 	}
 	
 	/**
-	 * 修改销售报告
+	 * 修改请款报告
 	 * @return
 	 */
 	public String updRequestCashAction() {
@@ -338,13 +338,13 @@ public class RequestCashAction extends BaseAction {
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			updateRequestCashDto.setUpdateuid(username);
 			requestCashService.updateRequestCash(updateRequestCashDto);
-			this.addActionMessage("修改销售报告成功！");
+			this.addActionMessage("修改请款报告成功！");
 			//清空数据
 			updReportFile01 = null;
 			updReportFile02 = null;
 			updReportFile03 = null;
 		} catch(Exception e) {
-			this.addActionMessage("系统异常，修改销售报告失败！");
+			this.addActionMessage("系统异常，修改请款报告失败！");
 			log.error("updRequestCashAction error:" + e);
 			return ERROR;
 		}
@@ -352,20 +352,20 @@ public class RequestCashAction extends BaseAction {
 	}
 	
 	/**
-	 * 删除销售报告
+	 * 删除请款报告
 	 * @return
 	 */
 	public String delRequestCashAction() {
 		try {
 			this.clearMessages();
 			if(StringUtil.isBlank(delRequestCashNo)) {
-				this.addActionMessage("销售报告代码为空！");
+				this.addActionMessage("请款报告代码为空！");
 				return "checkerror";
 			}
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			//删除
 			requestCashService.deleteRequestCash(delRequestCashNo, username);
-			this.addActionMessage("删除销售报告成功！");
+			this.addActionMessage("删除请款报告成功！");
 			delRequestCashNo = "";
 			//刷新页面
 			startIndex = 0;
@@ -384,19 +384,19 @@ public class RequestCashAction extends BaseAction {
 	 */
 	private boolean checkData(RequestCashDto requestCash) {
 		if(requestCash == null) {
-			this.addActionMessage("销售报告名称不能为空！");
+			this.addActionMessage("请款报告名称不能为空！");
 			return false;
 		}
 //		if(StringUtil.isBlank(requestCash.getRequestCashno()+"")) {
-//			this.addActionMessage("销售报告代码不能为空！");
+//			this.addActionMessage("请款报告代码不能为空！");
 //			return false;
 //		}
 		if(StringUtil.isBlank(requestCash.getRequestcashname())) {
-			this.addActionMessage("销售报告名称不能为空！");
+			this.addActionMessage("请款报告名称不能为空！");
 			return false;
 		}
 		if(requestCash.getRequestcashname().length() > 64) {
-			this.addActionMessage("销售报告名称不能超过64个字符！");
+			this.addActionMessage("请款报告名称不能超过64个字符！");
 			return false;
 		}
 		if(!DateUtil.isDate(requestCash.getRegisterdate().toString())) {
