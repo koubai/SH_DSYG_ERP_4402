@@ -150,6 +150,7 @@ public class PregatheringAction extends BaseAction {
 			}
 			page = new Page(intPageSize);
 			startIndex = 0;
+			log.info("AAAAAAA");
 			queryEtbPregathering();
 		} catch(Exception e) {
 			log.error(e);

@@ -187,14 +187,14 @@
 								<td width="10%">预收款日期</td>
 								<td width="15%">备注</td>
 							</tr>
-							<s:iterator id="listAssets" value="listAssets" status="st1">
+							<s:iterator id="listPregathering" value="listPregathering" status="st1">
 								<s:if test="#st1.odd==true">
 									<tr class="tr_bg">
 								</s:if>
 								<s:else>
 									<tr>
 								</s:else>
-									<td><input name="radioKey" type="radio" value="<s:property value="assetsno"/>"/></td>
+									<td><input name="radioKey" type="radio" value="<s:property value="pregatheringno"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
 									<td><s:property value="pregatheringno"/></td>
 									<td>

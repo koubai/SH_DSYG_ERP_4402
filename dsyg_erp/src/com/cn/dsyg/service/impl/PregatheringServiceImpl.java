@@ -34,6 +34,7 @@ public class PregatheringServiceImpl implements PregatheringService {
 		pregatheringNoLow = StringUtil.replaceDatabaseKeyword_mysql(pregatheringNoLow);
 		//查询总记录数
 		int totalCount = pregatheringDao.queryEtbPregatheringCountByPage(pregatheringNoLow, pregatheringNoHigh, pregatheringName);
+		System.out.println("totalcount:" + String.valueOf(totalCount));
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);

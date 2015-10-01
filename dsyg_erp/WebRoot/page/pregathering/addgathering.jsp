@@ -23,7 +23,7 @@
 		}
 		if(pregatheringname == "") {
 			alert("到款名称不能为空！");
-			$("#assetsname").focus();
+			$("#pregatheringname").focus();
 			return;
 		}
 

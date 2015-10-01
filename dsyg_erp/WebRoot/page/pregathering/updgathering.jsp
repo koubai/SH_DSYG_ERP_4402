@@ -47,12 +47,12 @@
 			$("#tmpnote").focus();
 			return;
 		}
-		document.mainform.action = '<c:url value="/pregathering/updEtbPregatheringAction.action"></c:url>';
+		document.mainform.action = '<c:url value="/finance/updEtbPregatheringAction.action"></c:url>';
 		document.mainform.submit();
 	}
 	
 	function golist() {
-		document.mainform.action = '<c:url value="/pregathering/queryEtbPregatheringList.action"></c:url>';
+		document.mainform.action = '<c:url value="/finance/queryEtbPregatheringList.action"></c:url>';
 		document.mainform.submit();
 	};
 
@@ -99,7 +99,7 @@
 				<td>
 					<div class="box1_left"></div>
 					<div class="box1_center">
-						<s:textfield name="addPregatheringDto.customername" id="handler" cssStyle="width:350px;" maxlength="32" theme="simple"></s:textfield>
+						<s:textfield name="updatePregatheringDto.customername" id="customername" cssStyle="width:350px;" maxlength="32" theme="simple"></s:textfield>
 					</div>
 					<div class="box1_right"></div>
 				</td>

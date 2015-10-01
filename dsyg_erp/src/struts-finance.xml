@@ -135,15 +135,16 @@
 		</action>
 		
 		<action name="queryEtbPregatheringList" class="pregatheringAction" method="queryEtbPregatheringList">
-			<result name="*">/page/pregathering/gatheringlist.jsp</result>
+			<result name="success">/page/pregathering/gatheringlist.jsp</result>
 		</action>
 		
 		<action name="showAddEtbPregatheringAction" class="pregatheringAction" method="showAddEtbPregatheringAction">
 			<result name="*">/page/pregathering/addgathering.jsp</result>
 		</action>
 		
-		<action name="addEtbPregatheringAction" class="financeExpressAction" method="addEtbPregatheringAction">
-			<result name="*">/page/pregathering/addgathering.jsp</result>
+		<action name="addEtbPregatheringAction" class="pregatheringAction" method="addEtbPregatheringAction">
+			<result name="success">/page/pregathering/addgathering.jsp</result>
+			<result name="checkerror">/page/pregathering/updgathering.jsp</result>
 		</action>
 
 		<action name="showUpdEtbPregatheringAction" class="pregatheringAction" method="showUpdEtbPregatheringAction">
@@ -151,8 +152,15 @@
 		</action>
 		
 		<action name="updEtbPregatheringAction" class="pregatheringAction" method="updEtbPregatheringAction">
-			<result name="*">/page/pregathering/updgathering.jsp</result>
+			<result name="success">/page/pregathering/updgathering.jsp</result>
+			<result name="checkerror">/page/pregathering/updgathering.jsp</result>
 		</action>
+		
+		<action name="delEtbPregatheringAction" class="pregatheringAction" method="delEtbPregatheringAction">
+			<result name="success">/page/pregathering/gatheringlist.jsp</result>
+			<result name="checkerror">/page/pregathering/gatheringlist.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

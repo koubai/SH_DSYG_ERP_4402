@@ -12,8 +12,10 @@ import com.cn.common.dto.BaseDto;
  */
 public class PregatheringDto extends BaseDto {
 
-	private static final long serialVersionUID = 281763063329065607L;
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7146226042164698974L;
 
 	/**
 	 * 预收款ID
@@ -230,6 +232,11 @@ public class PregatheringDto extends BaseDto {
 	}
 
 	public String getShowregisterdate() {
+		if(getRegisterdate() != null && !getRegisterdate().equals("")){
+			showregisterdate =  getRegisterdate().substring(0, 10);
+		} else {
+			showregisterdate="";
+		}
 		return showregisterdate;
 	}
 

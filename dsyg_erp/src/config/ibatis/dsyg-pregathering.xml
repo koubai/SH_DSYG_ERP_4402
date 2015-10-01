@@ -43,7 +43,7 @@
 			<isNotEmpty prepend="and" property="ID_HIGH">
 				T.pregatheringno <![CDATA[<=]]> #ID_HIGH#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="ASSETS_NAME">
+			<isNotEmpty prepend="and" property="PREGATHERING_NAME">
 				T.pregatheringname like '%$PREGATHERING_NAME$%'
 			</isNotEmpty>
 	</select>
@@ -69,8 +69,8 @@
 		<isNotEmpty prepend="and" property="ID_HIGH">
 			T.pregatheringno <![CDATA[<=]]> #ID_HIGH#
 		</isNotEmpty>
-		<isNotEmpty prepend="and" property="ASSETS_NAME">
-			T.pregatheringname like '%$ASSETS_NAME$%'
+		<isNotEmpty prepend="and" property="PREGATHERING_NAME">
+			T.pregatheringname like '%$PREGATHERING_NAME$%'
 		</isNotEmpty>
 		order by T.updatedate desc
 		LIMIT #start#, #end#
