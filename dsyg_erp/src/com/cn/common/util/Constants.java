@@ -35,6 +35,10 @@ public class Constants {
 	public final static String WAREHOUSE_NO_PRE = "KCN";
 	//退换货单号前缀
 	public final static String WAREHOUSERPT_REFUND_NO_PRE = "THN";
+	//预收款编号前缀
+	public final static String PREGEATHERING_NO_PRE = "PG";
+	//请款编号前缀
+	public final static String REQUESTCASH_NO_PRE = "RC";
 	
 	//数据导出常量
 	//采购单数据

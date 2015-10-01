@@ -78,7 +78,7 @@ public class RequestCashServiceImpl implements RequestCashService {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String uuid = UUID.randomUUID().toString();
 		uuid = uuid.substring(uuid.length() - 8, uuid.length());
-		requestcashno = Constants.SALESREPORT_NO_PRE + belongto + sdf.format(date) + uuid;
+		requestcashno = Constants.REQUESTCASH_NO_PRE + belongto + sdf.format(date) + uuid;
 		requestcash.setRequestcashno(requestcashno);
 		
 		requestcashDao.insertRequestCash(requestcash);

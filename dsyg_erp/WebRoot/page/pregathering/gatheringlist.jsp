@@ -16,7 +16,7 @@
 	});
 
 	function add() {
-		document.mainform.action = '<c:url value="/pregathering/showAddEtbPregatheringAction.action"></c:url>';
+		document.mainform.action = '<c:url value="/finance/showAddEtbPregatheringAction.action"></c:url>';
 		document.mainform.submit();
 	}
 	
@@ -26,7 +26,7 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
-			document.mainform.action = '<c:url value="/pregathering/showUpdEtbPregatheringAction.action"></c:url>' + "?updatePregatheringNo=" + id;
+			document.mainform.action = '<c:url value="/finance/showUpdEtbPregatheringAction.action"></c:url>' + "?updatePregatheringNo=" + id;
 			document.mainform.submit();
 		}
 	}
@@ -38,7 +38,7 @@
 			return;
 		} else {
 			if(confirm("确定删除该记录吗？")) {
-				document.mainform.action = '<c:url value="/pregathering/delEtbPregatheringAction.action"></c:url>' + "?delPregatheringNo=" + id;
+				document.mainform.action = '<c:url value="/finance/delEtbPregatheringAction.action"></c:url>' + "?delPregatheringNo=" + id;
 				document.mainform.submit();
 			}
 		}
@@ -57,19 +57,19 @@
 	}
 	
 	function exportExcel() {
-		document.mainform.action = '<c:url value="/pregathering/exportEtbPregatheringAction.action"></c:url>';
+		document.mainform.action = '<c:url value="/finance/exportEtbPregatheringAction.action"></c:url>';
 		document.mainform.submit();
 	}
 	
 	function queryList() {
-		document.mainform.action = '<c:url value="/pregathering/queryEtbPregatheringList.action"></c:url>';
+		document.mainform.action = '<c:url value="/finance/queryEtbPregatheringList.action"></c:url>';
 		document.mainform.submit();
 	}
 	
 	//翻页
 	function changePage(pageNum) {
 		document.getElementById("startIndex").value = pageNum;
-		document.mainform.action = '<c:url value="/pregathering/turnEtbPregatheringPage.action"></c:url>';
+		document.mainform.action = '<c:url value="/finance/turnEtbPregatheringPage.action"></c:url>';
 		document.mainform.submit();
 	}
 	

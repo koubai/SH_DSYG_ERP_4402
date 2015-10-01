@@ -217,10 +217,10 @@ public class PregatheringAction extends BaseAction {
 			}
 			log.info("addPregatheringDto.getPregatheringno()=" + addPregatheringDto.getPregatheringno());
 			log.info("addPregatheringDto.getPregatheringname()=" + addPregatheringDto.getPregatheringname());
-			//校验资产代码是否存在
+			//校验预收款代码是否存在
 			PregatheringDto pregathering = pregatheringService.queryAllEtbPregatheringByID(addPregatheringDto.getPregatheringno()+"");
 			if(pregathering != null) {
-				this.addActionMessage("资产代码已经存在！");
+				this.addActionMessage("预收款已经存在！");
 				return "checkerror";
 			}
 			//保存数据
@@ -228,10 +228,10 @@ public class PregatheringAction extends BaseAction {
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			addPregatheringDto.setCreateuid(username);
 			String pregatheringno = pregatheringService.insertEtbPregathering(addPregatheringDto);
-			this.addActionMessage("添加资产成功！资产编号为：" + pregatheringno);
+			this.addActionMessage("添加预收款成功！预收款编号为：" + pregatheringno);
 			addPregatheringDto = new PregatheringDto();
 		} catch(Exception e) {
-			this.addActionMessage("系统异常，添加资产失败！");
+			this.addActionMessage("系统异常，添加预收款失败！");
 			log.error("addEtbPregatheringAction error:" + e);
 			return "checkerror";
 		}
@@ -239,7 +239,7 @@ public class PregatheringAction extends BaseAction {
 	}
 	
 	/**
-	 * 显示修改资产页面
+	 * 显示修改预收款页面
 	 * @return
 	 */
 	public String showUpdEtbPregatheringAction() {
@@ -252,7 +252,7 @@ public class PregatheringAction extends BaseAction {
 				return "checkerror";
 			}
 		} catch(Exception e) {
-			this.addActionMessage("系统错误，查询资产异常！");
+			this.addActionMessage("系统错误，查询预收款异常！");
 			log.error("showUpdEtbPregatheringAction error:" + e);
 			return "checkerror";
 		}
@@ -260,7 +260,7 @@ public class PregatheringAction extends BaseAction {
 	}
 	
 	/**
-	 * 修改资产
+	 * 修改预收款
 	 * @return
 	 */
 	public String updEtbPregatheringAction() {
@@ -502,4 +502,5 @@ public class PregatheringAction extends BaseAction {
 	public void setIntPageSize(Integer intPageSize) {
 		this.intPageSize = intPageSize;
 	}
+
 }

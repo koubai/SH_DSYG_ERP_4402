@@ -57,6 +57,13 @@
 		document.mainform.submit();
 	}
 	
+	//汇总
+	function showSum(id) {
+		var url = '<%=request.getContextPath()%>/sample/showSampleSumAction.action';
+		url += "?strProductid=" + id + "&date=" + new Date();
+		window.showModalDialog(url, window, "dialogheight:350px;dialogwidth:700px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	}
+	
 	//修改pagesize
 	function changepagesize(pagesize) {
 		$("#intPageSize").attr("value", pagesize);
@@ -129,6 +136,14 @@
 						</div>
 						<div class="box1_right"></div>
 					</div>
+					<div class="box1">
+						<label class="pdf10">客户名</label>
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<s:textfield name="strCustomername" id="strCustomername" cssClass="input120" maxlength="32" theme="simple"></s:textfield>
+						</div>
+						<div class="box1_right"></div>
+					</div>
 					<div class="btn" style="margin-right: 200px; float: right;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
@@ -174,7 +189,9 @@
 									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
 									<td><s:property value="tradename"/></td>
-									<td><s:property value="typeno"/></td>
+									<td>
+										<a href="#" onclick="showSum(<s:property value="productid"/>);"><s:property value="typeno"/></a>
+									</td>
 									<td>
 										<s:iterator id="colorList" value="colorList" status="st3">
 											<s:if test="%{colorList[#st3.index].code == sampleList[#st1.index].color}">

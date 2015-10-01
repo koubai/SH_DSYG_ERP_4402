@@ -44,7 +44,7 @@
 				T.pregatheringno <![CDATA[<=]]> #ID_HIGH#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="ASSETS_NAME">
-				T.pregatheringname like '%$ASSETS_NAME$%'
+				T.pregatheringname like '%$PREGATHERING_NAME$%'
 			</isNotEmpty>
 	</select>
 	

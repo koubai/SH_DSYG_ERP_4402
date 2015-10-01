@@ -7,6 +7,7 @@ import java.util.Map;
 import com.cn.common.dao.BaseDao;
 import com.cn.dsyg.dao.SampleDao;
 import com.cn.dsyg.dto.SampleDto;
+import com.cn.dsyg.dto.SampleTotleDto;
 
 /**
  * @name SampleDaoImpl.java
@@ -15,6 +16,18 @@ import com.cn.dsyg.dto.SampleDto;
  * @version 1.0
  */
 public class SampleDaoImpl extends BaseDao implements SampleDao {
+	
+	@Override
+	public SampleTotleDto querySampleNumByProductId(String productid) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("productid", productid);
+		@SuppressWarnings("unchecked")
+		List<SampleTotleDto> list = getSqlMapClientTemplate().queryForList("querySampleNumByProductId", paramMap);
+		if(list != null && list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+	}
 
 	@Override
 	public SampleDto querySampleId(String id) {
@@ -30,12 +43,13 @@ public class SampleDaoImpl extends BaseDao implements SampleDao {
 
 	@Override
 	public List<SampleDto> querySampleByPage(String warehousename,
-			String productid, String status, String tradename, int start, int end) {
+			String productid, String status, String tradename, String customername, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("warehousename", warehousename);
 		paramMap.put("productid", productid);
 		paramMap.put("status", status);
 		paramMap.put("tradename", tradename);
+		paramMap.put("customername", customername);
 		paramMap.put("start", start);
 		paramMap.put("end", end);
 		@SuppressWarnings("unchecked")
@@ -45,12 +59,13 @@ public class SampleDaoImpl extends BaseDao implements SampleDao {
 
 	@Override
 	public int querySampleCountByPage(String warehousename, String productid,
-			String status, String tradename) {
+			String status, String tradename, String customername) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("warehousename", warehousename);
 		paramMap.put("productid", productid);
 		paramMap.put("status", status);
 		paramMap.put("tradename", tradename);
+		paramMap.put("customername", customername);
 		return (Integer) getSqlMapClientTemplate().queryForObject("querySampleCountByPage", paramMap);
 	}
 
