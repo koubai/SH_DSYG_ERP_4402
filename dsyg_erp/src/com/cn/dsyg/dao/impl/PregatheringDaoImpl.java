@@ -36,7 +36,7 @@ public class PregatheringDaoImpl extends BaseDao implements PregatheringDao {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		//这里按照需求，若预收款名称存在，则忽略预收款代码按预收款名称来查询。
 		if(StringUtil.isNotBlank(pregatheringName)) {
-			paramMap.put("ASSETS_NAME", StringUtil.replaceDatabaseKeyword_mysql(pregatheringName));
+			paramMap.put("PREGATHERING_NAME", StringUtil.replaceDatabaseKeyword_mysql(pregatheringName));
 		} else {
 			paramMap.put("ID_LOW", pregatheringNoLow);
 			paramMap.put("ID_HIGH", pregatheringNoHigh);
@@ -54,7 +54,7 @@ public class PregatheringDaoImpl extends BaseDao implements PregatheringDao {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		//这里按照需求，若预收款名称存在，则忽略预收款代码按预收款名称来查询。
 		if(StringUtil.isNotBlank(pregatheringName)) {
-			paramMap.put("ASSETS_NAME", StringUtil.replaceDatabaseKeyword_mysql(pregatheringName));
+			paramMap.put("PREGATHERING_NAME", StringUtil.replaceDatabaseKeyword_mysql(pregatheringName));
 		} else {
 			paramMap.put("ID_LOW", pregatheringNoLow);
 			paramMap.put("ID_HIGH", pregatheringNoHigh);

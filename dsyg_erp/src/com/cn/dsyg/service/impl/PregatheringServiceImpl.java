@@ -66,7 +66,7 @@ public class PregatheringServiceImpl implements PregatheringService {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String uuid = UUID.randomUUID().toString();
 		uuid = uuid.substring(uuid.length() - 8, uuid.length());
-		pregatheringno = Constants.ASSETS_NO_PRE + belongto + sdf.format(date) + uuid;
+		pregatheringno = Constants.PREGEATHERING_NO_PRE + belongto + sdf.format(date) + uuid;
 		pregathering.setPregatheringno(pregatheringno);
 		
 		pregatheringDao.insertEtbPregathering(pregathering);

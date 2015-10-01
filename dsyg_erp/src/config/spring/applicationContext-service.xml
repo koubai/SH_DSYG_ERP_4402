@@ -472,7 +472,7 @@
 		</property>
 	</bean>
 	
-	<!-- 信息 -->
+	<!-- 预收款信息 -->
 	<bean id="pregatheringService" class="com.cn.dsyg.service.impl.PregatheringServiceImpl" >
 		<property name="pregatheringDao">
 			<ref local="pregatheringDao"/>

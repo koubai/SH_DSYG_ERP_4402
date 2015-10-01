@@ -134,6 +134,25 @@
 			<result name="*">/page/pregathering/gatheringlist.jsp</result>
 		</action>
 		
+		<action name="queryEtbPregatheringList" class="pregatheringAction" method="queryEtbPregatheringList">
+			<result name="*">/page/pregathering/gatheringlist.jsp</result>
+		</action>
+		
+		<action name="showAddEtbPregatheringAction" class="pregatheringAction" method="showAddEtbPregatheringAction">
+			<result name="*">/page/pregathering/addgathering.jsp</result>
+		</action>
+		
+		<action name="addEtbPregatheringAction" class="financeExpressAction" method="addEtbPregatheringAction">
+			<result name="*">/page/pregathering/addgathering.jsp</result>
+		</action>
+
+		<action name="showUpdEtbPregatheringAction" class="pregatheringAction" method="showUpdEtbPregatheringAction">
+			<result name="*">/page/pregathering/updgathering.jsp</result>
+		</action>
+		
+		<action name="updEtbPregatheringAction" class="pregatheringAction" method="updEtbPregatheringAction">
+			<result name="*">/page/pregathering/updgathering.jsp</result>
+		</action>
 	</package>
 
 </struts>
