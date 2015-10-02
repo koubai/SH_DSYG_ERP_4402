@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="pregathering" extends="struts-erp" namespace="/pregathering">
+		
+		<action name="showPregatheringAction" class="pregatheringAction" method="showPregatheringAction">
+			<result name="*">/page/pregathering/gatheringlist.jsp</result>
+		</action>
+		
+		<action name="queryPregatheringList" class="pregatheringAction" method="queryPregatheringList">
+			<result name="success">/page/pregathering/gatheringlist.jsp</result>
+		</action>
+		
+		<action name="showAddPregatheringAction" class="pregatheringAction" method="showAddPregatheringAction">
+			<result name="*">/page/pregathering/addgathering.jsp</result>
+		</action>
+		
+		<action name="addPregatheringAction" class="pregatheringAction" method="addPregatheringAction">
+			<result name="success">/page/pregathering/addgathering.jsp</result>
+			<result name="checkerror">/page/pregathering/updgathering.jsp</result>
+		</action>
+
+		<action name="showUpdPregatheringAction" class="pregatheringAction" method="showUpdPregatheringAction">
+			<result name="*">/page/pregathering/updgathering.jsp</result>
+		</action>
+		
+		<action name="updPregatheringAction" class="pregatheringAction" method="updPregatheringAction">
+			<result name="success">/page/pregathering/updgathering.jsp</result>
+			<result name="checkerror">/page/pregathering/updgathering.jsp</result>
+		</action>
+		
+		<action name="delPregatheringAction" class="pregatheringAction" method="delPregatheringAction">
+			<result name="success">/page/pregathering/gatheringlist.jsp</result>
+			<result name="checkerror">/page/pregathering/gatheringlist.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>
