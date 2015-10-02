@@ -16,7 +16,7 @@
 	});
 
 	function add() {
-		document.mainform.action = '<c:url value="/finance/showAddEtbPregatheringAction.action"></c:url>';
+		document.mainform.action = '<c:url value="/pregathering/showAddPregatheringAction.action"></c:url>';
 		document.mainform.submit();
 	}
 	
@@ -26,7 +26,7 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
-			document.mainform.action = '<c:url value="/finance/showUpdEtbPregatheringAction.action"></c:url>' + "?updatePregatheringNo=" + id;
+			document.mainform.action = '<c:url value="/pregathering/showUpdPregatheringAction.action"></c:url>' + "?updatePregatheringNo=" + id;
 			document.mainform.submit();
 		}
 	}
@@ -38,7 +38,7 @@
 			return;
 		} else {
 			if(confirm("确定删除该记录吗？")) {
-				document.mainform.action = '<c:url value="/finance/delEtbPregatheringAction.action"></c:url>' + "?delPregatheringNo=" + id;
+				document.mainform.action = '<c:url value="/pregathering/delPregatheringAction.action"></c:url>' + "?delPregatheringNo=" + id;
 				document.mainform.submit();
 			}
 		}
@@ -57,19 +57,19 @@
 	}
 	
 	function exportExcel() {
-		document.mainform.action = '<c:url value="/finance/exportEtbPregatheringAction.action"></c:url>';
+		document.mainform.action = '<c:url value="/pregathering/exportPregatheringAction.action"></c:url>';
 		document.mainform.submit();
 	}
 	
 	function queryList() {
-		document.mainform.action = '<c:url value="/finance/queryEtbPregatheringList.action"></c:url>';
+		document.mainform.action = '<c:url value="/pregathering/queryPregatheringList.action"></c:url>';
 		document.mainform.submit();
 	}
 	
 	//翻页
 	function changePage(pageNum) {
 		document.getElementById("startIndex").value = pageNum;
-		document.mainform.action = '<c:url value="/finance/turnEtbPregatheringPage.action"></c:url>';
+		document.mainform.action = '<c:url value="/pregathering/turnPregatheringPage.action"></c:url>';
 		document.mainform.submit();
 	}
 	
@@ -77,7 +77,7 @@
 	function changepagesize(pagesize) {
 		$("#intPageSize").attr("value", pagesize);
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../pregathering/queryEtbPregatheringList.action';
+		document.mainform.action = '../pregathering/queryPregatheringList.action';
 		document.mainform.submit();
 	}
 
@@ -189,10 +189,10 @@
 							</tr>
 							<s:iterator id="listPregathering" value="listPregathering" status="st1">
 								<s:if test="#st1.odd==true">
-									<tr class="tr_bg">
+									<tr class="tr_bg" onclick="checkRadioTr(this, event);">
 								</s:if>
 								<s:else>
-									<tr>
+									<tr onclick="checkRadioTr(this, event);">
 								</s:else>
 									<td><input name="radioKey" type="radio" value="<s:property value="pregatheringno"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>

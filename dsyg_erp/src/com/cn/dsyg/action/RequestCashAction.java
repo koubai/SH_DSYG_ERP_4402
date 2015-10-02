@@ -31,7 +31,7 @@ public class RequestCashAction extends BaseAction {
 
 	private static final Logger log = LogManager.getLogger(RequestCashAction.class);
 	
-	private RequestCashService requestCashService;
+	private RequestCashService requestcashService;
 	
 	/**
 	 * 页码
@@ -201,7 +201,7 @@ public class RequestCashAction extends BaseAction {
 		}
 		//翻页查询所有请款报告
 		this.page.setStartIndex(startIndex);
-		page = requestCashService.queryRequestCashByPage(page, strRequestCashNoLow, strRequestCashNoHigh, strRequestCashName);
+		page = requestcashService.queryRequestCashByPage(page, strRequestCashNoLow, strRequestCashNoHigh, strRequestCashName);
 		listRequestCash = (List<RequestCashDto>) page.getItems();
 		
 		this.setStartIndex(page.getStartIndex());
@@ -235,7 +235,7 @@ public class RequestCashAction extends BaseAction {
 			log.info("addRequestCashDto.getRequestCashno()=" + addRequestCashDto.getRequestcashno());
 			log.info("addRequestCashDto.getRequestCashname()=" + addRequestCashDto.getRequestcashname());
 			//校验请款报告代码是否存在
-			RequestCashDto requestCash = requestCashService.queryAllRequestCashByID(addRequestCashDto.getRequestcashno()+"");
+			RequestCashDto requestCash = requestcashService.queryAllRequestCashByID(addRequestCashDto.getRequestcashno()+"");
 			if(requestCash != null) {
 				this.addActionMessage("请款报告已经存在！");
 				return "checkerror";
@@ -262,7 +262,7 @@ public class RequestCashAction extends BaseAction {
 			addRequestCashDto.setStatus(Constants.STATUS_NORMAL);
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			addRequestCashDto.setCreateuid(username);
-			String requestCashno = requestCashService.insertRequestCash(addRequestCashDto);
+			String requestCashno = requestcashService.insertRequestCash(addRequestCashDto);
 			this.addActionMessage("添加请款报告成功！请款报告编号为：" + requestCashno);
 			addRequestCashDto = new RequestCashDto();
 		} catch(Exception e) {
@@ -284,7 +284,7 @@ public class RequestCashAction extends BaseAction {
 			updReportFile03 = null;
 			this.clearMessages();
 			System.out.println("requestCashNo is: "+updateRequestCashNo);
-			updateRequestCashDto = requestCashService.queryRequestCashByID(updateRequestCashNo);
+			updateRequestCashDto = requestcashService.queryRequestCashByID(updateRequestCashNo);
 			if(updateRequestCashDto == null) {
 				this.addActionMessage("该数据不存在！");
 				return "checkerror";
@@ -317,7 +317,7 @@ public class RequestCashAction extends BaseAction {
 			String oldfile1 = "";
 			String oldfile2 = "";
 			String oldfile3 = "";
-			RequestCashDto oldReport = requestCashService.queryRequestCashByID(updateRequestCashNo);
+			RequestCashDto oldReport = requestcashService.queryRequestCashByID(updateRequestCashNo);
 			
 			if(updReportFile01 != null) {
 				String newfile01 = FileUtil.uploadFile(updReportFile01, pdf_path, file01Name);
@@ -337,7 +337,7 @@ public class RequestCashAction extends BaseAction {
 			//修改数据
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			updateRequestCashDto.setUpdateuid(username);
-			requestCashService.updateRequestCash(updateRequestCashDto);
+			requestcashService.updateRequestCash(updateRequestCashDto);
 			this.addActionMessage("修改请款报告成功！");
 			//清空数据
 			updReportFile01 = null;
@@ -364,7 +364,7 @@ public class RequestCashAction extends BaseAction {
 			}
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			//删除
-			requestCashService.deleteRequestCash(delRequestCashNo, username);
+			requestcashService.deleteRequestCash(delRequestCashNo, username);
 			this.addActionMessage("删除请款报告成功！");
 			delRequestCashNo = "";
 			//刷新页面
@@ -514,7 +514,7 @@ public class RequestCashAction extends BaseAction {
 		return requestCashList;
 	}
 
-	public void setRequestCashList(List<RequestCashDto> salesreportList) {
+	public void setRequestCashList(List<RequestCashDto> requestCashList) {
 		this.requestCashList = requestCashList;
 	}
 
@@ -530,7 +530,7 @@ public class RequestCashAction extends BaseAction {
 		return requestCashNoHigh;
 	}
 
-	public void setRequestCashNoHigh(String salesreportNoHigh) {
+	public void setRequestCashNoHigh(String requestCashNoHigh) {
 		this.requestCashNoHigh = requestCashNoHigh;
 	}
 
@@ -550,12 +550,12 @@ public class RequestCashAction extends BaseAction {
 		this.strRequestCashName = strRequestCashName;
 	}
 
-	public RequestCashService getRequestCashService() {
-		return requestCashService;
+	public RequestCashService getRequestcashService() {
+		return requestcashService;
 	}
 
-	public void setRequestCashService(RequestCashService salesreportService) {
-		this.requestCashService = requestCashService;
+	public void setRequestcashService(RequestCashService requestcashService) {
+		this.requestcashService = requestcashService;
 	}
 
 	public Integer getIntPageSize() {

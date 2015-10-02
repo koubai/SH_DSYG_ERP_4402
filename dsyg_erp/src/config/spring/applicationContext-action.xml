@@ -176,17 +176,17 @@
 		</property>
 	</bean>
 
-	<!-- 请款 -->
-	<bean id="requestcashAction" class="com.cn.dsyg.action.RequestCashAction" scope="session">
-		<property name="requestcashService">
-			<ref bean="requestcashService"/>
-		</property>
-	</bean>
-
 	<!-- 预收款 -->
 	<bean id="pregatheringAction" class="com.cn.dsyg.action.PregatheringAction" scope="session">
 		<property name="pregatheringService">
 			<ref bean="pregatheringService"/>
+		</property>
+	</bean>
+
+	<!-- 请款 -->
+	<bean id="requestcashAction" class="com.cn.dsyg.action.RequestCashAction" scope="session">
+		<property name="requestcashService">
+			<ref bean="requestcashService"/>
 		</property>
 	</bean>
 

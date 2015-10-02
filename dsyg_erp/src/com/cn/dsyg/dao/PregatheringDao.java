@@ -16,7 +16,7 @@ public interface PregatheringDao {
 	 * @param pregatheringNo
 	 * @return
 	 */
-	public PregatheringDto queryAllEtbPregatheringByID(String pregatheringNo);
+	public PregatheringDto queryAllPregatheringByID(String pregatheringNo);
 
 	/**
 	 * 翻页查询预收款
@@ -26,7 +26,7 @@ public interface PregatheringDao {
 	 * @param end
 	 * @return
 	 */
-	public List<PregatheringDto> queryEtbPregatheringByPage(String pregatheringNoLow,
+	public List<PregatheringDto> queryPregatheringByPage(String pregatheringNoLow,
 				String pregatheringNoHigh, String pregatheringName, int start, int end);
 	
 	/**
@@ -35,32 +35,32 @@ public interface PregatheringDao {
 	 * @param pregatheringNoHigh
 	 * @return
 	 */
-	public int queryEtbPregatheringCountByPage(String pregatheringNoLow, String pregatheringNoHigh, String pregatheringName);
+	public int queryPregatheringCountByPage(String pregatheringNoLow, String pregatheringNoHigh, String pregatheringName);
 	
 	/**
 	 * 根据ID查询预收款（查询未删除的记录）
 	 * @param pregatheringNo
 	 * @return
 	 */
-	public PregatheringDto queryEtbPregatheringByID(String pregatheringNo);
+	public PregatheringDto queryPregatheringByID(String pregatheringNo);
 	
 	/**
 	 * 查询所有的预收款
 	 * @return
 	 */
-	public List<PregatheringDto> queryAllEtbPregathering();
+	public List<PregatheringDto> queryAllPregathering();
 	
 	/**
 	 * 新增预收款
 	 * @param pregathering
 	 */
-	public void insertEtbPregathering(PregatheringDto pregathering);
+	public void insertPregathering(PregatheringDto pregathering);
 	
 	/**
 	 * 修改预收款
 	 * @param pregathering
 	 */
-	public void updateEtbPregathering(PregatheringDto pregathering);
+	public void updatePregathering(PregatheringDto pregathering);
 	
 	/**
 	 * 查询资产（Excel导出用）
@@ -68,5 +68,5 @@ public interface PregatheringDao {
 	 * @param pregatheringNoHigh
 	 * @return
 	 */
-	public List<PregatheringDto> queryAllEtbPregatheringExport(String pregatheringNoLow, String pregatheringNoHigh);
+	public List<PregatheringDto> queryAllPregatheringExport(String pregatheringNoLow, String pregatheringNoHigh);
 }

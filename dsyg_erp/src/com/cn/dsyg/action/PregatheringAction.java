@@ -114,7 +114,7 @@ public class PregatheringAction extends BaseAction {
 	 * 显示预收款页面
 	 * @return
 	 */
-	public String showEtbPregatheringAction() {
+	public String showPregatheringAction() {
 		try {
 			this.clearMessages();
 			strPregatheringNoLow = "";
@@ -141,7 +141,7 @@ public class PregatheringAction extends BaseAction {
 	 * 查询预收款列表
 	 * @return
 	 */
-	public String queryEtbPregatheringList() {
+	public String queryPregatheringList() {
 		try {
 			this.clearMessages();
 			//默认10条
@@ -151,7 +151,7 @@ public class PregatheringAction extends BaseAction {
 			page = new Page(intPageSize);
 			startIndex = 0;
 			log.info("AAAAAAA");
-			queryEtbPregathering();
+			queryPregathering();
 		} catch(Exception e) {
 			log.error(e);
 			return ERROR;
@@ -163,10 +163,10 @@ public class PregatheringAction extends BaseAction {
 	 * 翻页
 	 * @return
 	 */
-	public String turnEtbPregatheringPage() {
+	public String turnPregatheringPage() {
 		try {
 			this.clearMessages();
-			queryEtbPregathering();
+			queryPregathering();
 		} catch(Exception e) {
 			log.error(e);
 			return ERROR;
@@ -178,14 +178,14 @@ public class PregatheringAction extends BaseAction {
 	 * 翻页查询所有预收款列表
 	 */
 	@SuppressWarnings("unchecked")
-	private void queryEtbPregathering() {
+	private void queryPregathering() {
 		listPregathering = new ArrayList<PregatheringDto>();
 		if(page == null) {
 			page = new Page(intPageSize);
 		}
 		//翻页查询所有资产
 		this.page.setStartIndex(startIndex);
-		page = pregatheringService.queryEtbPregatheringByPage(page, strPregatheringNoLow, strPregatheringNoHigh, strPregatheringName);
+		page = pregatheringService.queryPregatheringByPage(page, strPregatheringNoLow, strPregatheringNoHigh, strPregatheringName);
 		listPregathering = (List<PregatheringDto>) page.getItems();
 		
 		this.setStartIndex(page.getStartIndex());
@@ -195,7 +195,7 @@ public class PregatheringAction extends BaseAction {
 	 * 显示添加预收款页面
 	 * @return
 	 */
-	public String showAddEtbPregatheringAction() {
+	public String showAddPregatheringAction() {
 		try {
 			this.clearMessages();
 			addPregatheringDto = new PregatheringDto();
@@ -209,7 +209,7 @@ public class PregatheringAction extends BaseAction {
 	 * 添加预收款
 	 * @return
 	 */
-	public String addEtbPregatheringAction() {
+	public String addPregatheringAction() {
 		try {
 			this.clearMessages();
 			//数据校验
@@ -219,7 +219,7 @@ public class PregatheringAction extends BaseAction {
 			log.info("addPregatheringDto.getPregatheringno()=" + addPregatheringDto.getPregatheringno());
 			log.info("addPregatheringDto.getPregatheringname()=" + addPregatheringDto.getPregatheringname());
 			//校验预收款代码是否存在
-			PregatheringDto pregathering = pregatheringService.queryAllEtbPregatheringByID(addPregatheringDto.getPregatheringno()+"");
+			PregatheringDto pregathering = pregatheringService.queryAllPregatheringByID(addPregatheringDto.getPregatheringno()+"");
 			if(pregathering != null) {
 				this.addActionMessage("预收款已经存在！");
 				return "checkerror";
@@ -228,7 +228,7 @@ public class PregatheringAction extends BaseAction {
 			addPregatheringDto.setStatus(Constants.STATUS_NORMAL);
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			addPregatheringDto.setCreateuid(username);
-			String pregatheringno = pregatheringService.insertEtbPregathering(addPregatheringDto);
+			String pregatheringno = pregatheringService.insertPregathering(addPregatheringDto);
 			this.addActionMessage("添加预收款成功！预收款编号为：" + pregatheringno);
 			addPregatheringDto = new PregatheringDto();
 		} catch(Exception e) {
@@ -243,11 +243,11 @@ public class PregatheringAction extends BaseAction {
 	 * 显示修改预收款页面
 	 * @return
 	 */
-	public String showUpdEtbPregatheringAction() {
+	public String showUpdPregatheringAction() {
 		try {
 			this.clearMessages();
 			System.out.println("pregatheringNo is: "+updatePregatheringNo);
-			updatePregatheringDto = pregatheringService.queryEtbPregatheringByID(updatePregatheringNo);
+			updatePregatheringDto = pregatheringService.queryPregatheringByID(updatePregatheringNo);
 			if(updatePregatheringDto == null) {
 				this.addActionMessage("该数据不存在！");
 				return "checkerror";
@@ -264,7 +264,7 @@ public class PregatheringAction extends BaseAction {
 	 * 修改预收款
 	 * @return
 	 */
-	public String updEtbPregatheringAction() {
+	public String updPregatheringAction() {
 		try {
 			this.clearMessages();
 			//数据校验
@@ -275,7 +275,7 @@ public class PregatheringAction extends BaseAction {
 			//修改数据
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			updatePregatheringDto.setUpdateuid(username);
-			pregatheringService.updateEtbPregathering(updatePregatheringDto);
+			pregatheringService.updatePregathering(updatePregatheringDto);
 			this.addActionMessage("修改预收款成功！");
 		} catch(Exception e) {
 			this.addActionMessage("系统异常，修改预收款失败！");
@@ -289,7 +289,7 @@ public class PregatheringAction extends BaseAction {
 	 * 删除预收款
 	 * @return
 	 */
-	public String delEtbPregatheringAction() {
+	public String delPregatheringAction() {
 		try {
 			this.clearMessages();
 			if(StringUtil.isBlank(delPregatheringNo)) {
@@ -298,12 +298,12 @@ public class PregatheringAction extends BaseAction {
 			}
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			//删除
-			pregatheringService.deleteEtbPregathering(delPregatheringNo, username);
+			pregatheringService.deletePregathering(delPregatheringNo, username);
 			this.addActionMessage("删除预收款成功！");
 			delPregatheringNo = "";
 			//刷新页面
 			startIndex = 0;
-			queryEtbPregathering();
+			queryPregathering();
 		} catch(Exception e) {
 			log.error("delEtbPregatheringAction error:" + e);
 			return ERROR;

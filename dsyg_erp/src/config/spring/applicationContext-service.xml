@@ -459,6 +459,19 @@
 		</property>
 	</bean>
 	
+	<!-- 预收款信息 -->
+	<bean id="pregatheringService" class="com.cn.dsyg.service.impl.PregatheringServiceImpl" >
+		<property name="pregatheringDao">
+			<ref local="pregatheringDao"/>
+		</property>
+	</bean>
+	
+	<bean id="pregatheringDao" class="com.cn.dsyg.dao.impl.PregatheringDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+
 	<!-- 请款信息 -->
 	<bean id="requestcashService" class="com.cn.dsyg.service.impl.RequestCashServiceImpl" >
 		<property name="requestcashDao">
@@ -472,16 +485,4 @@
 		</property>
 	</bean>
 	
-	<!-- 预收款信息 -->
-	<bean id="pregatheringService" class="com.cn.dsyg.service.impl.PregatheringServiceImpl" >
-		<property name="pregatheringDao">
-			<ref local="pregatheringDao"/>
-		</property>
-	</bean>
-	
-	<bean id="pregatheringDao" class="com.cn.dsyg.dao.impl.PregatheringDaoImpl">
-		<property name="sqlMapClient">
-			<ref bean="sqlMapClient"/>
-		</property>
-	</bean>
 </beans>

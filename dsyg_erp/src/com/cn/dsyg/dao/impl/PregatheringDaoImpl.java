@@ -18,11 +18,11 @@ import com.cn.dsyg.dto.PregatheringDto;
 public class PregatheringDaoImpl extends BaseDao implements PregatheringDao {
 
 	@Override
-	public PregatheringDto queryAllEtbPregatheringByID(String pregatheringNo) {
+	public PregatheringDto queryAllPregatheringByID(String pregatheringNo) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("ID", pregatheringNo);
 		@SuppressWarnings("unchecked")
-		List<PregatheringDto> list = getSqlMapClientTemplate().queryForList("queryAllEtbPregatheringByID", paramMap);
+		List<PregatheringDto> list = getSqlMapClientTemplate().queryForList("queryAllPregatheringByID", paramMap);
 		if(list != null && list.size() > 0) {
 			return list.get(0);
 		}
@@ -30,7 +30,7 @@ public class PregatheringDaoImpl extends BaseDao implements PregatheringDao {
 	}
 
 	@Override
-	public List<PregatheringDto> queryEtbPregatheringByPage(String pregatheringNoLow,
+	public List<PregatheringDto> queryPregatheringByPage(String pregatheringNoLow,
 			String pregatheringNoHigh, String pregatheringName,
 			int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -44,12 +44,12 @@ public class PregatheringDaoImpl extends BaseDao implements PregatheringDao {
 		paramMap.put("start", start);
 		paramMap.put("end", end);
 		@SuppressWarnings("unchecked")
-		List<PregatheringDto> list = getSqlMapClientTemplate().queryForList("queryEtbPregatheringByPage", paramMap);
+		List<PregatheringDto> list = getSqlMapClientTemplate().queryForList("queryPregatheringByPage", paramMap);
 		return list;
 	}
 
 	@Override
-	public int queryEtbPregatheringCountByPage(String pregatheringNoLow,
+	public int queryPregatheringCountByPage(String pregatheringNoLow,
 			String pregatheringNoHigh, String pregatheringName) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		//这里按照需求，若预收款名称存在，则忽略预收款代码按预收款名称来查询。
@@ -59,15 +59,15 @@ public class PregatheringDaoImpl extends BaseDao implements PregatheringDao {
 			paramMap.put("ID_LOW", pregatheringNoLow);
 			paramMap.put("ID_HIGH", pregatheringNoHigh);
 		}
-		return (Integer) getSqlMapClientTemplate().queryForObject("queryEtbPregatheringCountByPage", paramMap);
+		return (Integer) getSqlMapClientTemplate().queryForObject("queryPregatheringCountByPage", paramMap);
 	}
 
 	@Override
-	public PregatheringDto queryEtbPregatheringByID(String pregatheringNo) {
+	public PregatheringDto queryPregatheringByID(String pregatheringNo) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("ID", pregatheringNo);
 		@SuppressWarnings("unchecked")
-		List<PregatheringDto> list = getSqlMapClientTemplate().queryForList("queryEtbPregatheringByID", paramMap);
+		List<PregatheringDto> list = getSqlMapClientTemplate().queryForList("queryPregatheringByID", paramMap);
 		if(list != null && list.size() > 0) {
 			return list.get(0);
 		}
@@ -75,30 +75,30 @@ public class PregatheringDaoImpl extends BaseDao implements PregatheringDao {
 	}
 
 	@Override
-	public List<PregatheringDto> queryAllEtbPregathering() {
+	public List<PregatheringDto> queryAllPregathering() {
 		@SuppressWarnings("unchecked")
-		List<PregatheringDto> list = getSqlMapClientTemplate().queryForList("queryAllEtbPregathering");
+		List<PregatheringDto> list = getSqlMapClientTemplate().queryForList("queryAllPregathering");
 		return list;
 	}
 
 	@Override
-	public void insertEtbPregathering(PregatheringDto pregathering) {
-		getSqlMapClientTemplate().insert("insertEtbPregathering", pregathering);
+	public void insertPregathering(PregatheringDto pregathering) {
+		getSqlMapClientTemplate().insert("insertPregathering", pregathering);
 	}
 
 	@Override
-	public void updateEtbPregathering(PregatheringDto pregathering) {
-		getSqlMapClientTemplate().update("updateEtbPregathering", pregathering);
+	public void updatePregathering(PregatheringDto pregathering) {
+		getSqlMapClientTemplate().update("updatePregathering", pregathering);
 	}
 
 	@Override
-	public List<PregatheringDto> queryAllEtbPregatheringExport(String pregatheringNoLow,
+	public List<PregatheringDto> queryAllPregatheringExport(String pregatheringNoLow,
 			String pregatheringNoHigh) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("ID_LOW", pregatheringNoLow);
 		paramMap.put("ID_HIGH", pregatheringNoHigh);
 		@SuppressWarnings("unchecked")
-		List<PregatheringDto> list = getSqlMapClientTemplate().queryForList("queryAllEtbPregatheringExport", paramMap);
+		List<PregatheringDto> list = getSqlMapClientTemplate().queryForList("queryAllPregatheringExport", paramMap);
 		return list;
 	}
 }

@@ -24,16 +24,16 @@ public class PregatheringServiceImpl implements PregatheringService {
 	private PregatheringDao pregatheringDao;
 
 	@Override
-	public PregatheringDto queryAllEtbPregatheringByID(String ID) {
-		return pregatheringDao.queryAllEtbPregatheringByID(ID);
+	public PregatheringDto queryAllPregatheringByID(String ID) {
+		return pregatheringDao.queryAllPregatheringByID(ID);
 	}
 
 	@Override
-	public Page queryEtbPregatheringByPage(Page page, String pregatheringNoLow,
+	public Page queryPregatheringByPage(Page page, String pregatheringNoLow,
 			String pregatheringNoHigh, String pregatheringName) {
 		pregatheringNoLow = StringUtil.replaceDatabaseKeyword_mysql(pregatheringNoLow);
 		//查询总记录数
-		int totalCount = pregatheringDao.queryEtbPregatheringCountByPage(pregatheringNoLow, pregatheringNoHigh, pregatheringName);
+		int totalCount = pregatheringDao.queryPregatheringCountByPage(pregatheringNoLow, pregatheringNoHigh, pregatheringName);
 		System.out.println("totalcount:" + String.valueOf(totalCount));
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
@@ -42,24 +42,24 @@ public class PregatheringServiceImpl implements PregatheringService {
 			page.setTotalPage(totalCount / page.getPageSize());
 		}
 		//翻页查询记录
-		List<PregatheringDto> list = pregatheringDao.queryEtbPregatheringByPage(pregatheringNoLow, pregatheringNoHigh,
+		List<PregatheringDto> list = pregatheringDao.queryPregatheringByPage(pregatheringNoLow, pregatheringNoHigh,
 				pregatheringName, page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		page.setItems(list);
 		return page;
 	}
 
 	@Override
-	public PregatheringDto queryEtbPregatheringByID(String pregatheringNo) {
-		return pregatheringDao.queryEtbPregatheringByID(pregatheringNo);
+	public PregatheringDto queryPregatheringByID(String pregatheringNo) {
+		return pregatheringDao.queryPregatheringByID(pregatheringNo);
 	}
 
 	@Override
-	public List<PregatheringDto> queryAllEtbPregathering() {
-		return pregatheringDao.queryAllEtbPregathering();
+	public List<PregatheringDto> queryAllPregathering() {
+		return pregatheringDao.queryAllPregathering();
 	}
 
 	@Override
-	public String insertEtbPregathering(PregatheringDto pregathering) {
+	public String insertPregathering(PregatheringDto pregathering) {
 		String pregatheringno = "";
 		String belongto = PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG);
 		pregathering.setBelongto(belongto);
@@ -70,30 +70,30 @@ public class PregatheringServiceImpl implements PregatheringService {
 		pregatheringno = Constants.PREGEATHERING_NO_PRE + belongto + sdf.format(date) + uuid;
 		pregathering.setPregatheringno(pregatheringno);
 		
-		pregatheringDao.insertEtbPregathering(pregathering);
+		pregatheringDao.insertPregathering(pregathering);
 		return pregatheringno;
 	}
 
 	@Override
-	public void updateEtbPregathering(PregatheringDto pregathering) {
-		pregatheringDao.updateEtbPregathering(pregathering);
+	public void updatePregathering(PregatheringDto pregathering) {
+		pregatheringDao.updatePregathering(pregathering);
 	}
 
 	@Override
-	public void deleteEtbPregathering(String pregatheringNo, String username) {
-		PregatheringDto pregathering = pregatheringDao.queryEtbPregatheringByID(pregatheringNo);
+	public void deletePregathering(String pregatheringNo, String username) {
+		PregatheringDto pregathering = pregatheringDao.queryPregatheringByID(pregatheringNo);
 		if(pregathering != null) {
 			//状态=已删除
 			pregathering.setStatus(Constants.STATUS_DEL);
 			pregathering.setUpdateuid(username);
-			pregatheringDao.updateEtbPregathering(pregathering);
+			pregatheringDao.updatePregathering(pregathering);
 		}
 	}
 
 	@Override
-	public List<PregatheringDto> queryAllEtbPregatheringExport(String pregatheringNoLow,
+	public List<PregatheringDto> queryAllPregatheringExport(String pregatheringNoLow,
 			String pregatheringNoHigh) {
-		return pregatheringDao.queryAllEtbPregatheringExport(pregatheringNoLow, pregatheringNoHigh);
+		return pregatheringDao.queryAllPregatheringExport(pregatheringNoLow, pregatheringNoHigh);
 	}
 
 	public PregatheringDao getPregatheringDao() {

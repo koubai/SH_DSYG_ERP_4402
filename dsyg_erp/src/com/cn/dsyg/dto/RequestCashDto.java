@@ -6,7 +6,7 @@ import java.util.Date;
 import com.cn.common.dto.BaseDto;
 
 /**
- * 销售报告
+ * 请款
  * @author 
  * @time 
  * @version 1.0
@@ -35,6 +35,17 @@ public class RequestCashDto extends BaseDto {
 	 * 请款内容
 	 */
 	private String requestcashname;
+
+	/**
+	 * 请款客户名称
+	 */
+	private String customername;
+
+	/**
+	 * 到款客户ID
+	 */
+	private String customerid;
+
 
 	/**
 	 * 负责人
@@ -73,30 +84,30 @@ public class RequestCashDto extends BaseDto {
 	private String reporturl;
 
 	/**
-	 * 销售报告1文件路径
+	 * 请款报告1文件路径
 	 */
 	private String reportpath01;
 
 	/**
-	 * 销售报告2文件路径
+	 * 请款报告2文件路径
 	 */
 	private String reportpath02;
 
 
 	/**
-	 * 销售报告3文件路径
+	 * 请款报告3文件路径
 	 */
 	private String reportpath03;
 
 
 	/**
-	 * 销售报告4文件路径
+	 * 请款报告4文件路径
 	 */
 	private String reportpath04;
 
 
 	/**
-	 * 销售报告5文件路径
+	 * 请款报告5文件路径
 	 */
 	private String reportpath05;
 	
@@ -441,5 +452,21 @@ public class RequestCashDto extends BaseDto {
 		this.reporturl = reporturl;
 	}
 	
+	public String getCustomername() {
+		return customername;
+	}
+
+	public void setCustomername(String customername) {
+		this.customername = customername;
+	}
+
+	public String getCustomerid() {
+		return customerid;
+	}
+
+	public void setCustomerid(String customerid) {
+		this.customerid = customerid;
+	}
+
 
 }

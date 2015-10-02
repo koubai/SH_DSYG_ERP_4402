@@ -4,14 +4,16 @@
         "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap namespace="com.cn.dsyg">
 
-	<resultMap id="SalesReportDto" class="com.cn.dsyg.dto.SalesReportDto">
+	<resultMap id="RequestCashDto" class="com.cn.dsyg.dto.RequestCashDto">
 		<result property="id" column="id" />
 		<result property="belongto" column="belongto" />
-		<result property="salesreportno" column="salesreportno" />
-		<result property="salesreportname" column="salesreportname" />	
+		<result property="requestcashno" column="requestcashno" />
+		<result property="requestcashname" column="requestcashname" />	
 		<result property="handler" column="handler" />
 		<result property="registerdate" column="registerdate" />
-		<result property="purpose" column="purpose" />
+		<result property="amount" column="amount" />		
+		<result property="customername" column="customername" />
+		<result property="customerid" column="customerid" />
 		<result property="approverid" column="approverid" />
 		<result property="note" column="note" />
 		<result property="reportpath01" column="reportpath01" />
@@ -37,81 +39,84 @@
 		<result property="updatedate" column="updatedate" />
 	</resultMap>
 	
-	<select id="querySalesReportCountByPage" resultClass="int" parameterClass="java.util.Map">
-		select count(*) from etb_salesreport T where 1 = 1
+	<select id="queryRequestCashCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from etb_requestcash T where 1 = 1
 			and T.status = '1'
 			<isNotEmpty prepend="and" property="ID_LOW">
-				T.salesreportno <![CDATA[>=]]> #ID_LOW#
+				T.requestcashno <![CDATA[>=]]> #ID_LOW#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="ID_HIGH">
-				T.salesreportno <![CDATA[<=]]> #ID_HIGH#
+				T.requestcashno <![CDATA[<=]]> #ID_HIGH#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="SALESREPORT_NAME">
-				T.salesreportname like '%$SALESREPORT_NAME$%'
+			<isNotEmpty prepend="and" property="REQUESTCASH_NAME">
+				T.requestcashname like '%$REQUESTCASH_NAME$%'
 			</isNotEmpty>
 	</select>
 	
-	<select id="queryAllSalesReportExport" parameterClass="java.util.Map" resultMap="SalesReportDto">
-		select T.* from etb_salesreport T where 1 = 1
+	<select id="queryAllRequestCashExport" parameterClass="java.util.Map" resultMap="RequestCashDto">
+		select T.* from etb_requestcash T where 1 = 1
 		and T.status = '1'
 		<isNotEmpty prepend="and" property="ID_LOW">
-			T.salesreportno <![CDATA[>=]]> #ID_LOW#
+			T.requestcashno <![CDATA[>=]]> #ID_LOW#
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="ID_HIGH">
-			T.salesreportno <![CDATA[<=]]> #ID_HIGH#
+			T.requestcashno <![CDATA[<=]]> #ID_HIGH#
 		</isNotEmpty>
 		order by T.updatedate desc
 	</select>
 	
-	<select id="querySalesReportByPage" parameterClass="java.util.Map" resultMap="SalesReportDto">
-		select T.* from etb_salesreport T where 1 = 1
+	<select id="queryRequestCashByPage" parameterClass="java.util.Map" resultMap="RequestCashDto">
+		select T.* from etb_requestcash T where 1 = 1
 		and T.status = '1'
 		<isNotEmpty prepend="and" property="ID_LOW">
-			T.salesreportno <![CDATA[>=]]> #ID_LOW#
+			T.requestcashno <![CDATA[>=]]> #ID_LOW#
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="ID_HIGH">
-			T.salesreportno <![CDATA[<=]]> #ID_HIGH#
+			T.requestcashno <![CDATA[<=]]> #ID_HIGH#
 		</isNotEmpty>
-		<isNotEmpty prepend="and" property="SALESREPORT_NAME">
-			T.salesreportname like '%$SALESREPORT_NAME$%'
+		<isNotEmpty prepend="and" property="REQUESTCASH_NAME">
+			T.requestcashname like '%$REQUESTCASH_NAME$%'
 		</isNotEmpty>
 		order by T.updatedate desc
 		LIMIT #start#, #end#
 	</select>
 	
-	<select id="querySalesReportByID" parameterClass="java.util.Map" resultMap="SalesReportDto">
-		select * from etb_salesreport where 
-			salesreportno = #ID#
+	<select id="queryRequestCashByID" parameterClass="java.util.Map" resultMap="RequestCashDto">
+		select * from etb_requestcash where 
+			requestcashno = #ID#
 			and status = '1'
 	</select>
 	
-	<select id="queryAllSalesReportByID" parameterClass="java.util.Map" resultMap="SalesReportDto">
-		select * from etb_salesreport where 
-			salesreportno = #ID#
+	<select id="queryAllRequestCashByID" parameterClass="java.util.Map" resultMap="RequestCashDto">
+		select * from etb_requestcash where 
+			requestcashno = #ID#
 	</select>
 	
-	<select id="queryAllSalesReport" parameterClass="java.util.Map" resultMap="SalesReportDto">
-		select * from etb_salesreport where 1 = 1 and status = '1' order by updatedate desc
+	<select id="queryAllRequestCash" parameterClass="java.util.Map" resultMap="RequestCashDto">
+		select * from etb_requestcash where 1 = 1 and status = '1' order by updatedate desc
 	</select>
-	
-	<insert id="insertSalesReport" parameterClass="com.cn.dsyg.dto.SalesReportDto">
-		insert into etb_salesreport(belongto,salesreportno,salesreportname,handler,registerdate,purpose,approverid,
+		
+	<insert id="insertRequestCash" parameterClass="com.cn.dsyg.dto.RequestCashDto">
+		insert into etb_requestcash(belongto,requestcashno,requestcashname,handler,registerdate,amount,customername,customerid,approverid,
 		reportpath01,reportpath02,reportpath03,reportpath04,reportpath05,note,rank,
 		status,res01,res02,res03,res04,res05,res06,res07,res08,res09,res10,
 		createuid,createdate,updateuid,updatedate)
-		values(#belongto#,#salesreportno#,#salesreportname#,#handler#,#registerdate#,#purpose#,#approverid#,
+		values(#belongto#,#requestcashno#,#requestcashname#,#handler#,#registerdate#,
+		#amount#,#customername#,#customerid#,#approverid#,
 		#reportpath01#,#reportpath02#,#reportpath03#,#reportpath04#,#reportpath05#,#note#,#rank#,
 		#status#,#res01#,#res02#,#res03#,#res04#,#res05#,#res06#,#res07#,#res08#,#res09#,#res10#,
 		#createuid#,NOW(),#updateuid#,#updatedate#)
 	</insert>
 	
-	<update id="updateSalesReport" parameterClass="com.cn.dsyg.dto.SalesReportDto">
-		update etb_salesreport
-		set salesreportname=#salesreportname#,
+	<update id="updateRequestCash" parameterClass="com.cn.dsyg.dto.RequestCashDto">
+		update etb_requestcash
+		set requestcashname=#requestcashname#,
 			belongto=#belongto#,
 			handler=#handler#,
 			registerdate=#registerdate#,
-			purpose=#purpose#,
+			amount=#amount#,
+			customername=#customername#,
+			customerid=#customerid#,
 			approverid=#approverid#,
 			reportpath01=#reportpath01#,
 			reportpath02=#reportpath02#,
@@ -135,7 +140,7 @@
 			createdate=#createdate#,
 			updateuid=#updateuid#,
 			updatedate=NOW()
-		where salesreportno = #salesreportno#
+		where requestcashno = #requestcashno#
 	</update>
 	
 </sqlMap>

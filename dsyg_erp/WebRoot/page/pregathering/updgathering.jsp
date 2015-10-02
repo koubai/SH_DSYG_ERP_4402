@@ -47,12 +47,12 @@
 			$("#tmpnote").focus();
 			return;
 		}
-		document.mainform.action = '<c:url value="/finance/updEtbPregatheringAction.action"></c:url>';
+		document.mainform.action = '<c:url value="/pregathering/updPregatheringAction.action"></c:url>';
 		document.mainform.submit();
 	}
 	
 	function golist() {
-		document.mainform.action = '<c:url value="/finance/queryEtbPregatheringList.action"></c:url>';
+		document.mainform.action = '<c:url value="/pregathering/queryPregatheringList.action"></c:url>';
 		document.mainform.submit();
 	};
 

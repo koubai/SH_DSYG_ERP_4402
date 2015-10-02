@@ -22,47 +22,47 @@ public interface PregatheringService {
 	 * @param pregatheringName
 	 * @return
 	 */
-	public Page queryEtbPregatheringByPage(Page page, String pregatheringNoLow, String pregatheringNoHigh, String pregatheringName);
+	public Page queryPregatheringByPage(Page page, String pregatheringNoLow, String pregatheringNoHigh, String pregatheringName);
 
 	/**
 	 * 根据ID查询预收款（查询未删除的记录）
 	 * @param pregatheringNo
 	 * @return
 	 */
-	public PregatheringDto queryEtbPregatheringByID(String pregatheringNo);
+	public PregatheringDto queryPregatheringByID(String pregatheringNo);
 	
 	/**
 	 * 根据ID预收款（查询所有记录）
 	 * @param pregatheringNo
 	 * @return
 	 */
-	public PregatheringDto queryAllEtbPregatheringByID(String pregatheringNo);
+	public PregatheringDto queryAllPregatheringByID(String pregatheringNo);
 	
 	/**
 	 * 查询所有的预收款
 	 * @return
 	 */
-	public List<PregatheringDto> queryAllEtbPregathering();
+	public List<PregatheringDto> queryAllPregathering();
 	
 	/**
 	 * 新增预收款
 	 * @param pregathering
 	 * @return
 	 */
-	public String insertEtbPregathering(PregatheringDto pregathering);
+	public String insertPregathering(PregatheringDto pregathering);
 	
 	/**
 	 * 修改预收款
 	 * @param pregathering
 	 */
-	public void updateEtbPregathering(PregatheringDto pregathering);
+	public void updatePregathering(PregatheringDto pregathering);
 	
 	/**
 	 * 删除预收款
 	 * @param pregatheringNo
 	 * @param username
 	 */
-	public void deleteEtbPregathering(String pregatheringNo, String username);
+	public void deletePregathering(String pregatheringNo, String username);
 	
 	/**
 	 * 查询资产（Excel导出用）
@@ -70,5 +70,5 @@ public interface PregatheringService {
 	 * @param pregatheringNoHigh
 	 * @return
 	 */
-	public List<PregatheringDto> queryAllEtbPregatheringExport(String pregatheringNoLow, String pregatheringNoHigh);
+	public List<PregatheringDto> queryAllPregatheringExport(String pregatheringNoLow, String pregatheringNoHigh);
 }

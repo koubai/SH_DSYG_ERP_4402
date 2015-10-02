@@ -36,7 +36,7 @@ public class RequestCashDaoImpl extends BaseDao implements RequestCashDao {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		//这里按照需求，若资产名称存在，则忽略资产代码按资产名称来查询。
 		if(StringUtil.isNotBlank(requestcashName)) {
-			paramMap.put("SALESREPORT_NAME", StringUtil.replaceDatabaseKeyword_mysql(requestcashName));
+			paramMap.put("REQUESTCASH_NAME", StringUtil.replaceDatabaseKeyword_mysql(requestcashName));
 		} else {
 			paramMap.put("ID_LOW", requestcashNoLow);
 			paramMap.put("ID_HIGH", requestcashNoHigh);
@@ -54,7 +54,7 @@ public class RequestCashDaoImpl extends BaseDao implements RequestCashDao {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		//这里按照需求，若资产名称存在，则忽略资产代码按资产名称来查询。
 		if(StringUtil.isNotBlank(requestcashName)) {
-			paramMap.put("SALESREPORT_NAME", StringUtil.replaceDatabaseKeyword_mysql(requestcashName));
+			paramMap.put("REQUESTCASH_NAME", StringUtil.replaceDatabaseKeyword_mysql(requestcashName));
 		} else {
 			paramMap.put("ID_LOW", requestcashNoLow);
 			paramMap.put("ID_HIGH", requestcashNoHigh);

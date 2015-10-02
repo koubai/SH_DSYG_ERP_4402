@@ -54,6 +54,10 @@
 	<include file="struts-document.xml"></include>
 	<!-- salesreport -->
 	<include file="struts-salesreport.xml"></include>
+	<!-- pregathering -->
+	<include file="struts-pregathering.xml"></include>
+	<!-- requestcash -->
+	<include file="struts-requestcash.xml"></include>
 	
 	<package name="index" extends="struts-default, json-default" namespace="/index">
 		

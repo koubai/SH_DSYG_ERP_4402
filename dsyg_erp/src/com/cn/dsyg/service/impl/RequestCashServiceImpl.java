@@ -43,10 +43,10 @@ public class RequestCashServiceImpl implements RequestCashService {
 		//翻页查询记录
 		List<RequestCashDto> list = requestcashDao.queryRequestCashByPage(requestcashNoLow, requestcashNoHigh,
 				requestcashName, page.getStartIndex() * page.getPageSize(), page.getPageSize());
-		for (RequestCashDto salesReport : list){
+		for (RequestCashDto RequestCashReport : list){
 			//文件显示地址
 			String pdfurl = PropertiesConfig.getPropertiesValueByKey(Constants.PROPERTIES_PDF_URL);
-			salesReport.setReporturl(pdfurl);
+			RequestCashReport.setReporturl(pdfurl);
 		}
 		page.setItems(list);
 		return page;
@@ -54,12 +54,12 @@ public class RequestCashServiceImpl implements RequestCashService {
 
 	@Override
 	public RequestCashDto queryRequestCashByID(String requestcashNo) {
-		RequestCashDto salereport = requestcashDao.queryRequestCashByID(requestcashNo);
-		if(salereport != null) {
+		RequestCashDto RequestCashreport = requestcashDao.queryRequestCashByID(requestcashNo);
+		if(RequestCashreport != null) {
 			//文件显示地址
 			String pdfurl = PropertiesConfig.getPropertiesValueByKey(Constants.PROPERTIES_PDF_URL);
-			salereport.setReporturl(pdfurl);
-			return salereport;
+			RequestCashreport.setReporturl(pdfurl);
+			return RequestCashreport;
 		}
 		return null;
 	}
