@@ -40,10 +40,12 @@ public interface SalesService {
 	 * @param bookdateLow
 	 * @param bookdateHigh
 	 * @param theme2
+	 * @param type
+	 * @param customername
 	 * @param page
 	 * @return
 	 */
-	public Page querySalesByPage(String bookdateLow, String bookdateHigh, String theme2, Page page);
+	public Page querySalesByPage(String bookdateLow, String bookdateHigh, String theme2, String type, String customername, Page page);
 	
 	/**
 	 * 根据ID查询销售单数据

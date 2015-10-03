@@ -10,6 +10,7 @@ import com.cn.common.util.Constants;
 import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
+import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.Dict01Dao;
 import com.cn.dsyg.dao.FinanceDao;
 import com.cn.dsyg.dao.SalesDao;
@@ -140,9 +141,11 @@ public class SalesServiceImpl implements SalesService {
 
 	@Override
 	public Page querySalesByPage(String bookdateLow, String bookdateHigh, String theme2,
-			Page page) {
+			String type, String customername, Page page) {
+		customername = StringUtil.replaceDatabaseKeyword_mysql(customername);
+		
 		//查询总记录数
-		int totalCount = salesDao.querySalesCountByPage(bookdateLow, bookdateHigh, theme2);
+		int totalCount = salesDao.querySalesCountByPage(bookdateLow, bookdateHigh, theme2, type, customername);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -150,7 +153,7 @@ public class SalesServiceImpl implements SalesService {
 			page.setTotalPage(totalCount / page.getPageSize());
 		}
 		//翻页查询记录
-		List<SalesDto> list = salesDao.querySalesByPage(bookdateLow, bookdateHigh, theme2,
+		List<SalesDto> list = salesDao.querySalesByPage(bookdateLow, bookdateHigh, theme2, type, customername,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		if(list != null && list.size() > 0) {
 			for(SalesDto sales : list) {

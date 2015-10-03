@@ -172,7 +172,7 @@ public class ProductDto extends BaseDto {
 	private String item10;
 
 	/**
-	 * 项目11
+	 * 住友代码
 	 */
 	private String item11;
 

@@ -12,9 +12,11 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
 import com.cn.common.action.BaseAction;
+import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.dsyg.dto.QaDto;
 import com.cn.dsyg.service.QaService;
+import com.opensymphony.xwork2.ActionContext;
 
 /**
  * @name QaAction.java
@@ -56,7 +58,11 @@ public class QaAction extends BaseAction {
 		String result = "0";
 		try {
 			this.clearMessages();
-			result = "" + qaService.queryQaCountByPage("", "", "", "1");
+			//判断当前用户是否是经理级以上（rank为80以上）
+			Integer rank = (Integer) ActionContext.getContext().getSession().get(Constants.SESSION_ROLE_RANK);
+			if(rank != null && rank >= Constants.ROLE_RANK_MANAGER) {
+				result = "" + qaService.queryQaCountByPage("", "", "", "1");
+			}
 		} catch(Exception e) {
 			log.error("queryQaCountAction error:" + e);
 		}

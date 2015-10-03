@@ -742,17 +742,10 @@
 								<s:if test='addSalesDto.res02 == "1"'>
 									<input type="radio" id="tmpRes02" onclick="checkSalesType(this);" name="salesType" value="0"/>普通　
 									<input type="radio" name="salesType" onclick="checkSalesType(this);" checked="checked" value="1"/>询价　
-									<input type="radio" name="salesType" onclick="checkSalesType(this);" value="2"/>询样
 								</s:if>
-								<s:elseif test='addSalesDto.res02 == "2"'>
-									<input type="radio" id="tmpRes02" onclick="checkSalesType(this);" name="salesType" value="0"/>普通　
-									<input type="radio" name="salesType" onclick="checkSalesType(this);" value="1"/>询价　
-									<input type="radio" name="salesType" onclick="checkSalesType(this);" checked="checked" value="2"/>询样
-								</s:elseif>
 								<s:else>
 									<input type="radio" id="tmpRes02" onclick="checkSalesType(this);" name="salesType" checked="checked" value="0"/>普通　
 									<input type="radio" name="salesType" onclick="checkSalesType(this);" value="1"/>询价　
-									<input type="radio" name="salesType" onclick="checkSalesType(this);" value="2"/>询样
 								</s:else>
 							</td>
 							<td align="right">

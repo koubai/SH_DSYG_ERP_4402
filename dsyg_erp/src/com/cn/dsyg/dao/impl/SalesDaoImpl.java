@@ -41,21 +41,28 @@ public class SalesDaoImpl extends BaseDao implements SalesDao {
 	}
 
 	@Override
-	public int querySalesCountByPage(String bookdateLow, String bookdateHigh, String theme2) {
+	public int querySalesCountByPage(String bookdateLow, String bookdateHigh, String theme2, String res02, String customername) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("bookdateLow", bookdateLow);
 		paramMap.put("bookdateHigh", bookdateHigh);
 		paramMap.put("theme2", theme2);
+		
+		paramMap.put("customername", customername);
+		paramMap.put("res02", res02);
 		return (Integer) getSqlMapClientTemplate().queryForObject("querySalesCountByPage", paramMap);
 	}
 
 	@Override
 	public List<SalesDto> querySalesByPage(String bookdateLow,
-			String bookdateHigh, String theme2, int start, int end) {
+			String bookdateHigh, String theme2, String res02, String customername, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("bookdateLow", bookdateLow);
 		paramMap.put("bookdateHigh", bookdateHigh);
 		paramMap.put("theme2", theme2);
+		
+		paramMap.put("customername", customername);
+		paramMap.put("res02", res02);
+		
 		paramMap.put("start", start);
 		paramMap.put("end", end);
 		@SuppressWarnings("unchecked")
