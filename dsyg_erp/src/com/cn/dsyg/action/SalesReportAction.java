@@ -14,8 +14,8 @@ import com.cn.common.util.FileUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
-import com.cn.dsyg.dto.RequestCashDto;
-import com.cn.dsyg.service.RequestCashService;
+import com.cn.dsyg.dto.SalesReportDto;
+import com.cn.dsyg.service.SalesReportService;
 import com.opensymphony.xwork2.ActionContext;
 
 /**
@@ -26,11 +26,11 @@ import com.opensymphony.xwork2.ActionContext;
  */
 public class SalesReportAction extends BaseAction {
 
-	private static final long serialVersionUID = 7994518613669184819L;
+	private static final long serialVersionUID = 7368309388514409960L;
 
-	private static final Logger log = LogManager.getLogger(RequestCashAction.class);
+	private static final Logger log = LogManager.getLogger(SalesReportAction.class);
 	
-	private RequestCashService requestcashService;
+	private SalesReportService salesreportService;
 	
 	/**
 	 * 页码
@@ -46,62 +46,62 @@ public class SalesReportAction extends BaseAction {
 	private Integer intPageSize;
 	
 	/**
-	 * 请款列表
+	 * 销售报告列表
 	 */
-	private List<RequestCashDto> listRequestCash;
+	private List<SalesReportDto> listSalesReport;
 	
 	/**
-	 * 请款编号（起）
+	 * 销售报告编号（起）
 	 */
-	private String strRequestCashNoLow;
+	private String strSalesReportNoLow;
 	
 	/**
-	 * 请款编号（终）
+	 * 销售报告编号（终）
 	 */
-	private String strRequestCashNoHigh;
+	private String strSalesReportNoHigh;
 	
 	/**
-	 * 请款内容
+	 * 销售报告名称
 	 */
-	private String strRequestCashName;
+	private String strSalesReportName;
 	
 	/**
-	 * 新增请款对象
+	 * 新增销售报告对象
 	 */
-	private RequestCashDto addRequestCashDto;
+	private SalesReportDto addSalesReportDto;
 	
 	/**
-	 * 修改的请款编号
+	 * 修改的销售报告编号
 	 */
-	private String updateRequestCashNo;
+	private String updateSalesReportNo;
 	
 	/**
-	 * 修改请款对象
+	 * 修改销售报告对象
 	 */
-	private RequestCashDto updateRequestCashDto;
+	private SalesReportDto updateSalesReportDto;
 	
 	/**
-	 * 删除的请款编号
+	 * 删除的销售报告编号
 	 */
-	private String delRequestCashNo;
+	private String delSalesReportNo;
 	
 	/**
-	 * ajax查询条件-请款编号
+	 * ajax查询条件-销售报告编号
 	 */
-	private String queryRequestCashNo;
+	private String querySalesReportNo;
 	
-	//请款查询页面（共通）
+	//销售报告查询页面（共通）
 	/**
-	 * 请款信息页码
+	 * 销售报告信息页码
 	 */
-	private int startIndexRequestCash;
+	private int startIndexSalesReport;
 	
 	/**
-	 * 请款信息翻页
+	 * 销售报告信息翻页
 	 */
-	private Page pageRequestCash;
+	private Page pageSalesReport;
 	
-	private List<RequestCashDto> requestcashList;
+	private List<SalesReportDto> salesreportList;
 	
 	private String salesreportNoLow;
 	
@@ -127,26 +127,26 @@ public class SalesReportAction extends BaseAction {
 	private File updReportFile03;
 
 	/**
-	 * 显示请款页面
+	 * 显示销售报告页面
 	 * @return
 	 */
-	public String showRequestCashAction() {
+	public String showSalesReportAction() {
 		try {
 			this.clearMessages();
-			strRequestCashNoLow = "";
-			strRequestCashNoHigh = "";
-			strRequestCashName = "";
-			addRequestCashDto = new RequestCashDto();
-			updateRequestCashDto = new RequestCashDto();
-			updateRequestCashNo = "";
-			delRequestCashNo = "";
+			strSalesReportNoLow = "";
+			strSalesReportNoHigh = "";
+			strSalesReportName = "";
+			addSalesReportDto = new SalesReportDto();
+			updateSalesReportDto = new SalesReportDto();
+			updateSalesReportNo = "";
+			delSalesReportNo = "";
 
 			//默认10条
 			intPageSize = 10;
 			page = new Page(intPageSize);
 			
 			startIndex = 0;
-			listRequestCash = new ArrayList<RequestCashDto>();
+			listSalesReport = new ArrayList<SalesReportDto>();
 		} catch(Exception e) {
 			return ERROR;
 		}
@@ -154,10 +154,10 @@ public class SalesReportAction extends BaseAction {
 	}
 	
 	/**
-	 * 查询请款列表
+	 * 查询销售报告列表
 	 * @return
 	 */
-	public String queryRequestCashList() {
+	public String querySalesReportList() {
 		try {
 			this.clearMessages();
 			//默认10条
@@ -166,7 +166,7 @@ public class SalesReportAction extends BaseAction {
 			}
 			page = new Page(intPageSize);
 			startIndex = 0;
-			queryRequestCash();
+			querySalesReport();
 		} catch(Exception e) {
 			log.error(e);
 			return ERROR;
@@ -178,10 +178,10 @@ public class SalesReportAction extends BaseAction {
 	 * 翻页
 	 * @return
 	 */
-	public String turnRequestCashPage() {
+	public String turnSalesReportPage() {
 		try {
 			this.clearMessages();
-			queryRequestCash();
+			querySalesReport();
 		} catch(Exception e) {
 			log.error(e);
 			return ERROR;
@@ -190,30 +190,30 @@ public class SalesReportAction extends BaseAction {
 	}
 	
 	/**
-	 * 翻页查询所有请款列表
+	 * 翻页查询所有销售报告列表
 	 */
 	@SuppressWarnings("unchecked")
-	private void queryRequestCash() {
-		listRequestCash = new ArrayList<RequestCashDto>();
+	private void querySalesReport() {
+		listSalesReport = new ArrayList<SalesReportDto>();
 		if(page == null) {
 			page = new Page(intPageSize);
 		}
-		//翻页查询所有请款
+		//翻页查询所有销售报告
 		this.page.setStartIndex(startIndex);
-		page = requestcashService.queryRequestCashByPage(page, strRequestCashNoLow, strRequestCashNoHigh, strRequestCashName);
-		listRequestCash = (List<RequestCashDto>) page.getItems();
+		page = salesreportService.querySalesReportByPage(page, strSalesReportNoLow, strSalesReportNoHigh, strSalesReportName);
+		listSalesReport = (List<SalesReportDto>) page.getItems();
 		
 		this.setStartIndex(page.getStartIndex());
 	}
 	
 	/**
-	 * 显示添加请款页面
+	 * 显示添加销售报告页面
 	 * @return
 	 */
-	public String showAddRequestCashAction() {
+	public String showAddSalesReportAction() {
 		try {
 			this.clearMessages();
-			addRequestCashDto = new RequestCashDto();
+			addSalesReportDto = new SalesReportDto();
 		} catch(Exception e) {
 			return ERROR;
 		}
@@ -221,22 +221,22 @@ public class SalesReportAction extends BaseAction {
 	}
 	
 	/**
-	 * 添加请款
+	 * 添加销售报告
 	 * @return
 	 */
-	public String addRequestCashAction() {
+	public String addSalesReportAction() {
 		try {
 			this.clearMessages();
 			//数据校验
-			if(!checkData(addRequestCashDto)) {
+			if(!checkData(addSalesReportDto)) {
 				return "checkerror";
 			}
-			log.info("addRequestCashDto.getRequestCashno()=" + addRequestCashDto.getRequestcashno());
-			log.info("addRequestCashDto.getRequestCashname()=" + addRequestCashDto.getRequestcashname());
-			//校验请款代码是否存在
-			RequestCashDto salesreport = requestcashService.queryAllRequestCashByID(addRequestCashDto.getRequestcashno()+"");
+			log.info("addSalesReportDto.getSalesReportno()=" + addSalesReportDto.getSalesreportno());
+			log.info("addSalesReportDto.getSalesReportname()=" + addSalesReportDto.getSalesreportname());
+			//校验销售报告代码是否存在
+			SalesReportDto salesreport = salesreportService.queryAllSalesReportByID(addSalesReportDto.getSalesreportno()+"");
 			if(salesreport != null) {
-				this.addActionMessage("请款已经存在！");
+				this.addActionMessage("销售报告已经存在！");
 				return "checkerror";
 			}
 			
@@ -246,68 +246,68 @@ public class SalesReportAction extends BaseAction {
 			//保存文件到指定目录
 			if(addReportFile01 != null) {
 				String newfile01 = FileUtil.uploadFile(addReportFile01, pdf_path, file01Name);
-				addRequestCashDto.setReportpath01(newfile01);
+				addSalesReportDto.setReportpath01(newfile01);
 			}
 			if(addReportFile02 != null) {
 				String newfile02 = FileUtil.uploadFile(addReportFile02, pdf_path, file02Name);
-				addRequestCashDto.setReportpath02(newfile02);
+				addSalesReportDto.setReportpath02(newfile02);
 			}
 			if(addReportFile03 != null) {
 				String newfile03 = FileUtil.uploadFile(addReportFile03, pdf_path, file03Name);
-				addRequestCashDto.setReportpath03(newfile03);
+				addSalesReportDto.setReportpath03(newfile03);
 			}
 			
 			//保存数据
-			addRequestCashDto.setStatus(Constants.STATUS_NORMAL);
+			addSalesReportDto.setStatus(Constants.STATUS_NORMAL);
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
-			addRequestCashDto.setCreateuid(username);
-			String salesreportno = requestcashService.insertRequestCash(addRequestCashDto);
-			this.addActionMessage("添加请款成功！请款编号为：" + salesreportno);
-			addRequestCashDto = new RequestCashDto();
+			addSalesReportDto.setCreateuid(username);
+			String salesreportno = salesreportService.insertSalesReport(addSalesReportDto);
+			this.addActionMessage("添加销售报告成功！销售报告编号为：" + salesreportno);
+			addSalesReportDto = new SalesReportDto();
 		} catch(Exception e) {
-			this.addActionMessage("系统异常，添加请款失败！");
-			log.error("addRequestCashAction error:" + e);
+			this.addActionMessage("系统异常，添加销售报告失败！");
+			log.error("addSalesReportAction error:" + e);
 			return "checkerror";
 		}
 		return SUCCESS;
 	}
 	
 	/**
-	 * 显示修改请款页面
+	 * 显示修改销售报告页面
 	 * @return
 	 */
-	public String showUpdRequestCashAction() {
+	public String showUpdSalesReportAction() {
 		try {
 			updReportFile01 = null;
 			updReportFile02 = null;
 			updReportFile03 = null;
 			this.clearMessages();
-			System.out.println("salesreportNo is: "+updateRequestCashNo);
-			updateRequestCashDto = requestcashService.queryRequestCashByID(updateRequestCashNo);
-			if(updateRequestCashDto == null) {
+			System.out.println("salesreportNo is: "+updateSalesReportNo);
+			updateSalesReportDto = salesreportService.querySalesReportByID(updateSalesReportNo);
+			if(updateSalesReportDto == null) {
 				this.addActionMessage("该数据不存在！");
 				return "checkerror";
 			}
 		} catch(Exception e) {
-			this.addActionMessage("系统错误，查询请款异常！");
-			log.error("showUpdRequestCashAction error:" + e);
+			this.addActionMessage("系统错误，查询销售报告异常！");
+			log.error("showUpdSalesReportAction error:" + e);
 			return "checkerror";
 		}
 		return SUCCESS;
 	}
 	
 	/**
-	 * 修改请款
+	 * 修改销售报告
 	 * @return
 	 */
-	public String updRequestCashAction() {
+	public String updSalesReportAction() {
 		try {
 			this.clearMessages();
 			//数据校验
-			if(!checkData(updateRequestCashDto)) {
+			if(!checkData(updateSalesReportDto)) {
 				return "checkerror";
 			}
-			System.out.println("salesreportNo is: "+updateRequestCashDto.getRequestcashno());
+			System.out.println("salesreportNo is: "+updateSalesReportDto.getSalesreportno());
 			
 			//文件目录
 			String pdf_path = PropertiesConfig.getPropertiesValueByKey(Constants.PROPERTIES_PDF_PATH);
@@ -316,61 +316,61 @@ public class SalesReportAction extends BaseAction {
 			String oldfile1 = "";
 			String oldfile2 = "";
 			String oldfile3 = "";
-			RequestCashDto oldReport = requestcashService.queryRequestCashByID(updateRequestCashNo);
+			SalesReportDto oldReport = salesreportService.querySalesReportByID(updateSalesReportNo);
 			
 			if(updReportFile01 != null) {
 				String newfile01 = FileUtil.uploadFile(updReportFile01, pdf_path, file01Name);
-				updateRequestCashDto.setReportpath01(newfile01);
+				updateSalesReportDto.setReportpath01(newfile01);
 				oldfile1 = oldReport.getReportpath01();
 			}
 			if(updReportFile02 != null) {
 				String newfile02 = FileUtil.uploadFile(updReportFile02, pdf_path, file02Name);
-				updateRequestCashDto.setReportpath02(newfile02);
+				updateSalesReportDto.setReportpath02(newfile02);
 				oldfile2 = oldReport.getReportpath02();
 			}
 			if(updReportFile03 != null) {
 				String newfile03 = FileUtil.uploadFile(updReportFile03, pdf_path, file03Name);
-				updateRequestCashDto.setReportpath03(newfile03);
+				updateSalesReportDto.setReportpath03(newfile03);
 				oldfile3 = oldReport.getReportpath03();
 			}
 			//修改数据
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
-			updateRequestCashDto.setUpdateuid(username);
-			requestcashService.updateRequestCash(updateRequestCashDto);
-			this.addActionMessage("修改请款成功！");
+			updateSalesReportDto.setUpdateuid(username);
+			salesreportService.updateSalesReport(updateSalesReportDto);
+			this.addActionMessage("修改销售报告成功！");
 			//清空数据
 			updReportFile01 = null;
 			updReportFile02 = null;
 			updReportFile03 = null;
 		} catch(Exception e) {
-			this.addActionMessage("系统异常，修改请款失败！");
-			log.error("updRequestCashAction error:" + e);
+			this.addActionMessage("系统异常，修改销售报告失败！");
+			log.error("updSalesReportAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
 	}
 	
 	/**
-	 * 删除请款
+	 * 删除销售报告
 	 * @return
 	 */
-	public String delRequestCashAction() {
+	public String delSalesReportAction() {
 		try {
 			this.clearMessages();
-			if(StringUtil.isBlank(delRequestCashNo)) {
-				this.addActionMessage("请款代码为空！");
+			if(StringUtil.isBlank(delSalesReportNo)) {
+				this.addActionMessage("销售报告代码为空！");
 				return "checkerror";
 			}
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			//删除
-			requestcashService.deleteRequestCash(delRequestCashNo, username);
-			this.addActionMessage("删除请款成功！");
-			delRequestCashNo = "";
+			salesreportService.deleteSalesReport(delSalesReportNo, username);
+			this.addActionMessage("删除销售报告成功！");
+			delSalesReportNo = "";
 			//刷新页面
 			startIndex = 0;
-			queryRequestCash();
+			querySalesReport();
 		} catch(Exception e) {
-			log.error("delRequestCashAction error:" + e);
+			log.error("delSalesReportAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -381,28 +381,28 @@ public class SalesReportAction extends BaseAction {
 	 * @param salesreport
 	 * @return
 	 */
-	private boolean checkData(RequestCashDto requestcash) {
-		if(requestcash == null) {
-			this.addActionMessage("请款名称不能为空！");
+	private boolean checkData(SalesReportDto salesreport) {
+		if(salesreport == null) {
+			this.addActionMessage("销售报告名称不能为空！");
 			return false;
 		}
-//		if(StringUtil.isBlank(salesreport.getRequestCashno()+"")) {
-//			this.addActionMessage("请款代码不能为空！");
+//		if(StringUtil.isBlank(salesreport.getSalesReportno()+"")) {
+//			this.addActionMessage("销售报告代码不能为空！");
 //			return false;
 //		}
-		if(StringUtil.isBlank(requestcash.getRequestcashname())) {
-			this.addActionMessage("请款内容不能为空！");
+		if(StringUtil.isBlank(salesreport.getSalesreportname())) {
+			this.addActionMessage("销售报告名称不能为空！");
 			return false;
 		}
-		if(requestcash.getRequestcashname().length() > 200) {
-			this.addActionMessage("请款内容不能超过200个字符！");
+		if(salesreport.getSalesreportname().length() > 40) {
+			this.addActionMessage("销售报告名称不能超过64个字符！");
 			return false;
 		}
-		if(!DateUtil.isDate(requestcash.getRegisterdate().toString())) {
+		if(!DateUtil.isDate(salesreport.getRegisterdate().toString())) {
 			this.addActionMessage("登记日期格式不正确！");
 			return false;
 		}
-		if(StringUtil.isNotBlank(requestcash.getNote()) && requestcash.getNote().length() > 500) {
+		if(StringUtil.isNotBlank(salesreport.getNote()) && salesreport.getNote().length() > 500) {
 			this.addActionMessage("内容介绍不能超过500个字符！");
 			return false;
 		}
@@ -425,111 +425,111 @@ public class SalesReportAction extends BaseAction {
 		this.startIndex = startIndex;
 	}
 
-	public List<RequestCashDto> getListRequestCash() {
-		return listRequestCash;
+	public List<SalesReportDto> getListSalesReport() {
+		return listSalesReport;
 	}
 
-	public void setListRequestCash(List<RequestCashDto> listRequestCash) {
-		this.listRequestCash = listRequestCash;
+	public void setListSalesReport(List<SalesReportDto> listSalesReport) {
+		this.listSalesReport = listSalesReport;
 	}
 
-	public String getStrRequestCashNoLow() {
-		return strRequestCashNoLow;
+	public String getStrSalesReportNoLow() {
+		return strSalesReportNoLow;
 	}
 
-	public void setStrRequestCashNoLow(String strRequestCashNoLow) {
-		this.strRequestCashNoLow = strRequestCashNoLow;
+	public void setStrSalesReportNoLow(String strSalesReportNoLow) {
+		this.strSalesReportNoLow = strSalesReportNoLow;
 	}
 
-	public String getStrRequestCashNoHigh() {
-		return strRequestCashNoHigh;
+	public String getStrSalesReportNoHigh() {
+		return strSalesReportNoHigh;
 	}
 
-	public void setStrRequestCashNoHigh(String strRequestCashNoHigh) {
-		this.strRequestCashNoHigh = strRequestCashNoHigh;
+	public void setStrSalesReportNoHigh(String strSalesReportNoHigh) {
+		this.strSalesReportNoHigh = strSalesReportNoHigh;
 	}
 
-	public RequestCashDto getAddRequestCashDto() {
-		return addRequestCashDto;
+	public SalesReportDto getAddSalesReportDto() {
+		return addSalesReportDto;
 	}
 
-	public void setAddRequestCashDto(RequestCashDto addRequestCashDto) {
-		this.addRequestCashDto = addRequestCashDto;
+	public void setAddSalesReportDto(SalesReportDto addSalesReportDto) {
+		this.addSalesReportDto = addSalesReportDto;
 	}
 
-	public RequestCashDto getUpdateRequestCashDto() {
-		return updateRequestCashDto;
+	public SalesReportDto getUpdateSalesReportDto() {
+		return updateSalesReportDto;
 	}
 
-	public void setUpdateRequestCashDto(RequestCashDto updateRequestCashDto) {
-		this.updateRequestCashDto = updateRequestCashDto;
+	public void setUpdateSalesReportDto(SalesReportDto updateSalesReportDto) {
+		this.updateSalesReportDto = updateSalesReportDto;
 	}
 
 	public void setStartIndex(int startIndex) {
 		this.startIndex = startIndex;
 	}
 
-	public String getUpdateRequestCashNo() {
-		return updateRequestCashNo;
+	public String getUpdateSalesReportNo() {
+		return updateSalesReportNo;
 	}
 
-	public void setUpdateRequestCashNo(String updateRequestCashNo) {
-		this.updateRequestCashNo = updateRequestCashNo;
+	public void setUpdateSalesReportNo(String updateSalesReportNo) {
+		this.updateSalesReportNo = updateSalesReportNo;
 	}
 
-	public String getDelRequestCashNo() {
-		return delRequestCashNo;
+	public String getDelSalesReportNo() {
+		return delSalesReportNo;
 	}
 
-	public void setDelRequestCashNo(String delRequestCashNo) {
-		this.delRequestCashNo = delRequestCashNo;
+	public void setDelSalesReportNo(String delSalesReportNo) {
+		this.delSalesReportNo = delSalesReportNo;
 	}
 
-	public String getQueryRequestCashNo() {
-		return queryRequestCashNo;
+	public String getQuerySalesReportNo() {
+		return querySalesReportNo;
 	}
 
-	public void setQueryRequestCashNo(String queryRequestCashNo) {
-		this.queryRequestCashNo = queryRequestCashNo;
+	public void setQuerySalesReportNo(String querySalesReportNo) {
+		this.querySalesReportNo = querySalesReportNo;
 	}
 
-	public int getStartIndexRequestCash() {
-		return startIndexRequestCash;
+	public int getStartIndexSalesReport() {
+		return startIndexSalesReport;
 	}
 
-	public void setStartIndexRequestCash(int startIndexRequestCash) {
-		this.startIndexRequestCash = startIndexRequestCash;
+	public void setStartIndexSalesReport(int startIndexSalesReport) {
+		this.startIndexSalesReport = startIndexSalesReport;
 	}
 
-	public Page getPageRequestCash() {
-		return pageRequestCash;
+	public Page getPageSalesReport() {
+		return pageSalesReport;
 	}
 
-	public void setPageRequestCash(Page pageRequestCash) {
-		this.pageRequestCash = pageRequestCash;
+	public void setPageSalesReport(Page pageSalesReport) {
+		this.pageSalesReport = pageSalesReport;
 	}
 
-	public List<RequestCashDto> getRequestCashList() {
-		return requestcashList;
+	public List<SalesReportDto> getSalesReportList() {
+		return salesreportList;
 	}
 
-	public void setRequestCashList(List<RequestCashDto> requestcashList) {
-		this.requestcashList = requestcashList;
+	public void setSalesReportList(List<SalesReportDto> salesreportList) {
+		this.salesreportList = salesreportList;
 	}
 
-	public String getRequestCashNoLow() {
+	public String getSalesReportNoLow() {
 		return salesreportNoLow;
 	}
 
-	public void setRequestCashNoLow(String salesreportNoLow) {
+	public void setSalesReportNoLow(String salesreportNoLow) {
 		this.salesreportNoLow = salesreportNoLow;
 	}
 
-	public String getRequestCashNoHigh() {
+	public String getSalesReportNoHigh() {
 		return salesreportNoHigh;
 	}
 
-	public void setRequestCashNoHigh(String salesreportNoHigh) {
+	public void setSalesReportNoHigh(String salesreportNoHigh) {
 		this.salesreportNoHigh = salesreportNoHigh;
 	}
 
@@ -541,20 +541,20 @@ public class SalesReportAction extends BaseAction {
 		this.strKey = strKey;
 	}
 
-	public String getStrRequestCashName() {
-		return strRequestCashName;
+	public String getStrSalesReportName() {
+		return strSalesReportName;
 	}
 
-	public void setStrRequestCashName(String strRequestCashName) {
-		this.strRequestCashName = strRequestCashName;
+	public void setStrSalesReportName(String strSalesReportName) {
+		this.strSalesReportName = strSalesReportName;
 	}
 
-	public RequestCashService getRequestCashService() {
-		return requestcashService;
+	public SalesReportService getSalesReportService() {
+		return salesreportService;
 	}
 
-	public void setRequestCashService(RequestCashService salesreportService) {
-		this.requestcashService = salesreportService;
+	public void setSalesReportService(SalesReportService salesreportService) {
+		this.salesreportService = salesreportService;
 	}
 
 	public Integer getIntPageSize() {

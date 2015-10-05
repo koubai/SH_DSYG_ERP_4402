@@ -665,7 +665,7 @@
 					group by S.productid) S2) S3
 					ON S1.productid = S3.productids
 					
-					RIGHT JOIN
+					LEFT JOIN
 					(SELECT * FROM 
 					(SELECT W.productid as productidw,SUM(W.quantity) AS quantityw
 					FROM etb_warehouse W WHERE 1 = 1

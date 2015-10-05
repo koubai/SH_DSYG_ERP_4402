@@ -26,15 +26,9 @@ public class SampleServiceImpl implements SampleService {
 	private CustomerDao customerDao;
 	
 	@Override
-	public SampleTotleDto querySampleNumByProductId(String productid) {
-		SampleTotleDto sampleTotle = sampleDao.querySampleNumByProductId(productid);
-		if(sampleTotle != null) {
-			ProductDto product = productDao.queryProductByID(sampleTotle.getProductid());
-			if(product != null) {
-				sampleTotle.setTradename(product.getTradename());
-			}
-		}
-		return sampleTotle;
+	public List<SampleTotleDto> querySampleNumByProductId(String productid) {
+		List<SampleTotleDto> list = sampleDao.querySampleNumByProductId(productid);
+		return list;
 	}
 
 	@Override
@@ -82,6 +76,7 @@ public class SampleServiceImpl implements SampleService {
 					sample.setColor(product.getColor());
 					sample.setPackaging(product.getPackaging());
 					sample.setItem10(product.getItem10());
+					sample.setUnit(product.getUnit());
 //					CustomerDto customer = customerDao.queryAllEtbCustomerByID(sample.getRes01());
 //					if(customer != null) {
 //						sample.setCustomername(customer.getCustomername());

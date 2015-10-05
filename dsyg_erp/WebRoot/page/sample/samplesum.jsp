@@ -28,17 +28,48 @@
 			<div class="tab_content" style="height: 160px;">
 				<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 					<tr class="tittle">
-						<td width="80">产品ID</td>
-						<td width="140">品名</td>
-						<td width="80">汇总数量</td>
+						<td width="60">品名</td>
+						<td width="20">规格</td>
+						<td width="10">颜色</td>
+						<td width="20">形式</td>
+						<td width="10">包装</td>
+						<td width="10">单位</td>
+						<td width="20">汇总数量</td>
 					</tr>
+					<s:iterator id="sampleTotleList" value="sampleTotleList" status="st1">
 					<tr class="tr_bg">
-						<td><s:property value="sampleTotleDto.productid"/></td>
-						<td><s:property value="sampleTotleDto.tradename"/></td>
+						<td><s:property value="tradename"/></td>
+						<td><s:property value="typeno"/></td>
 						<td>
-							<s:property value="sampleTotleDto.total"/>
+ 							<s:iterator id="colorList" value="colorList" status="st3">
+								<s:if test="%{colorList[#st3.index].code == sampleTotleList[#st1.index].color}">
+									<s:property value="fieldname"/>
+								</s:if>
+							</s:iterator>
+						</td>
+						<td>
+ 							<s:if test='%{sampleTotleList[#st1.index].packaging == "0"}'>整箱</s:if>
+							<s:elseif test='%{sampleTotleList[#st1.index].packaging == "1"}'>乱尺</s:elseif>
+							<s:elseif test='%{sampleTotleList[#st1.index].packaging == "2"}'>样品</s:elseif>
+							<s:else>
+								<s:property value="packaging"/>
+							</s:else>
+						</td>
+						<td>
+							<s:property value="item10"/>
+						</td>
+						<td>
+							<s:iterator id="unitList" value="unitList" status="st4">
+								<s:if test="%{unitList[#st4.index].code == sampleTotleList[#st1.index].unit}">
+									<s:property value="fieldname"/>
+								</s:if>
+							</s:iterator>			
+						</td>
+						<td>
+							<s:property value="total"/>
 						</td>
 					</tr>
+					</s:iterator>
 				</table>
 			</div>
 		</div>

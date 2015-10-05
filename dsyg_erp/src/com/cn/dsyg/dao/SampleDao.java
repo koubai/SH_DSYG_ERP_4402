@@ -18,8 +18,7 @@ public interface SampleDao {
 	 * @param productid
 	 * @return
 	 */
-	public SampleTotleDto querySampleNumByProductId(String productid);
-
+	public List<SampleTotleDto> querySampleNumByProductId(String productid);
 	/**
 	 * 根据ID查询记录
 	 * @param id

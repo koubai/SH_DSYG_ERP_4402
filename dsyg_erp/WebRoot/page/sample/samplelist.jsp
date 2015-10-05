@@ -63,6 +63,13 @@
 		url += "?strProductid=" + id + "&date=" + new Date();
 		window.showModalDialog(url, window, "dialogheight:350px;dialogwidth:700px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 	}
+
+	//全产品汇总
+	function showAllSum() {
+		var url = '<%=request.getContextPath()%>/sample/showSampleSumAction.action';
+		url += "?strProductid=&date=" + new Date();
+		window.showModalDialog(url, window, "dialogheight:350px;dialogwidth:700px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	}
 	
 	//修改pagesize
 	function changepagesize(pagesize) {
@@ -151,6 +158,13 @@
 						</div>
 						<div class="box1_right"></div>
 					</div>
+					<div class="btn" style="margin-right: 400px; float: right;">
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<input type="button" class="input80" value="样品在库" onclick="showAllSum();"/>
+						</div>
+						<div class="box1_right"></div>
+					</div>
 					<div class="box1" style="margin-top:-3px; margin-left: -240px; color: red;">
 						<s:actionmessage />
 					</div>
@@ -168,13 +182,14 @@
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
 								<td width="20"></td>
-								<td width="40">序号</td>
+								<td width="20">序号</td>
 								<td width="120">品名</td>
 								<td width="100">规格</td>
 								<td width="60">颜色</td>
 								<td width="60">形式</td>
 								<td width="100">包装</td>
 								<td width="100">供应商／客户</td>
+								<td width="20">单位</td>
 								<td width="60">样品数量</td>
 								<td width="100">备注</td>
 								<td width="140">更新时间</td>
@@ -212,6 +227,13 @@
 									</td>
 									<td>
 										<s:property value="customername"/>
+									</td>
+									<td>
+										<s:iterator id="unitList" value="unitList" status="st4">
+											<s:if test="%{unitList[#st4.index].code == sampleList[#st1.index].unit}">
+												<s:property value="fieldname"/>
+											</s:if>
+										</s:iterator>
 									</td>
 									<td>
 										<s:property value="quantity"/>

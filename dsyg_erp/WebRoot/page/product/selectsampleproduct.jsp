@@ -80,6 +80,11 @@
 		
 		getOpener().document.getElementById("productid").value = id;
 		getOpener().document.getElementById("tradename").value = tradename;
+		getOpener().document.getElementById("typeno").value = typeno;
+		getOpener().document.getElementById("color").value = color;
+		getOpener().document.getElementById("unit").value = unit;
+		getOpener().document.getElementById("packaging").value = packaging;
+		getOpener().document.getElementById("item10").value = item10;
 	}
 	
 	function getSelectedID() {

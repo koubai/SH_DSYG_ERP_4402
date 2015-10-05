@@ -18,15 +18,12 @@ import com.cn.dsyg.dto.SampleTotleDto;
 public class SampleDaoImpl extends BaseDao implements SampleDao {
 	
 	@Override
-	public SampleTotleDto querySampleNumByProductId(String productid) {
+	public List<SampleTotleDto> querySampleNumByProductId(String productid) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("productid", productid);
 		@SuppressWarnings("unchecked")
 		List<SampleTotleDto> list = getSqlMapClientTemplate().queryForList("querySampleNumByProductId", paramMap);
-		if(list != null && list.size() > 0) {
-			return list.get(0);
-		}
-		return null;
+		return list;
 	}
 
 	@Override
