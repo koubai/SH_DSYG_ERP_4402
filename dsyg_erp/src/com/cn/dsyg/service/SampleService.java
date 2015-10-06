@@ -1,5 +1,7 @@
 package com.cn.dsyg.service;
 
+import java.util.List;
+
 import com.cn.common.util.Page;
 import com.cn.dsyg.dto.SampleDto;
 import com.cn.dsyg.dto.SampleTotleDto;
@@ -17,7 +19,7 @@ public interface SampleService {
 	 * @param productid
 	 * @return
 	 */
-	public SampleTotleDto querySampleNumByProductId(String productid);
+	public List<SampleTotleDto> querySampleNumByProductId(String productid);
 
 	/**
 	 * 根据ID查询记录

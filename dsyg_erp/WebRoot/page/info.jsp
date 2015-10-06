@@ -19,7 +19,11 @@
 	}
 	
 	$(function() {
-		setInterval("queryQa()", 60000);
+		var rank = "${session.user_rank}";
+		if(rank != "" && parseInt(rank) >= 80) {
+			//经理级以上用
+			setInterval("queryQa()", 60000);
+		}
 	});
 	
 	function queryQa() {

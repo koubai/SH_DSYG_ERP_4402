@@ -34,6 +34,8 @@
 		var color = $("#color").val().trim();
 		//包装
 		var item10 = $("#item10").val().trim();
+		//住友代码
+		var item11 = $("#item11").val().trim();
 		
 		//形式
 		var list = document.getElementsByName("tmpPackaging");
@@ -120,8 +122,13 @@
 			return;
 		}
 		if(!isReal(salesprice)) {
-			alert("采购价格必须为大于0的实数！");
+			alert("销售价格必须为大于0的实数！");
 			$("#salesprice").focus();
+			return;
+		}
+		if(item11 == "") {
+			alert("住友代码不能为空！");
+			$("#item11").focus();
 			return;
 		}
 		
@@ -504,10 +511,20 @@
 							<td align="right">
 								<label class="pdf10">UL型号/编号</label>
 							</td>
-							<td colspan="3">
+							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
 									<s:textfield name="addProductDto.item09" id="item09" maxlength="32" cssStyle="width:300px;" theme="simple"></s:textfield>
+								</div>
+								<div class="box1_right"></div>
+							</td>
+							<td align="right">
+								<label class="pdf10">住友代码</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<s:textfield name="addProductDto.item11" id="item11" maxlength="32" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>

@@ -68,6 +68,7 @@ public class SampleAction extends BaseAction {
 	//样品汇总
 	private String strProductid;
 	private SampleTotleDto sampleTotleDto;
+	private List<SampleTotleDto> sampleTotleList;
 	
 	/**
 	 * 显示样品汇总页面
@@ -76,7 +77,9 @@ public class SampleAction extends BaseAction {
 	public String showSampleSumAction() {
 		try {
 			this.clearMessages();
-			sampleTotleDto = sampleService.querySampleNumByProductId(strProductid);
+			//初期化字典数据
+			initDictList();
+			sampleTotleList = (List<SampleTotleDto>)sampleService.querySampleNumByProductId(strProductid);
 		} catch(Exception e) {
 			log.error("showSampleSumAction error:" + e);
 			return ERROR;
@@ -91,6 +94,9 @@ public class SampleAction extends BaseAction {
 	public String showUpdSampleAction() {
 		try {
 			this.clearMessages();
+			//初期化字典数据
+			initDictList();
+
 			updSampleDto = sampleService.querySampleId(updSampleId);
 		} catch(Exception e) {
 			log.error("showUpdSampleAction error:" + e);
@@ -129,6 +135,9 @@ public class SampleAction extends BaseAction {
 	public String showAddSampleAction() {
 		try {
 			this.clearMessages();
+			//初期化字典数据
+			initDictList();
+
 			addSampleDto = new SampleDto();
 		} catch(Exception e) {
 			log.error("showAddSampleAction error:" + e);
@@ -144,6 +153,9 @@ public class SampleAction extends BaseAction {
 	public String addSampleAction() {
 		try {
 			this.clearMessages();
+			//初期化字典数据
+			initDictList();
+
 			//数据验证
 			if(!checkData(addSampleDto)) {
 				return "checkerror";
@@ -255,6 +267,8 @@ public class SampleAction extends BaseAction {
 		makeareaList = dict01Service.queryDict01ByFieldcode(Constants.DICT_MAKEAREA, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 		//颜色
 		colorList = dict01Service.queryDict01ByFieldcode(Constants.DICT_COLOR_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		//单位
+		unitList = dict01Service.queryDict01ByFieldcode(Constants.DICT_UNIT_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 	}
 	
 	/**
@@ -453,4 +467,13 @@ public class SampleAction extends BaseAction {
 	public void setSampleTotleDto(SampleTotleDto sampleTotleDto) {
 		this.sampleTotleDto = sampleTotleDto;
 	}
+
+	public List<SampleTotleDto> getSampleTotleList() {
+		return sampleTotleList;
+	}
+
+	public void setSampleTotleList(List<SampleTotleDto> sampleTotleList) {
+		this.sampleTotleList = sampleTotleList;
+	}
+
 }

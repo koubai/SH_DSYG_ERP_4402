@@ -72,6 +72,15 @@
 	
 	//查询日期赋值
 	function setQueryDate() {
+		var type = "";
+		var list = document.getElementsByName("tmpType");
+		for(var i = 0; i < list.length; i++) {
+			if(list[i].checked) {
+				type = list[i].value;
+				break;
+			}
+		}
+		$("#strType").attr("value", type);
 		$("#strSalesdateLow").attr("value", $("#salesDateLow").val());
 		$("#strSalesdateHigh").attr("value", $("#salesDateHigh").val());
 	}
@@ -148,8 +157,17 @@
 				<s:hidden name="strSalesdateLow" id="strSalesdateLow"/>
 				<s:hidden name="strSalesdateHigh" id="strSalesdateHigh"/>
 				<s:hidden name="intPageSize" id="intPageSize"/>
+				<s:hidden name="strType" id="strType"/>
 				<div class="searchbox">
 					<div class="box1">
+						<label class="pdf10">销售订单号</label>
+						<div class="box1_left"></div>
+						<div class="box1_center date_input">
+							<s:textfield name="strTheme2" cssStyle="width:200px;" maxlength="32" id="strTheme2" theme="simple"></s:textfield>
+						</div>
+						<div class="box1_right"></div>
+					</div>
+					<div class="box1" style="margin-left: 15px;">
 						<label class="pdf10">销售日期</label>
 						<div class="box1_left"></div>
 						<div class="box1_center date_input">
@@ -165,15 +183,25 @@
 						</div>
 						<div class="box1_right"></div>
 					</div>
+				</div>
+				<div class="searchbox">
 					<div class="box1">
-						<label class="pdf10">销售订单号</label>
+						<label class="pdf10">　客户名称</label>
 						<div class="box1_left"></div>
-						<div class="box1_center date_input">
-							<s:textfield name="strTheme2" cssStyle="width:200px;" id="strTheme2" theme="simple"></s:textfield>
+						<div class="box1_center">
+							<s:textfield name="strCustomername" cssStyle="width:200px;" maxlength="32" id="strCustomername" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
 					</div>
-					<div class="btn" style="margin-left: 160px;">
+					<div class="box1" style="margin-top: 6px; margin-left: 70px;">
+						<s:if test='strType == "1"'>
+							<input name="tmpType" type="radio" value="0"/>普通 <input name="tmpType" checked="checked" type="radio" value="1"/>询价
+						</s:if>
+						<s:else>
+							<input name="tmpType" type="radio" checked="checked" value="0"/>普通 <input name="tmpType" type="radio" value="1"/>询价
+						</s:else>
+					</div>
+					<div class="btn" style="margin-left: 430px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
 							<input type="button" class="input40" value="检索" onclick="queryList();"/>
@@ -203,6 +231,7 @@
 								<!--
 								<td width="60">销售主题</td>
 								-->
+								<td width="60">销售方式</td>
 								<td width="60">支付方式</td>
 								<td width="60">仓库</td>
 								<td width="120">客户</td>
@@ -232,6 +261,20 @@
 										</s:iterator>
 									</td>
 									-->
+									<td>
+										<s:if test='%{res02 == "0"}'>
+											普通
+										</s:if>
+										<s:elseif test='%{res02 == "1"}'>
+											询价
+										</s:elseif>
+										<s:elseif test='%{res02 == "2"}'>
+											询样
+										</s:elseif>
+										<s:else>
+											<s:property value="res02"/>
+										</s:else>
+									</td>
 									<td>
 										<s:iterator id="payTypeList" value="payTypeList" status="st3">
 											<s:if test="%{payTypeList[#st3.index].code == salesList[#st1.index].res01}">

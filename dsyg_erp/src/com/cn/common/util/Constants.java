@@ -209,6 +209,8 @@ public class Constants {
 	public final static String SESSION_ROLE_RANK = "user_rank";
 	//用户权限级别（公司用户99=超级管理员）
 	public final static int ROLE_RANK_ADMIN = 99;
+	//经理级别
+	public final static int ROLE_RANK_MANAGER = 80;
 	//用户权限级别（公司用户70=一般用户）只能输入和更新产品、库存和新闻，不能删除产品、库存和新闻
 	public final static int ROLE_RANK_NORMAL = 70;
 	//普通浏览用户（非公司用户50=操作员）只能输入和更新产品和库存，不能删除产品和库存，可以看新闻

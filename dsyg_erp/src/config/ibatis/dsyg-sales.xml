@@ -87,6 +87,12 @@
 		<isNotEmpty prepend="and" property="theme2">
 			T.theme2 = #theme2#
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="customername">
+			T.customername like '%$customername$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="res02">
+			T.res02 = #res02#
+		</isNotEmpty>
 	</select>
 	
 	<select id="querySalesByPage" parameterClass="java.util.Map" resultMap="SalesDto">
@@ -99,6 +105,12 @@
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="theme2">
 			T.theme2 = #theme2#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="customername">
+			T.customername like '%$customername$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="res02">
+			T.res02 = #res02#
 		</isNotEmpty>
 		order by T.updatedate desc
 		LIMIT #start#, #end#

@@ -698,6 +698,10 @@ public class ProductAction extends BaseAction {
 			this.addActionMessage("销售指导价必须为大于0的数！");
 			return false;
 		}
+		if(StringUtil.isBlank(product.getItem11())) {
+			this.addActionMessage("住友代码不能为空！");
+			return false;
+		}
 		
 		if(Constants.DICT_GOODS_TYPE_CODE_01.equals(product.getFieldno())) {
 			//电线，需要验证单选框数据

@@ -30,12 +30,24 @@
 	
 	<resultMap id="SampleTotleDto" class="com.cn.dsyg.dto.SampleTotleDto">
 		<result property="productid" column="productid" />
+		<result property="tradename" column="tradename" />
+		<result property="typeno" column="typeno" />
+		<result property="color" column="color" />
+		<result property="packaging" column="packaging" />
+		<result property="item10" column="item10" />
+		<result property="unit" column="unit" />
 		<result property="total" column="total" />
 	</resultMap>
 	
 	<select id="querySampleNumByProductId" parameterClass="java.util.Map" resultMap="SampleTotleDto">
-		select productid,sum(quantity) as total from etb_sample where productid = #productid#
-			group by productid
+		select productid, P.tradename, P.typeno, P.color, P.packaging, P.item10, P.unit,sum(quantity) as total from etb_sample S
+		left join etb_product P
+		on P.id = S.productid
+		where 1 = 1
+		<isNotEmpty prepend="and" property="productid">
+			S.productid = #productid#
+		</isNotEmpty>
+		group by S.productid
 	</select>
 	
 	<select id="querySampleId" parameterClass="java.util.Map" resultMap="SampleDto">

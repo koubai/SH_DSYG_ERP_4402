@@ -62,6 +62,11 @@ public class SampleDto extends BaseDto {
 	//
 	
 	/**
+	 * 单位
+	 */
+	private String unit;
+
+	/**
 	 * 数量
 	 */
 	private String quantity;
@@ -365,4 +370,14 @@ public class SampleDto extends BaseDto {
 	public void setShowQuantity(String showQuantity) {
 		this.showQuantity = showQuantity;
 	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+
 }
