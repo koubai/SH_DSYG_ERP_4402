@@ -43,7 +43,7 @@ public interface WarehouserptService {
 	 */
 	public Page queryWarehouserptByPage(String status, String warehousetype,
 			String warehouseno, String theme1, String parentid, String supplierid,
-			String productid, String beginDate, String endDate, Page page);
+			String productid, String beginDate, String endDate, String strSuppliername, Page page);
 	
 	/**
 	 * 根据ID查询数据

@@ -57,6 +57,8 @@ public class Constants {
 	public final static String EXCEL_TYPE_WAREHOUSERPT_OUT_DETAIL_INTER_LIST = "warehouserpt_out_detail_inter";
 	//库存盘点数据
 	public final static String EXCEL_TYPE_WAREHOUSCHECK = "warehousercheck";
+	//入库单数据
+	public final static String EXCEL_TYPE_PRODUCT_COST = "productcost";
 	
 	//当前系统所属地
 	public final static String SYSTEM_BELONG = "belongto";

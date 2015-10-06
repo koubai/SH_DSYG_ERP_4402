@@ -95,6 +95,10 @@
 		<action name="turnProductCostCheckAction" class="productCostCheckAction" method="turnProductCostCheckAction">
 			<result name="*">/page/product/productcostchecklist.jsp</result>
 		</action>
+		
+		<action name="exportProductCostAction" class="productCostCheckAction" method="exportProductCostAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
 	</package>
 
 </struts>

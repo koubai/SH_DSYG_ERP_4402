@@ -36,7 +36,7 @@ public class WarehouserptDaoImpl extends BaseDao implements WarehouserptDao {
 	@Override
 	public List<WarehouserptDto> queryWarehouserptByPage(String status, String warehousetype,
 			String warehouseno, String theme1, String parentid, String supplierid,
-			String productid, String beginDate, String endDate, int start, int end) {
+			String productid, String beginDate, String endDate, String strSuppliername, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("status", status);
 		paramMap.put("warehousetype", warehousetype);
@@ -48,6 +48,7 @@ public class WarehouserptDaoImpl extends BaseDao implements WarehouserptDao {
 		
 		paramMap.put("beginDate", beginDate);
 		paramMap.put("endDate", endDate);
+		paramMap.put("suppliername", strSuppliername);
 		
 		paramMap.put("start", start);
 		paramMap.put("end", end);
@@ -58,7 +59,7 @@ public class WarehouserptDaoImpl extends BaseDao implements WarehouserptDao {
 
 	@Override
 	public int queryWarehouserptCountByPage(String status, String warehousetype, String warehouseno, String theme1,
-			String parentid, String supplierid, String productid, String beginDate, String endDate) {
+			String parentid, String supplierid, String productid, String beginDate, String endDate, String strSuppliername) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("status", status);
 		paramMap.put("warehousetype", warehousetype);
@@ -67,6 +68,7 @@ public class WarehouserptDaoImpl extends BaseDao implements WarehouserptDao {
 		paramMap.put("parentid", parentid);
 		paramMap.put("supplierid", supplierid);
 		paramMap.put("productid", productid);
+		paramMap.put("suppliername", strSuppliername);
 		
 		paramMap.put("beginDate", beginDate);
 		paramMap.put("endDate", endDate);

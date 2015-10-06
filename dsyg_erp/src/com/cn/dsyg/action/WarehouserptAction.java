@@ -72,6 +72,8 @@ public class WarehouserptAction extends BaseAction {
 	private String strExportDetailId;
 	private String strInter;
 	
+	private String strSuppliername;
+	
 	
 	//发货单
 	/**
@@ -184,6 +186,7 @@ public class WarehouserptAction extends BaseAction {
 	public String showWarehouserptOutAction() {
 		try {
 			this.clearMessages();
+			strSuppliername = "";
 			warehouserptList = new ArrayList<WarehouserptDto>();
 			//页面数据初期化
 			startIndex = 0;
@@ -376,6 +379,7 @@ public class WarehouserptAction extends BaseAction {
 	public String showWarehouserptInAction() {
 		try {
 			this.clearMessages();
+			strSuppliername = "";
 			warehouserptList = new ArrayList<WarehouserptDto>();
 			//页面数据初期化
 			startIndex = 0;
@@ -623,7 +627,7 @@ public class WarehouserptAction extends BaseAction {
 		initDictList();
 		//翻页查询所有预入库待确认数据
 		this.page.setStartIndex(startIndex);
-		page = warehouserptService.queryWarehouserptByPage("", type, "", "", "", "", "", "", "", page);
+		page = warehouserptService.queryWarehouserptByPage("", type, "", "", "", "", "", "", "", strSuppliername, page);
 		warehouserptList = (List<WarehouserptDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -799,5 +803,15 @@ public class WarehouserptAction extends BaseAction {
 
 	public void setStrInter(String strInter) {
 		this.strInter = strInter;
+	}
+
+
+	public String getStrSuppliername() {
+		return strSuppliername;
+	}
+
+
+	public void setStrSuppliername(String strSuppliername) {
+		this.strSuppliername = strSuppliername;
 	}
 }

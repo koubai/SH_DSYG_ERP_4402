@@ -47,6 +47,20 @@ public interface ProductDao {
 			String typeno, String color, String supplierId, String belongto, String status, int start, int end);
 
 	/**
+	 * 翻页查询信息
+	 * @param fieldno 主题
+	 * @param item01 包装
+	 * @param keyword 关键字
+	 * @param tradename 品名
+	 * @param typeno 规格
+	 * @param belongto 
+	 * @param status 状态
+	 * @return
+	 */
+	public List<ProductDto> queryProductCostToExport(String fieldno, String item01, String keyword, String tradename,
+			String typeno, String color, String supplierId, String belongto, String status);
+
+	/**
 	 * 查询翻页数据数量
 	 * @param fieldno 主题
 	 * @param keyword 关键字

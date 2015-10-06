@@ -9,6 +9,7 @@ import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.Dict01Dao;
 import com.cn.dsyg.dao.ProductDao;
 import com.cn.dsyg.dto.Dict01Dto;
+import com.cn.dsyg.dto.ProductCostDto;
 import com.cn.dsyg.dto.ProductDto;
 import com.cn.dsyg.service.ProductService;
 
@@ -271,5 +272,18 @@ public class ProductServiceImpl implements ProductService {
 
 	public void setProductDao(ProductDao productDao) {
 		this.productDao = productDao;
+	}
+
+	@Override
+	public List<ProductDto> queryProductCostToExport(String fieldno,
+			String item01, String keyword, String tradename, String typeno,
+			String color, String supplierId, String belongto, String status) {
+		keyword = StringUtil.replaceDatabaseKeyword_mysql(keyword);
+		tradename = StringUtil.replaceDatabaseKeyword_mysql(tradename);
+		typeno = StringUtil.replaceDatabaseKeyword_mysql(typeno);
+		item01 = StringUtil.replaceDatabaseKeyword_mysql(item01);
+		
+		//查询记录
+		return productDao.queryProductCostToExport(fieldno, item01, keyword, tradename, typeno, color, supplierId, belongto, status);
 	}
 }

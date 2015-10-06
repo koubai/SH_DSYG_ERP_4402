@@ -125,4 +125,23 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
 	public void updateProduct(ProductDto product) {
 		getSqlMapClientTemplate().update("updateProduct", product);
 	}
+
+	@Override
+	public List<ProductDto> queryProductCostToExport(String fieldno,
+			String item01, String keyword, String tradename, String typeno,
+			String color, String supplierId, String belongto, String status) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("fieldno", fieldno);
+		paramMap.put("item01", item01);
+		paramMap.put("keyword", keyword);
+		paramMap.put("tradename", tradename);
+		paramMap.put("typeno", typeno);
+		paramMap.put("color", color);
+		paramMap.put("supplierid", supplierId);
+		paramMap.put("belongto", belongto);
+		paramMap.put("status", status);
+		@SuppressWarnings("unchecked")
+		List<ProductDto> list = getSqlMapClientTemplate().queryForList("queryProductCostToExport", paramMap);
+		return list;
+	}
 }
