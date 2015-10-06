@@ -187,11 +187,11 @@
 							</tr>
 							<s:iterator id="listDocument" value="listDocument" status="st1">
 								<s:if test="#st1.odd==true">
-									<tr class="tr_bg">
+									<tr class="tr_bg" onclick="checkRadioTr(this, event);">
 								</s:if>
 								<s:else>
-									<tr>
-								</s:else>
+									<tr onclick="checkRadioTr(this, event);">
+								</s:else>								
 									<td><input name="radioKey" type="radio" value="<s:property value="documentno"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
 									<td><s:property value="documentno"/></td>

@@ -184,9 +184,6 @@
 					<div class="box1" style="margin-top:-3px; margin-left: -400px; color: red;">
 						<s:actionmessage />
 					</div>
-					<div class="icons thums">
-						<a class="edit" onclick="upd();">修改</a>
-					</div>
 				</div>
 				<div class="data_table" style="padding:0px;">
 					<div class="tab_tittle">
@@ -287,6 +284,15 @@
 						</ul>
 					</div>
 				</div>
+				<br></br>
+				<br></br>
+				<div class="btn" style="margin-left:300px;">
+					<div class="box1_left"></div>
+					<div class="box1_center">
+						<input class="input80" type="button" value="更新" onclick="upd();"/>
+					</div>
+					<div class="box1_right"></div>
+				</div>				
 			</s:form>
 		</div>
 	</div>
