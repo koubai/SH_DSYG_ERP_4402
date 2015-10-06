@@ -2,18 +2,24 @@ package com.cn.dsyg.action;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
+import com.cn.common.factory.Poi2007Base;
+import com.cn.common.factory.PoiFactory;
+import com.cn.common.factory.PoiSalesPrice;
 import com.cn.common.util.Constants;
 import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.Dict01Dto;
+import com.cn.dsyg.dto.ProductDto;
 import com.cn.dsyg.dto.SalesDto;
 import com.cn.dsyg.dto.SalesItemDto;
 import com.cn.dsyg.service.Dict01Service;
@@ -406,6 +412,64 @@ public class SalesAction extends BaseAction {
 			queryData();
 		} catch(Exception e) {
 			log.error("turnSalesAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 导出数据
+	 * @return
+	 */
+	public String exportSalesPriceAction() {
+		try {
+			this.clearMessages();
+			initDictList();
+			String type = "" + Constants.EXCEL_TYPE_SALES_PRICE;
+			//字典数据组织个MAP
+			Map<String, String> dictMap = new HashMap<String, String>();
+			if(goodsList != null && goodsList.size() > 0) {
+				for(Dict01Dto dict : goodsList) {
+					dictMap.put(Constants.DICT_GOODS_TYPE + "_" + dict.getCode(), dict.getFieldname());
+				}
+			}
+			if(unitList != null && unitList.size() > 0) {
+				for(Dict01Dto dict : unitList) {
+					dictMap.put(Constants.DICT_UNIT_TYPE + "_" + dict.getCode(), dict.getFieldname());
+				}
+			}
+			if(makeareaList != null && makeareaList.size() > 0) {
+				for(Dict01Dto dict : makeareaList) {
+					dictMap.put(Constants.DICT_MAKEAREA + "_" + dict.getCode(), dict.getFieldname());
+				}
+			}
+			if(colorList != null && colorList.size() > 0) {
+				for(Dict01Dto dict : colorList) {
+					dictMap.put(Constants.DICT_COLOR_TYPE + "_" + dict.getCode(), dict.getFieldname());
+				}
+			}
+			if(payTypeList != null && payTypeList.size() > 0) {
+				for(Dict01Dto dict : payTypeList) {
+					dictMap.put(Constants.DICT_PAY_TYPE + "_" + dict.getCode(), dict.getFieldname());
+				}
+			}
+			String name = StringUtil.createHtmlFileName(type);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("text/html; charset=GB2312");
+			//Poi2007Base base = PoiFactory.getPoi(type);
+			PoiSalesPrice base = new PoiSalesPrice();
+			base.setDictMap(dictMap);
+			//查询所有数据
+			updSalesItemList = new ArrayList<SalesItemDto>();
+			updSalesDto = salesService.querySalesByID(updSalesId);
+			if(updSalesDto != null) {
+				updSalesItemList = salesItemService.querySalesItemBySalesno(updSalesDto.getSalesno());
+			}
+			
+			base.toHtml(response, updSalesDto, updSalesItemList);
+			
+		} catch(Exception e) {
+			log.error("exportProductCostAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;

@@ -397,6 +397,19 @@ public class StringUtil {
 	}
 	
 	/**
+	 * 创建html文件名
+	 * @param pre
+	 * @return
+	 */
+	public static String createHtmlFileName(String pre) {
+		String name = null;
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		name = sdf.format(date);
+		return pre + name + ".html";
+	}
+	
+	/**
 	 * 将字符串补满位数（前面补0）
 	 * @param str
 	 * @param length 补满后长度

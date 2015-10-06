@@ -54,6 +54,10 @@
 			<result name="*">/page/sales/saleslist.jsp</result>
 		</action>
 		
+		<action name="exportSalesPriceAction" class="salesAction" method="exportSalesPriceAction">
+			<result name="success">/page/downloadhtml.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

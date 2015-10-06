@@ -659,6 +659,11 @@
 	function goList() {
 		window.location.href = "../sales/querySalesAction.action";
 	}
+
+	function exportData() {
+		document.mainform.action = '../sales/exportSalesPriceAction.action';
+		document.mainform.submit();
+	}
 </script>
 </head>
 <body>
@@ -1102,6 +1107,17 @@
 				<div class="trade">
 					<table cellpadding="10" style="margin:0 auto;">
 						<tr>
+							<s:if test='updSalesDto.res02 == "1"'>
+							<td>
+								<div class="btn">
+									<div class="box1_left"></div>
+									<div class="box1_center">
+										<input class="input80" type="button" value="导出" onclick="exportData();"/>
+									</div>
+									<div class="box1_right"></div>
+								</div>
+							</td>
+							</s:if>
 							<td>
 								<div class="btn">
 									<div class="box1_left"></div>

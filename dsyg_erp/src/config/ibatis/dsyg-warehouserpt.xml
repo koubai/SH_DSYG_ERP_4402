@@ -105,6 +105,9 @@
 		<isNotEmpty prepend="and" property="endDate">
 			T.warehousedate <![CDATA[<]]> #endDate#
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="suppliername">
+			T.suppliername like '%$suppliername$%'
+		</isNotEmpty>
 		order by T.updatedate desc
 		LIMIT #start#, #end#
 	</select>
@@ -134,6 +137,9 @@
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="endDate">
 			T.warehousedate <![CDATA[<]]> #endDate#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="suppliername">
+			T.suppliername like '%$suppliername$%'
 		</isNotEmpty>
 	</select>
 	
