@@ -22,7 +22,7 @@ public interface PregatheringService {
 	 * @param pregatheringName
 	 * @return
 	 */
-	public Page queryPregatheringByPage(Page page, String pregatheringNoLow, String pregatheringNoHigh, String pregatheringName);
+	public Page queryPregatheringByPage(Page page, String pregatheringNoLow, String pregatheringNoHigh, String pregatheringName, String customerName);
 
 	/**
 	 * 根据ID查询预收款（查询未删除的记录）

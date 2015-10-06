@@ -46,6 +46,9 @@
 			<isNotEmpty prepend="and" property="PREGATHERING_NAME">
 				T.pregatheringname like '%$PREGATHERING_NAME$%'
 			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CUSTOMER_NAME">
+				T.customername like '%$CUSTOMER_NAME$%'
+			</isNotEmpty>
 	</select>
 	
 	<select id="queryAllPregatheringExport" parameterClass="java.util.Map" resultMap="PregatheringDto">
@@ -71,6 +74,9 @@
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="PREGATHERING_NAME">
 			T.pregatheringname like '%$PREGATHERING_NAME$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CUSTOMER_NAME">
+			T.customername like '%$CUSTOMER_NAME$%'
 		</isNotEmpty>
 		order by T.updatedate desc
 		LIMIT #start#, #end#

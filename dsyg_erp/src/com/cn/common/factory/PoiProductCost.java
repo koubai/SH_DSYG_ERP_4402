@@ -78,6 +78,7 @@ public class PoiProductCost extends Poi2007Base {
 			XSSFCell cell5 = row.createCell(5);
 			XSSFCell cell6 = row.createCell(6);
 			XSSFCell cell7 = row.createCell(7);
+			XSSFCell cell8 = row.createCell(8);
 			cell0.setCellValue(i + 1);
 			cell0.setCellStyle(style);
 			cell1.setCellValue(dictMap.get(Constants.DICT_GOODS_TYPE + "_" + productCostDto.getFieldno()));
@@ -90,14 +91,16 @@ public class PoiProductCost extends Poi2007Base {
 			cell4.setCellStyle(style);
 			cell5.setCellValue(productCostDto.getItem10());
 			cell5.setCellStyle(style);
-			if("0".equals(productCostDto.getPackaging())) {
-				cell6.setCellValue("整箱");
-			} else {
-				cell6.setCellValue("乱尺");
-			}
+			cell6.setCellValue(productCostDto.getUnit());
 			cell6.setCellStyle(style);
-			cell7.setCellValue(productCostDto.getProductcost().toString());
+			if("0".equals(productCostDto.getPackaging())) {
+				cell7.setCellValue("整箱");
+			} else {
+				cell7.setCellValue("乱尺");
+			}
 			cell7.setCellStyle(style);
+			cell8.setCellValue(productCostDto.getProductcost().toString());
+			cell8.setCellStyle(style);
 		}
 	}
 	
@@ -110,7 +113,7 @@ public class PoiProductCost extends Poi2007Base {
 		heads = new ArrayList<String>();
 		heads.add("编号");
 		sheet.setColumnWidth(0, 10 * 256);
-		heads.add("仓库");
+		heads.add("主题");
 		sheet.setColumnWidth(1, 20 * 256);
 		heads.add("品名");
 		sheet.setColumnWidth(2, 20 * 256);
@@ -120,10 +123,12 @@ public class PoiProductCost extends Poi2007Base {
 		sheet.setColumnWidth(4, 10 * 256);
 		heads.add("包装");
 		sheet.setColumnWidth(5, 10 * 256);
-		heads.add("形式");
+		heads.add("单位i");
 		sheet.setColumnWidth(6, 10 * 256);
+		heads.add("形式");
+		sheet.setColumnWidth(7, 10 * 256);
 		heads.add("平均成本价格(含税)");
-		sheet.setColumnWidth(7, 30 * 256);
+		sheet.setColumnWidth(8, 30 * 256);
 		
 		//Head部分颜色字体
 		XSSFFont font = workbook.createFont();

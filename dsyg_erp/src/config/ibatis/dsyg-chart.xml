@@ -44,7 +44,7 @@
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='1'
-			and T.status='99'
+			and T.status >= '20'
 			and T.parentid = P.purchaseno 
 			and T.productid= P.productid
 			and P.handler = TU.userid
@@ -87,7 +87,7 @@
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='1'
-			and T.status='99'
+			and T.status >= '20'
 			and T.parentid = P.purchaseno 
 			and T.productid= P.productid
 			and P.handler = TU.userid
@@ -130,7 +130,7 @@
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='1'
-			and T.status='99'
+			and T.status >= '20'
 			and T.parentid = P.purchaseno 
 			and T.productid= P.productid
 			and P.handler = TU.userid
@@ -173,7 +173,7 @@
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='1'
-			and T.status='99'
+			and T.status >= '20'
 			and T.parentid = P.purchaseno 
 			and T.productid= P.productid
 			and P.handler = TU.userid
@@ -217,7 +217,7 @@
 			where 1=1
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
-			and T.status='99'
+			and T.status >= '20'
 			and T.parentid = S.salesno
 			and T.productid= S.productid
 			and T.supplierid = TC.id
@@ -263,7 +263,7 @@
 			where 1=1
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
-			and T.status='99'
+			and T.status >= '20'
 			and T.parentid = S.salesno
 			and T.productid= S.productid
 			and T.supplierid = TC.id
@@ -308,7 +308,7 @@
 			where 1=1
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
-			and T.status='99'
+			and T.status >= '20'
 			and T.parentid = S.salesno
 			and T.productid= S.productid
 			and T.supplierid = TC.id
@@ -353,7 +353,7 @@
 			where 1=1
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
-			and T.status='99'
+			and T.status >= '20'
 			and T.parentid = S.salesno
 			and T.productid= S.productid
 			and T.supplierid = TC.id
@@ -399,7 +399,7 @@
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
-			and T.status='99'
+			and T.status >= '20'
 			and T.parentid = S.salesno
 			and T.productid= S.productid
 			and S.handler = TU.userid
@@ -442,7 +442,7 @@
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
-			and T.status='99'
+			and T.status >= '20'
 			and T.parentid = S.salesno
 			and T.productid= S.productid
 			and S.handler = TU.userid
@@ -485,7 +485,7 @@
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
-			and T.status='99'
+			and T.status >= '20'
 			and T.parentid = S.salesno
 			and T.productid= S.productid
 			and S.handler = TU.userid
@@ -1017,7 +1017,7 @@
 										and F.financetype='4'
 										and F.theme='03'
 										and F.belongto = #belongto#
-										and F.status='99'
+										and F.status = '99'
 										<isNotEmpty prepend="and" property="from_date">
 											F.accountdate <![CDATA[>=]]> #from_date#
 										</isNotEmpty>
@@ -1028,7 +1028,7 @@
 					on 1=1 
 					and F2.financetype='3'
 					and F2.belongto = #belongto#
-					and F2.status='99'					
+					and F2.status = '99'					
 					<isNotEmpty prepend="and" property="from_date">
 						F2.accountdate <![CDATA[>=]]> #from_date#
 					</isNotEmpty>
@@ -1038,7 +1038,7 @@
 			) as test3
 			on 1=1 
 			and T.belongto = #belongto#
-			and T.status='99'
+			and T.status >= '20'
 			and T.financetype='2'
 			<isNotEmpty prepend="and" property="from_date">
 				T.accountdate <![CDATA[>=]]> #from_date#

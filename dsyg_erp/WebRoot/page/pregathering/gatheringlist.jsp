@@ -153,6 +153,14 @@
 						</div>
 						<div class="box1_right"></div>
 					</div>
+					<div class="box1" >
+						<label class="pdf10" style="width:120px">客户名称</label>
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<s:textfield name="strCustomerName" id="strCustomerName" cssStyle="width:135px;" maxlength="4" theme="simple"></s:textfield>
+						</div>
+						<div class="box1_right"></div>
+					</div>
 					<div class="btn" style="margin-left: 400px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">

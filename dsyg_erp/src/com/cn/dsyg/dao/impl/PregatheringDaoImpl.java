@@ -31,7 +31,7 @@ public class PregatheringDaoImpl extends BaseDao implements PregatheringDao {
 
 	@Override
 	public List<PregatheringDto> queryPregatheringByPage(String pregatheringNoLow,
-			String pregatheringNoHigh, String pregatheringName,
+			String pregatheringNoHigh, String pregatheringName, String customerName,
 			int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		//这里按照需求，若预收款名称存在，则忽略预收款代码按预收款名称来查询。
@@ -40,6 +40,9 @@ public class PregatheringDaoImpl extends BaseDao implements PregatheringDao {
 		} else {
 			paramMap.put("ID_LOW", pregatheringNoLow);
 			paramMap.put("ID_HIGH", pregatheringNoHigh);
+		}
+		if(StringUtil.isNotBlank(customerName)) {
+			paramMap.put("CUSTOMER_NAME", StringUtil.replaceDatabaseKeyword_mysql(customerName));
 		}
 		paramMap.put("start", start);
 		paramMap.put("end", end);
@@ -50,7 +53,7 @@ public class PregatheringDaoImpl extends BaseDao implements PregatheringDao {
 
 	@Override
 	public int queryPregatheringCountByPage(String pregatheringNoLow,
-			String pregatheringNoHigh, String pregatheringName) {
+			String pregatheringNoHigh, String pregatheringName, String customerName) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		//这里按照需求，若预收款名称存在，则忽略预收款代码按预收款名称来查询。
 		if(StringUtil.isNotBlank(pregatheringName)) {
@@ -58,6 +61,9 @@ public class PregatheringDaoImpl extends BaseDao implements PregatheringDao {
 		} else {
 			paramMap.put("ID_LOW", pregatheringNoLow);
 			paramMap.put("ID_HIGH", pregatheringNoHigh);
+		}
+		if(StringUtil.isNotBlank(customerName)) {
+			paramMap.put("CUSTOMER_NAME", StringUtil.replaceDatabaseKeyword_mysql(customerName));
 		}
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryPregatheringCountByPage", paramMap);
 	}

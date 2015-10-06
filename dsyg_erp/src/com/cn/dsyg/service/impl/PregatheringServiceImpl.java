@@ -30,10 +30,10 @@ public class PregatheringServiceImpl implements PregatheringService {
 
 	@Override
 	public Page queryPregatheringByPage(Page page, String pregatheringNoLow,
-			String pregatheringNoHigh, String pregatheringName) {
+			String pregatheringNoHigh, String pregatheringName, String customerName) {
 		pregatheringNoLow = StringUtil.replaceDatabaseKeyword_mysql(pregatheringNoLow);
 		//查询总记录数
-		int totalCount = pregatheringDao.queryPregatheringCountByPage(pregatheringNoLow, pregatheringNoHigh, pregatheringName);
+		int totalCount = pregatheringDao.queryPregatheringCountByPage(pregatheringNoLow, pregatheringNoHigh, pregatheringName, customerName);
 		System.out.println("totalcount:" + String.valueOf(totalCount));
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
@@ -43,7 +43,7 @@ public class PregatheringServiceImpl implements PregatheringService {
 		}
 		//翻页查询记录
 		List<PregatheringDto> list = pregatheringDao.queryPregatheringByPage(pregatheringNoLow, pregatheringNoHigh,
-				pregatheringName, page.getStartIndex() * page.getPageSize(), page.getPageSize());
+				pregatheringName, customerName, page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		page.setItems(list);
 		return page;
 	}

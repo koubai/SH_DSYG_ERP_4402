@@ -62,6 +62,11 @@ public class PregatheringAction extends BaseAction {
 	 * 预收款名称
 	 */
 	private String strPregatheringName;
+
+	/**
+	 * 预收款客户名称
+	 */
+	private String strCustomerName;
 	
 	/**
 	 * 新增预收款对象
@@ -185,7 +190,7 @@ public class PregatheringAction extends BaseAction {
 		}
 		//翻页查询所有资产
 		this.page.setStartIndex(startIndex);
-		page = pregatheringService.queryPregatheringByPage(page, strPregatheringNoLow, strPregatheringNoHigh, strPregatheringName);
+		page = pregatheringService.queryPregatheringByPage(page, strPregatheringNoLow, strPregatheringNoHigh, strPregatheringName, strCustomerName);
 		listPregathering = (List<PregatheringDto>) page.getItems();
 		
 		this.setStartIndex(page.getStartIndex());
@@ -502,6 +507,14 @@ public class PregatheringAction extends BaseAction {
 
 	public void setIntPageSize(Integer intPageSize) {
 		this.intPageSize = intPageSize;
+	}
+
+	public String getStrCustomerName() {
+		return strCustomerName;
+	}
+
+	public void setStrCustomerName(String strCustomerName) {
+		this.strCustomerName = strCustomerName;
 	}
 
 }

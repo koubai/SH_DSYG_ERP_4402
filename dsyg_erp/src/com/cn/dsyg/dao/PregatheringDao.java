@@ -27,7 +27,7 @@ public interface PregatheringDao {
 	 * @return
 	 */
 	public List<PregatheringDto> queryPregatheringByPage(String pregatheringNoLow,
-				String pregatheringNoHigh, String pregatheringName, int start, int end);
+				String pregatheringNoHigh, String pregatheringName, String customerName, int start, int end);
 	
 	/**
 	 * 查询总记录数
@@ -35,7 +35,7 @@ public interface PregatheringDao {
 	 * @param pregatheringNoHigh
 	 * @return
 	 */
-	public int queryPregatheringCountByPage(String pregatheringNoLow, String pregatheringNoHigh, String pregatheringName);
+	public int queryPregatheringCountByPage(String pregatheringNoLow, String pregatheringNoHigh, String pregatheringName, String customerName);
 	
 	/**
 	 * 根据ID查询预收款（查询未删除的记录）

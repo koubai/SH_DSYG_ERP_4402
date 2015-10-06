@@ -132,12 +132,13 @@
 					<div class="tab_content">
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
-								<td width="40">序号</td>
-								<td width="60">主题</td>
+								<td width="20">序号</td>
+								<td width="40">主题</td>
 								<td width="120">品名</td>
 								<td width="120">规格</td>
 								<td width="60">颜色</td>
 								<td width="60">包装</td>
+								<td width="40">单位</td>
 								<td width="60">形式</td>
 								<td width="140">平均成本价格(含税)</td>
 							</tr>
@@ -166,6 +167,13 @@
 										</s:iterator>
 									</td>
 									<td><s:property value="item10"/></td>
+									<td>
+										<s:iterator id="unitList" value="unitList" status="st3">
+											<s:if test="%{unitList[#st3.index].code == productCostCheckList[#st1.index].unit}">
+												<s:property value="fieldname"/>
+											</s:if>
+										</s:iterator>
+									</td>
 									<td>
 										<s:if test='%{productCostCheckList[#st1.index].packaging == "0"}'>整箱</s:if>
 										<s:elseif test='%{productCostCheckList[#st1.index].packaging == "1"}'>乱尺</s:elseif>
