@@ -144,6 +144,11 @@ public class PurchaseDto extends BaseAction {
 	 * 采购单对应的产品ID（逗号分割）
 	 */
 	private String productlist;
+	
+	/**
+	 * 退换货标志：1为退换货，其他为非退换货
+	 */
+	private String refundflag;
 
 	/**
 	 * 备注
@@ -577,5 +582,13 @@ public class PurchaseDto extends BaseAction {
 
 	public void setApprovername(String approvername) {
 		this.approvername = approvername;
+	}
+
+	public String getRefundflag() {
+		return refundflag;
+	}
+
+	public void setRefundflag(String refundflag) {
+		this.refundflag = refundflag;
 	}
 }

@@ -84,6 +84,15 @@
 		getOpener().document.getElementById("color").value = color;
 		getOpener().document.getElementById("unit").value = unit;
 		getOpener().document.getElementById("packaging").value = packaging;
+		getOpener().document.getElementById("show_color").value = colorName;
+		getOpener().document.getElementById("show_unit").value = unitName;
+		if (packaging == "0")
+			getOpener().document.getElementById("show_packaging").value = "整箱";
+		else if (packaging == "1")
+			getOpener().document.getElementById("show_packaging").value = "乱尺";
+		else
+			getOpener().document.getElementById("show_packaging").value = "packaging";
+
 		getOpener().document.getElementById("item10").value = item10;
 	}
 	

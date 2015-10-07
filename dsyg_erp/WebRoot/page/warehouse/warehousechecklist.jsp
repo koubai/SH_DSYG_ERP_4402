@@ -162,9 +162,10 @@
 								<td width="60">颜色</td>
 								<td width="60">形式</td>
 								<td width="60">包装</td>
+								<td width="60">单位</td>
 								<td width="80">库存数量</td>
-								<td width="150">库存位置</td>
-								<td width="150">盘点数量</td>
+								<td width="120">库存位置</td>
+								<td width="140">盘点数量</td>
 							</tr>
 							<s:iterator id="warehouseCheckList" value="warehouseCheckList" status="st1">
 								<s:if test="#st1.odd==true">
@@ -193,6 +194,13 @@
 									</td>
 									<td>
 										<s:property value="item10"/>
+									</td>
+									<td>
+										<s:iterator id="unitList" value="unitList" status="st3">
+											<s:if test="%{unitList[#st3.index].code == warehouseCheckList[#st1.index].unit}">
+												<s:property value="fieldname"/>
+											</s:if>
+										</s:iterator>
 									</td>
 									<td><s:property value="warehouseamount"/></td>
 									<td>

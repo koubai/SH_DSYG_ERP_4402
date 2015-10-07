@@ -192,6 +192,9 @@
 				<s:hidden name="updSampleDto.productid" id="productid"></s:hidden>
 				
 				<s:hidden name="updSampleDto.quantity" id="quantity"></s:hidden>
+				<s:hidden name="updSampleDto.color" id="color"></s:hidden>
+				<s:hidden name="updSampleDtoo.packaging" id="packaging"></s:hidden>
+				<s:hidden name="updSampleDto.unit" id="unit"></s:hidden>
 				
 				<s:hidden name="updSampleDto.customertype" id="customertype"></s:hidden>
 				<s:hidden name="updSampleDto.customerid" id="sampleCustomerid"></s:hidden>
@@ -229,6 +232,66 @@
 									<input name="tmpType" type="radio" checked="checked" value="2" onclick="selectType(this);"/>送出
 								</s:else>
 							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10"><font color="red">&nbsp;</font>规格</label>
+							</td>
+							<td>
+								<s:textfield name="updSampleDto.typeno" disabled="true" id="typeno" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
+							</td>
+							<td align="right">
+								<label class="pdf10"><font color="red">&nbsp;</font>颜色</label>
+							</td>
+							<td>
+								<s:textfield name="fieldname" disabled="true" id="show_color" cssStyle="width:300px;" maxlength="64" theme="simple">
+  								<s:iterator id="colorList" value="colorList" status="st3">
+									<s:if test="%{colorList[#st3.index].code == updSampleDto.color}">
+										<s:property value="fieldname"/>
+									</s:if>
+								</s:iterator>
+								</s:textfield>
+ 							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10"><font color="red">&nbsp;</font>形式</label>
+							</td>
+							<td>
+								<s:textfield name="show_packaging" disabled="true" id="show_packaging" cssStyle="width:300px;" maxlength="64" theme="simple">
+	  	 							<s:if test='%{updSampleDto.packaging == "0"}'><s:property value="整箱"/>
+									</s:if>
+									<s:elseif test='%{updSampleDto.packaging == "1"}'><s:property value="乱尺"/>
+									</s:elseif>
+									<s:elseif test='%{updSampleDto.packaging == "2"}'><s:property value="样品"/>
+									</s:elseif>
+									<s:else>
+										<s:property value="updSampleDto.packaging"/>
+									</s:else>
+								</s:textfield>
+ 							</td>
+							<td align="right">
+								<label class="pdf10"><font color="red">&nbsp;</font>包装</label>
+							</td>
+							<td>
+								<s:textfield name="updSampleDto.item10" disabled="true" id="item10" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10"><font color="red">&nbsp;</font>单位</label>
+							</td>
+							<td>
+								<s:textfield name="show_unit" disabled="true" id="show_unit" cssStyle="width:100px;" maxlength="64" theme="simple">
+								<s:iterator id="unitList" value="unitList" status="st4">
+									<s:if test="%{unitList[#st4.index].code == updSampleDto.unit}">
+										<s:property value="fieldname"/>
+									</s:if>
+								</s:iterator>			
+								</s:textfield>
+							</td>
+							<td align="right"></td>
+							<td align="right"></td>
 						</tr>
 						<tr>
 							<td align="right">

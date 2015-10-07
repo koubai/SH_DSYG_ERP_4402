@@ -1,3 +1,11 @@
+function changeBackcolor(obj) {
+	if(obj.checked) {
+		document.getElementById("containermain").style.backgroundColor = "#ffffcc";
+	} else {
+		document.getElementById("containermain").style.backgroundColor = "";
+	}
+}
+
 function getOpener() {
 	var obj = window.dialogArguments;
 	if(obj == null || obj == undefined || obj == "undefined") {

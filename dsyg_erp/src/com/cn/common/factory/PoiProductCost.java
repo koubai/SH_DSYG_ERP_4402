@@ -91,7 +91,7 @@ public class PoiProductCost extends Poi2007Base {
 			cell4.setCellStyle(style);
 			cell5.setCellValue(productCostDto.getItem10());
 			cell5.setCellStyle(style);
-			cell6.setCellValue(productCostDto.getUnit());
+			cell6.setCellValue(dictMap.get(Constants.DICT_UNIT_TYPE + "_" + productCostDto.getUnit()));
 			cell6.setCellStyle(style);
 			if("0".equals(productCostDto.getPackaging())) {
 				cell7.setCellValue("整箱");
@@ -123,7 +123,7 @@ public class PoiProductCost extends Poi2007Base {
 		sheet.setColumnWidth(4, 10 * 256);
 		heads.add("包装");
 		sheet.setColumnWidth(5, 10 * 256);
-		heads.add("单位i");
+		heads.add("单位");
 		sheet.setColumnWidth(6, 10 * 256);
 		heads.add("形式");
 		sheet.setColumnWidth(7, 10 * 256);
