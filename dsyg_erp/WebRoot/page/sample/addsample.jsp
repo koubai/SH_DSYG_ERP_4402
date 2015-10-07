@@ -189,10 +189,11 @@
 			</div>
 			<s:form id="mainform" name="mainform" method="POST" enctype="multipart/form-data">
 				<s:hidden name="addSampleDto.note" id="note"></s:hidden>
-				<s:hidden name="addSampleDto.productid" id="productid"></s:hidden>
-				
+				<s:hidden name="addSampleDto.productid" id="productid"></s:hidden>				
 				<s:hidden name="addSampleDto.quantity" id="quantity"></s:hidden>
-				
+				<s:hidden name="addSampleDto.color" id="color"></s:hidden>
+				<s:hidden name="addSampleDto.packaging" id="packaging"></s:hidden>
+				<s:hidden name="addSampleDto.unit" id="unit"></s:hidden>
 				<s:hidden name="addSampleDto.customertype" id="customertype"></s:hidden>
 				<s:hidden name="addSampleDto.customerid" id="sampleCustomerid"></s:hidden>
 				<s:hidden name="addSampleDto.customername" id="sampleCustomername"></s:hidden>
@@ -239,38 +240,43 @@
 						</tr>
 						<tr>
 							<td align="right">
-								<label class="pdf10"><font color="red">&nbsp</font>规格</label>
+								<label class="pdf10"><font color="red">&nbsp;</font>规格</label>
 							</td>
 							<td>
 								<s:textfield name="addSampleDto.typeno" disabled="true" id="typeno" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
 							</td>
 							<td align="right">
-								<label class="pdf10"><font color="red">&nbsp</font>颜色</label>
+								<label class="pdf10"><font color="red">&nbsp;</font>颜色</label>
 							</td>
 							<td>
-								<s:textfield name="addSampleDto.color" disabled="true" id="color" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
-<!-- 								<s:iterator id="colorList" value="colorList" status="st3">
+								<s:textfield name="show_color" disabled="true" id="show_color" cssStyle="width:300px;" maxlength="64" theme="simple">
+  								<s:iterator id="colorList" value="colorList" status="st3">
 									<s:if test="%{colorList[#st3.index].code == addSampleDto.color}">
-										<s:textfield name="fieldname" disabled="true" id="color" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
+										<s:property value="fieldname"/>
 									</s:if>
 								</s:iterator>
- --> 							</td>
+								</s:textfield>
+ 							</td>
 						</tr>
 						<tr>
 							<td align="right">
-								<label class="pdf10"><font color="red">&nbsp</font>形式</label>
+								<label class="pdf10"><font color="red">&nbsp;</font>形式</label>
 							</td>
 							<td>
-								<s:textfield name="addSampleDto.packaging" disabled="true" id="packaging" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
-<!-- 	 							<s:if test='%{addSampleDto.packaging == "0"}'>整箱</s:if>
-								<s:elseif test='%{addSampleDto.packaging == "1"}'>乱尺</s:elseif>
-								<s:elseif test='%{addSampleDto.packaging == "2"}'>样品</s:elseif>
-								<s:else>
-									<s:textfield name="packaging" disabled="true" id="packaging" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
-								</s:else>
- -->							</td>
+								<s:textfield name="show_packaging" disabled="true" id="show_packaging" cssStyle="width:300px;" maxlength="64" theme="simple">
+	  	 							<s:if test='%{addSampleDto.packaging == "0"}'><s:property value="整箱"/>
+									</s:if>
+									<s:elseif test='%{addSampleDto.packaging == "1"}'><s:property value="乱尺"/>
+									</s:elseif>
+									<s:elseif test='%{addSampleDto.packaging == "2"}'><s:property value="样品"/>
+									</s:elseif>
+									<s:else>
+										<s:property value="addSampleDto.packaging"/>
+									</s:else>
+								</s:textfield>
+ 							</td>
 							<td align="right">
-								<label class="pdf10"><font color="red">&nbsp</font>包装</label>
+								<label class="pdf10"><font color="red">&nbsp;</font>包装</label>
 							</td>
 							<td>
 								<s:textfield name="addSampleDto.item10" disabled="true" id="item10" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
@@ -278,17 +284,17 @@
 						</tr>
 						<tr>
 							<td align="right">
-								<label class="pdf10"><font color="red">&nbsp</font>单位</label>
+								<label class="pdf10"><font color="red">&nbsp;</font>单位</label>
 							</td>
 							<td>
- 							<s:textfield name="addSampleDto.unit" disabled="true" id="unit" cssStyle="width:100px;" maxlength="64" theme="simple"></s:textfield>
-<!--							
+								<s:textfield name="fieldname" disabled="true" id="show_unit" cssStyle="width:100px;" maxlength="64" theme="simple">
 								<s:iterator id="unitList" value="unitList" status="st4">
 									<s:if test="%{unitList[#st4.index].code == addSampleDto.unit}">
-										<s:textfield name="fieldname" disabled="true" id="unit" cssStyle="width:100px;" maxlength="64" theme="simple"></s:textfield>
+										<s:property value="fieldname"/>
 									</s:if>
 								</s:iterator>			
- -->							</td>
+								</s:textfield>
+							</td>
 							<td align="right"></td>
 							<td align="right"></td>
 						</tr>
