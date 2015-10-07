@@ -456,6 +456,7 @@ public class SalesAction extends BaseAction {
 			String name = StringUtil.createHtmlFileName(type);
 			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
 			response.setContentType("text/html; charset=GB2312");
+			response.setCharacterEncoding("GB2312");
 			//Poi2007Base base = PoiFactory.getPoi(type);
 			PoiSalesPrice base = new PoiSalesPrice();
 			base.setDictMap(dictMap);
