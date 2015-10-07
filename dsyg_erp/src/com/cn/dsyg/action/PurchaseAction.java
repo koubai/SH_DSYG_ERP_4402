@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import com.cn.common.action.BaseAction;
 import com.cn.common.factory.Poi2007Base;
 import com.cn.common.factory.PoiFactory;
+import com.cn.common.factory.PurchaseXml;
 import com.cn.common.util.Constants;
 import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
@@ -449,6 +450,67 @@ public class PurchaseAction extends BaseAction {
 			queryData();
 		} catch(Exception e) {
 			log.error("turnPurchaseAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	//导出数据
+	public String exportPurchaseAction() {
+		try {
+			this.clearMessages();
+			initDictList();
+			//字典数据组织个MAP
+			Map<String, String> dictMap = new HashMap<String, String>();
+			if(goodsList != null && goodsList.size() > 0) {
+				for(Dict01Dto dict : goodsList) {
+					dictMap.put(Constants.DICT_GOODS_TYPE + "_" + dict.getCode(), dict.getFieldname());
+				}
+			}
+			if(unitList != null && unitList.size() > 0) {
+				for(Dict01Dto dict : unitList) {
+					dictMap.put(Constants.DICT_UNIT_TYPE + "_" + dict.getCode(), dict.getFieldname());
+				}
+			}
+			if(makeareaList != null && makeareaList.size() > 0) {
+				for(Dict01Dto dict : makeareaList) {
+					dictMap.put(Constants.DICT_MAKEAREA + "_" + dict.getCode(), dict.getFieldname());
+				}
+			}
+			if(colorList != null && colorList.size() > 0) {
+				for(Dict01Dto dict : colorList) {
+					dictMap.put(Constants.DICT_COLOR_TYPE + "_" + dict.getCode(), dict.getFieldname());
+				}
+			}
+
+			String name = StringUtil.createXmlFileName(Constants.EXCEL_TYPE_PURCHASEITEM);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("text/xml;charset=utf-8");
+			
+			updPurchaseItemList = new ArrayList<PurchaseItemDto>();
+			updPurchaseDto = purchaseService.queryPurchaseByID(updPurchaseId);
+			if(updPurchaseDto != null) {
+				updPurchaseItemList = purchaseItemService.queryPurchaseItemByPurchaseno(updPurchaseDto.getPurchaseno());
+			}
+			//修改xml
+			PurchaseXml purchaseXml = new PurchaseXml();
+			purchaseXml.setDictMap(dictMap);
+			purchaseXml.modifyXml(updPurchaseDto, updPurchaseItemList);
+			//导出
+			purchaseXml.toXml(response);
+			
+			//压缩文件
+			/*
+			String pdf_path = PropertiesConfig.getPropertiesValueByKey(Constants.PROPERTIES_PDF_PATH);
+	        Zip zip=new Zip();
+	        File file = new File(pdf_path+"\\salesprice");
+	        File[] srcfile = file.listFiles();
+	        File zipfile = new File(pdf_path + "\\salesprice.zip");
+	        zip.ZipFiles(srcfile, zipfile);*/
+	        
+			log.info("exportExcel success.");
+		} catch(Exception e) {
+			log.error("exportPurchaseAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
