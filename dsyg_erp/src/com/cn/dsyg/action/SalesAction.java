@@ -10,8 +10,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
-import com.cn.common.factory.Poi2007Base;
-import com.cn.common.factory.PoiFactory;
 import com.cn.common.factory.PoiSalesPrice;
 import com.cn.common.util.Constants;
 import com.cn.common.util.DateUtil;
@@ -19,7 +17,6 @@ import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.Dict01Dto;
-import com.cn.dsyg.dto.ProductDto;
 import com.cn.dsyg.dto.SalesDto;
 import com.cn.dsyg.dto.SalesItemDto;
 import com.cn.dsyg.service.Dict01Service;
@@ -181,10 +178,11 @@ public class SalesAction extends BaseAction {
 				return "checkerror";
 			}
 			if(salesDto.getStatus() > Constants.SALES_STATUS_NEW) {
-				this.addActionMessage("该数据不能更新！");
-				return "checkerror";
+				if(!"1".equals(updSalesDto.getRefundflag())) {
+					this.addActionMessage("该数据不能更新！");
+					return "checkerror";
+				}
 			}
-			
 			if(updSalesItemList == null || updSalesItemList.size() <= 0) {
 				this.addActionMessage("销售单货物列表不能为空！");
 				return "checkerror";
@@ -242,8 +240,10 @@ public class SalesAction extends BaseAction {
 				return "checkerror";
 			}
 			if(salesDto.getStatus() > Constants.SALES_STATUS_NEW) {
-				this.addActionMessage("该数据不能更新！");
-				return "checkerror";
+				if(!"1".equals(updSalesDto.getRefundflag())) {
+					this.addActionMessage("该数据不能更新！");
+					return "checkerror";
+				}
 			}
 			//数据验证
 			if(!checkData(updSalesDto)) {

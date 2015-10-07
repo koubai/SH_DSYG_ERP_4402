@@ -153,12 +153,13 @@
 								<td width="40">序号</td>
 								<td width="80">类型</td>
 								<td width="120">品名</td>
-								<td width="120">规格</td>
+								<td width="100">规格</td>
 								<td width="60">颜色</td>
 								<td width="60">单位</td>
 								<td width="60">形式</td>
 								<td width="60">包装</td>
-								<td width="80">入库数量</td>
+								<td width="60">入库数量</td>
+								<td width="120">创建时间</td>
 								<td width="120">备注</td>
 							</tr>
 							<s:iterator id="warehouseList" value="warehouseList" status="st1">
@@ -212,6 +213,7 @@
 										<s:property value="item10"/>
 									</td>
 									<td><s:property value="quantity"/></td>
+									<td><s:date name="createdate" format="yyyy/MM/dd HH:mm:ss" /></td>
 									<td><s:property value="note"/></td>
 								</tr>
 							</s:iterator>
