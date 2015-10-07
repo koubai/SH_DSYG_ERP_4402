@@ -14,13 +14,15 @@
 <script type="text/javascript">
 	function upd() {
 		if($("#status").val() != "10") {
-			alert("该数据不可以修改！");
-		} else {
-			if(checkItem()) {
-				if(confirm("确定提交吗？")) {
-					document.mainform.action = "<%=request.getContextPath()%>/sales/updSalesitemAction.action";
-					document.mainform.submit();
-				}
+			if(!$("#tmpRefund").attr("checked")) {
+				alert("该数据不可以修改！");
+				return;
+			}
+		}
+		if(checkItem()) {
+			if(confirm("确定提交吗？")) {
+				document.mainform.action = "<%=request.getContextPath()%>/sales/updSalesitemAction.action";
+				document.mainform.submit();
 			}
 		}
 	}
@@ -477,6 +479,22 @@
 		
 		$("#bookdate").val($("#tmpBookdate").val());
 		$("#plandate").val($("#tmpPlandate").val());
+		
+		//退换货标识
+		if($("#tmpRefund").attr("checked")) {
+			$("#refundflag").val("1");
+		} else {
+			$("#refundflag").val("0");
+		}
+		//备注
+		var tmpNote = $("#tmpNote").val();
+		if(tmpNote.length > 250) {
+			alert("备注不能超过250个字！");
+			$("#tmpNote").focus();
+			return false;
+		}
+		$("#note").val(tmpNote);
+		
 		if(!setSalesItemList()) {
 			return false;
 		}
@@ -662,7 +680,7 @@
 	}
 </script>
 </head>
-<body scroll="no">
+<body>
 	<div id="containermain">
 		<div class="content">
 			<!--
@@ -693,6 +711,9 @@
 				<s:hidden name="updSalesDto.handlername" id="handlername"></s:hidden>
 				
 				<s:hidden name="updSalesDto.res02" id="res02"></s:hidden>
+				
+				<s:hidden name="updSalesDto.note" id="note"></s:hidden>
+				<s:hidden name="updSalesDto.refundflag" id="refundflag"></s:hidden>
 				
 				<div class="searchbox update" style="height:0px;">
 					<table id="salesItemTable" style="display: none;">
@@ -732,17 +753,10 @@
 								<s:if test='updSalesDto.res02 == "1"'>
 									<input type="radio" disabled="disabled" id="tmpRes02" name="salesType" value="0"/>普通　
 									<input type="radio" disabled="disabled" name="salesType" checked="checked" value="1"/>询价　
-									<input type="radio" disabled="disabled" name="salesType" value="2"/>询样
 								</s:if>
-								<s:elseif test='updSalesDto.res02 == "2"'>
-									<input type="radio" disabled="disabled" id="tmpRes02" name="salesType" value="0"/>普通　
-									<input type="radio" disabled="disabled" name="salesType" value="1"/>询价　
-									<input type="radio" disabled="disabled" name="salesType" checked="checked" value="2"/>询样
-								</s:elseif>
 								<s:else>
 									<input type="radio" disabled="disabled" id="tmpRes02" name="salesType" checked="checked" value="0"/>普通　
 									<input type="radio" disabled="disabled" name="salesType" value="1"/>询价　
-									<input type="radio" disabled="disabled" name="salesType" value="2"/>询样
 								</s:else>
 							</td>
 							<td align="right">
@@ -944,6 +958,27 @@
 								<div class="box1_right"></div>
 							</td>
 						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10">退换货标识</label>
+							</td>
+							<td colspan="3">
+								<s:if test='updSalesDto.refundflag == "1"'>
+									<input id="tmpRefund" type="checkbox" onclick="changeBackcolor(this);" checked="checked" value="1"/>
+								</s:if>
+								<s:else>
+									<input id="tmpRefund" type="checkbox" onclick="changeBackcolor(this);" value="1"/>
+								</s:else>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10">备注</label>
+							</td>
+							<td colspan="3">
+								<textarea id="tmpNote" rows="3" cols="" style="width: 886px;"><s:property value="updSalesDto.note"/></textarea>
+							</td>
+						</tr>
 					</table>
 				</div>
 				<div class="info">
@@ -1095,7 +1130,6 @@
 							</td>
 						</tr>
 					</table>
-					<div style="height:225px;"></div>
 				</div>
 			</s:form>
 		</div>

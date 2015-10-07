@@ -180,11 +180,7 @@ public class WarehouseOkDto extends BaseAction {
 	}
 
 	public Integer getShowQuantity() {
-		if(quantity != null && quantity < 0) {
-			showQuantity = -1 * quantity;
-		} else {
-			showQuantity = quantity;
-		}
+		showQuantity = -1 * quantity;
 		return showQuantity;
 	}
 

@@ -228,6 +228,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 				}
 				//预入库数重置为0
 				purchaseItem.setBeforequantity(0);
+				//备注
+				purchaseItem.setNote(purchase.getNote());
 				purchaseItemDao.insertPurchaseItem(purchaseItem);
 			}
 		}
@@ -274,6 +276,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 					
 					//预入库数重置为0
 					purchaseItem.setBeforequantity(0);
+					//备注
+					purchaseItem.setNote(purchase.getNote());
 					purchaseItemDao.insertPurchaseItem(purchaseItem);
 				} else {
 					//修改
@@ -294,6 +298,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 					
 					//预入库数重置为0
 					purchaseItem.setBeforequantity(0);
+					//备注
+					purchaseItem.setNote(purchase.getNote());
 					purchaseItemDao.updatePurchaseItem(purchaseItem);
 				}
 			}

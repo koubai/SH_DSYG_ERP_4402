@@ -13,13 +13,15 @@
 <script type="text/javascript">
 	function upd() {
 		if($("#status").val() != "10") {
-			alert("该数据不可以修改！");
-		} else {
-			if(checkItem()) {
-				if(confirm("确定修改吗？")) {
-					document.mainform.action = "../purchase/updPurchaseAction.action";
-					document.mainform.submit();
-				}
+			if(!$("#tmpRefund").attr("checked")) {
+				alert("该数据不可以修改！");
+				return;
+			}
+		}
+		if(checkItem()) {
+			if(confirm("确定修改吗？")) {
+				document.mainform.action = "../purchase/updPurchaseAction.action";
+				document.mainform.submit();
 			}
 		}
 	}
@@ -356,6 +358,12 @@
 			$("#res01").focus();
 			return;
 		}
+		
+		if(tmpPlandate == "") {
+			alert("预入库时间不能为空！");
+			$("#tmpPlandate").focus();
+			return;
+		}
 		/*
 		if(handler == "") {
 			alert("经手人不能为空！");
@@ -441,18 +449,28 @@
 				return;
 		}
 		
-		if(tmpPlandate == "") {
-			alert("预入库时间不能为空！");
-			$("#tmpPlandate").focus();
-			return;
-		}
-		
 		$("#totalamount").val($("#tmpTotalamount").val());
 		$("#taxamount").val($("#tmpTaxamount").val());
 		$("#paidamount").val($("#tmpPaidamount").val());
 		
 		$("#purchasedate").val($("#tmpPurchasedate").val());
 		$("#plandate").val($("#tmpPlandate").val());
+		
+		//退换货标识
+		if($("#tmpRefund").attr("checked")) {
+			$("#refundflag").val("1");
+		} else {
+			$("#refundflag").val("0");
+		}
+		//备注
+		var tmpNote = $("#tmpNote").val();
+		if(tmpNote.length > 250) {
+			alert("备注不能超过250个字！");
+			$("#tmpNote").focus();
+			return false;
+		}
+		$("#note").val(tmpNote);
+		
 		if(!setPurchaseItemList()) {
 			return false;
 		}
@@ -659,6 +677,9 @@
 				<s:hidden name="updPurchaseDto.handler" id="handler"></s:hidden>
 				<s:hidden name="updPurchaseDto.handlername" id="handlername"></s:hidden>
 				
+				<s:hidden name="updPurchaseDto.note" id="note"></s:hidden>
+				<s:hidden name="updPurchaseDto.refundflag" id="refundflag"></s:hidden>
+				
 				<div class="searchbox update" style="height:0px;">
 					<table id="purchaseItemTable" style="display: none;">
 					</table>
@@ -670,15 +691,13 @@
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>采购订单号</label>
 							</td>
-							<td colspan="3">
+							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
 									<s:textfield name="updPurchaseDto.theme2" disabled="true" id="theme2" cssStyle="width:300px;" maxlength="32" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>
-						</tr>
-						<tr>
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>采购日期</label>
 							</td>
@@ -690,6 +709,8 @@
 								</div>
 								<div class="box1_right"></div>
 							</td>
+						</tr>
+						<tr>
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>支付方式</label>
 							</td>
@@ -702,6 +723,17 @@
 											<option value="<s:property value="code"/>" <s:if test="%{payTypeList[#st1.index].code == updPurchaseDto.res01}">selected</s:if>><s:property value="fieldname"/></option>
 										</s:iterator>
 									</select>
+								</div>
+								<div class="box1_right"></div>
+							</td>
+							<td align="right">
+								<label class="pdf10"><font color="red">*</font>预入库日期</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center date_input">
+									<input type="text" id="tmpPlandate" disabled="disabled" style="width:285px;" value="<s:property value="updPurchaseDto.plandate"/>" />
+									<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpPlandate'));"></a>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -879,15 +911,23 @@
 								<div style="margin-top: 9px;"><label>（含税）</label></div>
 							</td>
 							<td align="right">
-								<label class="pdf10"><font color="red">*</font>预入库日期</label>
+								<label class="pdf10">退换货标识</label>
 							</td>
 							<td>
-								<div class="box1_left"></div>
-								<div class="box1_center date_input">
-									<input type="text" id="tmpPlandate" disabled="disabled" style="width:285px;" value="<s:property value="updPurchaseDto.plandate"/>" />
-									<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpPlandate'));"></a>
-								</div>
-								<div class="box1_right"></div>
+								<s:if test='updPurchaseDto.refundflag == "1"'>
+									<input id="tmpRefund" type="checkbox" onclick="changeBackcolor(this);" checked="checked" value="1"/>
+								</s:if>
+								<s:else>
+									<input id="tmpRefund" type="checkbox" onclick="changeBackcolor(this);" value="1"/>
+								</s:else>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10">备注</label>
+							</td>
+							<td colspan="3">
+								<textarea id="tmpNote" rows="3" cols="" style="width: 886px;"><s:property value="updPurchaseDto.note"/></textarea>
 							</td>
 						</tr>
 					</table>

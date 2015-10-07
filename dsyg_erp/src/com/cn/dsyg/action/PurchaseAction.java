@@ -204,8 +204,10 @@ public class PurchaseAction extends BaseAction {
 				return "checkerror";
 			}
 			if(purchaseDto.getStatus() > Constants.PURCHASE_STATUS_NEW) {
-				this.addActionMessage("该数据不能更新！");
-				return "checkerror";
+				if(!"1".equals(updPurchaseDto.getRefundflag())) {
+					this.addActionMessage("该数据不能更新！");
+					return "checkerror";
+				}
 			}
 			//数据验证
 			if(!checkData(updPurchaseDto)) {
@@ -286,9 +288,12 @@ public class PurchaseAction extends BaseAction {
 				this.addActionMessage("该数据不存在！");
 				return "checkerror";
 			}
+			//非退换货时，检查数据状态
 			if(purchaseDto.getStatus() > Constants.PURCHASE_STATUS_NEW) {
-				this.addActionMessage("该数据不能更新！");
-				return "checkerror";
+				if(!"1".equals(updPurchaseDto.getRefundflag())) {
+					this.addActionMessage("该数据不能更新！");
+					return "checkerror";
+				}
 			}
 			//数据验证
 			if(!checkData(updPurchaseDto)) {

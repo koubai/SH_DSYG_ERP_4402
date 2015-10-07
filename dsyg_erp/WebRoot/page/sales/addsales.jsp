@@ -486,6 +486,22 @@
 		
 		$("#bookdate").val($("#tmpBookdate").val());
 		$("#plandate").val($("#tmpPlandate").val());
+		
+		//退换货标识
+		if($("#tmpRefund").attr("checked")) {
+			$("#refundflag").val("1");
+		} else {
+			$("#refundflag").val("0");
+		}
+		//备注
+		var tmpNote = $("#tmpNote").val();
+		if(tmpNote.length > 250) {
+			alert("备注不能超过250个字！");
+			$("#tmpNote").focus();
+			return false;
+		}
+		$("#note").val(tmpNote);
+		
 		if(!setSalesItemList()) {
 			return false;
 		}
@@ -698,6 +714,9 @@
 				<s:hidden name="addSalesDto.handlername" id="handlername"></s:hidden>
 				
 				<s:hidden name="addSalesDto.res02" id="res02"></s:hidden>
+				
+				<s:hidden name="addSalesDto.note" id="note"></s:hidden>
+				<s:hidden name="addSalesDto.refundflag" id="refundflag"></s:hidden>
 				
 				<div class="searchbox update" style="height:0px;">
 					<table id="salesItemTable" style="display: none;">
@@ -946,6 +965,27 @@
 									<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpPlandate'));"></a>
 								</div>
 								<div class="box1_right"></div>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10">退换货标识</label>
+							</td>
+							<td colspan="3">
+								<s:if test='addSalesDto.refundflag == "1"'>
+									<input id="tmpRefund" type="checkbox" onclick="changeBackcolor(this);" checked="checked" value="1"/>
+								</s:if>
+								<s:else>
+									<input id="tmpRefund" type="checkbox" onclick="changeBackcolor(this);" value="1"/>
+								</s:else>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10">备注</label>
+							</td>
+							<td colspan="3">
+								<textarea id="tmpNote" rows="3" cols="" style="width: 886px;"><s:property value="addSalesDto.note"/></textarea>
 							</td>
 						</tr>
 					</table>
