@@ -957,7 +957,7 @@
 											<td width="85">预入库数</td>
 											<td width="70">已入库数</td>
 											<td width="70">未入库数</td>
-											<td width="90">含税单价</td>
+											<td width="90">未税单价</td>
 											<td width="90" style="background:#86e657;">含税单价</td>
 											<td width="110">采购金额（未税）</td>
 											<td width="110" style="background:#86e657;">采购金额（含税）</td>
