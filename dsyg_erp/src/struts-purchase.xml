@@ -58,6 +58,10 @@
 			<result name="*">/page/purchase/purchaselist.jsp</result>
 		</action>
 		
+		<action name="exportPurchaseAction" class="purchaseAction" method="exportPurchaseAction">
+			<result name="success">/page/downloadxml.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

@@ -15,6 +15,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cn.common.util.Constants;
+import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.SalesDto;
 import com.cn.dsyg.dto.SalesItemDto;
 import com.opensymphony.xwork2.ActionContext;
@@ -69,9 +70,28 @@ public class PoiSalesPrice {
         
         StringBuilder products = new StringBuilder(" ");
         for (int i = 0; i < updSalesItemList.size(); i++) {  
+    		//包装
+    		String packaging = "";
+    		if(StringUtil.isNotBlank(updSalesItemList.get(i).getPackaging())) {
+    			if(Constants.DICT_PACKAGING_TYPE_CODE_1.equals(updSalesItemList.get(i).getPackaging())) {
+    				packaging = " - 乱尺";
+    			} else if(Constants.DICT_PACKAGING_TYPE_CODE_0.equals(updSalesItemList.get(i).getPackaging())) {
+    				packaging = " - 整箱";
+    			}
+    		}
+    		String typeno = "";
+    		if(StringUtil.isNotBlank(updSalesItemList.get(i).getTypeno())) {
+    			typeno = " - " + updSalesItemList.get(i).getTypeno();
+    		}
+    		String item01 = "";
+    		if(StringUtil.isNotBlank(updSalesItemList.get(i).getItem01())) {
+    			item01 = " - " + updSalesItemList.get(i).getItem01();
+    		}
+    		
         	products.append("<tr>");   
             products.append("<td style=\"border:solid; border-width:0px 0px 1px 1px;\">");  
-            products.append(updSalesItemList.get(i).getTradename() + dictMap.get(Constants.DICT_COLOR_TYPE + "_" + updSalesItemList.get(i).getColor()));  
+            products.append(updSalesItemList.get(i).getTradename() + typeno + item01 + packaging + " - " + 
+            		dictMap.get(Constants.DICT_COLOR_TYPE + "_" + updSalesItemList.get(i).getColor()));  
             products.append("</td>"); 
             products.append("<td style=\"border:solid; border-width:0px 0px 1px 1px;\">"); 
         	if(dictMap.get(Constants.DICT_UNIT_TYPE + "_" + updSalesItemList.get(i).getUnit()) != null){
@@ -81,7 +101,7 @@ public class PoiSalesPrice {
             products.append("<td style=\"border:solid; border-width:0px 0px 1px 1px;\">"); 
             products.append("￥" + updSalesItemList.get(i).getUnitprice());  
             products.append("</td>");
-            products.append("<td style=\"border:solid; border-width:0px 0px 1px 1px;\">"); 
+            products.append("<td style=\"border:solid; border-width:0px 1px 1px 1px; font-weight:bold\">"); 
         	if(updSalesItemList.get(i).getNote() != null){
 	            products.append(updSalesItemList.get(i).getNote());  
         	}
