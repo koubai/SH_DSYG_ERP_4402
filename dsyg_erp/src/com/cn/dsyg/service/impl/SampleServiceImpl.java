@@ -41,6 +41,7 @@ public class SampleServiceImpl implements SampleService {
 			sample.setColor(product.getColor());
 			sample.setPackaging(product.getPackaging());
 			sample.setItem10(product.getItem10());
+			sample.setUnit(product.getUnit());
 			CustomerDto customer = customerDao.queryAllEtbCustomerByID(sample.getRes01());
 			if(customer != null) {
 				sample.setCustomername(customer.getCustomername());

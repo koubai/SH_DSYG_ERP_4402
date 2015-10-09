@@ -193,7 +193,7 @@
 				
 				<s:hidden name="updSampleDto.quantity" id="quantity"></s:hidden>
 				<s:hidden name="updSampleDto.color" id="color"></s:hidden>
-				<s:hidden name="updSampleDtoo.packaging" id="packaging"></s:hidden>
+				<s:hidden name="updSampleDto.packaging" id="packaging"></s:hidden>
 				<s:hidden name="updSampleDto.unit" id="unit"></s:hidden>
 				
 				<s:hidden name="updSampleDto.customertype" id="customertype"></s:hidden>
@@ -244,13 +244,11 @@
 								<label class="pdf10"><font color="red">&nbsp;</font>颜色</label>
 							</td>
 							<td>
-								<s:textfield name="fieldname" disabled="true" id="show_color" cssStyle="width:300px;" maxlength="64" theme="simple">
   								<s:iterator id="colorList" value="colorList" status="st3">
 									<s:if test="%{colorList[#st3.index].code == updSampleDto.color}">
-										<s:property value="fieldname"/>
+										<s:textfield name="show_color" value="%{colorList[#st3.index].fieldname}" disabled="true" id="show_color" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
 									</s:if>
 								</s:iterator>
-								</s:textfield>
  							</td>
 						</tr>
 						<tr>
@@ -258,23 +256,24 @@
 								<label class="pdf10"><font color="red">&nbsp;</font>形式</label>
 							</td>
 							<td>
-								<s:textfield name="show_packaging" disabled="true" id="show_packaging" cssStyle="width:300px;" maxlength="64" theme="simple">
-	  	 							<s:if test='%{updSampleDto.packaging == "0"}'><s:property value="整箱"/>
+	  	 							<s:if test='%{updSampleDto.packaging == "0"}'>
+										<s:textfield name="show_packaging" value="整箱" disabled="true" id="show_packaging" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
 									</s:if>
-									<s:elseif test='%{updSampleDto.packaging == "1"}'><s:property value="乱尺"/>
+									<s:elseif test='%{updSampleDto.packaging == "1"}'>
+										<s:textfield name="show_packaging" value="乱尺" disabled="true" id="show_packaging" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
 									</s:elseif>
-									<s:elseif test='%{updSampleDto.packaging == "2"}'><s:property value="样品"/>
+									<s:elseif test='%{updSampleDto.packaging == "2"}'>
+										<s:textfield name="show_packaging" value="样品" disabled="true" id="show_packaging" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
 									</s:elseif>
 									<s:else>
-										<s:property value="updSampleDto.packaging"/>
+										<s:textfield name="show_packaging" value="%{updSampleDto.packaging}" disabled="true" id="show_packaging" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
 									</s:else>
-								</s:textfield>
  							</td>
 							<td align="right">
 								<label class="pdf10"><font color="red">&nbsp;</font>包装</label>
 							</td>
 							<td>
-								<s:textfield name="updSampleDto.item10" disabled="true" id="item10" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
+								<s:textfield name="updSampleDto.item10" value="%{updSampleDto.item10}" disabled="true" id="item10" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
 							</td>
 						</tr>
 						<tr>
@@ -282,13 +281,11 @@
 								<label class="pdf10"><font color="red">&nbsp;</font>单位</label>
 							</td>
 							<td>
-								<s:textfield name="show_unit" disabled="true" id="show_unit" cssStyle="width:100px;" maxlength="64" theme="simple">
 								<s:iterator id="unitList" value="unitList" status="st4">
 									<s:if test="%{unitList[#st4.index].code == updSampleDto.unit}">
-										<s:property value="fieldname"/>
+										<s:textfield name="show_unit" value="%{unitList[#st4.index].fieldname}" disabled="true" id="show_unit" cssStyle="width:100px;" maxlength="64" theme="simple"></s:textfield>
 									</s:if>
 								</s:iterator>			
-								</s:textfield>
 							</td>
 							<td align="right"></td>
 							<td align="right"></td>
