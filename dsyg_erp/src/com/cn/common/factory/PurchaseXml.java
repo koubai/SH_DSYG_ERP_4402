@@ -22,8 +22,7 @@ public class PurchaseXml {
 	 */
 	protected Map<String, String> dictMap;
 	
-	public void modifyXml(PurchaseDto updPurchaseDto, List<PurchaseItemDto> updPurchaseItemList) {
-		String pdf_path = PropertiesConfig.getPropertiesValueByKey(Constants.PROPERTIES_PDF_PATH);
+	public void exportXml(OutputStream out, PurchaseDto updPurchaseDto, List<PurchaseItemDto> updPurchaseItemList) {
 		String template = "page/template.xml";
 		String filePath = "";
 		try {
@@ -41,36 +40,63 @@ public class PurchaseXml {
 	        Document doc = reader.read(fileName); //加载xml文件
 	
 	        Element no = (Element) doc.selectSingleNode("//my:N0");
-	        no.setText(updPurchaseDto.getTheme2());
+	        if(StringUtil.isNotBlank(updPurchaseDto.getTheme2())){
+	        	no.setText(updPurchaseDto.getTheme2());
+	        }
 	
 	        Element date = (Element) doc.selectSingleNode("//my:DATE");
-	        date.setText(updPurchaseDto.getShowPurchasedate());
+	        if(StringUtil.isNotBlank(updPurchaseDto.getShowPurchasedate())){
+	        	date.setText(updPurchaseDto.getShowPurchasedate());
+	        }
 	        
 	        Node des01 = doc.selectSingleNode("//my:group1/my:group2/my:DESCRIPTION-01"); 
-	        des01.setText(updPurchaseItemList.get(0).getTradename());
+	        if(StringUtil.isNotBlank(updPurchaseItemList.get(0).getItem11())){
+	        	des01.setText(updPurchaseItemList.get(0).getItem11());
+	        }
 	        
 	        Node des02 = doc.selectSingleNode("//my:group1/my:group2/my:DESCRIPTION-02"); 
-	        des02.setText(updPurchaseItemList.get(0).getTypeno());
+	        des02.setText(updPurchaseItemList.get(0).getTradename() + " " + updPurchaseItemList.get(0).getTypeno());
 	        
 	        Node color = doc.selectSingleNode("//my:group1/my:group2/my:COLOR"); 
-	        color.setText(updPurchaseItemList.get(0).getColor());
+	        color.setText(dictMap.get(Constants.DICT_COLOR_TYPE + "_" + updPurchaseItemList.get(0).getColor() + "_e"));
 	        
 	        Node qty = doc.selectSingleNode("//my:group1/my:group2/my:QTY"); 
-	        qty.setText(updPurchaseItemList.get(0).getQuantity().toString());
+	        if(updPurchaseItemList.get(0).getQuantity() != null){
+	        	qty.setText(updPurchaseItemList.get(0).getQuantity().toString());
+	        }
 	        
 	        Node unitprice = doc.selectSingleNode("//my:group1/my:group2/my:UNIT_PRICE"); 
-	        unitprice.setText(updPurchaseItemList.get(0).getUnitprice().toString());
+	        if(updPurchaseItemList.get(0).getUnitprice() != null){
+	        	unitprice.setText(updPurchaseItemList.get(0).getUnitprice().toString());
+	        }
 
-
+	        String str_des01 = "";
+	        String str_qty = "";
+	        String str_unitprice = "";
+	        String str_color = "";
 	        for (int i = 1; i < updPurchaseItemList.size(); i++) {  
 		        Element group1 = (Element) doc.selectSingleNode("//my:group1");
-		        group1.addElement("my:group2").addElement("my:DESCRIPTION-01").addText(updPurchaseItemList.get(1).getTradename());
+		        
+		        if(StringUtil.isNotBlank(updPurchaseItemList.get(i).getItem11())){
+		        	str_des01 = updPurchaseItemList.get(i).getItem11();
+		        }
+		        if(updPurchaseItemList.get(i).getQuantity() != null){
+		        	str_qty = updPurchaseItemList.get(i).getQuantity().toString();
+		        }
+		        if(updPurchaseItemList.get(i).getUnitprice() != null){
+		        	str_unitprice = updPurchaseItemList.get(i).getUnitprice().toString();
+		        }
+		        if(StringUtil.isNotBlank(updPurchaseItemList.get(i).getColor())){
+		        	str_color = dictMap.get(Constants.DICT_COLOR_TYPE + "_" + updPurchaseItemList.get(i).getColor() + "_e");
+		        }
+		        
+		        group1.addElement("my:group2").addElement("my:DESCRIPTION-01").addText(str_des01);
 		        
 		        Element group = (Element) doc.selectNodes("//my:group1/my:group2").get(i); 
-		        group.addElement("my:DESCRIPTION-02").addText(updPurchaseItemList.get(i).getTypeno());
-		        group.addElement("my:COLOR").addText(updPurchaseItemList.get(i).getColor());
-		        group.addElement("my:QTY").addText(updPurchaseItemList.get(i).getQuantity().toString());
-		        group.addElement("my:UNIT_PRICE").addText(updPurchaseItemList.get(i).getUnitprice().toString());
+		        group.addElement("my:DESCRIPTION-02").addText(updPurchaseItemList.get(i).getTradename() + " " + updPurchaseItemList.get(i).getTypeno());
+		        group.addElement("my:COLOR").addText(str_color);
+		        group.addElement("my:QTY").addText(str_qty);
+		        group.addElement("my:UNIT_PRICE").addText(str_unitprice);
 		        group.addElement("my:AMOUNT").addAttribute("xsi:nil", "true");
 	        }
 	
@@ -80,57 +106,17 @@ public class PurchaseXml {
 	        }
 	        Element note = (Element) doc.selectSingleNode("//my:备注");
 	        note.setText(strnote);
-	
-	        //将上述改动保存到文件
-	        FileWriter fileWriter = new FileWriter(pdf_path + "\\template.xml");
-	
-	        OutputFormat format = OutputFormat.createPrettyPrint(); //设置美观的缩进格式，便于阅读
-	        //format = OutputFormat.createCompactFormat();//设置紧凑格式（消除多余空格），便于下载
-	        XMLWriter writer = new XMLWriter(System.out);
-	        writer.setWriter(fileWriter);
-	        writer.write(doc);
-	        writer.close();
+	        
+            OutputFormat format = new OutputFormat("    ", true); 
+            format.setEncoding("GB2312"); 
+            XMLWriter xmlWriter = new XMLWriter(out, format); 
+            xmlWriter.write(doc); 
+            xmlWriter.close();
 	
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
 	}  
-	
-	/**
-	 * 输出大标题
-	 * @param sheet
-	 * @throws IOException 
-	 */
-	@SuppressWarnings("deprecation")
-	public void toXml(HttpServletResponse response) throws IOException {
-		String pdf_path = PropertiesConfig.getPropertiesValueByKey(Constants.PROPERTIES_PDF_PATH);
-		String template = "template.xml";
-        String templateContent = "";
-        
-        FileInputStream fileinputstream = new FileInputStream(pdf_path + template);// 读取模板文件
-        InputStreamReader read = new InputStreamReader(fileinputstream,"utf-8");
-        BufferedReader reader = new BufferedReader(read); 
-        String line;
-        while ((line = reader.readLine()) != null) {       
-        	templateContent += line;
-        }
-        fileinputstream.close();
-        read.close();
-        
-		//输出
-		PrintWriter pw;
-		try {
-			pw = response.getWriter();
-			pw.flush();
-			pw.write(templateContent.toString());
-			pw.close();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
 
 	public Map<String, String> getDictMap() {
 		return dictMap;

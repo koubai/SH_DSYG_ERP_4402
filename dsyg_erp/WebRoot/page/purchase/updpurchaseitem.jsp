@@ -645,6 +645,11 @@
 	function goPurchaseList() {
 		window.location.href = "../purchase/queryPurchaseAction.action";
 	}
+
+	function exportData() {
+		document.mainform.action = '../purchase/exportPurchaseAction.action';
+		document.mainform.submit();
+	}
 </script>
 </head>
 <body>
@@ -1058,6 +1063,15 @@
 				<div class="trade">
 					<table cellpadding="10" style="margin:0 auto;">
 						<tr>
+							<td>
+								<div class="btn">
+									<div class="box1_left"></div>
+									<div class="box1_center">
+										<input class="input80" type="button" value="导出" onclick="exportData();"/>
+									</div>
+									<div class="box1_right"></div>
+								</div>
+							</td>
 							<td>
 								<div class="btn">
 									<div class="box1_left"></div>

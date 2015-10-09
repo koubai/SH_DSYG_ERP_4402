@@ -36,6 +36,7 @@
 		<result property="status" column="status" />
 		
 		<result property="item01" column="item01" />
+		<result property="item11" column="item11" />
 		
 		<result property="res01" column="res01" />
 		<result property="res02" column="res02" />
@@ -129,6 +130,7 @@
 		(select P.packaging from etb_product P where P.id = T.productid) as packaging,
 		(select P.unit from etb_product P where P.id = T.productid) as unit,
 		(select P.item10 from etb_product P where P.id = T.productid) as item01,
+		(select P.item11 from etb_product P where P.id = T.productid) as item11,
 		(select "") as suppliername,
 		(select "") as purchasedate
 		from etb_purchaseitem T where 1 = 1 and T.status = 1

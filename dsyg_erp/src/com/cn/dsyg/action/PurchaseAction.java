@@ -485,28 +485,17 @@ public class PurchaseAction extends BaseAction {
 
 			String name = StringUtil.createXmlFileName(Constants.EXCEL_TYPE_PURCHASEITEM);
 			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
-			response.setContentType("text/xml;charset=utf-8");
+			response.setContentType("text/xml;charset=GB2312");
 			
 			updPurchaseItemList = new ArrayList<PurchaseItemDto>();
 			updPurchaseDto = purchaseService.queryPurchaseByID(updPurchaseId);
 			if(updPurchaseDto != null) {
 				updPurchaseItemList = purchaseItemService.queryPurchaseItemByPurchaseno(updPurchaseDto.getPurchaseno());
 			}
-			//修改xml
+			//导出xml
 			PurchaseXml purchaseXml = new PurchaseXml();
 			purchaseXml.setDictMap(dictMap);
-			purchaseXml.modifyXml(updPurchaseDto, updPurchaseItemList);
-			//导出
-			purchaseXml.toXml(response);
-			
-			//压缩文件
-			/*
-			String pdf_path = PropertiesConfig.getPropertiesValueByKey(Constants.PROPERTIES_PDF_PATH);
-	        Zip zip=new Zip();
-	        File file = new File(pdf_path+"\\salesprice");
-	        File[] srcfile = file.listFiles();
-	        File zipfile = new File(pdf_path + "\\salesprice.zip");
-	        zip.ZipFiles(srcfile, zipfile);*/
+			purchaseXml.exportXml(response.getOutputStream(), updPurchaseDto, updPurchaseItemList);
 	        
 			log.info("exportExcel success.");
 		} catch(Exception e) {
