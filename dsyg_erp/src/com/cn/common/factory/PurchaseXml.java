@@ -34,11 +34,15 @@ public class PurchaseXml {
 		filePath = filePath.replace("WEB-INF/classes/", "");
         
 	    String fileName = filePath + template;
-	    System.out.println(fileName);
+	    System.out.println("filename=:"+fileName);
 	    try {
 	        SAXReader reader = new SAXReader();
 	        Document doc = reader.read(fileName); //加载xml文件
 	
+	        if (doc==null){
+	    	    System.out.println("template file not exist");
+	        	return;
+	        }
 	        Element no = (Element) doc.selectSingleNode("//my:N0");
 	        if(StringUtil.isNotBlank(updPurchaseDto.getTheme2())){
 	        	no.setText(updPurchaseDto.getTheme2());
@@ -58,7 +62,7 @@ public class PurchaseXml {
 	        des02.setText(updPurchaseItemList.get(0).getTradename() + " " + updPurchaseItemList.get(0).getTypeno());
 	        
 	        Node color = doc.selectSingleNode("//my:group1/my:group2/my:COLOR"); 
-	        color.setText(dictMap.get(Constants.DICT_COLOR_TYPE + "_" + updPurchaseItemList.get(0).getColor() + "_e"));
+	        color.setText(dictMap.get(Constants.DICT_COLOR_TYPE + "_" + updPurchaseItemList.get(0).getColor()));
 	        
 	        Node qty = doc.selectSingleNode("//my:group1/my:group2/my:QTY"); 
 	        if(updPurchaseItemList.get(0).getQuantity() != null){
@@ -87,7 +91,9 @@ public class PurchaseXml {
 		        	str_unitprice = updPurchaseItemList.get(i).getUnitprice().toString();
 		        }
 		        if(StringUtil.isNotBlank(updPurchaseItemList.get(i).getColor())){
-		        	str_color = dictMap.get(Constants.DICT_COLOR_TYPE + "_" + updPurchaseItemList.get(i).getColor() + "_e");
+		        	str_color = dictMap.get(Constants.DICT_COLOR_TYPE + "_" + updPurchaseItemList.get(i).getColor());
+		        	if (str_color == null)
+		        		str_color = "";
 		        }
 		        
 		        group1.addElement("my:group2").addElement("my:DESCRIPTION-01").addText(str_des01);
@@ -99,14 +105,14 @@ public class PurchaseXml {
 		        group.addElement("my:UNIT_PRICE").addText(str_unitprice);
 		        group.addElement("my:AMOUNT").addAttribute("xsi:nil", "true");
 	        }
-	
+
 	        String strnote = " ";
 	        if(StringUtil.isNotBlank(updPurchaseDto.getNote())){
 	        	strnote = updPurchaseDto.getNote().toString();
 	        }
 	        Element note = (Element) doc.selectSingleNode("//my:备注");
 	        note.setText(strnote);
-	        
+
             OutputFormat format = new OutputFormat("    ", true); 
             format.setEncoding("GB2312"); 
             XMLWriter xmlWriter = new XMLWriter(out, format); 
