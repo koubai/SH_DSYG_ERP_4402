@@ -24,22 +24,22 @@
 	
 	//修改pagesize
 	function changepagesize(pagesize) {
-		$("#intPageSize").attr("value", pagesize);
-		$("#startIndex").attr("value", "0");
+		$("#checkIntPageSize").attr("value", pagesize);
+		$("#checkStartIndex").attr("value", "0");
 		document.mainform.action = '../warehouse/queryWarehouseCheckAction.action';
 		document.mainform.submit();
 	}
 	
 	//翻页
 	function changePage(pageNum) {
-		$("#startIndex").attr("value", pageNum);
+		$("#checkStartIndex").attr("value", pageNum);
 		document.mainform.action = '../warehouse/turnWarehouseCheckAction.action';
 		document.mainform.submit();
 	}
 
 	//页跳转
 	function turnPage() {
-		var totalPage = "${page.totalPage}";
+		var totalPage = "${checkPage.totalPage}";
 		var turnPage = document.getElementById("pagenum").value;
 		//判断是否输入页码
 		if ('' != turnPage) {
@@ -112,8 +112,8 @@
 				</div>
 			</div>
 			<s:form id="mainform" name="mainform" method="POST">
-				<s:hidden name="startIndex" id="startIndex"/>
-				<s:hidden name="intPageSize" id="intPageSize"/>
+				<s:hidden name="checkStartIndex" id="checkStartIndex"/>
+				<s:hidden name="checkIntPageSize" id="checkIntPageSize"/>
 				<s:hidden name="strPosition" id="strPosition"/>
 				<div class="searchbox">
 					<div class="box1" style="display: none;">
@@ -174,7 +174,7 @@
 								<s:else>
 									<tr>
 								</s:else>
-									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
+									<td><s:property value="checkPage.pageSize * (checkPage.nextIndex - 1) + #st1.index + 1"/></td>
 									<td><s:property value="tradename"/></td>
 									<td><s:property value="typeno"/></td>
 									<td>
@@ -216,12 +216,12 @@
 					<div class="pages">
 						<ul>
 							<li style="width: 180px;">
-								<s:if test="intPageSize != null && intPageSize == 20">
+								<s:if test="checkIntPageSize != null && checkIntPageSize == 20">
 									显示：<input name="tmpPagesize" type="radio" value="10" onclick="changepagesize('10')"/>10 
 									<input name="tmpPagesize" type="radio" value="20" checked="checked" onclick="changepagesize('20')"/>20 
 									<input name="tmpPagesize" type="radio" value="30" onclick="changepagesize('30')"/>30
 								</s:if>
-								<s:elseif test="intPageSize != null && intPageSize == 30">
+								<s:elseif test="checkIntPageSize != null && checkIntPageSize == 30">
 									显示：<input name="tmpPagesize" type="radio" value="10" onclick="changepagesize('10')"/>10 
 									<input name="tmpPagesize" type="radio" value="20" onclick="changepagesize('20')"/>20 
 									<input name="tmpPagesize" type="radio" value="30" checked="checked" onclick="changepagesize('30')"/>30
@@ -232,7 +232,7 @@
 									<input name="tmpPagesize" type="radio" value="30" onclick="changepagesize('30')"/>30
 								</s:else>
 							</li>
-							<li>第<strong>${page.startIndex + 1}</strong>页/共<strong>${page.totalPage==0?1:page.totalPage}</strong>页/共<strong>${page.totalCount}</strong>条记录</li>
+							<li>第<strong>${checkPage.startIndex + 1}</strong>页/共<strong>${checkPage.totalPage==0?1:checkPage.totalPage}</strong>页/共<strong>${checkPage.totalCount}</strong>条记录</li>
 							<li class="mgl15">跳转到
 								<input type="text" id="pagenum" class="text" maxlength="4" size="4"/>
 								<input type="button" value="GO" onclick="javascript:turnPage();"/>
@@ -241,23 +241,23 @@
 								<a class="first" href="#" onclick="changePage(0);">首页</a>
 							</li>
 							<li>
-								<s:if test="%{page.startIndex <= 0}">
+								<s:if test="%{checkPage.startIndex <= 0}">
 									<a class="last" href="#">上一页</a>
 								</s:if>
 								<s:else>
-									<a class="next" href="#" onclick="changePage('${page.previousIndex}');">上一页</a>
+									<a class="next" href="#" onclick="changePage('${checkPage.previousIndex}');">上一页</a>
 								</s:else>
 							</li>
 							<li>
-								<s:if test="%{page.nextIndex > page.totalPage - 1}">
+								<s:if test="%{checkPage.nextIndex > checkPage.totalPage - 1}">
 									<a class="last" href="#">下一页</a>
 								</s:if>
 								<s:else>
-									<a class="next" href="#" onclick="changePage('${page.nextIndex}');">下一页</a>
+									<a class="next" href="#" onclick="changePage('${checkPage.nextIndex}');">下一页</a>
 								</s:else>
 							</li>
 							<li>
-								<a class="next" href="#" onclick="changePage('${page.totalPage - 1}');">末页</a>
+								<a class="next" href="#" onclick="changePage('${checkPage.totalPage - 1}');">末页</a>
 							</li>
 						</ul>
 					</div>
