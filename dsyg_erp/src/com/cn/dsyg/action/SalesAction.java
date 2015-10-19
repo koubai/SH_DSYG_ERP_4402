@@ -194,6 +194,7 @@ public class SalesAction extends BaseAction {
 			salesService.updateSales(updSalesDto, updSalesItemList, username);
 			//刷新页面
 			updSalesItemList = salesItemService.querySalesItemBySalesno(updSalesDto.getSalesno());
+			updSalesDto.setRefundflag("0");
 			this.addActionMessage("预出库成功！");
 		} catch(Exception e) {
 			log.error("updSalesitemAction error:" + e);
@@ -263,6 +264,7 @@ public class SalesAction extends BaseAction {
 			salesService.updateSales(updSalesDto, updSalesItemList, username);
 			//刷新页面
 			updSalesItemList = salesItemService.querySalesItemBySalesno(updSalesDto.getSalesno());
+			updSalesDto.setRefundflag("0");
 			this.addActionMessage("修改成功！");
 		} catch(Exception e) {
 			log.error("updSalesAction error:" + e);
