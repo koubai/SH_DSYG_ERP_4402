@@ -224,6 +224,7 @@ public class PurchaseAction extends BaseAction {
 			purchaseService.updatePurchase(updPurchaseDto, updPurchaseItemList, username);
 			//刷新页面
 			updPurchaseItemList = purchaseItemService.queryPurchaseItemByPurchaseno(updPurchaseDto.getPurchaseno());
+			updPurchaseDto.setRefundflag("0");
 			this.addActionMessage("预入库成功！");
 		} catch(Exception e) {
 			log.error("updPurchaseitemAction error:" + e);
@@ -310,6 +311,7 @@ public class PurchaseAction extends BaseAction {
 			purchaseService.updatePurchase(updPurchaseDto, updPurchaseItemList, username);
 			//刷新页面
 			updPurchaseItemList = purchaseItemService.queryPurchaseItemByPurchaseno(updPurchaseDto.getPurchaseno());
+			updPurchaseDto.setRefundflag("0");
 			this.addActionMessage("修改成功！");
 		} catch(Exception e) {
 			log.error("updPurchaseAction error:" + e);
