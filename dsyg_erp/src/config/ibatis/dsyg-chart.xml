@@ -539,7 +539,7 @@
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>			
-			group by years, months, theme1			
+			group by years, months, theme1, id			
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
