@@ -58,7 +58,7 @@
 							<td><s:property value="#st1.index + 1"/></td>
 							<td><s:property value="suppliername"/></td>
 							<td><a href="#" onclick="showPurchaseNoDetail('<s:property value="theme2"/>');"><s:property value="theme2"/></a></td>
-							<td><s:property value="unitprice"/></td>
+							<td align="right"><s:property value="unitprice"/></td>
 							<td><s:property value="showPurchasedate"/></td>
 						</tr>
 					</s:iterator>

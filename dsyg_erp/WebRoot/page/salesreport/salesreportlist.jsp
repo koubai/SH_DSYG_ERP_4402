@@ -146,10 +146,18 @@
 				</div>
 				<div class="searchbox update">
 					<div class="box1" >
-						<label class="pdf10" style="width:120px">报告名</label>
+						<label class="pdf10" style="width:60px">报告名:</label>
 						<div class="box1_left"></div>
 						<div class="box1_center">
 							<s:textfield name="strSalesReportName" id="strSalesReportName" cssStyle="width:135px;" maxlength="128" theme="simple"></s:textfield>
+						</div>
+						<div class="box1_right"></div>
+					</div>
+					<div class="box1" >
+						<label class="pdf10" style="width:60px">客户名:</label>
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<s:textfield name="strCustomerName" id="strCustomerName" cssStyle="width:135px;" maxlength="128" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
 					</div>
@@ -179,8 +187,9 @@
 							<tr class="tittle">
 								<td width="5%"></td>
 								<td width="5%">序号</td>
-								<td width="15%">报告编号</td>
+								<!-- <td width="15%">报告编号</td> -->
 								<td width="15%">报告名</td>
+								<td width="15%">客户名</td>
 								<td width="15%">用途</td>
 								<td width="10%">负责人</td>
 								<td width="10%">登记日期</td>
@@ -198,12 +207,13 @@
 								</s:else>
 									<td><input name="radioKey" type="radio" value="<s:property value="salesreportno"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-									<td><s:property value="salesreportno"/></td>
+									<!-- <td><s:property value="salesreportno"/></td> -->
 									<td>
 										<div noWrap style="text-overflow:ellipsis;overflow:hidden">
 											<s:property value="salesreportname"/>
 										</div>
 									</td>
+									<td><s:property value="customername"/></td>
 									<td><s:property value="purpose"/></td>
 									<td><s:property value="handler"/></td>
 									<td><s:property value="showregisterdate"/></td>

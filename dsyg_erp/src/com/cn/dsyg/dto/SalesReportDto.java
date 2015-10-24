@@ -40,6 +40,16 @@ public class SalesReportDto extends BaseDto {
 	private String handler;
 
 	/**
+	 * 客户ID
+	 */
+	private String customerid;
+
+	/**
+	 * 客户名
+	 */
+	private String customername;
+
+	/**
 	 * 登记日期
 	 */
 	private String registerdate;
@@ -439,5 +449,21 @@ public class SalesReportDto extends BaseDto {
 		this.reporturl = reporturl;
 	}
 	
+	public String getCustomerid() {
+		return customerid;
+	}
+
+	public void setCustomerid(String customerid) {
+		this.customerid = customerid;
+	}
+
+	public String getCustomername() {
+		return customername;
+	}
+
+	public void setCustomername(String customername) {
+		this.customername = customername;
+	}
+
 
 }

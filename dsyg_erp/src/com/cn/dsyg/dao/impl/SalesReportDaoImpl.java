@@ -31,7 +31,7 @@ public class SalesReportDaoImpl extends BaseDao implements SalesReportDao {
 
 	@Override
 	public List<SalesReportDto> querySalesReportByPage(String salesreportNoLow,
-			String salesreportNoHigh, String salesreportName,
+			String salesreportNoHigh, String salesreportName, String customerName,
 			int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		//这里按照需求，若资产名称存在，则忽略资产代码按资产名称来查询。
@@ -40,6 +40,9 @@ public class SalesReportDaoImpl extends BaseDao implements SalesReportDao {
 		} else {
 			paramMap.put("ID_LOW", salesreportNoLow);
 			paramMap.put("ID_HIGH", salesreportNoHigh);
+		}
+		if(StringUtil.isNotBlank(customerName)) {
+			paramMap.put("CUSTOMER_NAME", StringUtil.replaceDatabaseKeyword_mysql(customerName));
 		}
 		paramMap.put("start", start);
 		paramMap.put("end", end);
@@ -50,7 +53,7 @@ public class SalesReportDaoImpl extends BaseDao implements SalesReportDao {
 
 	@Override
 	public int querySalesReportCountByPage(String salesreportNoLow,
-			String salesreportNoHigh, String salesreportName) {
+			String salesreportNoHigh, String salesreportName, String customerName) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		//这里按照需求，若资产名称存在，则忽略资产代码按资产名称来查询。
 		if(StringUtil.isNotBlank(salesreportName)) {

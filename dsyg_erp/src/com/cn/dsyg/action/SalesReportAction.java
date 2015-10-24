@@ -66,6 +66,11 @@ public class SalesReportAction extends BaseAction {
 	private String strSalesReportName;
 	
 	/**
+	 * 销售报告客户名
+	 */
+	private String strCustomerName;
+
+	/**
 	 * 新增销售报告对象
 	 */
 	private SalesReportDto addSalesReportDto;
@@ -136,6 +141,7 @@ public class SalesReportAction extends BaseAction {
 			strSalesReportNoLow = "";
 			strSalesReportNoHigh = "";
 			strSalesReportName = "";
+			strCustomerName = "";
 			addSalesReportDto = new SalesReportDto();
 			updateSalesReportDto = new SalesReportDto();
 			updateSalesReportNo = "";
@@ -200,7 +206,7 @@ public class SalesReportAction extends BaseAction {
 		}
 		//翻页查询所有销售报告
 		this.page.setStartIndex(startIndex);
-		page = salesreportService.querySalesReportByPage(page, strSalesReportNoLow, strSalesReportNoHigh, strSalesReportName);
+		page = salesreportService.querySalesReportByPage(page, strSalesReportNoLow, strSalesReportNoHigh, strSalesReportName, strCustomerName);
 		listSalesReport = (List<SalesReportDto>) page.getItems();
 		
 		this.setStartIndex(page.getStartIndex());
@@ -394,8 +400,16 @@ public class SalesReportAction extends BaseAction {
 			this.addActionMessage("销售报告名称不能为空！");
 			return false;
 		}
-		if(salesreport.getSalesreportname().length() > 40) {
-			this.addActionMessage("销售报告名称不能超过64个字符！");
+		if(salesreport.getSalesreportname().length() > 128) {
+			this.addActionMessage("销售报告名称不能超过128个字符！");
+			return false;
+		}
+		if(StringUtil.isBlank(salesreport.getCustomername())) {
+			this.addActionMessage("客户名称不能为空！");
+			return false;
+		}
+		if(salesreport.getCustomername().length() > 64) {
+			this.addActionMessage("客户名称不能超过64个字符！");
 			return false;
 		}
 		if(!DateUtil.isDate(salesreport.getRegisterdate().toString())) {
@@ -636,4 +650,13 @@ public class SalesReportAction extends BaseAction {
 	public void setUpdReportFile03(File updReportFile03) {
 		this.updReportFile03 = updReportFile03;
 	}
+
+	public String getStrCustomerName() {
+		return strCustomerName;
+	}
+
+	public void setStrCustomerName(String strCustomerName) {
+		this.strCustomerName = strCustomerName;
+	}
+
 }

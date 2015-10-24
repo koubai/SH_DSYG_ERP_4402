@@ -83,6 +83,13 @@
 		document.mainform.submit();
 	};
 
+	//客户
+	function selectCustomer() {
+		var url = "../customer/showSelectCustomerAction.action";
+		url += "?date=" + new Date();
+		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	}
+
 </script>
 <base target="_self"/>
 </head>
@@ -94,6 +101,7 @@
 	<s:hidden name="file02Name" id="file02Name"></s:hidden>
 	<s:hidden name="file03Name" id="file03Name"></s:hidden>
 	<s:hidden name="addSalesReportDto.salesreportno" id="salesreportno"></s:hidden>
+	
 	<div id="container" style="width: 100%; height: 100%;">
 		<div class="content" style="margin-top: 0px;">
 			<div class="tittle" style="width:750px">
@@ -119,6 +127,30 @@
 						<s:textfield name="addSalesReportDto.salesreportname" id="salesreportname" cssStyle="width:350px;" maxlength="64" theme="simple"></s:textfield>
 					</div>
 					<div class="box1_right"></div>
+				</td>
+			</tr>
+			<tr>
+				<td><label class="pdf10" id="labCustomer"><font color="red">*</font>客户</label>	</td>
+				<td>
+					<div class="box1_left"></div>
+					<div class="box1_center">
+						<input type="hidden" id="customermanager"/>
+						<input type="hidden" id="customeraddress"/>
+						<input type="hidden" id="customertel"/>
+						<input type="hidden" id="customerfax"/>
+						<input type="hidden" id="customermail"/>
+						<input type="hidden" id="customerid" value="<s:property value="addSalesReportDto.customerid"/>"/>
+						<s:textfield name="addSalesReportDto.customername" id="customername" cssStyle="width:350px;" maxlength="64" theme="simple"></s:textfield>
+					</div>
+					<div class="box1_right" style="width:100px">
+						<div class="btn">
+							<div class="box1_left"></div>
+							<div class="box1_center">
+								<input id="btnCustomer" class="input40" type="button" value="检索" onclick="selectCustomer();" />
+							</div>
+							<div class="box1_right"></div>
+						</div>
+					</div>
 				</td>
 			</tr>
 			<tr>

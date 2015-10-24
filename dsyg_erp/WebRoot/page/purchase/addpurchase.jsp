@@ -1022,24 +1022,24 @@
 															<s:property value="packaging"/>
 														</s:else>
 													</td>
-													<td>
+													<td align="right">
 														<input type="text" style="width: 80px;" id="tmpQuantity_<s:property value="productid"/>" onblur="calcquantity(this, '1');" maxlength="11" value="<s:property value="quantity"/>"/>
 													</td>
-													<td>
+													<td align="right">
 														<input type="text" style="width: 80px;" id="tmpBeforeQuantity_<s:property value="productid"/>" onblur="calcquantity(this, '2');" maxlength="11" value="<s:property value="beforequantity"/>"/>
 													</td>
-													<td><s:property value="inquantity"/></td>
-													<td><s:property value="remainquantity"/></td>
-													<td>
+													<td align="right"><s:property value="inquantity"/></td>
+													<td align="right"><s:property value="remainquantity"/></td>
+													<td align="right">
 														<input type="text" style="width: 80px;" id="tmpUnitprice_<s:property value="productid"/>" onblur="calcquantity(this, '4');" maxlength="11" value="<s:property value="unitprice"/>"/>
 													</td>
-													<td>
+													<td align="right">
 														<input type="text" style="width: 80px;" id="tmpTaxUnitprice_<s:property value="productid"/>" onblur="calcquantity(this, '6');" maxlength="11" value="<s:property value="taxunitprice"/>"/>
 													</td>
-													<td>
+													<td align="right">
 														<input type="text" style="width: 80px;" id="tmpAmount_<s:property value="productid"/>" onblur="calcAmount(this, '1');" maxlength="13" value="<s:property value="amount"/>"/>
 													</td>
-													<td>
+													<td align="right">
 														<input type="text" style="width: 80px;" id="tmpTaxamount_<s:property value="productid"/>" onblur="calcAmount(this, '2');" maxlength="13" value="<s:property value="taxamount"/>"/>
 													</td>
 													<td>

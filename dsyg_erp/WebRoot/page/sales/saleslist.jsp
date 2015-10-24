@@ -286,9 +286,9 @@
 									<td><s:property value="customername"/></td>
 									<td><s:property value="handlername"/></td>
 									<td><s:property value="showBookdate"/></td>
-									<td><s:property value="amount"/></td>
-									<td><s:property value="taxamount"/></td>
-									<td><s:property value="paidamount"/></td>
+									<td align="right"><s:property value="amount"/></td>
+									<td align="right"><s:property value="taxamount"/></td>
+									<td align="right"><s:property value="paidamount"/></td>
 									<td>
 										<s:if test="%{status == 10}">
 											新增

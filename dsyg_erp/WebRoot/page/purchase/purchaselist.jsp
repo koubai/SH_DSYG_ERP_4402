@@ -248,9 +248,9 @@
 									<td><s:property value="suppliername"/></td>
 									<td><s:property value="handlername"/></td>
 									<td><s:property value="showPurchasedate"/></td>
-									<td><s:property value="totalamount"/></td>
-									<td><s:property value="taxamount"/></td>
-									<td><s:property value="paidamount"/></td>
+									<td align="right"><s:property value="totalamount"/></td>
+									<td align="right"><s:property value="taxamount"/></td>
+									<td align="right"><s:property value="paidamount"/></td>
 									<td>
 										<s:if test="%{status == 10}">
 											新增

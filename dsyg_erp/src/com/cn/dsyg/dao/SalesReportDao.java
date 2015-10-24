@@ -27,7 +27,7 @@ public interface SalesReportDao {
 	 * @return
 	 */
 	public List<SalesReportDto> querySalesReportByPage(String salesreportNoLow,
-				String salesreportNoHigh, String salesreportName, int start, int end);
+				String salesreportNoHigh, String salesreportName, String customerName, int start, int end);
 	
 	/**
 	 * 查询总记录数
@@ -35,7 +35,7 @@ public interface SalesReportDao {
 	 * @param salesreportNoHigh
 	 * @return
 	 */
-	public int querySalesReportCountByPage(String salesreportNoLow, String salesreportNoHigh, String salesreportName);
+	public int querySalesReportCountByPage(String salesreportNoLow, String salesreportNoHigh, String salesreportName, String customerName);
 	
 	/**
 	 * 根据ID查询销售报告（查询未删除的记录）

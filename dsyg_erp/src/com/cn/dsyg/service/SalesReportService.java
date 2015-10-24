@@ -21,7 +21,7 @@ public interface SalesReportService {
 	 * @param salesreportName
 	 * @return
 	 */
-	public Page querySalesReportByPage(Page page, String salesreportNoLow, String salesreportNoHigh, String salesreportName);
+	public Page querySalesReportByPage(Page page, String salesreportNoLow, String salesreportNoHigh, String salesreportName, String customerName);
 
 	/**
 	 * 根据ID查询销售报告（查询未删除的记录）
