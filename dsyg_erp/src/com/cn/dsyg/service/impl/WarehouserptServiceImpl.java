@@ -260,7 +260,12 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 					//仓库名===========？
 					//warehouse.setWarehousename(warehousename);
 					//单价
-					warehouse.setUnitprice(product.getPurchaseprice());
+					if(StringUtil.isBlank(product.getPurchaseprice())) {
+						//默认为0
+						warehouse.setUnitprice(new BigDecimal(0));
+					} else {
+						warehouse.setUnitprice(new BigDecimal(product.getPurchaseprice()));
+					}
 					
 					warehouse.setBelongto(belongto);
 					//主题
@@ -275,15 +280,15 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 					
 					if(type == Constants.WAREHOUSE_TYPE_IN) {
 						//采购单价
-						taxamount = new BigDecimal(product.getBrokennum()).multiply(product.getPurchaseprice());
-						amount = new BigDecimal(product.getBrokennum()).multiply(product.getPurchaseprice());
+						taxamount = new BigDecimal(product.getBrokennum()).multiply(warehouse.getUnitprice());
+						amount = new BigDecimal(product.getBrokennum()).multiply(warehouse.getUnitprice());
 						//入出库数量=损毁数
 						//入库单，数量为负数
 						warehouse.setQuantity(-1 * Integer.valueOf(product.getBrokennum()));
 					} else {
 						//销售单价
-						taxamount = new BigDecimal(product.getBrokennum()).multiply(product.getSalesprice());
-						amount = new BigDecimal(product.getBrokennum()).multiply(product.getSalesprice());
+						taxamount = new BigDecimal(product.getBrokennum()).multiply(warehouse.getUnitprice());
+						amount = new BigDecimal(product.getBrokennum()).multiply(warehouse.getUnitprice());
 						//出库单，数量为正数
 						warehouse.setQuantity(Integer.valueOf(product.getBrokennum()));
 					}

@@ -145,7 +145,18 @@ public interface WarehouseDao {
 	 * @param end
 	 * @return
 	 */
-	public List<WarehouseOkDto> queryWarehouseOkByPage(String warehouseType, String theme, String tradename,
+	public List<WarehouseOkDto> queryWarehouseInOkByPage(String warehouseType, String theme, String tradename,
+			String typeno, String color, String warehousename, String status, int start, int end);
+	
+	/**
+	 * 翻页查询库存汇总数据
+	 * @param warehouseType
+	 * @param status
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public List<WarehouseOkDto> queryWarehouseOutOkByPage(String warehouseType, String theme, String tradename,
 			String typeno, String color, String warehousename, String status, int start, int end);
 	
 	/**

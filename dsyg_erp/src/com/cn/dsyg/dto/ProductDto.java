@@ -1,6 +1,5 @@
 package com.cn.dsyg.dto;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import com.cn.common.dto.BaseDto;
@@ -98,12 +97,12 @@ public class ProductDto extends BaseDto {
 	/**
 	 * 销售价
 	 */
-	private BigDecimal salesprice;
+	private String salesprice;
 	
 	/**
 	 * 采购价
 	 */
-	private BigDecimal purchaseprice;
+	private String purchaseprice;
 	
 	//数量（入出库单显示用）
 	private String num;
@@ -940,22 +939,6 @@ public class ProductDto extends BaseDto {
 		this.supplierid = supplierid;
 	}
 
-	public BigDecimal getSalesprice() {
-		return salesprice;
-	}
-
-	public void setSalesprice(BigDecimal salesprice) {
-		this.salesprice = salesprice;
-	}
-
-	public BigDecimal getPurchaseprice() {
-		return purchaseprice;
-	}
-
-	public void setPurchaseprice(BigDecimal purchaseprice) {
-		this.purchaseprice = purchaseprice;
-	}
-
 	public String getUnit() {
 		return unit;
 	}
@@ -1026,5 +1009,21 @@ public class ProductDto extends BaseDto {
 
 	public void setParentid(String parentid) {
 		this.parentid = parentid;
+	}
+
+	public String getSalesprice() {
+		return salesprice;
+	}
+
+	public void setSalesprice(String salesprice) {
+		this.salesprice = salesprice;
+	}
+
+	public String getPurchaseprice() {
+		return purchaseprice;
+	}
+
+	public void setPurchaseprice(String purchaseprice) {
+		this.purchaseprice = purchaseprice;
 	}
 }

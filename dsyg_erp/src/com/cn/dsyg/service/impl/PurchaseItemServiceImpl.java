@@ -35,8 +35,8 @@ public class PurchaseItemServiceImpl implements PurchaseItemService {
 					rate = rate.add(new BigDecimal(listRate.get(0).getCode()));
 				}
 				if(item.getUnitprice() != null) {
-					//计算税后价格，保留4位有效数字
-					item.setTaxunitprice(item.getUnitprice().multiply(rate).setScale(4, BigDecimal.ROUND_HALF_UP));
+					//计算税后价格，保留6位有效数字
+					item.setTaxunitprice(item.getUnitprice().multiply(rate).setScale(6, BigDecimal.ROUND_HALF_UP));
 				}
 			}
 		}

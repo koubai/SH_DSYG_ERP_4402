@@ -529,6 +529,10 @@ public class PurchaseAction extends BaseAction {
 			this.addActionMessage("请选择支付方式！");
 			return false;
 		}
+		if(StringUtil.isBlank(purchase.getPlandate())) {
+			this.addActionMessage("预入库时间不能为空！");
+			return false;
+		}
 //		if(StringUtil.isBlank(purchase.getHandler())) {
 //			this.addActionMessage("经手人不能为空！");
 //			return false;
@@ -556,10 +560,6 @@ public class PurchaseAction extends BaseAction {
 		//采购金额不含税金额不能大于含税金额
 		if(purchase.getTaxamount().compareTo(purchase.getTotalamount()) == -1) {
 			this.addActionMessage("含税金额不能小于不含税金额！");
-			return false;
-		}
-		if(StringUtil.isBlank(purchase.getPlandate())) {
-			this.addActionMessage("预入库时间不能为空！");
 			return false;
 		}
 		return true;

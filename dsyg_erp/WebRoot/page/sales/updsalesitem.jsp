@@ -42,13 +42,16 @@
 			//是否实数check
 			if(!isReal(obj.value)) {
 				alert("销售金额（未税）格式不正确！");
-				checkflag = ture;
+				checkflag = true;
 				obj.focus();
 				checkflag = false;
 				return;
 			}
 			//计算未税金额
-			var purchaseAmount = tds[15].getElementsByTagName("input")[0].value;
+			var purchaseAmount = tds[15].getElementsByTagName("input")[0].value.trim();
+			if(purchaseAmount == "") {
+				purchaseAmount = 0;
+			}
 			var taxamount = parseFloat(purchaseAmount) * (1 + parseFloat(rate));
 			//计算含税金额
 			tds[16].getElementsByTagName("input")[0].value = taxamount.toFixed(2);
@@ -60,13 +63,16 @@
 			//是否实数check
 			if(!isReal(obj.value)) {
 				alert("销售金额（含税）格式不正确！");
-				checkflag = ture;
+				checkflag = true;
 				obj.focus();
 				checkflag = false;
 				return;
 			}
 			//销售金额已税
-			var purchaseTaxamount = tds[16].getElementsByTagName("input")[0].value;
+			var purchaseTaxamount = tds[16].getElementsByTagName("input")[0].value.trim();
+			if(purchaseTaxamount == "") {
+				purchaseTaxamount = 0;
+			}
 			var amount = parseFloat(purchaseTaxamount) / (1 + parseFloat(rate));
 			//计算未税金额
 			tds[15].getElementsByTagName("input")[0].value = amount.toFixed(2);
@@ -120,7 +126,7 @@
 			//是否大于0的数字check
 			if(!isNumber(obj.value)) {
 				alert("销售数量必须是大于0的数字！");
-				checkflag = ture;
+				checkflag = true;
 				obj.focus();
 				checkflag = false;
 				return;
@@ -129,7 +135,7 @@
 			//是否整数字check
 			if(!checkInteger(obj.value)) {
 				alert("预出库数必须整数！");
-				checkflag = ture;
+				checkflag = true;
 				obj.focus();
 				checkflag = false;
 				return;
@@ -138,7 +144,7 @@
 			//是否实数check
 			if(!isReal(obj.value)) {
 				alert("未税单价格式不正确！");
-				checkflag = ture;
+				checkflag = true;
 				obj.focus();
 				checkflag = false;
 				return;
@@ -147,16 +153,18 @@
 			//是否实数check
 			if(!isReal(obj.value)) {
 				alert("含税单价格式不正确！");
-				checkflag = ture;
+				checkflag = true;
 				obj.focus();
 				checkflag = false;
 				return;
 			}
+		} else if(type == "9") {
+			//备注
 		} else {
 			//是否实数check
 			if(!isReal(obj.value)) {
 				alert("销售金额（含税）格式不正确！");
-				checkflag = ture;
+				checkflag = true;
 				obj.focus();
 				checkflag = false;
 				return;
@@ -174,6 +182,10 @@
 		var salesTaxamount = tds[16].getElementsByTagName("input")[0].value;
 		//预出库数量
 		var beforeQuantity = beforeQuantitys[0].value;
+		
+		//备注
+		var res09 = tds[18].getElementsByTagName("input")[0].value.trim();
+		
 		if(salesQuantity == "") {
 			salesQuantity = 0;
 		} else {
@@ -191,19 +203,25 @@
 		//单价
 		var prices = tds[13].getElementsByTagName("input");
 		//var price = tds[13].innerHTML;
-		var price = prices[0].value;
+		var price = prices[0].value.trim();
+		if(price == "") {
+			price = 0;
+		}
 		//含税单价
-		var taxprices = tds[14].getElementsByTagName("input")[0].value;
+		var taxprices = tds[14].getElementsByTagName("input")[0].value.trim();
+		if(taxprices == "") {
+			taxprices = 0;
+		}
 		
 		if(type == "6") {
 			//计算未税单价
 			price = parseFloat(taxprices) / (1 + rate);
-			tds[13].getElementsByTagName("input")[0].value = price.toFixed(4);
+			tds[13].getElementsByTagName("input")[0].value = price.toFixed(6);
 		}
 		if(type == "4") {
 			//计算已税单价
 			taxprices = parseFloat(price) * (1 + rate);
-			tds[14].getElementsByTagName("input")[0].value = taxprices.toFixed(4);
+			tds[14].getElementsByTagName("input")[0].value = taxprices.toFixed(6);
 		}
 		
 		//已出库数量
@@ -217,7 +235,7 @@
 		//逻辑check
 		if(beforeQuantity > salesQuantity || (outquantity + beforeQuantity) < 0 || (outquantity + beforeQuantity) > salesQuantity) {
 			alert("预出库数不在正确范围！");
-			checkflag = ture;
+			checkflag = true;
 			obj.focus();
 			checkflag = false;
 			return;
@@ -227,9 +245,6 @@
 		var remain = salesQuantity - beforeQuantity - outquantity;
 		tds[12].innerHTML = remain;
 		
-		if(price == "") {
-			price = 0;
-		}
 		//销售金额未税
 		var amount = salesQuantity * parseFloat(price);
 		tds[15].getElementsByTagName("input")[0].value = amount.toFixed(2);
@@ -245,6 +260,8 @@
 		inputs[11].value = remain;
 		//销售金额未税
 		inputs[12].value = amount.toFixed(2);
+		//备注
+		inputs[15].value = res09;
 		
 		//销售金额已税
 		//销售金额已税=未税金额 * (1 + rate)
@@ -322,6 +339,12 @@
 		var tmpBookdate = $("#tmpBookdate").val().trim();
 		//支付方式
 		var res01 = $("#res01").val().trim();
+		
+		//交货期
+		var res03 = $("#res03").val().trim();
+		//报价有效期
+		var res04 = $("#res04").val().trim();
+		
 		//销售订单号
 		var theme2 = $("#theme2").val().trim();
 		//经手人
@@ -472,6 +495,21 @@
 			return;
 		}
 		
+		if(res03 != "") {
+			if(!isNumber(res03)) {
+				alert("交货期格式不正确！");
+				$("#res03").focus();
+				return;
+			}
+		}
+		if(res04 != "") {
+			if(!isNumber(res04)) {
+				alert("报价有效期格式不正确！");
+				$("#res04").focus();
+				return;
+			}
+		}
+		
 		$("#res02").val(res02);
 		$("#amount").val($("#tmpAmount").val());
 		$("#taxamount").val($("#tmpTaxamount").val());
@@ -526,6 +564,9 @@
 			//已出库数
 			var outquantity = childs[14].value;
 			
+			//备注
+			var res09 = childs[15].value;
+			
 			var tr = document.createElement("tr");
 			//销售货物列表
 			var td = document.createElement("td");
@@ -553,6 +594,7 @@
 			td.appendChild(createInput("updSalesItemList[" + i + "].remainquantity", remainquantity));
 			td.appendChild(createInput("updSalesItemList[" + i + "].amount", amount));
 			td.appendChild(createInput("updSalesItemList[" + i + "].taxamount", taxamount));
+			td.appendChild(createInput("updSalesItemList[" + i + "].res09", res09));
 			
 			tr.appendChild(td);
 			document.getElementById("salesItemTable").appendChild(tr);
@@ -963,6 +1005,30 @@
 								<div class="box1_right"></div>
 							</td>
 						</tr>
+						
+						<tr>
+							<td align="right">
+								<label class="pdf10">交货期</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<s:textfield name="updSalesDto.res03" disabled="true" id="res03" maxlength="10" cssStyle="width:300px;" theme="simple"></s:textfield>
+								</div>
+								<div class="box1_right"></div>
+							</td>
+							<td align="right">
+								<label class="pdf10">报价有效期</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<s:textfield name="updSalesDto.res04" disabled="true" id="res04" maxlength="10" cssStyle="width:300px;" theme="simple"></s:textfield>
+								</div>
+								<div class="box1_right"></div>
+							</td>
+						</tr>
+						
 						<tr>
 							<td align="right">
 								<label class="pdf10">退换货标识</label>
@@ -998,12 +1064,12 @@
 									</table>
 								</div>
 								<div class="tab_content" style="height: 175px;">
-									<table id="productTable" class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
+									<table id="productTable" class="info_tab" width="140%" border="1" cellpadding="5" cellspacing="0">
 										<tr style="background:#eee; border-top:black solid 1px;">
 											<td style="width: 0px; display: none"></td>
 											<td width="30"></td>
 											<td width="35">序号</td>
-											<td width="60">类型</td>
+											<td width="100">类型</td>
 											<td width="100">品名</td>
 											<td width="90">规格</td>
 											<td width="35">颜色</td>
@@ -1018,6 +1084,7 @@
 											<td width="110">销售金额（未税）</td>
 											<td width="110" style="background:#86e657;">销售金额（含税）</td>
 											<td width="110">包装</td>
+											<td width="150">备注</td>
 										</tr>
 										<tbody id="productData">
 											<s:iterator id="updSalesItemList" value="updSalesItemList" status="st1">
@@ -1044,6 +1111,7 @@
 														<input type="hidden" value="<s:property value="amount"/>" />
 														<input type="hidden" alt="tmpTaxamount_<s:property value="productid"/>" value="<s:property value="taxamount"/>" />
 														<input type="hidden" value="<s:property value="outquantity"/>" />
+														<input type="hidden" value="<s:property value="res09"/>" />
 													</td>
 													<td><input name="itemRadio" type="radio" /></td>
 													<td><s:property value="#st1.index + 1"/></td>
@@ -1099,6 +1167,9 @@
 													</td>
 													<td>
 														<s:property value="item01"/>
+													</td>
+													<td align="right">
+														<input type="text" disabled="disabled" style="width: 130px;" id="tmpRes09_<s:property value="productid"/>" onblur="calcquantity(this, '9');" maxlength="32" value="<s:property value="res09"/>"/>
 													</td>
 												</tr>
 											</s:iterator>

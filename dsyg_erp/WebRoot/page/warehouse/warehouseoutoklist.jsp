@@ -145,7 +145,7 @@
 								<td width="120">规格</td>
 								<td width="60">颜色</td>
 								<td width="60">包装</td>
-								<td width="120">供应商</td>
+								<td width="120">客户</td>
 								<td width="80">预出库数量</td>
 								<td width="120">预入库时间</td>
 								<!--

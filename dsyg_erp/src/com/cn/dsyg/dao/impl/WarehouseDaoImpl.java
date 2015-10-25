@@ -110,7 +110,7 @@ public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
 	}
 	
 	@Override
-	public List<WarehouseOkDto> queryWarehouseOkByPage(String warehouseType, String theme, String tradename,
+	public List<WarehouseOkDto> queryWarehouseInOkByPage(String warehouseType, String theme, String tradename,
 			String typeno, String color, String warehousename, String status, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("warehousetype", warehouseType);
@@ -123,7 +123,25 @@ public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
 		paramMap.put("start", start);
 		paramMap.put("end", end);
 		@SuppressWarnings("unchecked")
-		List<WarehouseOkDto> list = getSqlMapClientTemplate().queryForList("queryWarehouseOkByPage", paramMap);
+		List<WarehouseOkDto> list = getSqlMapClientTemplate().queryForList("queryWarehouseInOkByPage", paramMap);
+		return list;
+	}
+	
+	@Override
+	public List<WarehouseOkDto> queryWarehouseOutOkByPage(String warehouseType, String theme, String tradename,
+			String typeno, String color, String warehousename, String status, int start, int end) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("warehousetype", warehouseType);
+		paramMap.put("theme1", theme);
+		paramMap.put("tradename", tradename);
+		paramMap.put("typeno", typeno);
+		paramMap.put("color", color);
+		paramMap.put("warehousename", warehousename);
+		paramMap.put("status", status);
+		paramMap.put("start", start);
+		paramMap.put("end", end);
+		@SuppressWarnings("unchecked")
+		List<WarehouseOkDto> list = getSqlMapClientTemplate().queryForList("queryWarehouseOutOkByPage", paramMap);
 		return list;
 	}
 

@@ -111,14 +111,20 @@
 		//采购价格（税前）
 		var purchaseprice = inputs[12].value;
 		//采购价格（税后）
-		var purchasetaxprice = parseFloat(purchaseprice) * (1 + parseFloat(rate));
-		purchasetaxprice = purchasetaxprice.toFixed(4);
+		var purchasetaxprice = "";
+		if(purchaseprice != "") {
+			purchasetaxprice = parseFloat(purchaseprice) * (1 + parseFloat(rate));
+			purchasetaxprice = purchasetaxprice.toFixed(6);
+		}
 		
 		//销售价格
 		var salesprice = inputs[13].value;
 		//销售价格（税后）
-		var salestaxprice = parseFloat(salesprice) * (1 + parseFloat(rate));
-		salestaxprice = salestaxprice.toFixed(4);
+		var salestaxprice = "";
+		if(salesprice != "") {
+			salestaxprice = parseFloat(salesprice) * (1 + parseFloat(rate));
+			salestaxprice = salestaxprice.toFixed(6);
+		}
 		
 		//产地
 		var makearea = inputs[14].value;
@@ -185,6 +191,9 @@
 		//已出库数，默认为0
 		var input = createHidden("0");
 		td0.appendChild(input);
+		//备注
+		var input = createHidden("");
+		td0.appendChild(input);
 		//==============================
 		
 		var wid = 80;
@@ -206,12 +215,12 @@
 		tr.appendChild(td);
 		
 		//税前单价
-		td = createTdInputAddValue("tmpUnitprice", wid, maxlength, "calcquantity(this, '4');", id, salesprice);
+		td = createTdInputAddValue("tmpUnitprice", wid, 17, "calcquantity(this, '4');", id, salesprice);
 		//td = createTd(purchaseprice);
 		tr.appendChild(td);
 		
 		//税后单价
-		td = createTdInputAddValue("tmpTaxUnitprice", wid, maxlength, "calcquantity(this, '6');", id, salestaxprice);
+		td = createTdInputAddValue("tmpTaxUnitprice", wid, 17, "calcquantity(this, '6');", id, salestaxprice);
 		tr.appendChild(td);
 		
 		//销售金额未税
@@ -225,6 +234,10 @@
 		
 		//包装
 		td = createTd(item10);
+		tr.appendChild(td);
+		
+		//备注
+		td = createTdInput("tmpRes09", 130, 32, "calcquantity(this, '9');", id);
 		tr.appendChild(td);
 		
 		getOpener().document.getElementById("productlist").value = productlist + id + ",";

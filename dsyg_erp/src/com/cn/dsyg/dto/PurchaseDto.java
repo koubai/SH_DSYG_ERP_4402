@@ -176,12 +176,12 @@ public class PurchaseDto extends BaseAction {
 	private String res02;
 
 	/**
-	 * 预备项目3
+	 * 交货期
 	 */
 	private String res03;
 
 	/**
-	 * 预备项目4
+	 * 报价有效期
 	 */
 	private String res04;
 

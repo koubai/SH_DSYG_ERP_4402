@@ -2,6 +2,7 @@ package com.cn.dsyg.service.impl;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -714,10 +715,18 @@ public class WarehouseServiceImpl implements WarehouseService {
 		} else {
 			page.setTotalPage(totalCount / page.getPageSize());
 		}
+		
 		//翻页查询记录
-		List<WarehouseOkDto> list = warehouseDao.queryWarehouseOkByPage(warehouseType, theme, tradename,
-				typeno, color, warehousename, status,
-				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		List<WarehouseOkDto> list = new ArrayList<WarehouseOkDto>();
+		if(("" + Constants.WAREHOUSE_TYPE_IN).equals(warehouseType)) {
+			list = warehouseDao.queryWarehouseInOkByPage(warehouseType, theme, tradename,
+					typeno, color, warehousename, status,
+					page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		} else if(("" + Constants.WAREHOUSE_TYPE_OUT).equals(warehouseType)) {
+			list = warehouseDao.queryWarehouseOutOkByPage(warehouseType, theme, tradename,
+					typeno, color, warehousename, status,
+					page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		}
 		page.setItems(list);
 		return page;
 	}

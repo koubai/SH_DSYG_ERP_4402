@@ -108,21 +108,21 @@
 		}
 		
 		if(purchaseprice == "") {
-			alert("采购价格不能为空！");
-			$("#purchaseprice").focus();
-			return;
+			//alert("采购价格不能为空！");
+			//$("#purchaseprice").focus();
+			//return;
 		}
-		if(!isReal(purchaseprice)) {
+		if(purchaseprice != "" && !isReal(purchaseprice)) {
 			alert("采购价格必须为大于0的实数！");
 			$("#purchaseprice").focus();
 			return;
 		}
 		if(salesprice == "") {
-			alert("销售价格不能为空！");
-			$("#salesprice").focus();
-			return;
+			//alert("销售价格不能为空！");
+			//$("#salesprice").focus();
+			//return;
 		}
-		if(!isReal(salesprice)) {
+		if(salesprice != "" && !isReal(salesprice)) {
 			alert("销售价格必须为大于0的实数！");
 			$("#salesprice").focus();
 			return;
@@ -523,7 +523,7 @@
 						</tr>
 						<tr>
 							<td align="right">
-								<label class="pdf10"><font color="red">*</font>采购价</label>
+								<label class="pdf10"><font color="red"></font>采购价</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>
@@ -533,7 +533,7 @@
 								<div class="box1_right"></div>
 							</td>
 							<td align="right">
-								<label class="pdf10"><font color="red">*</font>销售价</label>
+								<label class="pdf10"><font color="red"></font>销售价</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>
@@ -555,7 +555,7 @@
 								<div class="box1_right"></div>
 							</td>
 							<td align="right">
-								<label class="pdf10">住友代码</label>
+								<label class="pdf10"><font color="red">*</font>住友代码</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>
@@ -690,7 +690,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="td_tittle"><font color="red">*</font>PDF上传：</td>
+							<td class="td_tittle"><font color="red"></font>PDF上传：</td>
 							<td>
 								<input type="file" name="updPdfFile" id="updPdfFile" style="width: 500px;"/><br />
 								<a target="_blank" href="<s:property value="updProductDto.pdfurl"/><s:property value="updProductDto.pdfpath"/>"><s:property value="updProductDto.pdfpath"/></a>

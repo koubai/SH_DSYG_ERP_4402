@@ -1,6 +1,7 @@
 package com.cn.dsyg.action;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -284,8 +285,8 @@ public class ProductAction extends BaseAction {
 				return "checkerror";
 			}
 			if(addPdfFile == null) {
-				this.addActionMessage("请选择对应PDF文件！");
-				return "checkerror";
+				//this.addActionMessage("请选择对应PDF文件！");
+				//return "checkerror";
 			}
 			
 			//文件目录
@@ -306,9 +307,11 @@ public class ProductAction extends BaseAction {
 				addProductDto.setPic03(newfile03);
 			}
 			
-			
-			String newfile04 = FileUtil.uploadFile(addPdfFile, pdf_path, file04Name);
-			addProductDto.setPdfpath(newfile04);
+			//这里允许PDF文件为空update by frank 2015-10-24
+			if(addPdfFile != null) {
+				String newfile04 = FileUtil.uploadFile(addPdfFile, pdf_path, file04Name);
+				addProductDto.setPdfpath(newfile04);
+			}
 			
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
@@ -690,13 +693,17 @@ public class ProductAction extends BaseAction {
 //			this.addActionMessage("请选择供应商！");
 //			return false;
 //		}
-		if(product.getPurchaseprice() == null || product.getPurchaseprice().doubleValue() < 0) {
+		if(StringUtil.isNotBlank(product.getPurchaseprice()) && (new BigDecimal(product.getPurchaseprice())).doubleValue() < 0) {
 			this.addActionMessage("采购价必须为大于0的数！");
 			return false;
+		} else {
+			product.setPurchaseprice(null);
 		}
-		if(product.getSalesprice() == null || product.getSalesprice().doubleValue() < 0) {
+		if(StringUtil.isNotBlank(product.getSalesprice()) && (new BigDecimal(product.getSalesprice())).doubleValue() < 0) {
 			this.addActionMessage("销售指导价必须为大于0的数！");
 			return false;
+		} else {
+			product.setSalesprice(null);
 		}
 		if(StringUtil.isBlank(product.getItem11())) {
 			this.addActionMessage("住友代码不能为空！");
