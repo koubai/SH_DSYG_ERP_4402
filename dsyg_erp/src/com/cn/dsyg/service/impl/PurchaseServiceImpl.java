@@ -226,6 +226,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 						purchaseItem.setInquantity(purchaseItem.getBeforequantity() + purchaseItem.getInquantity());
 					}
 				}
+				//特别号
+				purchaseItem.setRes09(purchaseItem.getRes09());
 				//预入库数重置为0
 				purchaseItem.setBeforequantity(0);
 				//备注
@@ -273,7 +275,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 							purchaseItem.setInquantity(purchaseItem.getBeforequantity() + purchaseItem.getInquantity());
 						}
 					}
-					
+					//特别号
+					purchaseItem.setRes09(purchaseItem.getRes09());
+
 					//预入库数重置为0
 					purchaseItem.setBeforequantity(0);
 					//备注
@@ -295,7 +299,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 							purchaseItem.setInquantity(purchaseItem.getBeforequantity() + purchaseItem.getInquantity());
 						}
 					}
-					
+					//特别号
+					purchaseItem.setRes09(purchaseItem.getRes09());
+
 					//预入库数重置为0
 					purchaseItem.setBeforequantity(0);
 					//备注
@@ -400,6 +406,10 @@ public class PurchaseServiceImpl implements PurchaseService {
 		warehouse.setSupplierid(purchase.getSupplierid());
 		//收货人
 		warehouse.setHandler(purchase.getHandler());
+		
+		//特别号
+		warehouse.setRes09(purchaseItem.getRes09());
+
 		warehouse.setRank(Constants.ROLE_RANK_OPERATOR);
 		//入库单数据状态=新增
 		warehouse.setStatus(Constants.WAREHOUSE_STATUS_NEW);

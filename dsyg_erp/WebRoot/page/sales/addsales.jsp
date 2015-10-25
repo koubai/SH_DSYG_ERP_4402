@@ -502,7 +502,7 @@
 			$("#tmpPlandate").focus();
 			return;
 		}
-		
+/*		
 		if(res03 != "") {
 			if(!isNumber(res03)) {
 				alert("交货期格式不正确！");
@@ -517,7 +517,7 @@
 				return;
 			}
 		}
-		
+*/		
 		$("#res02").val(res02);
 		$("#amount").val($("#tmpAmount").val());
 		$("#taxamount").val($("#tmpTaxamount").val());

@@ -131,6 +131,8 @@ public class SalesServiceImpl implements SalesService {
 						salesItem.setOutquantity(salesItem.getBeforequantity() + salesItem.getOutquantity());
 					}
 				}
+				//特殊订单号
+				salesItem.setRes09(salesItem.getRes09());
 				//预出库数重置为0
 				salesItem.setBeforequantity(0);
 				salesItemDao.insertSalesItem(salesItem);
@@ -201,7 +203,9 @@ public class SalesServiceImpl implements SalesService {
 							salesItem.setOutquantity(salesItem.getBeforequantity() + salesItem.getOutquantity());
 						}
 					}
-					
+					//特殊订单号
+					salesItem.setRes09(salesItem.getRes09());
+
 					//预出库数重置为0
 					salesItem.setBeforequantity(0);
 					salesItemDao.insertSalesItem(salesItem);
@@ -224,7 +228,9 @@ public class SalesServiceImpl implements SalesService {
 							salesItem.setOutquantity(salesItem.getBeforequantity() + salesItem.getOutquantity());
 						}
 					}
-					
+					//特殊订单号
+					salesItem.setRes09(salesItem.getRes09());
+
 					//预出库数重置为0
 					salesItem.setBeforequantity(0);
 					salesItemDao.updateSalesItem(salesItem);
@@ -332,7 +338,9 @@ public class SalesServiceImpl implements SalesService {
 		warehouse.setRank(Constants.ROLE_RANK_OPERATOR);
 		//出库单数据状态=新增
 		warehouse.setStatus(Constants.WAREHOUSE_STATUS_NEW);
-		
+		//特殊订单号
+		warehouse.setRes09(salesItem.getRes09());
+
 		warehouse.setUpdateuid(sales.getCreateuid());
 		warehouse.setCreateuid(sales.getCreateuid());
 		

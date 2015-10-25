@@ -491,6 +491,7 @@
 			$("#refundflag").val("0");
 		}
 		
+/*
 		if(res03 != "") {
 			if(!isNumber(res03)) {
 				alert("交货期格式不正确！");
@@ -505,7 +506,8 @@
 				return;
 			}
 		}
-		
+*/
+
 		//备注
 		var tmpNote = $("#tmpNote").val();
 		if(tmpNote.length > 250) {

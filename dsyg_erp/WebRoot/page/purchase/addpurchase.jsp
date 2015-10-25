@@ -482,7 +482,8 @@
 		} else {
 			$("#refundflag").val("0");
 		}
-		
+
+/*		
 		if(res03 != "") {
 			if(!isNumber(res03)) {
 				alert("交货期格式不正确！");
@@ -497,7 +498,8 @@
 				return;
 			}
 		}
-		
+*/
+
 		//备注
 		var tmpNote = $("#tmpNote").val();
 		if(tmpNote.length > 250) {
@@ -539,7 +541,6 @@
 			var inquantity = childs[14].value;
 			//备注
 			var res09 = childs[15].value;
-			alert(res09);
 			
 			var tr = document.createElement("tr");
 			//采购货物列表

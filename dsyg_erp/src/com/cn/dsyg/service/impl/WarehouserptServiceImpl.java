@@ -107,6 +107,9 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 								product.setNum(ll[1]);
 								//货物金额
 								product.setAmount(ll[2]);
+								//RES09 特殊订单号
+								if (ll[3] != null)
+									product.setRes09(ll[3]);
 								product.setHasbroken("0");
 								product.setBrokennum("0");
 								list.add(product);
@@ -170,6 +173,9 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 								product.setNum(ll[1]);
 								//货物金额
 								product.setAmount(ll[2]);
+								//RES09 特殊订单号
+								if (ll[3] != null)
+									product.setRes09(ll[3]);
 								product.setHasbroken("0");
 								product.setBrokennum("0");
 								product.setParentid(parentid);;
@@ -210,11 +216,17 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 								list.get(index).setNum(String.valueOf(Integer.parseInt(list.get(index).getNum()) + Integer.parseInt(ll[1])));
 								//货物金额
 								list.get(index).setAmount(String.valueOf(Double.parseDouble(list.get(index).getAmount()) + Double.parseDouble(ll[2])));
+								//RES09 特殊订单号
+								if (ll[3] != null)
+									list.get(index).setRes09(ll[3]);
 							} else {
 								//货物数量
 								product.setNum(ll[1]);
 								//货物金额
 								product.setAmount(ll[2]);
+								//RES09 特殊订单号
+								if (ll[3] != null)
+									product.setRes09(ll[3]);
 								product.setHasbroken("0");
 								product.setBrokennum("0");
 								list.add(product);
@@ -330,7 +342,7 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 					newwarehouserpt.setWarehouseno(warehouserptno);
 					
 					//货物信息：产品ID,产品数量,产品金额#产品ID,产品数量,产品金额
-					newwarehouserpt.setProductinfo("" + product.getId() + "," + product.getBrokennum() + "," + taxamount + "#");
+					newwarehouserpt.setProductinfo("" + product.getId() + "," + product.getBrokennum() + "," + taxamount + "," + product.getRes09() + "#");
 					
 					//主题
 					newwarehouserpt.setTheme1(product.getFieldno());
@@ -369,9 +381,9 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 					BigDecimal bb = new BigDecimal(product.getAmount());
 					bb = bb.subtract(taxamount);
 					
-					productinfo += "" + product.getId() + "," + num + "," + bb + "#";
+					productinfo += "" + product.getId() + "," + num + "," + bb + "," + product.getRes09() + "#";
 				} else {
-					productinfo += "" + product.getId() + "," + product.getNum() + "," + product.getAmount() + "#";
+					productinfo += "" + product.getId() + "," + product.getNum() + "," + product.getAmount() + "," + product.getRes09() + "#";
 				}
 			}
 			warehouserpt.setProductinfo(productinfo);

@@ -125,7 +125,8 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 					XSSFCell cell7 = row.createCell(7);
 					XSSFCell cell8 = row.createCell(8);
 					XSSFCell cell9 = row.createCell(9);
-					
+					XSSFCell cell10 = row.createCell(10);
+
 					cell0.setCellValue(num + 1);
 					cell0.setCellStyle(style);
 					
@@ -154,6 +155,8 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 					cell8.setCellValue(product.getAmount());
 					cell9.setCellValue(product.getParentid());
 					cell9.setCellStyle(style);
+					cell10.setCellValue(product.getRes09());
+					cell10.setCellStyle(style);
 					num++;
 				}
 			} else {
@@ -168,7 +171,8 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 				XSSFCell cell7 = row.createCell(7);
 				XSSFCell cell8 = row.createCell(8);
 				XSSFCell cell9 = row.createCell(9);
-				
+				XSSFCell cell10 = row.createCell(10);
+
 				cell0.setCellValue(num + 1);
 				cell0.setCellStyle(style);
 				
@@ -191,27 +195,53 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 				cell8.setCellStyle(style);
 				cell9.setCellValue("");
 				cell9.setCellStyle(style);
+				cell10.setCellValue("");
+				cell10.setCellStyle(style);
 				num++;
 			}
 		}
 
-		XSSFCellStyle style_other = workbook.createCellStyle();
+		row = sheet.createRow(num + 9);
+		XSSFCell cell30 = row.createCell(0);
+		XSSFCell cell31 = row.createCell(1);
+		XSSFCell cell32 = row.createCell(2);
+		XSSFCell cell33 = row.createCell(3);
+		XSSFCell cell34 = row.createCell(4);
+		XSSFCell cell35 = row.createCell(5);
+		XSSFCell cell36 = row.createCell(6);
+		XSSFCell cell37 = row.createCell(7);
+		XSSFCell cell38 = row.createCell(8);
+		XSSFCell cell39 = row.createCell(9);
+		XSSFCell cell40 = row.createCell(10);
+
+		cell30.setCellValue("");
+		cell30.setCellStyle(style);
+		cell31.setCellValue("");
+		cell31.setCellStyle(style);
+		cell32.setCellValue("");
+		cell32.setCellStyle(style);
+		cell33.setCellValue("");
+		cell33.setCellStyle(style);
+		cell34.setCellValue("");
+		cell34.setCellStyle(style);
+		cell35.setCellValue("总计:");
+		cell35.setCellStyle(style);
+		cell36.setCellValue("");
+		cell36.setCellStyle(style);
+		cell37.setCellValue(warehouserpt.getTotalnum());
+		cell37.setCellStyle(style);
+		cell38.setCellValue(warehouserpt.getTotaltaxamount().toString());
+		cell38.setCellStyle(style);
+		cell39.setCellValue("");
+		cell39.setCellStyle(style);
+		cell40.setCellValue("");
+		cell40.setCellStyle(style);
 		
-		row = sheet.createRow(num + 12);
-		XSSFCell cell11 = row.createCell(5);
-		cell11.setCellValue("总计:");
-		cell11.setCellStyle(style_other);
-		XSSFCell cell12 = row.createCell(7);
-		cell12.setCellValue(warehouserpt.getTotalnum()+" / ");
-		cell12.setCellStyle(style_other);
-		XSSFCell cell13 = row.createCell(8);
-		cell13.setCellValue(warehouserpt.getTotaltaxamount().toString());
-		cell13.setCellStyle(style_other);
-		
-		row = sheet.createRow(num + 14);
-		XSSFCell cell14 = row.createCell(1);
-		cell14.setCellValue("品保出荷检查:");
-		cell14.setCellStyle(style_other);
+		XSSFCellStyle style_other = workbook.createCellStyle();		
+//		row = sheet.createRow(num + 14);
+//		XSSFCell cell14 = row.createCell(1);
+//		cell14.setCellValue("品保出荷检查:");
+//		cell14.setCellStyle(style_other);
 		
 		row = sheet.createRow(num + 15);
 		XSSFCell cell15 = row.createCell(1);
@@ -253,7 +283,9 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 		sheet.setColumnWidth(8, 10 * 256);
 		heads.add("采购订单号");
 		sheet.setColumnWidth(9, 28 * 256);
-		
+		heads.add("备注");
+		sheet.setColumnWidth(10, 10 * 256);
+
 		//Head部分颜色字体
 		XSSFFont font = workbook.createFont();
 		//加粗

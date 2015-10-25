@@ -344,7 +344,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 						//计算当前集集的库存数量
 						count += warehouse.getQuantity();
 						warehousenos += warehouse.getWarehouseno() + ",";
-						productinfo += warehouse.getProductid() + "," + warehouse.getQuantity() + "," + warehouse.getTaxamount() + "#";
+						productinfo += warehouse.getProductid() + "," + warehouse.getQuantity() + "," + warehouse.getTaxamount() + "," + warehouse.getRes09() + "#";
 						
 						//计算含税金额
 						totaltaxamount = totaltaxamount.add(warehouse.getTaxamount());
@@ -566,7 +566,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 						//计算当前集集的库存数量
 						count += warehouse.getQuantity();
 						warehousenos += warehouse.getWarehouseno() + ",";
-						productinfo += warehouse.getProductid() + "," + warehouse.getQuantity() + "," + warehouse.getTaxamount() + "#";
+						productinfo += warehouse.getProductid() + "," + warehouse.getQuantity() + "," + warehouse.getTaxamount() + "," + warehouse.getRes09() + "#";
 						
 						//计算含税金额
 						totaltaxamount = totaltaxamount.add(warehouse.getTaxamount());
