@@ -39,7 +39,7 @@
 			return;
 		} else {
 			if(confirm("确定删除该记录吗？")) {
-				document.mainform.action = "../user/delProductAction.action?delProductId=" + id;
+				document.mainform.action = "../user/delUserAction.action?delUserid=" + id;
 				document.mainform.submit();
 			}
 		}

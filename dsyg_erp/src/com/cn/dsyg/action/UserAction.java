@@ -52,6 +52,9 @@ public class UserAction extends BaseAction {
 	private UserDto updUserDto;
 	private String updUserid;
 	
+	//删除用户
+	private String delUserid;
+
 	//修改密码
 	private UserDto updUserPsdDto;
 
@@ -375,6 +378,40 @@ public class UserAction extends BaseAction {
 	}
 	
 	/**
+	 * 删除用户
+	 * @return
+	 */
+	public String delUserAction() {
+		try {
+			this.clearMessages();
+			//只有管理员才有权限
+			Integer rank = (Integer) ActionContext.getContext().getSession().get(Constants.SESSION_ROLE_RANK);
+			if(rank == null || rank < Constants.ROLE_RANK_ADMIN) {
+				return "noauthority";
+			}
+			if(StringUtil.isBlank(delUserid)) {
+				this.addActionMessage("用户登录ID不能为空！");
+				return "checkerror";
+			}
+			if(Constants.ROLE_CODE_ADMIN.equals(delUserid)) {
+				this.addActionMessage("该用户为系统管理员，不能删除！");
+				return "checkerror";
+			}
+			//删除用户
+			userService.deleteUser(delUserid);
+			this.addActionMessage("删除成功！");
+			//刷新页面
+			startIndex = 0;
+			queryData();
+			delUserid = "";
+		} catch(Exception e) {
+			log.error("updUserAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+
+	/**
 	 * 验证数据
 	 * @param user
 	 * @param flag
@@ -567,5 +604,13 @@ public class UserAction extends BaseAction {
 
 	public void setUpdUserPsdDto(UserDto updUserPsdDto) {
 		this.updUserPsdDto = updUserPsdDto;
+	}
+
+	public String getDelUserid() {
+		return delUserid;
+	}
+
+	public void setDelUserid(String delUserid) {
+		this.delUserid = delUserid;
 	}
 }

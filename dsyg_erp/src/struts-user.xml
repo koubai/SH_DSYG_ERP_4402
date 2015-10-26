@@ -54,6 +54,10 @@
 			<result name="*">/page/user/updpsd.jsp</result>
 		</action>
 		
+		<action name="delUserAction" class="userAction" method="delUserAction">
+			<result name="*">/page/user/userlist.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>
