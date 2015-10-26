@@ -59,21 +59,23 @@
 					return;
 				}
 				//邮箱
-				if(suppliermail.trim() == "") {
+/*				if(suppliermail.trim() == "") {
 					alert("联系人" + i + "邮箱不能为空！");
 					$("#" + "mail_pr" + i).focus();
 					return;
 				}
+*/				
 				if(supplieraddress.trim() == "") {
 					alert("联系人" + i + "地址不能为空！");
 					$("#" + "supplieraddress" + i).focus();
 					return;
 				}
-				if(supplierfax.trim() == "") {
+/*				if(supplierfax.trim() == "") {
 					alert("联系人" + i + "传真不能为空！");
 					$("#" + "supplierfax" + i).focus();
 					return;
 				}
+*/
 			}
 			if(suppliermail != "" && !isMail(suppliermail)) {
 				alert("联系人" + i + "邮箱格式不正确！");
@@ -169,7 +171,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td><font color="red">*</font>联系人1邮箱</td>
+								<td>&nbsp;联系人1邮箱</td>
 								<td>
 									<div class="box1">
 										<div class="box1_left"></div>
@@ -199,7 +201,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td><font color="red">*</font>联系人1传真</td>
+								<td>&nbsp;联系人1传真</td>
 								<td>
 									<div class="box1_left"></div>
 									<div class="box1_center">

@@ -433,7 +433,7 @@
 			$("#suppliertel").focus();
 			return;
 		}
-		if(supplierfax == "") {
+/*		if(supplierfax == "") {
 			alert("联系人传真不能为空！");
 			$("#supplierfax").focus();
 			return;
@@ -443,7 +443,8 @@
 			$("#suppliermail").focus();
 			return;
 		}
-		
+*/
+
 		if(tmpTotalamount != "") {
 			if(!isReal(tmpTotalamount)) {
 				alert("采购金额（不含税）格式不正确！");
@@ -908,7 +909,7 @@
 						</tr>
 						<tr>
 							<td align="right">
-								<label class="pdf10"><font color="red">*</font>联系人传真</label>
+								<label class="pdf10">&nbsp;联系人传真</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>
@@ -918,7 +919,7 @@
 								<div class="box1_right"></div>
 							</td>
 							<td align="right">
-								<label class="pdf10"><font color="red">*</font>联系人信箱</label>
+								<label class="pdf10">&nbsp;联系人信箱</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>
