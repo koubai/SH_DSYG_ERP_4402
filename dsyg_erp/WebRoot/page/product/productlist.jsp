@@ -195,7 +195,7 @@
 								<td width="60">颜色</td>
 								<td width="60">形式</td>
 								<td width="60">包装</td>
-								<td width="60">UL型号/编号</td>
+								<td width="60">住友编码</td>
 							</tr>
 							<s:iterator id="productList" value="productList" status="st1">
 								<s:if test="#st1.odd==true">
@@ -234,7 +234,7 @@
 										<s:property value="item10"/>
 									</td>
 									<td>
-										<s:property value="item09"/>
+										<s:property value="item11"/>
 									</td>
 								</tr>
 							</s:iterator>
@@ -288,30 +288,6 @@
 							</li>
 						</ul>
 					</div>
-				</div>
-				<div class="btns" style="margin-top:40px; margin-left:-90px;">
-					<table border="0" style="margin:0 auto;">
-						<tr>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="详细" onclick="showBidDetail();" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="履历" onclick="" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-						</tr>
-					</table>
 				</div>
 			</s:form>
 		</div>

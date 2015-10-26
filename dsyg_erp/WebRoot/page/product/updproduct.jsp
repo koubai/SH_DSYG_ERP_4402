@@ -34,7 +34,7 @@
 		var color = $("#color").val().trim();
 		//包装
 		var item10 = $("#item10").val().trim();
-		//住友代码
+		//住友编码
 		var item11 = $("#item11").val().trim();
 		
 		//形式
@@ -127,12 +127,12 @@
 			$("#salesprice").focus();
 			return;
 		}
-		if(item11 == "") {
+/*		if(item11 == "") {
 			alert("住友代码不能为空！");
 			$("#item11").focus();
 			return;
 		}
-		
+*/		
 		//特征编辑值设定
 		$("#item01").val("");
 		$("#item02").val("");
@@ -555,7 +555,7 @@
 								<div class="box1_right"></div>
 							</td>
 							<td align="right">
-								<label class="pdf10"><font color="red">*</font>住友代码</label>
+								<label class="pdf10">住友编码</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>

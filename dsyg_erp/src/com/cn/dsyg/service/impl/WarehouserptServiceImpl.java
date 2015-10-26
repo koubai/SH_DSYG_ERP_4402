@@ -108,8 +108,10 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 								//货物金额
 								product.setAmount(ll[2]);
 								//RES09 特殊订单号
-								if (ll[3] != null)
-									product.setRes09(ll[3]);
+								if (ll.length > 3){
+									if (StringUtil.isNotBlank(ll[3]))
+										product.setRes09(ll[3]);									
+								}
 								product.setHasbroken("0");
 								product.setBrokennum("0");
 								list.add(product);
@@ -174,8 +176,10 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 								//货物金额
 								product.setAmount(ll[2]);
 								//RES09 特殊订单号
-								if (ll[3] != null)
-									product.setRes09(ll[3]);
+								if (ll.length > 3){	
+									if (StringUtil.isNotBlank(ll[3]))
+										product.setRes09(ll[3]);
+								}
 								product.setHasbroken("0");
 								product.setBrokennum("0");
 								product.setParentid(parentid);;
@@ -217,16 +221,20 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 								//货物金额
 								list.get(index).setAmount(String.valueOf(Double.parseDouble(list.get(index).getAmount()) + Double.parseDouble(ll[2])));
 								//RES09 特殊订单号
-								if (ll[3] != null)
-									list.get(index).setRes09(ll[3]);
+								if (ll.length > 3){	
+									if (StringUtil.isNotBlank(ll[3]))
+										list.get(index).setRes09(ll[3]);
+								}
 							} else {
 								//货物数量
 								product.setNum(ll[1]);
 								//货物金额
 								product.setAmount(ll[2]);
 								//RES09 特殊订单号
-								if (ll[3] != null)
-									product.setRes09(ll[3]);
+								if (ll.length > 3){	
+									if (StringUtil.isNotBlank(ll[3]))
+										product.setRes09(ll[3]);
+								}
 								product.setHasbroken("0");
 								product.setBrokennum("0");
 								list.add(product);

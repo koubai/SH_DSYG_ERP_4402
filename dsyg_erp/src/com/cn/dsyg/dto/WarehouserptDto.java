@@ -37,7 +37,7 @@ public class WarehouserptDto extends BaseAction {
 	private String warehousename;
 	
 	/**
-	 * 货物信息：产品ID,产品数量,产品金额#产品ID,产品数量,产品金额
+	 * 货物信息：产品ID,产品数量,产品金额,备考#产品ID,产品数量,产品金额,备考
 	 */
 	private String productinfo;
 	

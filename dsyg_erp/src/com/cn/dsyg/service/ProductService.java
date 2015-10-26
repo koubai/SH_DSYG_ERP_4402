@@ -27,13 +27,13 @@ public interface ProductService {
 	 * @param page
 	 * @return
 	 */
-	public Page queryProductByPage(String fieldno, String item01, String keyword, String tradename,
+	public Page queryProductByPage(String fieldno, String item10, String keyword, String tradename,
 			String typeno, String color, String supplierId, String status, Page page);
 	
 	/**
 	 * 翻页查询信息
 	 * @param fieldno 主题
-	 * @param item01 包装
+	 * @param item10 包装
 	 * @param keyword 关键字
 	 * @param tradename 品名
 	 * @param typeno 规格
@@ -43,13 +43,13 @@ public interface ProductService {
 	 * @param page
 	 * @return
 	 */
-	public Page queryProductCostCheckByPage(String fieldno, String item01, String keyword, String tradename,
+	public Page queryProductCostCheckByPage(String fieldno, String item10, String keyword, String tradename,
 			String typeno, String color, String supplierId, String belongto, String status, Page page);
 
 	/**
 	 * 翻页查询信息
 	 * @param fieldno 主题
-	 * @param item01 包装
+	 * @param item10 包装
 	 * @param keyword 关键字
 	 * @param tradename 品名
 	 * @param typeno 规格
@@ -59,7 +59,7 @@ public interface ProductService {
 	 * @param page
 	 * @return
 	 */
-	public List<ProductDto> queryProductCostToExport(String fieldno, String item01, String keyword, String tradename,
+	public List<ProductDto> queryProductCostToExport(String fieldno, String item10, String keyword, String tradename,
 			String typeno, String color, String supplierId, String belongto, String status);
 	
 	/**
@@ -69,7 +69,7 @@ public interface ProductService {
 	 * @param color
 	 * @return
 	 */
-	public ProductDto queryProductByLogicId(String tradename, String typeno, String color);
+	public ProductDto queryProductByLogicId(String tradename, String typeno, String color, String item10, String packaging );
 	
 	/**
 	 * 根据ID查询数据

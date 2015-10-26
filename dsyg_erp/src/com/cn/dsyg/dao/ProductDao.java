@@ -96,7 +96,7 @@ public interface ProductDao {
 	 * @param color
 	 * @return
 	 */
-	public ProductDto queryProductByLogicId(String tradename, String typeno, String color);
+	public ProductDto queryProductByLogicId(String tradename, String typeno, String color, String item10, String packaging);
 
 	/**
 	 * 根据ID查询数据

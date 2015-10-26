@@ -195,10 +195,10 @@
 					</div>
 					<div class="box1" style="margin-top: 6px; margin-left: 70px;">
 						<s:if test='strType == "1"'>
-							<input name="tmpType" type="radio" value="0"/>普通 <input name="tmpType" checked="checked" type="radio" value="1"/>询价
+							<input name="tmpType" type="radio" value="0"/>订单 <input name="tmpType" checked="checked" type="radio" value="1"/>询价
 						</s:if>
 						<s:else>
-							<input name="tmpType" type="radio" checked="checked" value="0"/>普通 <input name="tmpType" type="radio" value="1"/>询价
+							<input name="tmpType" type="radio" checked="checked" value="0"/>订单 <input name="tmpType" type="radio" value="1"/>询价
 						</s:else>
 					</div>
 					<div class="btn" style="margin-left: 430px;">
@@ -263,7 +263,7 @@
 									-->
 									<td>
 										<s:if test='%{res02 == "0"}'>
-											普通
+											订单
 										</s:if>
 										<s:elseif test='%{res02 == "1"}'>
 											询价

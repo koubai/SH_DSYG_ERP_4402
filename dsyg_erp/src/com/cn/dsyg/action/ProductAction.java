@@ -157,9 +157,9 @@ public class ProductAction extends BaseAction {
 			}
 			//判断逻辑主键是否唯一
 			ProductDto pro = productService.queryProductByLogicId(updProductDto.getTradename(),
-					updProductDto.getTypeno(), updProductDto.getColor());
+					updProductDto.getTypeno(), updProductDto.getColor(), updProductDto.getItem10(),updProductDto.getPackaging());
 			if(pro != null && !pro.getId().equals(updProductDto.getId())) {
-				this.addActionMessage("已存在相同产品名称、产品规格和颜色的产品！");
+				this.addActionMessage("已存在相同产品名称、产品规格、颜色、包装和形式的产品！");
 				return "checkerror";
 			}
 			
@@ -279,9 +279,9 @@ public class ProductAction extends BaseAction {
 			
 			//判断逻辑主键是否唯一（产品名称、产品规格和颜色）
 			ProductDto pro = productService.queryProductByLogicId(addProductDto.getTradename(),
-					addProductDto.getTypeno(), addProductDto.getColor());
+					addProductDto.getTypeno(), addProductDto.getColor(), addProductDto.getItem10(), addProductDto.getPackaging());
 			if(pro != null) {
-				this.addActionMessage("已存在相同产品名称、产品规格和颜色的产品！");
+				this.addActionMessage("已存在相同产品名称、产品规格、颜色、包装和形式的产品！");
 				return "checkerror";
 			}
 			if(addPdfFile == null) {
@@ -705,11 +705,11 @@ public class ProductAction extends BaseAction {
 		} else {
 			product.setSalesprice(null);
 		}
-		if(StringUtil.isBlank(product.getItem11())) {
+/*		if(StringUtil.isBlank(product.getItem11())) {
 			this.addActionMessage("住友代码不能为空！");
 			return false;
 		}
-		
+*/		
 		if(Constants.DICT_GOODS_TYPE_CODE_01.equals(product.getFieldno())) {
 			//电线，需要验证单选框数据
 			if(StringUtil.isBlank(product.getItem01())) {

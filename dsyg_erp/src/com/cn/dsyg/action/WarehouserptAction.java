@@ -347,10 +347,11 @@ public class WarehouserptAction extends BaseAction {
 				this.addActionMessage("快递联系人电话不能为空！");
 				return "checkerror";
 			}
-			if(StringUtil.isBlank(updWarehouserptDto.getExpressfax())) {
+/*			if(StringUtil.isBlank(updWarehouserptDto.getExpressfax())) {
 				this.addActionMessage("快递联系人传真不能为空！");
 				return "checkerror";
 			}
+*/
 			if(StringUtil.isBlank(updWarehouserptDto.getWarehousedate())) {
 				this.addActionMessage("收货日期不能为空！");
 				return "checkerror";

@@ -78,22 +78,22 @@
 			$("#expresstel").focus();
 			return;
 		}
-		if(expressfax == "") {
+/*		if(expressfax == "") {
 			alert("快递联系人传真不能为空！");
 			$("#expressfax").focus();
 			return;
 		}
-		if(tmpWarehousedate == "") {
+*/		if(tmpWarehousedate == "") {
 			alert("发货日期不能为空！");
 			$("#tmpWarehousedate").focus();
 			return;
 		}
-		if(expressmail == "") {
+/*		if(expressmail == "") {
 			alert("信箱不能为空！");
 			$("#expressmail").focus();
 			return;
 		}
-		
+*/		
 		var b = false;
 		//验证退换货
 		var list = document.getElementsByName("tmpHasbroken");

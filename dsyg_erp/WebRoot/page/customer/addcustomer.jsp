@@ -66,21 +66,24 @@
 					return;
 				}
 				//邮箱
-				if(customermail.trim() == "") {
+/*				if(customermail.trim() == "") {
 					alert("联系人" + i + "邮箱不能为空！");
 					$("#" + "mail_pr" + i).focus();
 					return;
 				}
+*/				
 				if(customeraddress.trim() == "") {
 					alert("联系人" + i + "地址不能为空！");
 					$("#" + "customeraddress" + i).focus();
 					return;
 				}
-				if(customerfax.trim() == "") {
+				
+/*				if(customerfax.trim() == "") {
 					alert("联系人" + i + "传真不能为空！");
 					$("#" + "customerfax" + i).focus();
 					return;
 				}
+*/				
 			}
 			if(customermail != "" && !isMail(customermail)) {
 				alert("联系人" + i + "邮箱格式不正确！");
@@ -136,8 +139,8 @@
 		</div>
 		<table style="margin-left: 50px; margin-top: 30px;" border="0" cellspacing="15" cellpadding="0">
 			<tr>
-				<td width="120"><font color="red">*</font>客户名称</td>
-				<td width="500">
+				<td width="150"><font color="red">*</font>客户名称</td>
+				<td width="550">
 					<div class="box1_left"></div>
 					<div class="box1_center">
 						<s:textfield name="addCustomerDto.customername" id="customername" cssStyle="width:350px;" maxlength="40" theme="simple"></s:textfield>
@@ -173,7 +176,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td><font color="red">*</font>联系人1邮箱</td>
+								<td>&nbsp;联系人1邮箱</td>
 								<td>
 									<div class="box1">
 										<div class="box1_left"></div>
@@ -203,7 +206,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td><font color="red">*</font>联系人1传真</td>
+								<td>&nbsp;联系人1传真</td>
 								<td>
 									<div class="box1_left"></div>
 									<div class="box1_center">
@@ -292,8 +295,8 @@
 					<div class="trade">
 						<table class="trade_tab" width="80%" border="0">
 							<tr>
-								<td align="left" width="15%"><strong>联系人3</strong></td>
-								<td>联系人3姓名</td>
+								<td align="left" width="15%"><strong>收货人3</strong></td>
+								<td>收货人3姓名</td>
 								<td>
 									<div class="box1_left"></div>
 									<div class="box1_center">
@@ -304,7 +307,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td>联系人3电话</td>
+								<td>收货人3电话</td>
 								<td>
 									<div class="box1_left"></div>
 									<div class="box1_center">
@@ -315,7 +318,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td>联系人3邮箱</td>
+								<td>收货人3邮箱</td>
 								<td>
 									<div class="box1">
 										<div class="box1_left"></div>
@@ -334,7 +337,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td>联系人3地址</td>
+								<td>收货人3地址</td>
 								<td>
 									<div class="box1_left"></div>
 									<div class="box1_center">
@@ -345,7 +348,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td>联系人3传真</td>
+								<td>收货人3传真</td>
 								<td>
 									<div class="box1_left"></div>
 									<div class="box1_center">
@@ -363,8 +366,8 @@
 					<div class="trade">
 						<table class="trade_tab" width="80%" border="0">
 							<tr>
-								<td align="left" width="15%"><strong>联系人4</strong></td>
-								<td>联系人4姓名</td>
+								<td align="left" width="15%"><strong>发票收件人4</strong></td>
+								<td>发票收件人4姓名</td>
 								<td>
 									<div class="box1_left"></div>
 									<div class="box1_center">
@@ -375,7 +378,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td>联系人4电话</td>
+								<td>发票收件人4电话</td>
 								<td>
 									<div class="box1_left"></div>
 									<div class="box1_center">
@@ -386,7 +389,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td>联系人4邮箱</td>
+								<td>发票收件人4邮箱</td>
 								<td>
 									<div class="box1">
 										<div class="box1_left"></div>
@@ -405,7 +408,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td>联系人4地址</td>
+								<td>发票收件人4地址</td>
 								<td>
 									<div class="box1_left"></div>
 									<div class="box1_center">
@@ -416,7 +419,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td>联系人4传真</td>
+								<td>发票收件人4传真</td>
 								<td>
 									<div class="box1_left"></div>
 									<div class="box1_center">
@@ -434,8 +437,8 @@
 					<div class="trade">
 						<table class="trade_tab" width="80%" border="0">
 							<tr>
-								<td align="left" width="15%"><strong>联系人5</strong></td>
-								<td>联系人5姓名</td>
+								<td align="left" width="15%"><strong>其他5</strong></td>
+								<td>其他5姓名</td>
 								<td>
 									<div class="box1_left"></div>
 									<div class="box1_center">
@@ -446,7 +449,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td>联系人5电话</td>
+								<td>其他5电话</td>
 								<td>
 									<div class="box1_left"></div>
 									<div class="box1_center">
@@ -457,7 +460,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td>联系人5邮箱</td>
+								<td>其他5邮箱</td>
 								<td>
 									<div class="box1">
 										<div class="box1_left"></div>
@@ -476,7 +479,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td>联系人5地址</td>
+								<td>其他5地址</td>
 								<td>
 									<div class="box1_left"></div>
 									<div class="box1_center">
@@ -487,7 +490,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td>联系人5传真</td>
+								<td>其他5传真</td>
 								<td>
 									<div class="box1_left"></div>
 									<div class="box1_center">

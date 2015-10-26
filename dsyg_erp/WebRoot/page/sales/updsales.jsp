@@ -456,7 +456,7 @@
 			$("#customertel").focus();
 			return;
 		}
-		if(customerfax == "") {
+/*		if(customerfax == "") {
 			alert("联系人传真不能为空！");
 			$("#customerfax").focus();
 			return;
@@ -466,7 +466,7 @@
 			$("#customermail").focus();
 			return;
 		}
-		
+*/		
 		if(tmpAmount != "") {
 			if(!isReal(tmpAmount)) {
 				alert("销售金额（不含税）格式不正确！");
@@ -655,7 +655,7 @@
 	}
 	
 	function delProduct() {
-		//获得选择的投标公司
+		//获得选择的产品
 		var list = document.getElementsByName("itemRadio");
 		var currentProduct = "";
 		for(var i = 0; i < list.length; i++) {
@@ -814,11 +814,11 @@
 							</td>
 							<td>
 								<s:if test='updSalesDto.res02 == "1"'>
-									<input type="radio" disabled="disabled" id="tmpRes02" name="salesType" value="0"/>普通　
+									<input type="radio" disabled="disabled" id="tmpRes02" name="salesType" value="0"/>订单　
 									<input type="radio" disabled="disabled" name="salesType" checked="checked" value="1"/>询价　
 								</s:if>
 								<s:else>
-									<input type="radio" disabled="disabled" id="tmpRes02" name="salesType" checked="checked" value="0"/>普通　
+									<input type="radio" disabled="disabled" id="tmpRes02" name="salesType" checked="checked" value="0"/>订单　
 									<input type="radio" disabled="disabled" name="salesType" value="1"/>询价　
 								</s:else>
 							</td>
@@ -954,7 +954,7 @@
 						</tr>
 						<tr>
 							<td align="right">
-								<label class="pdf10"><font color="red">*</font>联系人传真</label>
+								<label class="pdf10">&nbsp;联系人传真</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>
@@ -964,7 +964,7 @@
 								<div class="box1_right"></div>
 							</td>
 							<td align="right">
-								<label class="pdf10"><font color="red">*</font>联系人信箱</label>
+								<label class="pdf10">&nbsp;联系人信箱</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>

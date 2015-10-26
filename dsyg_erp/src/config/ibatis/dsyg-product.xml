@@ -87,8 +87,14 @@
 		<isNotEmpty prepend="and" property="typeno">
 			T.typeno = #typeno#
 		</isNotEmpty>
-		<isNotEmpty prepend="and" property="color1">
-			T.color1 = #color1#
+		<isNotEmpty prepend="and" property="color">
+			T.color = #color#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="item10">
+			T.item10 = #item10#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="packaging">
+			T.packaging = #packaging#
 		</isNotEmpty>
 	</select>
 	
@@ -106,8 +112,8 @@
 		<isNotEmpty prepend="and" property="tradename">
 			T.tradename like '%$tradename$%' ESCAPE '/'
 		</isNotEmpty>
-		<isNotEmpty prepend="and" property="item01">
-			T.item01 like '%$item01$%' ESCAPE '/'
+		<isNotEmpty prepend="and" property="item10">
+			T.item10 like '%$item10$%' ESCAPE '/'
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="typeno">
 			T.typeno like '%$typeno$%' ESCAPE '/'
@@ -118,7 +124,7 @@
 		<isNotEmpty prepend="and" property="keyword">
 			T.keyword like '%$keyword$%' ESCAPE '/'
 		</isNotEmpty>
-		order by T.id asc
+		order by T.belongto,T.fieldno,T.tradename,T.typeno,T.color,T.item10,T.packaging,T.id asc
 		LIMIT #start#, #end#
 	</select>
 	
@@ -136,8 +142,8 @@
 		<isNotEmpty prepend="and" property="tradename">
 			T.tradename like '%$tradename$%' ESCAPE '/'
 		</isNotEmpty>
-		<isNotEmpty prepend="and" property="item01">
-			T.item01 like '%$item01$%' ESCAPE '/'
+		<isNotEmpty prepend="and" property="item10">
+			T.item10 like '%$item10$%' ESCAPE '/'
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="typeno">
 			T.typeno like '%$typeno$%' ESCAPE '/'

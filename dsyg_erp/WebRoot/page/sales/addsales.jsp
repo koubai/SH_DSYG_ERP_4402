@@ -464,7 +464,7 @@
 			$("#customertel").focus();
 			return;
 		}
-		if(customerfax == "") {
+/*		if(customerfax == "") {
 			alert("联系人传真不能为空！");
 			$("#customerfax").focus();
 			return;
@@ -474,7 +474,7 @@
 			$("#customermail").focus();
 			return;
 		}
-		
+*/		
 		if(tmpAmount != "") {
 			if(!isReal(tmpAmount)) {
 				alert("销售金额（不含税）格式不正确！");
@@ -813,11 +813,11 @@
 							</td>
 							<td>
 								<s:if test='addSalesDto.res02 == "1"'>
-									<input type="radio" id="tmpRes02" onclick="checkSalesType(this);" name="salesType" value="0"/>普通　
+									<input type="radio" id="tmpRes02" onclick="checkSalesType(this);" name="salesType" value="0"/>订单　
 									<input type="radio" name="salesType" onclick="checkSalesType(this);" checked="checked" value="1"/>询价　
 								</s:if>
 								<s:else>
-									<input type="radio" id="tmpRes02" onclick="checkSalesType(this);" name="salesType" checked="checked" value="0"/>普通　
+									<input type="radio" id="tmpRes02" onclick="checkSalesType(this);" name="salesType" checked="checked" value="0"/>订单　
 									<input type="radio" name="salesType" onclick="checkSalesType(this);" value="1"/>询价　
 								</s:else>
 							</td>
@@ -953,7 +953,7 @@
 						</tr>
 						<tr>
 							<td align="right">
-								<label class="pdf10"><font color="red">*</font>联系人传真</label>
+								<label class="pdf10">&nbsp;联系人传真</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>
@@ -963,7 +963,7 @@
 								<div class="box1_right"></div>
 							</td>
 							<td align="right">
-								<label class="pdf10"><font color="red">*</font>联系人信箱</label>
+								<label class="pdf10">&nbsp;联系人信箱</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>

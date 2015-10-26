@@ -257,7 +257,16 @@ public class SalesAction extends BaseAction {
 					return "checkerror";
 				}
 			//}
-			
+			//数据验证(防止相同订单号)
+			SalesDto tmp_salesDto = salesService.querySalesByTheme2(updSalesDto.getTheme2());
+			if(tmp_salesDto != null ){
+				if (!tmp_salesDto.getId().equals(updSalesDto.getId())) {
+					this.addActionMessage("存在相同的销售订单号！");
+					System.out.println(tmp_salesDto.getId()+";"+updSalesDto.getId());
+					return "checkerror";
+				}
+			}
+
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
 			//更新数据
@@ -317,6 +326,12 @@ public class SalesAction extends BaseAction {
 			//}
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			//数据验证(防止相同订单号)
+			SalesDto salesDto = salesService.querySalesByTheme2(addSalesDto.getTheme2());
+			if(salesDto != null) {
+				this.addActionMessage("存在相同的销售订单号！");
+				return "checkerror";
+			}
 			String theme2 = salesService.addSales(addSalesDto, addSalesItemList, username);
 			if(!"0".equals(addSalesDto.getRes02())) {
 				//销售方式为询价询样时，订单号自动生成

@@ -10,7 +10,7 @@ import com.cn.dsyg.dto.ProductDto;
 
 /**
  * ProductDaoImpl
- * @Company 盛大游戏
+ * @Company 
  * @author chenguangquan.frank
  * @version 1.0
  * @create 2015-5-19下午1:47:37
@@ -19,11 +19,13 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
 	
 	@Override
 	public ProductDto queryProductByLogicId(String tradename, String typeno,
-			String color) {
+			String color, String item10, String packaging) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("tradename", tradename);
 		paramMap.put("typeno", typeno);
 		paramMap.put("color", color);
+		paramMap.put("item10", item10);
+		paramMap.put("packaging", packaging);
 		@SuppressWarnings("unchecked")
 		List<ProductDto> list = getSqlMapClientTemplate().queryForList("queryProductByLogicId", paramMap);
 		if(list != null && list.size() > 0) {
@@ -33,11 +35,11 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
 	}
 
 	@Override
-	public List<ProductDto> queryProductByPage(String fieldno, String item01, String keyword, String tradename,
+	public List<ProductDto> queryProductByPage(String fieldno, String item10, String keyword, String tradename,
 			String typeno, String color, String supplierId, String status, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("fieldno", fieldno);
-		paramMap.put("item01", item01);
+		paramMap.put("item10", item10);
 		paramMap.put("keyword", keyword);
 		paramMap.put("tradename", tradename);
 		paramMap.put("typeno", typeno);
@@ -52,11 +54,11 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
 	}
 
 	@Override
-	public List<ProductDto> queryProductCostCheckByPage(String fieldno, String item01, String keyword, String tradename,
+	public List<ProductDto> queryProductCostCheckByPage(String fieldno, String item10, String keyword, String tradename,
 			String typeno, String color, String supplierId, String belongto, String status, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("fieldno", fieldno);
-		paramMap.put("item01", item01);
+		paramMap.put("item01", item10);
 		paramMap.put("keyword", keyword);
 		paramMap.put("tradename", tradename);
 		paramMap.put("typeno", typeno);
@@ -73,11 +75,11 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
 	
 	
 	@Override
-	public int queryProductCountByPage(String fieldno, String item01, String keyword, String tradename,
+	public int queryProductCountByPage(String fieldno, String item10, String keyword, String tradename,
 			String typeno, String color, String supplierId, String status) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("fieldno", fieldno);
-		paramMap.put("item01", item01);
+		paramMap.put("item10", item10);
 		paramMap.put("keyword", keyword);
 		paramMap.put("tradename", tradename);
 		paramMap.put("typeno", typeno);
@@ -88,11 +90,11 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
 	}
 
 	@Override
-	public int queryProductCostCountByPage(String fieldno, String item01, String keyword, String tradename,
+	public int queryProductCostCountByPage(String fieldno, String item10, String keyword, String tradename,
 			String typeno, String color, String supplierId, String belongto, String status) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("fieldno", fieldno);
-		paramMap.put("item01", item01);
+		paramMap.put("item10", item10);
 		paramMap.put("keyword", keyword);
 		paramMap.put("tradename", tradename);
 		paramMap.put("typeno", typeno);
@@ -128,11 +130,11 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
 
 	@Override
 	public List<ProductDto> queryProductCostToExport(String fieldno,
-			String item01, String keyword, String tradename, String typeno,
+			String item10, String keyword, String tradename, String typeno,
 			String color, String supplierId, String belongto, String status) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("fieldno", fieldno);
-		paramMap.put("item01", item01);
+		paramMap.put("item10", item10);
 		paramMap.put("keyword", keyword);
 		paramMap.put("tradename", tradename);
 		paramMap.put("typeno", typeno);

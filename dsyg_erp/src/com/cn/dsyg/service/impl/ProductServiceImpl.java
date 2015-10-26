@@ -26,8 +26,8 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public ProductDto queryProductByLogicId(String tradename, String typeno,
-			String color) {
-		ProductDto product = productDao.queryProductByLogicId(tradename, typeno, color);
+			String color, String item10, String packaging) {
+		ProductDto product = productDao.queryProductByLogicId(tradename, typeno, color, item10, packaging);
 		if(product != null) {
 			//图片和PDF文件显示地址
 			String imageurl = PropertiesConfig.getPropertiesValueByKey(Constants.PROPERTIES_IMAGES_URL);
