@@ -121,15 +121,26 @@
 		if(checkflag) {
 			return;
 		}
-		//var res02 = getRadioValue("salesType");	
+		var res02 = getRadioValue("salesType");
 		if(type == "1") {
-			//是否大于0的数字check
-			if(!isNumber(obj.value)) {
-				alert("销售数量必须是大于0的数字！");
-				checkflag = true;
-				obj.focus();
-				checkflag = false;
-				return;
+			if(res02 == "1") {
+				//是否是数字check
+				if(!numberCheck(obj.value)) {
+					alert("销售数量必须是数字！");
+					checkflag = true;
+					obj.focus();
+					checkflag = false;
+					return;
+				}
+			} else {
+				//是否大于0的数字check
+				if(!isNumber(obj.value)) {
+					alert("销售数量必须是大于0的数字！");
+					checkflag = true;
+					obj.focus();
+					checkflag = false;
+					return;
+				}
 			}
 		} else if(type == "2") {
 			//是否整数字check
