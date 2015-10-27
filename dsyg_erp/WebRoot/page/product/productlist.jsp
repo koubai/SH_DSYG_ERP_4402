@@ -178,7 +178,7 @@
 							<input type="radio" name="strPackaging" value="1"/>乱尺
 						</s:else>
 					</div>
-					<div class="btn" style="margin-left: 100px;">
+					<div class="btn" style="margin-left: 50px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
 							<input type="button" class="input40" value="检索" onclick="queryList();"/>
