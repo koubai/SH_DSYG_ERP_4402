@@ -83,6 +83,7 @@
 		<result property="note" column="note" />
 		<result property="rank" column="rank" />
 		<result property="status" column="status" />
+		<result property="item01" column="item01" />
 		<result property="res01" column="baozhuang" />
 		<result property="res02" column="res02" />
 		<result property="res03" column="res03" />
@@ -105,6 +106,7 @@
 		(select P.color from etb_product P where P.id = T.productid) as color,
 		(select P.packaging from etb_product P where P.id = T.productid) as packaging,
 		(select P.unit from etb_product P where P.id = T.productid) as unit,
+		(select P.item10 from etb_product P where P.id = T.productid) as item01,
 		(select S.customername from etb_sales S where S.salesno = T.salesno) as customername,
 		(select S.bookdate from etb_sales S where S.salesno = T.salesno) as bookdate,
 		(select S.res01 from etb_sales S where S.salesno = T.salesno) as baozhuang,
