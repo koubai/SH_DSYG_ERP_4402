@@ -60,11 +60,12 @@
 			$("#expressname").focus();
 			return;
 		}
-		if(expressaddress == "") {
+/*		if(expressaddress == "") {
 			alert("快递地址不能为空！");
 			$("#expressaddress").focus();
 			return;
 		}
+*/		
 		if(amount == "") {
 			alert("转运费用合计不能为空！");
 			$("#amount").focus();
@@ -90,11 +91,12 @@
 			$("#tmpReceiptdate").focus();
 			return;
 		}
-		if(expressmail == "") {
+/*		if(expressmail == "") {
 			alert("信箱不能为空！");
 			$("#expressmail").focus();
 			return;
 		}
+*/		
 		if(status == "") {
 			alert("请选择状态！");
 			$("#status").focus();

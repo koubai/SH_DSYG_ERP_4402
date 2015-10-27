@@ -53,11 +53,12 @@
 			$("#expressname").focus();
 			return;
 		}
-		if(expressaddress == "") {
+/*		if(expressaddress == "") {
 			alert("快递地址不能为空！");
 			$("#expressaddress").focus();
 			return;
 		}
+*/
 		if(expresstaxamount == "") {
 			alert("转运费用合计不能为空！");
 			$("#expresstaxamount").focus();

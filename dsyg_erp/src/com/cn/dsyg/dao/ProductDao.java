@@ -27,7 +27,7 @@ public interface ProductDao {
 	 * @param end
 	 * @return
 	 */
-	public List<ProductDto> queryProductByPage(String fieldno, String item01, String keyword, String tradename,
+	public List<ProductDto> queryProductByPage(String fieldno, String item01, String keyword, String packaging, String tradename,
 			String typeno, String color, String supplierId, String status, int start, int end);
 	
 	/**
@@ -71,7 +71,7 @@ public interface ProductDao {
 	 * @param status 状态
 	 * @return
 	 */
-	public int queryProductCountByPage(String fieldno, String item01, String keyword, String tradename,
+	public int queryProductCountByPage(String fieldno, String item01, String keyword, String packaging, String tradename,
 			String typeno, String color, String supplierId, String status);
 	
 	/**

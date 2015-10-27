@@ -59,11 +59,12 @@
 			$("#expressname").focus();
 			return;
 		}
-		if(expressaddress == "") {
+/*		if(expressaddress == "") {
 			alert("快递地址不能为空！");
 			$("#expressaddress").focus();
 			return;
 		}
+*/		
 		if(expresstaxamount == "") {
 			alert("转运费用合计不能为空！");
 			$("#expresstaxamount").focus();
@@ -79,11 +80,12 @@
 			$("#expressmanager").focus();
 			return;
 		}
-		if(expresstel == "") {
+/*		if(expresstel == "") {
 			alert("快递联系人电话不能为空！");
 			$("#expresstel").focus();
 			return;
 		}
+*/
 /*		if(expressfax == "") {
 			alert("快递联系人传真不能为空！");
 			$("#expressfax").focus();

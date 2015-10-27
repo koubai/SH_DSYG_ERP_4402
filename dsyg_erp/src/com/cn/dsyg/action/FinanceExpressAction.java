@@ -244,10 +244,11 @@ public class FinanceExpressAction extends BaseAction {
 			this.addActionMessage("快递名称不能为空！");
 			return false;
 		}
-		if(StringUtil.isBlank(finance.getCustomeraddress())) {
+/*		if(StringUtil.isBlank(finance.getCustomeraddress())) {
 			this.addActionMessage("快递地址不能为空！");
 			return false;
 		}
+*/		
 		if(finance.getAmount() == null) {
 			this.addActionMessage("转运费用合计不能为空！");
 			return false;
@@ -264,10 +265,11 @@ public class FinanceExpressAction extends BaseAction {
 			this.addActionMessage("单据日期不能为空！");
 			return false;
 		}
-		if(StringUtil.isBlank(finance.getCustomermail())) {
+/*		if(StringUtil.isBlank(finance.getCustomermail())) {
 			this.addActionMessage("信箱不能为空！");
 			return false;
 		}
+*/		
 		if(finance.getStatus() == null) {
 			this.addActionMessage("请选择状态！");
 			return false;

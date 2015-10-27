@@ -65,6 +65,8 @@ public class ProductAction extends BaseAction {
 	private String strTypeno;
 	private String strColor;
 	private String strSeq;
+	private String strPackaging;
+
 	//1为采购单，2为销售单
 	private String strFlag;
 	
@@ -771,7 +773,7 @@ public class ProductAction extends BaseAction {
 		initDictList();
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		page = productService.queryProductByPage(strFieldno, strItem10, strKeyword, strTradename, strTypeno, strColor,
+		page = productService.queryProductByPage(strFieldno, strItem10, strKeyword, strPackaging, strTradename, strTypeno, strColor,
 				strSupplierId, "" + Constants.STATUS_NORMAL, page);
 		productList = (List<ProductDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
@@ -1071,5 +1073,13 @@ public class ProductAction extends BaseAction {
 
 	public void setFeatureList02(List<FeatureDto> featureList02) {
 		this.featureList02 = featureList02;
+	}
+
+	public String getStrPackaging() {
+		return strPackaging;
+	}
+
+	public void setStrPackaging(String strPackaging) {
+		this.strPackaging = strPackaging;
 	}
 }

@@ -130,7 +130,8 @@
 					<div class="tab_content">
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
-								<td width="50">序号</td>
+								<td width="30">序号</td>
+								<td width="60">登记日期</td>
 								<td width="100">标题</td>
 								<td width="80">姓名</td>
 								<td width="100">公司名称</td>
@@ -147,6 +148,7 @@
 									<tr>
 								</s:else>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
+									<td><s:property value="createdate"/></td>
 									<td>
 										<div noWrap title="<s:property value="title"/>" style="width:90px;text-overflow:ellipsis;overflow:hidden">
 											<s:property value="title"/>

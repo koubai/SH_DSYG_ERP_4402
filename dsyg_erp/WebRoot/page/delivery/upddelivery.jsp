@@ -59,7 +59,7 @@
 					return;
 				}
 				//邮箱
-				if(deliverymail.trim() == "") {
+/*				if(deliverymail.trim() == "") {
 					alert("联系人" + i + "邮箱不能为空！");
 					$("#" + "mail_pr" + i).focus();
 					return;
@@ -74,6 +74,7 @@
 					$("#" + "deliveryfax" + i).focus();
 					return;
 				}
+*/				
 			}
 			if(deliverymail != "" && !isMail(deliverymail)) {
 				alert("联系人" + i + "邮箱格式不正确！");
@@ -170,7 +171,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td><font color="red">*</font>联系人1邮箱</td>
+								<td>&nbsp;联系人1邮箱</td>
 								<td>
 									<div class="box1">
 										<div class="box1_left"></div>
@@ -189,7 +190,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td><font color="red">*</font>联系人1地址</td>
+								<td>&nbsp;联系人1地址</td>
 								<td>
 									<div class="box1_left"></div>
 									<div class="box1_center">
@@ -200,7 +201,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td><font color="red">*</font>联系人1传真</td>
+								<td>&nbsp;联系人1传真</td>
 								<td>
 									<div class="box1_left"></div>
 									<div class="box1_center">

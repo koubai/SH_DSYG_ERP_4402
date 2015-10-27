@@ -138,10 +138,11 @@ public class WarehouserptAction extends BaseAction {
 				this.addActionMessage("快递名称不能为空！");
 				return "checkerror";
 			}
-			if(StringUtil.isBlank(updWarehouserptDto.getExpressaddress())) {
+/*			if(StringUtil.isBlank(updWarehouserptDto.getExpressaddress())) {
 				this.addActionMessage("快递地址不能为空！");
 				return "checkerror";
 			}
+*/			
 			if(updWarehouserptDto.getExpresstaxamount() == null) {
 				this.addActionMessage("转运费用合计不能为空！");
 				return "checkerror";
@@ -154,18 +155,20 @@ public class WarehouserptAction extends BaseAction {
 				this.addActionMessage("快递联系人电话不能为空！");
 				return "checkerror";
 			}
-			if(StringUtil.isBlank(updWarehouserptDto.getExpressfax())) {
+/*			if(StringUtil.isBlank(updWarehouserptDto.getExpressfax())) {
 				this.addActionMessage("快递联系人传真不能为空！");
 				return "checkerror";
 			}
+*/			
 			if(StringUtil.isBlank(updWarehouserptDto.getWarehousedate())) {
 				this.addActionMessage("发货日期不能为空！");
 				return "checkerror";
 			}
-			if(StringUtil.isBlank(updWarehouserptDto.getExpressmail())) {
+/*			if(StringUtil.isBlank(updWarehouserptDto.getExpressmail())) {
 				this.addActionMessage("信箱不能为空！");
 				return "checkerror";
 			}
+*/			
 			//保存数据
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);

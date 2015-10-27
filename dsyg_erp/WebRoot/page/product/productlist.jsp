@@ -163,7 +163,22 @@
 						</div>
 						<div class="box1_right"></div>
 					</div>
-					<div class="btn" style="margin-left: 360px;">
+					<div class="box1">
+						&nbsp;&nbsp;
+						<s:if test='%{strPackaging == "1"}'>
+							<input type="radio" name="strPackaging" value="0"/>整箱
+							<input type="radio" name="strPackaging" value="1" checked="checked"/>乱尺
+						</s:if>
+						<s:elseif test='%{strPackaging == "0"}'>
+							<input type="radio" name="strPackaging" value="0" checked="checked"/>整箱
+							<input type="radio" name="strPackaging" value="1"/>乱尺
+						</s:elseif>
+						<s:else>
+							<input type="radio" name="strPackaging" value="0"/>整箱
+							<input type="radio" name="strPackaging" value="1"/>乱尺
+						</s:else>
+					</div>
+					<div class="btn" style="margin-left: 100px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
 							<input type="button" class="input40" value="检索" onclick="queryList();"/>

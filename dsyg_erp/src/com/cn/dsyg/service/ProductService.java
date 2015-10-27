@@ -27,7 +27,7 @@ public interface ProductService {
 	 * @param page
 	 * @return
 	 */
-	public Page queryProductByPage(String fieldno, String item10, String keyword, String tradename,
+	public Page queryProductByPage(String fieldno, String item10, String keyword, String packaging, String tradename,
 			String typeno, String color, String supplierId, String status, Page page);
 	
 	/**

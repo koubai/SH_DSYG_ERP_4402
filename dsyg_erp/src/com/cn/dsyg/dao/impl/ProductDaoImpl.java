@@ -35,12 +35,13 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
 	}
 
 	@Override
-	public List<ProductDto> queryProductByPage(String fieldno, String item10, String keyword, String tradename,
+	public List<ProductDto> queryProductByPage(String fieldno, String item10, String keyword, String packaging, String tradename,
 			String typeno, String color, String supplierId, String status, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("fieldno", fieldno);
 		paramMap.put("item10", item10);
 		paramMap.put("keyword", keyword);
+		paramMap.put("packaging", packaging);
 		paramMap.put("tradename", tradename);
 		paramMap.put("typeno", typeno);
 		paramMap.put("color", color);
@@ -75,12 +76,13 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
 	
 	
 	@Override
-	public int queryProductCountByPage(String fieldno, String item10, String keyword, String tradename,
+	public int queryProductCountByPage(String fieldno, String item10, String keyword, String packaging, String tradename,
 			String typeno, String color, String supplierId, String status) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("fieldno", fieldno);
 		paramMap.put("item10", item10);
 		paramMap.put("keyword", keyword);
+		paramMap.put("packaging", packaging);
 		paramMap.put("tradename", tradename);
 		paramMap.put("typeno", typeno);
 		paramMap.put("color", color);

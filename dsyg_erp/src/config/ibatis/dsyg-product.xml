@@ -124,6 +124,9 @@
 		<isNotEmpty prepend="and" property="keyword">
 			T.keyword like '%$keyword$%' ESCAPE '/'
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="packaging">
+			T.packaging = #packaging#
+		</isNotEmpty>
 		order by T.belongto,T.fieldno,T.tradename,T.typeno,T.color,T.item10,T.packaging,T.id asc
 		LIMIT #start#, #end#
 	</select>
@@ -153,6 +156,9 @@
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="keyword">
 			T.keyword like '%$keyword$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="packaging">
+			T.packaging = #packaging#
 		</isNotEmpty>
 	</select>
 	
