@@ -30,6 +30,18 @@ public class DeliveryDaoImpl extends BaseDao implements DeliveryDao {
 	}
 
 	@Override
+	public DeliveryDto queryAllEtbDeliveryByName(String deliveryName) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("DELIVERYNAME", deliveryName);
+		@SuppressWarnings("unchecked")
+		List<DeliveryDto> list = getSqlMapClientTemplate().queryForList("queryAllEtbDeliveryByName", paramMap);
+		if(list != null && list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+	}
+
+	@Override
 	public List<DeliveryDto> queryEtbDeliveryByPage(String deliveryNoLow,
 			String deliveryNoHigh, String deliveryName,
 			int start, int end) {

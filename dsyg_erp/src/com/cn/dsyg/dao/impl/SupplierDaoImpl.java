@@ -75,6 +75,18 @@ public class SupplierDaoImpl extends BaseDao implements SupplierDao {
 	}
 
 	@Override
+	public SupplierDto querySupplierByName(String supplierName){
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("SUPPLIERNAME", supplierName);
+		@SuppressWarnings("unchecked")
+		List<SupplierDto> list = getSqlMapClientTemplate().queryForList("querySupplierByName", paramMap);
+		if(list != null && list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+	}
+	
+	@Override
 	public List<SupplierDto> queryAllSupplier() {
 		@SuppressWarnings("unchecked")
 		List<SupplierDto> list = getSqlMapClientTemplate().queryForList("queryAllSupplier");

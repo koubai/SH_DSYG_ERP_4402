@@ -11,6 +11,7 @@ import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.DeliveryDto;
+import com.cn.dsyg.dto.SupplierDto;
 import com.cn.dsyg.service.DeliveryService;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -284,6 +285,13 @@ public class DeliveryAction extends BaseAction {
 				this.addActionMessage("快递代码已经存在！");
 				return "checkerror";
 			}
+			//校验快递名称是否存在
+			DeliveryDto delivery1 = deliveryService.queryAllEtbDeliveryByName(addDeliveryDto.getDeliveryname()+"");
+			if(delivery1 != null) {
+				this.addActionMessage("相同快递名称已经存在！");
+				return "checkerror";
+			}
+
 			//保存数据
 			addDeliveryDto.setStatus(Constants.STATUS_NORMAL);
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);

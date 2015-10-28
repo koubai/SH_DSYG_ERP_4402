@@ -69,6 +69,11 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 
 	@Override
+	public SupplierDto queryAllSupplierByName(String supplierName){
+		return supplierDao.querySupplierByName(supplierName);
+	}
+
+	@Override
 	public List<SupplierDto> queryAllSupplier() {
 		return supplierDao.queryAllSupplier();
 	}

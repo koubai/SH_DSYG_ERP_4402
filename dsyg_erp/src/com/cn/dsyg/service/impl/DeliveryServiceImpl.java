@@ -35,6 +35,11 @@ public class DeliveryServiceImpl implements DeliveryService {
 	public DeliveryDto queryAllEtbDeliveryByID(String ID) {
 		return deliveryDao.queryAllEtbDeliveryByID(ID);
 	}
+	
+	@Override
+	public DeliveryDto queryAllEtbDeliveryByName(String deliveryName){
+		return deliveryDao.queryAllEtbDeliveryByName(deliveryName);
+	}
 
 	@Override
 	public Page queryEtbDeliveryByPage(Page page, String deliveryNoLow,

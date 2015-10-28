@@ -38,6 +38,12 @@ public class CustomerServiceImpl implements CustomerService {
 	public CustomerDto queryAllEtbCustomerByID(String ID) {
 		return customerDao.queryAllEtbCustomerByID(ID);
 	}
+
+	@Override
+	public CustomerDto queryAllEtbCustomerByName(String customerName){
+			return customerDao.queryAllEtbCustomerByName(customerName);
+	}
+
 	
 	@Override
 	public Page queryEtbCustomerByPage(Page page, String customerNoLow,

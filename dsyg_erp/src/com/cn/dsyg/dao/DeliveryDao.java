@@ -19,6 +19,13 @@ public interface DeliveryDao {
 	public DeliveryDto queryAllEtbDeliveryByID(String deliveryNo);
 
 	/**
+	 * 根据名称查询快递（查询所有记录）
+	 * @param deliveryName
+	 * @return
+	 */
+	public DeliveryDto queryAllEtbDeliveryByName(String deliveryName);
+
+	/**
 	 * 翻页查询快递
 	 * @param deliveryNoLow
 	 * @param deliveryNoHigh

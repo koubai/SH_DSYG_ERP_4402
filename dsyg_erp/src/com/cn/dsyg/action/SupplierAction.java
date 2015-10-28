@@ -10,6 +10,7 @@ import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
+import com.cn.dsyg.dto.CustomerDto;
 import com.cn.dsyg.dto.SupplierDto;
 import com.cn.dsyg.service.SupplierService;
 import com.opensymphony.xwork2.ActionContext;
@@ -279,6 +280,13 @@ public class SupplierAction extends BaseAction {
 				this.addActionMessage("供应商代码已经存在！");
 				return "checkerror";
 			}				
+			//校验供应商名称是否存在
+			SupplierDto supplier1 = supplierService.queryAllSupplierByName(addSupplierDto.getSuppliername()+"");
+			if(supplier1 != null) {
+				this.addActionMessage("相同供应商名称已经存在！");
+				return "checkerror";
+			}
+
 			//保存数据
 			addSupplierDto.setStatus(Constants.STATUS_NORMAL);
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);

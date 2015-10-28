@@ -354,6 +354,12 @@ public class CustomerAction extends BaseAction {
 				this.addActionMessage("客户代码已经存在！");
 				return "checkerror";
 			}
+			//校验客户名称是否存在
+			CustomerDto customer1 = customerService.queryAllEtbCustomerByName(addCustomerDto.getCustomername()+"");
+			if(customer1 != null) {
+				this.addActionMessage("相同客户名称已经存在！");
+				return "checkerror";
+			}
 			//保存数据
 			addCustomerDto.setStatus(Constants.STATUS_NORMAL);
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);

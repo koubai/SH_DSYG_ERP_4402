@@ -28,6 +28,18 @@ public class CustomerDaoImpl extends BaseDao implements CustomerDao {
 		}
 		return null;
 	}
+	
+	@Override
+	public CustomerDto queryAllEtbCustomerByName(String customerName) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("CUSTOMERNAME", customerName);
+		@SuppressWarnings("unchecked")
+		List<CustomerDto> list = getSqlMapClientTemplate().queryForList("queryAllEtbCustomerByName", paramMap);
+		if(list != null && list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+	}
 
 	@Override
 	public List<CustomerDto> queryEtbCustomerByPage(String customerNoLow,

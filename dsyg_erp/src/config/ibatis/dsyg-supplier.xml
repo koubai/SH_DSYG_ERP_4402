@@ -101,6 +101,12 @@
 			and status = '1'
 	</select>
 	
+	<select id="querySupplierByName" parameterClass="java.util.Map" resultMap="SupplierDto">
+		select * from etb_supplier where 
+			trim(suppliername) = trim(#SUPPLIERNAME#)
+			and status = '1'
+	</select>
+	
 	<select id="queryAllSupplierByID" parameterClass="java.util.Map" resultMap="SupplierDto">
 		select * from etb_supplier where 
 			id = #ID#
@@ -117,7 +123,7 @@
 		suppliertel5,suppliermanager5,supplieraddress5,suppliermail5,supplierfax5,
 		suppliertype,handlerid,status,res01,res02,res03,res04,res05,res06,res07,res08,res09,res10,
 		createuid,createdate,updateuid,updatedate)
-		values(#id#,#suppliername#,#belongto#,#note#,#suppliertel1#,#suppliermanager1#,#supplieraddress1#,#suppliermail1#,#supplierfax1#,
+		values(#id#,trim(#suppliername#),#belongto#,#note#,#suppliertel1#,#suppliermanager1#,#supplieraddress1#,#suppliermail1#,#supplierfax1#,
 		#suppliertel2#,#suppliermanager2#,#supplieraddress2#,#suppliermail2#,#supplierfax2#,
 		#suppliertel3#,#suppliermanager3#,#supplieraddress3#,#suppliermail3#,#supplierfax3#,
 		#suppliertel4#,#suppliermanager4#,#supplieraddress4#,#suppliermail4#,#supplierfax4#,
@@ -128,7 +134,7 @@
 	
 	<update id="updateSupplier" parameterClass="com.cn.dsyg.dto.SupplierDto">
 		update etb_supplier
-		set suppliername=#suppliername#,
+		set suppliername=trim(#suppliername#),
 			belongto=#belongto#,
 			note=#note#,
 			suppliertel1=#suppliertel1#,

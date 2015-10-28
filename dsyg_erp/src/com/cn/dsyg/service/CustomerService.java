@@ -32,6 +32,13 @@ public interface CustomerService {
 	public CustomerDto queryEtbCustomerByID(String customerNo);
 	
 	/**
+	 * 根据客户名称查询客户（查询未删除的记录）
+	 * @param customerName
+	 * @return
+	 */
+	public CustomerDto queryAllEtbCustomerByName(String customerName);
+	
+	/**
 	 * 根据ID客户（查询所有记录）
 	 * @param customerNo
 	 * @return

@@ -39,6 +39,13 @@ public interface SupplierService {
 	public SupplierDto queryAllSupplierByID(String supplierNo);
 	
 	/**
+	 * 根据名称查供应商（查询所有记录）
+	 * @param supplierName
+	 * @return
+	 */
+	public SupplierDto queryAllSupplierByName(String supplierName);
+
+	/**
 	 * 查询所有的供应商
 	 * @return
 	 */

@@ -101,6 +101,12 @@
 			and status = '1'
 	</select>
 	
+	<select id="queryAllEtbCustomerByName" parameterClass="java.util.Map" resultMap="CustomerDto">
+		select * from etb_customer where 
+			customername = trim(#CUSTOMERNAME#)
+			and status = '1'
+	</select>
+	
 	<select id="queryAllEtbCustomerByID" parameterClass="java.util.Map" resultMap="CustomerDto">
 		select * from etb_customer where 
 			id = #ID#
@@ -117,7 +123,7 @@
 		customertel5,customermanager5,customeraddress5,customermail5,customerfax5,
 		customertype,handlerid,status,res01,res02,res03,res04,res05,res06,res07,res08,res09,res10,
 		createuid,createdate,updateuid,updatedate)
-		values(#id#,#customername#,#belongto#,#note#,#customertel1#,#customermanager1#,#customeraddress1#,#customermail1#,#customerfax1#,
+		values(#id#,trim(#customername#),#belongto#,#note#,#customertel1#,#customermanager1#,#customeraddress1#,#customermail1#,#customerfax1#,
 		#customertel2#,#customermanager2#,#customeraddress2#,#customermail2#,#customerfax2#,
 		#customertel3#,#customermanager3#,#customeraddress3#,#customermail3#,#customerfax3#,
 		#customertel4#,#customermanager4#,#customeraddress4#,#customermail4#,#customerfax4#,
@@ -128,7 +134,7 @@
 	
 	<update id="updateEtbCustomer" parameterClass="com.cn.dsyg.dto.CustomerDto">
 		update etb_customer
-		set customername=#customername#,
+		set customername=trim(#customername#),
 			belongto=#belongto#,
 			note=#note#,
 			customertel1=#customertel1#,

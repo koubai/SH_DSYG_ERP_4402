@@ -38,6 +38,14 @@ public interface DeliveryService {
 	 */
 	public DeliveryDto queryAllEtbDeliveryByID(String deliveryNo);
 	
+	
+	/**
+	 * 根据名称查询快递（查询所有记录）
+	 * @param deliveryName
+	 * @return
+	 */
+	public DeliveryDto queryAllEtbDeliveryByName(String deliveryName);
+
 	/**
 	 * 查询所有的快递
 	 * @return

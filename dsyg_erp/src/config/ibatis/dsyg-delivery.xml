@@ -101,6 +101,12 @@
 			and status = '1'
 	</select>
 	
+	<select id="queryAllEtbDeliveryByName" parameterClass="java.util.Map" resultMap="DeliveryDto">
+		select * from etb_delivery where 
+			trim(deliveryname) = trim(#DELIVERYNAME#)
+			and status = '1'
+	</select>
+	
 	<select id="queryAllEtbDeliveryByID" parameterClass="java.util.Map" resultMap="DeliveryDto">
 		select * from etb_delivery where 
 			id = #ID#
@@ -117,7 +123,7 @@
 		deliverytel5,deliverymanager5,deliveryaddress5,deliverymail5,deliveryfax5,
 		deliverytype,handlerid,status,res01,res02,res03,res04,res05,res06,res07,res08,res09,res10,
 		createuid,createdate,updateuid,updatedate)
-		values(#id#,#deliveryname#,#belongto#,#note#,#deliverytel1#,#deliverymanager1#,#deliveryaddress1#,#deliverymail1#,#deliveryfax1#,
+		values(#id#,trim(#deliveryname#),#belongto#,#note#,#deliverytel1#,#deliverymanager1#,#deliveryaddress1#,#deliverymail1#,#deliveryfax1#,
 		#deliverytel2#,#deliverymanager2#,#deliveryaddress2#,#deliverymail2#,#deliveryfax2#,
 		#deliverytel3#,#deliverymanager3#,#deliveryaddress3#,#deliverymail3#,#deliveryfax3#,
 		#deliverytel4#,#deliverymanager4#,#deliveryaddress4#,#deliverymail4#,#deliveryfax4#,
@@ -128,7 +134,7 @@
 	
 	<update id="updateEtbDelivery" parameterClass="com.cn.dsyg.dto.DeliveryDto">
 		update etb_delivery
-		set deliveryname=#deliveryname#,
+		set deliveryname=trim(#deliveryname#),
 			belongto=#belongto#,
 			note=#note#,
 			deliverytel1=#deliverytel1#,

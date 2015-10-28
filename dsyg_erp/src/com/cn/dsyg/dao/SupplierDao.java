@@ -43,6 +43,13 @@ public interface SupplierDao {
 	 * @return
 	 */
 	public SupplierDto querySupplierByID(String supplierNo);
+		
+	/**
+	 * 根据名称查询供应商（查询未删除的记录）
+	 * @param supplierName
+	 * @return
+	 */
+	public SupplierDto querySupplierByName(String supplierName);
 	
 	/**
 	 * 查询所有的供应商

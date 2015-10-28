@@ -19,6 +19,13 @@ public interface CustomerDao {
 	public CustomerDto queryAllEtbCustomerByID(String customerNo);
 
 	/**
+	 * 根据客户名称查询客户（查询所有记录）
+	 * @param customerName
+	 * @return
+	 */
+	public CustomerDto queryAllEtbCustomerByName(String customerName);
+
+	/**
 	 * 翻页查询客户
 	 * @param customerNoLow
 	 * @param customerNoHigh

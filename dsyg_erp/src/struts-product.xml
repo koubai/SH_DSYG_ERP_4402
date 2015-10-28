@@ -33,6 +33,10 @@
 		<action name="showUpdProductAction" class="productAction" method="showUpdProductAction">
 			<result name="*">/page/product/updproduct.jsp</result>
 		</action>
+
+		<action name="showUpdProductitemAction" class="productAction" method="showUpdProductitemAction">
+			<result name="*">/page/product/updproductitem.jsp</result>
+		</action>
 		
 		<action name="updProductAction" class="productAction" method="updProductAction">
 			<result name="*">/page/product/updproduct.jsp</result>
