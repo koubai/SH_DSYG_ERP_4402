@@ -96,6 +96,9 @@
 		<isNotEmpty prepend="and" property="packaging">
 			T.packaging = #packaging#
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="makearea">
+			T.makearea = #makearea#
+		</isNotEmpty>
 	</select>
 	
 	<select id="queryProductByPage" parameterClass="java.util.Map" resultMap="ProductDto">

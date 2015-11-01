@@ -19,13 +19,14 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
 	
 	@Override
 	public ProductDto queryProductByLogicId(String tradename, String typeno,
-			String color, String item10, String packaging) {
+			String color, String item10, String packaging, String makearea) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("tradename", tradename);
 		paramMap.put("typeno", typeno);
 		paramMap.put("color", color);
 		paramMap.put("item10", item10);
 		paramMap.put("packaging", packaging);
+		paramMap.put("makearea", makearea);
 		@SuppressWarnings("unchecked")
 		List<ProductDto> list = getSqlMapClientTemplate().queryForList("queryProductByLogicId", paramMap);
 		if(list != null && list.size() > 0) {
