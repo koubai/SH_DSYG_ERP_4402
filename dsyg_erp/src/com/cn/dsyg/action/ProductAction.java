@@ -160,9 +160,9 @@ public class ProductAction extends BaseAction {
 			}
 			//判断逻辑主键是否唯一
 			ProductDto pro = productService.queryProductByLogicId(updProductDto.getTradename(),
-					updProductDto.getTypeno(), updProductDto.getColor(), updProductDto.getItem10(),updProductDto.getPackaging());
+					updProductDto.getTypeno(), updProductDto.getColor(), updProductDto.getItem10(),updProductDto.getPackaging(),updProductDto.getMakearea());
 			if(pro != null && !pro.getId().equals(updProductDto.getId())) {
-				this.addActionMessage("已存在相同产品名称、产品规格、颜色、包装和形式的产品！");
+				this.addActionMessage("已存在相同产品名称、产品规格、颜色、包装、形式和产地的产品！");
 				return "checkerror";
 			}
 			
@@ -282,9 +282,9 @@ public class ProductAction extends BaseAction {
 			
 			//判断逻辑主键是否唯一（产品名称、产品规格和颜色）
 			ProductDto pro = productService.queryProductByLogicId(addProductDto.getTradename(),
-					addProductDto.getTypeno(), addProductDto.getColor(), addProductDto.getItem10(), addProductDto.getPackaging());
+					addProductDto.getTypeno(), addProductDto.getColor(), addProductDto.getItem10(), addProductDto.getPackaging(), addProductDto.getMakearea());
 			if(pro != null) {
-				this.addActionMessage("已存在相同产品名称、产品规格、颜色、包装和形式的产品！");
+				this.addActionMessage("已存在相同产品名称、产品规格、颜色、包装、形式和产地的产品！");
 				return "checkerror";
 			}
 			if(addPdfFile == null) {
