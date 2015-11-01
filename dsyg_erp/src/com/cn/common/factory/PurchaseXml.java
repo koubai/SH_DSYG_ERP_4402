@@ -60,9 +60,15 @@ public class PurchaseXml {
 	        
 	        Node des02 = doc.selectSingleNode("//my:group1/my:group2/my:DESCRIPTION-02"); 
 	        des02.setText(updPurchaseItemList.get(0).getTradename() + " " + updPurchaseItemList.get(0).getTypeno());
-	        
-	        Node color = doc.selectSingleNode("//my:group1/my:group2/my:COLOR"); 
-	        color.setText(dictMap.get(Constants.DICT_COLOR_TYPE + "_" + updPurchaseItemList.get(0).getColor()));
+
+	        String color_index0 = "";
+	        if(StringUtil.isNotBlank(updPurchaseItemList.get(0).getColor())){
+	        	color_index0 = dictMap.get(Constants.DICT_COLOR_TYPE + "_" + updPurchaseItemList.get(0).getColor());
+	        	if (color_index0 == null)
+	        		color_index0 = "";
+	        }
+	        Node color = doc.selectSingleNode("//my:group1/my:group2/my:COLOR");
+	        color.setText(color_index0);
 	        
 	        Node qty = doc.selectSingleNode("//my:group1/my:group2/my:QTY"); 
 	        if(updPurchaseItemList.get(0).getQuantity() != null){
