@@ -431,6 +431,7 @@
 						<td width="60">颜色</td>
 						<td width="60">形式</td>
 						<td width="60">包装</td>
+						<td width="60">产地</td>
 					</tr>
 					<s:iterator id="productList" value="productList" status="st1">
 						<s:if test="#st1.odd==true">
@@ -486,6 +487,13 @@
 							</td>
 							<td>
 								<s:property value="item10"/>
+							</td>
+							<td>
+								<s:iterator id="makeareaList" value="makeareaList" status="st3">
+									<s:if test="%{makeareaList[#st3.index].code == productList[#st1.index].makearea}">
+										<s:property value="fieldname"/>
+									</s:if>
+								</s:iterator>
 							</td>
 						</tr>
 					</s:iterator>
