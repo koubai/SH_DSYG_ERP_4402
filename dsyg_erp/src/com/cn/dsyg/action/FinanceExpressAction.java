@@ -221,7 +221,7 @@ public class FinanceExpressAction extends BaseAction {
 		this.page.setStartIndex(startIndex);
 		//这里只查询快递财务记录
 		page = financeService.queryFinanceByPage("", "" + Constants.FINANCE_TYPE_DELIVERY, "",
-				"", "", strReceiptdateLow, strReceiptdateHigh, page);
+				"", "", strReceiptdateLow, strReceiptdateHigh, "", page);
 		financeList = (List<FinanceDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}

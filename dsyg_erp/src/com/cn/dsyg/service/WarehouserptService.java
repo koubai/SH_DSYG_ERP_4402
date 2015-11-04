@@ -79,4 +79,14 @@ public interface WarehouserptService {
 	 * @param status
 	 */
 	public void approveWarehouserpt(String id, String userid, String status);
+	
+	/**
+	 * 入出库单财务审核（发票号和开票日期）
+	 * @param id
+	 * @param userid
+	 * @param res10
+	 * @param receiptdate
+	 * @param status
+	 */
+	public void approveWarehouserpt(String id, String userid, String res10, String receiptdate, String status);
 }

@@ -47,6 +47,48 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 	private FinanceDao financeDao;
 	
 	@Override
+	public void approveWarehouserpt(String id, String userid, String res10,
+			String receiptdate, String status) {
+		WarehouserptDto warehouserpt = warehouserptDao.queryWarehouserptByID(id);
+		if(warehouserpt != null) {
+			warehouserpt.setUpdateuid(userid);
+			//更新采购单状态
+			warehouserpt.setStatus(Integer.valueOf(status));
+			warehouserptDao.updateWarehouserpt(warehouserpt);
+			
+			//更新财务数据状态
+			FinanceDto finance = financeDao.queryFinanceByInvoiceid(warehouserpt.getWarehouseno(), "");
+			if(finance != null) {
+				//开票日期
+				finance.setReceiptdate(receiptdate);
+				//发票号
+				finance.setRes10(res10);
+				//确认者=当前用户
+				finance.setApproverid(userid);
+				finance.setStatus(Integer.valueOf(status));
+				financeDao.updateFinance(finance);
+			}
+			
+			//状态=99时，更新warehouse表数据
+			if(status.equals("" + Constants.FINANCE_STATUS_PAY_INVOICE)) {
+				String parentid = warehouserpt.getParentid();
+				if(StringUtil.isNotBlank(parentid)) {
+					String[] ids = parentid.split(",");
+					for(String warehouseno : ids) {
+						if(StringUtil.isNotBlank(warehouseno)) {
+							WarehouseDto warehouse = warehouseDao.queryWarehouseByWarehouseno(warehouseno);
+							if(warehouse != null) {
+								warehouse.setStatus(Constants.WAREHOUSE_STATUS_FINISHED);
+								warehouseDao.updateWarehouse(warehouse);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	@Override
 	public void approveWarehouserpt(String id, String userid, String status) {
 		WarehouserptDto warehouserpt = warehouserptDao.queryWarehouserptByID(id);
 		if(warehouserpt != null) {
@@ -60,7 +102,7 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 			if(finance != null) {
 				if(status.equals("" + Constants.FINANCE_STATUS_PAY_INVOICE)) {
 					//开票日期=当天
-					finance.setReceiptdate(DateUtil.dateToShortStr(new Date()));
+					//finance.setReceiptdate(DateUtil.dateToShortStr(new Date()));
 				}
 				//确认者=当前用户
 				finance.setApproverid(userid);
@@ -143,6 +185,16 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 		List<WarehouserptDto> list = warehouserptDao.queryWarehouserptByPage(status, warehousetype,
 				warehouseno, theme1, parentid, supplierid, productid, beginDate, endDate, strSuppliername,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		if(list != null && list.size() > 0) {
+			FinanceDto finance = null;
+			for(WarehouserptDto rpt : list) {
+				//查询财务记录的发票
+				finance = financeDao.queryFinanceByInvoiceid(rpt.getWarehouseno(), "" + rpt.getWarehousetype());
+				if(finance != null) {
+					rpt.setFinanceBillno(finance.getRes10());
+				}
+			}
+		}
 		page.setItems(list);
 		return page;
 	}
@@ -420,7 +472,7 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 			String receiptid = Constants.FINANCE_NO_PRE + belongto + sdf.format(date);
 			finance.setReceiptid(receiptid);
 			//开票日期=当天
-			finance.setReceiptdate(DateUtil.dateToShortStr(date));
+			//finance.setReceiptdate(DateUtil.dateToShortStr(date));
 			//结算日期=当天
 			finance.setAccountdate(DateUtil.dateToShortStr(date));
 			//金额=快递金额含税

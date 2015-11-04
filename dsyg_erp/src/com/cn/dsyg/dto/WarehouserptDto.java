@@ -211,6 +211,14 @@ public class WarehouserptDto extends BaseAction {
 	 * 状态
 	 */
 	private Integer status;
+	
+	//财务记录发票
+	private String financeBillno;
+	
+	//发票号
+	private String billno1;
+	private String billno2;
+	private String billno3;
 
 	/**
 	 * 预备项目1
@@ -709,5 +717,37 @@ public class WarehouserptDto extends BaseAction {
 
 	public void setListProduct(List<ProductDto> listProduct) {
 		this.listProduct = listProduct;
+	}
+
+	public String getFinanceBillno() {
+		return financeBillno;
+	}
+
+	public void setFinanceBillno(String financeBillno) {
+		this.financeBillno = financeBillno;
+	}
+
+	public String getBillno1() {
+		return billno1;
+	}
+
+	public void setBillno1(String billno1) {
+		this.billno1 = billno1;
+	}
+
+	public String getBillno2() {
+		return billno2;
+	}
+
+	public void setBillno2(String billno2) {
+		this.billno2 = billno2;
+	}
+
+	public String getBillno3() {
+		return billno3;
+	}
+
+	public void setBillno3(String billno3) {
+		this.billno3 = billno3;
 	}
 }

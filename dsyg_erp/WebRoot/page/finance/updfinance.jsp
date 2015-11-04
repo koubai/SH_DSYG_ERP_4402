@@ -47,6 +47,11 @@
 		//付款状态
 		var status2 = $("#status2").val().trim();
 		
+		//发票
+		var strBillno1 = $("#strBillno1").val().trim();
+		var strBillno2 = $("#strBillno2").val().trim();
+		var strBillno3 = $("#strBillno3").val().trim();
+		
 		if(receiptid == "") {
 		}
 		if(handler == "") {
@@ -115,6 +120,28 @@
 			}
 			$("#status").val($("#status1").val());
 		}
+		
+		//根据当前状态，判断是否需要输入发票
+		if(mode == "1") {
+			//收款记录
+			if(status2 == "20" || status2 == "99") {
+				if(strBillno1 == "" && strBillno2 == "" && strBillno3 == "") {
+					alert("请输入发票号！");
+					$("#strBillno1").focus();
+					return;
+				}
+			}
+		} else {
+			//付款记录
+			if(status == "10" || status == "99") {
+				if(strBillno1 == "" && strBillno2 == "" && strBillno3 == "") {
+					alert("请输入发票号！");
+					$("#strBillno1").focus();
+					return;
+				}
+			}
+		}
+		
 		$("#receiptdate").val($("#tmpReceiptdate").val());
 		$("#accountdate").val($("#tmpAccountdate").val());
 		return true;
@@ -188,7 +215,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<input type="text" id="tmphandlername" disabled="disabled" style="width:285px;" value="<s:property value="updFinanceDto.handlername"/>" />
+									<input type="text" id="tmphandlername" disabled="disabled" style="width:300px;" value="<s:property value="updFinanceDto.handlername"/>" />
 								</div>
 								<div class="box1_right"></div>
 								<div class="btn">
@@ -212,7 +239,7 @@
 								<div class="box1_right"></div>
 							</td>
 							<td align="right">
-								<label class="pdf10"><font color="red"></font>单据日期</label>
+								<label class="pdf10"><font color="red"></font>开票日期</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>
@@ -338,7 +365,7 @@
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>状态</label>
 							</td>
-							<td colspan="3">
+							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
 									<s:if test='%{updFinanceDto.mode == "2"}'>
@@ -351,24 +378,35 @@
 											<option value="">请选择</option>
 											<option value="1" selected="selected">未收到发票, 未付款</option>
 											<option value="10">收到发票, 安排付款</option>
+											<option value="15">未收到发票, 已付款</option>
 											<option value="99">收到发票, 已付款</option>
 										</s:if>
 										<s:elseif test="%{updFinanceDto.status == 10}">
 											<option value="">请选择</option>
 											<option value="1">未收到发票, 未付款</option>
 											<option value="10" selected="selected">收到发票, 安排付款</option>
+											<option value="15">未收到发票, 已付款</option>
+											<option value="99">收到发票, 已付款</option>
+										</s:elseif>
+										<s:elseif test="%{updFinanceDto.status == 15}">
+											<option value="">请选择</option>
+											<option value="1">未收到发票, 未付款</option>
+											<option value="10">收到发票, 安排付款</option>
+											<option value="15" selected="selected">未收到发票, 已付款</option>
 											<option value="99">收到发票, 已付款</option>
 										</s:elseif>
 										<s:elseif test="%{updFinanceDto.status == 99}">
 											<option value="">请选择</option>
 											<option value="1">未收到发票, 未付款</option>
 											<option value="10">收到发票, 安排付款</option>
+											<option value="15">未收到发票, 已付款</option>
 											<option value="99" selected="selected">收到发票, 已付款</option>
 										</s:elseif>
 										<s:else>
 											<option value="" selected="selected">请选择</option>
 											<option value="1">未收到发票, 未付款</option>
 											<option value="10">收到发票, 安排付款</option>
+											<option value="15">未收到发票, 已付款</option>
 											<option value="99">收到发票, 已付款</option>
 										</s:else>
 									</select>
@@ -382,6 +420,7 @@
 											<option value="">请选择</option>
 											<option value="1" selected="selected">未对帐</option>
 											<option value="10">已对帐, 未开票</option>
+											<option value="15">已收款, 未对账</option>
 											<option value="20">已开票, 未收款</option>
 											<option value="99">已开票, 已收款</option>
 										</s:if>
@@ -389,6 +428,15 @@
 											<option value="">请选择</option>
 											<option value="1">未对帐</option>
 											<option value="10" selected="selected">已对帐, 未开票</option>
+											<option value="15">已收款, 未对账</option>
+											<option value="20">已开票, 未收款</option>
+											<option value="99">已开票, 已收款</option>
+										</s:elseif>
+										<s:elseif test="%{updFinanceDto.status == 15}">
+											<option value="">请选择</option>
+											<option value="1">未对帐</option>
+											<option value="10">已对帐, 未开票</option>
+											<option value="15" selected="selected">已收款, 未对账</option>
 											<option value="20">已开票, 未收款</option>
 											<option value="99">已开票, 已收款</option>
 										</s:elseif>
@@ -396,6 +444,7 @@
 											<option value="">请选择</option>
 											<option value="1">未对帐</option>
 											<option value="10">已对帐, 未开票</option>
+											<option value="15">已收款, 未对账</option>
 											<option value="20" selected="selected">已开票, 未收款</option>
 											<option value="99">已开票, 已收款</option>
 										</s:elseif>
@@ -403,6 +452,7 @@
 											<option value="">请选择</option>
 											<option value="1">未对帐</option>
 											<option value="10">已对帐, 未开票</option>
+											<option value="15">已收款, 未对账</option>
 											<option value="20">已开票, 未收款</option>
 											<option value="99" selected="selected">已开票, 已收款</option>
 										</s:elseif>
@@ -410,10 +460,43 @@
 											<option value="" selected="selected">请选择</option>
 											<option value="1">未对帐</option>
 											<option value="10">已对帐, 未开票</option>
+											<option value="15">已收款, 未对账</option>
 											<option value="20">已开票, 未收款</option>
 											<option value="99">已开票, 已收款</option>
 										</s:else>
 									</select>
+								</div>
+								<div class="box1_right"></div>
+							</td>
+							<td align="right">
+								<label class="pdf10">发票1</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<input name="strBillno1" id="strBillno1" maxlength="32" style="width:300px;" value="<s:property value="updFinanceDto.billno1"/>"/>
+								</div>
+								<div class="box1_right"></div>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10">发票2</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<input name="strBillno2" id="strBillno2" maxlength="32" style="width:300px;" value="<s:property value="updFinanceDto.billno2"/>"/>
+								</div>
+								<div class="box1_right"></div>
+							</td>
+							<td align="right">
+								<label class="pdf10">发票3</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<input name="strBillno3" id="strBillno3" maxlength="32" style="width:300px;" value="<s:property value="updFinanceDto.billno3"/>"/>
 								</div>
 								<div class="box1_right"></div>
 							</td>

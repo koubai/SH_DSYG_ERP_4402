@@ -194,7 +194,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<input type="text" id="tmphandlername" disabled="disabled" style="width:285px;" value="<s:property value="addFinanceDto.handlername"/>" />
+									<input type="text" id="tmphandlername" disabled="disabled" style="width:300px;" value="<s:property value="addFinanceDto.handlername"/>" />
 								</div>
 								<div class="box1_right"></div>
 								<div class="btn">
@@ -321,71 +321,94 @@
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>状态</label>
 							</td>
-							<td colspan="3">
+							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:if test='%{updFinanceDto.mode == "2"}'>
+									<s:if test='%{addFinanceDto.mode == "2"}'>
 										<select id="status1" style="width: 300px;">
 									</s:if>
 									<s:else>
 										<select id="status1" style="width: 300px;display: none;">
 									</s:else>
-										<s:if test="%{updFinanceDto.status == 1}">
+										<s:if test="%{addFinanceDto.status == 1}">
 											<option value="">请选择</option>
 											<option value="1" selected="selected">未收到发票, 未付款</option>
 											<option value="10">收到发票, 安排付款</option>
+											<option value="15">未收到发票, 已付款</option>
 											<option value="99">收到发票, 已付款</option>
 										</s:if>
-										<s:elseif test="%{updFinanceDto.status == 10}">
+										<s:elseif test="%{addFinanceDto.status == 10}">
 											<option value="">请选择</option>
 											<option value="1">未收到发票, 未付款</option>
 											<option value="10" selected="selected">收到发票, 安排付款</option>
+											<option value="15">未收到发票, 已付款</option>
 											<option value="99">收到发票, 已付款</option>
 										</s:elseif>
-										<s:elseif test="%{updFinanceDto.status == 99}">
+										<s:elseif test="%{addFinanceDto.status == 15}">
 											<option value="">请选择</option>
 											<option value="1">未收到发票, 未付款</option>
 											<option value="10">收到发票, 安排付款</option>
+											<option value="15" selected="selected">未收到发票, 已付款</option>
+											<option value="99">收到发票, 已付款</option>
+										</s:elseif>
+										<s:elseif test="%{addFinanceDto.status == 99}">
+											<option value="">请选择</option>
+											<option value="1">未收到发票, 未付款</option>
+											<option value="10">收到发票, 安排付款</option>
+											<option value="15">未收到发票, 已付款</option>
 											<option value="99" selected="selected">收到发票, 已付款</option>
 										</s:elseif>
 										<s:else>
 											<option value="" selected="selected">请选择</option>
 											<option value="1">未收到发票, 未付款</option>
 											<option value="10">收到发票, 安排付款</option>
+											<option value="15">未收到发票, 已付款</option>
 											<option value="99">收到发票, 已付款</option>
 										</s:else>
 									</select>
-									<s:if test='%{updFinanceDto.mode == "1"}'>
+									<s:if test='%{addFinanceDto.mode == "1"}'>
 										<select id="status2" style="width: 300px;">
 									</s:if>
 									<s:else>
 										<select id="status2" style="width: 300px;display: none;">
 									</s:else>
-										<s:if test="%{updFinanceDto.status == 1}">
+										<s:if test="%{addFinanceDto.status == 1}">
 											<option value="">请选择</option>
 											<option value="1" selected="selected">未对帐</option>
 											<option value="10">已对帐, 未开票</option>
+											<option value="15">已收款, 未对账</option>
 											<option value="20">已开票, 未收款</option>
 											<option value="99">已开票, 已收款</option>
 										</s:if>
-										<s:elseif test="%{updFinanceDto.status == 10}">
+										<s:elseif test="%{addFinanceDto.status == 10}">
 											<option value="">请选择</option>
 											<option value="1">未对帐</option>
 											<option value="10" selected="selected">已对帐, 未开票</option>
+											<option value="15">已收款, 未对账</option>
 											<option value="20">已开票, 未收款</option>
 											<option value="99">已开票, 已收款</option>
 										</s:elseif>
-										<s:elseif test="%{updFinanceDto.status == 20}">
+										<s:elseif test="%{addFinanceDto.status == 15}">
 											<option value="">请选择</option>
 											<option value="1">未对帐</option>
 											<option value="10">已对帐, 未开票</option>
+											<option value="15" selected="selected">已收款, 未对账</option>
+											<option value="20">已开票, 未收款</option>
+											<option value="99">已开票, 已收款</option>
+										</s:elseif>
+										<s:elseif test="%{addFinanceDto.status == 20}">
+											<option value="">请选择</option>
+											<option value="1">未对帐</option>
+											<option value="10">已对帐, 未开票</option>
+											<option value="15">已收款, 未对账</option>
 											<option value="20" selected="selected">已开票, 未收款</option>
 											<option value="99">已开票, 已收款</option>
 										</s:elseif>
-										<s:elseif test="%{updFinanceDto.status == 99}">
+										<s:elseif test="%{addFinanceDto.status == 99}">
 											<option value="">请选择</option>
 											<option value="1">未对帐</option>
 											<option value="10">已对帐, 未开票</option>
+											<option value="15">已收款, 未对账</option>
 											<option value="20">已开票, 未收款</option>
 											<option value="99" selected="selected">已开票, 已收款</option>
 										</s:elseif>
@@ -393,10 +416,43 @@
 											<option value="" selected="selected">请选择</option>
 											<option value="1">未对帐</option>
 											<option value="10">已对帐, 未开票</option>
+											<option value="15">已收款, 未对账</option>
 											<option value="20">已开票, 未收款</option>
 											<option value="99">已开票, 已收款</option>
 										</s:else>
 									</select>
+								</div>
+								<div class="box1_right"></div>
+							</td>
+							<td align="right">
+								<label class="pdf10">发票1</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<s:textfield name="addFinanceDto.billno1" id="billno1" maxlength="32" cssStyle="width:300px;" theme="simple"></s:textfield>
+								</div>
+								<div class="box1_right"></div>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10">发票2</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<s:textfield name="addFinanceDto.billno2" id="billno2" maxlength="32" cssStyle="width:300px;" theme="simple"></s:textfield>
+								</div>
+								<div class="box1_right"></div>
+							</td>
+							<td align="right">
+								<label class="pdf10">发票3</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<s:textfield name="addFinanceDto.billno3" id="billno3" maxlength="32" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>

@@ -35,13 +35,14 @@ public class FinanceServiceImpl implements FinanceService {
 	@Override
 	public Page queryFinanceByPage(String status, String financetype,
 			String invoiceid, String receiptid, String customerid,
-			String receiptdateLow, String receiptdateHigh, Page page) {
+			String receiptdateLow, String receiptdateHigh, String billno, Page page) {
 		invoiceid = StringUtil.replaceDatabaseKeyword_mysql(invoiceid);
 		receiptid = StringUtil.replaceDatabaseKeyword_mysql(receiptid);
+		billno = StringUtil.replaceDatabaseKeyword_mysql(billno);
 		
 		//查询总记录数
 		int totalCount = financeDao.queryFinanceCountByPage(status, financetype,
-				invoiceid, receiptid, customerid, receiptdateLow, receiptdateHigh);
+				invoiceid, receiptid, customerid, receiptdateLow, receiptdateHigh, billno);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -49,7 +50,8 @@ public class FinanceServiceImpl implements FinanceService {
 			page.setTotalPage(totalCount / page.getPageSize());
 		}
 		//翻页查询记录
-		List<FinanceDto> list = financeDao.queryFinanceByPage(status, financetype, invoiceid, receiptid, customerid, receiptdateLow, receiptdateHigh,
+		List<FinanceDto> list = financeDao.queryFinanceByPage(status, financetype, invoiceid, receiptid,
+				customerid, receiptdateLow, receiptdateHigh, billno,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		if(list != null && list.size() > 0) {
 			for(FinanceDto finance : list) {

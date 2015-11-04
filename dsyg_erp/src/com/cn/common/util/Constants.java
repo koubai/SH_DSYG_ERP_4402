@@ -294,6 +294,8 @@ public class Constants {
 	public final static int FINANCE_STATUS_NEW = 1;
 	//收到发票, 安排付款/已对帐, 未开票
 	public final static int FINANCE_STATUS_PAY_APPLY = 10;
+	//未收到发票, 已付款/已收款, 未对账
+	public final static int FINANCE_STATUS_PAY_PAYED = 15;
 	//已开票, 未收款
 	public final static int FINANCE_STATUS_PAY_APPROVE = 20;
 	//收到发票, 已付款 (完成)/已开票, 已收款

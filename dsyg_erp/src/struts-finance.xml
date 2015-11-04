@@ -54,6 +54,10 @@
 			<result name="*">/page/finance/financelist.jsp</result>
 		</action>
 		
+		<action name="updFinanceStatusBillnoAction" class="financeAction" method="updFinanceStatusBillnoAction">
+			<result name="*">/page/finance/financelist.jsp</result>
+		</action>
+		
 		<action name="showAddFinanceAction" class="financeAction" method="showAddFinanceAction">
 			<result name="*">/page/finance/addfinance.jsp</result>
 		</action>
@@ -74,6 +78,10 @@
 			<result name="*">/page/finance/financeinlist.jsp</result>
 		</action>
 		
+		<action name="updFinanceInStatusBillnoAction" class="financeApproveAction" method="updFinanceInStatusBillnoAction">
+			<result name="*">/page/finance/financeinlist.jsp</result>
+		</action>
+		
 		<action name="showFinanceInAction" class="financeApproveAction" method="showFinanceInAction">
 			<result name="*">/page/finance/financeinlist.jsp</result>
 		</action>
@@ -87,6 +95,10 @@
 		</action>
 		
 		<action name="updFinanceOutStatusAction" class="financeApproveAction" method="updFinanceOutStatusAction">
+			<result name="*">/page/finance/financeoutlist.jsp</result>
+		</action>
+		
+		<action name="updFinanceOutStatusBillnoAction" class="financeApproveAction" method="updFinanceOutStatusBillnoAction">
 			<result name="*">/page/finance/financeoutlist.jsp</result>
 		</action>
 		

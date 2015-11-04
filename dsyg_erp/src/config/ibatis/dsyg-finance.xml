@@ -65,6 +65,9 @@
 		<isNotEmpty prepend="and" property="receiptdateHigh">
 			T.receiptdate <![CDATA[<]]> #receiptdateHigh#
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="billno">
+			T.res10 like '%$billno$%' ESCAPE '/'
+		</isNotEmpty>
 		order by T.updatedate desc,T.id desc
 		LIMIT #start#, #end#
 	</select>
@@ -91,6 +94,9 @@
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="receiptdateHigh">
 			T.receiptdate <![CDATA[<]]> #receiptdateHigh#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="billno">
+			T.res10 like '%$billno$%' ESCAPE '/'
 		</isNotEmpty>
 	</select>
 	
