@@ -388,7 +388,7 @@ public class FinanceAction extends BaseAction {
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
 		page = financeService.queryFinanceByPage("", "", "",
-				"", "", strReceiptdateLow, strReceiptdateHigh, strBillno, page);
+				"", "", strReceiptdateLow, strReceiptdateHigh, strBillno, "", page);
 		financeList = (List<FinanceDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}

@@ -25,7 +25,7 @@ public interface FinanceService {
 	 * @return
 	 */
 	public Page queryFinanceByPage(String status, String financetype, String invoiceid,
-			String receiptid, String customerid, String receiptdateLow, String receiptdateHigh, String billno, Page page);
+			String receiptid, String customerid, String receiptdateLow, String receiptdateHigh, String billno, String res02, Page page);
 	
 	/**
 	 * 根据ID查询记录

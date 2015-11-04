@@ -134,7 +134,7 @@
 						<table width="100%" border="1" cellpadding="5" cellspacing="0">
 						</table>
 					</div>
-					<div class="tab_content">
+					<div class="tab_content" style="height: <s:property value="intPageSize * 35"/>px;">
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
 								<td width="30">序号</td>

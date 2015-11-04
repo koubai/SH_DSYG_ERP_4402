@@ -68,6 +68,9 @@
 		<isNotEmpty prepend="and" property="billno">
 			T.res10 like '%$billno$%' ESCAPE '/'
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="res02">
+			T.res02 like '%$res02$%' ESCAPE '/'
+		</isNotEmpty>
 		order by T.updatedate desc,T.id desc
 		LIMIT #start#, #end#
 	</select>
@@ -97,6 +100,9 @@
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="billno">
 			T.res10 like '%$billno$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="res02">
+			T.res02 like '%$res02$%' ESCAPE '/'
 		</isNotEmpty>
 	</select>
 	

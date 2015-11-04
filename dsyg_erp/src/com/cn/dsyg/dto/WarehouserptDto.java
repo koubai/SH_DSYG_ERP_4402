@@ -220,6 +220,14 @@ public class WarehouserptDto extends BaseAction {
 	private String billno2;
 	private String billno3;
 
+	//快递单据日期
+	private String receiptdate;
+
+	/**
+	 * 开票日期（显示用）
+	 */
+	private String showReceiptdate;
+
 	/**
 	 * 预备项目1
 	 */
@@ -750,4 +758,26 @@ public class WarehouserptDto extends BaseAction {
 	public void setBillno3(String billno3) {
 		this.billno3 = billno3;
 	}
+
+	public String getReceiptdate() {
+		return receiptdate;
+	}
+
+	public void setReceiptdate(String receiptdate) {
+		this.receiptdate = receiptdate;
+	}
+	
+	public String getShowReceiptdate() {
+		if(receiptdate != null && !"".equals(receiptdate)) {
+			showReceiptdate = receiptdate.substring(0, 10);
+		} else {
+			showReceiptdate = "";
+		}
+		return showReceiptdate;
+	}
+
+	public void setShowReceiptdate(String showReceiptdate) {
+		this.showReceiptdate = showReceiptdate;
+	}
+
 }

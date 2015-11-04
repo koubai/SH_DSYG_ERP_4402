@@ -28,7 +28,7 @@ public interface FinanceDao {
 	 */
 	public List<FinanceDto> queryFinanceByPage(String status, String financetype, String invoiceid,
 			String receiptid, String customerid, String receiptdateLow, String receiptdateHigh,
-			String billno, int start, int end);
+			String billno, String res02, int start, int end);
 	
 	/**
 	 * 查询记录数
@@ -43,7 +43,7 @@ public interface FinanceDao {
 	 * @return
 	 */
 	public int queryFinanceCountByPage(String status, String financetype, String invoiceid,
-			String receiptid, String customerid, String receiptdateLow, String receiptdateHigh, String billno);
+			String receiptid, String customerid, String receiptdateLow, String receiptdateHigh, String billno, String res02);
 	
 	/**
 	 * 根据ID查询记录

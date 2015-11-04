@@ -280,7 +280,7 @@
 						<table width="100%" border="1" cellpadding="5" cellspacing="0">
 						</table>
 					</div>
-					<div class="tab_content">
+					<div class="tab_content" style="height: <s:property value="intPageSize * 35"/>px;">
 						<div id="divbillno" style="position: absolute; margin-top: 60px; margin-left: 300px; display: none; z-index:1111;">
 							<table class="info_tab" style="height: 200px; width: 350px;" border="0" cellpadding="5" cellspacing="0" bgcolor="white">
 								<tr>

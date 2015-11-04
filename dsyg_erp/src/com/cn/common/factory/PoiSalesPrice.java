@@ -93,8 +93,9 @@ public class PoiSalesPrice {
     		
         	products.append("<tr>");   
             products.append("<td style=\"border:solid; border-width:0px 0px 1px 1px;\">");  
-            products.append(updSalesItemList.get(i).getTradename() + typeno + item01 + packaging + " - " + 
-            		dictMap.get(Constants.DICT_COLOR_TYPE + "_" + updSalesItemList.get(i).getColor()));  
+//            products.append(updSalesItemList.get(i).getTradename() + typeno + item01 + packaging + " - " + 
+//            		dictMap.get(Constants.DICT_COLOR_TYPE + "_" + updSalesItemList.get(i).getColor()));  
+            products.append(updSalesItemList.get(i).getTradename() + typeno + item01);  
             products.append("</td>"); 
             products.append("<td style=\"border:solid; border-width:0px 0px 1px 1px;\">"); 
         	if(dictMap.get(Constants.DICT_UNIT_TYPE + "_" + updSalesItemList.get(i).getUnit()) != null){

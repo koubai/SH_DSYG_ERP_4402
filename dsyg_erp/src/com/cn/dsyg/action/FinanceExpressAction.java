@@ -50,6 +50,9 @@ public class FinanceExpressAction extends BaseAction {
 	//单据日期终
 	private String strReceiptdateHigh;
 	
+	//客户名称
+	private String strCustomerName;
+
 	//新增
 	private FinanceDto addFinanceDto;
 	
@@ -221,7 +224,7 @@ public class FinanceExpressAction extends BaseAction {
 		this.page.setStartIndex(startIndex);
 		//这里只查询快递财务记录
 		page = financeService.queryFinanceByPage("", "" + Constants.FINANCE_TYPE_DELIVERY, "",
-				"", "", strReceiptdateLow, strReceiptdateHigh, "", page);
+				"", "", strReceiptdateLow, strReceiptdateHigh, "", strCustomerName, page);
 		financeList = (List<FinanceDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -372,4 +375,13 @@ public class FinanceExpressAction extends BaseAction {
 	public void setUpdFinanceId(String updFinanceId) {
 		this.updFinanceId = updFinanceId;
 	}
+
+	public String getStrCustomerName() {
+		return strCustomerName;
+	}
+
+	public void setStrCustomerName(String strCustomerName) {
+		this.strCustomerName = strCustomerName;
+	}
+
 }
