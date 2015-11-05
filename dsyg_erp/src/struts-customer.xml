@@ -81,6 +81,18 @@
 			<result name="*">/page/customer/customer_selectusers.jsp</result>
 		</action>
 		
+		<action name="showDetailCustomerSelectPage" class="customerAction" method="showSelectCustomerAction">
+			<result name="*">/page/customer/selectdetailcustomer.jsp</result>
+		</action>
+		
+		<action name="queryDetailCustomerSelectAction" class="customerAction" method="querySelectCustomerAction">
+			<result name="*">/page/customer/selectdetailcustomer.jsp</result>
+		</action>
+		
+		<action name="turnDetailCustomerSelectAction" class="customerAction" method="turnSelectCustomerAction">
+			<result name="*">/page/customer/selectdetailcustomer.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

@@ -47,6 +47,11 @@ public class SalesItemDto extends BaseAction {
 	
 	//================产品信息
 	/**
+	 * 类型
+	 */
+	private String fieldno;
+	
+	/**
 	 * 品名
 	 */
 	private String tradename;
@@ -70,6 +75,11 @@ public class SalesItemDto extends BaseAction {
 	 * 单位
 	 */
 	private String unit;
+	
+	/**
+	 * 产地
+	 */
+	private String makearea;
 	//==================
 	
 	//================销售价信息
@@ -594,5 +604,21 @@ public class SalesItemDto extends BaseAction {
 
 	public void setTaxunitprice(BigDecimal taxunitprice) {
 		this.taxunitprice = taxunitprice;
+	}
+
+	public String getFieldno() {
+		return fieldno;
+	}
+
+	public void setFieldno(String fieldno) {
+		this.fieldno = fieldno;
+	}
+
+	public String getMakearea() {
+		return makearea;
+	}
+
+	public void setMakearea(String makearea) {
+		this.makearea = makearea;
 	}	
 }

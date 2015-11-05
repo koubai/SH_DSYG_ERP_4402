@@ -2,6 +2,7 @@ package com.cn.dsyg.dao;
 
 import java.util.List;
 
+import com.cn.dsyg.dto.SalesDto;
 import com.cn.dsyg.dto.SalesItemDto;
 
 /**
@@ -11,6 +12,24 @@ import com.cn.dsyg.dto.SalesItemDto;
  * @version 1.0
  */
 public interface SalesItemDao {
+
+	//detail start
+	/**
+	 * 根据条件查询满足条件的销售单数量
+	 * @param customerid
+	 * @return
+	 */
+	public int queryDetailProductCountByPage(String customerid);
+	
+	/**
+	 * 翻页查询满足条件的销售数据
+	 * @param customerid
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public List<SalesItemDto> queryDetailProductByPage(String customerid, int start, int end);
+	//detail end
 	
 	/**
 	 * 根据销售单号查询销售单货物列表

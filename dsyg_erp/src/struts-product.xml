@@ -103,6 +103,18 @@
 		<action name="exportProductCostAction" class="productCostCheckAction" method="exportProductCostAction">
 			<result name="success">/page/download.jsp</result>
 		</action>
+		
+		<action name="showDetailProductSelectPage" class="productAction" method="showDetailProductSelectPage">
+			<result name="*">/page/product/selectdetailproduct.jsp</result>
+		</action>
+		
+		<action name="queryDetailProductSelectPage" class="productAction" method="queryDetailProductSelectPage">
+			<result name="*">/page/product/selectdetailproduct.jsp</result>
+		</action>
+		
+		<action name="turnDetailProductSelectPage" class="productAction" method="turnDetailProductSelectPage">
+			<result name="*">/page/product/selectdetailproduct.jsp</result>
+		</action>
 	</package>
 
 </struts>

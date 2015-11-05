@@ -58,6 +58,8 @@
 	<include file="struts-pregathering.xml"></include>
 	<!-- requestcash -->
 	<include file="struts-requestcash.xml"></include>
+	<!-- detail -->
+	<include file="struts-detail.xml"></include>
 	
 	<package name="index" extends="struts-default, json-default" namespace="/index">
 		

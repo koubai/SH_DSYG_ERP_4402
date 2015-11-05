@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.cn.common.dao.BaseDao;
 import com.cn.dsyg.dao.SalesItemDao;
+import com.cn.dsyg.dto.SalesDto;
 import com.cn.dsyg.dto.SalesItemDto;
 
 /**
@@ -65,6 +66,25 @@ public class SalesItemDaoImpl extends BaseDao implements SalesItemDao {
 		paramMap.put("end", end);
 		@SuppressWarnings("unchecked")
 		List<SalesItemDto> list = getSqlMapClientTemplate().queryForList("querySalesItemByProductid", paramMap);
+		return list;
+	}
+
+	@Override
+	public int queryDetailProductCountByPage(String customerid) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("customerid", customerid);
+		return (Integer) getSqlMapClientTemplate().queryForObject("queryDetailProductCountByPage", paramMap);
+	}
+
+	@Override
+	public List<SalesItemDto> queryDetailProductByPage(String customerid, int start, int end) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("customerid", customerid);
+		
+		paramMap.put("start", start);
+		paramMap.put("end", end);
+		@SuppressWarnings("unchecked")
+		List<SalesItemDto> list = getSqlMapClientTemplate().queryForList("queryDetailProductByPage", paramMap);
 		return list;
 	}
 }

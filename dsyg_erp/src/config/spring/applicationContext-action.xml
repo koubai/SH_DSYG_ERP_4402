@@ -322,6 +322,16 @@
 		
 	</bean>
 
+	<!-- detail -->
+	<bean id="detailAction" class="com.cn.dsyg.action.DetailAction" scope="session">
+		<property name="detailService">
+			<ref bean="detailService"/>
+		</property>
+		<property name="dict01Service">
+			<ref bean="dict01Service"/>
+		</property>
+	</bean>
+
 	<!-- chart -->
 	<bean id="calendarAction" class="com.cn.dsyg.action.CalendarAction" scope="session">
 	</bean>

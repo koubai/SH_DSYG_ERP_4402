@@ -484,5 +484,15 @@
 			<ref bean="sqlMapClient"/>
 		</property>
 	</bean>
+
+	<!-- detail -->
+	<bean id="detailService" class="com.cn.dsyg.service.impl.DetailServiceImpl" >
+		<property name="salesDao">
+			<ref local="salesDao"/>
+		</property>
+		<property name="salesItemDao">
+			<ref local="salesItemDao"/>
+		</property>
+	</bean>
 	
 </beans>

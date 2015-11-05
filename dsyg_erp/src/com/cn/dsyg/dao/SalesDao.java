@@ -93,4 +93,22 @@ public interface SalesDao {
 	 * @param sales
 	 */
 	public void updateSales(SalesDto sales);
+	
+
+	
+	/**
+	 * 根据条件查询满足条件的销售单数量
+	 * @param productid
+	 * @return
+	 */
+	public int queryDetailCustomerCountByPage(String productid);
+	
+	/**
+	 * 翻页查询满足条件的销售数据
+	 * @param productid
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public List<SalesDto> queryDetailCustomerByPage(String productid, int start, int end);
 }

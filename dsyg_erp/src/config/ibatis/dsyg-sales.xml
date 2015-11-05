@@ -76,6 +76,26 @@
 	</select>
 	<!-- finance -->
 	
+	<!-- detail -->
+	<select id="queryDetailCustomerCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from (select S.* from etb_sales S,etb_salesitem T where S.theme2 = T.theme2
+		<isNotEmpty prepend="and" property="productid">
+			T.productid = #productid#
+		</isNotEmpty>
+		group by S.customerid) C
+	</select>
+	
+	<select id="queryDetailCustomerByPage" parameterClass="java.util.Map" resultMap="SalesDto">
+		select S.* from etb_sales S,etb_salesitem T where S.theme2 = T.theme2
+		<isNotEmpty prepend="and" property="productid">
+			T.productid = #productid#
+		</isNotEmpty>
+		group by S.customerid
+		order by T.updatedate desc
+		LIMIT #start#, #end#
+	</select>
+	<!-- detail -->
+	
 	<select id="querySalesCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from etb_sales T where 1 = 1 and status > 0
 		<isNotEmpty prepend="and" property="bookdateLow">

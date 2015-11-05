@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="detail" extends="struts-erp" namespace="/detail">
+	
+		<action name="showDetailAction" class="detailAction" method="showDetailAction">
+			<result name="*">/page/detail/detaillist.jsp</result>
+		</action>
+		
+		<action name="queryDetailProductList" class="detailAction" method="queryDetailProductList">
+			<result name="success">/page/detail/detaillist.jsp</result>
+		</action>
+		
+		<action name="turnDetailProductPage" class="detailAction" method="turnDetailProductPage">
+			<result name="success">/page/detail/detaillist.jsp</result>
+		</action>
+		
+		<action name="queryDetailCustomerList" class="detailAction" method="queryDetailCustomerList">
+			<result name="success">/page/detail/detaillist.jsp</result>
+		</action>
+		
+		<action name="turnDetailCustomerPage" class="detailAction" method="turnDetailCustomerPage">
+			<result name="success">/page/detail/detaillist.jsp</result>
+		</action>
+	</package>
+
+</struts>
