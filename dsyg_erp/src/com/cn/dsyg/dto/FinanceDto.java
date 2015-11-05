@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.cn.common.dto.BaseDto;
+import com.cn.common.util.StringUtil;
 
 /**
  * 财务信息表
@@ -135,6 +136,11 @@ public class FinanceDto extends BaseDto {
 	 * 状态
 	 */
 	private Integer status;
+	
+	//发票号
+	private String billno1;
+	private String billno2;
+	private String billno3;
 
 	/**
 	 * 预备项目1
@@ -518,6 +524,54 @@ public class FinanceDto extends BaseDto {
 
 	public void setHandlername(String handlername) {
 		this.handlername = handlername;
+	}
+
+	public String getBillno1() {
+		if(StringUtil.isNotBlank(res10)) {
+			String s[] = res10.split(";");
+			if(s.length > 0) {
+				billno1 = s[0];
+			}
+		} else {
+			billno1 = "";
+		}
+		return billno1;
+	}
+
+	public void setBillno1(String billno1) {
+		this.billno1 = billno1;
+	}
+
+	public String getBillno2() {
+		if(StringUtil.isNotBlank(res10)) {
+			String s[] = res10.split(";");
+			if(s.length > 1) {
+				billno2 = s[1];
+			}
+		} else {
+			billno2 = "";
+		}
+		return billno2;
+	}
+
+	public void setBillno2(String billno2) {
+		this.billno2 = billno2;
+	}
+
+	public String getBillno3() {
+		if(StringUtil.isNotBlank(res10)) {
+			String s[] = res10.split(";");
+			if(s.length > 2) {
+				billno3 = s[2];
+			}
+		} else {
+			billno3 = "";
+		}
+		return billno3;
+	}
+
+	public void setBillno3(String billno3) {
+		this.billno3 = billno3;
 	}
 
 

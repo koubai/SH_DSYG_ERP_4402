@@ -20,12 +20,23 @@
 		}
 	}
 	
+	//客户
+	function selectCustomer() {
+		var url = "../customer/showSelectCustomerAction.action";
+		url += "?date=" + new Date();
+		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	}
+
 	//验证数据格式
 	function checkItem() {
 		//账目编号
 		var receiptid = $("#receiptid").val().trim();
 		//快递ID
 		var expressid = $("#expressid").val().trim();
+		//客户ID
+		var res01 = $("#customerid").val().trim();
+		//客户名
+		var res02 = $("#customername").val().trim();
 		//快递单号
 		var res09 = $("#res09").val().trim();
 		//快递名
@@ -53,6 +64,11 @@
 		if(expressname == "") {
 			alert("快递名称不能为空！");
 			$("#expressname").focus();
+			return;
+		}
+		if(res02 == "") {
+			alert("请选择客户！");
+			$("#res02").focus();
 			return;
 		}
 		if(res09 == "") {
@@ -139,6 +155,14 @@
 			<s:form id="mainform" name="mainform" method="POST">
 				<s:hidden name="addFinanceDto.customerid" id="expressid"></s:hidden>
 				<s:hidden name="addFinanceDto.receiptdate" id="receiptdate"></s:hidden>
+				
+				<s:hidden name="addFinanceDto.res01" id="customerid"></s:hidden>
+				<s:hidden name="real_customermanager" id="customermanager"></s:hidden>
+				<s:hidden name="real_customeraddress" id="customeraddress"></s:hidden>
+				<s:hidden name="real_customertel" id="customertel"></s:hidden>
+				<s:hidden name="real_customerfax" id="customerfax"></s:hidden>
+				<s:hidden name="real_customermail" id="customermail"></s:hidden>
+								
 				<s:hidden name="addFinanceDto.note" id="note"></s:hidden>
 				<div class="searchbox update" style="height:0px;">
 					<table width="100%" border="0" cellpadding="5" cellspacing="0">
@@ -299,6 +323,26 @@
 								<div class="box1_right"></div>
 							</td>
 						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10"><font color="red">*</font>客户</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<s:textfield name="addFinanceDto.res02" id="customername" maxlength="32" cssStyle="width:300px;" theme="simple"></s:textfield>
+								</div>
+								<div class="box1_right"></div>
+								<div class="btn">
+									<div class="box1_left"></div>
+									<div class="box1_center">
+										<input class="input40" type="button" value="检索" onclick="selectCustomer();" />
+									</div>
+									<div class="box1_right"></div>
+								</div>
+							</td>
+						</tr>				
+						
 						<tr>
 							<td align="right">
 								<label class="pdf10">备注</label>

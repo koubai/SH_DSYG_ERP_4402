@@ -1,6 +1,7 @@
 package com.cn.dsyg.action;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
@@ -8,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
+import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
@@ -50,6 +52,8 @@ public class FinanceAction extends BaseAction {
 	private String strReceiptdateLow;
 	//单据日期终
 	private String strReceiptdateHigh;
+	//发票号
+	private String strBillno;
 	
 	//新增
 	private FinanceDto addFinanceDto;
@@ -61,8 +65,53 @@ public class FinanceAction extends BaseAction {
 	private String updStatusFinanceId;
 	private String updStatus;
 	
+	private String strBillno1;
+	private String strBillno2;
+	private String strBillno3;
+	private String strReceiptdate;
+	
 	/**
-	 * 更新物流状态
+	 * 更新财务记录状态（需输入发票号）
+	 * @return
+	 */
+	public String updFinanceStatusBillnoAction() {
+		try {
+			this.clearMessages();
+			//当前操作用户ID
+			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			FinanceDto finance = financeService.queryFinanceByID(updStatusFinanceId);
+			if(finance != null) {
+				finance.setUpdateuid(username);
+				finance.setStatus(Integer.valueOf(updStatus));
+				
+				//发票号
+				String res10 = "";
+				if(StringUtil.isNotBlank(strBillno1)) {
+					res10 += strBillno1 + ";";
+				}
+				if(StringUtil.isNotBlank(strBillno2)) {
+					res10 += strBillno2 + ";";
+				}
+				if(StringUtil.isNotBlank(strBillno3)) {
+					res10 += strBillno3 + ";";
+				}
+				finance.setRes10(res10);
+				//开票日期
+				finance.setReceiptdate(strReceiptdate);
+				
+				financeService.updateFinance(finance);
+			}
+			//刷新页面
+			queryData();
+		} catch(Exception e) {
+			log.error("updFinanceStatusBillnoAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 更新财务记录状态
 	 * @return
 	 */
 	public String updFinanceStatusAction() {
@@ -79,7 +128,7 @@ public class FinanceAction extends BaseAction {
 			//刷新页面
 			queryData();
 		} catch(Exception e) {
-			log.error("updFinanceOutStatusAction error:" + e);
+			log.error("updFinanceStatusAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -117,6 +166,23 @@ public class FinanceAction extends BaseAction {
 			}
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			
+			//发票号
+			String res10 = "";
+			if(StringUtil.isNotBlank(strBillno1)) {
+				res10 += strBillno1 + ";";
+			}
+			if(StringUtil.isNotBlank(strBillno2)) {
+				res10 += strBillno2 + ";";
+			}
+			if(StringUtil.isNotBlank(strBillno3)) {
+				res10 += strBillno3 + ";";
+			}
+			updFinanceDto.setRes10(res10);
+			updFinanceDto.setBillno1(strBillno1);
+			updFinanceDto.setBillno2(strBillno2);
+			updFinanceDto.setBillno3(strBillno3);
+			
 			updFinanceDto.setUpdateuid(username);
 			financeService.updateFinance(updFinanceDto);
 			this.addActionMessage("修改成功！");
@@ -193,6 +259,7 @@ public class FinanceAction extends BaseAction {
 			page = new Page(intPageSize);
 			strReceiptdateLow = "";
 			strReceiptdateHigh = "";
+			strBillno = "";
 			financeList = new ArrayList<FinanceDto>();
 		} catch(Exception e) {
 			log.error("showFinanceAction error:" + e);
@@ -309,6 +376,10 @@ public class FinanceAction extends BaseAction {
 	 */
 	@SuppressWarnings("unchecked")
 	private void queryData() {
+		strBillno1 = "";
+		strBillno2 = "";
+		strBillno3 = "";
+		strReceiptdate = DateUtil.dateToShortStr(new Date());
 		if(page == null) {
 			page = new Page(intPageSize);
 		}
@@ -317,7 +388,7 @@ public class FinanceAction extends BaseAction {
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
 		page = financeService.queryFinanceByPage("", "", "",
-				"", "", strReceiptdateLow, strReceiptdateHigh, page);
+				"", "", strReceiptdateLow, strReceiptdateHigh, strBillno, "", page);
 		financeList = (List<FinanceDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -440,5 +511,45 @@ public class FinanceAction extends BaseAction {
 
 	public void setUpdStatus(String updStatus) {
 		this.updStatus = updStatus;
+	}
+
+	public String getStrBillno1() {
+		return strBillno1;
+	}
+
+	public void setStrBillno1(String strBillno1) {
+		this.strBillno1 = strBillno1;
+	}
+
+	public String getStrBillno2() {
+		return strBillno2;
+	}
+
+	public void setStrBillno2(String strBillno2) {
+		this.strBillno2 = strBillno2;
+	}
+
+	public String getStrBillno3() {
+		return strBillno3;
+	}
+
+	public void setStrBillno3(String strBillno3) {
+		this.strBillno3 = strBillno3;
+	}
+
+	public String getStrReceiptdate() {
+		return strReceiptdate;
+	}
+
+	public void setStrReceiptdate(String strReceiptdate) {
+		this.strReceiptdate = strReceiptdate;
+	}
+
+	public String getStrBillno() {
+		return strBillno;
+	}
+
+	public void setStrBillno(String strBillno) {
+		this.strBillno = strBillno;
 	}
 }

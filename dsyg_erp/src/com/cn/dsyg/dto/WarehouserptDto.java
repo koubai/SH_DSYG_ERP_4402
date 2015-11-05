@@ -211,6 +211,22 @@ public class WarehouserptDto extends BaseAction {
 	 * 状态
 	 */
 	private Integer status;
+	
+	//财务记录发票
+	private String financeBillno;
+	
+	//发票号
+	private String billno1;
+	private String billno2;
+	private String billno3;
+
+	//快递单据日期
+	private String receiptdate;
+
+	/**
+	 * 开票日期（显示用）
+	 */
+	private String showReceiptdate;
 
 	/**
 	 * 预备项目1
@@ -710,4 +726,58 @@ public class WarehouserptDto extends BaseAction {
 	public void setListProduct(List<ProductDto> listProduct) {
 		this.listProduct = listProduct;
 	}
+
+	public String getFinanceBillno() {
+		return financeBillno;
+	}
+
+	public void setFinanceBillno(String financeBillno) {
+		this.financeBillno = financeBillno;
+	}
+
+	public String getBillno1() {
+		return billno1;
+	}
+
+	public void setBillno1(String billno1) {
+		this.billno1 = billno1;
+	}
+
+	public String getBillno2() {
+		return billno2;
+	}
+
+	public void setBillno2(String billno2) {
+		this.billno2 = billno2;
+	}
+
+	public String getBillno3() {
+		return billno3;
+	}
+
+	public void setBillno3(String billno3) {
+		this.billno3 = billno3;
+	}
+
+	public String getReceiptdate() {
+		return receiptdate;
+	}
+
+	public void setReceiptdate(String receiptdate) {
+		this.receiptdate = receiptdate;
+	}
+	
+	public String getShowReceiptdate() {
+		if(receiptdate != null && !"".equals(receiptdate)) {
+			showReceiptdate = receiptdate.substring(0, 10);
+		} else {
+			showReceiptdate = "";
+		}
+		return showReceiptdate;
+	}
+
+	public void setShowReceiptdate(String showReceiptdate) {
+		this.showReceiptdate = showReceiptdate;
+	}
+
 }

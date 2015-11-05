@@ -1,6 +1,7 @@
 package com.cn.dsyg.action;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
@@ -8,8 +9,10 @@ import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
+import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
+import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.WarehouserptDto;
 import com.cn.dsyg.service.Dict01Service;
@@ -59,7 +62,45 @@ public class FinanceApproveAction extends BaseAction {
 	private String updWarehouserptId;
 	private String updWarehouserptStatus;
 	
+	private String strBillno1;
+	private String strBillno2;
+	private String strBillno3;
+	private String strReceiptdate;
+	
 	//入库单
+	/**
+	 * 更新入库单状态（输入发票号）
+	 * @return
+	 */
+	public String updFinanceInStatusBillnoAction() {
+		try {
+			this.clearMessages();
+			
+			//当前操作用户ID
+			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			
+			//发票号
+			String res10 = "";
+			if(StringUtil.isNotBlank(strBillno1)) {
+				res10 += strBillno1 + ";";
+			}
+			if(StringUtil.isNotBlank(strBillno2)) {
+				res10 += strBillno2 + ";";
+			}
+			if(StringUtil.isNotBlank(strBillno3)) {
+				res10 += strBillno3 + ";";
+			}
+			//更新数据，带发票号
+			warehouserptService.approveWarehouserpt(updWarehouserptId, username, res10, strReceiptdate, updWarehouserptStatus);
+			//刷新页面
+			queryData("" + Constants.WAREHOUSE_TYPE_IN);
+		} catch(Exception e) {
+			log.error("updFinanceInStatusAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
 	/**
 	 * 更新入库单状态
 	 * @return
@@ -143,6 +184,39 @@ public class FinanceApproveAction extends BaseAction {
 	}
 	
 	//出库单
+	/**
+	 * 更新出库单状态（输入发票号）
+	 * @return
+	 */
+	public String updFinanceOutStatusBillnoAction() {
+		try {
+			this.clearMessages();
+			
+			//当前操作用户ID
+			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			
+			//发票号
+			String res10 = "";
+			if(StringUtil.isNotBlank(strBillno1)) {
+				res10 += strBillno1 + ";";
+			}
+			if(StringUtil.isNotBlank(strBillno2)) {
+				res10 += strBillno2 + ";";
+			}
+			if(StringUtil.isNotBlank(strBillno3)) {
+				res10 += strBillno3 + ";";
+			}
+			//更新数据，带发票号
+			warehouserptService.approveWarehouserpt(updWarehouserptId, username, res10, strReceiptdate, updWarehouserptStatus);
+			//刷新页面
+			queryData("" + Constants.WAREHOUSE_TYPE_OUT);
+		} catch(Exception e) {
+			log.error("updFinanceOutStatusAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
 	/**
 	 * 更新出库单状态
 	 * @return
@@ -244,6 +318,10 @@ public class FinanceApproveAction extends BaseAction {
 	 */
 	@SuppressWarnings("unchecked")
 	private void queryData(String type) {
+		strBillno1 = "";
+		strBillno2 = "";
+		strBillno3 = "";
+		strReceiptdate = DateUtil.dateToShortStr(new Date());
 		initDictList();
 		if(page == null) {
 			page = new Page(intPageSize);
@@ -365,5 +443,37 @@ public class FinanceApproveAction extends BaseAction {
 
 	public void setStrWarehousedateHigh(String strWarehousedateHigh) {
 		this.strWarehousedateHigh = strWarehousedateHigh;
+	}
+
+	public String getStrBillno1() {
+		return strBillno1;
+	}
+
+	public void setStrBillno1(String strBillno1) {
+		this.strBillno1 = strBillno1;
+	}
+
+	public String getStrBillno2() {
+		return strBillno2;
+	}
+
+	public void setStrBillno2(String strBillno2) {
+		this.strBillno2 = strBillno2;
+	}
+
+	public String getStrBillno3() {
+		return strBillno3;
+	}
+
+	public void setStrBillno3(String strBillno3) {
+		this.strBillno3 = strBillno3;
+	}
+
+	public String getStrReceiptdate() {
+		return strReceiptdate;
+	}
+
+	public void setStrReceiptdate(String strReceiptdate) {
+		this.strReceiptdate = strReceiptdate;
 	}
 }

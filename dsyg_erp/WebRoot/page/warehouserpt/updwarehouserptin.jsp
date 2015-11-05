@@ -42,6 +42,9 @@
 		var tmpWarehousedate = $("#tmpWarehousedate").val().trim();
 		//信箱
 		var expressmail = $("#expressmail").val().trim();
+		//单据日期
+		var tmpReceiptdate = $("#tmpReceiptdate").val().trim();
+
 		//备注
 		var tempNote = $("#tempNote").val().trim();
 		if(expressid == "") {
@@ -91,6 +94,12 @@
 			return;
 		}
 */		
+		if(tmpReceiptdate == "") {
+			alert("单据日期不能为空！");
+			$("#tmpReceiptdate").focus();
+			return;
+		}
+
 		if(tmpWarehousedate == "") {
 			alert("收货日期不能为空！");
 			$("#tmpWarehousedate").focus();
@@ -147,6 +156,7 @@
 			}
 		}
 		$("#warehousedate").val($("#tmpWarehousedate").val());
+		$("#receiptdate").val($("#tmpReceiptdate").val());
 		//备注
 		$("#note").val($("#tempNote").val());
 		return true;
@@ -186,6 +196,8 @@
 				<s:hidden name="updWarehouserptDto.note" id="note"></s:hidden>
 				<s:hidden name="updWarehouserptDto.expressid" id="expressid"></s:hidden>
 				<s:hidden name="updWarehouserptDto.warehousedate" id="warehousedate"></s:hidden>
+				<s:hidden name="updWarehouserptDto.receiptdate" id="receiptdate"></s:hidden>
+				
 				<div class="searchbox update" style="height:0px;">
 					<table width="100%" border="0" cellpadding="5" cellspacing="0">
 						<tr>
@@ -292,9 +304,16 @@
 								<div class="box1_right"></div>
 							</td>
 							<td align="right">
+								<label class="pdf10"><font color="red"></font>单据日期</label>
 							</td>
 							<td>
-							</td>
+								<div class="box1_left"></div>
+								<div class="box1_center date_input">
+									<input type="text" id="tmpReceiptdate" disabled="disabled" style="width:105px;" value="<s:property value="updWarehouserptDto.showReceiptdate"/>" />
+									<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpReceiptdate'));"></a>
+								</div>
+								<div class="box1_right"></div>
+							</td>							
 						</tr>
 						<tr>
 							<td align="right">

@@ -157,7 +157,17 @@
 						</div>
 						<div class="box1_right"></div>
 					</div>
-					<div class="btn" style="margin-left: 160px;">
+					
+					<div class="box1" >
+						<label class="pdf10" style="margin-left: 60px; width: 80px">客户名称</label>
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<s:textfield name="strCustomerName" id="strCustomerName" cssStyle="width:135px;" maxlength="50" theme="simple"></s:textfield>
+						</div>
+						<div class="box1_right"></div>
+					</div>
+					
+					<div class="btn" style="margin-left: 120px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
 							<input type="button" class="input40" value="检索" onclick="queryList();"/>
@@ -180,16 +190,17 @@
 						<table width="100%" border="1" cellpadding="5" cellspacing="0">
 						</table>
 					</div>
-					<div class="tab_content">
+					<div class="tab_content" style="height: <s:property value="intPageSize * 35"/>px;">
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
 								<td width="30"></td>
 								<td width="30">序号</td>
-								<td width="100">账目编号</td>
-								<td width="100">主题</td>
-								<td width="100">快递单号</td>
-								<td width="80">经手人</td>
-								<td width="120">单据日期</td>
+								<td width="80">账目编号</td>
+								<td width="30">主题</td>
+								<td width="80">快递单号</td>
+								<td width="50">经手人</td>
+								<td width="80">单据日期</td>
+								<td width="80">客户名称</td>
 								<td width="100">金额（含税）</td>
 								<td width="110">状态</td>
 							</tr>
@@ -227,7 +238,8 @@
 									<td><s:property value="res09"/></td>
 									<td><s:property value="handlername"/></td>
 									<td><s:property value="showReceiptdate"/></td>
-									<td><s:property value="amount"/></td>
+									<td><s:property value="res02"/></td>
+									<td align="right"><s:property value="amount"/></td>
 									<td>
 										<s:if test="financetype == 2">
 											<s:if test="%{status == 1}">

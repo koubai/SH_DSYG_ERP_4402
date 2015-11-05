@@ -19,7 +19,7 @@ public class FinanceDaoImpl extends BaseDao implements FinanceDao {
 	@Override
 	public List<FinanceDto> queryFinanceByPage(String status,
 			String financetype, String invoiceid, String receiptid,
-			String customerid, String receiptdateLow, String receiptdateHigh,
+			String customerid, String receiptdateLow, String receiptdateHigh, String billno, String res02,
 			int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("status", status);
@@ -29,6 +29,8 @@ public class FinanceDaoImpl extends BaseDao implements FinanceDao {
 		paramMap.put("customerid", customerid);
 		paramMap.put("receiptdateLow", receiptdateLow);
 		paramMap.put("receiptdateHigh", receiptdateHigh);
+		paramMap.put("billno", billno);
+		paramMap.put("res02", res02);
 		paramMap.put("start", start);
 		paramMap.put("end", end);
 		@SuppressWarnings("unchecked")
@@ -39,7 +41,7 @@ public class FinanceDaoImpl extends BaseDao implements FinanceDao {
 	@Override
 	public int queryFinanceCountByPage(String status, String financetype,
 			String invoiceid, String receiptid, String customerid,
-			String receiptdateLow, String receiptdateHigh) {
+			String receiptdateLow, String receiptdateHigh, String billno, String res02) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("status", status);
 		paramMap.put("financetype", financetype);
@@ -48,6 +50,8 @@ public class FinanceDaoImpl extends BaseDao implements FinanceDao {
 		paramMap.put("customerid", customerid);
 		paramMap.put("receiptdateLow", receiptdateLow);
 		paramMap.put("receiptdateHigh", receiptdateHigh);
+		paramMap.put("billno", billno);
+		paramMap.put("res02", res02);
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryFinanceCountByPage", paramMap);
 	}
 	

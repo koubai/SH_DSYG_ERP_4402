@@ -23,6 +23,95 @@
 		}
 	}
 	
+	
+	//审核，输入发票号（取消）
+	function cancel_auditorbillno() {
+		//清空发票输入框
+		$("#" + "strBillno1").val("");
+		$("#" + "strBillno2").val("");
+		$("#" + "strBillno3").val("");
+		
+		$("#" + "overlay").hide();
+		$("#" + "divbillno").hide();
+	}
+	
+	//审核，输入发票号（确定）
+	function auditorbillno() {
+		//判断发票号是否为空
+		var strBillno1 = $("#" + "strBillno1").val().trim();
+		var tmpReceiptdate = $("#" + "tmpReceiptdate").val().trim();
+		if(strBillno1 == "") {
+			alert("请输入发票号！");
+			$("#strBillno1").focus();
+			return;
+		}
+		if(tmpReceiptdate == "") {
+			alert("开票日期不能为空！");
+			$("#tmpReceiptdate").focus();
+			return;
+		}
+		$("#" + "strReceiptdate").val(tmpReceiptdate);
+		var id = $("#" + "tmpFinanceId").val();
+		var status = $("#" + "tmpFinanceStatus").val();
+		if(confirm("确认提交吗？")) {
+			document.mainform.action = "../finance/updFinanceInStatusBillnoAction.action?updWarehouserptId=" + id + "&updWarehouserptStatus=" + status;
+			document.mainform.submit();
+		}
+	}
+	
+	//审核
+	function auditor(id, type, billno) {
+		var status = $("#" + "statusList_" + id).val();
+		if(type == "2") {
+			//出库单记录
+			if(status == "20" || status == "99") {
+				if(billno == "") {
+					//对于已开票记录，则弹出输入发票页面
+					$("#" + "tmpFinanceId").val(id);
+					$("#" + "tmpFinanceStatus").val(status);
+					$("#" + "overlay").show();
+					$("#" + "divbillno").show();
+				} else {
+					if(confirm("确认提交吗？")) {
+						document.mainform.action = "../finance/updFinanceOutStatusAction.action?updWarehouserptId=" + id + "&updWarehouserptStatus=" + status;
+						document.mainform.submit();
+					}
+				}
+			} else {
+				if(confirm("确认提交吗？")) {
+					document.mainform.action = "../finance/updFinanceOutStatusAction.action?updWarehouserptId=" + id + "&updWarehouserptStatus=" + status;
+					document.mainform.submit();
+				}
+			}
+		} else {
+			//入库单记录
+			if(status == "10" || status == "99") {
+				if(billno == "") {
+					//对于已开票记录，则弹出输入发票页面
+					$("#" + "tmpFinanceId").val(id);
+					$("#" + "tmpFinanceStatus").val(status);
+					$("#" + "overlay").show();
+					$("#" + "divbillno").show();
+				} else {
+					if(confirm("确认提交吗？")) {
+						document.mainform.action = "../finance/updFinanceInStatusAction.action?updWarehouserptId=" + id + "&updWarehouserptStatus=" + status;
+						document.mainform.submit();
+					}
+				}
+			} else {
+				if(confirm("确认提交吗？")) {
+					document.mainform.action = "../finance/updFinanceInStatusAction.action?updWarehouserptId=" + id + "&updWarehouserptStatus=" + status;
+					document.mainform.submit();
+				}
+			}
+		}
+	}
+	
+	function showOkBtn(id) {
+		$("#" + "okbtn_" + id).show();
+	}
+	
+	
 	//查询日期赋值
 	function setQueryDate() {
 		$("#strWarehousedateLow").attr("value", $("#dateLow").val());
@@ -136,17 +225,72 @@
 						<table width="100%" border="1" cellpadding="5" cellspacing="0">
 						</table>
 					</div>
-					<div class="tab_content">
+					<div class="tab_content" style="height: <s:property value="intPageSize * 35"/>px;">
+						<div id="divbillno" style="position: absolute; margin-top: 60px; margin-left: 300px; display: none; z-index:1111;">
+							<table class="info_tab" style="height: 200px; width: 350px;" border="0" cellpadding="5" cellspacing="0" bgcolor="white">
+								<tr>
+									<td width="80"><label class="pdf10">发票1</label></td>
+									<td>
+										<div class="box1_left"></div>
+										<div class="box1_center">
+											<input type="text" style="display: none;" id="tmpFinanceId" />
+											<input type="text" style="display: none;" id="tmpFinanceStatus" />
+											<s:hidden id="strReceiptdate" name="strReceiptdate"></s:hidden>
+											<s:textfield name="strBillno1" id="strBillno1" cssStyle="width:180px;" maxlength="32" theme="simple"></s:textfield>
+										</div>
+										<div class="box1_right"></div>
+									</td>
+								</tr>
+								<tr>
+									<td><label class="pdf10">发票2</label></td>
+									<td>
+										<div class="box1_left"></div>
+										<div class="box1_center">
+											<s:textfield name="strBillno2" id="strBillno2" cssStyle="width:180px;" maxlength="32" theme="simple"></s:textfield>
+										</div>
+										<div class="box1_right"></div>
+									</td>
+								</tr>
+								<tr>
+									<td><label class="pdf10">发票3</label></td>
+									<td>
+										<div class="box1_left"></div>
+										<div class="box1_center">
+											<s:textfield name="strBillno3" id="strBillno3" cssStyle="width:180px;" maxlength="32" theme="simple"></s:textfield>
+										</div>
+										<div class="box1_right"></div>
+									</td>
+								</tr>
+								<tr>
+									<td><label class="pdf10">开票日期</label></td>
+									<td>
+										<div class="box1_left"></div>
+										<div class="box1_center date_input">
+											<input type="text" disabled="disabled" style="width: 165px;" id="tmpReceiptdate" value="<s:property value="strReceiptdate"/>" maxlength="10" />
+											<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpReceiptdate'));"></a>
+										</div>
+										<div class="box1_right"></div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" align="center">
+										<input type="button" class="input40" value="确定" onclick="auditorbillno();"/>
+										<input type="button" class="input40" value="取消" onclick="cancel_auditorbillno();"/>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div id="overlay" class="black_overlay"></div>
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
 								<td width="40">序号</td>
 								<td width="120">入库单号</td>
-								<td width="120">仓库</td>
+								<td width="80">仓库</td>
 								<td width="160">供应商</td>
-								<td width="120">入库单日期</td>
+								<td width="100">入库单日期</td>
 								<td width="110">金额（含税）</td>
-								<td width="80">状态</td>
-								<td width="80"></td>
+								<td width="150">状态</td>
+								<td width="80">操作</td>
 							</tr>
 							<s:iterator id="warehouserptList" value="warehouserptList" status="st1">
 								<s:if test="#st1.odd==true">
@@ -162,73 +306,74 @@
 									<td><s:property value="showWarehousedate"/></td>
 									<td><s:property value="totaltaxamount"/></td>
 									<td>
-										<s:if test="%{warehousetype == 1}">
-											<s:if test="%{status == 1}">
-												未收到发票, 未付款
+										<select id="statusList_<s:property value="id"/>" style="width: 150px;" onchange="showOkBtn('<s:property value="id"/>');">
+											<s:if test="%{warehousetype == 1}">
+												<s:if test="%{status == 1}">
+													<option value="1" selected="selected">未收到发票, 未付款</option>
+													<option value="10">收到发票, 安排付款</option>
+													<option value="15">未收到发票, 已付款</option>
+													<option value="99">收到发票, 已付款</option>
+												</s:if>
+												<s:elseif test="%{status == 10}">
+													<option value="1">未收到发票, 未付款</option>
+													<option value="10" selected="selected">收到发票, 安排付款</option>
+													<option value="15">未收到发票, 已付款</option>
+													<option value="99">收到发票, 已付款</option>
+												</s:elseif>
+												<s:elseif test="%{status == 15}">
+													<option value="1">未收到发票, 未付款</option>
+													<option value="10">收到发票, 安排付款</option>
+													<option value="15" selected="selected">未收到发票, 已付款</option>
+													<option value="99">收到发票, 已付款</option>
+												</s:elseif>
+												<s:elseif test="%{status == 99}">
+													<option value="1">未收到发票, 未付款</option>
+													<option value="10">收到发票, 安排付款</option>
+													<option value="15">未收到发票, 已付款</option>
+													<option value="99" selected="selected">收到发票, 已付款</option>
+												</s:elseif>
 											</s:if>
-											<s:elseif test="%{status == 10}">
-												收到发票, 安排付款
+											<s:elseif test="%{warehousetype == 2}">
+												<s:if test="%{status == 1}">
+													<option value="1" selected="selected">未对帐</option>
+													<option value="10">已对帐, 未开票</option>
+													<option value="15">已收款, 未对账</option>
+													<option value="20">已开票, 未收款</option>
+													<option value="99">已开票, 已收款</option>
+												</s:if>
+												<s:elseif test="%{status == 10}">
+													<option value="1">未对帐</option>
+													<option value="10" selected="selected">已对帐, 未开票</option>
+													<option value="15">已收款, 未对账</option>
+													<option value="20">已开票, 未收款</option>
+													<option value="99">已开票, 已收款</option>
+												</s:elseif>
+												<s:elseif test="%{status == 15}">
+													<option value="1">未对帐</option>
+													<option value="10">已对帐, 未开票</option>
+													<option value="15" selected="selected">已收款, 未对账</option>
+													<option value="20">已开票, 未收款</option>
+													<option value="99">已开票, 已收款</option>
+												</s:elseif>
+												<s:elseif test="%{status == 20}">
+													<option value="1">未对帐</option>
+													<option value="10">已对帐, 未开票</option>
+													<option value="15">已收款, 未对账</option>
+													<option value="20" selected="selected">已开票, 未收款</option>
+													<option value="99">已开票, 已收款</option>
+												</s:elseif>
+												<s:elseif test="%{status == 99}">
+													<option value="1">未对帐</option>
+													<option value="10">已对帐, 未开票</option>
+													<option value="15">已收款, 未对账</option>
+													<option value="20">已开票, 未收款</option>
+													<option value="99" selected="selected">已开票, 已收款</option>
+												</s:elseif>
 											</s:elseif>
-											<s:elseif test="%{status == 99}">
-												收到发票, 已付款
-											</s:elseif>
-											<s:else>
-												<s:property value="status"/>
-											</s:else>
-										</s:if>
-										<s:elseif test="%{warehousetype == 2}">
-											<s:if test="%{status == 1}">
-												未对帐
-											</s:if>
-											<s:elseif test="%{status == 10}">
-												已对帐, 未开票
-											</s:elseif>
-											<s:elseif test="%{status == 20}">
-												已开票, 未收款
-											</s:elseif>
-											<s:elseif test="%{status == 99}">
-												已开票, 已收款
-											</s:elseif>
-											<s:else>
-												<s:property value="status"/>
-											</s:else>
-										</s:elseif>
-										<s:else>
-											<s:property value="status"/>
-										</s:else>
+										</select>
 									</td>
 									<td>
-										<s:if test="%{warehousetype == 1}">
-											<s:if test="%{status == 1}">
-												<input type="button" value="收到发票" onclick="upd('<s:property value="id"/>', '10', '确定收到发票吗？')"/>
-											</s:if>
-											<s:elseif test="%{status == 10}">
-												<input type="button" value="付款" onclick="upd('<s:property value="id"/>', '99', '确定付款吗？')"/>
-											</s:elseif>
-											<s:elseif test="%{status == 99}">
-												已付款
-											</s:elseif>
-											<s:else>
-												<s:property value="status"/>
-											</s:else>
-										</s:if>
-										<s:elseif test="%{warehousetype == 2}">
-											<s:if test="%{status == 1}">
-												<input type="button" value="已对帐" onclick="upd('<s:property value="id"/>', '10', '确定已对帐吗？')"/>
-											</s:if>
-											<s:elseif test="%{status == 10}">
-												<input type="button" value="已开票" onclick="upd('<s:property value="id"/>', '20', '确定已开票吗？')"/>
-											</s:elseif>
-											<s:elseif test="%{status == 20}">
-												<input type="button" value="已收款" onclick="upd('<s:property value="id"/>', '99', '确定已收款吗？')"/>
-											</s:elseif>
-											<s:elseif test="%{status == 99}">
-												已收款
-											</s:elseif>
-											<s:else>
-												<s:property value="status"/>
-											</s:else>
-										</s:elseif>
+										<input id="okbtn_<s:property value="id"/>" style="display: none;" type="button" value="确认" onclick="auditor('<s:property value="id"/>', '<s:property value="warehousetype"/>', '<s:property value="financeBillno"/>')"/>
 									</td>
 								</tr>
 							</s:iterator>
