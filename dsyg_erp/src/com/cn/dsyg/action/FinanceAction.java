@@ -1,7 +1,6 @@
 package com.cn.dsyg.action;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
@@ -9,7 +8,6 @@ import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
-import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
@@ -68,7 +66,9 @@ public class FinanceAction extends BaseAction {
 	private String strBillno1;
 	private String strBillno2;
 	private String strBillno3;
-	private String strReceiptdate;
+	private String strReceiptdate1;
+	private String strReceiptdate2;
+	private String strReceiptdate3;
 	
 	/**
 	 * 更新财务记录状态（需输入发票号）
@@ -86,18 +86,23 @@ public class FinanceAction extends BaseAction {
 				
 				//发票号
 				String res10 = "";
+				//开票日期
+				String receiptdate = "";
+				
 				if(StringUtil.isNotBlank(strBillno1)) {
 					res10 += strBillno1 + ";";
+					receiptdate += strReceiptdate1 + ";";
 				}
 				if(StringUtil.isNotBlank(strBillno2)) {
 					res10 += strBillno2 + ";";
+					receiptdate += strReceiptdate2 + ";";
 				}
 				if(StringUtil.isNotBlank(strBillno3)) {
 					res10 += strBillno3 + ";";
+					receiptdate += strReceiptdate3 + ";";
 				}
 				finance.setRes10(res10);
-				//开票日期
-				finance.setReceiptdate(strReceiptdate);
+				finance.setRes09(receiptdate);
 				
 				financeService.updateFinance(finance);
 			}
@@ -169,19 +174,30 @@ public class FinanceAction extends BaseAction {
 			
 			//发票号
 			String res10 = "";
+			//开票日期
+			String receiptdate = "";
+			
 			if(StringUtil.isNotBlank(strBillno1)) {
 				res10 += strBillno1 + ";";
+				receiptdate += strReceiptdate1 + ";";
 			}
 			if(StringUtil.isNotBlank(strBillno2)) {
 				res10 += strBillno2 + ";";
+				receiptdate += strReceiptdate2 + ";";
 			}
 			if(StringUtil.isNotBlank(strBillno3)) {
 				res10 += strBillno3 + ";";
+				receiptdate += strReceiptdate3 + ";";
 			}
 			updFinanceDto.setRes10(res10);
+			updFinanceDto.setRes09(receiptdate);
+			
 			updFinanceDto.setBillno1(strBillno1);
 			updFinanceDto.setBillno2(strBillno2);
 			updFinanceDto.setBillno3(strBillno3);
+			updFinanceDto.setReceiptdate1(strReceiptdate1);
+			updFinanceDto.setReceiptdate2(strReceiptdate2);
+			updFinanceDto.setReceiptdate3(strReceiptdate3);
 			
 			updFinanceDto.setUpdateuid(username);
 			financeService.updateFinance(updFinanceDto);
@@ -231,9 +247,45 @@ public class FinanceAction extends BaseAction {
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
 			addFinanceDto.setCreateuid(username);
 			addFinanceDto.setUpdateuid(username);
+			
+			//发票号
+			String res10 = "";
+			//开票日期
+			String receiptdate = "";
+			
+			if(StringUtil.isNotBlank(strBillno1)) {
+				res10 += strBillno1 + ";";
+				receiptdate += strReceiptdate1 + ";";
+			}
+			if(StringUtil.isNotBlank(strBillno2)) {
+				res10 += strBillno2 + ";";
+				receiptdate += strReceiptdate2 + ";";
+			}
+			if(StringUtil.isNotBlank(strBillno3)) {
+				res10 += strBillno3 + ";";
+				receiptdate += strReceiptdate3 + ";";
+			}
+			addFinanceDto.setRes10(res10);
+			addFinanceDto.setRes09(receiptdate);
+			
+			addFinanceDto.setBillno1(strBillno1);
+			addFinanceDto.setBillno2(strBillno2);
+			addFinanceDto.setBillno3(strBillno3);
+			addFinanceDto.setReceiptdate1(strReceiptdate1);
+			addFinanceDto.setReceiptdate2(strReceiptdate2);
+			addFinanceDto.setReceiptdate3(strReceiptdate3);
+			
 			String no = financeService.insertFinance(addFinanceDto);
 			this.addActionMessage("添加成功！账目编号为：" + no);
+			
 			addFinanceDto = new FinanceDto();
+			strBillno1 = "";
+			strBillno2 = "";
+			strBillno3 = "";
+			strReceiptdate1 = "";
+			strReceiptdate2 = "";
+			strReceiptdate3 = "";
+			
 			//默认收款
 			addFinanceDto.setMode("1");
 			//财务类型为手动输入
@@ -379,7 +431,9 @@ public class FinanceAction extends BaseAction {
 		strBillno1 = "";
 		strBillno2 = "";
 		strBillno3 = "";
-		strReceiptdate = DateUtil.dateToShortStr(new Date());
+		strReceiptdate1 = "";
+		strReceiptdate2 = "";
+		strReceiptdate3 = "";
 		if(page == null) {
 			page = new Page(intPageSize);
 		}
@@ -537,19 +591,35 @@ public class FinanceAction extends BaseAction {
 		this.strBillno3 = strBillno3;
 	}
 
-	public String getStrReceiptdate() {
-		return strReceiptdate;
-	}
-
-	public void setStrReceiptdate(String strReceiptdate) {
-		this.strReceiptdate = strReceiptdate;
-	}
-
 	public String getStrBillno() {
 		return strBillno;
 	}
 
 	public void setStrBillno(String strBillno) {
 		this.strBillno = strBillno;
+	}
+
+	public String getStrReceiptdate1() {
+		return strReceiptdate1;
+	}
+
+	public void setStrReceiptdate1(String strReceiptdate1) {
+		this.strReceiptdate1 = strReceiptdate1;
+	}
+
+	public String getStrReceiptdate2() {
+		return strReceiptdate2;
+	}
+
+	public void setStrReceiptdate2(String strReceiptdate2) {
+		this.strReceiptdate2 = strReceiptdate2;
+	}
+
+	public String getStrReceiptdate3() {
+		return strReceiptdate3;
+	}
+
+	public void setStrReceiptdate3(String strReceiptdate3) {
+		this.strReceiptdate3 = strReceiptdate3;
 	}
 }

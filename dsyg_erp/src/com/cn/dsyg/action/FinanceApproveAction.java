@@ -1,7 +1,6 @@
 package com.cn.dsyg.action;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
@@ -9,7 +8,6 @@ import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
-import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
@@ -65,7 +63,9 @@ public class FinanceApproveAction extends BaseAction {
 	private String strBillno1;
 	private String strBillno2;
 	private String strBillno3;
-	private String strReceiptdate;
+	private String strReceiptdate1;
+	private String strReceiptdate2;
+	private String strReceiptdate3;
 	
 	//入库单
 	/**
@@ -81,17 +81,23 @@ public class FinanceApproveAction extends BaseAction {
 			
 			//发票号
 			String res10 = "";
+			//开票日期
+			String receiptdate = "";
+			
 			if(StringUtil.isNotBlank(strBillno1)) {
 				res10 += strBillno1 + ";";
+				receiptdate += strReceiptdate1 + ";";
 			}
 			if(StringUtil.isNotBlank(strBillno2)) {
 				res10 += strBillno2 + ";";
+				receiptdate += strReceiptdate2 + ";";
 			}
 			if(StringUtil.isNotBlank(strBillno3)) {
 				res10 += strBillno3 + ";";
+				receiptdate += strReceiptdate3 + ";";
 			}
 			//更新数据，带发票号
-			warehouserptService.approveWarehouserpt(updWarehouserptId, username, res10, strReceiptdate, updWarehouserptStatus);
+			warehouserptService.approveWarehouserpt(updWarehouserptId, username, res10, receiptdate, updWarehouserptStatus);
 			//刷新页面
 			queryData("" + Constants.WAREHOUSE_TYPE_IN);
 		} catch(Exception e) {
@@ -197,17 +203,24 @@ public class FinanceApproveAction extends BaseAction {
 			
 			//发票号
 			String res10 = "";
+			//开票日期
+			String receiptdate = "";
+			
 			if(StringUtil.isNotBlank(strBillno1)) {
 				res10 += strBillno1 + ";";
+				receiptdate += strReceiptdate1 + ";";
 			}
 			if(StringUtil.isNotBlank(strBillno2)) {
 				res10 += strBillno2 + ";";
+				receiptdate += strReceiptdate2 + ";";
 			}
 			if(StringUtil.isNotBlank(strBillno3)) {
 				res10 += strBillno3 + ";";
+				receiptdate += strReceiptdate3 + ";";
 			}
+			
 			//更新数据，带发票号
-			warehouserptService.approveWarehouserpt(updWarehouserptId, username, res10, strReceiptdate, updWarehouserptStatus);
+			warehouserptService.approveWarehouserpt(updWarehouserptId, username, res10, receiptdate, updWarehouserptStatus);
 			//刷新页面
 			queryData("" + Constants.WAREHOUSE_TYPE_OUT);
 		} catch(Exception e) {
@@ -321,7 +334,9 @@ public class FinanceApproveAction extends BaseAction {
 		strBillno1 = "";
 		strBillno2 = "";
 		strBillno3 = "";
-		strReceiptdate = DateUtil.dateToShortStr(new Date());
+		strReceiptdate1 = "";
+		strReceiptdate2 = "";
+		strReceiptdate3 = "";
 		initDictList();
 		if(page == null) {
 			page = new Page(intPageSize);
@@ -469,11 +484,27 @@ public class FinanceApproveAction extends BaseAction {
 		this.strBillno3 = strBillno3;
 	}
 
-	public String getStrReceiptdate() {
-		return strReceiptdate;
+	public String getStrReceiptdate1() {
+		return strReceiptdate1;
 	}
 
-	public void setStrReceiptdate(String strReceiptdate) {
-		this.strReceiptdate = strReceiptdate;
+	public void setStrReceiptdate1(String strReceiptdate1) {
+		this.strReceiptdate1 = strReceiptdate1;
+	}
+
+	public String getStrReceiptdate2() {
+		return strReceiptdate2;
+	}
+
+	public void setStrReceiptdate2(String strReceiptdate2) {
+		this.strReceiptdate2 = strReceiptdate2;
+	}
+
+	public String getStrReceiptdate3() {
+		return strReceiptdate3;
+	}
+
+	public void setStrReceiptdate3(String strReceiptdate3) {
+		this.strReceiptdate3 = strReceiptdate3;
 	}
 }

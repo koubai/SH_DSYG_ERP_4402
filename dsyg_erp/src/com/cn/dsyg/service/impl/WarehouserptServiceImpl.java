@@ -59,8 +59,8 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 			//更新财务数据状态
 			FinanceDto finance = financeDao.queryFinanceByInvoiceid(warehouserpt.getWarehouseno(), "");
 			if(finance != null) {
-				//开票日期
-				finance.setReceiptdate(receiptdate);
+				//审核开票日期1-3
+				finance.setRes09(receiptdate);
 				//发票号
 				finance.setRes10(res10);
 				//确认者=当前用户
