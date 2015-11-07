@@ -56,6 +56,10 @@
 		$("#" + "tmpReceiptdate2").val("");
 		$("#" + "tmpReceiptdate3").val("");
 		
+		$("#" + "strBillamount1").val("");
+		$("#" + "strBillamount2").val("");
+		$("#" + "strBillamount3").val("");
+		
 		$("#" + "overlay").hide();
 		$("#" + "divbillno").hide();
 	}
@@ -71,41 +75,66 @@
 		var tmpReceiptdate2 = $("#tmpReceiptdate2").val().trim();
 		var tmpReceiptdate3 = $("#tmpReceiptdate3").val().trim();
 		
+		var strBillamount1 = $("#strBillamount1").val().trim();
+		var strBillamount2 = $("#strBillamount2").val().trim();
+		var strBillamount3 = $("#strBillamount3").val().trim();
+		
 		if(strBillno1 == "" && strBillno2 == "" && strBillno3 == "") {
 			alert("请输入发票号！");
 			$("#strBillno1").focus();
 			return;
 		}
 		
-		if(strBillno1 != "" && tmpReceiptdate1 == "") {
-			alert("请输入开票日期1！");
-			$("#tmpReceiptdate1").focus();
-			return;
+		if(strBillno1 != "") {
+			if(strBillamount1 == "") {
+				alert("请输入发票金额1！");
+				$("#strBillamount1").focus();
+				return;
+			}
+			if(!isReal(strBillamount1)) {
+				alert("发票金额1必须为大于0的实数！");
+				$("#strBillamount1").focus();
+				return;
+			}
+			if(tmpReceiptdate1 == "") {
+				alert("请输入开票日期1！");
+				$("#tmpReceiptdate1").focus();
+				return;
+			}
 		}
-		if(strBillno1 == "" && tmpReceiptdate1 != "") {
-			alert("请输入发票1！");
-			$("#strBillno1").focus();
-			return;
+		if(strBillno2 != "") {
+			if(strBillamount2 == "") {
+				alert("请输入发票金额2！");
+				$("#strBillamount2").focus();
+				return;
+			}
+			if(!isReal(strBillamount2)) {
+				alert("发票金额2必须为大于0的实数！");
+				$("#strBillamount2").focus();
+				return;
+			}
+			if(tmpReceiptdate2 == "") {
+				alert("请输入开票日期2！");
+				$("#tmpReceiptdate2").focus();
+				return;
+			}
 		}
-		if(strBillno2 != "" && tmpReceiptdate2 == "") {
-			alert("请输入开票日期2！");
-			$("#tmpReceiptdate2").focus();
-			return;
-		}
-		if(strBillno2 == "" && tmpReceiptdate2 != "") {
-			alert("请输入发票2！");
-			$("#strBillno2").focus();
-			return;
-		}
-		if(strBillno3 != "" && tmpReceiptdate3 == "") {
-			alert("请输入开票日期3！");
-			$("#tmpReceiptdate3").focus();
-			return;
-		}
-		if(strBillno3 == "" && tmpReceiptdate3 != "") {
-			alert("请输入发票3！");
-			$("#strBillno3").focus();
-			return;
+		if(strBillno3 != "") {
+			if(strBillamount3 == "") {
+				alert("请输入发票金额3！");
+				$("#strBillamount3").focus();
+				return;
+			}
+			if(!isReal(strBillamount3)) {
+				alert("发票金额3必须为大于0的实数！");
+				$("#strBillamount3").focus();
+				return;
+			}
+			if(tmpReceiptdate3 == "") {
+				alert("请输入开票日期3！");
+				$("#tmpReceiptdate3").focus();
+				return;
+			}
 		}
 		$("#" + "strReceiptdate1").val(tmpReceiptdate1);
 		$("#" + "strReceiptdate2").val(tmpReceiptdate2);
@@ -319,8 +348,8 @@
 						</table>
 					</div>
 					<div class="tab_content" style="height: <s:property value="intPageSize * 35"/>px;">
-						<div id="divbillno" style="position: absolute; margin-top: 60px; margin-left: 300px; display: none; z-index:1111;">
-							<table style="height: 250px; width: 550px;" border="0" cellpadding="0" cellspacing="0" bgcolor="white">
+						<div id="divbillno" style="position: absolute; margin-top: 60px; margin-left: 200px; display: none; z-index:1111;">
+							<table style="height: 300px; width: 750px;" border="0" cellpadding="0" cellspacing="0" bgcolor="white">
 								<tr>
 									<td width="60"><label class="pdf10">发票1</label></td>
 									<td>
@@ -332,6 +361,14 @@
 											<s:hidden id="strReceiptdate2" name="strReceiptdate2"></s:hidden>
 											<s:hidden id="strReceiptdate3" name="strReceiptdate3"></s:hidden>
 											<s:textfield name="strBillno1" id="strBillno1" cssStyle="width:150px;" maxlength="32" theme="simple"></s:textfield>
+										</div>
+										<div class="box1_right"></div>
+									</td>
+									<td width="70"><label class="pdf10">发票金额1</label></td>
+									<td>
+										<div class="box1_left"></div>
+										<div class="box1_center">
+											<s:textfield name="strBillamount1" id="strBillamount1" cssStyle="width:150px;" maxlength="13" theme="simple"></s:textfield>
 										</div>
 										<div class="box1_right"></div>
 									</td>
@@ -354,6 +391,14 @@
 										</div>
 										<div class="box1_right"></div>
 									</td>
+									<td><label class="pdf10">发票金额2</label></td>
+									<td>
+										<div class="box1_left"></div>
+										<div class="box1_center">
+											<s:textfield name="strBillamount2" id="strBillamount2" cssStyle="width:150px;" maxlength="13" theme="simple"></s:textfield>
+										</div>
+										<div class="box1_right"></div>
+									</td>
 									<td><label class="pdf10">开票日期2</label></td>
 									<td>
 										<div class="box1_left"></div>
@@ -373,6 +418,14 @@
 										</div>
 										<div class="box1_right"></div>
 									</td>
+									<td><label class="pdf10">发票金额3</label></td>
+									<td>
+										<div class="box1_left"></div>
+										<div class="box1_center">
+											<s:textfield name="strBillamount3" id="strBillamount3" cssStyle="width:150px;" maxlength="13" theme="simple"></s:textfield>
+										</div>
+										<div class="box1_right"></div>
+									</td>
 									<td><label class="pdf10">开票日期3</label></td>
 									<td>
 										<div class="box1_left"></div>
@@ -384,9 +437,9 @@
 									</td>
 								</tr>
 								<tr>
-									<td colspan="4" align="center">
-										<input type="button" class="input40" value="确定" onclick="auditorbillno();"/>
-										<input type="button" class="input40" value="取消" onclick="cancel_auditorbillno();"/>
+									<td colspan="6" align="center">
+										<input type="button" class="input80" value="确定" onclick="auditorbillno();"/>
+										<input type="button" class="input80" value="取消" onclick="cancel_auditorbillno();"/>
 									</td>
 								</tr>
 							</table>

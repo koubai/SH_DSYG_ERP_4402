@@ -69,6 +69,9 @@ public class FinanceAction extends BaseAction {
 	private String strReceiptdate1;
 	private String strReceiptdate2;
 	private String strReceiptdate3;
+	private String strBillamount1;
+	private String strBillamount2;
+	private String strBillamount3;
 	
 	/**
 	 * 更新财务记录状态（需输入发票号）
@@ -88,18 +91,38 @@ public class FinanceAction extends BaseAction {
 				String res10 = "";
 				//开票日期
 				String receiptdate = "";
+				//开票金额
+				String billamount = "";
 				
 				if(StringUtil.isNotBlank(strBillno1)) {
 					res10 += strBillno1 + ";";
 					receiptdate += strReceiptdate1 + ";";
+					billamount += strBillamount1 + ";";
+				} else {
+					//发票为空，则清空金额和开票日期
+					strReceiptdate1 = "";
+					strBillamount1 = "";
 				}
 				if(StringUtil.isNotBlank(strBillno2)) {
 					res10 += strBillno2 + ";";
 					receiptdate += strReceiptdate2 + ";";
+					billamount += strBillamount2 + ";";
+				} else {
+					//发票为空，则清空金额和开票日期
+					strReceiptdate2 = "";
+					strBillamount2 = "";
 				}
 				if(StringUtil.isNotBlank(strBillno3)) {
 					res10 += strBillno3 + ";";
 					receiptdate += strReceiptdate3 + ";";
+					billamount += strBillamount3 + ";";
+				} else {
+					//发票为空，则清空金额和开票日期
+					strReceiptdate3 = "";
+					strBillamount3 = "";
+				}
+				if(StringUtil.isNotBlank(receiptdate)) {
+					receiptdate = receiptdate + "&&" + billamount;
 				}
 				finance.setRes10(res10);
 				finance.setRes09(receiptdate);
@@ -176,31 +199,46 @@ public class FinanceAction extends BaseAction {
 			String res10 = "";
 			//开票日期
 			String receiptdate = "";
+			//开票金额
+			String billamount = "";
 			
 			if(StringUtil.isNotBlank(strBillno1)) {
 				res10 += strBillno1 + ";";
 				receiptdate += strReceiptdate1 + ";";
+				billamount += strBillamount1 + ";";
+			} else {
+				//发票为空，则清空金额和开票日期
+				strReceiptdate1 = "";
+				strBillamount1 = "";
 			}
 			if(StringUtil.isNotBlank(strBillno2)) {
 				res10 += strBillno2 + ";";
 				receiptdate += strReceiptdate2 + ";";
+				billamount += strBillamount2 + ";";
+			} else {
+				//发票为空，则清空金额和开票日期
+				strReceiptdate2 = "";
+				strBillamount2 = "";
 			}
 			if(StringUtil.isNotBlank(strBillno3)) {
 				res10 += strBillno3 + ";";
 				receiptdate += strReceiptdate3 + ";";
+				billamount += strBillamount3 + ";";
+			} else {
+				//发票为空，则清空金额和开票日期
+				strReceiptdate3 = "";
+				strBillamount3 = "";
+			}
+			if(StringUtil.isNotBlank(receiptdate)) {
+				receiptdate = receiptdate + "&&" + billamount;
 			}
 			updFinanceDto.setRes10(res10);
 			updFinanceDto.setRes09(receiptdate);
 			
-			updFinanceDto.setBillno1(strBillno1);
-			updFinanceDto.setBillno2(strBillno2);
-			updFinanceDto.setBillno3(strBillno3);
-			updFinanceDto.setReceiptdate1(strReceiptdate1);
-			updFinanceDto.setReceiptdate2(strReceiptdate2);
-			updFinanceDto.setReceiptdate3(strReceiptdate3);
-			
 			updFinanceDto.setUpdateuid(username);
 			financeService.updateFinance(updFinanceDto);
+			//重新取得数据，刷新页面数据
+			updFinanceDto = financeService.queryFinanceByID("" + updFinanceDto.getId());
 			this.addActionMessage("修改成功！");
 		} catch(Exception e) {
 			log.error("updFinanceAction error:" + e);
@@ -252,28 +290,41 @@ public class FinanceAction extends BaseAction {
 			String res10 = "";
 			//开票日期
 			String receiptdate = "";
+			//开票金额
+			String billamount = "";
 			
 			if(StringUtil.isNotBlank(strBillno1)) {
 				res10 += strBillno1 + ";";
 				receiptdate += strReceiptdate1 + ";";
+				billamount += strBillamount1 + ";";
+			} else {
+				//发票为空，则清空金额和开票日期
+				strReceiptdate1 = "";
+				strBillamount1 = "";
 			}
 			if(StringUtil.isNotBlank(strBillno2)) {
 				res10 += strBillno2 + ";";
 				receiptdate += strReceiptdate2 + ";";
+				billamount += strBillamount2 + ";";
+			} else {
+				//发票为空，则清空金额和开票日期
+				strReceiptdate2 = "";
+				strBillamount2 = "";
 			}
 			if(StringUtil.isNotBlank(strBillno3)) {
 				res10 += strBillno3 + ";";
 				receiptdate += strReceiptdate3 + ";";
+				billamount += strBillamount3 + ";";
+			} else {
+				//发票为空，则清空金额和开票日期
+				strReceiptdate3 = "";
+				strBillamount3 = "";
+			}
+			if(StringUtil.isNotBlank(receiptdate)) {
+				receiptdate = receiptdate + "&&" + billamount;
 			}
 			addFinanceDto.setRes10(res10);
 			addFinanceDto.setRes09(receiptdate);
-			
-			addFinanceDto.setBillno1(strBillno1);
-			addFinanceDto.setBillno2(strBillno2);
-			addFinanceDto.setBillno3(strBillno3);
-			addFinanceDto.setReceiptdate1(strReceiptdate1);
-			addFinanceDto.setReceiptdate2(strReceiptdate2);
-			addFinanceDto.setReceiptdate3(strReceiptdate3);
 			
 			String no = financeService.insertFinance(addFinanceDto);
 			this.addActionMessage("添加成功！账目编号为：" + no);
@@ -285,6 +336,9 @@ public class FinanceAction extends BaseAction {
 			strReceiptdate1 = "";
 			strReceiptdate2 = "";
 			strReceiptdate3 = "";
+			strBillamount1 = "";
+			strBillamount2 = "";
+			strBillamount3 = "";
 			
 			//默认收款
 			addFinanceDto.setMode("1");
@@ -434,6 +488,9 @@ public class FinanceAction extends BaseAction {
 		strReceiptdate1 = "";
 		strReceiptdate2 = "";
 		strReceiptdate3 = "";
+		strBillamount1 = "";
+		strBillamount2 = "";
+		strBillamount3 = "";
 		if(page == null) {
 			page = new Page(intPageSize);
 		}
@@ -621,5 +678,29 @@ public class FinanceAction extends BaseAction {
 
 	public void setStrReceiptdate3(String strReceiptdate3) {
 		this.strReceiptdate3 = strReceiptdate3;
+	}
+
+	public String getStrBillamount1() {
+		return strBillamount1;
+	}
+
+	public void setStrBillamount1(String strBillamount1) {
+		this.strBillamount1 = strBillamount1;
+	}
+
+	public String getStrBillamount2() {
+		return strBillamount2;
+	}
+
+	public void setStrBillamount2(String strBillamount2) {
+		this.strBillamount2 = strBillamount2;
+	}
+
+	public String getStrBillamount3() {
+		return strBillamount3;
+	}
+
+	public void setStrBillamount3(String strBillamount3) {
+		this.strBillamount3 = strBillamount3;
 	}
 }

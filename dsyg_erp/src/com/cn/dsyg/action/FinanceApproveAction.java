@@ -66,6 +66,9 @@ public class FinanceApproveAction extends BaseAction {
 	private String strReceiptdate1;
 	private String strReceiptdate2;
 	private String strReceiptdate3;
+	private String strBillamount1;
+	private String strBillamount2;
+	private String strBillamount3;
 	
 	//入库单
 	/**
@@ -83,19 +86,40 @@ public class FinanceApproveAction extends BaseAction {
 			String res10 = "";
 			//开票日期
 			String receiptdate = "";
+			//开票金额
+			String billamount = "";
 			
 			if(StringUtil.isNotBlank(strBillno1)) {
 				res10 += strBillno1 + ";";
 				receiptdate += strReceiptdate1 + ";";
+				billamount += strBillamount1 + ";";
+			} else {
+				//发票为空，则清空金额和开票日期
+				strReceiptdate1 = "";
+				strBillamount1 = "";
 			}
 			if(StringUtil.isNotBlank(strBillno2)) {
 				res10 += strBillno2 + ";";
 				receiptdate += strReceiptdate2 + ";";
+				billamount += strBillamount2 + ";";
+			} else {
+				//发票为空，则清空金额和开票日期
+				strReceiptdate2 = "";
+				strBillamount2 = "";
 			}
 			if(StringUtil.isNotBlank(strBillno3)) {
 				res10 += strBillno3 + ";";
 				receiptdate += strReceiptdate3 + ";";
+				billamount += strBillamount3 + ";";
+			} else {
+				//发票为空，则清空金额和开票日期
+				strReceiptdate3 = "";
+				strBillamount3 = "";
 			}
+			if(StringUtil.isNotBlank(receiptdate)) {
+				receiptdate = receiptdate + "&&" + billamount;
+			}
+			
 			//更新数据，带发票号
 			warehouserptService.approveWarehouserpt(updWarehouserptId, username, res10, receiptdate, updWarehouserptStatus);
 			//刷新页面
@@ -205,18 +229,38 @@ public class FinanceApproveAction extends BaseAction {
 			String res10 = "";
 			//开票日期
 			String receiptdate = "";
+			//开票金额
+			String billamount = "";
 			
 			if(StringUtil.isNotBlank(strBillno1)) {
 				res10 += strBillno1 + ";";
 				receiptdate += strReceiptdate1 + ";";
+				billamount += strBillamount1 + ";";
+			} else {
+				//发票为空，则清空金额和开票日期
+				strReceiptdate1 = "";
+				strBillamount1 = "";
 			}
 			if(StringUtil.isNotBlank(strBillno2)) {
 				res10 += strBillno2 + ";";
 				receiptdate += strReceiptdate2 + ";";
+				billamount += strBillamount2 + ";";
+			} else {
+				//发票为空，则清空金额和开票日期
+				strReceiptdate2 = "";
+				strBillamount2 = "";
 			}
 			if(StringUtil.isNotBlank(strBillno3)) {
 				res10 += strBillno3 + ";";
 				receiptdate += strReceiptdate3 + ";";
+				billamount += strBillamount3 + ";";
+			} else {
+				//发票为空，则清空金额和开票日期
+				strReceiptdate3 = "";
+				strBillamount3 = "";
+			}
+			if(StringUtil.isNotBlank(receiptdate)) {
+				receiptdate = receiptdate + "&&" + billamount;
 			}
 			
 			//更新数据，带发票号
@@ -337,6 +381,9 @@ public class FinanceApproveAction extends BaseAction {
 		strReceiptdate1 = "";
 		strReceiptdate2 = "";
 		strReceiptdate3 = "";
+		strBillamount1 = "";
+		strBillamount2 = "";
+		strBillamount3 = "";
 		initDictList();
 		if(page == null) {
 			page = new Page(intPageSize);
@@ -506,5 +553,29 @@ public class FinanceApproveAction extends BaseAction {
 
 	public void setStrReceiptdate3(String strReceiptdate3) {
 		this.strReceiptdate3 = strReceiptdate3;
+	}
+
+	public String getStrBillamount1() {
+		return strBillamount1;
+	}
+
+	public void setStrBillamount1(String strBillamount1) {
+		this.strBillamount1 = strBillamount1;
+	}
+
+	public String getStrBillamount2() {
+		return strBillamount2;
+	}
+
+	public void setStrBillamount2(String strBillamount2) {
+		this.strBillamount2 = strBillamount2;
+	}
+
+	public String getStrBillamount3() {
+		return strBillamount3;
+	}
+
+	public void setStrBillamount3(String strBillamount3) {
+		this.strBillamount3 = strBillamount3;
 	}
 }

@@ -145,6 +145,10 @@ public class FinanceDto extends BaseDto {
 	private String receiptdate1;
 	private String receiptdate2;
 	private String receiptdate3;
+	//发票金额
+	private String billamount1;
+	private String billamount2;
+	private String billamount3;
 
 	/**
 	 * 预备项目1
@@ -580,7 +584,8 @@ public class FinanceDto extends BaseDto {
 
 	public String getReceiptdate1() {
 		if(StringUtil.isNotBlank(res09)) {
-			String s[] = res09.split(";");
+			String all[] = res09.split("&&");
+			String s[] = all[0].split(";");
 			if(s.length > 0) {
 				receiptdate1 = s[0];
 			}
@@ -596,8 +601,9 @@ public class FinanceDto extends BaseDto {
 
 	public String getReceiptdate2() {
 		if(StringUtil.isNotBlank(res09)) {
-			String s[] = res09.split(";");
-			if(s.length > 0) {
+			String all[] = res09.split("&&");
+			String s[] = all[0].split(";");
+			if(s.length > 1) {
 				receiptdate2 = s[1];
 			}
 		} else {
@@ -612,8 +618,9 @@ public class FinanceDto extends BaseDto {
 
 	public String getReceiptdate3() {
 		if(StringUtil.isNotBlank(res09)) {
-			String s[] = res09.split(";");
-			if(s.length > 0) {
+			String all[] = res09.split("&&");
+			String s[] = all[0].split(";");
+			if(s.length > 2) {
 				receiptdate3 = s[2];
 			}
 		} else {
@@ -626,5 +633,60 @@ public class FinanceDto extends BaseDto {
 		this.receiptdate3 = receiptdate3;
 	}
 
+	public String getBillamount1() {
+		if(StringUtil.isNotBlank(res09)) {
+			String all[] = res09.split("&&");
+			if(all.length > 0) {
+				String s[] = all[1].split(";");
+				if(s.length > 0) {
+					billamount1 = s[0];
+				}
+			}
+		} else {
+			billamount1 = "";
+		}
+		return billamount1;
+	}
 
+	public void setBillamount1(String billamount1) {
+		this.billamount1 = billamount1;
+	}
+
+	public String getBillamount2() {
+		if(StringUtil.isNotBlank(res09)) {
+			String all[] = res09.split("&&");
+			if(all.length > 0) {
+				String s[] = all[1].split(";");
+				if(s.length > 1) {
+					billamount2 = s[1];
+				}
+			}
+		} else {
+			billamount2 = "";
+		}
+		return billamount2;
+	}
+
+	public void setBillamount2(String billamount2) {
+		this.billamount2 = billamount2;
+	}
+
+	public String getBillamount3() {
+		if(StringUtil.isNotBlank(res09)) {
+			String all[] = res09.split("&&");
+			if(all.length > 0) {
+				String s[] = all[1].split(";");
+				if(s.length > 2) {
+					billamount3 = s[2];
+				}
+			}
+		} else {
+			billamount3 = "";
+		}
+		return billamount3;
+	}
+
+	public void setBillamount3(String billamount3) {
+		this.billamount3 = billamount3;
+	}
 }
