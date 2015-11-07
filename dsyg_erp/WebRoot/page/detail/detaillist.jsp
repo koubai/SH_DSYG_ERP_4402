@@ -16,14 +16,13 @@
 	});
 	
 	function showCustomer() {
-		document.getElementById("customer").style="display:block";
-		document.getElementById("product").style="display:none";
-		document.getElementById("cus").style="color:#6495ED";
+		document.getElementById("customer").style.display="block";
+		document.getElementById("product").style.display="none";
 	}
 	
 	function showProduct(){
-		document.getElementById("customer").style="display:none";
-		document.getElementById("product").style="display:block";
+		document.getElementById("customer").style.display="none";
+		document.getElementById("product").style.display="block";
 	}
 	
 	function queryProduct() {
@@ -435,11 +434,11 @@
 <script type="text/javascript" language="javascript">
 var tab = document.getElementById("tab").value;
 	if(tab == 0){
-		document.getElementById("customer").style="display:block";
-		document.getElementById("product").style="display:none";
+		document.getElementById("customer").style.display="block";
+		document.getElementById("product").style.display="none";
 	} else {
-		document.getElementById("customer").style="display:none";
-		document.getElementById("product").style="display:block";
+		document.getElementById("customer").style.display="none";
+		document.getElementById("product").style.display="block";
 	}
 </script>
 </body>
