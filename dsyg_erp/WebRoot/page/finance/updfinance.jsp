@@ -52,6 +52,10 @@
 		var strBillno2 = $("#strBillno2").val().trim();
 		var strBillno3 = $("#strBillno3").val().trim();
 		
+		var tmpReceiptdate1 = $("#tmpReceiptdate1").val().trim();
+		var tmpReceiptdate2 = $("#tmpReceiptdate2").val().trim();
+		var tmpReceiptdate3 = $("#tmpReceiptdate3").val().trim();
+		
 		if(receiptid == "") {
 		}
 		if(handler == "") {
@@ -103,7 +107,15 @@
 			$("#tmpAccountdate").focus();
 			return;
 		}
-		if(mode == "1") {
+		if(mode == "2") {
+			//付款
+			if(status1 == "") {
+				alert("请选择状态！");
+				$("#status1").focus();
+				return;
+			}
+			$("#status").val($("#status1").val());	
+		} else {
 			//收款
 			if(status2 == "") {
 				alert("请选择状态！");
@@ -111,27 +123,10 @@
 				return;
 			}
 			$("#status").val($("#status2").val());
-		} else {
-			//付款
-			if(status1 == "") {
-				alert("请选择状态！");
-				$("#status1").focus();
-				return;
-			}
-			$("#status").val($("#status1").val());
 		}
 		
 		//根据当前状态，判断是否需要输入发票
-		if(mode == "1") {
-			//收款记录
-			if(status2 == "20" || status2 == "99") {
-				if(strBillno1 == "" && strBillno2 == "" && strBillno3 == "") {
-					alert("请输入发票号！");
-					$("#strBillno1").focus();
-					return;
-				}
-			}
-		} else {
+		if(mode == "2") {
 			//付款记录
 			if(status == "10" || status == "99") {
 				if(strBillno1 == "" && strBillno2 == "" && strBillno3 == "") {
@@ -140,7 +135,51 @@
 					return;
 				}
 			}
+		} else {
+			//收款记录
+			if(status2 == "20" || status2 == "99") {
+				if(strBillno1 == "" && strBillno2 == "" && strBillno3 == "") {
+					alert("请输入发票号！");
+					$("#strBillno1").focus();
+					return;
+				}
+			}
 		}
+		
+		if(strBillno1 != "" && tmpReceiptdate1 == "") {
+			alert("请输入开票日期1！");
+			$("#tmpReceiptdate1").focus();
+			return;
+		}
+		if(strBillno1 == "" && tmpReceiptdate1 != "") {
+			alert("请输入发票1！");
+			$("#strBillno1").focus();
+			return;
+		}
+		if(strBillno2 != "" && tmpReceiptdate2 == "") {
+			alert("请输入开票日期2！");
+			$("#tmpReceiptdate2").focus();
+			return;
+		}
+		if(strBillno2 == "" && tmpReceiptdate2 != "") {
+			alert("请输入发票2！");
+			$("#strBillno2").focus();
+			return;
+		}
+		if(strBillno3 != "" && tmpReceiptdate3 == "") {
+			alert("请输入开票日期3！");
+			$("#tmpReceiptdate3").focus();
+			return;
+		}
+		if(strBillno3 == "" && tmpReceiptdate3 != "") {
+			alert("请输入发票3！");
+			$("#strBillno3").focus();
+			return;
+		}
+		
+		$("#strReceiptdate1").val($("#tmpReceiptdate1").val());
+		$("#strReceiptdate2").val($("#tmpReceiptdate2").val());
+		$("#strReceiptdate3").val($("#tmpReceiptdate3").val());
 		
 		$("#receiptdate").val($("#tmpReceiptdate").val());
 		$("#accountdate").val($("#tmpAccountdate").val());
@@ -192,6 +231,10 @@
 				
 				<s:hidden name="updFinanceDto.handler" id="handler"></s:hidden>
 				<s:hidden name="updFinanceDto.handlername" id="handlername"></s:hidden>
+				
+				<s:hidden name="strReceiptdate1" id="strReceiptdate1"></s:hidden>
+				<s:hidden name="strReceiptdate2" id="strReceiptdate2"></s:hidden>
+				<s:hidden name="strReceiptdate3" id="strReceiptdate3"></s:hidden>
 				
 				<div class="searchbox update" style="height:0px;">
 					<table width="100%" border="0" cellpadding="5" cellspacing="0">
@@ -468,13 +511,26 @@
 								</div>
 								<div class="box1_right"></div>
 							</td>
+						</tr>
+						<tr>
 							<td align="right">
 								<label class="pdf10">发票1</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<input name="strBillno1" id="strBillno1" maxlength="32" style="width:300px;" value="<s:property value="updFinanceDto.billno1"/>"/>
+									<input type="text" name="strBillno1" id="strBillno1" maxlength="32" style="width:285px;" value="<s:property value="updFinanceDto.billno1"/>" />
+								</div>
+								<div class="box1_right"></div>
+							</td>
+							<td align="right">
+								<label class="pdf10"><font color="red"></font>开票日期1</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center date_input">
+									<input type="text" name="tmpReceiptdate1" id="tmpReceiptdate1" disabled="disabled" style="width:285px;" value="<s:property value="updFinanceDto.receiptdate1"/>" />
+									<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpReceiptdate1'));"></a>
 								</div>
 								<div class="box1_right"></div>
 							</td>
@@ -486,17 +542,41 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<input name="strBillno2" id="strBillno2" maxlength="32" style="width:300px;" value="<s:property value="updFinanceDto.billno2"/>"/>
+									<input type="text" name="strBillno2" id="strBillno2" maxlength="32" style="width:285px;" value="<s:property value="updFinanceDto.billno2"/>" />
 								</div>
 								<div class="box1_right"></div>
 							</td>
+							<td align="right">
+								<label class="pdf10"><font color="red"></font>开票日期2</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center date_input">
+									<input type="text" name="tmpReceiptdate2" id="tmpReceiptdate2" disabled="disabled" style="width:285px;" value="<s:property value="updFinanceDto.receiptdate2"/>" />
+									<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpReceiptdate2'));"></a>
+								</div>
+								<div class="box1_right"></div>
+							</td>
+						</tr>
+						<tr>
 							<td align="right">
 								<label class="pdf10">发票3</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<input name="strBillno3" id="strBillno3" maxlength="32" style="width:300px;" value="<s:property value="updFinanceDto.billno3"/>"/>
+									<input type="text" name="strBillno3" id="strBillno3" maxlength="32" style="width:285px;" value="<s:property value="updFinanceDto.billno3"/>" />
+								</div>
+								<div class="box1_right"></div>
+							</td>
+							<td align="right">
+								<label class="pdf10"><font color="red"></font>开票日期3</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center date_input">
+									<input type="text" name="tmpReceiptdate3" id="tmpReceiptdate3" disabled="disabled" style="width:285px;" value="<s:property value="updFinanceDto.receiptdate3"/>" />
+									<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpReceiptdate3'));"></a>
 								</div>
 								<div class="box1_right"></div>
 							</td>

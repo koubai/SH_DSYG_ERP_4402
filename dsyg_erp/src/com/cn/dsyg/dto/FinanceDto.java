@@ -141,6 +141,10 @@ public class FinanceDto extends BaseDto {
 	private String billno1;
 	private String billno2;
 	private String billno3;
+	//开票日期
+	private String receiptdate1;
+	private String receiptdate2;
+	private String receiptdate3;
 
 	/**
 	 * 预备项目1
@@ -572,6 +576,54 @@ public class FinanceDto extends BaseDto {
 
 	public void setBillno3(String billno3) {
 		this.billno3 = billno3;
+	}
+
+	public String getReceiptdate1() {
+		if(StringUtil.isNotBlank(res09)) {
+			String s[] = res09.split(";");
+			if(s.length > 0) {
+				receiptdate1 = s[0];
+			}
+		} else {
+			receiptdate1 = "";
+		}
+		return receiptdate1;
+	}
+
+	public void setReceiptdate1(String receiptdate1) {
+		this.receiptdate1 = receiptdate1;
+	}
+
+	public String getReceiptdate2() {
+		if(StringUtil.isNotBlank(res09)) {
+			String s[] = res09.split(";");
+			if(s.length > 0) {
+				receiptdate2 = s[1];
+			}
+		} else {
+			receiptdate2 = "";
+		}
+		return receiptdate2;
+	}
+
+	public void setReceiptdate2(String receiptdate2) {
+		this.receiptdate2 = receiptdate2;
+	}
+
+	public String getReceiptdate3() {
+		if(StringUtil.isNotBlank(res09)) {
+			String s[] = res09.split(";");
+			if(s.length > 0) {
+				receiptdate3 = s[2];
+			}
+		} else {
+			receiptdate3 = "";
+		}
+		return receiptdate3;
+	}
+
+	public void setReceiptdate3(String receiptdate3) {
+		this.receiptdate3 = receiptdate3;
 	}
 
 
