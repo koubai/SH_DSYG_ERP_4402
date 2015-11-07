@@ -193,16 +193,16 @@
 					<div class="tab_content" style="height: <s:property value="intPageSize * 35"/>px;">
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
-								<td width="30"></td>
-								<td width="30">序号</td>
-								<td width="80">账目编号</td>
-								<td width="30">主题</td>
+								<td width="10"></td>
+								<td width="10">序号</td>
+								<td width="80">主题</td>
 								<td width="80">快递单号</td>
 								<td width="50">经手人</td>
 								<td width="80">单据日期</td>
 								<td width="80">客户名称</td>
 								<td width="100">金额（含税）</td>
 								<td width="110">状态</td>
+								<td width="50">备注</td>
 							</tr>
 							<s:iterator id="financeList" value="financeList" status="st1">
 								<s:if test="#st1.odd==true">
@@ -213,7 +213,7 @@
 								</s:else>
 									<td><input name="radioKey" type="radio" alt="<s:property value="invoiceid"/>" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-									<td><s:property value="receiptid"/></td>
+									<!-- <td><s:property value="receiptid"/></td>
 									<td>
 										<s:if test="financetype == 1">
 											采购
@@ -234,7 +234,8 @@
 										<s:else>
 											<s:property value="financetype"/>
 										</s:else>
-									</td>
+									</td> -->
+									<td><s:property value="customername"/></td>
 									<td><s:property value="res09"/></td>
 									<td><s:property value="handlername"/></td>
 									<td><s:property value="showReceiptdate"/></td>
@@ -267,6 +268,7 @@
 											</s:elseif>
 										</s:else>
 									</td>
+									<td><s:property value="note"/></td>
 								</tr>
 							</s:iterator>
 						</table>
