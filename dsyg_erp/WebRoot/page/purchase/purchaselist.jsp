@@ -202,9 +202,9 @@
 					<div class="tab_content" style="height: <s:property value="intPageSize * 35"/>px;">
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
-								<td width="30"></td>
+								<td width="20"></td>
 								<td width="30">序号</td>
-								<td width="140">采购订单号</td>
+								<td width="120">采购订单号</td>
 								<!--
 								<td width="60">采购主题</td>
 								-->
@@ -216,7 +216,8 @@
 								<td width="120">采购金额（不含税）</td>
 								<td width="110">采购金额（含税）</td>
 								<td width="110">已付金额（含税）</td>
-								<td width="80">状态</td>
+								<td width="60">状态</td>
+								<td width="80">备注</td>
 							</tr>
 							<s:iterator id="purchaseList" value="purchaseList" status="st1">
 								<s:if test="#st1.odd==true">
@@ -262,6 +263,7 @@
 											<s:property value="status"/>
 										</s:else>
 									</td>
+									<td><s:property value="note"/></td>
 								</tr>
 							</s:iterator>
 						</table>

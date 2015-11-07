@@ -225,22 +225,46 @@
 					<div class="tab_content" style="height: <s:property value="intPageSize * 35"/>px;">
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
-								<td width="30"></td>
-								<td width="40">序号</td>
-								<td width="140">销售订单号</td>
-								<!--
-								<td width="60">销售主题</td>
-								-->
-								<td width="60">销售方式</td>
-								<td width="60">支付方式</td>
-								<td width="60">仓库</td>
-								<td width="120">客户</td>
-								<td width="60">经手人</td>
-								<td width="80">销售日期</td>
-								<td width="110">销售金额（不含税）</td>
-								<td width="100">销售金额（含税）</td>
-								<td width="100">已付金额（含税）</td>
-								<td width="100">状态</td>
+								<td width="20"></td>
+								<td width="30">序号</td>
+								<s:if test='strType == ""'>
+									<td width="120">销售订单号</td>
+									<td width="60">销售方式</td>
+									<td width="60">支付方式</td>
+									<td width="40">仓库</td>
+									<td width="120">客户</td>
+									<td width="60">经手人</td>
+									<td width="80">销售日期</td>
+									<td width="110">销售金额（不含税）</td>
+									<td width="100">销售金额（含税）</td>
+									<td width="100">已付金额（含税）</td>
+								</s:if>
+								<s:elseif test='strType == "1"'>
+									<td width="120">询价单号</td>
+									<td width="60">询价方式</td>
+									<td width="60">支付方式</td>
+									<td width="40">仓库</td>
+									<td width="120">客户</td>
+									<td width="60">经手人</td>
+									<td width="80">询价日期</td>
+									<td width="110">询价金额（不含税）</td>
+									<td width="100">询价金额（含税）</td>
+									<td width="100">已付金额（含税）</td>
+								</s:elseif>
+								<s:else >
+									<td width="120">销售订单号</td>
+									<td width="60">销售方式</td>
+									<td width="60">支付方式</td>
+									<td width="40">仓库</td>
+									<td width="120">客户</td>
+									<td width="60">经手人</td>
+									<td width="80">销售日期</td>
+									<td width="110">销售金额（不含税）</td>
+									<td width="100">销售金额（含税）</td>
+									<td width="100">已付金额（含税）</td>
+								</s:else>
+								<td width="60">状态</td>
+								<td width="80">备注</td>
 							</tr>
 							<s:iterator id="salesList" value="salesList" status="st1">
 								<s:if test="#st1.odd==true">
@@ -300,6 +324,7 @@
 											<s:property value="status"/>
 										</s:else>
 									</td>
+									<td><s:property value="note"/></td>
 								</tr>
 							</s:iterator>
 						</table>
