@@ -35,6 +35,11 @@ public class DeliveryAction extends BaseAction {
 	private int startIndex;
 	
 	/**
+	 * 一页显示数据条数
+	 */
+	private Integer intPageSize;
+	
+	/**
 	 * 翻页
 	 */
 	private Page page;
@@ -196,6 +201,7 @@ public class DeliveryAction extends BaseAction {
 			delDeliveryNo = "";
 			page = new Page();
 			startIndex = 0;
+			intPageSize = 10;
 			listDelivery = new ArrayList<DeliveryDto>();
 		} catch(Exception e) {
 			return ERROR;
@@ -210,8 +216,12 @@ public class DeliveryAction extends BaseAction {
 	public String queryEtbDeliveryList() {
 		try {
 			this.clearMessages();
-			page = new Page();
 			startIndex = 0;
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
 			queryEtbDelivery();
 		} catch(Exception e) {
 			log.error(e);
@@ -242,7 +252,7 @@ public class DeliveryAction extends BaseAction {
 	private void queryEtbDelivery() {
 		listDelivery = new ArrayList<DeliveryDto>();
 		if(page == null) {
-			page = new Page();
+			page = new Page(intPageSize);
 		}
 		//翻页查询所有快递
 		this.page.setStartIndex(startIndex);
@@ -611,5 +621,13 @@ public class DeliveryAction extends BaseAction {
 
 	public void setIntSelectPageSize(Integer intSelectPageSize) {
 		this.intSelectPageSize = intSelectPageSize;
+	}
+
+	public Integer getIntPageSize() {
+		return intPageSize;
+	}
+
+	public void setIntPageSize(Integer intPageSize) {
+		this.intPageSize = intPageSize;
 	}
 }

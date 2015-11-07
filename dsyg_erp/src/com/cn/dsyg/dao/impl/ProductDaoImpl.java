@@ -60,7 +60,7 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
 			String typeno, String color, String supplierId, String belongto, String status, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("fieldno", fieldno);
-		paramMap.put("item01", item10);
+		paramMap.put("item10", item10);
 		paramMap.put("keyword", keyword);
 		paramMap.put("tradename", tradename);
 		paramMap.put("typeno", typeno);

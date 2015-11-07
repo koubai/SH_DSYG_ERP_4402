@@ -363,14 +363,17 @@
 					<isNotEmpty prepend="and" property="tradename">
 						T.tradename like '%$tradename$%' ESCAPE '/'
 					</isNotEmpty>
-					<isNotEmpty prepend="and" property="item01">
-						T.item01 like '%$item01$%' ESCAPE '/'
+					<isNotEmpty prepend="and" property="item10">
+						T.item10 like '%$item10$%' ESCAPE '/'
 					</isNotEmpty>
 					<isNotEmpty prepend="and" property="typeno">
 						T.typeno like '%$typeno$%' ESCAPE '/'
 					</isNotEmpty>
 					<isNotEmpty prepend="and" property="color">
 						T.color = #color#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="keyword">
+						T.keyword like '%$keyword$%' ESCAPE '/'
 					</isNotEmpty>
 			) A where 1 = 1
 			<isNotEmpty prepend="and" property="tradename">
@@ -408,14 +411,17 @@
 					<isNotEmpty prepend="and" property="tradename">
 						T.tradename like '%$tradename$%' ESCAPE '/'
 					</isNotEmpty>
-					<isNotEmpty prepend="and" property="item01">
-						T.item01 like '%$item01$%' ESCAPE '/'
+					<isNotEmpty prepend="and" property="item10">
+						T.item10 like '%$item10$%' ESCAPE '/'
 					</isNotEmpty>
 					<isNotEmpty prepend="and" property="typeno">
 						T.typeno like '%$typeno$%' ESCAPE '/'
 					</isNotEmpty>
 					<isNotEmpty prepend="and" property="color">
 						T.color = #color#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="keyword">
+						T.keyword like '%$keyword$%' ESCAPE '/'
 					</isNotEmpty>
 			) A where 1 = 1
 			<isNotEmpty prepend="and" property="tradename">
@@ -451,14 +457,17 @@
 				<isNotEmpty prepend="and" property="tradename">
 					T.tradename like '%$tradename$%' ESCAPE '/'
 				</isNotEmpty>
-				<isNotEmpty prepend="and" property="item01">
-					T.item01 like '%$item01$%' ESCAPE '/'
+				<isNotEmpty prepend="and" property="item10">
+					T.item10 like '%$item10$%' ESCAPE '/'
 				</isNotEmpty>
 				<isNotEmpty prepend="and" property="typeno">
 					T.typeno like '%$typeno$%' ESCAPE '/'
 				</isNotEmpty>
 				<isNotEmpty prepend="and" property="color">
 					T.color = #color#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="keyword">
+					T.keyword like '%$keyword$%' ESCAPE '/'
 				</isNotEmpty>
 		) A where 1 = 1
 		<isNotEmpty prepend="and" property="tradename">

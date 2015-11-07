@@ -110,7 +110,23 @@
 							<s:textfield name="strTradename" id="strTradename" cssStyle="width:120px;" maxlength="32" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
-					</div>					
+					</div>	
+					<div class="box1">
+						<label class="pdf10">包装</label>
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<s:textfield name="strItem10" id="strItem10" cssClass="input120" maxlength="32" theme="simple"></s:textfield>
+						</div>
+						<div class="box1_right"></div>
+					</div>
+					<div class="box1">
+						<label class="pdf10">关键字</label>
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<s:textfield name="strKeyword" id="strKeyword" cssClass="input120" maxlength="16" theme="simple"></s:textfield>
+						</div>
+						<div class="box1_right"></div>
+					</div>				
 					<div class="btn" style="margin-left: 60px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">

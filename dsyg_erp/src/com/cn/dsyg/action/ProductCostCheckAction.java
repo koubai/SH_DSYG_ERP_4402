@@ -50,6 +50,8 @@ public class ProductCostCheckAction extends BaseAction {
 	
 	private String strTheme;
 	private String strTradename;
+	private String strItem10;//包装
+	private String strKeyword;
 
 	//采购主题
 	private List<Dict01Dto> goodsList;
@@ -72,6 +74,9 @@ public class ProductCostCheckAction extends BaseAction {
 			//页面数据初期化
 			startIndex = 0;
 			strTheme = "";
+			strTradename = "";
+			strKeyword = "";
+			strItem10 = "";
 			//默认10条
 			intPageSize = 10;
 			page = new Page(intPageSize);
@@ -193,8 +198,8 @@ public class ProductCostCheckAction extends BaseAction {
 		//翻页查询所有 产品总记录
 		this.page.setStartIndex(startIndex);
 		
-		page = productService.queryProductCostCheckByPage(strTheme, "",
-				"",strTradename, "", "", "", "", "" + Constants.STATUS_NORMAL, page);
+		page = productService.queryProductCostCheckByPage(strTheme, strItem10,
+				strKeyword,strTradename, "", "", "", "", "" + Constants.STATUS_NORMAL, page);
 //		String fieldno, String item01, String keyword, String tradename,
 //		String typeno, String color, String supplierId, String belongto, "" + Constants.STATUS_NORMAL, page
 		productCostCheckList = (List<ProductCostDto>) page.getItems();
@@ -328,6 +333,22 @@ public class ProductCostCheckAction extends BaseAction {
 
 	public void setExcelPass(String excelPass) {
 		this.excelPass = excelPass;
+	}
+
+	public String getStrItem10() {
+		return strItem10;
+	}
+
+	public void setStrItem10(String strItem10) {
+		this.strItem10 = strItem10;
+	}
+
+	public String getStrKeyword() {
+		return strKeyword;
+	}
+
+	public void setStrKeyword(String strKeyword) {
+		this.strKeyword = strKeyword;
 	}
 
 }

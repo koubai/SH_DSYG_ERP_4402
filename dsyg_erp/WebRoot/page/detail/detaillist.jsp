@@ -199,10 +199,9 @@
 						<table width="100%" border="1" cellpadding="5" cellspacing="0">
 						</table>
 					</div>
-					<div class="tab_content">
+					<div class="tab_content" style="height: <s:property value="intPageSize * 35"/>px;">
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
-								<td width="5%"></td>
 								<td width="5%">序号</td>
 								<td width="10%">客户姓名</td>
 								<td width="25%">客户地址</td>
@@ -219,7 +218,6 @@
 								<s:else>
 									<tr>
 								</s:else>
-									<td><input name="radioKey" type="radio" value="<s:property value="customerno"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
 									<td>
 										<div noWrap style="text-overflow:ellipsis;overflow:hidden">
@@ -326,10 +324,9 @@
 						<table width="100%" border="1" cellpadding="5" cellspacing="0">
 						</table>
 					</div>
-					<div class="tab_content">
+					<div class="tab_content" style="height: <s:property value="intPageSizeProduct * 35"/>px;">
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
-								<td width="5%"></td>
 								<td width="5%">序号</td>
 								<td width="15%">类型</td>
 								<td width="15%">品名</td>
@@ -346,7 +343,6 @@
 								<s:else>
 									<tr>
 								</s:else>
-									<td><input name="radioKey" type="radio" value="<s:property value="productid"/>"/></td>
 									<td><s:property value="pageProduct.pageSize * (pageProduct.nextIndex - 1) + #st1.index + 1"/></td>
 									<td>
 										<s:iterator id="goodsList" value="goodsList" status="st3">

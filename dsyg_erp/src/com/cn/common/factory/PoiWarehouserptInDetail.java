@@ -37,13 +37,13 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 				
 		XSSFRow row = sheet.createRow(1);
 		//合并单元格
-		//sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 9));
-		XSSFCell cell = row.createCell(1);
-		cell.setCellValue("入库单明细");
+		sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 10));
+		XSSFCell cell = row.createCell(0);
+		cell.setCellValue("东升盈港入库单明细");
 		//式样
 		XSSFCellStyle style = workbook.createCellStyle();
 		//水平居中
-		//style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
 		style.setFont(font);
 		cell.setCellStyle(style);
 		
@@ -133,28 +133,28 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 					//货物信息
 					//cell1.setCellValue(dictMap.get(Constants.DICT_GOODS_TYPE + "_" + product.getFieldno()));
 					//cell1.setCellStyle(style);
-					cell1.setCellValue(product.getBrand());
+					cell1.setCellValue(product.getParentid());
 					cell1.setCellStyle(style);
-					cell2.setCellValue(product.getTradename());
+					cell2.setCellValue(product.getBrand());
 					cell2.setCellStyle(style);
-					cell3.setCellValue(product.getTypeno());
+					cell3.setCellValue(product.getTradename());
 					cell3.setCellStyle(style);
+					cell4.setCellValue(product.getTypeno());
 					cell4.setCellStyle(style);
-					cell4.setCellValue(dictMap.get(Constants.DICT_COLOR_TYPE + "_" + product.getColor()));
 					cell5.setCellStyle(style);
-					if("0".equals(product.getPackaging())) {
-						cell5.setCellValue("整箱");
-					} else {
-						cell5.setCellValue("乱尺");
-					}
+					cell5.setCellValue(dictMap.get(Constants.DICT_COLOR_TYPE + "_" + product.getColor()));
 					cell6.setCellStyle(style);
-					cell6.setCellValue(dictMap.get(Constants.DICT_UNIT_TYPE + "_" + product.getUnit()));
+					if("0".equals(product.getPackaging())) {
+						cell6.setCellValue("整箱");
+					} else {
+						cell6.setCellValue("乱尺");
+					}
 					cell7.setCellStyle(style);
-					cell7.setCellValue(product.getNum());
+					cell7.setCellValue(dictMap.get(Constants.DICT_UNIT_TYPE + "_" + product.getUnit()));
 					cell8.setCellStyle(style);
-					cell8.setCellValue(product.getAmount());
-					cell9.setCellValue(product.getParentid());
+					cell8.setCellValue(product.getNum());
 					cell9.setCellStyle(style);
+					cell9.setCellValue(product.getAmount());
 					cell10.setCellValue(product.getRes09());
 					cell10.setCellStyle(style);
 					num++;
@@ -224,15 +224,15 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 		cell33.setCellStyle(style);
 		cell34.setCellValue("");
 		cell34.setCellStyle(style);
-		cell35.setCellValue("总计:");
+		cell35.setCellValue("");
 		cell35.setCellStyle(style);
-		cell36.setCellValue("");
+		cell36.setCellValue("总计:");
 		cell36.setCellStyle(style);
-		cell37.setCellValue(warehouserpt.getTotalnum());
+		cell37.setCellValue("");
 		cell37.setCellStyle(style);
-		cell38.setCellValue(warehouserpt.getTotaltaxamount().toString());
+		cell38.setCellValue(warehouserpt.getTotalnum());
 		cell38.setCellStyle(style);
-		cell39.setCellValue("");
+		cell39.setCellValue(warehouserpt.getTotaltaxamount().toString());
 		cell39.setCellStyle(style);
 		cell40.setCellValue("");
 		cell40.setCellStyle(style);
@@ -265,24 +265,24 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 		//货物信息
 		//heads.add("主题");
 		//sheet.setColumnWidth(1, 15 * 256);
-		heads.add("品牌");
-		sheet.setColumnWidth(1, 10 * 256);
-		heads.add("品名");
-		sheet.setColumnWidth(2, 12 * 256);
-		heads.add("规格");
-		sheet.setColumnWidth(3, 10 * 256);
-		heads.add("颜色");
-		sheet.setColumnWidth(4, 5 * 256);
-		heads.add("包装");
-		sheet.setColumnWidth(5, 10 * 256);
-		heads.add("单位");
-		sheet.setColumnWidth(6, 5 * 256);
-		heads.add("数量");
-		sheet.setColumnWidth(7, 10 * 256);
-		heads.add("税后金额");
-		sheet.setColumnWidth(8, 10 * 256);
 		heads.add("采购订单号");
-		sheet.setColumnWidth(9, 28 * 256);
+		sheet.setColumnWidth(1, 28 * 256);
+		heads.add("品牌");
+		sheet.setColumnWidth(2, 10 * 256);
+		heads.add("品名");
+		sheet.setColumnWidth(3, 12 * 256);
+		heads.add("规格");
+		sheet.setColumnWidth(4, 10 * 256);
+		heads.add("颜色");
+		sheet.setColumnWidth(5, 5 * 256);
+		heads.add("包装");
+		sheet.setColumnWidth(6, 10 * 256);
+		heads.add("单位");
+		sheet.setColumnWidth(7, 5 * 256);
+		heads.add("数量");
+		sheet.setColumnWidth(8, 10 * 256);
+		heads.add("税后金额");
+		sheet.setColumnWidth(9, 10 * 256);
 		heads.add("备注");
 		sheet.setColumnWidth(10, 10 * 256);
 
