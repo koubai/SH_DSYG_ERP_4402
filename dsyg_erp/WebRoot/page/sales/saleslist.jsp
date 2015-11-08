@@ -321,7 +321,7 @@
 											部分发货
 										</s:elseif>
 										<s:elseif test="%{status == 20}">
-											已发货
+											发货完成
 										</s:elseif>
 										<s:else>
 											<s:property value="status"/>
