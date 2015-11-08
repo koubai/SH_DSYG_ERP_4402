@@ -262,6 +262,8 @@
 		
 		//备注
 		inputs[15].value = res09;
+		//含税单价
+		inputs[16].value = taxprices;
 		
 		//采购金额已税
 		if(amount != "") {
@@ -542,6 +544,9 @@
 			//备注
 			var res09 = childs[15].value;
 			
+			//含税单价
+			var taxunitprice = childs[16].value;
+			
 			var tr = document.createElement("tr");
 			//采购货物列表
 			var td = document.createElement("td");
@@ -562,6 +567,8 @@
 			td.appendChild(createInput("addPurchaseItemList[" + i + "].unit", unit));
 			td.appendChild(createInput("addPurchaseItemList[" + i + "].packaging", packaging));
 			td.appendChild(createInput("addPurchaseItemList[" + i + "].unitprice", unitprice));
+			
+			td.appendChild(createInput("addPurchaseItemList[" + i + "].taxunitprice", taxunitprice));
 			
 			td.appendChild(createInput("addPurchaseItemList[" + i + "].quantity", quantity));
 			td.appendChild(createInput("addPurchaseItemList[" + i + "].beforequantity", beforequantity));
@@ -1060,6 +1067,7 @@
 														<input type="hidden" alt="tmpTaxamount_<s:property value="productid"/>" value="<s:property value="taxamount"/>" />
 														<input type="hidden" value="<s:property value="inquantity"/>" />
 														<input type="hidden" value="<s:property value="res09"/>" />
+														<input type="hidden" value="<s:property value="taxunitprice"/>" />
 													</td>
 													<td><input name="itemRadio" type="radio" /></td>
 													<td><s:property value="#st1.index + 1"/></td>

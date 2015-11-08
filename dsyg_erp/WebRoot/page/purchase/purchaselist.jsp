@@ -254,10 +254,13 @@
 									<td align="right"><s:property value="paidamount"/></td>
 									<td>
 										<s:if test="%{status == 10}">
-											新增
+											未收货
 										</s:if>
+										<s:elseif test="%{status == 15}">
+											部分收货
+										</s:elseif>
 										<s:elseif test="%{status == 20}">
-											入库确认
+											已收货
 										</s:elseif>
 										<s:else>
 											<s:property value="status"/>

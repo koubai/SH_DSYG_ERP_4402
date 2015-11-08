@@ -197,6 +197,8 @@ public class WarehouserptAction extends BaseAction {
 			intPageSize = 10;
 			page = new Page(intPageSize);
 			initDictList();
+			
+			queryData("" + Constants.WAREHOUSE_TYPE_OUT);
 		} catch(Exception e) {
 			log.error("showWarehouserptOutAction error:" + e);
 			return ERROR;
@@ -391,6 +393,8 @@ public class WarehouserptAction extends BaseAction {
 			intPageSize = 10;
 			page = new Page(intPageSize);
 			initDictList();
+			
+			queryData("" + Constants.WAREHOUSE_TYPE_IN);
 		} catch(Exception e) {
 			log.error("showWarehouserptInAction error:" + e);
 			return ERROR;

@@ -66,6 +66,8 @@ public class WarehouseInOkAction extends BaseAction {
 			page = new Page(intPageSize);
 			warehouseInOkList = new ArrayList<WarehouseOkDto>();
 			strOkIds = "";
+			
+			queryData();
 		} catch(Exception e) {
 			log.error("showWarehouseInOkAction error:" + e);
 			return ERROR;

@@ -268,15 +268,19 @@ public class Constants {
 	public final static int WAREHOUSE_STATUS_FINISHED = 99;
 	
 	//采购单状态
-	//采购单新增
+	//采购单 未发货
 	public final static int PURCHASE_STATUS_NEW = 10;
-	//采购入库确认
+	//采购单 部分收货
+	public final static int PURCHASE_STATUS_WAREHOUSE_PART = 15;
+	//采购单 已收货
 	public final static int PURCHASE_STATUS_WAREHOUSE_OK = 20;
 	
 	//销售单状态
-	//采购单新增
+	//采购单 未发货
 	public final static int SALES_STATUS_NEW = 10;
-	//销售单入库确认
+	//销售单 部分发货
+	public final static int SALES_STATUS_WAREHOUSE_PART = 15;
+	//销售单 已发货
 	public final static int SALES_STATUS_WAREHOUSE_OK = 20;
 		
 	//入出库单状态

@@ -13,7 +13,7 @@
 <title>采购单明细</title>
 <script type="text/javascript">
 	function upd() {
-		if($("#status").val() != "10") {
+		if($("#status").val() == "20") {
 			if(!$("#tmpRefund").attr("checked")) {
 				alert("该数据不可以修改！");
 				return;
@@ -269,6 +269,9 @@
 		
 		//备注
 		inputs[15].value = res09;
+		
+		//含税单价
+		inputs[16].value = taxprices;
 		
 		//采购金额已税
 		if(amount != "") {
@@ -552,6 +555,9 @@
 			//备注
 			var res09 = childs[15].value;
 			
+			//含税单价
+			var taxunitprice = childs[16].value;
+			
 			var tr = document.createElement("tr");
 			//采购货物列表
 			var td = document.createElement("td");
@@ -572,6 +578,8 @@
 			td.appendChild(createInput("updPurchaseItemList[" + i + "].unit", unit));
 			td.appendChild(createInput("updPurchaseItemList[" + i + "].packaging", packaging));
 			td.appendChild(createInput("updPurchaseItemList[" + i + "].unitprice", unitprice));
+			
+			td.appendChild(createInput("updPurchaseItemList[" + i + "].taxunitprice", taxunitprice));
 			
 			td.appendChild(createInput("updPurchaseItemList[" + i + "].quantity", quantity));
 			td.appendChild(createInput("updPurchaseItemList[" + i + "].beforequantity", beforequantity));
@@ -1069,6 +1077,7 @@
 														<input type="hidden" alt="tmpTaxamount_<s:property value="productid"/>" value="<s:property value="taxamount"/>" />
 														<input type="hidden" value="<s:property value="inquantity"/>" />
 														<input type="hidden" value="<s:property value="res09"/>" />
+														<input type="hidden" value="<s:property value="taxunitprice"/>" />
 													</td>
 													<td><input name="itemRadio" type="radio" /></td>
 													<td><s:property value="#st1.index + 1"/></td>

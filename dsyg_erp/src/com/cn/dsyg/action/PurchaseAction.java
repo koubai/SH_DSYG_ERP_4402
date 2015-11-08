@@ -204,7 +204,7 @@ public class PurchaseAction extends BaseAction {
 				this.addActionMessage("该数据不存在！");
 				return "checkerror";
 			}
-			if(purchaseDto.getStatus() > Constants.PURCHASE_STATUS_NEW) {
+			if(purchaseDto.getStatus() > Constants.PURCHASE_STATUS_WAREHOUSE_PART) {
 				if(!"1".equals(updPurchaseDto.getRefundflag())) {
 					this.addActionMessage("该数据不能更新！");
 					return "checkerror";
@@ -291,7 +291,7 @@ public class PurchaseAction extends BaseAction {
 				return "checkerror";
 			}
 			//非退换货时，检查数据状态
-			if(purchaseDto.getStatus() > Constants.PURCHASE_STATUS_NEW) {
+			if(purchaseDto.getStatus() > Constants.PURCHASE_STATUS_WAREHOUSE_PART) {
 				if(!"1".equals(updPurchaseDto.getRefundflag())) {
 					this.addActionMessage("该数据不能更新！");
 					return "checkerror";
@@ -395,6 +395,8 @@ public class PurchaseAction extends BaseAction {
 			strPurchasedateHigh = "";
 			strTheme2 = "";
 			purchaseList = new ArrayList<PurchaseDto>();
+			
+			queryData();
 		} catch(Exception e) {
 			log.error("showPurchaseAction error:" + e);
 			return ERROR;

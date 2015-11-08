@@ -25,6 +25,7 @@
 		<result property="outquantity" column="outquantity" />
 		<result property="remainquantity" column="remainquantity" />
 		<result property="unitprice" column="unitprice" />
+		<result property="taxunitprice" column="taxunitprice" />
 		<result property="amount" column="amount" />
 		<result property="taxamount" column="taxamount" />
 		<result property="handler" column="handler" />
@@ -226,10 +227,10 @@
 	
 	<insert id="insertSalesItem" parameterClass="com.cn.dsyg.dto.SalesItemDto">
 		insert into etb_salesitem(salesno,belongto,theme1,theme2,productid,quantity,outquantity,beforequantity,
-			remainquantity,unitprice,amount,taxamount,handler,customerid,plandate,approverid,note,rank,status,
+			remainquantity,unitprice,taxunitprice,amount,taxamount,handler,customerid,plandate,approverid,note,rank,status,
 			res01,res02,res03,res04,res05,res06,res07,res08,res09,res10,createuid,createdate,updateuid,updatedate)
 		values(#salesno#,#belongto#,#theme1#,#theme2#,#productid#,#quantity#,#outquantity#,#beforequantity#,
-			#remainquantity#,#unitprice#,#amount#,#taxamount#,#handler#,#customerid#,#plandate#,#approverid#,#note#,#rank#,#status#,
+			#remainquantity#,#unitprice#,#taxunitprice#,#amount#,#taxamount#,#handler#,#customerid#,#plandate#,#approverid#,#note#,#rank#,#status#,
 			#res01#,#res02#,#res03#,#res04#,#res05#,#res06#,#res07#,#res08#,#res09#,#res10#,#createuid#,NOW(),#updateuid#,NOW())
 	</insert>
 	
@@ -240,6 +241,7 @@
 			outquantity = #outquantity#,
 			remainquantity = #remainquantity#,
 			unitprice = #unitprice#,
+			taxunitprice = #taxunitprice#,
 			amount = #amount#,
 			taxamount = #taxamount#,
 			plandate = #plandate#,

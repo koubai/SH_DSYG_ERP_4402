@@ -177,7 +177,7 @@ public class SalesAction extends BaseAction {
 				this.addActionMessage("该数据不存在！");
 				return "checkerror";
 			}
-			if(salesDto.getStatus() > Constants.SALES_STATUS_NEW) {
+			if(salesDto.getStatus() > Constants.SALES_STATUS_WAREHOUSE_PART) {
 				if(!"1".equals(updSalesDto.getRefundflag())) {
 					this.addActionMessage("该数据不能更新！");
 					return "checkerror";
@@ -240,7 +240,7 @@ public class SalesAction extends BaseAction {
 				this.addActionMessage("该数据不存在！");
 				return "checkerror";
 			}
-			if(salesDto.getStatus() > Constants.SALES_STATUS_NEW) {
+			if(salesDto.getStatus() > Constants.SALES_STATUS_WAREHOUSE_PART) {
 				if(!"1".equals(updSalesDto.getRefundflag())) {
 					this.addActionMessage("该数据不能更新！");
 					return "checkerror";
@@ -372,6 +372,8 @@ public class SalesAction extends BaseAction {
 			strCustomername = "";
 			strType = "0";
 			salesList = new ArrayList<SalesDto>();
+			
+			queryData();
 		} catch(Exception e) {
 			log.error("showSalesAction error:" + e);
 			return ERROR;

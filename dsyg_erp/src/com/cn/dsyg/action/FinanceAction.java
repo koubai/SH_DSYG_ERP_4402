@@ -367,6 +367,8 @@ public class FinanceAction extends BaseAction {
 			strReceiptdateHigh = "";
 			strBillno = "";
 			financeList = new ArrayList<FinanceDto>();
+			
+			queryData();
 		} catch(Exception e) {
 			log.error("showFinanceAction error:" + e);
 			return ERROR;

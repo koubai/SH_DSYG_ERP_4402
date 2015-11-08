@@ -378,6 +378,12 @@ public class WarehouseServiceImpl implements WarehouseService {
 								purchaseDto.setStatus(Constants.PURCHASE_STATUS_WAREHOUSE_OK);
 								purchaseDto.setUpdateuid(userid);
 								purchaseDao.updatePurchase(purchaseDto);
+							} else {
+								PurchaseDto purchaseDto = purchaseDao.queryPurchaseByNo(warehouse.getParentid());
+								//需要更新采购单状态=部分入库
+								purchaseDto.setStatus(Constants.PURCHASE_STATUS_WAREHOUSE_PART);
+								purchaseDto.setUpdateuid(userid);
+								purchaseDao.updatePurchase(purchaseDto);
 							}
 						}
 					}
@@ -601,6 +607,12 @@ public class WarehouseServiceImpl implements WarehouseService {
 								//需要更新销售单状态=已入库
 								SalesDto salesDto = salesDao.querySalesByNo(warehouse.getParentid());
 								salesDto.setStatus(Constants.SALES_STATUS_WAREHOUSE_OK);
+								salesDto.setUpdateuid(userid);
+								salesDao.updateSales(salesDto);
+							} else {
+								//需要更新销售单状态=部分入库
+								SalesDto salesDto = salesDao.querySalesByNo(warehouse.getParentid());
+								salesDto.setStatus(Constants.SALES_STATUS_WAREHOUSE_PART);
 								salesDto.setUpdateuid(userid);
 								salesDao.updateSales(salesDto);
 							}

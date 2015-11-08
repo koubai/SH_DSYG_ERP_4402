@@ -25,6 +25,7 @@
 		<result property="inquantity" column="inquantity" />
 		<result property="remainquantity" column="remainquantity" />
 		<result property="unitprice" column="unitprice" />
+		<result property="taxunitprice" column="taxunitprice" />
 		<result property="amount" column="amount" />
 		<result property="taxamount" column="taxamount" />
 		<result property="plandate" column="plandate" />
@@ -158,10 +159,10 @@
 	
 	<insert id="insertPurchaseItem" parameterClass="com.cn.dsyg.dto.PurchaseItemDto">
 		insert into etb_purchaseitem(purchaseno,belongto,theme1,theme2,productid,quantity,inquantity,beforequantity,
-			remainquantity,unitprice,amount,taxamount,plandate,handler,supplierid,approverid,note,rank,status,
+			remainquantity,unitprice,taxunitprice,amount,taxamount,plandate,handler,supplierid,approverid,note,rank,status,
 			res01,res02,res03,res04,res05,res06,res07,res08,res09,res10,createuid,createdate,updateuid,updatedate)
 		values(#purchaseno#,#belongto#,#theme1#,#theme2#,#productid#,#quantity#,#inquantity#,#beforequantity#,
-			#remainquantity#,#unitprice#,#amount#,#taxamount#,#plandate#,#handler#,#supplierid#,#approverid#,#note#,#rank#,#status#,
+			#remainquantity#,#unitprice#,#taxunitprice#,#amount#,#taxamount#,#plandate#,#handler#,#supplierid#,#approverid#,#note#,#rank#,#status#,
 			#res01#,#res02#,#res03#,#res04#,#res05#,#res06#,#res07#,#res08#,#res09#,#res10#,#createuid#,NOW(),#updateuid#,NOW())
 	</insert>
 	
@@ -172,6 +173,7 @@
 			inquantity = #inquantity#,
 			remainquantity = #remainquantity#,
 			unitprice = #unitprice#,
+			taxunitprice = #taxunitprice#,
 			amount = #amount#,
 			taxamount = #taxamount#,
 			plandate = #plandate#,

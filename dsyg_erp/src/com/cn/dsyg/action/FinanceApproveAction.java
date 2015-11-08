@@ -168,6 +168,8 @@ public class FinanceApproveAction extends BaseAction {
 			updWarehouserptId = "";
 			updWarehouserptStatus = "";
 			warehouserptList = new ArrayList<WarehouserptDto>();
+			
+			queryData("" + Constants.WAREHOUSE_TYPE_IN);
 		} catch(Exception e) {
 			log.error("showFinanceInAction error:" + e);
 			return ERROR;
@@ -309,6 +311,8 @@ public class FinanceApproveAction extends BaseAction {
 			strWarehousedateLow = "";
 			strWarehousedateHigh = "";
 			warehouserptList = new ArrayList<WarehouserptDto>();
+			
+			queryData("" + Constants.WAREHOUSE_TYPE_OUT);
 		} catch(Exception e) {
 			log.error("showFinanceOutAction error:" + e);
 			return ERROR;

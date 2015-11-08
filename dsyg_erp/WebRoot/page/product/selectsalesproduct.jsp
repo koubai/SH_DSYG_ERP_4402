@@ -194,6 +194,9 @@
 		//备注
 		var input = createHidden("");
 		td0.appendChild(input);
+		//销售单价含税
+		var input = createHidden("");
+		td0.appendChild(input);
 		//==============================
 		
 		var wid = 80;
