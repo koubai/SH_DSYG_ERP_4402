@@ -6,7 +6,6 @@ import java.util.Map;
 
 import com.cn.common.dao.BaseDao;
 import com.cn.dsyg.dao.SalesItemDao;
-import com.cn.dsyg.dto.SalesDto;
 import com.cn.dsyg.dto.SalesItemDto;
 
 /**
@@ -44,6 +43,13 @@ public class SalesItemDaoImpl extends BaseDao implements SalesItemDao {
 		paramMap.put("salesno", salesno);
 		paramMap.put("updateuid", updateuid);
 		getSqlMapClientTemplate().update("deleteSalesItemBySalesno", paramMap);
+	}
+	
+	@Override
+	public void deleteNoUseSalesItemBySalesno(String salesno) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("salesno", salesno);
+		getSqlMapClientTemplate().update("deleteNoUseSalesItemBySalesno", paramMap);
 	}
 
 	@Override

@@ -237,6 +237,8 @@ public class SalesServiceImpl implements SalesService {
 				}
 			}
 		}
+		//删除status=0的数据
+		salesItemDao.deleteNoUseSalesItemBySalesno(sales.getSalesno());
 	}
 	
 	@Override

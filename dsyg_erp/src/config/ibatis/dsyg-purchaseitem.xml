@@ -157,6 +157,10 @@
 			where purchaseno = #purchaseno#
 	</delete>
 	
+	<delete id="deleteNoUsePurchaseItemByPurchaseno" parameterClass="java.util.Map">
+		DELETE FROM etb_purchaseitem WHERE purchaseno = #purchaseno# AND status = 0
+	</delete>
+	
 	<insert id="insertPurchaseItem" parameterClass="com.cn.dsyg.dto.PurchaseItemDto">
 		insert into etb_purchaseitem(purchaseno,belongto,theme1,theme2,productid,quantity,inquantity,beforequantity,
 			remainquantity,unitprice,taxunitprice,amount,taxamount,plandate,handler,supplierid,approverid,note,rank,status,

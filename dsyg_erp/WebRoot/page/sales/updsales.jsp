@@ -596,24 +596,24 @@
 				return false;
 			}
 			
-			td.appendChild(createInput("updSalesItemList[" + i + "].id", id));
-			td.appendChild(createInput("updSalesItemList[" + i + "].productid", productid));
-			td.appendChild(createInput("updSalesItemList[" + i + "].theme1", theme1));
-			td.appendChild(createInput("updSalesItemList[" + i + "].tradename", tradename));
-			td.appendChild(createInput("updSalesItemList[" + i + "].typeno", typeno));
-			td.appendChild(createInput("updSalesItemList[" + i + "].color", color));
-			td.appendChild(createInput("updSalesItemList[" + i + "].unit", unit));
-			td.appendChild(createInput("updSalesItemList[" + i + "].packaging", packaging));
-			td.appendChild(createInput("updSalesItemList[" + i + "].unitprice", unitprice));
-			td.appendChild(createInput("updSalesItemList[" + i + "].taxunitprice", taxunitprice));
+			td.appendChild(createInput("tmpUpdSalesItemList[" + i + "].id", id));
+			td.appendChild(createInput("tmpUpdSalesItemList[" + i + "].productid", productid));
+			td.appendChild(createInput("tmpUpdSalesItemList[" + i + "].theme1", theme1));
+			td.appendChild(createInput("tmpUpdSalesItemList[" + i + "].tradename", tradename));
+			td.appendChild(createInput("tmpUpdSalesItemList[" + i + "].typeno", typeno));
+			td.appendChild(createInput("tmpUpdSalesItemList[" + i + "].color", color));
+			td.appendChild(createInput("tmpUpdSalesItemList[" + i + "].unit", unit));
+			td.appendChild(createInput("tmpUpdSalesItemList[" + i + "].packaging", packaging));
+			td.appendChild(createInput("tmpUpdSalesItemList[" + i + "].unitprice", unitprice));
+			td.appendChild(createInput("tmpUpdSalesItemList[" + i + "].taxunitprice", taxunitprice));
 			
-			td.appendChild(createInput("updSalesItemList[" + i + "].quantity", quantity));
-			td.appendChild(createInput("updSalesItemList[" + i + "].beforequantity", beforequantity));
-			td.appendChild(createInput("updSalesItemList[" + i + "].outquantity", outquantity));
-			td.appendChild(createInput("updSalesItemList[" + i + "].remainquantity", remainquantity));
-			td.appendChild(createInput("updSalesItemList[" + i + "].amount", amount));
-			td.appendChild(createInput("updSalesItemList[" + i + "].taxamount", taxamount));
-			td.appendChild(createInput("updSalesItemList[" + i + "].res09", res09));
+			td.appendChild(createInput("tmpUpdSalesItemList[" + i + "].quantity", quantity));
+			td.appendChild(createInput("tmpUpdSalesItemList[" + i + "].beforequantity", beforequantity));
+			td.appendChild(createInput("tmpUpdSalesItemList[" + i + "].outquantity", outquantity));
+			td.appendChild(createInput("tmpUpdSalesItemList[" + i + "].remainquantity", remainquantity));
+			td.appendChild(createInput("tmpUpdSalesItemList[" + i + "].amount", amount));
+			td.appendChild(createInput("tmpUpdSalesItemList[" + i + "].taxamount", taxamount));
+			td.appendChild(createInput("tmpUpdSalesItemList[" + i + "].res09", res09));
 			
 			tr.appendChild(td);
 			document.getElementById("salesItemTable").appendChild(tr);
@@ -1086,7 +1086,7 @@
 										</tr>
 									</table>
 								</div>
-								<div class="tab_content" style="height: 175px;">
+								<div class="tab_content" style="height: 305px;">
 									<table id="productTable" class="info_tab" width="140%" border="1" cellpadding="5" cellspacing="0">
 										<tr style="background:#eee; border-top:black solid 1px;">
 											<td style="width: 0px; display: none"></td>

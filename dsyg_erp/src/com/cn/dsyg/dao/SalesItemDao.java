@@ -2,7 +2,6 @@ package com.cn.dsyg.dao;
 
 import java.util.List;
 
-import com.cn.dsyg.dto.SalesDto;
 import com.cn.dsyg.dto.SalesItemDto;
 
 /**
@@ -51,6 +50,12 @@ public interface SalesItemDao {
 	 * @param updateuid
 	 */
 	public void deleteSalesItemBySalesno(String salesno, String updateuid);
+	
+	/**
+	 * 根据销售单编号，物理删除status=0的数据
+	 * @param salesno
+	 */
+	public void deleteNoUseSalesItemBySalesno(String salesno);
 	
 	/**
 	 * 新增销售单货物

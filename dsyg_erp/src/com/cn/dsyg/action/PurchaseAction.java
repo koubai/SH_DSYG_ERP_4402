@@ -76,6 +76,7 @@ public class PurchaseAction extends BaseAction {
 	private String updPurchaseId;
 	private PurchaseDto updPurchaseDto;
 	private List<PurchaseItemDto> updPurchaseItemList;
+	private List<PurchaseItemDto> tmpUpdPurchaseItemList;
 	private String theme2;
 	
 	//删除
@@ -243,6 +244,7 @@ public class PurchaseAction extends BaseAction {
 			//初期化字典数据
 			initDictList();
 			updPurchaseItemList = new ArrayList<PurchaseItemDto>();
+			tmpUpdPurchaseItemList = new ArrayList<PurchaseItemDto>();
 			updPurchaseDto = purchaseService.queryPurchaseByID(updPurchaseId);
 			if(updPurchaseDto != null) {
 				updPurchaseItemList = purchaseItemService.queryPurchaseItemByPurchaseno(updPurchaseDto.getPurchaseno());
@@ -264,6 +266,7 @@ public class PurchaseAction extends BaseAction {
 			//初期化字典数据
 			initDictList();
 			updPurchaseItemList = new ArrayList<PurchaseItemDto>();
+			tmpUpdPurchaseItemList = new ArrayList<PurchaseItemDto>();
 			updPurchaseDto = purchaseService.queryPurchaseByTheme2(theme2);
 			if(updPurchaseDto != null) {
 				updPurchaseItemList = purchaseItemService.queryPurchaseItemByPurchaseno(updPurchaseDto.getPurchaseno());
@@ -308,9 +311,10 @@ public class PurchaseAction extends BaseAction {
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
 			//更新数据
-			purchaseService.updatePurchase(updPurchaseDto, updPurchaseItemList, username);
+			purchaseService.updatePurchase(updPurchaseDto, tmpUpdPurchaseItemList, username);
 			//刷新页面
 			updPurchaseItemList = purchaseItemService.queryPurchaseItemByPurchaseno(updPurchaseDto.getPurchaseno());
+			tmpUpdPurchaseItemList = new ArrayList<PurchaseItemDto>();
 			updPurchaseDto.setRefundflag("0");
 			this.addActionMessage("修改成功！");
 		} catch(Exception e) {
@@ -804,5 +808,14 @@ public class PurchaseAction extends BaseAction {
 
 	public void setDelPurchaseId(String delPurchaseId) {
 		this.delPurchaseId = delPurchaseId;
+	}
+
+	public List<PurchaseItemDto> getTmpUpdPurchaseItemList() {
+		return tmpUpdPurchaseItemList;
+	}
+
+	public void setTmpUpdPurchaseItemList(
+			List<PurchaseItemDto> tmpUpdPurchaseItemList) {
+		this.tmpUpdPurchaseItemList = tmpUpdPurchaseItemList;
 	}
 }

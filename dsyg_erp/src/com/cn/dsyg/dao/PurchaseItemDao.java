@@ -13,6 +13,12 @@ import com.cn.dsyg.dto.PurchaseItemDto;
 public interface PurchaseItemDao {
 	
 	/**
+	 * 根据采购单号，物理删除status=0的数据
+	 * @param purchaseno
+	 */
+	public void deleteNoUsePurchaseItemByPurchaseno(String purchaseno);
+	
+	/**
 	 * 根据采购单号查询采购单货物列表
 	 * @param purchaseno
 	 * @return

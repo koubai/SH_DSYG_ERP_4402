@@ -80,6 +80,7 @@ public class SalesAction extends BaseAction {
 	private String updSalesId;
 	private SalesDto updSalesDto;
 	private List<SalesItemDto> updSalesItemList;
+	private List<SalesItemDto> tmpUpdSalesItemList;
 	private String theme2;
 	
 	//删除
@@ -213,6 +214,7 @@ public class SalesAction extends BaseAction {
 			//初期化字典数据
 			initDictList();
 			updSalesItemList = new ArrayList<SalesItemDto>();
+			tmpUpdSalesItemList = new ArrayList<SalesItemDto>();
 			updSalesDto = salesService.querySalesByID(updSalesId);
 			if(updSalesDto != null) {
 				updSalesItemList = salesItemService.querySalesItemBySalesno(updSalesDto.getSalesno());
@@ -259,7 +261,7 @@ public class SalesAction extends BaseAction {
 			//}
 			//数据验证(防止相同订单号)
 			SalesDto tmp_salesDto = salesService.querySalesByTheme2(updSalesDto.getTheme2());
-			if(tmp_salesDto != null ){
+			if(tmp_salesDto != null && tmp_salesDto.getStatus().intValue() != Constants.STATUS_DEL){
 				if (!tmp_salesDto.getId().equals(updSalesDto.getId())) {
 					this.addActionMessage("存在相同的销售订单号！");
 					System.out.println(tmp_salesDto.getId()+";"+updSalesDto.getId());
@@ -270,9 +272,10 @@ public class SalesAction extends BaseAction {
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
 			//更新数据
-			salesService.updateSales(updSalesDto, updSalesItemList, username);
+			salesService.updateSales(updSalesDto, tmpUpdSalesItemList, username);
 			//刷新页面
 			updSalesItemList = salesItemService.querySalesItemBySalesno(updSalesDto.getSalesno());
+			tmpUpdSalesItemList = new ArrayList<SalesItemDto>();
 			updSalesDto.setRefundflag("0");
 			this.addActionMessage("修改成功！");
 		} catch(Exception e) {
@@ -328,7 +331,7 @@ public class SalesAction extends BaseAction {
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
 			//数据验证(防止相同订单号)
 			SalesDto salesDto = salesService.querySalesByTheme2(addSalesDto.getTheme2());
-			if(salesDto != null) {
+			if(salesDto != null && salesDto.getStatus().intValue() != Constants.STATUS_DEL) {
 				this.addActionMessage("存在相同的销售订单号！");
 				return "checkerror";
 			}
@@ -808,5 +811,13 @@ public class SalesAction extends BaseAction {
 
 	public void setStrType(String strType) {
 		this.strType = strType;
+	}
+
+	public List<SalesItemDto> getTmpUpdSalesItemList() {
+		return tmpUpdSalesItemList;
+	}
+
+	public void setTmpUpdSalesItemList(List<SalesItemDto> tmpUpdSalesItemList) {
+		this.tmpUpdSalesItemList = tmpUpdSalesItemList;
 	}
 }

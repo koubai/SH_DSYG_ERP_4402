@@ -1018,7 +1018,7 @@
 										</tr>
 									</table>
 								</div>
-								<div class="tab_content" style="height: 175px;">
+								<div class="tab_content" style="height: 305px;">
 									<table id="productTable" class="info_tab" width="140%" border="1" cellpadding="5" cellspacing="0">
 										<tr style="background:#eee; border-top:black solid 1px;">
 											<td style="width: 0px; display: none"></td>

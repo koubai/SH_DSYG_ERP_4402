@@ -484,7 +484,7 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 			finance.setRes01(warehouserpt.getSupplierid());
 			finance.setRes02(warehouserpt.getSuppliername());
 			finance.setReceiptdate(warehouserpt.getReceiptdate());
-			finance.setRes09(warehouserpt.getExpressno());
+			finance.setRes08(warehouserpt.getExpressno());
 			finance.setCustomerid(Long.valueOf(warehouserpt.getExpressid()));
 			finance.setCustomername(warehouserpt.getExpressname());
 			finance.setCustomertel(warehouserpt.getExpresstel());
@@ -509,7 +509,7 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 			ff.setRes01(warehouserpt.getSupplierid());
 			ff.setRes02(warehouserpt.getSuppliername());
 			ff.setReceiptdate(warehouserpt.getReceiptdate());
-			ff.setRes09(warehouserpt.getExpressno());
+			ff.setRes08(warehouserpt.getExpressno());
 			ff.setCustomerid(Long.valueOf(warehouserpt.getExpressid()));
 			ff.setCustomername(warehouserpt.getExpressname());
 			ff.setCustomertel(warehouserpt.getExpresstel());

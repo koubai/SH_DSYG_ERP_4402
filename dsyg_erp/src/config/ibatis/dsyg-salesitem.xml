@@ -225,6 +225,10 @@
 			where salesno = #salesno#
 	</delete>
 	
+	<delete id="deleteNoUseSalesItemBySalesno" parameterClass="java.util.Map">
+		DELETE FROM etb_salesitem WHERE salesno = #salesno# AND status = 0
+	</delete>
+	
 	<insert id="insertSalesItem" parameterClass="com.cn.dsyg.dto.SalesItemDto">
 		insert into etb_salesitem(salesno,belongto,theme1,theme2,productid,quantity,outquantity,beforequantity,
 			remainquantity,unitprice,taxunitprice,amount,taxamount,handler,customerid,plandate,approverid,note,rank,status,

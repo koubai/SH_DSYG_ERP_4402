@@ -310,6 +310,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 				}
 			}
 		}
+		//删除status=0的数据
+		purchaseItemDao.deleteNoUsePurchaseItemByPurchaseno(purchase.getPurchaseno());
 	}
 	
 	@Override

@@ -566,25 +566,25 @@
 				return false;
 			}
 			
-			td.appendChild(createInput("updPurchaseItemList[" + i + "].id", id));
-			td.appendChild(createInput("updPurchaseItemList[" + i + "].productid", productid));
-			td.appendChild(createInput("updPurchaseItemList[" + i + "].theme1", theme1));
-			td.appendChild(createInput("updPurchaseItemList[" + i + "].tradename", tradename));
-			td.appendChild(createInput("updPurchaseItemList[" + i + "].typeno", typeno));
-			td.appendChild(createInput("updPurchaseItemList[" + i + "].color", color));
-			td.appendChild(createInput("updPurchaseItemList[" + i + "].unit", unit));
-			td.appendChild(createInput("updPurchaseItemList[" + i + "].packaging", packaging));
-			td.appendChild(createInput("updPurchaseItemList[" + i + "].unitprice", unitprice));
+			td.appendChild(createInput("tmpUpdPurchaseItemList[" + i + "].id", id));
+			td.appendChild(createInput("tmpUpdPurchaseItemList[" + i + "].productid", productid));
+			td.appendChild(createInput("tmpUpdPurchaseItemList[" + i + "].theme1", theme1));
+			td.appendChild(createInput("tmpUpdPurchaseItemList[" + i + "].tradename", tradename));
+			td.appendChild(createInput("tmpUpdPurchaseItemList[" + i + "].typeno", typeno));
+			td.appendChild(createInput("tmpUpdPurchaseItemList[" + i + "].color", color));
+			td.appendChild(createInput("tmpUpdPurchaseItemList[" + i + "].unit", unit));
+			td.appendChild(createInput("tmpUpdPurchaseItemList[" + i + "].packaging", packaging));
+			td.appendChild(createInput("tmpUpdPurchaseItemList[" + i + "].unitprice", unitprice));
 			
-			td.appendChild(createInput("updPurchaseItemList[" + i + "].taxunitprice", taxunitprice));
+			td.appendChild(createInput("tmpUpdPurchaseItemList[" + i + "].taxunitprice", taxunitprice));
 			
-			td.appendChild(createInput("updPurchaseItemList[" + i + "].quantity", quantity));
-			td.appendChild(createInput("updPurchaseItemList[" + i + "].beforequantity", beforequantity));
-			td.appendChild(createInput("updPurchaseItemList[" + i + "].inquantity", inquantity));
-			td.appendChild(createInput("updPurchaseItemList[" + i + "].remainquantity", remainquantity));
-			td.appendChild(createInput("updPurchaseItemList[" + i + "].amount", amount));
-			td.appendChild(createInput("updPurchaseItemList[" + i + "].taxamount", taxamount));
-			td.appendChild(createInput("updPurchaseItemList[" + i + "].res09", res09));
+			td.appendChild(createInput("tmpUpdPurchaseItemList[" + i + "].quantity", quantity));
+			td.appendChild(createInput("tmpUpdPurchaseItemList[" + i + "].beforequantity", beforequantity));
+			td.appendChild(createInput("tmpUpdPurchaseItemList[" + i + "].inquantity", inquantity));
+			td.appendChild(createInput("tmpUpdPurchaseItemList[" + i + "].remainquantity", remainquantity));
+			td.appendChild(createInput("tmpUpdPurchaseItemList[" + i + "].amount", amount));
+			td.appendChild(createInput("tmpUpdPurchaseItemList[" + i + "].taxamount", taxamount));
+			td.appendChild(createInput("tmpUpdPurchaseItemList[" + i + "].res09", res09));
 			
 			tr.appendChild(td);
 			document.getElementById("purchaseItemTable").appendChild(tr);
@@ -1026,7 +1026,7 @@
 										</tr>
 									</table>
 								</div>
-								<div class="tab_content" style="height: 175px;">
+								<div class="tab_content" style="height: 305px;">
 									<table id="productTable" class="info_tab" width="140%" border="1" cellpadding="5" cellspacing="0">
 										<tr style="background:#eee; border-top:black solid 1px;">
 											<td style="width: 0px; display: none"></td>
