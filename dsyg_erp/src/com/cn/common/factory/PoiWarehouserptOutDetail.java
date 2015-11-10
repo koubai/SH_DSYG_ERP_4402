@@ -1,10 +1,12 @@
 package com.cn.common.factory;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.util.CellRangeAddress;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
@@ -87,7 +89,7 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 		XSSFRow row7 = sheet.createRow(7);
 		XSSFCell cell_detail = row7.createCell(0);
 		cell_detail.setCellValue("出库单明细：");
-		cell_detail.setCellStyle(style_other);
+		cell_detail.setCellStyle(style_cus);
 	}
 	
 	/**
@@ -98,6 +100,9 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 	public void writeData(XSSFSheet sheet, XSSFWorkbook workbook) {
 		XSSFRow row = null;
 		WarehouserptDto warehouserpt = new WarehouserptDto();
+		XSSFFont font = workbook.createFont();
+		//字体大小
+		font.setFontHeightInPoints((short)14);
 		//式样
 		XSSFCellStyle style = workbook.createCellStyle();
 		//水平居中
@@ -107,6 +112,9 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 		style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
 		style.setBorderTop(HSSFCellStyle.BORDER_THIN);
 		style.setBorderRight(HSSFCellStyle.BORDER_THIN);
+		style.setFont(font);
+		style.setWrapText(true);
+		style.setVerticalAlignment(VerticalAlignment.CENTER);
 
 		//添加数据
 		int num = 0;
@@ -176,6 +184,28 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 					cell9.setCellValue(product.getAmount());
 					cell10.setCellValue(product.getRes09());
 					cell10.setCellStyle(style);
+					/*
+					int enterCnt = 0;  
+	                int colIdxOfMaxCnt = 1;  
+	                for(int r = 0; r <= 10; r ++) {  
+	                    int rwsTemp = row.getCell(r).toString().split("\n").length;  
+		                System.out.println(row.getCell(r).toString());
+	                    if (rwsTemp > enterCnt) {  
+	                        enterCnt = rwsTemp;  
+	                        colIdxOfMaxCnt = r;  
+	                    }  
+	                }  
+	                System.out.println(colIdxOfMaxCnt + "列的行数：" + enterCnt);
+	                row.setHeight((short)(enterCnt * 228));*/
+					
+					float height=getExcelCellAutoHeight(row.getCell(3).toString()+"", 3.5f);
+					float height2=getExcelCellAutoHeight(row.getCell(4).toString()+"", 9f);
+					if(height>=height2){
+						row.setHeightInPoints(height);
+					} else {
+						row.setHeightInPoints(height2);
+					}
+	                
 					num++;
 				}
 			} else {
@@ -259,12 +289,16 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 		cell40.setCellStyle(style);
 		
 		XSSFCellStyle style_other = workbook.createCellStyle();
+		XSSFFont font_other = workbook.createFont();
+		//字体大小
+		font_other.setFontHeightInPoints((short)14);
+		style_other.setFont(font_other);
 //		row = sheet.createRow(num + 14);
 //		XSSFCell cell14 = row.createCell(1);
 //		cell14.setCellValue("品保出荷检查:");
 //		cell14.setCellStyle(style_other);
 		
-		row = sheet.createRow(num + 15);
+		row = sheet.createRow(num + 13);
 		XSSFCell cell15 = row.createCell(1);
 		cell15.setCellValue("出货方签字:");
 		cell15.setCellStyle(style_other);
@@ -287,32 +321,32 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 		//heads.add("主题");
 		//sheet.setColumnWidth(1, 15 * 256);
 		heads.add("销售订单号");
-		sheet.setColumnWidth(1, 28 * 256);
+		sheet.setColumnWidth(1, 15 * 256);
 		heads.add("品牌");
 		sheet.setColumnWidth(2, 10 * 256);
 		heads.add("品名");
 		sheet.setColumnWidth(3, 12 * 256);
 		heads.add("规格");
-		sheet.setColumnWidth(4, 10 * 256);
+		sheet.setColumnWidth(4, 25 * 256);
 		heads.add("颜色");
-		sheet.setColumnWidth(5, 5 * 256);
+		sheet.setColumnWidth(5, 6 * 256);
 		heads.add("包装");
 		sheet.setColumnWidth(6, 10 * 256);
 		heads.add("单位");
-		sheet.setColumnWidth(7, 5 * 256);
+		sheet.setColumnWidth(7, 6 * 256);
 		heads.add("数量");
 		sheet.setColumnWidth(8, 10 * 256);
 		heads.add("税后金额");
-		sheet.setColumnWidth(9, 10 * 256);
+		sheet.setColumnWidth(9, 12 * 256);
 		heads.add("备注");
-		sheet.setColumnWidth(10, 10 * 256);
+		sheet.setColumnWidth(10, 12 * 256);
 		
 		//Head部分颜色字体
 		XSSFFont font = workbook.createFont();
 		//加粗
 		font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
 		//字体大小
-		font.setFontHeightInPoints((short)12);
+		font.setFontHeightInPoints((short)14);
 		
 		//式样
 		XSSFCellStyle style = workbook.createCellStyle();
@@ -329,6 +363,7 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 		style.setFillForegroundColor(new XSSFColor(new java.awt.Color(180, 180, 180)));
 		
 		XSSFRow row = sheet.createRow(8);
+		row.setHeightInPoints((float) 18.75);
 		XSSFCell cell = null;
 
 		for(int i = 0; i < heads.size(); i++) {
@@ -337,4 +372,38 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 			cell.setCellStyle(style);
 		}
 	}
+	
+	public static float getExcelCellAutoHeight(String str, float fontCountInline) {
+        float defaultRowHeight = 25.00f;//每一行的高度指定
+        float defaultCount = 0.00f;
+        for (int i = 0; i < str.length(); i++) {
+            float ff = getregex(str.substring(i, i + 1));
+            defaultCount = defaultCount + ff;
+        }
+        System.out.println(defaultCount);
+        return ((int) (defaultCount / fontCountInline) + 1) * defaultRowHeight;//计算
+    }
+
+    public static float getregex(String charStr) {
+        
+        if(charStr==" ")
+        {
+            return 0.5f;
+        }
+        // 判断是否为字母或字符
+        if (Pattern.compile("^[A-Za-z0-9]+$").matcher(charStr).matches()) {
+            return 0.5f;
+        }
+        // 判断是否为全角
+
+        if (Pattern.compile("[u4e00-u9fa5]+$").matcher(charStr).matches()) {
+            return 1.00f;
+        }
+        //全角符号 及中文
+        if (Pattern.compile("[^x00-xff]").matcher(charStr).matches()) {
+            return 1.00f;
+        }
+        return 0.5f;
+
+    }
 }

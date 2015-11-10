@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.util.CellRangeAddress;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
@@ -40,7 +41,7 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 		//合并单元格
 		sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 9));
 		XSSFCell cell = row.createCell(0);
-		cell.setCellValue("出库单");
+		cell.setCellValue("仓库配货单");
 		//式样
 		XSSFCellStyle style = workbook.createCellStyle();
 		//水平居中
@@ -57,6 +58,9 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 	public void writeData(XSSFSheet sheet, XSSFWorkbook workbook) {
 		XSSFRow row = null;
 		WarehouserptDto warehouserpt = new WarehouserptDto();
+		XSSFFont font = workbook.createFont();
+		//字体大小
+		font.setFontHeightInPoints((short)16);
 		//式样
 		XSSFCellStyle style = workbook.createCellStyle();
 		//水平居中
@@ -66,6 +70,9 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 		style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
 		style.setBorderTop(HSSFCellStyle.BORDER_THIN);
 		style.setBorderRight(HSSFCellStyle.BORDER_THIN);
+		style.setFont(font);
+		style.setWrapText(true);
+		style.setVerticalAlignment(VerticalAlignment.CENTER);
 
 		//添加数据
 		int num = 0;
@@ -75,7 +82,7 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 				//对货物数据解析
 				for(int j = 0; j < warehouserpt.getListProduct().size(); j++) {
 					ProductDto product = warehouserpt.getListProduct().get(j);
-					row = sheet.createRow(num + 13);
+					row = sheet.createRow(num + 8);
 					XSSFCell cell0 = row.createCell(0);
 					XSSFCell cell1 = row.createCell(1);
 					XSSFCell cell2 = row.createCell(2);
@@ -122,6 +129,14 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 					}
 					//cell9.setCellStyle(style);
 					//cell9.setCellValue(product.getAmount());
+					
+					float height=PoiWarehouserptOutDetail.getExcelCellAutoHeight(row.getCell(3).toString()+"", 3.5f);
+					float height2=PoiWarehouserptOutDetail.getExcelCellAutoHeight(row.getCell(4).toString()+"", 9f);
+					if(height>=height2){
+						row.setHeightInPoints(height);
+					} else {
+						row.setHeightInPoints(height2);
+					}
 					num++;
 				}
 			} else {
@@ -176,13 +191,13 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 		
 		//货物信息
 		heads.add("主题");
-		sheet.setColumnWidth(1, 15 * 256);
+		sheet.setColumnWidth(1, 12 * 256);
 		heads.add("品牌");
-		sheet.setColumnWidth(2, 15 * 256);
+		sheet.setColumnWidth(2, 12 * 256);
 		heads.add("品名");
-		sheet.setColumnWidth(3, 15 * 256);
+		sheet.setColumnWidth(3, 12 * 256);
 		heads.add("规格");
-		sheet.setColumnWidth(4, 15 * 256);
+		sheet.setColumnWidth(4, 25 * 256);
 		heads.add("颜色");
 		sheet.setColumnWidth(5, 10 * 256);
 		heads.add("包装");
@@ -190,7 +205,7 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 		heads.add("单位");
 		sheet.setColumnWidth(7, 10 * 256);
 		heads.add("数量");
-		sheet.setColumnWidth(8, 15 * 256);
+		sheet.setColumnWidth(8, 16 * 256);
 		//heads.add("税后金额");
 		//sheet.setColumnWidth(9, 15 * 256);
 		
@@ -199,7 +214,7 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 		//加粗
 		font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
 		//字体大小
-		font.setFontHeightInPoints((short)12);
+		font.setFontHeightInPoints((short)16);
 		
 		//式样
 		XSSFCellStyle style = workbook.createCellStyle();
@@ -215,16 +230,29 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 		style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 		style.setFillForegroundColor(new XSSFColor(new java.awt.Color(180, 180, 180)));
 		
+		XSSFFont font_other = workbook.createFont();
+		//字体大小
+		font_other.setFontHeightInPoints((short)16);
+		//式样
+		XSSFCellStyle style_other = workbook.createCellStyle();
+		style_other.setFont(font_other);
+		
 		WarehouserptDto warehouserpt = new WarehouserptDto();
 		//添加数据
 		warehouserpt = (WarehouserptDto) datas.get(0);
 		XSSFRow row1 = sheet.createRow(3);
 		XSSFCell cell_no = row1.createCell(0);
 		cell_no.setCellValue("出库单号：" + warehouserpt.getWarehouseno());
+		cell_no.setCellStyle(style_other);
 		XSSFRow row2 = sheet.createRow(4);
 		XSSFCell cell_cus = row2.createCell(0);
 		XSSFCell cell_del = row2.createCell(4);
 		cell_cus.setCellValue("客户：" + warehouserpt.getSuppliername());
+		cell_cus.setCellStyle(style_other);
+		XSSFCell cell_date = row2.createCell(7);
+		cell_date.setCellValue("发货日期：" + warehouserpt.getShowWarehousedate());
+		cell_date.setCellStyle(style_other);
+		/*
 		if (warehouserpt.getExpressname()!=null)
 			cell_del.setCellValue("快递：" + warehouserpt.getExpressname());
 		XSSFRow row3 = sheet.createRow(5);
@@ -261,12 +289,14 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 		cell_cus_mail.setCellValue("联系人信箱：" + warehouserpt.getSuppliermail());
 		if (warehouserpt.getExpressname()!=null)
 			cell_del_mail.setCellValue("联系人信箱：" + warehouserpt.getExpressmail());
-
-		XSSFRow row8 = sheet.createRow(11);
+*/
+		
+		XSSFRow row8 = sheet.createRow(6);
 		XSSFCell cell_detail = row8.createCell(0);
 		cell_detail.setCellValue("出库单明细：");
+		cell_detail.setCellStyle(style_other);
 		
-		XSSFRow row = sheet.createRow(12);
+		XSSFRow row = sheet.createRow(7);
 		XSSFCell cell = null;
 		for(int i = 0; i < heads.size(); i++) {
 			cell = row.createCell(i);
