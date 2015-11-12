@@ -154,11 +154,12 @@
 							<tr class="tittle">
 								<td width="40">序号</td>
 								<td width="120">仓库</td>
+								<td width="80">类型</td>
 								<td width="120">品名</td>
 								<td width="120">规格</td>
 								<td width="60">颜色</td>
 								<td width="60">包装</td>
-								<td width="120">供应商</td>
+								<td width="120">供应商/客户</td>
 								<td width="80">库存数量</td>
 							</tr>
 							<s:iterator id="warehouseOkList" value="warehouseOkList" status="st1">
@@ -170,6 +171,13 @@
 								</s:else>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
 									<td><s:property value="warehousename"/></td>
+									<td>
+										<s:if test='%{warehouseOkList[#st1.index].warehousetype == 1}'>采购</s:if>
+										<s:elseif test='%{warehouseOkList[#st1.index].warehousetype == 2}'>销售</s:elseif>
+										<s:else>
+											<s:property value="warehousetype"/>
+										</s:else>
+									</td>
 									<td><s:property value="tradename"/></td>
 									<td><s:property value="typeno"/></td>
 									<td>

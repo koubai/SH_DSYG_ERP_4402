@@ -127,6 +127,30 @@ public interface WarehouseService {
 	 */
 	public Page queryWarehouseOkByPage(String warehouseType, String theme, String tradename,
 			String typeno, String color, String warehousename, String status, Page page);
+	
+	/**
+	 * @param theme
+	 * @param tradename
+	 * @param typeno
+	 * @param color
+	 * @param warehousename
+	 * @param status
+	 * @return
+	 */
+	public Page queryWarehouseInOkByPage(String theme, String tradename,
+			String typeno, String color, String warehousename, String status, Page page);
+	
+	/**
+	 * @param theme
+	 * @param tradename
+	 * @param typeno
+	 * @param color
+	 * @param warehousename
+	 * @param status
+	 * @return
+	 */
+	public Page queryWarehouseOutOkByPage(String theme, String tradename,
+			String typeno, String color, String warehousename, String status, Page page);
 
 	/**
 	 * 翻页查询

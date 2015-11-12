@@ -6,6 +6,7 @@ import com.cn.dsyg.dto.ProductQuantityDto;
 import com.cn.dsyg.dto.WarehouseCheckDto;
 import com.cn.dsyg.dto.WarehouseDetailDto;
 import com.cn.dsyg.dto.WarehouseDto;
+import com.cn.dsyg.dto.WarehouseInOutOkDto;
 import com.cn.dsyg.dto.WarehouseOkDto;
 import com.cn.dsyg.dto.WarehouseProductDto;
 
@@ -138,29 +139,54 @@ public interface WarehouseDao {
 	
 	//汇总 start
 	/**
-	 * 翻页查询库存汇总数据
+	 * 查询入出库汇总总记录数（入出库）
+	 * @param warehouseType
+	 * @param theme
+	 * @param tradename
+	 * @param typeno
+	 * @param color
+	 * @param warehousename
+	 * @param status
+	 * @return
+	 */
+	public int queryWarehouseInOutOkCountByPage(String warehouseType, String theme, String tradename,
+			String typeno, String color, String warehousename, String status);
+	
+	/**
+	 * 翻页查询库存汇总数据（入库）
 	 * @param warehouseType
 	 * @param status
 	 * @param start
 	 * @param end
 	 * @return
 	 */
-	public List<WarehouseOkDto> queryWarehouseInOkByPage(String warehouseType, String theme, String tradename,
+	public List<WarehouseInOutOkDto> queryWarehouseInOkByPage(String warehouseType, String theme, String tradename,
 			String typeno, String color, String warehousename, String status, int start, int end);
 	
 	/**
-	 * 翻页查询库存汇总数据
+	 * 翻页查询库存汇总数据（出库）
 	 * @param warehouseType
 	 * @param status
 	 * @param start
 	 * @param end
 	 * @return
 	 */
-	public List<WarehouseOkDto> queryWarehouseOutOkByPage(String warehouseType, String theme, String tradename,
+	public List<WarehouseInOutOkDto> queryWarehouseOutOkByPage(String warehouseType, String theme, String tradename,
 			String typeno, String color, String warehousename, String status, int start, int end);
 	
 	/**
-	 * 查询库存汇总总记录数
+	 * 翻页查询库存汇总数据（ALL）
+	 * @param warehouseType
+	 * @param status
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public List<WarehouseOkDto> queryWarehouseOkByPage(String warehouseType, String theme, String tradename,
+			String typeno, String color, String warehousename, String status, int start, int end);
+	
+	/**
+	 * 查询库存汇总总记录数（ALL）
 	 * @param warehouseType
 	 * @param theme
 	 * @param tradename

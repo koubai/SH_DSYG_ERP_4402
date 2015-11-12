@@ -3,13 +3,13 @@ package com.cn.dsyg.dto;
 import com.cn.common.action.BaseAction;
 
 /**
- * 仓位确认DTO
+ * 预入出库确认DTO
  * @name PurchaseItemOkDto.java
  * @author Frank
  * @time 2015-6-4下午9:53:22
  * @version 1.0
  */
-public class WarehouseOkDto extends BaseAction {
+public class WarehouseInOutOkDto extends BaseAction {
 
 	private static final long serialVersionUID = 4006937398518292644L;
 	
@@ -19,9 +19,9 @@ public class WarehouseOkDto extends BaseAction {
 	private String ids;
 	
 	/**
-	 * 类型
+	 * 订单号/采购单号
 	 */
-	private Integer warehousetype;
+	private String parentid;
 	
 	/**
 	 * 入出库数量
@@ -201,11 +201,11 @@ public class WarehouseOkDto extends BaseAction {
 		this.plandate = plandate;
 	}
 
-	public Integer getWarehousetype() {
-		return warehousetype;
+	public String getParentid() {
+		return parentid;
 	}
 
-	public void setWarehousetype(Integer warehousetype) {
-		this.warehousetype = warehousetype;
+	public void setParentid(String parentid) {
+		this.parentid = parentid;
 	}
 }

@@ -11,7 +11,7 @@ import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.dsyg.dto.Dict01Dto;
-import com.cn.dsyg.dto.WarehouseOkDto;
+import com.cn.dsyg.dto.WarehouseInOutOkDto;
 import com.cn.dsyg.service.Dict01Service;
 import com.cn.dsyg.service.WarehouseService;
 import com.opensymphony.xwork2.ActionContext;
@@ -38,7 +38,7 @@ public class WarehouseInOkAction extends BaseAction {
 	//一页显示数据条数
 	private Integer intPageSize;
 	//预入库确认数据列表
-	private List<WarehouseOkDto> warehouseInOkList;
+	private List<WarehouseInOutOkDto> warehouseInOkList;
 	
 	//采购主题
 	private List<Dict01Dto> goodsList;
@@ -64,7 +64,7 @@ public class WarehouseInOkAction extends BaseAction {
 			//默认10条
 			intPageSize = 10;
 			page = new Page(intPageSize);
-			warehouseInOkList = new ArrayList<WarehouseOkDto>();
+			warehouseInOkList = new ArrayList<WarehouseInOutOkDto>();
 			strOkIds = "";
 			
 			queryData();
@@ -147,8 +147,8 @@ public class WarehouseInOkAction extends BaseAction {
 		initDictList();
 		//翻页查询所有预入库确认数据
 		this.page.setStartIndex(startIndex);
-		page = warehouseService.queryWarehouseOkByPage("" + Constants.WAREHOUSE_TYPE_IN, "", "", "", "", "", "" + Constants.WAREHOUSE_STATUS_NEW, page);
-		warehouseInOkList = (List<WarehouseOkDto>) page.getItems();
+		page = warehouseService.queryWarehouseInOkByPage("", "", "", "", "", "" + Constants.WAREHOUSE_STATUS_NEW, page);
+		warehouseInOkList = (List<WarehouseInOutOkDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
 	
@@ -238,19 +238,19 @@ public class WarehouseInOkAction extends BaseAction {
 		this.warehouseService = warehouseService;
 	}
 
-	public List<WarehouseOkDto> getWarehouseInOkList() {
-		return warehouseInOkList;
-	}
-
-	public void setWarehouseInOkList(List<WarehouseOkDto> warehouseInOkList) {
-		this.warehouseInOkList = warehouseInOkList;
-	}
-
 	public String getStrOkIds() {
 		return strOkIds;
 	}
 
 	public void setStrOkIds(String strOkIds) {
 		this.strOkIds = strOkIds;
+	}
+
+	public List<WarehouseInOutOkDto> getWarehouseInOkList() {
+		return warehouseInOkList;
+	}
+
+	public void setWarehouseInOkList(List<WarehouseInOutOkDto> warehouseInOkList) {
+		this.warehouseInOkList = warehouseInOkList;
 	}
 }

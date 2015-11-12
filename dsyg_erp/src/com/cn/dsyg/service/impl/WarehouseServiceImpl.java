@@ -40,6 +40,7 @@ import com.cn.dsyg.dto.UserDto;
 import com.cn.dsyg.dto.WarehouseCheckDto;
 import com.cn.dsyg.dto.WarehouseDetailDto;
 import com.cn.dsyg.dto.WarehouseDto;
+import com.cn.dsyg.dto.WarehouseInOutOkDto;
 import com.cn.dsyg.dto.WarehouseOkDto;
 import com.cn.dsyg.dto.WarehouseProductDto;
 import com.cn.dsyg.dto.WarehouserptDto;
@@ -716,6 +717,56 @@ public class WarehouseServiceImpl implements WarehouseService {
 	}
 	
 	@Override
+	public Page queryWarehouseInOkByPage(String theme, String tradename,
+			String typeno, String color, String warehousename, String status, Page page) {
+		tradename = StringUtil.replaceDatabaseKeyword_mysql(tradename);
+		typeno = StringUtil.replaceDatabaseKeyword_mysql(typeno);
+		warehousename = StringUtil.replaceDatabaseKeyword_mysql(warehousename);
+		//查询总记录数
+		int totalCount = warehouseDao.queryWarehouseInOutOkCountByPage("" + Constants.WAREHOUSE_TYPE_IN,
+				theme, tradename, typeno, color, warehousename, status);
+		page.setTotalCount(totalCount);
+		if(totalCount % page.getPageSize() > 0) {
+			page.setTotalPage(totalCount / page.getPageSize() + 1);
+		} else {
+			page.setTotalPage(totalCount / page.getPageSize());
+		}
+		
+		//翻页查询记录
+		List<WarehouseInOutOkDto> list = new ArrayList<WarehouseInOutOkDto>();
+		list = warehouseDao.queryWarehouseInOkByPage("" + Constants.WAREHOUSE_TYPE_IN, theme, tradename,
+				typeno, color, warehousename, status,
+				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		page.setItems(list);
+		return page;
+	}
+
+	@Override
+	public Page queryWarehouseOutOkByPage(String theme, String tradename,
+			String typeno, String color, String warehousename, String status, Page page) {
+		tradename = StringUtil.replaceDatabaseKeyword_mysql(tradename);
+		typeno = StringUtil.replaceDatabaseKeyword_mysql(typeno);
+		warehousename = StringUtil.replaceDatabaseKeyword_mysql(warehousename);
+		//查询总记录数
+		int totalCount = warehouseDao.queryWarehouseInOutOkCountByPage("" + Constants.WAREHOUSE_TYPE_OUT,
+				theme, tradename, typeno, color, warehousename, status);
+		page.setTotalCount(totalCount);
+		if(totalCount % page.getPageSize() > 0) {
+			page.setTotalPage(totalCount / page.getPageSize() + 1);
+		} else {
+			page.setTotalPage(totalCount / page.getPageSize());
+		}
+		
+		//翻页查询记录
+		List<WarehouseInOutOkDto> list = new ArrayList<WarehouseInOutOkDto>();
+		list = warehouseDao.queryWarehouseOutOkByPage("" + Constants.WAREHOUSE_TYPE_OUT, theme, tradename,
+				typeno, color, warehousename, status,
+				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		page.setItems(list);
+		return page;
+	}
+	
+	@Override
 	public Page queryWarehouseOkByPage(String warehouseType, String theme, String tradename,
 			String typeno, String color, String warehousename, String status, Page page) {
 		tradename = StringUtil.replaceDatabaseKeyword_mysql(tradename);
@@ -733,15 +784,9 @@ public class WarehouseServiceImpl implements WarehouseService {
 		
 		//翻页查询记录
 		List<WarehouseOkDto> list = new ArrayList<WarehouseOkDto>();
-		if(("" + Constants.WAREHOUSE_TYPE_IN).equals(warehouseType)) {
-			list = warehouseDao.queryWarehouseInOkByPage(warehouseType, theme, tradename,
-					typeno, color, warehousename, status,
-					page.getStartIndex() * page.getPageSize(), page.getPageSize());
-		} else if(("" + Constants.WAREHOUSE_TYPE_OUT).equals(warehouseType)) {
-			list = warehouseDao.queryWarehouseOutOkByPage(warehouseType, theme, tradename,
-					typeno, color, warehousename, status,
-					page.getStartIndex() * page.getPageSize(), page.getPageSize());
-		}
+		list = warehouseDao.queryWarehouseOkByPage(warehouseType, theme, tradename,
+				typeno, color, warehousename, status,
+				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		page.setItems(list);
 		return page;
 	}

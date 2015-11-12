@@ -11,7 +11,7 @@ import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.dsyg.dto.Dict01Dto;
-import com.cn.dsyg.dto.WarehouseOkDto;
+import com.cn.dsyg.dto.WarehouseInOutOkDto;
 import com.cn.dsyg.service.Dict01Service;
 import com.cn.dsyg.service.WarehouseService;
 import com.opensymphony.xwork2.ActionContext;
@@ -38,7 +38,7 @@ public class WarehouseOutOkAction extends BaseAction {
 	//一页显示数据条数
 	private Integer intPageSize;
 	//库存未确认数据集集列表
-	private List<WarehouseOkDto> warehouseOutOkList;
+	private List<WarehouseInOutOkDto> warehouseOutOkList;
 	
 	//采购主题
 	private List<Dict01Dto> goodsList;
@@ -64,7 +64,7 @@ public class WarehouseOutOkAction extends BaseAction {
 			//默认10条
 			intPageSize = 10;
 			page = new Page(intPageSize);
-			warehouseOutOkList = new ArrayList<WarehouseOkDto>();
+			warehouseOutOkList = new ArrayList<WarehouseInOutOkDto>();
 			strOkIds = "";
 			
 			queryData();
@@ -147,8 +147,8 @@ public class WarehouseOutOkAction extends BaseAction {
 		initDictList();
 		//翻页查询所有预出库待确认数据
 		this.page.setStartIndex(startIndex);
-		page = warehouseService.queryWarehouseOkByPage("" + Constants.WAREHOUSE_TYPE_OUT, "", "", "", "", "", "" + Constants.WAREHOUSE_STATUS_NEW, page);
-		warehouseOutOkList = (List<WarehouseOkDto>) page.getItems();
+		page = warehouseService.queryWarehouseOutOkByPage("", "", "", "", "", "" + Constants.WAREHOUSE_STATUS_NEW, page);
+		warehouseOutOkList = (List<WarehouseInOutOkDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
 	
@@ -238,19 +238,19 @@ public class WarehouseOutOkAction extends BaseAction {
 		this.warehouseService = warehouseService;
 	}
 
-	public List<WarehouseOkDto> getWarehouseOutOkList() {
-		return warehouseOutOkList;
-	}
-
-	public void setWarehouseOutOkList(List<WarehouseOkDto> warehouseOutOkList) {
-		this.warehouseOutOkList = warehouseOutOkList;
-	}
-
 	public String getStrOkIds() {
 		return strOkIds;
 	}
 
 	public void setStrOkIds(String strOkIds) {
 		this.strOkIds = strOkIds;
+	}
+
+	public List<WarehouseInOutOkDto> getWarehouseOutOkList() {
+		return warehouseOutOkList;
+	}
+
+	public void setWarehouseOutOkList(List<WarehouseInOutOkDto> warehouseOutOkList) {
+		this.warehouseOutOkList = warehouseOutOkList;
 	}
 }
