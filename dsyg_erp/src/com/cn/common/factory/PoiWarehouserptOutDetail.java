@@ -102,7 +102,7 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 		WarehouserptDto warehouserpt = new WarehouserptDto();
 		XSSFFont font = workbook.createFont();
 		//字体大小
-		font.setFontHeightInPoints((short)14);
+		font.setFontHeightInPoints((short)16);
 		//式样
 		XSSFCellStyle style = workbook.createCellStyle();
 		//水平居中
@@ -185,27 +185,17 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 					cell10.setCellValue(product.getRes09());
 					cell10.setCellStyle(style);
 					/*
-					int enterCnt = 0;  
-	                int colIdxOfMaxCnt = 1;  
-	                for(int r = 0; r <= 10; r ++) {  
-	                    int rwsTemp = row.getCell(r).toString().split("\n").length;  
-		                System.out.println(row.getCell(r).toString());
-	                    if (rwsTemp > enterCnt) {  
-	                        enterCnt = rwsTemp;  
-	                        colIdxOfMaxCnt = r;  
-	                    }  
-	                }  
-	                System.out.println(colIdxOfMaxCnt + "列的行数：" + enterCnt);
-	                row.setHeight((short)(enterCnt * 228));*/
-					
-					float height=getExcelCellAutoHeight(row.getCell(3).toString()+"", 3.5f);
-					float height2=getExcelCellAutoHeight(row.getCell(4).toString()+"", 9f);
-					if(height>=height2){
-						row.setHeightInPoints(height);
-					} else {
-						row.setHeightInPoints(height2);
+		            float defaultRowHeight = 30f;  
+		            float maxHeight = defaultRowHeight; 
+					for(int c = 0; c < 8; c++){
+		                System.out.println(c + "列：" + sheet.getColumnWidth(c) + " " + row.getCell(c).toString());
+		                System.out.println(c + "列：" + sheet.getColumnWidth(c)/256);
+						float thisHeight = getExcelCellAutoHeight(row.getCell(c).toString(), defaultRowHeight, sheet.getColumnWidth(c)/256);   
+		                if(thisHeight > maxHeight) maxHeight = thisHeight;
+		                System.out.println("maxHeight：" + maxHeight);
+						row.setHeightInPoints(maxHeight);
 					}
-	                
+	                */
 					num++;
 				}
 			} else {
@@ -252,7 +242,7 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 
 		
 		row = sheet.createRow(num + 9);
-		row.setHeightInPoints(30);
+		row.setHeightInPoints(21);
 		XSSFCell cell30 = row.createCell(0);
 		XSSFCell cell31 = row.createCell(1);
 		XSSFCell cell32 = row.createCell(2);
@@ -372,38 +362,4 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 			cell.setCellStyle(style);
 		}
 	}
-	
-	public static float getExcelCellAutoHeight(String str, float fontCountInline) {
-        float defaultRowHeight = 25.00f;//每一行的高度指定
-        float defaultCount = 0.00f;
-        for (int i = 0; i < str.length(); i++) {
-            float ff = getregex(str.substring(i, i + 1));
-            defaultCount = defaultCount + ff;
-        }
-        System.out.println(defaultCount);
-        return ((int) (defaultCount / fontCountInline) + 1) * defaultRowHeight;//计算
-    }
-
-    public static float getregex(String charStr) {
-        
-        if(charStr==" ")
-        {
-            return 0.5f;
-        }
-        // 判断是否为字母或字符
-        if (Pattern.compile("^[A-Za-z0-9]+$").matcher(charStr).matches()) {
-            return 0.5f;
-        }
-        // 判断是否为全角
-
-        if (Pattern.compile("[u4e00-u9fa5]+$").matcher(charStr).matches()) {
-            return 1.00f;
-        }
-        //全角符号 及中文
-        if (Pattern.compile("[^x00-xff]").matcher(charStr).matches()) {
-            return 1.00f;
-        }
-        return 0.5f;
-
-    }
 }

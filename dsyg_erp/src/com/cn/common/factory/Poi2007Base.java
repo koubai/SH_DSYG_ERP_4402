@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -170,6 +171,44 @@ public class Poi2007Base {
 			}
 		}
 	}
+
+    public static float getExcelCellAutoHeight(String str,float defaultRowHeight, int fontCountInline) {  
+        int defaultCount = 0;  
+          
+        for (int i = 0; i < str.length(); i++) {  
+            int ff = getregex(str.substring(i, i + 1));  
+            defaultCount = defaultCount + ff;  
+            System.out.println("defaultCount：" + defaultCount);
+        }  
+        if (defaultCount > fontCountInline){  
+            return ((int) (defaultCount / fontCountInline) + 1) * defaultRowHeight;//计算  
+        } else {  
+            return defaultRowHeight;  
+        }  
+    }  
+  
+    public static int getregex(String charStr) {  
+          
+        if(charStr==" ")  
+        {  
+            return 1;  
+        }  
+        // 判断是否为字母或字符  
+        if (Pattern.compile("^[A-Za-z0-9]+$").matcher(charStr).matches()) {  
+            return 1;  
+        }  
+        // 判断是否为全角  
+  
+        if (Pattern.compile("[\u4e00-\u9fa5]+$").matcher(charStr).matches()) {  
+            return 2;  
+        }  
+        //全角符号 及中文  
+        if (Pattern.compile("[^x00-xff]").matcher(charStr).matches()) {  
+            return 2;  
+        }  
+        return 1;  
+  
+    }  
 
 	public String getSheetName() {
 		return sheetName;

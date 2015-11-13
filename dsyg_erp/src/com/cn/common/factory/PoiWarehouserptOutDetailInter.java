@@ -129,14 +129,6 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 					}
 					//cell9.setCellStyle(style);
 					//cell9.setCellValue(product.getAmount());
-					
-					float height=PoiWarehouserptOutDetail.getExcelCellAutoHeight(row.getCell(3).toString()+"", 3.5f);
-					float height2=PoiWarehouserptOutDetail.getExcelCellAutoHeight(row.getCell(4).toString()+"", 9f);
-					if(height>=height2){
-						row.setHeightInPoints(height);
-					} else {
-						row.setHeightInPoints(height2);
-					}
 					num++;
 				}
 			} else {
