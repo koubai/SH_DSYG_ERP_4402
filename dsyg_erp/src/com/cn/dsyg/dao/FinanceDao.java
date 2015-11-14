@@ -14,6 +14,7 @@ public interface FinanceDao {
 
 	/**
 	 * 翻页查询财务信息
+	 * @param expressno
 	 * @param status
 	 * @param financetype
 	 * @param invoiceid
@@ -22,16 +23,18 @@ public interface FinanceDao {
 	 * @param receiptdateLow
 	 * @param receiptdateHigh
 	 * @param billno
+	 * @param res02
 	 * @param start
 	 * @param end
 	 * @return
 	 */
-	public List<FinanceDto> queryFinanceByPage(String status, String financetype, String invoiceid,
+	public List<FinanceDto> queryFinanceByPage(String expressno, String status, String financetype, String invoiceid,
 			String receiptid, String customerid, String receiptdateLow, String receiptdateHigh,
 			String billno, String res02, int start, int end);
 	
 	/**
 	 * 查询记录数
+	 * @param expressno
 	 * @param status
 	 * @param financetype
 	 * @param invoiceid
@@ -40,9 +43,10 @@ public interface FinanceDao {
 	 * @param receiptdateLow
 	 * @param receiptdateHigh
 	 * @param billno
+	 * @param res02
 	 * @return
 	 */
-	public int queryFinanceCountByPage(String status, String financetype, String invoiceid,
+	public int queryFinanceCountByPage(String expressno, String status, String financetype, String invoiceid,
 			String receiptid, String customerid, String receiptdateLow, String receiptdateHigh, String billno, String res02);
 	
 	/**

@@ -162,6 +162,8 @@ public class WarehouseRefundAction extends BaseAction {
 			page = new Page(intPageSize);
 			warehouseList = new ArrayList<WarehouseDto>();
 			updWarehouseid = "";
+			
+			queryData();
 		} catch(Exception e) {
 			log.error("showWarehouseRefundAction error:" + e);
 			return ERROR;

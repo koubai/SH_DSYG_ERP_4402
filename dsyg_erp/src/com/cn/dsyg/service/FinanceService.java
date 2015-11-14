@@ -13,6 +13,7 @@ public interface FinanceService {
 
 	/**
 	 * 翻页查询财务信息
+	 * @param expressno
 	 * @param status
 	 * @param financetype
 	 * @param invoiceid
@@ -21,10 +22,11 @@ public interface FinanceService {
 	 * @param receiptdateLow
 	 * @param receiptdateHigh
 	 * @param billno
+	 * @param res02
 	 * @param page
 	 * @return
 	 */
-	public Page queryFinanceByPage(String status, String financetype, String invoiceid,
+	public Page queryFinanceByPage(String expressno, String status, String financetype, String invoiceid,
 			String receiptid, String customerid, String receiptdateLow, String receiptdateHigh, String billno, String res02, Page page);
 	
 	/**

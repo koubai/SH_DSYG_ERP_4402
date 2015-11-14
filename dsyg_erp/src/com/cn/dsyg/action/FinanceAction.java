@@ -500,7 +500,7 @@ public class FinanceAction extends BaseAction {
 		financeDictList = dict01Service.queryDict01ByFieldcode(Constants.FINANCE_THEME, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		page = financeService.queryFinanceByPage("", "", "",
+		page = financeService.queryFinanceByPage("", "", "", "",
 				"", "", strReceiptdateLow, strReceiptdateHigh, strBillno, "", page);
 		financeList = (List<FinanceDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());

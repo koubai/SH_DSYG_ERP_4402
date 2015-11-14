@@ -58,6 +58,12 @@ public interface SalesItemDao {
 	public void deleteNoUseSalesItemBySalesno(String salesno);
 	
 	/**
+	 * 根据销售单编号，物理删除item数据
+	 * @param salesno
+	 */
+	public void deleteAllSalesItemBySalesno(String salesno);
+	
+	/**
 	 * 新增销售单货物
 	 * @param salesItem
 	 */

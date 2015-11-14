@@ -356,13 +356,13 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 						amount = new BigDecimal(product.getBrokennum()).multiply(warehouse.getUnitprice());
 						//入出库数量=损毁数
 						//入库单，数量为负数
-						warehouse.setQuantity(-1 * Integer.valueOf(product.getBrokennum()));
+						warehouse.setQuantity(new BigDecimal(product.getBrokennum()).multiply(new BigDecimal(-1)));
 					} else {
 						//销售单价
 						taxamount = new BigDecimal(product.getBrokennum()).multiply(warehouse.getUnitprice());
 						amount = new BigDecimal(product.getBrokennum()).multiply(warehouse.getUnitprice());
 						//出库单，数量为正数
-						warehouse.setQuantity(Integer.valueOf(product.getBrokennum()));
+						warehouse.setQuantity(new BigDecimal(product.getBrokennum()));
 					}
 					
 					if(listRate != null && listRate.size() > 0) {
@@ -409,7 +409,7 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 					//入出库单RPT日期
 					newwarehouserpt.setWarehousedate(DateUtil.dateToShortStr(date));
 					//入库数量，这里不需要乘以-1
-					newwarehouserpt.setTotalnum(Integer.valueOf(product.getBrokennum()));
+					newwarehouserpt.setTotalnum(new BigDecimal(product.getBrokennum()));
 					//含税金额
 					newwarehouserpt.setTotaltaxamount(taxamount);
 					//收货人
@@ -448,6 +448,7 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 			}
 			warehouserpt.setProductinfo(productinfo);
 		}
+		warehouserpt.setRes01(warehouserpt.getReceiptdate());
 		warehouserptDao.updateWarehouserpt(warehouserpt);
 		
 		//快递信息

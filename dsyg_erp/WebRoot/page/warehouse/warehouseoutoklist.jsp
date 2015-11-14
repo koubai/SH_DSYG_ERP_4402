@@ -166,7 +166,7 @@
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
 									<td><s:property value="suppliername"/></td>
 									<td><s:property value="warehousename"/></td>
-									<td><s:property value="parentid"/></td>
+									<td><s:property value="theme2"/></td>
 									<td><s:property value="tradename"/></td>
 									<td><s:property value="typeno"/></td>
 									<td>

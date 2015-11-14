@@ -130,6 +130,8 @@ public class AssetsAction extends BaseAction {
 			
 			startIndex = 0;
 			listAssets = new ArrayList<AssetsDto>();
+			
+			queryEtbAssets();
 		} catch(Exception e) {
 			return ERROR;
 		}

@@ -1,5 +1,7 @@
 package com.cn.dsyg.dto;
 
+import java.math.BigDecimal;
+
 import com.cn.common.action.BaseAction;
 
 /**
@@ -26,12 +28,12 @@ public class WarehouseInOutOkDto extends BaseAction {
 	/**
 	 * 入出库数量
 	 */
-	private Integer quantity;
+	private BigDecimal quantity;
 	
 	/**
 	 * 对于出库数量为负数时，用这个变量来展现= -1 * quantity
 	 */
-	private Integer showQuantity;
+	private BigDecimal showQuantity;
 	
 	/**
 	 * 预入库时间
@@ -57,6 +59,11 @@ public class WarehouseInOutOkDto extends BaseAction {
 	 * 主题
 	 */
 	private String theme1;
+	
+	/**
+	 * 用户手输的订单号
+	 */
+	private String theme2;
 	
 	/**
 	 * 品名
@@ -152,14 +159,6 @@ public class WarehouseInOutOkDto extends BaseAction {
 		this.unit = unit;
 	}
 
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
 	public String getSuppliername() {
 		return suppliername;
 	}
@@ -184,15 +183,6 @@ public class WarehouseInOutOkDto extends BaseAction {
 		this.ids = ids;
 	}
 
-	public Integer getShowQuantity() {
-		showQuantity = -1 * quantity;
-		return showQuantity;
-	}
-
-	public void setShowQuantity(Integer showQuantity) {
-		this.showQuantity = showQuantity;
-	}
-
 	public String getPlandate() {
 		return plandate;
 	}
@@ -207,5 +197,32 @@ public class WarehouseInOutOkDto extends BaseAction {
 
 	public void setParentid(String parentid) {
 		this.parentid = parentid;
+	}
+
+	public String getTheme2() {
+		return theme2;
+	}
+
+	public void setTheme2(String theme2) {
+		this.theme2 = theme2;
+	}
+
+	public BigDecimal getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(BigDecimal quantity) {
+		this.quantity = quantity;
+	}
+
+	public BigDecimal getShowQuantity() {
+		if(quantity != null) {
+			showQuantity = quantity.multiply(new BigDecimal(-1));
+		}
+		return showQuantity;
+	}
+
+	public void setShowQuantity(BigDecimal showQuantity) {
+		this.showQuantity = showQuantity;
 	}
 }

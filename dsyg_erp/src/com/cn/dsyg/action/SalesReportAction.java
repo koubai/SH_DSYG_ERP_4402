@@ -153,6 +153,8 @@ public class SalesReportAction extends BaseAction {
 			
 			startIndex = 0;
 			listSalesReport = new ArrayList<SalesReportDto>();
+			
+			querySalesReport();
 		} catch(Exception e) {
 			return ERROR;
 		}

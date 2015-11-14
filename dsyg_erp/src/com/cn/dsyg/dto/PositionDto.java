@@ -1,5 +1,6 @@
 package com.cn.dsyg.dto;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.cn.common.dto.BaseDto;
@@ -62,12 +63,12 @@ public class PositionDto extends BaseDto {
 	/**
 	 * 盘点数量
 	 */
-	private String amount;
+	private BigDecimal amount;
 	
 	/**
 	 * 盘点前库存数量
 	 */
-	private String beforeamount;
+	private BigDecimal beforeamount;
 
 	/**
 	 * 仓库名
@@ -274,14 +275,6 @@ public class PositionDto extends BaseDto {
 		this.updatedate = updatedate;
 	}
 
-	public String getAmount() {
-		return amount;
-	}
-
-	public void setAmount(String amount) {
-		this.amount = amount;
-	}
-
 	public Integer getRank() {
 		return rank;
 	}
@@ -296,14 +289,6 @@ public class PositionDto extends BaseDto {
 
 	public void setStatus(Integer status) {
 		this.status = status;
-	}
-
-	public String getBeforeamount() {
-		return beforeamount;
-	}
-
-	public void setBeforeamount(String beforeamount) {
-		this.beforeamount = beforeamount;
 	}
 
 	public String getCheckday() {
@@ -376,5 +361,21 @@ public class PositionDto extends BaseDto {
 
 	public void setItem10(String item10) {
 		this.item10 = item10;
+	}
+
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+
+	public BigDecimal getBeforeamount() {
+		return beforeamount;
+	}
+
+	public void setBeforeamount(BigDecimal beforeamount) {
+		this.beforeamount = beforeamount;
 	}
 }

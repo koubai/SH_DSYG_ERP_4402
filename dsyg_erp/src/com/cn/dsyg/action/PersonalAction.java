@@ -130,6 +130,8 @@ public class PersonalAction extends BaseAction {
 			
 			startIndex = 0;
 			listPersonal = new ArrayList<PersonalDto>();
+			
+			queryEtbPersonal();
 		} catch(Exception e) {
 			return ERROR;
 		}

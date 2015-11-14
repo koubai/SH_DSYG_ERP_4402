@@ -1,5 +1,6 @@
 package com.cn.dsyg.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.cn.common.util.Page;
@@ -93,9 +94,9 @@ public class SampleServiceImpl implements SampleService {
 	public void insertSample(SampleDto sample) {
 		if("2".equals(sample.getCustomertype())) {
 			//送样，对应的数量应为负数
-			int quantity = Integer.valueOf(sample.getQuantity());
-			if(quantity > 0) {
-				sample.setQuantity("" + (quantity * -1));
+			BigDecimal quantity = new BigDecimal(sample.getQuantity());
+			if(quantity.compareTo(new BigDecimal(0)) > 0) {
+				sample.setQuantity("" + quantity.multiply(new BigDecimal(-1)));
 			}
 		}
 		sampleDao.insertSample(sample);
@@ -105,9 +106,9 @@ public class SampleServiceImpl implements SampleService {
 	public void updateSample(SampleDto sample) {
 		if("2".equals(sample.getCustomertype())) {
 			//送样，对应的数量应为负数
-			int quantity = Integer.valueOf(sample.getQuantity());
-			if(quantity > 0) {
-				sample.setQuantity("" + (quantity * -1));
+			BigDecimal quantity = new BigDecimal(sample.getQuantity());
+			if(quantity.compareTo(new BigDecimal(0)) > 0) {
+				sample.setQuantity("" + quantity.multiply(new BigDecimal(-1)));
 			}
 		}
 		sampleDao.updateSample(sample);

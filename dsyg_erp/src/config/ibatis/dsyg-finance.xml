@@ -47,6 +47,9 @@
 		<isNotEmpty prepend="and" property="status">
 			T.status = #status#
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="res08">
+			T.res08 = #res08#
+		</isNotEmpty>
 		<isNotEmpty prepend="and" property="financetype">
 			T.financetype = #financetype#
 		</isNotEmpty>
@@ -79,6 +82,9 @@
 		select count(*) from etb_finance T where 1 = 1
 		<isNotEmpty prepend="and" property="status">
 			T.status = #status#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="res08">
+			T.res08 = #res08#
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="financetype">
 			T.financetype = #financetype#

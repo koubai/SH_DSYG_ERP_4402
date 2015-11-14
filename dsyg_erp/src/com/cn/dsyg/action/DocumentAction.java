@@ -130,6 +130,8 @@ public class DocumentAction extends BaseAction {
 			
 			startIndex = 0;
 			listDocument = new ArrayList<DocumentDto>();
+			
+			queryEtbDocument();
 		} catch(Exception e) {
 			return ERROR;
 		}

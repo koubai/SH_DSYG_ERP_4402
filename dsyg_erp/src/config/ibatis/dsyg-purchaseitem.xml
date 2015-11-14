@@ -157,6 +157,10 @@
 			where purchaseno = #purchaseno#
 	</delete>
 	
+	<delete id="deleteAllPurchaseItemByPurchaseno" parameterClass="java.util.Map">
+		DELETE FROM etb_purchaseitem WHERE purchaseno = #purchaseno#
+	</delete>
+	
 	<delete id="deleteNoUsePurchaseItemByPurchaseno" parameterClass="java.util.Map">
 		DELETE FROM etb_purchaseitem WHERE purchaseno = #purchaseno# AND status = 0
 	</delete>

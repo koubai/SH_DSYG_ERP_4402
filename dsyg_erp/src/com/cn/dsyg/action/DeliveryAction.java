@@ -203,6 +203,8 @@ public class DeliveryAction extends BaseAction {
 			startIndex = 0;
 			intPageSize = 10;
 			listDelivery = new ArrayList<DeliveryDto>();
+			
+			queryEtbDelivery();
 		} catch(Exception e) {
 			return ERROR;
 		}

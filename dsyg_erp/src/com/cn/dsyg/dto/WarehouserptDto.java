@@ -74,7 +74,7 @@ public class WarehouserptDto extends BaseAction {
 	/**
 	 * 入库数量
 	 */
-	private Integer totalnum;
+	private BigDecimal totalnum;
 	
 	//损毁数量
 	/**
@@ -642,14 +642,6 @@ public class WarehouserptDto extends BaseAction {
 		this.suppliername = suppliername;
 	}
 
-	public Integer getTotalnum() {
-		return totalnum;
-	}
-
-	public void setTotalnum(Integer totalnum) {
-		this.totalnum = totalnum;
-	}
-
 	public String getSupplierfax() {
 		return supplierfax;
 	}
@@ -778,6 +770,14 @@ public class WarehouserptDto extends BaseAction {
 
 	public void setShowReceiptdate(String showReceiptdate) {
 		this.showReceiptdate = showReceiptdate;
+	}
+
+	public BigDecimal getTotalnum() {
+		return totalnum;
+	}
+
+	public void setTotalnum(BigDecimal totalnum) {
+		this.totalnum = totalnum;
 	}
 
 }

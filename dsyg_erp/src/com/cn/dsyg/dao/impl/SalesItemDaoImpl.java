@@ -51,6 +51,13 @@ public class SalesItemDaoImpl extends BaseDao implements SalesItemDao {
 		paramMap.put("salesno", salesno);
 		getSqlMapClientTemplate().update("deleteNoUseSalesItemBySalesno", paramMap);
 	}
+	
+	@Override
+	public void deleteAllSalesItemBySalesno(String salesno) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("salesno", salesno);
+		getSqlMapClientTemplate().update("deleteAllSalesItemBySalesno", paramMap);
+	}
 
 	@Override
 	public void insertSalesItem(SalesItemDto salesItem) {

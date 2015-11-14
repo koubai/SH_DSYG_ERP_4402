@@ -230,7 +230,7 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 		cell36.setCellStyle(style);
 		cell37.setCellValue("");
 		cell37.setCellStyle(style);
-		cell38.setCellValue(warehouserpt.getTotalnum());
+		cell38.setCellValue(StringUtil.BigDecimal2Str(warehouserpt.getTotalnum(), 2));
 		cell38.setCellStyle(style);
 		cell39.setCellValue(warehouserpt.getTotaltaxamount().toString());
 		cell39.setCellStyle(style);

@@ -121,20 +121,20 @@ public class SalesServiceImpl implements SalesService {
 				salesItem.setRes02(sales.getRes02());
 				
 				//判断预出库数量是否大于0，若大于0则生产库存记录
-				if(salesItem.getBeforequantity() != null && salesItem.getBeforequantity() > 0) {
+				if(salesItem.getBeforequantity() != null && salesItem.getBeforequantity().floatValue() > 0) {
 					//新增库存记录
 					addWarehouse(sales, salesItem);
 					//已出库数=预出库数+之前已出库数
 					if(salesItem.getOutquantity() == null) {
 						salesItem.setOutquantity(salesItem.getBeforequantity());
 					} else {
-						salesItem.setOutquantity(salesItem.getBeforequantity() + salesItem.getOutquantity());
+						salesItem.setOutquantity(salesItem.getBeforequantity().add(salesItem.getOutquantity()));
 					}
 				}
 				//特殊订单号
 				salesItem.setRes09(salesItem.getRes09());
 				//预出库数重置为0
-				salesItem.setBeforequantity(0);
+				salesItem.setBeforequantity(new BigDecimal(0));
 				salesItemDao.insertSalesItem(salesItem);
 			}
 		}
@@ -193,21 +193,21 @@ public class SalesServiceImpl implements SalesService {
 					salesItem.setRes02(sales.getRes02());
 					
 					//判断预出库数量是!=0，若!=0则生产库存记录，这里不判断是否大于0的情况，考虑可能会增加负的库存记录
-					if(salesItem.getBeforequantity() != null && salesItem.getBeforequantity() != 0) {
+					if(salesItem.getBeforequantity() != null && salesItem.getBeforequantity().floatValue() != 0) {
 						//新增库存记录
 						addWarehouse(sales, salesItem);
 						//已出库数=预出库数+之前已出库数
 						if(salesItem.getOutquantity() == null) {
 							salesItem.setOutquantity(salesItem.getBeforequantity());
 						} else {
-							salesItem.setOutquantity(salesItem.getBeforequantity() + salesItem.getOutquantity());
+							salesItem.setOutquantity(salesItem.getBeforequantity().add(salesItem.getOutquantity()));
 						}
 					}
 					//特殊订单号
 					salesItem.setRes09(salesItem.getRes09());
 
 					//预出库数重置为0
-					salesItem.setBeforequantity(0);
+					salesItem.setBeforequantity(new BigDecimal(0));
 					salesItemDao.insertSalesItem(salesItem);
 				} else {
 					//修改
@@ -218,21 +218,21 @@ public class SalesServiceImpl implements SalesService {
 					salesItem.setRes02(sales.getRes02());
 					
 					//判断预出库数量是!=0，若!=0则生产库存记录，这里不判断是否大于0的情况，考虑可能会增加负的库存记录
-					if(salesItem.getBeforequantity() != null && salesItem.getBeforequantity() != 0) {
+					if(salesItem.getBeforequantity() != null && salesItem.getBeforequantity().floatValue() != 0) {
 						//新增库存记录
 						addWarehouse(sales, salesItem);
 						//已出库数=预出库数+之前已出库数
 						if(salesItem.getOutquantity() == null) {
 							salesItem.setOutquantity(salesItem.getBeforequantity());
 						} else {
-							salesItem.setOutquantity(salesItem.getBeforequantity() + salesItem.getOutquantity());
+							salesItem.setOutquantity(salesItem.getBeforequantity().add(salesItem.getOutquantity()));
 						}
 					}
 					//特殊订单号
 					salesItem.setRes09(salesItem.getRes09());
 
 					//预出库数重置为0
-					salesItem.setBeforequantity(0);
+					salesItem.setBeforequantity(new BigDecimal(0));
 					salesItemDao.updateSalesItem(salesItem);
 				}
 			}
@@ -307,12 +307,12 @@ public class SalesServiceImpl implements SalesService {
 		//产品ID
 		warehouse.setProductid("" + salesItem.getProductid());
 		//出库数量=预出库数（这里是出库，所以是负数）
-		warehouse.setQuantity(salesItem.getBeforequantity() * -1);
+		warehouse.setQuantity(new BigDecimal(-1).multiply(salesItem.getBeforequantity()));
 		//单价
 		warehouse.setUnitprice(salesItem.getUnitprice());
 		
 		//出库金额=出库数量*单价
-		BigDecimal amount = salesItem.getUnitprice().multiply(new BigDecimal(salesItem.getBeforequantity()));
+		BigDecimal amount = salesItem.getUnitprice().multiply(salesItem.getBeforequantity());
 		//出库金额含税=出库金额*税率
 		BigDecimal taxamount = new BigDecimal(0);
 		
@@ -375,10 +375,18 @@ public class SalesServiceImpl implements SalesService {
 	public void deleteSales(String id, String userid) {
 		SalesDto sales = salesDao.querySalesByID(id);
 		if(sales != null) {
-			sales.setStatus(Constants.STATUS_DEL);
-			sales.setUpdateuid(userid);
-			salesDao.updateSales(sales);
+			//根据订单号，物理删除item
+			salesItemDao.deleteAllSalesItemBySalesno(sales.getSalesno());
+			//物理删除订单
+			salesDao.deleteSales(id);
 		}
+		
+		//逻辑删除
+//		if(sales != null) {
+//			sales.setStatus(Constants.STATUS_DEL);
+//			sales.setUpdateuid(userid);
+//			salesDao.updateSales(sales);
+//		}
 	}
 
 	@Override

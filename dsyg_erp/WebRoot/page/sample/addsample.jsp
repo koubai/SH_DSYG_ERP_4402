@@ -99,8 +99,8 @@
 			$("#tmpQuantity").focus();
 			return;
 		}
-		if(!isNumber(tmpQuantity)) {
-			alert("数量必须是大于0的数字！");
+		if(!isReal(tmpQuantity)) {
+			alert("数量格式不正确！");
 			$("#tmpQuantity").focus();
 			return;
 		}

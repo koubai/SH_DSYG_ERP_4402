@@ -167,7 +167,16 @@
 						<div class="box1_right"></div>
 					</div>
 					
-					<div class="btn" style="margin-left: 120px;">
+					<div class="box1" >
+						<label class="pdf10" style="margin-left: 60px; width: 80px">快递单号</label>
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<s:textfield name="strExpressno" id="strExpressno" cssStyle="width:135px;" maxlength="50" theme="simple"></s:textfield>
+						</div>
+						<div class="box1_right"></div>
+					</div>
+					
+					<div class="btn" style="margin-left: 20px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
 							<input type="button" class="input40" value="检索" onclick="queryList();"/>
@@ -236,7 +245,7 @@
 										</s:else>
 									</td> -->
 									<td><s:property value="customername"/></td>
-									<td><s:property value="res09"/></td>
+									<td><s:property value="res08"/></td>
 									<td><s:property value="handlername"/></td>
 									<td><s:property value="showReceiptdate"/></td>
 									<td><s:property value="res02"/></td>

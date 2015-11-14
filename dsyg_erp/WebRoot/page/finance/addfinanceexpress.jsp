@@ -38,7 +38,7 @@
 		//客户名
 		var res02 = $("#customername").val().trim();
 		//快递单号
-		var res09 = $("#res09").val().trim();
+		var res08 = $("#res08").val().trim();
 		//快递名
 		var expressname = $("#expressname").val().trim();
 		//快递地址
@@ -71,9 +71,9 @@
 			$("#res02").focus();
 			return;
 		}
-		if(res09 == "") {
+		if(res08 == "") {
 			alert("快递单号不能为空！");
-			$("#res09").focus();
+			$("#res08").focus();
 			return;
 		}
 /*		if(expressaddress == "") {
@@ -210,7 +210,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="addFinanceDto.res09" id="res09" cssStyle="width:300px;" maxlength="32" theme="simple"></s:textfield>
+									<s:textfield name="addFinanceDto.res08" id="res08" cssStyle="width:300px;" maxlength="32" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>

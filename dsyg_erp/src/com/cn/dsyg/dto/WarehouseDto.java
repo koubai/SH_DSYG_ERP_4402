@@ -101,12 +101,12 @@ public class WarehouseDto extends BaseAction {
 	/**
 	 * 入出库数量
 	 */
-	private Integer quantity;
+	private BigDecimal quantity;
 
 	/**
 	 * 实际入出库数量
 	 */
-	private Integer actualquantity;
+	private BigDecimal actualquantity;
 
 	/**
 	 * 单价
@@ -296,22 +296,6 @@ public class WarehouseDto extends BaseAction {
 
 	public void setProductid(String productid) {
 		this.productid = productid;
-	}
-
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
-	public Integer getActualquantity() {
-		return actualquantity;
-	}
-
-	public void setActualquantity(Integer actualquantity) {
-		this.actualquantity = actualquantity;
 	}
 
 	public BigDecimal getUnitprice() {
@@ -568,5 +552,21 @@ public class WarehouseDto extends BaseAction {
 
 	public void setUnit(String unit) {
 		this.unit = unit;
+	}
+
+	public BigDecimal getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(BigDecimal quantity) {
+		this.quantity = quantity;
+	}
+
+	public BigDecimal getActualquantity() {
+		return actualquantity;
+	}
+
+	public void setActualquantity(BigDecimal actualquantity) {
+		this.actualquantity = actualquantity;
 	}
 }

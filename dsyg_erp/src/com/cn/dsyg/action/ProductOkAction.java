@@ -83,6 +83,8 @@ public class ProductOkAction extends BaseAction {
 			strTypeno = "";
 			strColor = "";
 			strWarehousename = "";
+			
+			queryData();
 		} catch(Exception e) {
 			log.error("showProductOkAction error:" + e);
 			return ERROR;

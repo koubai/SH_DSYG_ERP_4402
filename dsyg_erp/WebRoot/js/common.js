@@ -212,6 +212,29 @@ function isReal(s) {
 }
 
 /**
+ * 判断是否是实数
+ * @param s
+ * @return
+ */
+function isAllReal(s) {
+	var reg;
+	if(s.indexOf("-") >= 0) {
+		if(s.indexOf(".") >= 0) {
+			reg = /^[-]\d+\.\d+$/;
+		} else {
+			reg = /^[-]\d+$/;
+		}
+	} else {
+		if(s.indexOf(".") >= 0) {
+			reg = /^\d+\.\d+$/;
+		} else {
+			reg = /^\d+$/;
+		}
+	}
+	return reg.test(s);
+}
+
+/**
  * 设置整数显示为小数显示
  * @param str
  * @return

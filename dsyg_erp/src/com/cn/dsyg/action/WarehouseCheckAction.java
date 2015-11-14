@@ -116,6 +116,8 @@ public class WarehouseCheckAction extends BaseAction {
 			page = new Page(intPageSize);
 			positionCollectList = new ArrayList<PositionCollectDto>();
 			warehouseCheckList = new ArrayList<WarehouseCheckDto>();
+			
+			queryData();
 		} catch(Exception e) {
 			log.error("showPositionCollectAction error:" + e);
 			return ERROR;

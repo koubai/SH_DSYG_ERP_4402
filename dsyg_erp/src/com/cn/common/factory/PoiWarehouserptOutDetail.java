@@ -170,7 +170,7 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 					//cell7.setCellValue(product.getNum());
 					
 					if(product.getNum() != null && !"".equals(product.getNum())) {
-						int n = Integer.valueOf(product.getNum());
+						Float n = Float.valueOf(product.getNum());
 						if(n < 0) {
 							cell8.setCellValue("" + (n * -1));
 						} else {
@@ -271,7 +271,7 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 		cell36.setCellStyle(style);
 		cell37.setCellValue("");
 		cell37.setCellStyle(style);
-		cell38.setCellValue(warehouserpt.getTotalnum());
+		cell38.setCellValue(StringUtil.BigDecimal2Str(warehouserpt.getTotalnum(), 2));
 		cell38.setCellStyle(style);
 		cell39.setCellValue(warehouserpt.getTotaltaxamount().toString());
 		cell39.setCellStyle(style);

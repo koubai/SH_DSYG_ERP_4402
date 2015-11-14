@@ -43,7 +43,7 @@ public class WarehouseCheckDto extends BaseDto {
 	/**
 	 * 最新盘点数量
 	 */
-	private String checkAmount;
+	private BigDecimal checkAmount;
 	
 	/**
 	 * 最新盘点人
@@ -138,7 +138,7 @@ public class WarehouseCheckDto extends BaseDto {
 	/**
 	 * 库存数量
 	 */
-	private Integer warehouseamount;
+	private BigDecimal warehouseamount;
 	
 	/**
 	 * 备注
@@ -986,14 +986,6 @@ public class WarehouseCheckDto extends BaseDto {
 		this.note = note;
 	}
 
-	public Integer getWarehouseamount() {
-		return warehouseamount;
-	}
-
-	public void setWarehouseamount(Integer warehouseamount) {
-		this.warehouseamount = warehouseamount;
-	}
-
 	public String getWarehousename() {
 		return warehousename;
 	}
@@ -1026,19 +1018,27 @@ public class WarehouseCheckDto extends BaseDto {
 		this.warehouseposition = warehouseposition;
 	}
 
-	public String getCheckAmount() {
-		return checkAmount;
-	}
-
-	public void setCheckAmount(String checkAmount) {
-		this.checkAmount = checkAmount;
-	}
-
 	public String getHandlename() {
 		return handlename;
 	}
 
 	public void setHandlename(String handlename) {
 		this.handlename = handlename;
+	}
+
+	public BigDecimal getCheckAmount() {
+		return checkAmount;
+	}
+
+	public void setCheckAmount(BigDecimal checkAmount) {
+		this.checkAmount = checkAmount;
+	}
+
+	public BigDecimal getWarehouseamount() {
+		return warehouseamount;
+	}
+
+	public void setWarehouseamount(BigDecimal warehouseamount) {
+		this.warehouseamount = warehouseamount;
 	}
 }

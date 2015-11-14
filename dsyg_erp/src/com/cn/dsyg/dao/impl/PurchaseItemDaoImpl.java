@@ -53,6 +53,13 @@ public class PurchaseItemDaoImpl extends BaseDao implements PurchaseItemDao {
 		paramMap.put("purchaseno", purchaseno);
 		getSqlMapClientTemplate().update("deleteNoUsePurchaseItemByPurchaseno", paramMap);
 	}
+	
+	@Override
+	public void deleteAllPurchaseItemByPurchaseno(String purchaseno) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("purchaseno", purchaseno);
+		getSqlMapClientTemplate().update("deleteAllPurchaseItemByPurchaseno", paramMap);
+	}
 
 	@Override
 	public void insertPurchaseItem(PurchaseItemDto purchaseItem) {

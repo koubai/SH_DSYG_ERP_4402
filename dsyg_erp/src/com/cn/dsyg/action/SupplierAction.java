@@ -205,6 +205,7 @@ public class SupplierAction extends BaseAction {
 			
 			startIndex = 0;
 			listSupplier = new ArrayList<SupplierDto>();
+			querySupplier();
 		} catch(Exception e) {
 			return ERROR;
 		}

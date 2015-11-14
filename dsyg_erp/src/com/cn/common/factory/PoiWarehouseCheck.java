@@ -98,7 +98,7 @@ public class PoiWarehouseCheck extends Poi2007Base {
 			cell6.setCellStyle(style);
 			cell7.setCellValue(warehouseCheck.getSuppliername());
 			cell7.setCellStyle(style);
-			cell8.setCellValue(warehouseCheck.getWarehouseamount());
+			cell8.setCellValue("" + warehouseCheck.getWarehouseamount());
 			cell8.setCellStyle(style);
 		}
 	}

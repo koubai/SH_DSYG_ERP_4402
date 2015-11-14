@@ -161,7 +161,7 @@
 		(select S.bookdate from etb_sales S where S.salesno = T.salesno) as bookdate,
 		(select S.res01 from etb_sales S where S.salesno = T.salesno) as baozhuang,
 		(select S.theme2 from etb_sales S where S.salesno = T.salesno) as bookno
-		from etb_salesitem T where 1 = 1
+		from etb_salesitem T where 1 = 1 and T.res02 != '1'
 		<isNotEmpty prepend="and" property="productid">
 			T.productid = #productid#
 		</isNotEmpty>
@@ -223,6 +223,10 @@
 			updateuid = #updateuid#,
 			updatedate = NOW()
 			where salesno = #salesno#
+	</delete>
+	
+	<delete id="deleteAllSalesItemBySalesno" parameterClass="java.util.Map">
+		DELETE FROM etb_salesitem WHERE salesno = #salesno#
 	</delete>
 	
 	<delete id="deleteNoUseSalesItemBySalesno" parameterClass="java.util.Map">

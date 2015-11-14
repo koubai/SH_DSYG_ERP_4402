@@ -36,12 +36,15 @@
 		var tds = tr.getElementsByTagName("td");
 		var inputs = tds[0].getElementsByTagName("input");
 		
+		//已付金额tmp
+		var paidamount = $("#tmpPaidamount").val();
+		
 		var rate = parseFloat($("#common_rate").val());
 		if(type == "1") {
 			//是否实数check
 			if(!isReal(obj.value)) {
 				alert("采购金额（未税）格式不正确！");
-				checkflag = true;
+				checkflag = ture;
 				obj.focus();
 				checkflag = false;
 				return;
@@ -62,7 +65,7 @@
 			//是否实数check
 			if(!isReal(obj.value)) {
 				alert("采购金额（含税）格式不正确！");
-				checkflag = true;
+				checkflag = ture;
 				obj.focus();
 				checkflag = false;
 				return;
@@ -122,18 +125,18 @@
 		}
 		if(type == "1") {
 			//是否大于0的数字check
-			if(!isNumber(obj.value)) {
-				alert("采购数量必须是大于0的数字！");
-				checkflag = true;
+			if(!isReal(obj.value)) {
+				alert("采购数量格式不正确！");
+				checkflag = ture;
 				obj.focus();
 				checkflag = false;
 				return;
 			}
 		} else if(type == "2") {
 			//是否整数字check
-			if(!checkInteger(obj.value)) {
-				alert("预入库数必须整数！");
-				checkflag = true;
+			if(!isAllReal(obj.value)) {
+				alert("预入库数格式不正确！");
+				checkflag = ture;
 				obj.focus();
 				checkflag = false;
 				return;
@@ -142,7 +145,7 @@
 			//是否实数check
 			if(!isReal(obj.value)) {
 				alert("未税单价格式不正确！");
-				checkflag = true;
+				checkflag = ture;
 				obj.focus();
 				checkflag = false;
 				return;
@@ -151,7 +154,7 @@
 			//是否实数check
 			if(!isReal(obj.value)) {
 				alert("含税单价格式不正确！");
-				checkflag = true;
+				checkflag = ture;
 				obj.focus();
 				checkflag = false;
 				return;
@@ -160,7 +163,7 @@
 			//是否实数check
 			if(!isReal(obj.value)) {
 				alert("采购金额（未税）格式不正确！");
-				checkflag = true;
+				checkflag = ture;
 				obj.focus();
 				checkflag = false;
 				return;
@@ -171,7 +174,7 @@
 			//是否实数check
 			if(!isReal(obj.value)) {
 				alert("采购金额（含税）格式不正确！");
-				checkflag = true;
+				checkflag = ture;
 				obj.focus();
 				checkflag = false;
 				return;
@@ -189,6 +192,9 @@
 		var purchaseTaxamount = tds[16].getElementsByTagName("input")[0].value;
 		//预入库数量
 		var beforeQuantity = beforeQuantitys[0].value;
+		
+		//已付金额tmp
+		var paidamount = $("#tmpPaidamount").val();
 		
 		//备注
 		var res09 = tds[18].getElementsByTagName("input")[0].value.trim();
@@ -223,32 +229,37 @@
 		if(purchaseQuantity == "") {
 			purchaseQuantity = 0;
 		} else {
-			purchaseQuantity = parseInt(purchaseQuantity);
+			purchaseQuantity = parseFloat(purchaseQuantity).toFixed(2);
 		}
 		if(beforeQuantity == "") {
 			beforeQuantity = 0;
 		} else {
-			beforeQuantity = parseInt(beforeQuantity);
+			beforeQuantity = parseFloat(beforeQuantity).toFixed(2);
 		}
 		//已入库数量
 		var inquantity = inputs[14].value;
 		if(inquantity == "") {
 			inquantity = 0;
 		} else {
-			inquantity = parseInt(inquantity);
+			inquantity = parseFloat(inquantity).toFixed(2);
 		}
 		
 		//逻辑check
-		if(beforeQuantity > purchaseQuantity || (inquantity + beforeQuantity) < 0 || (inquantity + beforeQuantity) > purchaseQuantity) {
+		var tmp1 = parseFloat(inquantity) + parseFloat(beforeQuantity);
+		if(parseFloat(beforeQuantity) > parseFloat(purchaseQuantity) || tmp1 < 0 || tmp1 > purchaseQuantity) {
 			alert("预入库数不在正确范围！");
-			checkflag = true;
+			checkflag = ture;
 			obj.focus();
 			checkflag = false;
 			return;
 		}
 			
 		//未入库数量=采购数量-预入库数量-已入库数量
-		var remain = purchaseQuantity - beforeQuantity - inquantity;
+		var remain = purchaseQuantity - beforeQuantity;
+		remain = remain.toFixed(2);
+		remain = remain - inquantity;
+		remain = remain.toFixed(2);
+		
 		tds[12].innerHTML = remain;
 		//采购金额未税
 		var amount = purchaseQuantity * parseFloat(price);

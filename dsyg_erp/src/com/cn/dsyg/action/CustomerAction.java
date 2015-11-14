@@ -262,6 +262,8 @@ public class CustomerAction extends BaseAction {
 			
 			startIndex = 0;
 			listCustomer = new ArrayList<CustomerDto>();
+			
+			queryEtbCustomer();
 		} catch(Exception e) {
 			return ERROR;
 		}

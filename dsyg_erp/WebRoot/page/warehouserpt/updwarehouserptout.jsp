@@ -310,7 +310,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center date_input">
-									<input type="text" id="tmpReceiptdate" disabled="disabled" style="width:105px;" value="<s:property value="updWarehouserptDto.showReceiptdate"/>" />
+									<input type="text" id="tmpReceiptdate" disabled="disabled" style="width:105px;" value="<s:property value="updWarehouserptDto.res01"/>" />
 									<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('tmpReceiptdate'));"></a>
 								</div>
 								<div class="box1_right"></div>
@@ -433,7 +433,7 @@
 											<td width="40">单位</td>
 											<td width="40">包装</td>
 											<td width="80">数量</td>
-											<td width="80">金额</td>
+											<td width="80">含税金额</td>
 											<td width="90" style="display: none;">退货OR损毁</td>
 											<td width="90" style="display: none;">退货数量</td>
 										</tr>
@@ -523,7 +523,7 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="出货单导出" onclick="exportData(1);"/>
+										<input class="input120" type="button" value="出库配货单导出" onclick="exportData(1);"/>
 									</div>
 									<div class="box1_right"></div>
 								</div>
@@ -532,7 +532,7 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" style="width:90px" value="出货清单导出" onclick="exportData(2);"/>
+										<input class="input120" type="button" style="width:120px" value="出货明细单导出" onclick="exportData(2);"/>
 									</div>
 									<div class="box1_right"></div>
 								</div>

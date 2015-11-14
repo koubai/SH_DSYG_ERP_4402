@@ -22,33 +22,33 @@ public class WarehouseDetailDto extends BaseDto {
 	/**
 	 * 采购数量
 	 */
-	private int quantityp;
+	private BigDecimal quantityp;
 	/**
 	 * 入库数量
 	 */
-	private int inquantity;
+	private BigDecimal inquantity;
 	/**
 	 * 出库数量
 	 */
-	private int outquantity;
+	private BigDecimal outquantity;
 	/**
 	 * 库存数量
 	 */
-	private int quantity;
+	private BigDecimal quantity;
 
 	/**
 	 * 库存数量(addition refund)
 	 */
-	private int quantityw;
+	private BigDecimal quantityw;
 
 	/**
 	 * 订单数量
 	 */
-	private int quantitys;
+	private BigDecimal quantitys;
 	/**
 	 * 差额数量
 	 */
-	private int diffquantity;
+	private BigDecimal diffquantity;
 
 	/**
 	 * 预计交货期
@@ -998,51 +998,56 @@ public class WarehouseDetailDto extends BaseDto {
 	public void setSuppliername(String suppliername) {
 		this.suppliername = suppliername;
 	}
-	public int getQuantityp() {
+	public BigDecimal getQuantityp() {
 		return quantityp;
 	}
 
-	public void setQuantityp(int quantityp) {
+	public void setQuantityp(BigDecimal quantityp) {
 		this.quantityp = quantityp;
 	}
 
-	public int getInquantity() {
+	public BigDecimal getInquantity() {
 		return inquantity;
 	}
 
-	public void setInquantity(int inquantity) {
+	public void setInquantity(BigDecimal inquantity) {
 		this.inquantity = inquantity;
 	}
 
-	public int getOutquantity() {
+	public BigDecimal getOutquantity() {
 		return outquantity;
 	}
 
-	public void setOutquantity(int outquantity) {
+	public void setOutquantity(BigDecimal outquantity) {
 		this.outquantity = outquantity;
 	}
 
-	public int getQuantity() {
-		return inquantity - outquantity - quantityw;
+	public BigDecimal getQuantity() {
+		inquantity = inquantity.subtract(outquantity);
+		inquantity = inquantity.subtract(quantityw);
+		return inquantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(BigDecimal quantity) {
 		this.quantity = quantity;
 	}
 
-	public int getQuantitys() {
+	public BigDecimal getQuantitys() {
 		return quantitys;
 	}
 
-	public void setQuantitys(int quantitys) {
+	public void setQuantitys(BigDecimal quantitys) {
 		this.quantitys = quantitys;
 	}
 
-	public int getDiffquantity() {
-		return inquantity - outquantity - quantitys - quantityw;
+	public BigDecimal getDiffquantity() {
+		inquantity = inquantity.subtract(outquantity);
+		inquantity = inquantity.subtract(quantitys);
+		inquantity = inquantity.subtract(quantityw);
+		return inquantity;
 	}
 
-	public void setDiffquantity(int diffquantity) {
+	public void setDiffquantity(BigDecimal diffquantity) {
 		this.diffquantity = diffquantity;
 	}
 
@@ -1054,11 +1059,11 @@ public class WarehouseDetailDto extends BaseDto {
 		this.plandate = plandate;
 	}
 
-	public int getQuantityw() {
+	public BigDecimal getQuantityw() {
 		return quantityw;
 	}
 
-	public void setQuantityw(int quantityw) {
+	public void setQuantityw(BigDecimal quantityw) {
 		this.quantityw = quantityw;
 	}
 

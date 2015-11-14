@@ -78,11 +78,11 @@ public class WarehouseServiceImpl implements WarehouseService {
 			if(p.getQuantity() != null && !"".equals(p.getQuantity())) {
 				//有库存数据
 				//判断库存数量和输入的数量是否相等
-				int oldNum = Integer.valueOf(p.getQuantity());
-				int newNum = Integer.valueOf(num);
-				if(oldNum != newNum) {
+				BigDecimal oldNum = new BigDecimal(p.getQuantity());
+				BigDecimal newNum = new BigDecimal(num);
+				if(oldNum.compareTo(newNum) != 0) {
 					//需要新增库存数据
-					int addNum = newNum - oldNum;
+					BigDecimal addNum = newNum.subtract(oldNum);
 					
 					ProductDto product = productDao.queryProductByID(productid);
 					
@@ -133,8 +133,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 				if(list != null && list.size() > 0) {
 					PositionDto position = list.get(0);
 					//更新数据
-					position.setAmount("" + newNum);
-					position.setBeforeamount("" + oldNum);
+					position.setAmount(newNum);
+					position.setBeforeamount(oldNum);
 					position.setHandler(userid);
 					position.setUpdateuid(userid);
 					position.setProductposition(productposition);
@@ -144,8 +144,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 					//新增盘点记录
 					PositionDto position = new PositionDto();
 					position = new PositionDto();
-					position.setAmount("" + newNum);
-					position.setBeforeamount("" + oldNum);
+					position.setAmount(newNum);
+					position.setBeforeamount(oldNum);
 					position.setBelongto(belongto);
 					position.setCreateuid(userid);
 					position.setUpdateuid(userid);
@@ -313,11 +313,11 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//供应商ID
 			String supplierid = "";
 			//产品合集
-			Map<String, Integer> quantityMap = new HashMap<String, Integer>();
+			Map<String, BigDecimal> quantityMap = new HashMap<String, BigDecimal>();
 			Map<String, BigDecimal> amountMap = new HashMap<String, BigDecimal>();
 			//入库单号集合
 			String warehousenos = "";
-			int count = 0;
+			BigDecimal count = new BigDecimal(0);
 			//产品信息
 			String productinfo = "";
 			//含税金额合计
@@ -331,7 +331,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 						supplierid = "" + warehouse.getSupplierid();
 						
 						if(quantityMap.get(warehouse.getProductid()) != null) {
-							quantityMap.put(warehouse.getProductid(), quantityMap.get(warehouse.getProductid()) + warehouse.getQuantity());
+							quantityMap.put(warehouse.getProductid(), quantityMap.get(warehouse.getProductid()).add(warehouse.getQuantity()));
 							amountMap.put(warehouse.getProductid(), amountMap.get(warehouse.getProductid()).add(warehouse.getTaxamount()));
 						} else {
 							quantityMap.put(warehouse.getProductid(), warehouse.getQuantity());
@@ -343,7 +343,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 						warehouse.setStatus(Constants.WAREHOUSE_STATUS_OK);
 						
 						//计算当前集集的库存数量
-						count += warehouse.getQuantity();
+						count = count.add(warehouse.getQuantity());
 						warehousenos += warehouse.getWarehouseno() + ",";
 						productinfo += warehouse.getProductid() + "," + warehouse.getQuantity() + "," + warehouse.getTaxamount() + "," + warehouse.getRes09() + "#";
 						
@@ -357,7 +357,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 							boolean b = true;
 							//判断当前的采购单对应的货物是否都已入库：采购数量=入库数量
 							for(PurchaseItemDto item : purchaseItemList) {
-								if(item.getQuantity() != null && item.getQuantity() > item.getInquantity()) {
+								if(item.getQuantity() != null && item.getQuantity().floatValue() > item.getInquantity().floatValue()) {
 									b = false;
 									break;
 								}
@@ -535,9 +535,9 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//产品信息
 			String productinfo = "";
 			//产品合集
-			Map<String, Integer> quantityMap = new HashMap<String, Integer>();
+			Map<String, BigDecimal> quantityMap = new HashMap<String, BigDecimal>();
 			Map<String, BigDecimal> amountMap = new HashMap<String, BigDecimal>();
-			int count = 0;
+			BigDecimal count = new BigDecimal(0);
 			//含税金额合计
 			BigDecimal totaltaxamount = new BigDecimal(0);
 			for(int i = 0; i < idList.length; i++) {
@@ -550,16 +550,16 @@ public class WarehouseServiceImpl implements WarehouseService {
 						
 						if(quantityMap.get(warehouse.getProductid()) != null) {
 							//发货单数量是负数，所以需要变成正的
-							if(warehouse.getQuantity() < 0) {
-								quantityMap.put(warehouse.getProductid(), quantityMap.get(warehouse.getProductid()) + warehouse.getQuantity() * -1);
+							if(warehouse.getQuantity().floatValue() < 0) {
+								quantityMap.put(warehouse.getProductid(), quantityMap.get(warehouse.getProductid()).add(warehouse.getQuantity().multiply(new BigDecimal(-1))));
 							} else {
 								quantityMap.put(warehouse.getProductid(), warehouse.getQuantity());
 							}
 							amountMap.put(warehouse.getProductid(), amountMap.get(warehouse.getProductid()).add(warehouse.getTaxamount()));
 						} else {
 							//发货单数量是负数，所以需要变成正的
-							if(warehouse.getQuantity() < 0) {
-								quantityMap.put(warehouse.getProductid(), warehouse.getQuantity() * -1);
+							if(warehouse.getQuantity().floatValue() < 0) {
+								quantityMap.put(warehouse.getProductid(), warehouse.getQuantity().multiply(new BigDecimal(-1)));
 							} else {
 								quantityMap.put(warehouse.getProductid(), warehouse.getQuantity());
 							}
@@ -571,7 +571,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 						warehouse.setStatus(Constants.WAREHOUSE_STATUS_OK);
 						
 						//计算当前集集的库存数量
-						count += warehouse.getQuantity();
+						count = count.add(warehouse.getQuantity());
 						warehousenos += warehouse.getWarehouseno() + ",";
 						productinfo += warehouse.getProductid() + "," + warehouse.getQuantity() + "," + warehouse.getTaxamount();
 						if (warehouse.getRes09()!=null && warehouse.getRes09()!="")
@@ -588,7 +588,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 							boolean b = true;
 							//判断当前的采购单对应的货物是否都已入库：采购数量=入库数量
 							for(SalesItemDto item : itemList) {
-								if(item.getQuantity() != null && item.getQuantity() > item.getOutquantity()) {
+								if(item.getQuantity() != null && item.getQuantity().floatValue() > item.getOutquantity().floatValue()) {
 									b = false;
 									break;
 								}
@@ -646,8 +646,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 			warehouserpt.setWarehousedate(DateUtil.dateToShortStr(date));
 			
 			//入库数量
-			if(count < 0) {
-				count = -1 * count;
+			if(count.floatValue() < 0) {
+				count = count.multiply(new BigDecimal(-1));
 			}
 			warehouserpt.setTotalnum(count);
 			

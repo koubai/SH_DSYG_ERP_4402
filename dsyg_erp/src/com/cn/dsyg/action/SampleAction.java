@@ -194,6 +194,7 @@ public class SampleAction extends BaseAction {
 			//默认10条
 			intPageSize = 10;
 			page = new Page(intPageSize);
+			queryData();
 		} catch(Exception e) {
 			log.error("showSampleAction error:" + e);
 			return ERROR;

@@ -1,5 +1,6 @@
 package com.cn.dsyg.dto;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.cn.common.dto.BaseDto;
@@ -357,9 +358,9 @@ public class SampleDto extends BaseDto {
 
 	public String getShowQuantity() {
 		if(quantity != null && !"".equals(quantity)) {
-			int tmp = Integer.valueOf(quantity);
-			if(tmp <= 0) {
-				showQuantity = "" + (tmp * -1);
+			BigDecimal tmp = new BigDecimal(quantity);
+			if(tmp.compareTo(new BigDecimal(0)) < 0) {
+				showQuantity = "" + tmp.multiply(new BigDecimal(-1));
 			} else {
 				showQuantity = quantity;
 			}

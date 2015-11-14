@@ -131,12 +131,12 @@
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
 								<td width="30">序号</td>
-								<td width="60">登记日期</td>
+								<td width="120">登记日期</td>
 								<td width="100">标题</td>
 								<td width="80">姓名</td>
-								<td width="100">公司名称</td>
-								<td width="120">地址</td>
-								<td width="120">电话</td>
+								<td width="120">公司名称</td>
+								<td width="100">地址</td>
+								<td width="100">电话</td>
 								<td width="80">状态</td>
 								<td width="80"></td>
 							</tr>

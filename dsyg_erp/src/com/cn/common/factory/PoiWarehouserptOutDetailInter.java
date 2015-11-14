@@ -118,7 +118,7 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 					cell7.setCellValue(dictMap.get(Constants.DICT_UNIT_TYPE + "_" + product.getUnit()));
 					cell8.setCellStyle(style);
 					if(product.getNum() != null && !"".equals(product.getNum())) {
-						int n = Integer.valueOf(product.getNum());
+						Float n = Float.valueOf(product.getNum());
 						if(n < 0) {
 							cell8.setCellValue("" + (n * -1));
 						} else {

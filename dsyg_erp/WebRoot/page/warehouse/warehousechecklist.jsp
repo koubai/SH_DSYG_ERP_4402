@@ -70,8 +70,8 @@
 		//盘点
 		var num = $("#" + "num_" + id).val();
 		//判断数字是否合法
-		if(!isNumber(num)) {
-			alert("盘点数量必须是大于0的数字！");
+		if(!isReal(num)) {
+			alert("盘点数量必须是大于0的数！");
 			$("#" + "num_" + id).focus();
 			return;
 		}

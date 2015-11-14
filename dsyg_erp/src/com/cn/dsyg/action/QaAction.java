@@ -100,6 +100,8 @@ public class QaAction extends BaseAction {
 			startIndex = 0;
 			qaList = new ArrayList<QaDto>();
 			page = new Page(intPageSize);
+			
+			queryData();
 		} catch(Exception e) {
 			log.error("showQaAction error:" + e);
 		}

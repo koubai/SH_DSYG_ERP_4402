@@ -132,10 +132,17 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public void deletePurchase(String id, String userid) {
 		PurchaseDto purchase = purchaseDao.queryPurchaseByID(id);
 		if(purchase != null) {
-			purchase.setStatus(Constants.STATUS_DEL);
-			purchase.setUpdateuid(userid);
-			purchaseDao.updatePurchase(purchase);
+			//物理删除item
+			purchaseItemDao.deleteAllPurchaseItemByPurchaseno(purchase.getPurchaseno());
+			//物理删除采购单
+			purchaseDao.deletePurchase(id);
 		}
+		//逻辑删除
+//		if(purchase != null) {
+//			purchase.setStatus(Constants.STATUS_DEL);
+//			purchase.setUpdateuid(userid);
+//			purchaseDao.updatePurchase(purchase);
+//		}
 	}
 	
 	@Override
@@ -215,21 +222,21 @@ public class PurchaseServiceImpl implements PurchaseService {
 				purchaseItem.setSupplierid(purchase.getSupplierid());
 				purchaseItem.setPlandate(purchase.getPlandate());
 				
-				//判断预入库数量是否大于0，若大于0则生产库存记录
-				if(purchaseItem.getBeforequantity() != null && purchaseItem.getBeforequantity() > 0) {
+				//判断预入库数量是否大于0，若大于0则产生库存记录
+				if(purchaseItem.getBeforequantity() != null && purchaseItem.getBeforequantity().floatValue() > 0) {
 					//新增库存记录
 					addWarehouse(purchase, purchaseItem);
 					//已入库数=预入库数+之前已入库数
 					if(purchaseItem.getInquantity() == null) {
 						purchaseItem.setInquantity(purchaseItem.getBeforequantity());
 					} else {
-						purchaseItem.setInquantity(purchaseItem.getBeforequantity() + purchaseItem.getInquantity());
+						purchaseItem.setInquantity(purchaseItem.getBeforequantity().add(purchaseItem.getInquantity()));
 					}
 				}
 				//特别号
 				purchaseItem.setRes09(purchaseItem.getRes09());
 				//预入库数重置为0
-				purchaseItem.setBeforequantity(0);
+				purchaseItem.setBeforequantity(new BigDecimal(0));
 				//备注
 				purchaseItem.setNote(purchase.getNote());
 				purchaseItemDao.insertPurchaseItem(purchaseItem);
@@ -264,7 +271,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 					purchaseItem.setSupplierid(purchase.getSupplierid());
 					
 					//判断预入库数量是!=0，若!=0则生产库存记录，这里不判断是否大于0的情况，考虑可能会增加负的库存记录
-					if(purchaseItem.getBeforequantity() != null && purchaseItem.getBeforequantity() != 0) {
+					if(purchaseItem.getBeforequantity() != null && purchaseItem.getBeforequantity().floatValue() != 0) {
 					//if(purchaseItem.getBeforequantity() != null && purchaseItem.getBeforequantity() > 0) {
 						//新增库存记录
 						addWarehouse(purchase, purchaseItem);
@@ -272,14 +279,14 @@ public class PurchaseServiceImpl implements PurchaseService {
 						if(purchaseItem.getInquantity() == null) {
 							purchaseItem.setInquantity(purchaseItem.getBeforequantity());
 						} else {
-							purchaseItem.setInquantity(purchaseItem.getBeforequantity() + purchaseItem.getInquantity());
+							purchaseItem.setInquantity(purchaseItem.getBeforequantity().add(purchaseItem.getInquantity()));
 						}
 					}
 					//特别号
 					purchaseItem.setRes09(purchaseItem.getRes09());
 
 					//预入库数重置为0
-					purchaseItem.setBeforequantity(0);
+					purchaseItem.setBeforequantity(new BigDecimal(0));
 					//备注
 					purchaseItem.setNote(purchase.getNote());
 					purchaseItemDao.insertPurchaseItem(purchaseItem);
@@ -289,21 +296,21 @@ public class PurchaseServiceImpl implements PurchaseService {
 					purchaseItem.setStatus(Constants.STATUS_NORMAL);
 					
 					//判断预入库数量是!=0，若!=0则生产库存记录，这里不判断是否大于0的情况，考虑可能会增加负的库存记录
-					if(purchaseItem.getBeforequantity() != null && purchaseItem.getBeforequantity() != 0) {
+					if(purchaseItem.getBeforequantity() != null && purchaseItem.getBeforequantity().floatValue() != 0) {
 						//新增库存记录
 						addWarehouse(purchase, purchaseItem);
 						//已入库数=预入库数+之前已入库数
 						if(purchaseItem.getInquantity() == null) {
 							purchaseItem.setInquantity(purchaseItem.getBeforequantity());
 						} else {
-							purchaseItem.setInquantity(purchaseItem.getBeforequantity() + purchaseItem.getInquantity());
+							purchaseItem.setInquantity(purchaseItem.getBeforequantity().add(purchaseItem.getInquantity()));
 						}
 					}
 					//特别号
 					purchaseItem.setRes09(purchaseItem.getRes09());
 
 					//预入库数重置为0
-					purchaseItem.setBeforequantity(0);
+					purchaseItem.setBeforequantity(new BigDecimal(0));
 					//备注
 					purchaseItem.setNote(purchase.getNote());
 					purchaseItemDao.updatePurchaseItem(purchaseItem);
@@ -384,7 +391,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		//单价
 		warehouse.setUnitprice(purchaseItem.getUnitprice());
 		//入库金额=入库数量*单价
-		BigDecimal amount = purchaseItem.getUnitprice().multiply(new BigDecimal(purchaseItem.getBeforequantity()));
+		BigDecimal amount = purchaseItem.getUnitprice().multiply(purchaseItem.getBeforequantity());
 		//入库金额含税=入库金额*税率
 		BigDecimal taxamount = new BigDecimal(0);
 		

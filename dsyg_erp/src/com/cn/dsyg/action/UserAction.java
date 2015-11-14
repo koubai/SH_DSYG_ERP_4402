@@ -236,6 +236,8 @@ public class UserAction extends BaseAction {
 			page = new Page(intPageSize);
 			userList = new ArrayList<UserDto>();
 			initList();
+			
+			queryData();
 		} catch(Exception e) {
 			log.error("showUserManageAction error:" + e);
 			return ERROR;

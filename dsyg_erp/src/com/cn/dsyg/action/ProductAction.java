@@ -358,6 +358,8 @@ public class ProductAction extends BaseAction {
 			//初期化字典数据
 			initDictList();
 			productList = new ArrayList<ProductDto>();
+			
+			queryData();
 		} catch(Exception e) {
 			log.error("showProductAction error:" + e);
 			return ERROR;

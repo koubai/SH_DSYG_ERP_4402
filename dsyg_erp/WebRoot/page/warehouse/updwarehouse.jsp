@@ -60,8 +60,8 @@
 			$("#quantity").focus();
 			return;
 		}
-		if(!checkInteger(quantity)) {
-			alert("数量必须整数！");
+		if(!isReal(quantity)) {
+			alert("数量格式不正确！");
 			obj.focus();
 			return;
 		}
@@ -131,6 +131,8 @@
 								<div class="box1_left"></div>
 								<div class="box1_center">
 									<select name="updWarehouseDto.warehousetype" id="warehousetype" style="width: 300px;">
+										<option value="6">库存修正</option>
+										<!--
 										<s:if test="%{updWarehouseDto.warehousetype == 3}">
 											<option value="">请选择</option>
 											<option value="3" selected="selected">退货</option>
@@ -155,6 +157,7 @@
 											<option value="5">损毁</option>
 											<option value="6">库存修正</option>
 										</s:else>
+										-->
 									</select>
 								</div>
 								<div class="box1_right"></div>

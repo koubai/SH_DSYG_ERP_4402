@@ -92,22 +92,22 @@ public class PurchaseItemDto extends BaseAction {
 	/**
 	 * 采购数量
 	 */
-	private Integer quantity;
+	private BigDecimal quantity;
 
 	/**
 	 * 确认入库数量
 	 */
-	private Integer inquantity;
+	private BigDecimal inquantity;
 	
 	/**
 	 * 预入库数量
 	 */
-	private Integer beforequantity;
+	private BigDecimal beforequantity;
 
 	/**
 	 * 未入库数量
 	 */
-	private Integer remainquantity;
+	private BigDecimal remainquantity;
 
 	/**
 	 * 采购单价（税前）
@@ -282,30 +282,6 @@ public class PurchaseItemDto extends BaseAction {
 
 	public void setProductid(Long productid) {
 		this.productid = productid;
-	}
-
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
-	public Integer getInquantity() {
-		return inquantity;
-	}
-
-	public void setInquantity(Integer inquantity) {
-		this.inquantity = inquantity;
-	}
-
-	public Integer getRemainquantity() {
-		return remainquantity;
-	}
-
-	public void setRemainquantity(Integer remainquantity) {
-		this.remainquantity = remainquantity;
 	}
 
 	public BigDecimal getUnitprice() {
@@ -524,14 +500,6 @@ public class PurchaseItemDto extends BaseAction {
 		this.purchaseno = purchaseno;
 	}
 
-	public Integer getBeforequantity() {
-		return beforequantity;
-	}
-
-	public void setBeforequantity(Integer beforequantity) {
-		this.beforequantity = beforequantity;
-	}
-
 	public Integer getRank() {
 		return rank;
 	}
@@ -607,5 +575,37 @@ public class PurchaseItemDto extends BaseAction {
 
 	public void setItem11(String item11) {
 		this.item11 = item11;
+	}
+
+	public BigDecimal getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(BigDecimal quantity) {
+		this.quantity = quantity;
+	}
+
+	public BigDecimal getInquantity() {
+		return inquantity;
+	}
+
+	public void setInquantity(BigDecimal inquantity) {
+		this.inquantity = inquantity;
+	}
+
+	public BigDecimal getBeforequantity() {
+		return beforequantity;
+	}
+
+	public void setBeforequantity(BigDecimal beforequantity) {
+		this.beforequantity = beforequantity;
+	}
+
+	public BigDecimal getRemainquantity() {
+		return remainquantity;
+	}
+
+	public void setRemainquantity(BigDecimal remainquantity) {
+		this.remainquantity = remainquantity;
 	}
 }

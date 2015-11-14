@@ -19,6 +19,12 @@ public interface PurchaseItemDao {
 	public void deleteNoUsePurchaseItemByPurchaseno(String purchaseno);
 	
 	/**
+	 * 根据采购单号，物理删除所有item数据
+	 * @param purchaseno
+	 */
+	public void deleteAllPurchaseItemByPurchaseno(String purchaseno);
+	
+	/**
 	 * 根据采购单号查询采购单货物列表
 	 * @param purchaseno
 	 * @return

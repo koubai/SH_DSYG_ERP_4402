@@ -1,5 +1,7 @@
 package com.cn.dsyg.dto;
 
+import java.math.BigDecimal;
+
 import com.cn.common.action.BaseAction;
 
 /**
@@ -26,12 +28,12 @@ public class WarehouseOkDto extends BaseAction {
 	/**
 	 * 入出库数量
 	 */
-	private Integer quantity;
+	private BigDecimal quantity;
 	
 	/**
 	 * 对于出库数量为负数时，用这个变量来展现= -1 * quantity
 	 */
-	private Integer showQuantity;
+	private BigDecimal showQuantity;
 	
 	/**
 	 * 预入库时间
@@ -152,11 +154,11 @@ public class WarehouseOkDto extends BaseAction {
 		this.unit = unit;
 	}
 
-	public Integer getQuantity() {
+	public BigDecimal getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(Integer quantity) {
+	public void setQuantity(BigDecimal quantity) {
 		this.quantity = quantity;
 	}
 
@@ -184,12 +186,12 @@ public class WarehouseOkDto extends BaseAction {
 		this.ids = ids;
 	}
 
-	public Integer getShowQuantity() {
-		showQuantity = -1 * quantity;
+	public BigDecimal getShowQuantity() {
+		showQuantity = new BigDecimal(-1).multiply(quantity);
 		return showQuantity;
 	}
 
-	public void setShowQuantity(Integer showQuantity) {
+	public void setShowQuantity(BigDecimal showQuantity) {
 		this.showQuantity = showQuantity;
 	}
 

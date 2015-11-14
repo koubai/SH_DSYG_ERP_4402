@@ -17,12 +17,13 @@ import com.cn.dsyg.dto.FinanceDto;
 public class FinanceDaoImpl extends BaseDao implements FinanceDao {
 
 	@Override
-	public List<FinanceDto> queryFinanceByPage(String status,
+	public List<FinanceDto> queryFinanceByPage(String expressno, String status,
 			String financetype, String invoiceid, String receiptid,
 			String customerid, String receiptdateLow, String receiptdateHigh, String billno, String res02,
 			int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("status", status);
+		paramMap.put("res08", expressno);
 		paramMap.put("financetype", financetype);
 		paramMap.put("invoiceid", invoiceid);
 		paramMap.put("receiptid", receiptid);
@@ -39,11 +40,12 @@ public class FinanceDaoImpl extends BaseDao implements FinanceDao {
 	}
 
 	@Override
-	public int queryFinanceCountByPage(String status, String financetype,
+	public int queryFinanceCountByPage(String expressno, String status, String financetype,
 			String invoiceid, String receiptid, String customerid,
 			String receiptdateLow, String receiptdateHigh, String billno, String res02) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("status", status);
+		paramMap.put("res08", expressno);
 		paramMap.put("financetype", financetype);
 		paramMap.put("invoiceid", invoiceid);
 		paramMap.put("receiptid", receiptid);
