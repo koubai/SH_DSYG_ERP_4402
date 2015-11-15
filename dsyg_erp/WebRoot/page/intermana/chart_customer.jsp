@@ -83,6 +83,56 @@
 			window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 		};
 
+		function drawChart(d1, d2, dur_type, chart_data, tit) {			
+     		$(document).ready(function() {  
+		    	options = {  
+		            chart: {  
+		                renderTo: 'container',  
+		            },		            
+		            credits: { 
+		                enabled: false   //右下角不显示LOGO 
+		            },
+		            title: {  
+		                text: tit + "曲线",
+		            },  
+		            xAxis: {  
+		                categories: get_X_Data(d1, d2, dur_type),
+		            },  
+		            yAxis: {  
+		                min: 0,  
+		                title: {  
+		                    text: '金额 (元)'  
+		                }  
+		            },  
+		            legend: {  
+		                layout: 'vertical',  
+		                backgroundColor: '#FFFFFF',  
+		                align: 'left',  
+		                verticalAlign: 'top',  
+		                x: 100,  
+		                y: 1,  
+		                floating: true,  
+		                shadow: true  
+		            },  
+		            tooltip: {  
+		                formatter: function() {  
+		                    return ''+  
+		                        this.x +': '+ this.y +' ';  
+		                }  
+		            },  
+		            plotOptions: {  
+		                column: {  
+		                    pointPadding: 0.2,  
+		                    borderWidth: 0  
+		                }  
+		            },  
+	                series: eval(chart_data)		         
+		    	};
+	            var chart = new Highcharts.Chart(options);
+	        });
+	    };  
+
+		
 		</script>
 		<!-- <script src="${pageContext.request.contextPath}/js/themes/gray.js"></script> -->
 	</head>
@@ -135,7 +185,7 @@
 					<div class="box1_right">&nbsp&nbsp-</div>
 					<div class="box1_left" style="margin-left: 30px;"></div>
 					<div class="box1_center date_input">				
-						<input type="text" name="toDate" id="toDate" value="2015-10-31" />
+						<input type="text" name="toDate" id="toDate" value="2016-01-01" />
 						<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('toDate'));"></a>
 					</div>
 					<div class="box1_right"></div>
@@ -190,14 +240,22 @@
 		<br><br><br>
 		<table>
 		<tr>
-		<td>
-		<div id="container" style="width: 600px; height: 400px; margin: 2 "></div>
-		</td>
-		<td>
-		</td>
-		<td>
-		<div id="container2" style="width: 400px; height: 400px; margin: 2 "></div>
-		</td>
+			<td>
+				<div id="container" style="width: 900px; height: 600px; margin: 2 "></div>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+		</tr>
+			<td>
+				<div id="container2" style="width: 800px; height: 600px; margin: 2 "></div>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+		<tr>
 		</tr>
 		</table>
 		<br><br><br>

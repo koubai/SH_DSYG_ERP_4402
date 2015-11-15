@@ -114,7 +114,7 @@
 		<isNotEmpty prepend="and" property="theme2">
 			T.theme2 = #theme2#
 		</isNotEmpty>
-		order by T.updatedate desc
+		order by T.theme2 desc, T.updatedate  desc
 		LIMIT #start#, #end#
 	</select>
 	

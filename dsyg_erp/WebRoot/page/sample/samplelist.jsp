@@ -235,7 +235,7 @@
 											</s:if>
 										</s:iterator>
 									</td>
-									<td>
+									<td align="right">
 										<s:property value="quantity"/>
 									</td>
 									<td>

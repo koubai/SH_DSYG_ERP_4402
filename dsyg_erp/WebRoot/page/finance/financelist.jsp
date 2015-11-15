@@ -320,11 +320,11 @@
 						<label class="pdf10">　　发票号</label>
 						<div class="box1_left"></div>
 						<div class="box1_center">
-							<s:textfield name="strBillno" id="strBillno" cssStyle="width:105px;" maxlength="32" theme="simple"></s:textfield>
+							<s:textfield name="strBillno" id="strBillno" cssStyle="width:180px;" maxlength="32" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
 					</div>
-					<div class="btn" style="margin-left: 180px;">
+					<div class="btn" style="margin-left: 120px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
 							<input type="button" class="input40" value="检索" onclick="queryList();"/>
@@ -498,7 +498,7 @@
 									<td><s:property value="customermanager"/></td>
 									<td><s:property value="handlername"/></td>
 									<td><s:property value="showReceiptdate"/></td>
-									<td><s:property value="amount"/></td>
+									<td align="right"><s:property value="amount"/></td>
 									<td><s:property value="showAccountdate"/></td>
 									<td>
 										<div noWrap title="<s:property value="res10"/>" style="width:105px;text-overflow:ellipsis;overflow:hidden">

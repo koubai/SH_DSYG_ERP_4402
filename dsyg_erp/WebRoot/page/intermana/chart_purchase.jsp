@@ -139,7 +139,7 @@
 					<div class="box1_right">&nbsp&nbsp-</div>
 					<div class="box1_left" style="margin-left: 30px;"></div>
 					<div class="box1_center date_input">				
-						<input type="text" name="toDate" id="toDate" value="2015-10-31" />
+						<input type="text" name="toDate" id="toDate" value="2016-01-01" />
 						<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('toDate'));"></a>
 					</div>
 					<div class="box1_right"></div>

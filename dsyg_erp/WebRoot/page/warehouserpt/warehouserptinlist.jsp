@@ -134,6 +134,14 @@
 				<s:hidden name="intPageSize" id="intPageSize"/>
 				<div class="searchbox">
 					<div class="box1">
+						<label class="pdf10">入库单号</label>
+						<div class="box1_left"></div>
+						<div class="box1_center date_input">
+							<s:textfield name="strWarehouseno" cssStyle="width:200px;" id="strWarehouseno" theme="simple"></s:textfield>
+						</div>
+						<div class="box1_right"></div>
+					</div>
+					<div class="box1">
 						<label class="pdf10">供应商名</label>
 						<div class="box1_left"></div>
 						<div class="box1_center date_input">
@@ -208,12 +216,12 @@
 									</td>
 									<td><s:property value="suppliername"/></td>
 									<td><s:property value="suppliermanager"/></td>
-									<td><s:property value="totaltaxamount"/></td>
+									<td align="right"><s:property value="totaltaxamount"/></td>
 									<!--
 									<td><s:property value="expressno"/></td>
 									-->
 									<td><s:property value="expressname"/></td>
-									<td><s:property value="expresstaxamount"/></td>
+									<td align="right"><s:property value="expresstaxamount"/></td>
 								</tr>
 							</s:iterator>
 						</table>

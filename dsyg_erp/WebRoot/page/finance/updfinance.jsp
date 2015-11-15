@@ -307,7 +307,7 @@
 								<div class="box1_right"></div>
 							</td>
 							<td align="right">
-								<label class="pdf10"><font color="red"></font>开票日期</label>
+								<label class="pdf10"><font color="red"></font>单据日期</label>
 							</td>
 							<td>
 								<div class="box1_left"></div>

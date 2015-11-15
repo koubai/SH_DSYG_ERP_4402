@@ -170,11 +170,11 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 	@Override
 	public Page queryWarehouserptByPage(String status, String warehousetype,
 			String warehouseno, String theme1, String parentid, String supplierid,
-			String productid, String beginDate, String endDate, String strSuppliername, Page page) {
+			String productid, String beginDate, String endDate, String strSuppliername, String strWarehouseno, Page page) {
 		
 		//查询总记录数
 		int totalCount = warehouserptDao.queryWarehouserptCountByPage(status, warehousetype,
-				warehouseno, theme1, parentid, supplierid, productid, beginDate, endDate, strSuppliername);
+				warehouseno, theme1, parentid, supplierid, productid, beginDate, endDate, strSuppliername, strWarehouseno);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -183,7 +183,7 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 		}
 		//翻页查询记录
 		List<WarehouserptDto> list = warehouserptDao.queryWarehouserptByPage(status, warehousetype,
-				warehouseno, theme1, parentid, supplierid, productid, beginDate, endDate, strSuppliername,
+				warehouseno, theme1, parentid, supplierid, productid, beginDate, endDate, strSuppliername, strWarehouseno,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		if(list != null && list.size() > 0) {
 			FinanceDto finance = null;

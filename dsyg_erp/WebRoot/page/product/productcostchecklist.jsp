@@ -156,7 +156,8 @@
 								<td width="60">包装</td>
 								<td width="40">单位</td>
 								<td width="60">形式</td>
-								<td width="140">平均成本价格(含税)</td>
+								<td width="60">平均成本价格(含税)</td>
+								<td width="60"></td>
 							</tr>
 							<s:iterator id="warehouseCheckList" value="productCostCheckList" status="st1">
 								<s:if test="#st1.odd==true">
@@ -197,7 +198,9 @@
 											<s:property value="packaging"/>
 										</s:else>
 									</td>
-									<td><fmt:formatNumber value="${productcost}" pattern="#0.00" /></td>
+									<td align="right"><fmt:formatNumber value="${productcost}" pattern="#0.00" /></td>
+									<td>
+									</td>
 								</tr>
 							</s:iterator>
 						</table>
