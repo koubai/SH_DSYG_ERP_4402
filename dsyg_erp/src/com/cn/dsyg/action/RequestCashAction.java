@@ -148,6 +148,7 @@ public class RequestCashAction extends BaseAction {
 			
 			startIndex = 0;
 			listRequestCash = new ArrayList<RequestCashDto>();
+			queryRequestCashList();
 		} catch(Exception e) {
 			return ERROR;
 		}

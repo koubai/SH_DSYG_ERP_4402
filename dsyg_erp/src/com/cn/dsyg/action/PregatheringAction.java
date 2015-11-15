@@ -136,6 +136,7 @@ public class PregatheringAction extends BaseAction {
 			
 			startIndex = 0;
 			listPregathering = new ArrayList<PregatheringDto>();
+			queryPregatheringList();
 		} catch(Exception e) {
 			return ERROR;
 		}
