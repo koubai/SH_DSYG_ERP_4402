@@ -211,7 +211,7 @@
 										</div>
 									</td>
 									<td><s:property value="customername"/></td>
-									<td><s:property value="amount"/></td>
+									<td align="right"><s:property value="amount"/></td>
 									<td><s:property value="handler"/></td>
 									<td><s:property value="showregisterdate"/></td>
 									<td>

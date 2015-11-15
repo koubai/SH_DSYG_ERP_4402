@@ -203,12 +203,12 @@
 									</td>
 									<td><s:property value="suppliername"/></td>
 									<td><s:property value="suppliermanager"/></td>
-									<td><s:property value="totaltaxamount"/></td>
+									<td align="right"><s:property value="totaltaxamount"/></td>
 									<!--
 									<td><s:property value="expressno"/></td>
 									-->
 									<td><s:property value="expressname"/></td>
-									<td><s:property value="expresstaxamount"/></td>
+									<td align="right"><s:property value="expresstaxamount"/></td>
 								</tr>
 							</s:iterator>
 						</table>

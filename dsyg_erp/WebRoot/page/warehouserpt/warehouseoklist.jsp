@@ -178,7 +178,7 @@
 										</s:else>
 									</td>
 									<td><s:property value="supplierid"/></td>
-									<td><s:property value="inquantity"/></td>
+									<td align="right"><s:property value="inquantity"/></td>
 									<td width="60">
 										<input type="button" onclick="warehouseOk()"/>
 									</td>

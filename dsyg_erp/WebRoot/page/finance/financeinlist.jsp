@@ -413,7 +413,7 @@
 									<td><s:property value="warehousename"/></td>
 									<td><s:property value="suppliername"/></td>
 									<td><s:property value="showWarehousedate"/></td>
-									<td><s:property value="totaltaxamount"/></td>
+									<td align="right"><s:property value="totaltaxamount"/></td>
 									<td>
 										<select id="statusList_<s:property value="id"/>" style="width: 150px;" onchange="showOkBtn('<s:property value="id"/>');">
 											<s:if test="%{warehousetype == 1}">

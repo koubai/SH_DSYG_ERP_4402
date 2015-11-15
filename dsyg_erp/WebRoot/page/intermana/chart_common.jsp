@@ -119,7 +119,7 @@
 			                
 		             for (var w=0; w< u.data.length; w++) {
 					 	col = row.insertCell(w+1);   
-			            col.innerHTML = "<style>strong1{float: right;}</style><strong1>"+u.data[w]+"</strong1>";
+			            col.innerHTML = "<style>strong1{float: right;}</style><strong1>"+u.data[w].toFixed(2).toString()+"</strong1>";
 		             }
 		        });				
 			}

@@ -61,7 +61,7 @@
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
 		)M
-			group by years, months, theme1, id
+			group by id, years, months, theme1, id
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -104,7 +104,7 @@
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
 		)M
-			group by years, months, theme1, id
+			group by id, years, months, theme1, id
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -147,7 +147,7 @@
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
 		)M
-			group by years, months, theme1, id
+			group by id, years, months, theme1, id
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -190,7 +190,7 @@
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
 		)M
-			group by years, months, theme1, id
+			group by id, years, months, theme1, id
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -235,7 +235,7 @@
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
 		)M
-			group by years, months, theme1, id
+			group by id, years, months, theme1, id
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -281,7 +281,7 @@
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
 		)M
-			group by years, months, theme1, id
+			group by id, years, months, theme1, id
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -326,7 +326,7 @@
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
 		)M
-			group by years, months, theme1, id
+			group by id, years, months, theme1, id
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -371,7 +371,7 @@
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
 		)M
-			group by years, months, theme1, id
+			group by id, years, months, theme1, id
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -416,7 +416,7 @@
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
 		)M
-			group by years, months, theme1, id
+			group by id, years, months, theme1, id
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -459,7 +459,7 @@
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
 		)M
-			group by years, months, theme1, id
+			group by id, years, months, theme1, id
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -502,7 +502,7 @@
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>
 		)M
-			group by years, months, theme1, id
+			group by id, years, months, theme1, id
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -539,7 +539,7 @@
 			<isNotEmpty prepend="and" property="handerList">
 				T.handler in ( $handerList$ )			
 			</isNotEmpty>			
-			group by years, months, theme1, id			
+			group by id, years, months, theme1, id			
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -575,7 +575,7 @@
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
-			group by years, months, theme1, id
+			group by id, years, months, theme1, id
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -612,7 +612,7 @@
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
 			</isNotEmpty>
-			group by years, months, theme1, id				
+			group by id, years, months, theme1, id				
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -648,7 +648,7 @@
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
 			</isNotEmpty>
-			group by years, months, theme1, id	
+			group by id, years, months, theme1, id	
 		)as test 
 			group by id, handler, theme1, pur_year
 			order by id
@@ -682,7 +682,7 @@
 			<isNotEmpty prepend="and" property="to_date">
 				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
-			group by years, months, id			
+			group by id, years, months, id			
 		)as test 
 			group by id, handler, pur_year
 			order by id
@@ -715,7 +715,7 @@
 			<isNotEmpty prepend="and" property="to_date">
 				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
-			group by years, months, id			
+			group by id, years, months, id			
 		)as test 
 			group by id, handler, pur_year
 			order by id
@@ -748,7 +748,7 @@
 			<isNotEmpty prepend="and" property="to_date">
 				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
-			group by years, months, id			
+			group by id, years, months, id			
 		)as test 
 			group by id, handler, pur_year
 			order by id
@@ -781,7 +781,7 @@
 			<isNotEmpty prepend="and" property="to_date">
 				T.accountdate <![CDATA[<=]]> #to_date#
 			</isNotEmpty>
-			group by years, months, id			
+			group by id, years, months, id			
 		)as test 
 			group by id, handler, pur_year
 			order by id
@@ -800,7 +800,20 @@
 			SUM(case when months=09 then pur_sum_data else 0 end) 'pur_month09',   
 			SUM(case when months=10 then pur_sum_data else 0 end) 'pur_month10',   
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
-			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
+			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12',
+			SUM((case when months=01 then pur_sum_data else 0 end)+
+					(case when months=02 then pur_sum_data else 0 end)+
+					(case when months=03 then pur_sum_data else 0 end)+   
+					(case when months=04 then pur_sum_data else 0 end)+   
+					(case when months=05 then pur_sum_data else 0 end)+   
+					(case when months=06 then pur_sum_data else 0 end)+   
+					(case when months=07 then pur_sum_data else 0 end)+   
+					(case when months=08 then pur_sum_data else 0 end)+   
+					(case when months=09 then pur_sum_data else 0 end)+   
+					(case when months=10 then pur_sum_data else 0 end)+   
+					(case when months=11 then pur_sum_data else 0 end)+   
+					(case when months=12 then pur_sum_data else 0 end)) 'pur_pp'		   
+			   
 		from(   
 			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.suppliername as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, etb_supplier TU
@@ -817,10 +830,10 @@
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
-			group by years, months		
+			group by id, years, months		
 		)as test 
 			group by id, handler, pur_year
-			order by id
+			order by pur_year desc, pur_pp desc
 	</select>
 	<select id="querySupplierByDateQ" parameterClass="java.util.Map" resultMap="ChartDto">
 		select id, handler, "" as theme1, years as pur_year, 
@@ -835,7 +848,20 @@
 			NULL 'pur_month09',   
 			NULL 'pur_month10',   
 			NULL 'pur_month11',   
-			NULL 'pur_month12'   
+			NULL 'pur_month12',
+			SUM((case when months=01 then pur_sum_data else 0 end)+
+					(case when months=02 then pur_sum_data else 0 end)+
+					(case when months=03 then pur_sum_data else 0 end)+   
+					(case when months=04 then pur_sum_data else 0 end)+   
+					(case when months=05 then pur_sum_data else 0 end)+   
+					(case when months=06 then pur_sum_data else 0 end)+   
+					(case when months=07 then pur_sum_data else 0 end)+   
+					(case when months=08 then pur_sum_data else 0 end)+   
+					(case when months=09 then pur_sum_data else 0 end)+   
+					(case when months=10 then pur_sum_data else 0 end)+   
+					(case when months=11 then pur_sum_data else 0 end)+   
+					(case when months=12 then pur_sum_data else 0 end)) 'pur_pp'		   
+			   
 		from(   
 			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.suppliername as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, etb_supplier TU
@@ -852,10 +878,10 @@
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
-			group by years, months		
+			group by id, years, months		
 		)as test 
 			group by id, handler, pur_year
-			order by id
+			order by pur_year desc, pur_pp desc
 	</select>
 	<select id="querySupplierByDateY" parameterClass="java.util.Map" resultMap="ChartDto">
 		select id, handler, "" as theme1, years as pur_year, 
@@ -870,7 +896,20 @@
 			NULL 'pur_month09',   
 			NULL 'pur_month10',   
 			NULL 'pur_month11',   
-			NULL 'pur_month12'   
+			NULL 'pur_month12',
+			SUM((case when months=01 then pur_sum_data else 0 end)+
+					(case when months=02 then pur_sum_data else 0 end)+
+					(case when months=03 then pur_sum_data else 0 end)+   
+					(case when months=04 then pur_sum_data else 0 end)+   
+					(case when months=05 then pur_sum_data else 0 end)+   
+					(case when months=06 then pur_sum_data else 0 end)+   
+					(case when months=07 then pur_sum_data else 0 end)+   
+					(case when months=08 then pur_sum_data else 0 end)+   
+					(case when months=09 then pur_sum_data else 0 end)+   
+					(case when months=10 then pur_sum_data else 0 end)+   
+					(case when months=11 then pur_sum_data else 0 end)+   
+					(case when months=12 then pur_sum_data else 0 end)) 'pur_pp'		   
+			   
 		from(   
 			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.suppliername as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, etb_supplier TU
@@ -887,10 +926,10 @@
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
-			group by years, months			
+			group by id, years, months			
 		)as test 
 			group by id, handler, pur_year
-			order by id
+			order by pur_year desc, pur_pp desc
 	</select>
 	
 	<select id="queryCustomerByDateM" parameterClass="java.util.Map" resultMap="ChartDto">
@@ -906,7 +945,19 @@
 			SUM(case when months=09 then pur_sum_data else 0 end) 'pur_month09',   
 			SUM(case when months=10 then pur_sum_data else 0 end) 'pur_month10',   
 			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
-			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
+			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12',   
+			SUM((case when months=01 then pur_sum_data else 0 end)+
+					(case when months=02 then pur_sum_data else 0 end)+
+					(case when months=03 then pur_sum_data else 0 end)+   
+					(case when months=04 then pur_sum_data else 0 end)+   
+					(case when months=05 then pur_sum_data else 0 end)+   
+					(case when months=06 then pur_sum_data else 0 end)+   
+					(case when months=07 then pur_sum_data else 0 end)+   
+					(case when months=08 then pur_sum_data else 0 end)+   
+					(case when months=09 then pur_sum_data else 0 end)+   
+					(case when months=10 then pur_sum_data else 0 end)+   
+					(case when months=11 then pur_sum_data else 0 end)+   
+					(case when months=12 then pur_sum_data else 0 end)) 'pur_pp'		   
 		from(   
 			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.customername as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, etb_customer TU
@@ -923,10 +974,10 @@
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
-			group by years, months			
+			group by id, years, months			
 		)as test 
 			group by id, handler, pur_year
-			order by id
+			order by pur_year desc, pur_pp desc
 	</select>
 	<select id="queryCustomerByDateQ" parameterClass="java.util.Map" resultMap="ChartDto">
 		select id, handler, "" as theme1, years as pur_year, 
@@ -941,7 +992,19 @@
 			NULL 'pur_month09',   
 			NULL 'pur_month10',   
 			NULL 'pur_month11',   
-			NULL 'pur_month12'   
+			NULL 'pur_month12',   
+			SUM((case when months=01 then pur_sum_data else 0 end)+
+					(case when months=02 then pur_sum_data else 0 end)+
+					(case when months=03 then pur_sum_data else 0 end)+   
+					(case when months=04 then pur_sum_data else 0 end)+   
+					(case when months=05 then pur_sum_data else 0 end)+   
+					(case when months=06 then pur_sum_data else 0 end)+   
+					(case when months=07 then pur_sum_data else 0 end)+   
+					(case when months=08 then pur_sum_data else 0 end)+   
+					(case when months=09 then pur_sum_data else 0 end)+   
+					(case when months=10 then pur_sum_data else 0 end)+   
+					(case when months=11 then pur_sum_data else 0 end)+   
+					(case when months=12 then pur_sum_data else 0 end)) 'pur_pp'		   
 		from(   
 			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.customername as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, etb_customer TU
@@ -958,10 +1021,10 @@
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
-			group by years, months			
+			group by id, years, months			
 		)as test 
 			group by id, handler, pur_year
-			order by id
+			order by pur_year desc, pur_pp desc
 	</select>
 	<select id="queryCustomerByDateY" parameterClass="java.util.Map" resultMap="ChartDto">
 		select id, handler, "" as theme1, years as pur_year, 
@@ -976,7 +1039,19 @@
 			NULL 'pur_month09',   
 			NULL 'pur_month10',   
 			NULL 'pur_month11',   
-			NULL 'pur_month12'   
+			NULL 'pur_month12',   
+			SUM((case when months=01 then pur_sum_data else 0 end)+
+					(case when months=02 then pur_sum_data else 0 end)+
+					(case when months=03 then pur_sum_data else 0 end)+   
+					(case when months=04 then pur_sum_data else 0 end)+   
+					(case when months=05 then pur_sum_data else 0 end)+   
+					(case when months=06 then pur_sum_data else 0 end)+   
+					(case when months=07 then pur_sum_data else 0 end)+   
+					(case when months=08 then pur_sum_data else 0 end)+   
+					(case when months=09 then pur_sum_data else 0 end)+   
+					(case when months=10 then pur_sum_data else 0 end)+   
+					(case when months=11 then pur_sum_data else 0 end)+   
+					(case when months=12 then pur_sum_data else 0 end)) 'pur_pp'		   
 		from(   
 			select DATE_FORMAT(T.accountdate,'%y') as years, DATE_FORMAT(T.accountdate,'%m') months, TU.id as id, TU.customername as handler, sum(T.amount) as pur_sum_data     
 			from etb_finance T, etb_customer TU
@@ -993,10 +1068,10 @@
 			<isNotEmpty prepend="and" property="handerList">
 				TU.id in ( $handerList$ )			
 			</isNotEmpty>			
-			group by years, months			
+			group by id, years, months			
 		)as test 
 			group by id, handler, pur_year
-			order by id
+			order by pur_year desc, pur_pp desc
 	</select>
 	
 	
@@ -1017,7 +1092,7 @@
 										and F.financetype='4'
 										and F.theme='03'
 										and F.belongto = #belongto#
-										and F.status = '99'
+										and F.status >= '0'
 										<isNotEmpty prepend="and" property="from_date">
 											F.accountdate <![CDATA[>=]]> #from_date#
 										</isNotEmpty>
@@ -1028,7 +1103,7 @@
 					on 1=1 
 					and F2.financetype='3'
 					and F2.belongto = #belongto#
-					and F2.status = '99'					
+					and F2.status >= '0'					
 					<isNotEmpty prepend="and" property="from_date">
 						F2.accountdate <![CDATA[>=]]> #from_date#
 					</isNotEmpty>
@@ -1038,7 +1113,7 @@
 			) as test3
 			on 1=1 
 			and T.belongto = #belongto#
-			and T.status >= '10'
+			and T.status >= '0'
 			and T.financetype='2'
 			<isNotEmpty prepend="and" property="from_date">
 				T.accountdate <![CDATA[>=]]> #from_date#

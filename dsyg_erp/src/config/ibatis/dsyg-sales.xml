@@ -132,7 +132,7 @@
 		<isNotEmpty prepend="and" property="res02">
 			T.res02 = #res02#
 		</isNotEmpty>
-		order by T.updatedate desc
+		order by T.bookdate desc
 		LIMIT #start#, #end#
 	</select>
 	
