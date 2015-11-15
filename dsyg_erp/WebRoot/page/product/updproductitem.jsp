@@ -82,7 +82,7 @@
 			$("#typeno").focus();
 			return;
 		}
-		if(color == "") {
+		if(color == "" && fieldno!='03') {
 			alert("请选择颜色！");
 			$("#color").focus();
 			return;

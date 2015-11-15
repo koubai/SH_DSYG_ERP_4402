@@ -108,7 +108,7 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 		WarehouserptDto warehouserpt = new WarehouserptDto();
 		XSSFFont font = workbook.createFont();
 		//字体大小
-		font.setFontHeightInPoints((short)14);
+		font.setFontHeightInPoints((short)12);
 		//式样
 		XSSFCellStyle style = workbook.createCellStyle();
 		//水平居中
@@ -165,7 +165,7 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 					cell5.setCellStyle(style);
 					cell5.setCellValue(dictMap.get(Constants.DICT_COLOR_TYPE + "_" + product.getColor()));
 					cell6.setCellStyle(style);
-					if("0".equals(product.getPackaging())) {
+/*					if("0".equals(product.getPackaging())) {
 						cell6.setCellValue("整箱");
 					} else {
 						cell6.setCellValue("乱尺");
@@ -191,6 +191,35 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 					cell9.setCellValue(product.getAmount());
 					cell10.setCellValue(product.getRes09());
 					cell10.setCellStyle(style);
+*/					
+					// 对外输出不谈整箱/乱尺
+					cell6.setCellStyle(style);
+					cell6.setCellValue(dictMap.get(Constants.DICT_UNIT_TYPE + "_" + product.getUnit()));
+					cell7.setCellStyle(style);
+					
+					if(product.getNum() != null && !"".equals(product.getNum())) {
+						//Float n = Float.valueOf(product.getNum());
+						BigDecimal d = new BigDecimal(product.getNum());
+						//if(n < 0) {
+							//cell8.setCellValue("" + (n * -1));
+						//} else {
+							cell7.setCellValue(StringUtil.BigDecimal2StrAbs(d, 2));
+						//}
+					} else {
+						cell7.setCellValue("");
+					}
+					
+					cell8.setCellStyle(style);
+					//含税单价要打出来是个问题
+					BigDecimal bdAmount = new BigDecimal(product.getAmount());
+					BigDecimal bdNum = new BigDecimal(product.getNum());
+					BigDecimal bdprice = bdAmount.divide(bdNum);
+					cell8.setCellValue(StringUtil.BigDecimal2StrAbs(bdprice, 6));
+					cell9.setCellStyle(style);
+					cell9.setCellValue(product.getAmount());
+					cell10.setCellValue(product.getRes09());
+					cell10.setCellStyle(style);
+					
 					/*
 		            float defaultRowHeight = 30f;  
 		            float maxHeight = defaultRowHeight; 
@@ -276,9 +305,9 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 		cell35.setCellStyle(style);
 		cell36.setCellValue("总计:");
 		cell36.setCellStyle(style);
-		cell37.setCellValue("");
+		cell37.setCellValue(StringUtil.BigDecimal2Str(warehouserpt.getTotalnum(), 2));
 		cell37.setCellStyle(style);
-		cell38.setCellValue(StringUtil.BigDecimal2Str(warehouserpt.getTotalnum(), 2));
+		cell38.setCellValue("");
 		cell38.setCellStyle(style);
 		cell39.setCellValue(warehouserpt.getTotaltaxamount().toString());
 		cell39.setCellStyle(style);
@@ -327,13 +356,13 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 		sheet.setColumnWidth(4, 25 * 256);
 		heads.add("颜色");
 		sheet.setColumnWidth(5, 6 * 256);
-		heads.add("包装");
-		sheet.setColumnWidth(6, 10 * 256);
 		heads.add("单位");
-		sheet.setColumnWidth(7, 6 * 256);
+		sheet.setColumnWidth(6, 6 * 256);
 		heads.add("数量");
-		sheet.setColumnWidth(8, 10 * 256);
-		heads.add("税后金额");
+		sheet.setColumnWidth(7, 10 * 256);
+		heads.add("含税单价");
+		sheet.setColumnWidth(8, 12 * 256);
+		heads.add("含税金额");
 		sheet.setColumnWidth(9, 12 * 256);
 		heads.add("备注");
 		sheet.setColumnWidth(10, 12 * 256);

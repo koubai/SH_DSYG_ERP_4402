@@ -745,8 +745,11 @@ public class ProductAction extends BaseAction {
 			return false;
 		}
 		if(StringUtil.isBlank(product.getColor())) {
-			this.addActionMessage("请选择颜色！");
-			return false;
+			if (product.getFieldno().compareTo("03")!= 0){
+				System.out.println("Fieldno="+product.getFieldno());
+				this.addActionMessage("请选择颜色！");
+				return false;
+			}
 		}
 		if(StringUtil.isBlank(product.getItem10())) {
 			this.addActionMessage("包装不能为空！");

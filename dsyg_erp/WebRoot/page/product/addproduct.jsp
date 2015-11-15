@@ -81,7 +81,8 @@
 			$("#typeno").focus();
 			return;
 		}
-		if(color == "") {
+		//由于柔软扁平电缆是没有颜色的.
+		if(color == "" && fieldno!='03') {
 			alert("请选择颜色！");
 			$("#color").focus();
 			return;
