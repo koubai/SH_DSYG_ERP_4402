@@ -382,7 +382,7 @@
 			<isNotEmpty prepend="and" property="typeno">
 				A.typeno like '%$typeno$%' ESCAPE '/'
 			</isNotEmpty>
-			ORDER BY A.tradename, A.typeno, A.color, A.typeno, A.updatedate
+			ORDER BY A.fieldno, A.tradename, A.typeno, A.color, A.item10, A.updatedate
 		LIMIT #start#, #end#
 	</select>
 	

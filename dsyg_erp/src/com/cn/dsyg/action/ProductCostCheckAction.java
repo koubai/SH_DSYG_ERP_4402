@@ -83,6 +83,7 @@ public class ProductCostCheckAction extends BaseAction {
 			productCostCheckList = new ArrayList<ProductCostDto>();
 			//初期化字典数据
 			initDictList();
+			queryProductCostCheckAction();
 		} catch(Exception e) {
 			log.error("showProductCostCheckAction error:" + e);
 			return ERROR;
