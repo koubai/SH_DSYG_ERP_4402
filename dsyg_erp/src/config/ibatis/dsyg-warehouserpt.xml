@@ -147,6 +147,10 @@
 		select T.* from etb_warehouserpt T where T.id = #id#
 	</select>
 	
+	<select id="queryWarehouserptByParentid" parameterClass="java.util.Map" resultMap="WarehouserptDto">
+		select T.* from etb_warehouserpt T where T.parentid like '%$parentid$%'
+	</select>
+	
 	<select id="queryWarehouserptByNo" parameterClass="java.util.Map" resultMap="WarehouserptDto">
 		select T.* from etb_warehouserpt T where T.warehouseno = #warehouseno#
 	</select>

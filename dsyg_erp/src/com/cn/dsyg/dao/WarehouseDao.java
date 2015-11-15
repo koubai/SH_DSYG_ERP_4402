@@ -309,9 +309,10 @@ public interface WarehouseDao {
 	/**
 	 * 根据父单号查询数据
 	 * @param parentid
+	 * @param res05
 	 * @return
 	 */
-	public List<WarehouseDto> queryWarehouseByParentid(String parentid);
+	public List<WarehouseDto> queryWarehouseByParentid(String parentid, String res05);
 	
 	/**
 	 * 根据入库单号查询数据
@@ -331,4 +332,12 @@ public interface WarehouseDao {
 	 * @param warehouse
 	 */
 	public void updateWarehouse(WarehouseDto warehouse);
+	
+	/**
+	 * 根据采购单OR订单号删除库存记录
+	 * @param parentid
+	 * @param productid
+	 * @param status
+	 */
+	public void deleteWarehouseByParentid(String parentid, String productid, String status);
 }

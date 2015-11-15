@@ -228,7 +228,16 @@
 								</s:else>
 									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-									<td><s:property value="theme2"/></td>
+									<s:if test='%{purchaseList[#st1.index].rptno != null && purchaseList[#st1.index].rptno != ""}'>
+										<td title="<s:property value="rptno"/>">
+											<s:property value="theme2"/><font color="red">*</font>
+										</td>
+									</s:if>
+									<s:else>
+										<td>
+											<s:property value="theme2"/>
+										</td>
+									</s:else>
 									<!--
 									<td>
 										<s:iterator id="goodsList" value="goodsList" status="st3">

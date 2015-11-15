@@ -228,37 +228,37 @@
 								<td width="20"></td>
 								<td width="30">序号</td>
 								<s:if test='strType == ""'>
-									<td width="120">销售订单号</td>
+									<td width="125">销售订单号</td>
 									<td width="60">销售方式</td>
 									<td width="60">支付方式</td>
 									<td width="40">仓库</td>
 									<td width="120">客户</td>
 									<td width="60">经手人</td>
-									<td width="80">销售日期</td>
+									<td width="75">销售日期</td>
 									<td width="110">销售金额（不含税）</td>
 									<td width="100">销售金额（含税）</td>
 									<td width="100">已付金额（含税）</td>
 								</s:if>
 								<s:elseif test='strType == "1"'>
-									<td width="120">询价单号</td>
+									<td width="125">询价单号</td>
 									<td width="60">询价方式</td>
 									<td width="60">支付方式</td>
 									<td width="40">仓库</td>
 									<td width="120">客户</td>
 									<td width="60">经手人</td>
-									<td width="80">询价日期</td>
+									<td width="75">询价日期</td>
 									<td width="110">询价金额（不含税）</td>
 									<td width="100">询价金额（含税）</td>
 									<td width="100">已付金额（含税）</td>
 								</s:elseif>
 								<s:else >
-									<td width="120">销售订单号</td>
+									<td width="125">销售订单号</td>
 									<td width="60">销售方式</td>
 									<td width="60">支付方式</td>
 									<td width="40">仓库</td>
 									<td width="120">客户</td>
 									<td width="60">经手人</td>
-									<td width="80">销售日期</td>
+									<td width="75">销售日期</td>
 									<td width="110">销售金额（不含税）</td>
 									<td width="100">销售金额（含税）</td>
 									<td width="100">已付金额（含税）</td>
@@ -275,7 +275,17 @@
 								</s:else>
 									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-									<td><s:property value="theme2"/></td>
+									
+									<s:if test='%{salesList[#st1.index].rptno != null && salesList[#st1.index].rptno != ""}'>
+										<td title="<s:property value="rptno"/>">
+											<s:property value="theme2"/><font color="red">*</font>
+										</td>
+									</s:if>
+									<s:else>
+										<td>
+											<s:property value="theme2"/>
+										</td>
+									</s:else>
 									<!--
 									<td>
 										<s:iterator id="goodsList" value="goodsList" status="st3">

@@ -3,7 +3,9 @@ package com.cn.dsyg.service.impl;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import com.cn.common.util.Constants;
@@ -17,12 +19,14 @@ import com.cn.dsyg.dao.SalesDao;
 import com.cn.dsyg.dao.SalesItemDao;
 import com.cn.dsyg.dao.UserDao;
 import com.cn.dsyg.dao.WarehouseDao;
+import com.cn.dsyg.dao.WarehouserptDao;
 import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.FinanceDto;
 import com.cn.dsyg.dto.SalesDto;
 import com.cn.dsyg.dto.SalesItemDto;
 import com.cn.dsyg.dto.UserDto;
 import com.cn.dsyg.dto.WarehouseDto;
+import com.cn.dsyg.dto.WarehouserptDto;
 import com.cn.dsyg.service.SalesService;
 
 /**
@@ -36,6 +40,7 @@ public class SalesServiceImpl implements SalesService {
 	private SalesDao salesDao;
 	private SalesItemDao salesItemDao;
 	private WarehouseDao warehouseDao;
+	private WarehouserptDao warehouserptDao;
 	private Dict01Dao dict01Dao;
 	private FinanceDao financeDao;
 	private UserDao userDao;
@@ -163,6 +168,23 @@ public class SalesServiceImpl implements SalesService {
 				if(user != null) {
 					sales.setHandlername(user.getUsername());
 				}
+				
+				//查询退换货数据
+				String rptno = "";
+				List<WarehouseDto> warehouseList = warehouseDao.queryWarehouseByParentid(sales.getSalesno(), "1");
+				if(warehouseList != null && warehouseList.size() > 0) {
+					for(WarehouseDto warehouse : warehouseList) {
+						//查询RPT记录
+						WarehouserptDto rpt = warehouserptDao.queryWarehouserptByParentid(warehouse.getWarehouseno());
+						if(rpt != null) {
+							//RPT单号
+							rptno += rpt.getWarehouseno() + "\r\n";
+						}
+					}
+				}
+				if(StringUtil.isNotBlank(rptno)) {
+					sales.setRptno("退换货出库单：\r\n" + rptno);
+				}
 			}
 		}
 		page.setItems(list);
@@ -172,11 +194,19 @@ public class SalesServiceImpl implements SalesService {
 	@Override
 	public void updateSales(SalesDto sales, List<SalesItemDto> listSalesItem, String userid) {
 		salesDao.updateSales(sales);
-		//根据销售单号删除所有的货物数据
+		
+		//在更新之前查询出所有货物ID
+		List<SalesItemDto> oldItemList = salesItemDao.querySalesItemBySalesno(sales.getSalesno());
+		//当前最新的item信息map，对应货物删除的情况
+		Map<String, String> newItemMap = new HashMap<String, String>();
+		
+		//根据销售单号删除所有的货物数据，将item的状态更新为0
 		salesItemDao.deleteSalesItemBySalesno(sales.getSalesno(), userid);
 		//保存销售单对应的货物数据
 		if(listSalesItem != null) {
 			for(SalesItemDto salesItem : listSalesItem) {
+				newItemMap.put(salesItem.getProductid(), "1");
+				
 				if(salesItem.getId() == null) {
 					//新增
 					//销售单号
@@ -237,6 +267,17 @@ public class SalesServiceImpl implements SalesService {
 				}
 			}
 		}
+		
+		//对应货物删除时，warehouse里的垃圾数据
+		if(oldItemList != null && oldItemList.size() > 0) {
+			for(SalesItemDto item : oldItemList) {
+				if(newItemMap.get(item.getProductid()) == null) {
+					//说明该货物已经被删除，这里需要删除掉warehouse状态=10的垃圾数据
+					warehouseDao.deleteWarehouseByParentid(sales.getSalesno(), item.getProductid(), "" + Constants.SALES_STATUS_NEW);
+				}
+			}
+		}
+		
 		//删除status=0的数据
 		salesItemDao.deleteNoUseSalesItemBySalesno(sales.getSalesno());
 	}
@@ -308,6 +349,13 @@ public class SalesServiceImpl implements SalesService {
 		warehouse.setProductid("" + salesItem.getProductid());
 		//出库数量=预出库数（这里是出库，所以是负数）
 		warehouse.setQuantity(new BigDecimal(-1).multiply(salesItem.getBeforequantity()));
+		
+		//判断数量是否是负数
+		if(salesItem.getBeforequantity().floatValue() < 0) {
+			//这里做个标记，1为退换货
+			warehouse.setRes05("1");
+		}
+		
 		//单价
 		warehouse.setUnitprice(salesItem.getUnitprice());
 		
@@ -379,6 +427,8 @@ public class SalesServiceImpl implements SalesService {
 			salesItemDao.deleteAllSalesItemBySalesno(sales.getSalesno());
 			//物理删除订单
 			salesDao.deleteSales(id);
+			//删除warehouse记录
+			warehouseDao.deleteWarehouseByParentid(sales.getSalesno(), "", "");
 		}
 		
 		//逻辑删除
@@ -440,5 +490,13 @@ public class SalesServiceImpl implements SalesService {
 
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
+	}
+
+	public WarehouserptDao getWarehouserptDao() {
+		return warehouserptDao;
+	}
+
+	public void setWarehouserptDao(WarehouserptDao warehouserptDao) {
+		this.warehouserptDao = warehouserptDao;
 	}
 }

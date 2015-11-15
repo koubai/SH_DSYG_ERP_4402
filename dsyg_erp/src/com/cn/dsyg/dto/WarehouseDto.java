@@ -184,7 +184,7 @@ public class WarehouseDto extends BaseAction {
 	private String res04;
 
 	/**
-	 * 预备项目5
+	 * 是否是退换货，1为退换货
 	 */
 	private String res05;
 

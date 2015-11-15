@@ -134,6 +134,9 @@
 		<property name="warehouseDao">
 			<ref local="warehouseDao"/>
 		</property>
+		<property name="warehouserptDao">
+			<ref local="warehouserptDao"/>
+		</property>
 		<property name="dict01Dao">
 			<ref local="dict01Dao"/>
 		</property>
@@ -305,6 +308,9 @@
 		</property>
 		<property name="warehouseDao">
 			<ref local="warehouseDao"/>
+		</property>
+		<property name="warehouserptDao">
+			<ref local="warehouserptDao"/>
 		</property>
 		<property name="dict01Dao">
 			<ref local="dict01Dao"/>

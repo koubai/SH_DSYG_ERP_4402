@@ -267,9 +267,10 @@ public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
 	}
 	
 	@Override
-	public List<WarehouseDto> queryWarehouseByParentid(String parentid) {
+	public List<WarehouseDto> queryWarehouseByParentid(String parentid, String res05) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("parentid", parentid);
+		paramMap.put("res05", res05);
 		@SuppressWarnings("unchecked")
 		List<WarehouseDto> list = getSqlMapClientTemplate().queryForList("queryWarehouseByParentid", paramMap);
 		return list;
@@ -397,5 +398,14 @@ public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
 		@SuppressWarnings("unchecked")
 		List<WarehouseCheckDto> list = getSqlMapClientTemplate().queryForList("queryWarehouseCheckToExcel", paramMap);
 		return list;
+	}
+
+	@Override
+	public void deleteWarehouseByParentid(String parentid, String productid, String status) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("parentid", parentid);
+		paramMap.put("productid", productid);
+		paramMap.put("status", status);
+		getSqlMapClientTemplate().update("deleteWarehouseByParentid", paramMap);
 	}
 }

@@ -965,6 +965,9 @@
 	
 	<select id="queryWarehouseByParentid" parameterClass="java.util.Map" resultMap="WarehouseDto">
 		select * from etb_warehouse where parentid = #parentid#
+		<isNotEmpty prepend="and" property="res05">
+			res05 = #res05#
+		</isNotEmpty>
 	</select>
 	
 	<select id="queryWarehouseByWarehouseno" parameterClass="java.util.Map" resultMap="WarehouseDto">
@@ -979,6 +982,16 @@
 			#actualquantity#,#unitprice#,#amount#,#taxamount#,#warehousedate#,#plandate#,#handler#,#supplierid#,#approverid#,#note#,#rank#,#status#,
 			#res01#,#res02#,#res03#,#res04#,#res05#,#res06#,#res07#,#res08#,#res09#,#res10#,#createuid#,NOW(),#updateuid#,NOW())
 	</insert>
+	
+	<delete id="deleteWarehouseByParentid" parameterClass="java.util.Map">
+		DELETE FROM etb_warehouse WHERE parentid = #parentid#
+		<isNotEmpty prepend="and" property="productid">
+			productid = #productid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="status">
+			status = #status#
+		</isNotEmpty>
+	</delete>
 	
 	<update id="updateWarehouse" parameterClass="com.cn.dsyg.dto.WarehouseDto">
 		update etb_warehouse

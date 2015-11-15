@@ -3,7 +3,9 @@ package com.cn.dsyg.service.impl;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import com.cn.common.util.Constants;
@@ -17,12 +19,14 @@ import com.cn.dsyg.dao.PurchaseDao;
 import com.cn.dsyg.dao.PurchaseItemDao;
 import com.cn.dsyg.dao.UserDao;
 import com.cn.dsyg.dao.WarehouseDao;
+import com.cn.dsyg.dao.WarehouserptDao;
 import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.FinanceDto;
 import com.cn.dsyg.dto.PurchaseDto;
 import com.cn.dsyg.dto.PurchaseItemDto;
 import com.cn.dsyg.dto.UserDto;
 import com.cn.dsyg.dto.WarehouseDto;
+import com.cn.dsyg.dto.WarehouserptDto;
 import com.cn.dsyg.service.PurchaseService;
 
 /**
@@ -36,6 +40,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	private PurchaseDao purchaseDao;
 	private PurchaseItemDao purchaseItemDao;
 	private WarehouseDao warehouseDao;
+	private WarehouserptDao warehouserptDao;
 	private Dict01Dao dict01Dao;
 	private FinanceDao financeDao;
 	private UserDao userDao;
@@ -98,6 +103,23 @@ public class PurchaseServiceImpl implements PurchaseService {
 				if(user != null) {
 					purchase.setHandlername(user.getUsername());
 				}
+				
+				//查询退换货数据
+				String rptno = "";
+				List<WarehouseDto> warehouseList = warehouseDao.queryWarehouseByParentid(purchase.getPurchaseno(), "1");
+				if(warehouseList != null && warehouseList.size() > 0) {
+					for(WarehouseDto warehouse : warehouseList) {
+						//查询RPT记录
+						WarehouserptDto rpt = warehouserptDao.queryWarehouserptByParentid(warehouse.getWarehouseno());
+						if(rpt != null) {
+							//RPT单号
+							rptno += rpt.getWarehouseno() + "\r\n";
+						}
+					}
+				}
+				if(StringUtil.isNotBlank(rptno)) {
+					purchase.setRptno("退换货入库单：\r\n" + rptno);
+				}
 			}
 		}
 		page.setItems(list);
@@ -136,6 +158,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 			purchaseItemDao.deleteAllPurchaseItemByPurchaseno(purchase.getPurchaseno());
 			//物理删除采购单
 			purchaseDao.deletePurchase(id);
+			//删除warehouse记录
+			warehouseDao.deleteWarehouseByParentid(purchase.getPurchaseno(), "", "");
 		}
 		//逻辑删除
 //		if(purchase != null) {
@@ -253,11 +277,20 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public void updatePurchase(PurchaseDto purchase, List<PurchaseItemDto> listPurchaseItem, String userid) {
 		purchaseDao.updatePurchase(purchase);
-		//根据采购单号删除所有的货物数据
+		
+		//在更新之前查询出所有货物ID
+		List<PurchaseItemDto> oldItemList = purchaseItemDao.queryPurchaseItemByPurchaseno(purchase.getPurchaseno());
+		//当前最新的item信息map，对应货物删除的情况
+		Map<String, String> newItemMap = new HashMap<String, String>();
+				
+		//根据采购单号删除所有的货物数据，将item的状态更新为0
 		purchaseItemDao.deletePurchaseItemByPurchaseno(purchase.getPurchaseno(), userid);
 		//保存采购单对应的货物数据
 		if(listPurchaseItem != null) {
 			for(PurchaseItemDto purchaseItem : listPurchaseItem) {
+				
+				newItemMap.put("" + purchaseItem.getProductid(), "1");
+				
 				if(purchaseItem.getId() == null) {
 					//新增
 					//采购单号
@@ -317,6 +350,17 @@ public class PurchaseServiceImpl implements PurchaseService {
 				}
 			}
 		}
+		
+		//对应货物删除时，warehouse里的垃圾数据
+		if(oldItemList != null && oldItemList.size() > 0) {
+			for(PurchaseItemDto item : oldItemList) {
+				if(newItemMap.get("" + item.getProductid()) == null) {
+					//说明该货物已经被删除，这里需要删除掉warehouse状态=10的垃圾数据
+					warehouseDao.deleteWarehouseByParentid(purchase.getPurchaseno(), "" + item.getProductid(), "" + Constants.PURCHASE_STATUS_NEW);
+				}
+			}
+		}
+		
 		//删除status=0的数据
 		purchaseItemDao.deleteNoUsePurchaseItemByPurchaseno(purchase.getPurchaseno());
 	}
@@ -388,6 +432,13 @@ public class PurchaseServiceImpl implements PurchaseService {
 		warehouse.setProductid("" + purchaseItem.getProductid());
 		//入库数量=预入库数
 		warehouse.setQuantity(purchaseItem.getBeforequantity());
+		
+		//判断数量是否是负数
+		if(purchaseItem.getBeforequantity().floatValue() < 0) {
+			//这里做个标记，1为退换货
+			warehouse.setRes05("1");
+		}
+				
 		//单价
 		warehouse.setUnitprice(purchaseItem.getUnitprice());
 		//入库金额=入库数量*单价
@@ -475,5 +526,13 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
+	}
+
+	public WarehouserptDao getWarehouserptDao() {
+		return warehouserptDao;
+	}
+
+	public void setWarehouserptDao(WarehouserptDao warehouserptDao) {
+		this.warehouserptDao = warehouserptDao;
 	}
 }

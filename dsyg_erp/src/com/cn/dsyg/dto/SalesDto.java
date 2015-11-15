@@ -24,6 +24,11 @@ public class SalesDto extends BaseAction {
 	 * 销售单号
 	 */
 	private String salesno;
+	
+	/**
+	 * 退换货对应的RPT单号
+	 */
+	private String rptno;
 
 	/**
 	 * 销售单所属地（以后可能分上海和深圳）
@@ -577,5 +582,13 @@ public class SalesDto extends BaseAction {
 
 	public void setRefundflag(String refundflag) {
 		this.refundflag = refundflag;
+	}
+
+	public String getRptno() {
+		return rptno;
+	}
+
+	public void setRptno(String rptno) {
+		this.rptno = rptno;
 	}
 }

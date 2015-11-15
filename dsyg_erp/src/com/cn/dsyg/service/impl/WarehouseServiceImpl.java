@@ -364,7 +364,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 							}
 							if(b) {
 								//判断所有的库存记录均为已确认
-								List<WarehouseDto> listWarehouse = warehouseDao.queryWarehouseByParentid(warehouse.getParentid());
+								List<WarehouseDto> listWarehouse = warehouseDao.queryWarehouseByParentid(warehouse.getParentid(), "");
 								for(WarehouseDto warehouseDto : listWarehouse) {
 									if(warehouseDto.getStatus() <= Constants.WAREHOUSE_STATUS_NEW) {
 										b = false;
@@ -595,7 +595,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 							}
 							if(b) {
 								//判断所有的库存记录均为已确认
-								List<WarehouseDto> listWarehouse = warehouseDao.queryWarehouseByParentid(warehouse.getParentid());
+								List<WarehouseDto> listWarehouse = warehouseDao.queryWarehouseByParentid(warehouse.getParentid(), "");
 								for(WarehouseDto warehouseDto : listWarehouse) {
 									if(warehouseDto.getStatus() <= Constants.WAREHOUSE_STATUS_NEW) {
 										b = false;
@@ -843,7 +843,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 	
 	@Override
 	public List<WarehouseDto> queryWarehouseByParentid(String parentid) {
-		return warehouseDao.queryWarehouseByParentid(parentid);
+		return warehouseDao.queryWarehouseByParentid(parentid, "");
 	}
 
 	@Override
