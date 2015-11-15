@@ -457,6 +457,19 @@ public class StringUtil {
 	}
 	
 	/**
+	 * BigDecimal转化为字符
+	 * @param d
+	 * @param length
+	 * @return
+	 */
+	public static String BigDecimal2StrAbs(BigDecimal d, int length) {
+		if(d != null) {
+			return "" + d.setScale(length, BigDecimal.ROUND_HALF_UP).abs();
+		}
+		return "";
+	}
+	
+	/**
 	 * 合计价格，默认为0
 	 * @param b
 	 * @return

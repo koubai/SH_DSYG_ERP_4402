@@ -269,7 +269,10 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 							}
 							if(isInlist){
 								//货物数量
-								list.get(index).setNum(String.valueOf(Integer.parseInt(list.get(index).getNum()) + Integer.parseInt(ll[1])));
+								BigDecimal num = new BigDecimal(list.get(index).getNum());
+								BigDecimal num_new = new BigDecimal(ll[1]);
+								list.get(index).setNum(num.add(num_new).toString());
+								//list.get(index).setNum(String.valueOf(Integer.parseInt(list.get(index).getNum()) + Integer.parseInt(ll[1])));
 								//货物金额
 								list.get(index).setAmount(String.valueOf(Double.parseDouble(list.get(index).getAmount()) + Double.parseDouble(ll[2])));
 								//RES09 特殊订单号

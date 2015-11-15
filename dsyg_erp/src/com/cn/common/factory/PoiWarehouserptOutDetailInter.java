@@ -1,5 +1,6 @@
 package com.cn.common.factory;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -118,12 +119,13 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 					cell7.setCellValue(dictMap.get(Constants.DICT_UNIT_TYPE + "_" + product.getUnit()));
 					cell8.setCellStyle(style);
 					if(product.getNum() != null && !"".equals(product.getNum())) {
-						Float n = Float.valueOf(product.getNum());
-						if(n < 0) {
-							cell8.setCellValue("" + (n * -1));
-						} else {
-							cell8.setCellValue(product.getNum());
-						}
+						//Float n = Float.valueOf(product.getNum());
+						BigDecimal d = new BigDecimal(product.getNum());
+						//if(n < 0) {
+							//cell8.setCellValue("" + (n * -1));
+						//} else {
+							cell8.setCellValue(StringUtil.BigDecimal2StrAbs(d, 2));
+						//}
 					} else {
 						cell8.setCellValue("");
 					}
