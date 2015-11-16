@@ -131,6 +131,8 @@
 		var makearea = inputs[14].value;
 		//包装
 		var item10 = inputs[15].value;
+		//产地名称
+		var makeareaname = inputs[16].value;
 		
 		//采购单货物表ID，这里ID为空
 		var input = createHidden("");
@@ -169,6 +171,11 @@
 		tr.appendChild(td);
 		var input = createHidden(packaging);
 		td0.appendChild(input);
+		
+		//产地
+		td = createTd(makeareaname);
+		tr.appendChild(td);
+		
 		//采购单价
 		var input = createHidden(purchaseprice);
 		td0.appendChild(input);
@@ -197,6 +204,10 @@
 		td0.appendChild(input);
 		//销售单价含税
 		var input = createHidden("");
+		td0.appendChild(input);
+		
+		//产地
+		var input = createHidden(makearea);
 		td0.appendChild(input);
 		//==============================
 		
@@ -465,6 +476,7 @@
 								<input type="hidden" value="<s:property value="salesprice"/>"/>
 								<input type="hidden" value="<s:property value="makearea"/>"/>
 								<input type="hidden" value="<s:property value="item10"/>"/>
+								<input type="hidden" value="<s:iterator id="makeareaList" value="makeareaList" status="st3"><s:if test="%{makeareaList[#st3.index].code == productList[#st1.index].makearea}"><s:property value="fieldname"/></s:if></s:iterator>"/>
 							</td>
 							<!-- <td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td> -->
 							<td><input name="radioKey" type="checkbox" value="<s:property value="id"/>"/></td>

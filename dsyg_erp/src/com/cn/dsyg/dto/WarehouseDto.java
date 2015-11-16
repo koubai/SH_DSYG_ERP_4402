@@ -164,12 +164,12 @@ public class WarehouseDto extends BaseAction {
 	private Integer status;
 
 	/**
-	 * 预备项目1
+	 * 支付方式
 	 */
 	private String res01;
 
 	/**
-	 * 预备项目2
+	 * 含税单价
 	 */
 	private String res02;
 
@@ -204,7 +204,7 @@ public class WarehouseDto extends BaseAction {
 	private String res08;
 
 	/**
-	 * 预备项目9
+	 * 特殊订单号
 	 */
 	private String res09;
 

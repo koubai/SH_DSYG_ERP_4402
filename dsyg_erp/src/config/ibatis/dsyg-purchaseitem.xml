@@ -16,6 +16,7 @@
 		<result property="typeno" column="typeno" />
 		<result property="color" column="color" />
 		<result property="packaging" column="packaging" />
+		<result property="makearea" column="makearea" />
 		<result property="unit" column="unit" />
 		<result property="suppliername" column="suppliername" />
 		<result property="purchasedate" column="purchasedate" />
@@ -134,6 +135,7 @@
 		(select P.color from etb_product P where P.id = T.productid) as color,
 		(select P.packaging from etb_product P where P.id = T.productid) as packaging,
 		(select P.unit from etb_product P where P.id = T.productid) as unit,
+		(select P.makearea from etb_product P where P.id = T.productid) as makearea,
 		(select P.item10 from etb_product P where P.id = T.productid) as item01,
 		(select P.item11 from etb_product P where P.id = T.productid) as item11,
 		(select "") as suppliername,

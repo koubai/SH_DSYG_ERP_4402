@@ -358,6 +358,8 @@ public class SalesServiceImpl implements SalesService {
 		
 		//单价
 		warehouse.setUnitprice(salesItem.getUnitprice());
+		//含税单价
+		warehouse.setRes02("" + salesItem.getTaxunitprice());
 		
 		//出库金额=出库数量*单价
 		BigDecimal amount = salesItem.getUnitprice().multiply(salesItem.getBeforequantity());

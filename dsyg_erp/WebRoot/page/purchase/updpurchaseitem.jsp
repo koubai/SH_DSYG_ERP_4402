@@ -51,13 +51,13 @@
 				return;
 			}
 			//计算未税金额
-			var purchaseAmount = tds[15].getElementsByTagName("input")[0].value.trim();
+			var purchaseAmount = tds[16].getElementsByTagName("input")[0].value.trim();
 			if(purchaseAmount == "") {
 				purchaseAmount = 0;
 			}
 			var taxamount = parseFloat(purchaseAmount) * (1 + parseFloat(rate));
 			//计算含税金额
-			tds[16].getElementsByTagName("input")[0].value = taxamount.toFixed(2);
+			tds[17].getElementsByTagName("input")[0].value = taxamount.toFixed(2);
 			//隐藏域
 			//采购金额未税
 			inputs[12].value = purchaseAmount;
@@ -72,13 +72,13 @@
 				return;
 			}
 			//采购金额已税
-			var purchaseTaxamount = tds[16].getElementsByTagName("input")[0].value.trim();
+			var purchaseTaxamount = tds[17].getElementsByTagName("input")[0].value.trim();
 			if(purchaseTaxamount == "") {
 				purchaseTaxamount = 0;
 			}
 			var amount = parseFloat(purchaseTaxamount) / (1 + parseFloat(rate));
 			//计算未税金额
-			tds[15].getElementsByTagName("input")[0].value = amount.toFixed(2);
+			tds[16].getElementsByTagName("input")[0].value = amount.toFixed(2);
 			
 			//隐藏域
 			//采购金额未税
@@ -185,12 +185,12 @@
 		var tds = tr.getElementsByTagName("td");
 		var inputs = tds[0].getElementsByTagName("input");
 		
-		var inputPurchaseQuantitys = tds[9].getElementsByTagName("input");
-		var beforeQuantitys = tds[10].getElementsByTagName("input");
+		var inputPurchaseQuantitys = tds[10].getElementsByTagName("input");
+		var beforeQuantitys = tds[11].getElementsByTagName("input");
 		//采购单货物数量
 		var purchaseQuantity = inputPurchaseQuantitys[0].value;
 		//采购金额已税
-		var purchaseTaxamount = tds[16].getElementsByTagName("input")[0].value;
+		var purchaseTaxamount = tds[17].getElementsByTagName("input")[0].value;
 		//预入库数量
 		var beforeQuantity = beforeQuantitys[0].value;
 		
@@ -198,12 +198,12 @@
 		var paidamount = $("#tmpPaidamount").val();
 		
 		//备注
-		var res09 = tds[18].getElementsByTagName("input")[0].value.trim();
+		var res09 = tds[19].getElementsByTagName("input")[0].value.trim();
 		
 		//单价
-		var prices = tds[13].getElementsByTagName("input");
+		var prices = tds[14].getElementsByTagName("input");
 		//含税单价
-		var taxprices = tds[14].getElementsByTagName("input")[0].value.trim();
+		var taxprices = tds[15].getElementsByTagName("input")[0].value.trim();
 		if(taxprices == "") {
 			taxprices = 0;
 		}
@@ -219,12 +219,12 @@
 		if(type == "6") {
 			//计算未税单价
 			price = parseFloat(taxprices) / (1 + rate);
-			tds[13].getElementsByTagName("input")[0].value = price.toFixed(6);
+			tds[14].getElementsByTagName("input")[0].value = price.toFixed(6);
 		}
 		if(type == "4") {
 			//计算已税单价
 			taxprices = parseFloat(price) * (1 + rate);
-			tds[14].getElementsByTagName("input")[0].value = taxprices.toFixed(6);
+			tds[15].getElementsByTagName("input")[0].value = taxprices.toFixed(6);
 		}
 		
 		if(purchaseQuantity == "") {
@@ -261,10 +261,10 @@
 		remain = remain - inquantity;
 		remain = remain.toFixed(2);
 		
-		tds[12].innerHTML = remain;
+		tds[13].innerHTML = remain;
 		//采购金额未税
 		var amount = purchaseQuantity * parseFloat(price);
-		tds[15].getElementsByTagName("input")[0].value = amount.toFixed(2);
+		tds[16].getElementsByTagName("input")[0].value = amount.toFixed(2);
 		
 		//补充隐藏TD中的数据内容
 		//===============================================
@@ -290,7 +290,7 @@
 			var vv = amount * (1 + rate);
 			inputs[13].value = vv.toFixed(2);
 			//输入框金额也对应变更
-			tds[16].getElementsByTagName("input")[0].value = vv.toFixed(2);
+			tds[17].getElementsByTagName("input")[0].value = vv.toFixed(2);
 		}
 		//===============================================
 		//采购金额未税
@@ -569,6 +569,9 @@
 			//含税单价
 			var taxunitprice = childs[16].value;
 			
+			//产地
+			var makearea = childs[17].value;
+			
 			var tr = document.createElement("tr");
 			//采购货物列表
 			var td = document.createElement("td");
@@ -599,6 +602,7 @@
 			td.appendChild(createInput("updPurchaseItemList[" + i + "].amount", amount));
 			td.appendChild(createInput("updPurchaseItemList[" + i + "].taxamount", taxamount));
 			td.appendChild(createInput("updPurchaseItemList[" + i + "].res09", res09));
+			td.appendChild(createInput("updPurchaseItemList[" + i + "].makearea", makearea));
 			
 			tr.appendChild(td);
 			document.getElementById("purchaseItemTable").appendChild(tr);
@@ -1051,6 +1055,7 @@
 											<td width="35">颜色</td>
 											<td width="35">单位</td>
 											<td width="35">形式</td>
+											<td width="60">产地</td>
 											<td width="85">采购数量</td>
 											<td width="85">预入库数</td>
 											<td width="70">已入库数</td>
@@ -1089,6 +1094,7 @@
 														<input type="hidden" value="<s:property value="inquantity"/>" />
 														<input type="hidden" value="<s:property value="res09"/>" />
 														<input type="hidden" value="<s:property value="taxunitprice"/>" />
+														<input type="hidden" value="<s:property value="makearea"/>" />
 													</td>
 													<td><input name="itemRadio" type="radio" /></td>
 													<td><s:property value="#st1.index + 1"/></td>
@@ -1121,6 +1127,13 @@
 														<s:else>
 															<s:property value="packaging"/>
 														</s:else>
+													</td>
+													<td>
+														<s:iterator id="makeareaList" value="makeareaList" status="st3">
+															<s:if test="%{makeareaList[#st3.index].code == updPurchaseItemList[#st1.index].makearea}">
+																<s:property value="fieldname"/>
+															</s:if>
+														</s:iterator>
 													</td>
 													<td align="right">
 														<input type="text" disabled="disabled" style="width: 80px;" id="tmpQuantity_<s:property value="productid"/>" onblur="calcquantity(this, '1');" maxlength="11" value="<s:property value="quantity"/>"/>

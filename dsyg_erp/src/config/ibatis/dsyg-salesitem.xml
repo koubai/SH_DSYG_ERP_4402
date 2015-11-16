@@ -19,6 +19,7 @@
 		<result property="unit" column="unit" />
 		<result property="customername" column="customername" />
 		<result property="bookdate" column="bookdate" />
+		<result property="makearea" column="makearea" />
 		
 		<result property="quantity" column="quantity" />
 		<result property="beforequantity" column="beforequantity" />
@@ -69,6 +70,7 @@
 		<result property="unit" column="unit" />
 		<result property="customername" column="customername" />
 		<result property="bookdate" column="bookdate" />
+		<result property="makearea" column="makearea" />
 		
 		<result property="quantity" column="quantity" />
 		<result property="beforequantity" column="beforequantity" />
@@ -179,6 +181,7 @@
 		(select P.color from etb_product P where P.id = T.productid) as color,
 		(select P.packaging from etb_product P where P.id = T.productid) as packaging,
 		(select P.unit from etb_product P where P.id = T.productid) as unit,
+		(select P.makearea from etb_product P where P.id = T.productid) as makearea,
 		
 		(select P.item10 from etb_product P where P.id = T.productid) as item01,
 		

@@ -151,12 +151,12 @@ public class FinanceDto extends BaseDto {
 	private String billamount3;
 
 	/**
-	 * 预备项目1
+	 * 供应商/客户ID
 	 */
 	private String res01;
 
 	/**
-	 * 预备项目2
+	 * 供应商/客户名称
 	 */
 	private String res02;
 
@@ -186,17 +186,17 @@ public class FinanceDto extends BaseDto {
 	private String res07;
 
 	/**
-	 * 预备项目8
+	 * 快递单号
 	 */
 	private String res08;
 
 	/**
-	 * 快递单号
+	 * 发票金额+发票日期
 	 */
 	private String res09;
 
 	/**
-	 * 预备项目10
+	 * 发票号
 	 */
 	private String res10;
 

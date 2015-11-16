@@ -24,6 +24,18 @@ import net.sf.json.JSONArray;
 public class StringUtil {
 	
 	/**
+	 * 取得对象的字符串
+	 * @param o
+	 * @return
+	 */
+	public String getStr(Object o) {
+		if(o == null) {
+			return "";
+		}
+		return o.toString();
+	}
+	
+	/**
 	 * 计算字符串长度
 	 * @param s
 	 * @return

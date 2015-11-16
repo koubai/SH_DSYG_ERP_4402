@@ -67,6 +67,11 @@ public class PurchaseItemDto extends BaseAction {
 	private String packaging;
 	
 	/**
+	 * 产地
+	 */
+	private String makearea;
+	
+	/**
 	 * 单位
 	 */
 	private String unit;
@@ -215,7 +220,7 @@ public class PurchaseItemDto extends BaseAction {
 	private String res08;
 
 	/**
-	 * 预备项目9
+	 * 备注
 	 */
 	private String res09;
 
@@ -607,5 +612,13 @@ public class PurchaseItemDto extends BaseAction {
 
 	public void setRemainquantity(BigDecimal remainquantity) {
 		this.remainquantity = remainquantity;
+	}
+
+	public String getMakearea() {
+		return makearea;
+	}
+
+	public void setMakearea(String makearea) {
+		this.makearea = makearea;
 	}
 }
