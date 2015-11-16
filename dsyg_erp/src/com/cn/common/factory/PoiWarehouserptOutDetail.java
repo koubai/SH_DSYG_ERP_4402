@@ -213,7 +213,10 @@ public class PoiWarehouserptOutDetail extends Poi2007Base {
 					//含税单价要打出来是个问题
 					BigDecimal bdAmount = new BigDecimal(product.getAmount());
 					BigDecimal bdNum = new BigDecimal(product.getNum());
-					BigDecimal bdprice = bdAmount.divide(bdNum);
+					BigDecimal bdprice = new BigDecimal(0);
+					if(!bdNum.equals(BigDecimal.ZERO)){
+						bdprice = bdAmount.divide(bdNum,6, BigDecimal.ROUND_HALF_UP);
+					}						
 					cell8.setCellValue(StringUtil.BigDecimal2StrAbs(bdprice, 6));
 					cell9.setCellStyle(style);
 					cell9.setCellValue(product.getAmount());

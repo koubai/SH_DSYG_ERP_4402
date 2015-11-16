@@ -196,21 +196,41 @@
 					</div>
 					<div class="pages">
 						<ul>
-							<li style="width: 180px;">
+							<li style="width: 300px;">
 								<s:if test="intPageSize != null && intPageSize == 20">
 									显示：<input name="tmpPagesize" type="radio" value="10" onclick="changepagesize('10')"/>10 
 									<input name="tmpPagesize" type="radio" value="20" checked="checked" onclick="changepagesize('20')"/>20 
 									<input name="tmpPagesize" type="radio" value="30" onclick="changepagesize('30')"/>30
+									<input name="tmpPagesize" type="radio" value="50" onclick="changepagesize('50')"/>50
+									<input name="tmpPagesize" type="radio" value="100" onclick="changepagesize('100')"/>100
 								</s:if>
 								<s:elseif test="intPageSize != null && intPageSize == 30">
 									显示：<input name="tmpPagesize" type="radio" value="10" onclick="changepagesize('10')"/>10 
 									<input name="tmpPagesize" type="radio" value="20" onclick="changepagesize('20')"/>20 
 									<input name="tmpPagesize" type="radio" value="30" checked="checked" onclick="changepagesize('30')"/>30
+									<input name="tmpPagesize" type="radio" value="50" onclick="changepagesize('50')"/>50
+									<input name="tmpPagesize" type="radio" value="100" onclick="changepagesize('100')"/>100
+								</s:elseif>
+								<s:elseif test="intPageSize != null && intPageSize == 50">
+									显示：<input name="tmpPagesize" type="radio" value="10" onclick="changepagesize('10')"/>10 
+									<input name="tmpPagesize" type="radio" value="20" onclick="changepagesize('20')"/>20 
+									<input name="tmpPagesize" type="radio" value="30" onclick="changepagesize('30')"/>30
+									<input name="tmpPagesize" type="radio" value="50" checked="checked" onclick="changepagesize('50')"/>50
+									<input name="tmpPagesize" type="radio" value="100" onclick="changepagesize('100')"/>100
+								</s:elseif>
+								<s:elseif test="intPageSize != null && intPageSize == 100">
+									显示：<input name="tmpPagesize" type="radio" value="10" onclick="changepagesize('10')"/>10 
+									<input name="tmpPagesize" type="radio" value="20" onclick="changepagesize('20')"/>20 
+									<input name="tmpPagesize" type="radio" value="30" onclick="changepagesize('30')"/>30
+									<input name="tmpPagesize" type="radio" value="50" onclick="changepagesize('50')"/>50
+									<input name="tmpPagesize" type="radio" value="100" checked="checked" onclick="changepagesize('100')"/>100
 								</s:elseif>
 								<s:else>
 									显示：<input name="tmpPagesize" type="radio" value="10" checked="checked" onclick="changepagesize('10')"/>10 
 									<input name="tmpPagesize" type="radio" value="20" onclick="changepagesize('20')"/>20 
 									<input name="tmpPagesize" type="radio" value="30" onclick="changepagesize('30')"/>30
+									<input name="tmpPagesize" type="radio" value="50" onclick="changepagesize('50')"/>50
+									<input name="tmpPagesize" type="radio" value="100" onclick="changepagesize('100')"/>100
 								</s:else>
 							</li>
 							<li>第<strong>${page.startIndex + 1}</strong>页/共<strong>${page.totalPage==0?1:page.totalPage}</strong>页/共<strong>${page.totalCount}</strong>条记录</li>
