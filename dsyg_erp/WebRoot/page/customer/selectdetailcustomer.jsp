@@ -39,7 +39,6 @@
 		var customertel = inputs[4].value;
 		var customerfax = inputs[5].value;
 		var customermail = inputs[6].value;
-		
 		getOpener().document.getElementById("strCustomerid").value = id;
 		getOpener().document.getElementById("customername").value = customername;
 		
@@ -60,7 +59,7 @@
 	
 	function queryList() {
 		$("#selectStartIndex").attr("value", "0");
-		document.mainform.action = '../customer/turnSelectCustomerAction.action';
+		document.mainform.action = '../customer/turnDetailCustomerSelectAction.action';
 		document.mainform.submit();
 	}
 	
@@ -68,14 +67,14 @@
 	function changepagesize(pagesize) {
 		$("#intSelectPageSize").attr("value", pagesize);
 		$("#selectStartIndex").attr("value", "0");
-		document.mainform.action = '../customer/querySelectCustomerAction.action';
+		document.mainform.action = '../customer/queryDetailCustomerSelectAction.action';
 		document.mainform.submit();
 	}
 	
 	//翻页
 	function changePage(pageNum) {
 		$("#selectStartIndex").attr("value", pageNum);
-		document.mainform.action = '../customer/turnSelectCustomerAction.action';
+		document.mainform.action = '../customer/turnDetailCustomerSelectAction.action';
 		document.mainform.submit();
 	}
 

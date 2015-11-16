@@ -106,6 +106,8 @@ public class ProductDto extends BaseDto {
 	
 	//数量（入出库单显示用）
 	private String num;
+	//数量（入出库单显示用）
+	private String numabs;
 	//金额（入出库单显示用）
 	private String amount;
 	//是否退货或破损
@@ -1025,5 +1027,13 @@ public class ProductDto extends BaseDto {
 
 	public void setPurchaseprice(String purchaseprice) {
 		this.purchaseprice = purchaseprice;
+	}
+
+	public String getNumabs() {
+		return numabs;
+	}
+
+	public void setNumabs(String numabs) {
+		this.numabs = numabs;
 	}
 }
