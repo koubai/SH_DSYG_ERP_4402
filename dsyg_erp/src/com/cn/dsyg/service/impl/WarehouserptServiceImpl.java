@@ -225,6 +225,8 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 							if(product != null) {
 								//货物数量
 								product.setNum(ll[1]);
+								BigDecimal num = new BigDecimal(ll[1]);
+								product.setNumabs(StringUtil.BigDecimal2StrAbs(num, 2));
 								//货物金额
 								product.setAmount(ll[2]);
 								//RES09 特殊订单号
