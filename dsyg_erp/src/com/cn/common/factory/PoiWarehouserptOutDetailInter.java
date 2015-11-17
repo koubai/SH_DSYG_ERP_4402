@@ -93,7 +93,7 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 					XSSFCell cell6 = row.createCell(6);
 					XSSFCell cell7 = row.createCell(7);
 					XSSFCell cell8 = row.createCell(8);
-					//XSSFCell cell9 = row.createCell(9);
+					XSSFCell cell9 = row.createCell(9);
 					
 					cell0.setCellValue(num + 1);
 					cell0.setCellStyle(style);
@@ -129,8 +129,8 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 					} else {
 						cell8.setCellValue("");
 					}
-					//cell9.setCellStyle(style);
-					//cell9.setCellValue(product.getAmount());
+					cell9.setCellStyle(style);
+					cell9.setCellValue(dictMap.get(Constants.DICT_MAKEAREA + "_" + product.getMakearea()));
 					num++;
 				}
 			} else {
@@ -144,7 +144,7 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 				XSSFCell cell6 = row.createCell(6);
 				XSSFCell cell7 = row.createCell(7);
 				XSSFCell cell8 = row.createCell(8);
-				//XSSFCell cell9 = row.createCell(9);
+				XSSFCell cell9 = row.createCell(9);
 				
 				cell0.setCellValue(num + 1);
 				cell0.setCellStyle(style);
@@ -166,8 +166,8 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 				cell7.setCellStyle(style);
 				cell8.setCellValue("");
 				cell8.setCellStyle(style);
-				//cell9.setCellValue("");
-				//cell9.setCellStyle(style);
+				cell9.setCellValue("");
+				cell9.setCellStyle(style);
 				num++;
 			}
 		}
@@ -195,11 +195,13 @@ public class PoiWarehouserptOutDetailInter extends Poi2007Base {
 		heads.add("颜色");
 		sheet.setColumnWidth(5, 10 * 256);
 		heads.add("包装");
-		sheet.setColumnWidth(6, 15 * 256);
+		sheet.setColumnWidth(6, 12 * 256);
 		heads.add("单位");
 		sheet.setColumnWidth(7, 10 * 256);
 		heads.add("数量");
-		sheet.setColumnWidth(8, 16 * 256);
+		sheet.setColumnWidth(8, 14 * 256);
+		heads.add("产地");
+		sheet.setColumnWidth(9, 12 * 256);
 		//heads.add("税后金额");
 		//sheet.setColumnWidth(9, 15 * 256);
 		
