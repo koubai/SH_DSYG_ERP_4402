@@ -96,7 +96,11 @@ public class WarehouseDto extends BaseAction {
 	 * 单位
 	 */
 	private String unit;
-	//
+	
+	/**
+	 * 产地
+	 */
+	private String makearea;
 
 	/**
 	 * 入出库数量
@@ -174,7 +178,7 @@ public class WarehouseDto extends BaseAction {
 	private String res02;
 
 	/**
-	 * 预备项目3
+	 * 产地  -> Pei.change 20151118
 	 */
 	private String res03;
 
@@ -569,4 +573,13 @@ public class WarehouseDto extends BaseAction {
 	public void setActualquantity(BigDecimal actualquantity) {
 		this.actualquantity = actualquantity;
 	}
+
+	public String getMakearea() {
+		return makearea;
+	}
+
+	public void setMakearea(String makearea) {
+		this.makearea = makearea;
+	}
+
 }

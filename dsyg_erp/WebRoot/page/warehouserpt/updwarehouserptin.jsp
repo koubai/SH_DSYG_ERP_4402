@@ -431,6 +431,7 @@
 											<td width="40">颜色</td>
 											<td width="40">单位</td>
 											<td width="40">包装</td>
+											<td width="60">产地</td>
 											<td width="80">数量</td>
 											<td width="80">含税金额</td>
 											<td width="90" style="display: none;">退货OR损毁</td>
@@ -475,9 +476,16 @@
 													</s:else>
 												</td>
 												<td>
+													<s:iterator id="makeareaList" value="makeareaList" status="st3">
+														<s:if test="%{makeareaList[#st3.index].code == updWarehouserptDto.listProduct[#st1.index].makearea}">
+															<s:property value="fieldname"/>
+														</s:if>
+													</s:iterator>
+												</td>
+												<td align="right">
 													<s:property value="num"/>
 												</td>
-												<td>
+												<td align="right">
 													<s:property value="amount"/>
 												</td>
 												<td style="display: none;">

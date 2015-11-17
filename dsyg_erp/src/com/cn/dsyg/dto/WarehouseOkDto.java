@@ -86,6 +86,11 @@ public class WarehouseOkDto extends BaseAction {
 	private String unit;
 	
 	/**
+	 * 产地
+	 */
+	private String makearea;
+	
+	/**
 	 * 仓库名
 	 */
 	private String warehousename;
@@ -210,4 +215,13 @@ public class WarehouseOkDto extends BaseAction {
 	public void setWarehousetype(Integer warehousetype) {
 		this.warehousetype = warehousetype;
 	}
+
+	public String getMakearea() {
+		return makearea;
+	}
+
+	public void setMakearea(String makearea) {
+		this.makearea = makearea;
+	}
+
 }

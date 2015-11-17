@@ -162,7 +162,8 @@
 								<td width="60">颜色</td>
 								<td width="60">形式</td>
 								<td width="60">包装</td>
-								<td width="60">单位</td>
+								<td width="60">单位</td>								
+								<td width="60">产地</td>
 								<td width="80">库存数量</td>
 								<td width="120">库存位置</td>
 								<td width="140">盘点数量</td>
@@ -202,7 +203,14 @@
 											</s:if>
 										</s:iterator>
 									</td>
-									<td><s:property value="warehouseamount"/></td>
+									<td>
+										<s:iterator id="makeareaList" value="makeareaList" status="st3">
+											<s:if test="%{makeareaList[#st3.index].code == warehouseCheckList[#st1.index].makearea}">
+												<s:property value="fieldname"/>
+											</s:if>
+										</s:iterator>
+									</td>
+									<td align="right"><s:property value="warehouseamount"/></td>
 									<td>
 										<input type="text" style="width: 100px;" maxlength="32" id="position_<s:property value="productid"/>" value="<s:property value="warehouseposition"/>"/>
 									</td>

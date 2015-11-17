@@ -443,6 +443,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 		warehouse.setUnitprice(purchaseItem.getUnitprice());
 		//含税单价
 		warehouse.setRes02("" + purchaseItem.getTaxunitprice());
+		//产地
+		warehouse.setRes03("" + purchaseItem.getMakearea());
 		
 		//入库金额=入库数量*单价
 		BigDecimal amount = purchaseItem.getUnitprice().multiply(purchaseItem.getBeforequantity());

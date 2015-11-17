@@ -1042,8 +1042,9 @@ public class WarehouseDetailDto extends BaseDto {
 
 	public BigDecimal getDiffquantity() {
 		inquantity = inquantity.subtract(outquantity);
-		inquantity = inquantity.subtract(quantitys);
 		inquantity = inquantity.subtract(quantityw);
+		inquantity = inquantity.subtract(quantitys);
+		inquantity = inquantity.add(quantityp);
 		return inquantity;
 	}
 

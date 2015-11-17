@@ -159,6 +159,7 @@
 								<td width="120">规格</td>
 								<td width="60">颜色</td>
 								<td width="60">包装</td>
+								<td width="60">产地</td>
 								<td width="120">供应商/客户</td>
 								<td width="80">库存数量</td>
 							</tr>
@@ -193,6 +194,13 @@
 										<s:else>
 											<s:property value="packaging"/>
 										</s:else>
+									</td>
+									<td>
+										<s:iterator id="makeareaList" value="makeareaList" status="st3">
+											<s:if test="%{makeareaList[#st3.index].code == warehouseOkList[#st1.index].makearea}">
+												<s:property value="fieldname"/>
+											</s:if>
+										</s:iterator>
 									</td>
 									<td><s:property value="suppliername"/></td>
 									<td><s:property value="quantity"/></td>

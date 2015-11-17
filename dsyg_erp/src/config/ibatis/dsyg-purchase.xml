@@ -99,7 +99,7 @@
 			T.purchasedate <![CDATA[<]]> #purchasedateHigh#
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="theme2">
-			T.theme2 = #theme2#
+			T.theme2 like '%$theme2$%' ESCAPE '/'
 		</isNotEmpty>
 	</select>
 	
@@ -112,7 +112,7 @@
 			T.purchasedate <![CDATA[<=]]> #purchasedateHigh#
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="theme2">
-			T.theme2 = #theme2#
+			T.theme2 like '%$theme2$%' ESCAPE '/'
 		</isNotEmpty>
 		order by T.theme2 desc, T.updatedate  desc
 		LIMIT #start#, #end#

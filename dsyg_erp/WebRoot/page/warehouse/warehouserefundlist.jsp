@@ -158,6 +158,7 @@
 								<td width="60">单位</td>
 								<td width="60">形式</td>
 								<td width="60">包装</td>
+								<td width="60">产地</td>
 								<td width="60">入库数量</td>
 								<td width="120">创建时间</td>
 								<td width="120">备注</td>
@@ -211,6 +212,13 @@
 									</td>
 									<td>
 										<s:property value="item10"/>
+									</td>
+									<td>
+										<s:iterator id="makeareaList" value="makeareaList" status="st3">
+											<s:if test="%{makeareaList[#st3.index].code == warehouseList[#st1.index].res03}">
+												<s:property value="fieldname"/>
+											</s:if>
+										</s:iterator>
 									</td>
 									<td><s:property value="quantity"/></td>
 									<td><s:date name="createdate" format="yyyy/MM/dd HH:mm:ss" /></td>
