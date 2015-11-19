@@ -79,6 +79,7 @@ public class PoiProductCost extends Poi2007Base {
 			XSSFCell cell6 = row.createCell(6);
 			XSSFCell cell7 = row.createCell(7);
 			XSSFCell cell8 = row.createCell(8);
+			XSSFCell cell9 = row.createCell(9);
 			cell0.setCellValue(i + 1);
 			cell0.setCellStyle(style);
 			cell1.setCellValue(dictMap.get(Constants.DICT_GOODS_TYPE + "_" + productCostDto.getFieldno()));
@@ -99,8 +100,13 @@ public class PoiProductCost extends Poi2007Base {
 				cell7.setCellValue("乱尺");
 			}
 			cell7.setCellStyle(style);
-			cell8.setCellValue(productCostDto.getProductcost().toString());
+			cell8.setCellValue(dictMap.get(Constants.DICT_MAKEAREA_TYPE + "_" + productCostDto.getMakearea()));
 			cell8.setCellStyle(style);
+			if (productCostDto!= null && productCostDto.getProductcost()!=null)
+				cell9.setCellValue(productCostDto.getProductcost().toString());
+			else 
+				cell9.setCellValue("");
+			cell9.setCellStyle(style);
 		}
 	}
 	
@@ -127,8 +133,10 @@ public class PoiProductCost extends Poi2007Base {
 		sheet.setColumnWidth(6, 10 * 256);
 		heads.add("形式");
 		sheet.setColumnWidth(7, 10 * 256);
+		heads.add("产地");
+		sheet.setColumnWidth(8, 10 * 256);
 		heads.add("平均成本价格(含税)");
-		sheet.setColumnWidth(8, 30 * 256);
+		sheet.setColumnWidth(9, 30 * 256);
 		
 		//Head部分颜色字体
 		XSSFFont font = workbook.createFont();

@@ -156,6 +156,7 @@
 								<td width="60">包装</td>
 								<td width="40">单位</td>
 								<td width="60">形式</td>
+								<td width="60">产地</td>
 								<td width="60">平均成本价格(含税)</td>
 								<td width="60"></td>
 							</tr>
@@ -198,7 +199,14 @@
 											<s:property value="packaging"/>
 										</s:else>
 									</td>
-									<td align="right"><fmt:formatNumber value="${productcost}" pattern="#0.00" /></td>
+									<td>
+										<s:iterator id="makeareaList" value="makeareaList" status="st3">
+											<s:if test="%{makeareaList[#st3.index].code == productCostCheckList[#st1.index].makearea}">
+												<s:property value="fieldname"/>
+											</s:if>
+										</s:iterator>
+									</td>									
+									<td align="right"><fmt:formatNumber value="${productcost}" pattern="#0.000000" /></td>
 									<td>
 									</td>
 								</tr>

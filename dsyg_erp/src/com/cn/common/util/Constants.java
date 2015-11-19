@@ -123,7 +123,10 @@ public class Constants {
 	
 	//税率
 	public final static String DICT_RATE = "rate";
-	
+
+	//产地
+	public final static String DICT_MAKEAREA_TYPE = "makearea";
+
 	//采购订单号番号
 	public final static String DICT_PURCHASE_ORDER = "purchaseorder";
 	
