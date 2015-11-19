@@ -14,6 +14,10 @@
 			<result name="success">/page/requestcash/requestcashlist.jsp</result>
 		</action>
 		
+		<action name="turnRequestCashPage" class="requestcashAction" method="turnRequestCashPage">
+			<result name="success">/page/requestcash/requestcashlist.jsp</result>
+		</action>
+
 		<action name="showAddRequestCashAction" class="requestcashAction" method="showAddRequestCashAction">
 			<result name="*">/page/requestcash/addrequestcash.jsp</result>
 		</action>
