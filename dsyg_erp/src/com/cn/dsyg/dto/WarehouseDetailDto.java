@@ -1023,9 +1023,10 @@ public class WarehouseDetailDto extends BaseDto {
 	}
 
 	public BigDecimal getQuantity() {
-		inquantity = inquantity.subtract(outquantity);
-		inquantity = inquantity.subtract(quantityw);
-		return inquantity;
+		quantity = new BigDecimal(0); 
+		quantity = inquantity.subtract(outquantity);
+		quantity = quantity.add(quantityw);
+		return quantity;
 	}
 
 	public void setQuantity(BigDecimal quantity) {
@@ -1041,11 +1042,12 @@ public class WarehouseDetailDto extends BaseDto {
 	}
 
 	public BigDecimal getDiffquantity() {
-		inquantity = inquantity.subtract(outquantity);
-		inquantity = inquantity.subtract(quantityw);
-		inquantity = inquantity.subtract(quantitys);
-		inquantity = inquantity.add(quantityp);
-		return inquantity;
+		diffquantity = new BigDecimal(0); 
+		diffquantity = inquantity.subtract(outquantity);
+		diffquantity = diffquantity.add(quantityw);
+		diffquantity = diffquantity.subtract(quantitys);
+		diffquantity = diffquantity.add(quantityp);
+		return diffquantity;
 	}
 
 	public void setDiffquantity(BigDecimal diffquantity) {

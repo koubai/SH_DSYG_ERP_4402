@@ -185,9 +185,9 @@
 											<s:property value="packaging"/>
 										</s:else>
 									</td>
-									<td><a href="#" onclick="showSales('<s:property value="id"/>');"><u><s:property value="quantitys"/></u></a></td>
-									<td><s:property value="quantity"/></td>
-									<td>
+									<td align="right"><a href="#" onclick="showSales('<s:property value="id"/>');"><u><s:property value="quantitys"/></u></a></td>
+									<td align="right"><s:property value="quantity"/></td>
+									<td align="right">
 										<s:if test="%{warehouseDetailList[#st1.index].diffquantity <= 0}">
 											<span style="color: red"><s:property value="diffquantity"/></span>
 										</s:if>
@@ -195,7 +195,7 @@
 											<s:property value="diffquantity"/>
 										</s:else>
 									</td>
-									<td><a href="#" onclick="showPurchase('<s:property value="id"/>');"><u><s:property value="quantityp"/></u></a></td>
+									<td align="right"><a href="#" onclick="showPurchase('<s:property value="id"/>');"><u><s:property value="quantityp"/></u></a></td>
 									<td><s:property value="plandate"/></td>
 								</tr>
 							</s:iterator>
