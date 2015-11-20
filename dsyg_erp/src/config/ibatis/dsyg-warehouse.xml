@@ -847,14 +847,14 @@
 				from (
 					SELECT * FROM (SELECT P.productid,SUM(P.inquantity) AS inquantityp,SUM(P.beforequantity) AS beforequantityp,SUM(P.remainquantity) AS remainquantityp,max(plandate) AS plandate
 					FROM etb_purchaseitem P
-					WHERE P.remainquantity > 0
+					WHERE P.remainquantity >= 0
 					GROUP BY P.productid) S1
 					LEFT JOIN
 					
 					(SELECT * FROM 
 					(SELECT S.productid as productids,SUM(S.outquantity) AS outquantitys,SUM(S.beforequantity) AS beforequantitys,SUM(S.remainquantity) AS remainquantitys 
 					FROM etb_salesitem S WHERE 1 = 1
-					and S.remainquantity > 0
+					and S.remainquantity >= 0
 					group by S.productid) S2) S3
 					ON S1.productid = S3.productids
 
@@ -869,14 +869,14 @@
 					UNION
 					SELECT * FROM (SELECT P.productid,SUM(P.inquantity) AS inquantityp,SUM(P.beforequantity) AS beforequantityp,SUM(P.remainquantity) AS remainquantityp,max(plandate) AS plandate
 					FROM etb_purchaseitem P
-					WHERE P.remainquantity > 0
+					WHERE P.remainquantity >= 0
 					GROUP BY P.productid) S1
 					
 					RIGHT JOIN
 					(SELECT * FROM 
 					(SELECT S.productid as productids,SUM(S.outquantity) AS outquantitys,SUM(S.beforequantity) AS beforequantitys,SUM(S.remainquantity) AS remainquantitys 
 					FROM etb_salesitem S WHERE 1 = 1
-					and S.remainquantity > 0
+					and S.remainquantity >= 0
 					group by S.productid) S2) S3
 					ON S1.productid = S3.productids
 					

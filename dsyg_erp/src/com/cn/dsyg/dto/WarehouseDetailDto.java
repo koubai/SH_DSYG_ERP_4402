@@ -1046,7 +1046,7 @@ public class WarehouseDetailDto extends BaseDto {
 		diffquantity = inquantity.subtract(outquantity);
 		diffquantity = diffquantity.add(quantityw);
 		diffquantity = diffquantity.subtract(quantitys);
-		diffquantity = diffquantity.add(quantityp);
+//		diffquantity = diffquantity.add(quantityp);
 		return diffquantity;
 	}
 
