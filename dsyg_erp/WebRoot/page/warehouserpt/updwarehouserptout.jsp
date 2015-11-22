@@ -165,7 +165,9 @@
 	
 	function exportData(isInter) {
 		var id = ${updWarehouserptId};
-		window.location.href = "../warehouserpt/exportWarehouserptOutDetailAction.action?strExportDetailId=" + id + "&strInter=" + isInter;
+		var exportunitprice = $("#exportunitprice").val().trim();
+		window.location.href = "../warehouserpt/exportWarehouserptOutDetailAction.action?strExportDetailId=" + id 
+				+ "&strInter=" + isInter + "&exportunitprice=" + exportunitprice;
 	}
 	
 	//快递
@@ -177,6 +179,14 @@
 	
 	function goBack() {
 		window.location.href = "../warehouserpt/queryWarehouserptOutAction.action";
+	}
+	
+	function checkPrice(obj) {
+		if(obj.checked) {
+			document.getElementById("exportunitprice").value = 1;
+		} else {
+			document.getElementById("exportunitprice").value = 0;
+		}
 	}
 </script>
 </head>
@@ -553,6 +563,9 @@
 									</div>
 									<div class="box1_right"></div>
 								</div>
+							</td>
+							<td>
+								<input id="exportunitprice" type="checkbox" onclick="checkPrice(this)" value="0"/>导出含税单价
 							</td>
 						</tr>
 					</table>

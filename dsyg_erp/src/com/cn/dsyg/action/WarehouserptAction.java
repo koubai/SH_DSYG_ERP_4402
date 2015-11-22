@@ -71,6 +71,7 @@ public class WarehouserptAction extends BaseAction {
 	//导出明细
 	private String strExportDetailId;
 	private String strInter;
+	private String exportunitprice;
 	
 	private String strSuppliername;
 	private String strWarehouseno;
@@ -545,7 +546,11 @@ public class WarehouserptAction extends BaseAction {
 				rpt = warehouserptService.queryWarehouserptInterByID(strExportDetailId);
 			} else {
 				//入库单明细
-				exceltype = Constants.EXCEL_TYPE_WAREHOUSERPT_IN_DETAIL_LIST;
+				if(exportunitprice != null && exportunitprice.equals("1")){
+					exceltype = Constants.EXCEL_TYPE_WAREHOUSERPT_IN_DETAIL_LIST;
+				} else {
+					exceltype = Constants.EXCEL_TYPE_WAREHOUSERPT_IN_DETAIL_LIST_NOPRICE;
+				}
 				rpt = warehouserptService.queryWarehouserptByID(strExportDetailId);
 			}
 		} else {
@@ -555,7 +560,11 @@ public class WarehouserptAction extends BaseAction {
 				rpt = warehouserptService.queryWarehouserptInterByID(strExportDetailId);
 			} else {
 				//出库单明细
-				exceltype = Constants.EXCEL_TYPE_WAREHOUSERPT_OUT_DETAIL_LIST;
+				if(exportunitprice != null && exportunitprice.equals("1")){
+					exceltype = Constants.EXCEL_TYPE_WAREHOUSERPT_OUT_DETAIL_LIST;
+				} else {
+					exceltype = Constants.EXCEL_TYPE_WAREHOUSERPT_OUT_DETAIL_LIST_NOPRICE;
+				}
 				rpt = warehouserptService.queryWarehouserptByID(strExportDetailId);
 			}
 		}
@@ -834,6 +843,16 @@ public class WarehouserptAction extends BaseAction {
 
 	public void setStrWarehouseno(String strWarehouseno) {
 		this.strWarehouseno = strWarehouseno;
+	}
+
+
+	public String getExportunitprice() {
+		return exportunitprice;
+	}
+
+
+	public void setExportunitprice(String exportunitprice) {
+		this.exportunitprice = exportunitprice;
 	}
 
 }

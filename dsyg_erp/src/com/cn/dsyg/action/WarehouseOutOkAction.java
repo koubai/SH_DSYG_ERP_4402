@@ -51,6 +51,7 @@ public class WarehouseOutOkAction extends BaseAction {
 	
 	//出库确认
 	private String strOkIds;
+	private String strSuppliername;
 	
 	/**
 	 * 显示预出库确认页面
@@ -60,6 +61,7 @@ public class WarehouseOutOkAction extends BaseAction {
 		try {
 			this.clearMessages();
 			//页面数据初期化
+			strSuppliername = "";
 			startIndex = 0;
 			//默认10条
 			intPageSize = 10;
@@ -147,7 +149,7 @@ public class WarehouseOutOkAction extends BaseAction {
 		initDictList();
 		//翻页查询所有预出库待确认数据
 		this.page.setStartIndex(startIndex);
-		page = warehouseService.queryWarehouseOutOkByPage("", "", "", "", "", "" + Constants.WAREHOUSE_STATUS_NEW, page);
+		page = warehouseService.queryWarehouseOutOkByPage(strSuppliername, "", "", "", "", "", "" + Constants.WAREHOUSE_STATUS_NEW, page);
 		warehouseOutOkList = (List<WarehouseInOutOkDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -252,5 +254,13 @@ public class WarehouseOutOkAction extends BaseAction {
 
 	public void setWarehouseOutOkList(List<WarehouseInOutOkDto> warehouseOutOkList) {
 		this.warehouseOutOkList = warehouseOutOkList;
+	}
+
+	public String getStrSuppliername() {
+		return strSuppliername;
+	}
+
+	public void setStrSuppliername(String strSuppliername) {
+		this.strSuppliername = strSuppliername;
 	}
 }

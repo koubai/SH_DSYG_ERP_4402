@@ -51,6 +51,7 @@ public class WarehouseInOkAction extends BaseAction {
 	
 	//预入库确认ID
 	private String strOkIds;
+	private String strSuppliername;
 	
 	/**
 	 * 预入库确认页面
@@ -60,6 +61,7 @@ public class WarehouseInOkAction extends BaseAction {
 		try {
 			this.clearMessages();
 			//页面数据初期化
+			strSuppliername = "";
 			startIndex = 0;
 			//默认10条
 			intPageSize = 10;
@@ -147,7 +149,7 @@ public class WarehouseInOkAction extends BaseAction {
 		initDictList();
 		//翻页查询所有预入库确认数据
 		this.page.setStartIndex(startIndex);
-		page = warehouseService.queryWarehouseInOkByPage("", "", "", "", "", "" + Constants.WAREHOUSE_STATUS_NEW, page);
+		page = warehouseService.queryWarehouseInOkByPage(strSuppliername, "", "", "", "", "", "" + Constants.WAREHOUSE_STATUS_NEW, page);
 		warehouseInOkList = (List<WarehouseInOutOkDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -252,5 +254,13 @@ public class WarehouseInOkAction extends BaseAction {
 
 	public void setWarehouseInOkList(List<WarehouseInOutOkDto> warehouseInOkList) {
 		this.warehouseInOkList = warehouseInOkList;
+	}
+
+	public String getStrSuppliername() {
+		return strSuppliername;
+	}
+
+	public void setStrSuppliername(String strSuppliername) {
+		this.strSuppliername = strSuppliername;
 	}
 }

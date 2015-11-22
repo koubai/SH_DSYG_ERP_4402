@@ -52,6 +52,10 @@ public class Constants {
 	//出库单明细数据
 	public final static String EXCEL_TYPE_WAREHOUSERPT_OUT_DETAIL_LIST = "warehouserpt_out_detail";
 	//入库单明细数据
+	public final static String EXCEL_TYPE_WAREHOUSERPT_IN_DETAIL_LIST_NOPRICE = "warehouserpt_in_detail_noprice";
+	//出库单明细数据
+	public final static String EXCEL_TYPE_WAREHOUSERPT_OUT_DETAIL_LIST_NOPRICE = "warehouserpt_out_detail_noprice";
+	//入库单明细数据
 	public final static String EXCEL_TYPE_WAREHOUSERPT_IN_DETAIL_INTER_LIST = "warehouserpt_in_detail_inter";
 	//出库单明细数据
 	public final static String EXCEL_TYPE_WAREHOUSERPT_OUT_DETAIL_INTER_LIST = "warehouserpt_out_detail_inter";

@@ -111,10 +111,11 @@ public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
 	}
 	
 	@Override
-	public List<WarehouseInOutOkDto> queryWarehouseInOkByPage(String warehouseType, String theme, String tradename,
+	public List<WarehouseInOutOkDto> queryWarehouseInOkByPage(String warehouseType, String suppliername, String theme, String tradename,
 			String typeno, String color, String warehousename, String status, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("warehousetype", warehouseType);
+		paramMap.put("suppliername", suppliername);
 		paramMap.put("theme1", theme);
 		paramMap.put("tradename", tradename);
 		paramMap.put("typeno", typeno);
@@ -129,10 +130,11 @@ public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
 	}
 	
 	@Override
-	public List<WarehouseInOutOkDto> queryWarehouseOutOkByPage(String warehouseType, String theme, String tradename,
+	public List<WarehouseInOutOkDto> queryWarehouseOutOkByPage(String warehouseType, String suppliername, String theme, String tradename,
 			String typeno, String color, String warehousename, String status, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("warehousetype", warehouseType);
+		paramMap.put("suppliername", suppliername);
 		paramMap.put("theme1", theme);
 		paramMap.put("tradename", tradename);
 		paramMap.put("typeno", typeno);
@@ -166,11 +168,13 @@ public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
 	}
 	
 	@Override
-	public int queryWarehouseInOutOkCountByPage(String warehouseType, String theme,
+	public int queryWarehouseInOutOkCountByPage(String warehouseType, String suppliername, String theme,
 			String tradename, String typeno, String color,
 			String warehousename, String status) {
+		System.out.println("suppliername: " + suppliername);
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("warehousetype", warehouseType);
+		paramMap.put("suppliername", suppliername);
 		paramMap.put("theme1", theme);
 		paramMap.put("tradename", tradename);
 		paramMap.put("typeno", typeno);
@@ -178,6 +182,23 @@ public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
 		paramMap.put("warehousename", warehousename);
 		paramMap.put("status", status);
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryWarehouseInOutOkCountByPage", paramMap);
+	}
+	
+	@Override
+	public int queryWarehouseOutOkCountByPage(String warehouseType, String suppliername, String theme,
+			String tradename, String typeno, String color,
+			String warehousename, String status) {
+		System.out.println("suppliername: " + suppliername);
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("warehousetype", warehouseType);
+		paramMap.put("suppliername", suppliername);
+		paramMap.put("theme1", theme);
+		paramMap.put("tradename", tradename);
+		paramMap.put("typeno", typeno);
+		paramMap.put("color", color);
+		paramMap.put("warehousename", warehousename);
+		paramMap.put("status", status);
+		return (Integer) getSqlMapClientTemplate().queryForObject("queryWarehouseOutOkCountByPage", paramMap);
 	}
 
 	@Override

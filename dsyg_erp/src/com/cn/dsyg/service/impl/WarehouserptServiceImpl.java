@@ -239,11 +239,11 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 									if (StringUtil.isNotBlank(ll[3]))
 										product.setRes09(ll[3]);
 								}
-								//税后单价
-//								if (ll.length > 4){	
-//									if (StringUtil.isNotBlank(ll[4]))
-//										product.setRes09(ll[4]);
-//								}
+								//含税单价
+								if (ll.length > 4){	
+									if (StringUtil.isNotBlank(ll[4]))
+										product.setUnitprice((ll[4]));
+								}
 								product.setHasbroken("0");
 								product.setBrokennum("0");
 								product.setParentid(parentid);;

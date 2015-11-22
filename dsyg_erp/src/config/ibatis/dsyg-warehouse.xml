@@ -591,6 +591,9 @@
 							T.status = #status#
 						</isNotEmpty>
 				) C where 1 = 1
+					<isNotEmpty prepend="and" property="suppliername">
+						C.suppliername like '%$suppliername$%' ESCAPE '/'
+					</isNotEmpty>
 					<isNotEmpty prepend="and" property="tradename">
 						C.tradename like '%$tradename$%' ESCAPE '/'
 					</isNotEmpty>
@@ -629,6 +632,9 @@
 							T.status = #status#
 						</isNotEmpty>
 				) C where 1 = 1
+					<isNotEmpty prepend="and" property="suppliername">
+						C.suppliername like '%$suppliername$%' ESCAPE '/'
+					</isNotEmpty>
 					<isNotEmpty prepend="and" property="tradename">
 						C.tradename like '%$tradename$%' ESCAPE '/'
 					</isNotEmpty>
@@ -668,7 +674,10 @@
 						<isNotEmpty prepend="and" property="status">
 							T.status = #status#
 						</isNotEmpty>
-				) C where 1 = 1
+			) C where 1 = 1
+					<isNotEmpty prepend="and" property="suppliername">
+						C.suppliername like '%$suppliername$%' ESCAPE '/'
+					</isNotEmpty>
 					<isNotEmpty prepend="and" property="tradename">
 						C.tradename like '%$tradename$%' ESCAPE '/'
 					</isNotEmpty>
@@ -682,6 +691,47 @@
 		) AA where 1 = 1 and AA.quantity != 0
 		order by AA.suppliername asc,AA.theme2 asc, AA.productid asc
 		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryWarehouseOutOkCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from (
+			select sum(A.quantity) as quantity,A.suppliername,A.tradename,A.typeno,A.color,A.packaging,A.unit,A.supplierid,A.theme1,A.productid,A.warehousename,A.parentid,A.theme2 from (
+				select * from (
+					select T.*,
+						(select S.customername from etb_customer S where S.id = T.supplierid) as suppliername,
+						(select P.tradename from etb_product P where P.id = T.productid) as tradename,
+						(select P.typeno from etb_product P where P.id = T.productid) as typeno,
+						(select P.color from etb_product P where P.id = T.productid) as color,
+						(select P.packaging from etb_product P where P.id = T.productid) as packaging,
+						(select P.unit from etb_product P where P.id = T.productid) as unit
+					from etb_warehouse T where 1 = 1
+						<isNotEmpty prepend="and" property="warehousetype">
+							T.warehousetype = #warehousetype#
+						</isNotEmpty>
+						<isNotEmpty prepend="and" property="theme1">
+							T.theme1 = #theme1#
+						</isNotEmpty>
+						<isNotEmpty prepend="and" property="warehousename">
+							T.warehousename like '%$warehousename$%' ESCAPE '/'
+						</isNotEmpty>
+						<isNotEmpty prepend="and" property="status">
+							T.status = #status#
+						</isNotEmpty>
+				) C where 1 = 1
+					<isNotEmpty prepend="and" property="suppliername">
+						C.suppliername like '%$suppliername$%' ESCAPE '/'
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="tradename">
+						C.tradename like '%$tradename$%' ESCAPE '/'
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="typeno">
+						C.typeno like '%$typeno$%' ESCAPE '/'
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="color">
+						C.color = #color#
+					</isNotEmpty>
+			) A group by A.tradename,A.typeno,A.color,A.packaging,A.unit,A.supplierid,A.theme1,A.productid,A.warehousename,A.parentid,A.theme2
+		) B where 1 = 1 and B.quantity != 0
 	</select>
 	
 	<select id="queryWarehouseOkByPage" parameterClass="java.util.Map" resultMap="WarehouseOkDto">

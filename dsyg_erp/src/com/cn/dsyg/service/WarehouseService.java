@@ -137,7 +137,7 @@ public interface WarehouseService {
 	 * @param status
 	 * @return
 	 */
-	public Page queryWarehouseInOkByPage(String theme, String tradename,
+	public Page queryWarehouseInOkByPage(String suppliername, String theme, String tradename,
 			String typeno, String color, String warehousename, String status, Page page);
 	
 	/**
@@ -149,7 +149,7 @@ public interface WarehouseService {
 	 * @param status
 	 * @return
 	 */
-	public Page queryWarehouseOutOkByPage(String theme, String tradename,
+	public Page queryWarehouseOutOkByPage(String suppliername, String theme, String tradename,
 			String typeno, String color, String warehousename, String status, Page page);
 
 	/**

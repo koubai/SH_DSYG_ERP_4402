@@ -2,6 +2,7 @@ package com.cn.common.factory;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -19,10 +20,11 @@ import com.cn.common.util.Constants;
 import com.cn.common.util.DateUtil;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.ProductDto;
+import com.cn.dsyg.dto.PurchaseDto;
 import com.cn.dsyg.dto.WarehouserptDto;
 
-public class PoiWarehouserptInDetail extends Poi2007Base {
-
+public class PoiWarehouserptOutDetailNoprice extends Poi2007Base {
+	
 	/**
 	 * 输出大标题
 	 * @param sheet
@@ -41,7 +43,7 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 		//合并单元格
 		sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 10));
 		XSSFCell cell = row.createCell(0);
-		cell.setCellValue("东升盈港入库明细单");
+		cell.setCellValue("东升盈港出货明细单");
 		//式样
 		XSSFCellStyle style = workbook.createCellStyle();
 		//水平居中
@@ -49,6 +51,7 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 		style.setFont(font);
 		cell.setCellStyle(style);
 		
+
 		//颜色字体
 		XSSFFont font_cus = workbook.createFont();
 		//字体大小
@@ -63,7 +66,7 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 		
 		XSSFRow row3 = sheet.createRow(3);
 		XSSFCell cell_cus = row3.createCell(1);
-		cell_cus.setCellValue("供应商：" + warehouserpt.getSuppliername());
+		cell_cus.setCellValue("客户：" + warehouserpt.getSuppliername());
 		cell_cus.setCellStyle(style_cus);
 		
 		//颜色字体
@@ -75,23 +78,23 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 		style_other.setFont(font_other);
 		
 		XSSFRow row4 = sheet.createRow(4);
-		XSSFCell cell_no = row4.createCell(8);
-		cell_no.setCellValue("入库单号：" + warehouserpt.getWarehouseno());
+		XSSFCell cell_no = row4.createCell(7);
+		cell_no.setCellValue("发货单号：" + warehouserpt.getWarehouseno());
 		cell_no.setCellStyle(style_other);
 		
 		XSSFRow row5 = sheet.createRow(5);
-		XSSFCell cell_date = row5.createCell(8);
-		cell_date.setCellValue("入库日期：" + warehouserpt.getShowWarehousedate());
+		XSSFCell cell_date = row5.createCell(7);
+		cell_date.setCellValue("发货日期：" + warehouserpt.getShowWarehousedate());
 		cell_date.setCellStyle(style_other);
 		
 		XSSFRow row6 = sheet.createRow(6);
-		XSSFCell cell_deliverry = row6.createCell(8);
+		XSSFCell cell_deliverry = row6.createCell(7);
 		cell_deliverry.setCellValue("运送方式：");
 		cell_deliverry.setCellStyle(style_other);
 
 		XSSFRow row7 = sheet.createRow(7);
 		XSSFCell cell_detail = row7.createCell(0);
-		cell_detail.setCellValue("入库明细单：");
+		cell_detail.setCellValue("出库明细单：");
 		cell_detail.setCellStyle(style_cus);
 	}
 	
@@ -128,6 +131,7 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 				for(int j = 0; j < warehouserpt.getListProduct().size(); j++) {
 					ProductDto product = warehouserpt.getListProduct().get(j);
 					row = sheet.createRow(num + 9);
+					
 					XSSFCell cell0 = row.createCell(0);
 					XSSFCell cell1 = row.createCell(1);
 					XSSFCell cell2 = row.createCell(2);
@@ -139,14 +143,18 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 					XSSFCell cell8 = row.createCell(8);
 					XSSFCell cell9 = row.createCell(9);
 					XSSFCell cell10 = row.createCell(10);
-
+					
 					cell0.setCellValue(num + 1);
 					cell0.setCellStyle(style);
 					
 					//货物信息
 					//cell1.setCellValue(dictMap.get(Constants.DICT_GOODS_TYPE + "_" + product.getFieldno()));
 					//cell1.setCellStyle(style);
-					cell1.setCellValue(product.getParentid());
+					//if(product.getRes09() != null && !"".equals(product.getRes09())) {
+						//cell1.setCellValue(product.getParentid()+product.getRes09());
+					//} else {
+						cell1.setCellValue(product.getParentid());
+					//}
 					cell1.setCellStyle(style);
 					cell2.setCellValue(product.getBrand());
 					cell2.setCellStyle(style);
@@ -157,40 +165,76 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 					cell5.setCellStyle(style);
 					cell5.setCellValue(dictMap.get(Constants.DICT_COLOR_TYPE + "_" + product.getColor()));
 					cell6.setCellStyle(style);
-//					if("0".equals(product.getPackaging())) {
-//						cell6.setCellValue("整箱");
-//					} else {
-//						cell6.setCellValue("乱尺");
-//					}
-//					cell7.setCellStyle(style);
-//					cell7.setCellValue(dictMap.get(Constants.DICT_UNIT_TYPE + "_" + product.getUnit()));
-//					cell8.setCellStyle(style);
-//					cell8.setCellValue(product.getNum());
-//					cell9.setCellStyle(style);
-//					cell9.setCellValue(product.getAmount());
-//					cell10.setCellValue(product.getRes09());
-//					cell10.setCellStyle(style);
-					cell6.setCellStyle(style);
-					cell6.setCellValue(dictMap.get(Constants.DICT_UNIT_TYPE + "_" + product.getUnit()));
-					cell7.setCellStyle(style);
-					cell7.setCellValue(product.getNum());
-					cell8.setCellStyle(style);
-					//含税单价
-					if(product.getUnitprice() != null && !product.getUnitprice().equals("")){
-						cell8.setCellValue(product.getUnitprice());
+/*					if("0".equals(product.getPackaging())) {
+						cell6.setCellValue("整箱");
 					} else {
-						BigDecimal bdAmount = new BigDecimal(product.getAmount());
-						BigDecimal bdNum = new BigDecimal(product.getNum());
-						BigDecimal bdprice = new BigDecimal(0);
-						if(!bdNum.equals(BigDecimal.ZERO)){
-							bdprice = bdAmount.divide(bdNum,6, BigDecimal.ROUND_HALF_UP);
-						}						
-						cell8.setCellValue(StringUtil.BigDecimal2StrAbs(bdprice, 6));
+						cell6.setCellValue("乱尺");
 					}
+					cell7.setCellStyle(style);
+					cell7.setCellValue(dictMap.get(Constants.DICT_UNIT_TYPE + "_" + product.getUnit()));
+					cell8.setCellStyle(style);
+					//cell7.setCellValue(product.getNum());
+					
+					if(product.getNum() != null && !"".equals(product.getNum())) {
+						//Float n = Float.valueOf(product.getNum());
+						BigDecimal d = new BigDecimal(product.getNum());
+						//if(n < 0) {
+							//cell8.setCellValue("" + (n * -1));
+						//} else {
+							cell8.setCellValue(StringUtil.BigDecimal2StrAbs(d, 2));
+						//}
+					} else {
+						cell8.setCellValue("");
+					}
+					
 					cell9.setCellStyle(style);
 					cell9.setCellValue(product.getAmount());
 					cell10.setCellValue(product.getRes09());
 					cell10.setCellStyle(style);
+*/					
+					// 对外输出不谈整箱/乱尺
+					cell6.setCellStyle(style);
+					cell6.setCellValue(dictMap.get(Constants.DICT_UNIT_TYPE + "_" + product.getUnit()));
+					cell7.setCellStyle(style);
+					
+					if(product.getNum() != null && !"".equals(product.getNum())) {
+						//Float n = Float.valueOf(product.getNum());
+						BigDecimal d = new BigDecimal(product.getNum());
+						//if(n < 0) {
+							//cell8.setCellValue("" + (n * -1));
+						//} else {
+							cell7.setCellValue(StringUtil.BigDecimal2StrAbs(d, 2));
+						//}
+					} else {
+						cell7.setCellValue("");
+					}
+//					
+//					cell8.setCellStyle(style);
+//					//含税单价要打出来是个问题
+//					BigDecimal bdAmount = new BigDecimal(product.getAmount());
+//					BigDecimal bdNum = new BigDecimal(product.getNum());
+//					BigDecimal bdprice = new BigDecimal(0);
+//					if(!bdNum.equals(BigDecimal.ZERO)){
+//						bdprice = bdAmount.divide(bdNum,6, BigDecimal.ROUND_HALF_UP);
+//					}						
+//					cell8.setCellValue(StringUtil.BigDecimal2StrAbs(bdprice, 6));
+					cell8.setCellStyle(style);
+					cell8.setCellValue(product.getAmount());
+					cell9.setCellValue(product.getRes09());
+					cell9.setCellStyle(style);
+					
+					/*
+		            float defaultRowHeight = 30f;  
+		            float maxHeight = defaultRowHeight; 
+					for(int c = 0; c < 8; c++){
+		                System.out.println(c + "列：" + sheet.getColumnWidth(c) + " " + row.getCell(c).toString());
+		                System.out.println(c + "列：" + sheet.getColumnWidth(c)/256);
+						float thisHeight = getExcelCellAutoHeight(row.getCell(c).toString(), defaultRowHeight, sheet.getColumnWidth(c)/256);   
+		                if(thisHeight > maxHeight) maxHeight = thisHeight;
+		                System.out.println("maxHeight：" + maxHeight);
+						row.setHeightInPoints(maxHeight);
+					}
+	                */
 					num++;
 				}
 			} else {
@@ -205,8 +249,8 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 				XSSFCell cell7 = row.createCell(7);
 				XSSFCell cell8 = row.createCell(8);
 				XSSFCell cell9 = row.createCell(9);
-				XSSFCell cell10 = row.createCell(10);
-
+				//XSSFCell cell10 = row.createCell(10);
+				
 				cell0.setCellValue(num + 1);
 				cell0.setCellStyle(style);
 				
@@ -229,13 +273,15 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 				cell8.setCellStyle(style);
 				cell9.setCellValue("");
 				cell9.setCellStyle(style);
-				cell10.setCellValue("");
-				cell10.setCellStyle(style);
+				//cell10.setCellValue("");
+				//cell10.setCellStyle(style);
 				num++;
 			}
 		}
 
+		
 		row = sheet.createRow(num + 9);
+		//row.setHeightInPoints((short)18.75);
 		XSSFCell cell30 = row.createCell(0);
 		XSSFCell cell31 = row.createCell(1);
 		XSSFCell cell32 = row.createCell(2);
@@ -246,7 +292,6 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 		XSSFCell cell37 = row.createCell(7);
 		XSSFCell cell38 = row.createCell(8);
 		XSSFCell cell39 = row.createCell(9);
-		XSSFCell cell40 = row.createCell(10);
 
 		cell30.setCellValue("");
 		cell30.setCellStyle(style);
@@ -264,18 +309,16 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 		cell36.setCellStyle(style);
 		cell37.setCellValue(StringUtil.BigDecimal2Str(warehouserpt.getTotalnum(), 2));
 		cell37.setCellStyle(style);
-		cell38.setCellValue("");
+		cell38.setCellValue(warehouserpt.getTotaltaxamount().toString());
 		cell38.setCellStyle(style);
-		cell39.setCellValue(warehouserpt.getTotaltaxamount().toString());
+		cell39.setCellValue("");
 		cell39.setCellStyle(style);
-		cell40.setCellValue("");
-		cell40.setCellStyle(style);
 		
-		XSSFCellStyle style_other = workbook.createCellStyle();	
+		XSSFCellStyle style_other = workbook.createCellStyle();
 		XSSFFont font_other = workbook.createFont();
 		//字体大小
 		font_other.setFontHeightInPoints((short)14);
-		style_other.setFont(font_other);	
+		style_other.setFont(font_other);
 //		row = sheet.createRow(num + 14);
 //		XSSFCell cell14 = row.createCell(1);
 //		cell14.setCellValue("品保出荷检查:");
@@ -303,7 +346,7 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 		//货物信息
 		//heads.add("主题");
 		//sheet.setColumnWidth(1, 15 * 256);
-		heads.add("采购订单号");
+		heads.add("销售订单号");
 		sheet.setColumnWidth(1, 15 * 256);
 		heads.add("品牌");
 		sheet.setColumnWidth(2, 10 * 256);
@@ -317,13 +360,13 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 		sheet.setColumnWidth(6, 6 * 256);
 		heads.add("数量");
 		sheet.setColumnWidth(7, 10 * 256);
-		heads.add("含税单价");
-		sheet.setColumnWidth(8, 12 * 256);
+		//heads.add("含税单价");
+		//sheet.setColumnWidth(8, 12 * 256);
 		heads.add("含税金额");
-		sheet.setColumnWidth(9, 12 * 256);
+		sheet.setColumnWidth(8, 12 * 256);
 		heads.add("备注");
-		sheet.setColumnWidth(10, 12 * 256);
-
+		sheet.setColumnWidth(9, 12 * 256);
+		
 		//Head部分颜色字体
 		XSSFFont font = workbook.createFont();
 		//加粗
@@ -346,8 +389,9 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 		style.setFillForegroundColor(new XSSFColor(new java.awt.Color(180, 180, 180)));
 		
 		XSSFRow row = sheet.createRow(8);
+		row.setHeightInPoints((float) 18.75);
 		XSSFCell cell = null;
-		
+
 		for(int i = 0; i < heads.size(); i++) {
 			cell = row.createCell(i);
 			cell.setCellValue(heads.get(i));

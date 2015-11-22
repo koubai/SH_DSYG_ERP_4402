@@ -149,7 +149,21 @@ public interface WarehouseDao {
 	 * @param status
 	 * @return
 	 */
-	public int queryWarehouseInOutOkCountByPage(String warehouseType, String theme, String tradename,
+	public int queryWarehouseInOutOkCountByPage(String warehouseType, String suppliername, String theme, String tradename,
+			String typeno, String color, String warehousename, String status);
+
+	/**
+	 * 查询出库汇总总记录数（出库）
+	 * @param warehouseType
+	 * @param theme
+	 * @param tradename
+	 * @param typeno
+	 * @param color
+	 * @param warehousename
+	 * @param status
+	 * @return
+	 */
+	public int queryWarehouseOutOkCountByPage(String warehouseType, String suppliername, String theme, String tradename,
 			String typeno, String color, String warehousename, String status);
 	
 	/**
@@ -160,7 +174,7 @@ public interface WarehouseDao {
 	 * @param end
 	 * @return
 	 */
-	public List<WarehouseInOutOkDto> queryWarehouseInOkByPage(String warehouseType, String theme, String tradename,
+	public List<WarehouseInOutOkDto> queryWarehouseInOkByPage(String warehouseType, String suppliername, String theme, String tradename,
 			String typeno, String color, String warehousename, String status, int start, int end);
 	
 	/**
@@ -171,7 +185,7 @@ public interface WarehouseDao {
 	 * @param end
 	 * @return
 	 */
-	public List<WarehouseInOutOkDto> queryWarehouseOutOkByPage(String warehouseType, String theme, String tradename,
+	public List<WarehouseInOutOkDto> queryWarehouseOutOkByPage(String warehouseType, String suppliername, String theme, String tradename,
 			String typeno, String color, String warehousename, String status, int start, int end);
 	
 	/**

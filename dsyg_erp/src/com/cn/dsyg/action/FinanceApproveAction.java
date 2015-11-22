@@ -55,6 +55,7 @@ public class FinanceApproveAction extends BaseAction {
 	private String strWarehousedateLow;
 	//日期终
 	private String strWarehousedateHigh;
+	private String strSuppliername;
 	
 	//更新状态
 	private String updWarehouserptId;
@@ -167,6 +168,7 @@ public class FinanceApproveAction extends BaseAction {
 			strWarehousedateHigh = "";
 			updWarehouserptId = "";
 			updWarehouserptStatus = "";
+			strSuppliername = "";
 			warehouserptList = new ArrayList<WarehouserptDto>();
 			
 			queryData("" + Constants.WAREHOUSE_TYPE_IN);
@@ -310,6 +312,7 @@ public class FinanceApproveAction extends BaseAction {
 			page = new Page(intPageSize);
 			strWarehousedateLow = "";
 			strWarehousedateHigh = "";
+			strSuppliername = "";
 			warehouserptList = new ArrayList<WarehouserptDto>();
 			
 			queryData("" + Constants.WAREHOUSE_TYPE_OUT);
@@ -394,7 +397,7 @@ public class FinanceApproveAction extends BaseAction {
 		}
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		page = warehouserptService.queryWarehouserptByPage("", type, "", "", "", "", "", strWarehousedateLow, strWarehousedateHigh,"","", page);
+		page = warehouserptService.queryWarehouserptByPage("", type, "", "", "", "", "", strWarehousedateLow, strWarehousedateHigh, strSuppliername,"", page);
 		warehouserptList = (List<WarehouserptDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -581,5 +584,13 @@ public class FinanceApproveAction extends BaseAction {
 
 	public void setStrBillamount3(String strBillamount3) {
 		this.strBillamount3 = strBillamount3;
+	}
+
+	public String getStrSuppliername() {
+		return strSuppliername;
+	}
+
+	public void setStrSuppliername(String strSuppliername) {
+		this.strSuppliername = strSuppliername;
 	}
 }

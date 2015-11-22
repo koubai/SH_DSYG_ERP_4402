@@ -109,6 +109,14 @@
 				<s:hidden name="intPageSize" id="intPageSize"/>
 				<s:hidden name="strOkIds" id="strOkIds"/>
 				<div class="searchbox">
+					<div class="box1">
+						<label class="pdf10">客户名</label>
+						<div class="box1_left"></div>
+						<div class="box1_center date_input">
+							<s:textfield name="strSuppliername" cssStyle="width:200px;" id="strSuppliername" theme="simple"></s:textfield>
+						</div>
+						<div class="box1_right"></div>
+					</div>
 					<div class="btn" style="margin-left: 160px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
