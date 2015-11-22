@@ -3,6 +3,7 @@ package com.cn.dsyg.dao;
 import java.util.List;
 
 import com.cn.dsyg.dto.ProductQuantityDto;
+import com.cn.dsyg.dto.PurchaseItemDto;
 import com.cn.dsyg.dto.WarehouseCheckDto;
 import com.cn.dsyg.dto.WarehouseDetailDto;
 import com.cn.dsyg.dto.WarehouseDto;
@@ -354,4 +355,11 @@ public interface WarehouseDao {
 	 * @param status
 	 */
 	public void deleteWarehouseByParentid(String parentid, String productid, String status);
+	
+	/**
+	 * 根据产品ID查询流水账
+	 * @param productid
+	 * @return
+	 */
+	public List<WarehouseOkDto> queryProductBookByProductid(String productid);
 }

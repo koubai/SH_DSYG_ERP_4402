@@ -1000,6 +1000,11 @@ public class WarehouseServiceImpl implements WarehouseService {
 			String warehousename) {
 		return warehouseDao.queryWarehouseCheckToExcel(parentid, warehousetype, warehouseno, theme1, productid, tradename, typeno, color, warehousename);
 	}
+	
+	@Override
+	public List<WarehouseOkDto> queryProductBookByProductid(String productid) {
+		return warehouseDao.queryProductBookByProductid(productid);
+	}
 
 	public PositionDao getPositionDao() {
 		return positionDao;

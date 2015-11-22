@@ -60,6 +60,8 @@ public class ProductOkAction extends BaseAction {
 	private String strColor;
 	//仓库名
 	private String strWarehousename;
+	//产品id
+	private String strProdoctid;
 		
 	/**
 	 * 显示仓位确认页面
@@ -125,6 +127,22 @@ public class ProductOkAction extends BaseAction {
 			queryData();
 		} catch(Exception e) {
 			log.error("turnProductOkAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询产品流水账
+	 * @return
+	 */
+	public String showProductBookPage() {
+		try {
+			this.clearMessages();
+			System.out.println("strProdoctid is: " + strProdoctid);
+			warehouseOkList = warehouseService.queryProductBookByProductid(strProdoctid);
+		} catch(Exception e) {
+			log.error("showProductBookPage error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -282,5 +300,13 @@ public class ProductOkAction extends BaseAction {
 
 	public void setStrWarehousename(String strWarehousename) {
 		this.strWarehousename = strWarehousename;
+	}
+
+	public String getStrProdoctid() {
+		return strProdoctid;
+	}
+
+	public void setStrProdoctid(String strProdoctid) {
+		this.strProdoctid = strProdoctid;
 	}
 }

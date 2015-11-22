@@ -22,6 +22,12 @@
 		document.mainform.submit();
 	}
 	
+	function showDetail(id) {
+		var url = '<%=request.getContextPath()%>/warehouse/showProductBookPage.action';
+		url += "?strProdoctid=" + id + "&date=" + new Date();
+		window.showModalDialog(url, window, "dialogheight:400px;dialogwidth:600px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	}
+	
 	//修改pagesize
 	function changepagesize(pagesize) {
 		$("#intPageSize").attr("value", pagesize);
@@ -203,7 +209,7 @@
 										</s:iterator>
 									</td>
 									<td><s:property value="suppliername"/></td>
-									<td><s:property value="quantity"/></td>
+									<td align="left"><a href="#" onclick="showDetail('<s:property value="productid"/>');"><u><s:property value="quantity"/></u></a></td>
 								</tr>
 							</s:iterator>
 						</table>

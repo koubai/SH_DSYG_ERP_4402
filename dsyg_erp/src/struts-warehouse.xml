@@ -147,6 +147,10 @@
 			<result name="*">/page/warehouse/positiondetail.jsp</result>
 		</action>
 		
+		<action name="showProductBookPage" class="productOkAction" method="showProductBookPage">
+			<result name="*">/page/warehouse/productbook.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

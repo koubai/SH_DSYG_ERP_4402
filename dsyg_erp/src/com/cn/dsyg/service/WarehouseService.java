@@ -6,6 +6,7 @@ import com.cn.common.util.Page;
 import com.cn.dsyg.dto.ProductQuantityDto;
 import com.cn.dsyg.dto.WarehouseCheckDto;
 import com.cn.dsyg.dto.WarehouseDto;
+import com.cn.dsyg.dto.WarehouseOkDto;
 
 /**
  * @name WarehouseService.java
@@ -242,4 +243,11 @@ public interface WarehouseService {
 	 * @param warehouse
 	 */
 	public void updateWarehouse(WarehouseDto warehouse);
+	
+	/**
+	 * 根据产品id查询流水
+	 * @param productid
+	 * @return
+	 */
+	public List<WarehouseOkDto> queryProductBookByProductid(String productid);
 }
