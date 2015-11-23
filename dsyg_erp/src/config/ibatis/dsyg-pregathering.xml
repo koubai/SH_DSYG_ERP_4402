@@ -60,7 +60,7 @@
 		<isNotEmpty prepend="and" property="ID_HIGH">
 			T.pregatheringno <![CDATA[<=]]> #ID_HIGH#
 		</isNotEmpty>
-		order by T.updatedate desc
+		order by T.registerdate desc
 	</select>
 	
 	<select id="queryPregatheringByPage" parameterClass="java.util.Map" resultMap="PregatheringDto">
@@ -78,7 +78,7 @@
 		<isNotEmpty prepend="and" property="CUSTOMER_NAME">
 			T.customername like '%$CUSTOMER_NAME$%'
 		</isNotEmpty>
-		order by T.updatedate desc
+		order by T.registerdate desc
 		LIMIT #start#, #end#
 	</select>
 	

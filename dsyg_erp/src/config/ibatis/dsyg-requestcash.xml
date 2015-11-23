@@ -62,7 +62,7 @@
 		<isNotEmpty prepend="and" property="ID_HIGH">
 			T.requestcashno <![CDATA[<=]]> #ID_HIGH#
 		</isNotEmpty>
-		order by T.updatedate desc
+		order by T.registerdate desc
 	</select>
 	
 	<select id="queryRequestCashByPage" parameterClass="java.util.Map" resultMap="RequestCashDto">
@@ -77,7 +77,7 @@
 		<isNotEmpty prepend="and" property="REQUESTCASH_NAME">
 			T.requestcashname like '%$REQUESTCASH_NAME$%'
 		</isNotEmpty>
-		order by T.updatedate desc
+		order by T.registerdate desc
 		LIMIT #start#, #end#
 	</select>
 	
