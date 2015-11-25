@@ -183,6 +183,39 @@
 						</div>
 						<div class="box1_right"></div>
 					</div>
+					<div class="box1">
+						<label class="pdf10">状态</label>
+						<div class="box1_left"></div>
+						<div class="box1_center date_input">
+							<select id="strStatus" name="strStatus" style="width: 120px;">
+								<s:if test='strStatus == "10"'>
+									<option value="">请选择</option>
+									<option value="10" selected="selected">未发货</option>
+									<option value="15">部分发货</option>
+									<option value="20">发货完成</option>
+								</s:if>
+								<s:elseif test='strStatus == "15"'>
+									<option value="">请选择</option>
+									<option value="10">未发货</option>
+									<option value="15" selected="selected">部分发货</option>
+									<option value="20">发货完成</option>
+								</s:elseif>
+								<s:elseif test='strStatus == "20"'>
+									<option value="">请选择</option>
+									<option value="10">未发货</option>
+									<option value="15">部分发货</option>
+									<option value="20" selected="selected">发货完成</option>
+								</s:elseif>
+								<s:else>
+									<option value="" selected="selected">请选择</option>
+									<option value="10">未发货</option>
+									<option value="15">部分发货</option>
+									<option value="20">发货完成</option>
+								</s:else>
+							</select>
+						</div>
+						<div class="box1_right"></div>
+					</div>
 				</div>
 				<div class="searchbox">
 					<div class="box1">

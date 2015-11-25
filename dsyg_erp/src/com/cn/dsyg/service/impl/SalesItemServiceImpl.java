@@ -67,6 +67,12 @@ public class SalesItemServiceImpl implements SalesItemService {
 			String customerid, int start, int end) {
 		return salesItemDao.querySalesItemByProductid(productid, customerid, start, end);
 	}
+	
+	@Override
+	public List<SalesItemDto> querySalesItemByProductidForCompare(
+			String productid, String customerid) {
+		return salesItemDao.querySalesItemByProductidForCompare(productid, customerid);
+	}
 
 	public SalesItemDao getSalesItemDao() {
 		return salesItemDao;

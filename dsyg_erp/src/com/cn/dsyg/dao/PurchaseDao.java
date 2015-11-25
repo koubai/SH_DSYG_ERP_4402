@@ -51,21 +51,23 @@ public interface PurchaseDao {
 	 * @param purchasedateLow
 	 * @param purchasedateHigh
 	 * @param theme2
+	 * @param status
 	 * @return
 	 */
-	public int queryPurchaseCountByPage(String purchasedateLow, String purchasedateHigh, String theme2);
+	public int queryPurchaseCountByPage(String purchasedateLow, String purchasedateHigh, String theme2, String status);
 	
 	/**
 	 * 翻页查询满足条件的采购数据
 	 * @param purchasedateLow
 	 * @param purchasedateHigh
 	 * @param theme2
+	 * @param status
 	 * @param start
 	 * @param end
 	 * @return
 	 */
 	public List<PurchaseDto> queryPurchaseByPage(String purchasedateLow,
-			String purchasedateHigh, String theme2, int start, int end);
+			String purchasedateHigh, String theme2, String status, int start, int end);
 	
 	/**
 	 * 根据ID查询采购单数据

@@ -79,21 +79,23 @@ public class PurchaseDaoImpl extends BaseDao implements PurchaseDao {
 	
 	@Override
 	public int queryPurchaseCountByPage(String purchasedateLow,
-			String purchasedateHigh, String theme2) {
+			String purchasedateHigh, String theme2, String status) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("purchasedateLow", purchasedateLow);
 		paramMap.put("purchasedateHigh", purchasedateHigh);
 		paramMap.put("theme2", theme2);
+		paramMap.put("status", status);
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryPurchaseCountByPage", paramMap);
 	}
 
 	@Override
 	public List<PurchaseDto> queryPurchaseByPage(String purchasedateLow,
-			String purchasedateHigh, String theme2, int start, int end) {
+			String purchasedateHigh, String theme2, String status, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("purchasedateLow", purchasedateLow);
 		paramMap.put("purchasedateHigh", purchasedateHigh);
 		paramMap.put("theme2", theme2);
+		paramMap.put("status", status);
 		paramMap.put("start", start);
 		paramMap.put("end", end);
 		@SuppressWarnings("unchecked")

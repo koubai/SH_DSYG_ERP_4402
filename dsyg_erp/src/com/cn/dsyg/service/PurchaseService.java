@@ -41,10 +41,12 @@ public interface PurchaseService {
 	 * @param purchasedateLow
 	 * @param purchasedateHigh
 	 * @param theme2 单号
+	 * @param status
 	 * @param page
 	 * @return
 	 */
-	public Page queryPurchaseByPage(String purchasedateLow, String purchasedateHigh, String theme2, Page page);
+	public Page queryPurchaseByPage(String purchasedateLow, String purchasedateHigh,
+			String theme2, String status, Page page);
 	
 	/**
 	 * 根据ID查询采购单数据

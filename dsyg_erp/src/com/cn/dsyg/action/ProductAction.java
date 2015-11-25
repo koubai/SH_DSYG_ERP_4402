@@ -17,7 +17,6 @@ import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.FeatureDto;
 import com.cn.dsyg.dto.ProductDto;
-import com.cn.dsyg.dto.SalesItemDto;
 import com.cn.dsyg.service.Dict01Service;
 import com.cn.dsyg.service.ProductService;
 import com.opensymphony.xwork2.ActionContext;

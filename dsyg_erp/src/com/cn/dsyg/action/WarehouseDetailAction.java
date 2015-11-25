@@ -132,7 +132,9 @@ public class WarehouseDetailAction extends BaseAction {
 		try {
 			this.clearMessages();
 			System.out.println("strProdoctid is: " + strProdoctid);
-			setPurchaseItemList(purchaseItemService.queryPurchaseItemByProductid(strProdoctid, "", 0, 100));
+			//update by frank
+			setPurchaseItemList(purchaseItemService.queryPurchaseItemByProductidForCompare(strProdoctid, ""));
+			//setPurchaseItemList(purchaseItemService.queryPurchaseItemByProductid(strProdoctid, "", 0, 100));
 			
 		} catch(Exception e) {
 			log.error("queryPurchaseItemByProductid error:" + e);
@@ -149,7 +151,8 @@ public class WarehouseDetailAction extends BaseAction {
 		try {
 			this.clearMessages();
 			System.out.println("strProdoctid is: " + strProdoctid);
-			setSalesItemList(salesItemService.querySalesItemByProductid(strProdoctid, "", 0, 100));
+			setSalesItemList(salesItemService.querySalesItemByProductidForCompare(strProdoctid, ""));
+			//setSalesItemList(salesItemService.querySalesItemByProductid(strProdoctid, "", 0, 100));
 			
 		} catch(Exception e) {
 			log.error("querySalesItemByProductid error:" + e);

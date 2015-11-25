@@ -175,6 +175,31 @@
 		LIMIT #start#, #end#
 	</select>
 	
+	<select id="querySalesItemByProductidForCompare" parameterClass="java.util.Map" resultMap="SalesItemDto2">
+		select * from (
+			select T.*,
+			(select P.tradename from etb_product P where P.id = T.productid) as tradename,
+			(select P.typeno from etb_product P where P.id = T.productid) as typeno,
+			(select P.color from etb_product P where P.id = T.productid) as color,
+			(select P.packaging from etb_product P where P.id = T.productid) as packaging,
+			(select P.unit from etb_product P where P.id = T.productid) as unit,
+			(select P.makearea from etb_product P where P.id = T.productid) as makearea,
+			(select P.item10 from etb_product P where P.id = T.productid) as item01,
+			(select S.customername from etb_sales S where S.salesno = T.salesno) as customername,
+			(select S.bookdate from etb_sales S where S.salesno = T.salesno) as bookdate,
+			(select S.res01 from etb_sales S where S.salesno = T.salesno) as baozhuang,
+			(select S.theme2 from etb_sales S where S.salesno = T.salesno) as bookno,
+			(select S.status from etb_sales S where S.salesno = T.salesno) as status1
+			from etb_salesitem T where 1 = 1 and T.res02 != '1'
+			<isNotEmpty prepend="and" property="productid">
+				T.productid = #productid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="customerid">
+				T.customerid = #customerid#
+			</isNotEmpty>
+		) A where 1 = 1 and A.status1 != 20 order by A.updatedate,A.id desc
+	</select>
+	
 	<select id="querySalesItemBySalesno" parameterClass="java.util.Map" resultMap="SalesItemDto">
 		select T.*,
 		(select P.tradename from etb_product P where P.id = T.productid) as tradename,

@@ -56,6 +56,8 @@ public class PurchaseAction extends BaseAction {
 	private String strPurchasedateHigh;
 	//采购单号
 	private String strTheme2;
+	//状态
+	private String strStatus;
 	
 	//采购主题
 	private List<Dict01Dto> goodsList;
@@ -398,6 +400,7 @@ public class PurchaseAction extends BaseAction {
 			strPurchasedateLow = "";
 			strPurchasedateHigh = "";
 			strTheme2 = "";
+			strStatus = "";
 			purchaseList = new ArrayList<PurchaseDto>();
 			
 			queryData();
@@ -584,7 +587,7 @@ public class PurchaseAction extends BaseAction {
 		initDictList();
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		page = purchaseService.queryPurchaseByPage(strPurchasedateLow, strPurchasedateHigh, strTheme2, page);
+		page = purchaseService.queryPurchaseByPage(strPurchasedateLow, strPurchasedateHigh, strTheme2, strStatus, page);
 		purchaseList = (List<PurchaseDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -817,5 +820,13 @@ public class PurchaseAction extends BaseAction {
 	public void setTmpUpdPurchaseItemList(
 			List<PurchaseItemDto> tmpUpdPurchaseItemList) {
 		this.tmpUpdPurchaseItemList = tmpUpdPurchaseItemList;
+	}
+
+	public String getStrStatus() {
+		return strStatus;
+	}
+
+	public void setStrStatus(String strStatus) {
+		this.strStatus = strStatus;
 	}
 }

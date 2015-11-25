@@ -85,9 +85,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 	@Override
 	public Page queryPurchaseByPage(String purchasedateLow,
-			String purchasedateHigh, String theme2, Page page) {
+			String purchasedateHigh, String theme2, String status, Page page) {
 		//查询总记录数
-		int totalCount = purchaseDao.queryPurchaseCountByPage(purchasedateLow, purchasedateHigh, theme2);
+		int totalCount = purchaseDao.queryPurchaseCountByPage(purchasedateLow, purchasedateHigh, theme2, status);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -95,7 +95,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 			page.setTotalPage(totalCount / page.getPageSize());
 		}
 		//翻页查询记录
-		List<PurchaseDto> list = purchaseDao.queryPurchaseByPage(purchasedateLow, purchasedateHigh, theme2,
+		List<PurchaseDto> list = purchaseDao.queryPurchaseByPage(purchasedateLow, purchasedateHigh, theme2, status,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		if(list != null && list.size() > 0) {
 			for(PurchaseDto purchase : list) {
@@ -363,6 +363,39 @@ public class PurchaseServiceImpl implements PurchaseService {
 		
 		//删除status=0的数据
 		purchaseItemDao.deleteNoUsePurchaseItemByPurchaseno(purchase.getPurchaseno());
+		
+		//当前采购单状态若!=已入库时
+		if(purchase.getStatus() != Constants.PURCHASE_STATUS_WAREHOUSE_OK) {
+			//判断采购单是否是所有产品都均已入库
+			List<PurchaseItemDto> purchaseItemList = purchaseItemDao.queryPurchaseItemByPurchaseno(purchase.getPurchaseno());
+			if(purchaseItemList != null && purchaseItemList.size() > 0) {
+				boolean b = true;
+				//判断当前的采购单对应的货物是否都已入库：采购数量=入库数量
+				for(PurchaseItemDto item : purchaseItemList) {
+					if(item.getQuantity() != null && item.getQuantity().floatValue() > item.getInquantity().floatValue()) {
+						b = false;
+						break;
+					}
+				}
+				if(b) {
+					//判断所有的库存记录均为已确认
+					List<WarehouseDto> listWarehouse = warehouseDao.queryWarehouseByParentid(purchase.getPurchaseno(), "");
+					for(WarehouseDto warehouseDto : listWarehouse) {
+						if(warehouseDto.getStatus() <= Constants.WAREHOUSE_STATUS_NEW) {
+							b = false;
+							break;
+						}
+					}
+				}
+				//以上2个条件均满足，则更新采购单状态
+				if(b) {
+					//需要更新采购单状态=入库确认
+					purchase.setStatus(Constants.PURCHASE_STATUS_WAREHOUSE_OK);
+					purchase.setUpdateuid(userid);
+					purchaseDao.updatePurchase(purchase);
+				}
+			}
+		}
 	}
 	
 	@Override

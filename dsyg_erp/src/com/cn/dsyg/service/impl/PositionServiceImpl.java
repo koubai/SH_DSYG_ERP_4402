@@ -8,7 +8,6 @@ import com.cn.dsyg.dao.ProductDao;
 import com.cn.dsyg.dao.UserDao;
 import com.cn.dsyg.dto.PositionCollectDto;
 import com.cn.dsyg.dto.PositionDto;
-import com.cn.dsyg.dto.ProductDto;
 import com.cn.dsyg.dto.UserDto;
 import com.cn.dsyg.service.PositionService;
 
@@ -73,18 +72,18 @@ public class PositionServiceImpl implements PositionService {
 			String checkday) {
 		List<PositionDto> list = positionDao.queryPositionByLogicId(userid, productid, checkday);
 		if(list != null && list.size() > 0) {
-			ProductDto product = null;
+			//ProductDto product = null;
 			UserDto user = null;
 			for(PositionDto position : list) {
-				product = productDao.queryProductByID(position.getProductid());
-				if(product != null) {
-					position.setTradename(product.getTradename());
-					position.setTypeno(product.getTypeno());
-					position.setColor(product.getColor());
-					position.setPackaging(product.getPackaging());
-					position.setUnit(product.getUnit());
-					position.setItem10(product.getItem10());
-				}
+//				product = productDao.queryProductByID(position.getProductid());
+//				if(product != null) {
+//					position.setTradename(product.getTradename());
+//					position.setTypeno(product.getTypeno());
+//					position.setColor(product.getColor());
+//					position.setPackaging(product.getPackaging());
+//					position.setUnit(product.getUnit());
+//					position.setItem10(product.getItem10());
+//				}
 				user = userDao.queryUserByID(position.getHandler());
 				if(user != null) {
 					position.setHandlername(user.getUsername());

@@ -69,6 +69,12 @@ public class PurchaseItemServiceImpl implements PurchaseItemService {
 			String supplierid, int start, int end) {
 		return purchaseItemDao.queryPurchaseItemByProductid(productid, supplierid, start, end);
 	}
+	
+	@Override
+	public List<PurchaseItemDto> queryPurchaseItemByProductidForCompare(
+			String productid, String supplierid) {
+		return purchaseItemDao.queryPurchaseItemByProductidForCompare(productid, supplierid);
+	}
 
 	public PurchaseItemDao getPurchaseItemDao() {
 		return purchaseItemDao;

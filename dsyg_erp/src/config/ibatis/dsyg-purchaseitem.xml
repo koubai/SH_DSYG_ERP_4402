@@ -128,6 +128,31 @@
 		LIMIT #start#, #end#
 	</select>
 	
+	<select id="queryPurchaseItemByProductidForCompare" parameterClass="java.util.Map" resultMap="PurchaseItemDto2">
+		select * from (
+			select T.*,
+			(select P.tradename from etb_product P where P.id = T.productid) as tradename,
+			(select P.typeno from etb_product P where P.id = T.productid) as typeno,
+			(select P.color from etb_product P where P.id = T.productid) as color,
+			(select P.packaging from etb_product P where P.id = T.productid) as packaging,
+			(select P.unit from etb_product P where P.id = T.productid) as unit,
+			(select P.item10 from etb_product P where P.id = T.productid) as item01,
+			(select P.item11 from etb_product P where P.id = T.productid) as item11,
+			(select C.suppliername from etb_purchase C where C.purchaseno = T.purchaseno) as suppliername,
+			(select C.purchasedate from etb_purchase C where C.purchaseno = T.purchaseno) as purchasedate,
+			(select S.res01 from etb_purchase S where S.purchaseno = T.purchaseno) as baozhuang,
+			(select S.theme2 from etb_purchase S where S.purchaseno = T.purchaseno) as bookno,
+			(select S.status from etb_purchase S where S.purchaseno = T.purchaseno) as status1
+			from etb_purchaseitem T where 1 = 1
+			<isNotEmpty prepend="and" property="productid">
+				T.productid = #productid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="supplierid">
+				T.supplierid = #supplierid#
+			</isNotEmpty>
+		) A where 1 = 1 and A.status1 != 20 order by A.updatedate,A.id desc
+	</select>
+	
 	<select id="queryPurchaseItemByPurchaseno" parameterClass="java.util.Map" resultMap="PurchaseItemDto">
 		select T.*,
 		(select P.tradename from etb_product P where P.id = T.productid) as tradename,

@@ -60,6 +60,8 @@ public class SalesAction extends BaseAction {
 	private String strCustomername;
 	//类别
 	private String strType;
+	//状态
+	private String strStatus;
 	
 	//销售主题
 	private List<Dict01Dto> goodsList;
@@ -374,6 +376,7 @@ public class SalesAction extends BaseAction {
 			strTheme2 = "";
 			strCustomername = "";
 			strType = "0";
+			strStatus = "";
 			salesList = new ArrayList<SalesDto>();
 			
 			queryData();
@@ -571,7 +574,7 @@ public class SalesAction extends BaseAction {
 		initDictList();
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		page = salesService.querySalesByPage(strSalesdateLow, strSalesdateHigh, strTheme2, strType, strCustomername, page);
+		page = salesService.querySalesByPage(strSalesdateLow, strSalesdateHigh, strTheme2, strType, strCustomername, strStatus, page);
 		salesList = (List<SalesDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -819,5 +822,13 @@ public class SalesAction extends BaseAction {
 
 	public void setTmpUpdSalesItemList(List<SalesItemDto> tmpUpdSalesItemList) {
 		this.tmpUpdSalesItemList = tmpUpdSalesItemList;
+	}
+
+	public String getStrStatus() {
+		return strStatus;
+	}
+
+	public void setStrStatus(String strStatus) {
+		this.strStatus = strStatus;
 	}
 }

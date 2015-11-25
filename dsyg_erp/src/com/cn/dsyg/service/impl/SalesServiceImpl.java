@@ -148,11 +148,11 @@ public class SalesServiceImpl implements SalesService {
 
 	@Override
 	public Page querySalesByPage(String bookdateLow, String bookdateHigh, String theme2,
-			String type, String customername, Page page) {
+			String type, String customername, String status, Page page) {
 		customername = StringUtil.replaceDatabaseKeyword_mysql(customername);
 		
 		//查询总记录数
-		int totalCount = salesDao.querySalesCountByPage(bookdateLow, bookdateHigh, theme2, type, customername);
+		int totalCount = salesDao.querySalesCountByPage(bookdateLow, bookdateHigh, theme2, type, customername, status);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -160,7 +160,7 @@ public class SalesServiceImpl implements SalesService {
 			page.setTotalPage(totalCount / page.getPageSize());
 		}
 		//翻页查询记录
-		List<SalesDto> list = salesDao.querySalesByPage(bookdateLow, bookdateHigh, theme2, type, customername,
+		List<SalesDto> list = salesDao.querySalesByPage(bookdateLow, bookdateHigh, theme2, type, customername, status,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		if(list != null && list.size() > 0) {
 			for(SalesDto sales : list) {
@@ -280,6 +280,38 @@ public class SalesServiceImpl implements SalesService {
 		
 		//删除status=0的数据
 		salesItemDao.deleteNoUseSalesItemBySalesno(sales.getSalesno());
+		
+		//当前订单状态若!=已出库时
+		if(sales.getStatus() != Constants.SALES_STATUS_WAREHOUSE_OK) {
+			List<SalesItemDto> itemList = salesItemDao.querySalesItemBySalesno(sales.getSalesno());
+			if(itemList != null && itemList.size() > 0) {
+				boolean b = true;
+				//判断当前的采购单对应的货物是否都已入库：采购数量=入库数量
+				for(SalesItemDto item : itemList) {
+					if(item.getQuantity() != null && item.getQuantity().floatValue() > item.getOutquantity().floatValue()) {
+						b = false;
+						break;
+					}
+				}
+				if(b) {
+					//判断所有的库存记录均为已确认
+					List<WarehouseDto> listWarehouse = warehouseDao.queryWarehouseByParentid(sales.getSalesno(), "");
+					for(WarehouseDto warehouseDto : listWarehouse) {
+						if(warehouseDto.getStatus() <= Constants.WAREHOUSE_STATUS_NEW) {
+							b = false;
+							break;
+						}
+					}
+				}
+				//以上2个条件均满足，则更新采购单状态
+				if(b) {
+					//需要更新销售单状态=已入库
+					sales.setStatus(Constants.SALES_STATUS_WAREHOUSE_OK);
+					sales.setUpdateuid(userid);
+					salesDao.updateSales(sales);
+				}
+			}
+		}
 	}
 	
 	@Override

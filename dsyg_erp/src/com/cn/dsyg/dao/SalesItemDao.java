@@ -84,4 +84,12 @@ public interface SalesItemDao {
 	 * @return
 	 */
 	public List<SalesItemDto> querySalesItemByProductid(String productid, String customerid, int start, int end);
+	
+	/**
+	 * 根据产品ID和客户ID查询销售单货物（产品对照用）
+	 * @param productid
+	 * @param customerid
+	 * @return
+	 */
+	public List<SalesItemDto> querySalesItemByProductidForCompare(String productid, String customerid);
 }
