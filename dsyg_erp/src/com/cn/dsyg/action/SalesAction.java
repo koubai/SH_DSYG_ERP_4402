@@ -84,6 +84,7 @@ public class SalesAction extends BaseAction {
 	private List<SalesItemDto> updSalesItemList;
 	private List<SalesItemDto> tmpUpdSalesItemList;
 	private String theme2;
+	private String salesno;
 	
 	//删除
 	private String delSalesId;
@@ -153,7 +154,7 @@ public class SalesAction extends BaseAction {
 			//初期化字典数据
 			initDictList();
 			updSalesItemList = new ArrayList<SalesItemDto>();
-			updSalesDto = salesService.querySalesByTheme2(theme2);
+			updSalesDto = salesService.querySalesByNo(salesno);
 			if(updSalesDto != null) {
 				updSalesItemList = salesItemService.querySalesItemBySalesno(updSalesDto.getSalesno());
 			}
@@ -830,5 +831,13 @@ public class SalesAction extends BaseAction {
 
 	public void setStrStatus(String strStatus) {
 		this.strStatus = strStatus;
+	}
+	
+	public String getSalesno() {
+		return salesno;
+	}
+
+	public void setSalesno(String salesno) {
+		this.salesno = salesno;
 	}
 }

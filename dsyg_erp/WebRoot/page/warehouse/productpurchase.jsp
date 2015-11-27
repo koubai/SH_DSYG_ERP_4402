@@ -46,6 +46,7 @@
 						<td width="60">供应商</td>
 						<td width="60">采购单号</td>
 						<td width="60">采购数量</td>
+						<td width="60">未入库数量</td>
 						<td width="60">采购日期</td>
 					</tr>
 					<s:iterator id="purchaseItemList" value="purchaseItemList" status="st1">
@@ -59,7 +60,8 @@
 							<td><s:property value="suppliername"/></td>
 							<td><a href="#" onclick="showPurchaseNoDetail('<s:property value="theme2"/>');"><s:property value="theme2"/></a></td>
 							<td><s:property value="quantity"/></td>
-							<td><s:property value="purchasedate"/></td>
+							<td><s:property value="remainquantity"/></td>
+							<td><s:property value="showPurchasedate"/></td>
 						</tr>
 					</s:iterator>
 				</table>
