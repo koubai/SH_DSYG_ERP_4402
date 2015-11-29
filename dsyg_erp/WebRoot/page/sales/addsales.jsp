@@ -756,6 +756,12 @@
 			$("#theme2").attr("disabled", "disabled");
 		}
 	}
+	
+	function productCompare() {
+		var url = "../warehouse/showWarehouseDetailPopupAction.action";
+		url += "?date=" + new Date();
+		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	}
 </script>
 </head>
 <body>
@@ -1275,6 +1281,15 @@
 									<div class="box1_left"></div>
 									<div class="box1_center">
 										<input class="input80" type="button" value="返回" onclick="goList();"/>
+									</div>
+									<div class="box1_right"></div>
+								</div>
+							</td>
+							<td>
+								<div class="btn">
+									<div class="box1_left"></div>
+									<div class="box1_center">
+										<input class="input80" type="button" value="产品对照" onclick="productCompare();"/>
 									</div>
 									<div class="box1_right"></div>
 								</div>

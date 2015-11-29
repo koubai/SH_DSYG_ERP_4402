@@ -123,6 +123,20 @@
 			<result name="*">/page/warehouse/warehousedetaillist.jsp</result>
 		</action>
 		
+		<!-- popup start -->
+		<action name="showWarehouseDetailPopupAction" class="warehouseDetailAction" method="showWarehouseDetailPopupAction">
+			<result name="*">/page/warehouse/warehousedetaillistpopup.jsp</result>
+		</action>
+		
+		<action name="queryWarehouseDetailPopupAction" class="warehouseDetailAction" method="queryWarehouseDetailPopupAction">
+			<result name="*">/page/warehouse/warehousedetaillistpopup.jsp</result>
+		</action>
+		
+		<action name="turnWarehouseDetailPopupAction" class="warehouseDetailAction" method="turnWarehouseDetailPopupAction">
+			<result name="*">/page/warehouse/warehousedetaillistpopup.jsp</result>
+		</action>
+		<!-- popup end -->
+		
 		<action name="showProductSalesPage" class="warehouseDetailAction" method="showProductSalesPage">
 			<result name="*">/page/warehouse/productsales.jsp</result>
 		</action>

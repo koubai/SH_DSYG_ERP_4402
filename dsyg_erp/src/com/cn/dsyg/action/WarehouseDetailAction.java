@@ -62,6 +62,72 @@ public class WarehouseDetailAction extends BaseAction {
 	private List<SalesItemDto> salesItemList;
 	private SalesItemService salesItemService;
 	
+	//POPUT START
+	//订单、采购单新增和修改页面，产品对照
+	/**
+	 * 库存盘点页面（POPUP）
+	 * @return
+	 */
+	public String showWarehouseDetailPopupAction() {
+		try {
+			this.clearMessages();
+			//页面数据初期化
+			startIndex = 0;
+			strTheme = "";
+			strKeyword = "";
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			warehouseDetailList = new ArrayList<WarehouseDetailDto>();
+			//初期化字典数据
+			initDictList();
+			
+			queryData();
+		} catch(Exception e) {
+			log.error("showWarehouseDetailPopupAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询仓库盘点（POPUP）
+	 * @return
+	 */
+	public String queryWarehouseDetailPopupAction() {
+		try {
+			this.clearMessages();
+			//页面数据初期化
+			startIndex = 0;
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
+			queryData();
+		} catch(Exception e) {
+			log.error("queryWarehouseDetailPopupAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页（POPUP）
+	 * @return
+	 */
+	public String turnWarehouseDetailPopupAction() {
+		try {
+			this.clearMessages();
+			queryData();
+		} catch(Exception e) {
+			log.error("turnWarehouseDetailPopupAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	//POPUP END
+	
 	/**
 	 * 库存盘点页面
 	 * @return
@@ -72,6 +138,7 @@ public class WarehouseDetailAction extends BaseAction {
 			//页面数据初期化
 			startIndex = 0;
 			strTheme = "";
+			strKeyword = "";
 			//默认10条
 			intPageSize = 10;
 			page = new Page(intPageSize);
