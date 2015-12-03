@@ -72,6 +72,10 @@ public class Constants {
 	public final static String SYSTEM_BELONG = "belongto";
 	//多语言
 	public final static String SYSTEM_LANGUAGE = "language";
+	//英文
+	public final static String SYSTEM_LANGUAGE_ENGLISH = "e";
+	//中文
+	public final static String SYSTEM_LANGUAGE_CHINESE = "c";
 	//仓库名
 	public final static String SYSTEM_WAREHOUSE_NAME = "warehouse_name";
 	

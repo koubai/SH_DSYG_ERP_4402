@@ -471,6 +471,10 @@ public class PurchaseAction extends BaseAction {
 		try {
 			this.clearMessages();
 			initDictList();
+			
+			//颜色，这里需要是英文的，故这里写死取英文字典数据 update by frank
+			colorList = dict01Service.queryDict01ByFieldcode(Constants.DICT_COLOR_TYPE, Constants.SYSTEM_LANGUAGE_ENGLISH);
+			
 			//字典数据组织个MAP
 			Map<String, String> dictMap = new HashMap<String, String>();
 			if(goodsList != null && goodsList.size() > 0) {
@@ -608,7 +612,7 @@ public class PurchaseAction extends BaseAction {
 		//产地
 		makeareaList = dict01Service.queryDict01ByFieldcode(Constants.DICT_MAKEAREA, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 		//颜色
-		colorList = dict01Service.queryDict01ByFieldcode(Constants.DICT_COLOR_TYPE, "e");
+		colorList = dict01Service.queryDict01ByFieldcode(Constants.DICT_COLOR_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 		//支付方式
 		payTypeList = dict01Service.queryDict01ByFieldcode(Constants.DICT_PAY_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 	}
