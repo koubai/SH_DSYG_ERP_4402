@@ -1,6 +1,7 @@
 package com.cn.dsyg.service.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cn.common.util.Constants;
@@ -71,7 +72,16 @@ public class SalesItemServiceImpl implements SalesItemService {
 	@Override
 	public List<SalesItemDto> querySalesItemByProductidForCompare(
 			String productid, String customerid) {
-		return salesItemDao.querySalesItemByProductidForCompare(productid, customerid);
+		List<SalesItemDto> salesList = salesItemDao.querySalesItemByProductidForCompare(productid, customerid);
+		List<SalesItemDto> salesListRet = new ArrayList<SalesItemDto>();
+		if(salesList != null && salesList.size() > 0){
+			for(SalesItemDto salesItem : salesList){
+				if(salesItem.getRemainquantity().compareTo(BigDecimal.ZERO) == 1){
+					salesListRet.add(salesItem);
+				}
+			}
+		}
+		return salesListRet;
 	}
 
 	public SalesItemDao getSalesItemDao() {

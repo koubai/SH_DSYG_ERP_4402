@@ -11,6 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFPrintSetup;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -30,6 +31,10 @@ public class PoiWarehouserptInDetail extends Poi2007Base {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void writeTitle(XSSFSheet sheet, XSSFWorkbook workbook) {
+		//设置打印参数
+		XSSFPrintSetup print = sheet.getPrintSetup();
+		print.setPaperSize(XSSFPrintSetup.A4_PAPERSIZE);
+		print.setScale((short)68);
 		//Head部分颜色字体
 		XSSFFont font = workbook.createFont();
 		//加粗

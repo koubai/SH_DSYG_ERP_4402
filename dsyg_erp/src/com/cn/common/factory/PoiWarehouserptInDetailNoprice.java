@@ -11,6 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFPrintSetup;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -30,6 +31,10 @@ public class PoiWarehouserptInDetailNoprice extends Poi2007Base {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void writeTitle(XSSFSheet sheet, XSSFWorkbook workbook) {
+		//设置打印参数
+		XSSFPrintSetup print = sheet.getPrintSetup();
+		print.setPaperSize(XSSFPrintSetup.A4_PAPERSIZE);
+		print.setScale((short)73);
 		//Head部分颜色字体
 		XSSFFont font = workbook.createFont();
 		//加粗
@@ -39,7 +44,7 @@ public class PoiWarehouserptInDetailNoprice extends Poi2007Base {
 				
 		XSSFRow row = sheet.createRow(1);
 		//合并单元格
-		sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 10));
+		sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 9));
 		XSSFCell cell = row.createCell(0);
 		cell.setCellValue("东升盈港入库明细单");
 		//式样
@@ -137,8 +142,8 @@ public class PoiWarehouserptInDetailNoprice extends Poi2007Base {
 					XSSFCell cell6 = row.createCell(6);
 					XSSFCell cell7 = row.createCell(7);
 					XSSFCell cell8 = row.createCell(8);
-					XSSFCell cell9 = row.createCell(9);
-					XSSFCell cell10 = row.createCell(10);
+					//XSSFCell cell9 = row.createCell(9);
+					//XSSFCell cell10 = row.createCell(10);
 
 					cell0.setCellValue(num + 1);
 					cell0.setCellStyle(style);
@@ -183,10 +188,10 @@ public class PoiWarehouserptInDetailNoprice extends Poi2007Base {
 //						bdprice = bdAmount.divide(bdNum,6, BigDecimal.ROUND_HALF_UP);
 //					}						
 //					cell8.setCellValue(StringUtil.BigDecimal2StrAbs(bdprice, 6));
+					//cell8.setCellStyle(style);
+					//cell8.setCellValue(product.getAmount());
+					cell8.setCellValue(product.getRes09());
 					cell8.setCellStyle(style);
-					cell8.setCellValue(product.getAmount());
-					cell9.setCellValue(product.getRes09());
-					cell9.setCellStyle(style);
 					num++;
 				}
 			} else {
@@ -200,7 +205,7 @@ public class PoiWarehouserptInDetailNoprice extends Poi2007Base {
 				XSSFCell cell6 = row.createCell(6);
 				XSSFCell cell7 = row.createCell(7);
 				XSSFCell cell8 = row.createCell(8);
-				XSSFCell cell9 = row.createCell(9);
+				//XSSFCell cell9 = row.createCell(9);
 				//XSSFCell cell10 = row.createCell(10);
 
 				cell0.setCellValue(num + 1);
@@ -223,8 +228,8 @@ public class PoiWarehouserptInDetailNoprice extends Poi2007Base {
 				cell7.setCellStyle(style);
 				cell8.setCellValue("");
 				cell8.setCellStyle(style);
-				cell9.setCellValue("");
-				cell9.setCellStyle(style);
+				//cell9.setCellValue("");
+				//cell9.setCellStyle(style);
 				//cell10.setCellValue("");
 				//cell10.setCellStyle(style);
 				num++;
@@ -241,7 +246,7 @@ public class PoiWarehouserptInDetailNoprice extends Poi2007Base {
 		XSSFCell cell36 = row.createCell(6);
 		XSSFCell cell37 = row.createCell(7);
 		XSSFCell cell38 = row.createCell(8);
-		XSSFCell cell39 = row.createCell(9);
+		//XSSFCell cell39 = row.createCell(9);
 
 		cell30.setCellValue("");
 		cell30.setCellStyle(style);
@@ -259,10 +264,10 @@ public class PoiWarehouserptInDetailNoprice extends Poi2007Base {
 		cell36.setCellStyle(style);
 		cell37.setCellValue(StringUtil.BigDecimal2Str(warehouserpt.getTotalnum(), 2));
 		cell37.setCellStyle(style);
-		cell38.setCellValue(warehouserpt.getTotaltaxamount().toString());
+		//cell38.setCellValue(warehouserpt.getTotaltaxamount().toString());
+		//cell38.setCellStyle(style);
+		cell38.setCellValue("");
 		cell38.setCellStyle(style);
-		cell39.setCellValue("");
-		cell39.setCellStyle(style);
 		
 		XSSFCellStyle style_other = workbook.createCellStyle();	
 		XSSFFont font_other = workbook.createFont();
@@ -312,10 +317,10 @@ public class PoiWarehouserptInDetailNoprice extends Poi2007Base {
 		sheet.setColumnWidth(7, 10 * 256);
 		//heads.add("含税单价");
 		//sheet.setColumnWidth(8, 12 * 256);
-		heads.add("含税金额");
-		sheet.setColumnWidth(8, 12 * 256);
+		//heads.add("含税金额");
+		//sheet.setColumnWidth(8, 12 * 256);
 		heads.add("备注");
-		sheet.setColumnWidth(9, 12 * 256);
+		sheet.setColumnWidth(8, 18 * 256);
 
 		//Head部分颜色字体
 		XSSFFont font = workbook.createFont();

@@ -45,7 +45,6 @@
 						<td width="20">序号</td>
 						<td width="60">供应商</td>
 						<td width="60">采购单号</td>
-						<td width="60">采购数量</td>
 						<td width="60">未入库数量</td>
 						<td width="60">采购日期</td>
 					</tr>
@@ -59,7 +58,6 @@
 							<td><s:property value="#st1.index + 1"/></td>
 							<td><s:property value="suppliername"/></td>
 							<td><a href="#" onclick="showPurchaseNoDetail('<s:property value="theme2"/>');"><s:property value="theme2"/></a></td>
-							<td><s:property value="quantity"/></td>
 							<td><s:property value="remainquantity"/></td>
 							<td><s:property value="showPurchasedate"/></td>
 						</tr>

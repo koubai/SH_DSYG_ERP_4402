@@ -1,6 +1,7 @@
 package com.cn.dsyg.service.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cn.common.util.Constants;
@@ -9,6 +10,7 @@ import com.cn.dsyg.dao.Dict01Dao;
 import com.cn.dsyg.dao.PurchaseItemDao;
 import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.PurchaseItemDto;
+import com.cn.dsyg.dto.SalesItemDto;
 import com.cn.dsyg.service.PurchaseItemService;
 
 /**
@@ -73,7 +75,16 @@ public class PurchaseItemServiceImpl implements PurchaseItemService {
 	@Override
 	public List<PurchaseItemDto> queryPurchaseItemByProductidForCompare(
 			String productid, String supplierid) {
-		return purchaseItemDao.queryPurchaseItemByProductidForCompare(productid, supplierid);
+		List<PurchaseItemDto> purchaseList = purchaseItemDao.queryPurchaseItemByProductidForCompare(productid, supplierid);
+		List<PurchaseItemDto> purchaseListRet = new ArrayList<PurchaseItemDto>();
+		if(purchaseList != null && purchaseList.size() > 0){
+			for(PurchaseItemDto purchaseItem : purchaseList){
+				if(purchaseItem.getRemainquantity().compareTo(BigDecimal.ZERO) == 1){
+					purchaseListRet.add(purchaseItem);
+				}
+			}
+		}
+		return purchaseListRet;
 	}
 
 	public PurchaseItemDao getPurchaseItemDao() {

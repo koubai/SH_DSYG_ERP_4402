@@ -41,11 +41,10 @@
 						<td width="20">序号</td>
 						<td width="60">客户</td>
 						<td width="60">订单号</td>
-						<td width="60">销售数量</td>
 						<td width="60">未出库数量</td>
 						<td width="60">销售日期</td>
 					</tr>
-					<s:iterator id="salesItemList" value="salesItemList" status="st1">
+					<s:iterator id="salesItemList" value="salesItemList" status="st1">	
 						<s:if test="#st1.odd==true">
 							<tr class="tr_bg">
 						</s:if>
@@ -55,7 +54,6 @@
 							<td><s:property value="#st1.index + 1"/></td>
 							<td><s:property value="customername"/></td>
 							<td><a href="#" onclick="showSaleNoDetail('<s:property value="salesno"/>');"><s:property value="theme2"/></a></td>
-							<td><s:property value="quantity"/></td>
 							<td><s:property value="remainquantity"/></td>
 							<td><s:property value="showBookdate"/></td>
 						</tr>
