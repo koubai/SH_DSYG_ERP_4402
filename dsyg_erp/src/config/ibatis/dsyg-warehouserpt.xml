@@ -108,7 +108,7 @@
 		<isNotEmpty prepend="and" property="suppliername">
 			T.suppliername like '%$suppliername$%'
 		</isNotEmpty>
-		order by T.updatedate desc
+		order by T.warehouseno desc
 		LIMIT #start#, #end#
 	</select>
 	

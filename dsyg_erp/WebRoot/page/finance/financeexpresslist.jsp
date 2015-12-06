@@ -38,6 +38,26 @@
 		}
 	}
 	
+	//删除
+	function del() {
+		var id = getSelectedID();
+		var alt = getSelectedAlt();
+		if(id == "") {
+			alert("请选择一条记录！");
+			return;
+		} else {
+			if(alt != "") {
+				alert("该记录有关联单据号，不能删除！");
+				return;
+			} else {
+				if(confirm("确定删除吗？")) {
+					document.mainform.action = "../finance/delFinanceExpressAction.action?delFinanceId=" + id;
+					document.mainform.submit();
+				}
+			}
+		}
+	}
+	
 	function getSelectedAlt() {
 		var alt = "";
 		var list = document.getElementsByName("radioKey");
@@ -157,25 +177,30 @@
 						</div>
 						<div class="box1_right"></div>
 					</div>
-					
 					<div class="box1" >
-						<label class="pdf10" style="margin-left: 60px; width: 80px">客户名称</label>
+						<label class="pdf10" style="margin-left: 5px; width: 55px">客户名称</label>
 						<div class="box1_left"></div>
 						<div class="box1_center">
-							<s:textfield name="strCustomerName" id="strCustomerName" cssStyle="width:135px;" maxlength="50" theme="simple"></s:textfield>
+							<s:textfield name="strCustomerName" id="strCustomerName" cssStyle="width:120px;" maxlength="50" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
 					</div>
-					
 					<div class="box1" >
-						<label class="pdf10" style="margin-left: 60px; width: 80px">快递单号</label>
+						<label class="pdf10" style="margin-left: 5px; width: 55px">快递单号</label>
 						<div class="box1_left"></div>
 						<div class="box1_center">
-							<s:textfield name="strExpressno" id="strExpressno" cssStyle="width:135px;" maxlength="50" theme="simple"></s:textfield>
+							<s:textfield name="strExpressno" id="strExpressno" cssStyle="width:120px;" maxlength="50" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
 					</div>
-					
+					<div class="box1" >
+						<label class="pdf10" style="margin-left: 5px; width: 35px">主题</label>
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<s:textfield name="strExpressName" id="strExpressName" cssStyle="width:120px;" maxlength="50" theme="simple"></s:textfield>
+						</div>
+						<div class="box1_right"></div>
+					</div>
 					<div class="btn" style="margin-left: 20px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
@@ -183,15 +208,13 @@
 						</div>
 						<div class="box1_right"></div>
 					</div>
-					<div class="box1" style="margin-top:-3px; margin-left: -240px; color: red;">
+					<div class="box1" style="margin-top:-40px; margin-left: -550px; color: red;">
 						<s:actionmessage />
 					</div>
 					<div class="icons thums">
 						<a class="add" onclick="add();">增加</a>
 						<a class="edit" onclick="upd();">修改</a>
-						<!--
 						<a class="delete" onclick="del();">删除</a>
-						-->
 					</div>
 				</div>
 				<div class="data_table" style="padding:0px;">
@@ -203,15 +226,15 @@
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
 								<td width="10"></td>
-								<td width="10">序号</td>
+								<td width="40">序号</td>
 								<td width="80">主题</td>
 								<td width="80">快递单号</td>
 								<td width="50">经手人</td>
 								<td width="80">单据日期</td>
-								<td width="80">客户名称</td>
-								<td width="100">金额（含税）</td>
+								<td width="150">客户名称</td>
+								<td width="80">金额（含税）</td>
 								<td width="110">状态</td>
-								<td width="50">备注</td>
+								<td width="120">备注</td>
 							</tr>
 							<s:iterator id="financeList" value="financeList" status="st1">
 								<s:if test="#st1.odd==true">

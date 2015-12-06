@@ -241,6 +241,7 @@ public class SalesServiceImpl implements SalesService {
 					salesItemDao.insertSalesItem(salesItem);
 				} else {
 					//修改
+					//salesItem.setSalesno(sales.getSalesno());
 					salesItem.setUpdateuid(userid);
 					salesItem.setStatus(Constants.STATUS_NORMAL);
 					

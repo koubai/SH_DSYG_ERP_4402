@@ -52,6 +52,10 @@ public class FinanceAction extends BaseAction {
 	private String strReceiptdateHigh;
 	//发票号
 	private String strBillno;
+	//客户名称
+	private String strCustomername;
+	//入出库单
+	private String strInvoiceid;
 	
 	//新增
 	private FinanceDto addFinanceDto;
@@ -366,6 +370,8 @@ public class FinanceAction extends BaseAction {
 			strReceiptdateLow = "";
 			strReceiptdateHigh = "";
 			strBillno = "";
+			strCustomername = "";
+			strInvoiceid = "";
 			financeList = new ArrayList<FinanceDto>();
 			
 			queryData();
@@ -500,8 +506,8 @@ public class FinanceAction extends BaseAction {
 		financeDictList = dict01Service.queryDict01ByFieldcode(Constants.FINANCE_THEME, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		page = financeService.queryFinanceByPage("", "", "", "",
-				"", "", strReceiptdateLow, strReceiptdateHigh, strBillno, "", page);
+		page = financeService.queryFinanceByPage("", "", "", strInvoiceid,
+				"", "", strReceiptdateLow, strReceiptdateHigh, strBillno, "", strCustomername, page);
 		financeList = (List<FinanceDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -704,5 +710,21 @@ public class FinanceAction extends BaseAction {
 
 	public void setStrBillamount3(String strBillamount3) {
 		this.strBillamount3 = strBillamount3;
+	}
+
+	public String getStrCustomername() {
+		return strCustomername;
+	}
+
+	public void setStrCustomername(String strCustomername) {
+		this.strCustomername = strCustomername;
+	}
+
+	public String getStrInvoiceid() {
+		return strInvoiceid;
+	}
+
+	public void setStrInvoiceid(String strInvoiceid) {
+		this.strInvoiceid = strInvoiceid;
 	}
 }

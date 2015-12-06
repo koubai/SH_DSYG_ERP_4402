@@ -35,7 +35,8 @@ public class FinanceServiceImpl implements FinanceService {
 	@Override
 	public Page queryFinanceByPage(String expressno, String status, String financetype,
 			String invoiceid, String receiptid, String customerid,
-			String receiptdateLow, String receiptdateHigh, String billno, String res02, Page page) {
+			String receiptdateLow, String receiptdateHigh, String billno, String res02, String expressName, Page page) {
+		expressName = StringUtil.replaceDatabaseKeyword_mysql(expressName);
 		expressno = StringUtil.replaceDatabaseKeyword_mysql(expressno);
 		invoiceid = StringUtil.replaceDatabaseKeyword_mysql(invoiceid);
 		receiptid = StringUtil.replaceDatabaseKeyword_mysql(receiptid);
@@ -43,7 +44,7 @@ public class FinanceServiceImpl implements FinanceService {
 		
 		//查询总记录数
 		int totalCount = financeDao.queryFinanceCountByPage(expressno, status, financetype,
-				invoiceid, receiptid, customerid, receiptdateLow, receiptdateHigh, billno, res02);
+				invoiceid, receiptid, customerid, receiptdateLow, receiptdateHigh, billno, res02, expressName);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -52,7 +53,7 @@ public class FinanceServiceImpl implements FinanceService {
 		}
 		//翻页查询记录
 		List<FinanceDto> list = financeDao.queryFinanceByPage(expressno, status, financetype, invoiceid, receiptid,
-				customerid, receiptdateLow, receiptdateHigh, billno, res02,
+				customerid, receiptdateLow, receiptdateHigh, billno, res02, expressName,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		if(list != null && list.size() > 0) {
 			for(FinanceDto finance : list) {
@@ -96,6 +97,17 @@ public class FinanceServiceImpl implements FinanceService {
 		finance.setBelongto(belongto);
 		financeDao.insertFinance(finance);
 		return no;
+	}
+	
+	@Override
+	public void deleteFinance(String id) {
+		//物理删除
+		financeDao.deleteFinance(id);
+//		//逻辑删除
+//		FinanceDto finance = financeDao.queryFinanceByID(id);
+//		if(finance != null) {
+//			finance.setStatus(status);
+//		}
 	}
 
 	@Override

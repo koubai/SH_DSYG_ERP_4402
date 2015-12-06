@@ -126,6 +126,10 @@
 			<result name="*">/page/finance/financeexpresslist.jsp</result>
 		</action>
 		
+		<action name="delFinanceExpressAction" class="financeExpressAction" method="delFinanceExpressAction">
+			<result name="*">/page/finance/financeexpresslist.jsp</result>
+		</action>
+		
 		<action name="showAddFinanceExpressAction" class="financeExpressAction" method="showAddFinanceExpressAction">
 			<result name="*">/page/finance/addfinanceexpress.jsp</result>
 		</action>

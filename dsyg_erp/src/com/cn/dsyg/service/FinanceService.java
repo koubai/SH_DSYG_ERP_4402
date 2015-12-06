@@ -23,11 +23,12 @@ public interface FinanceService {
 	 * @param receiptdateHigh
 	 * @param billno
 	 * @param res02
+	 * @param expressName
 	 * @param page
 	 * @return
 	 */
 	public Page queryFinanceByPage(String expressno, String status, String financetype, String invoiceid,
-			String receiptid, String customerid, String receiptdateLow, String receiptdateHigh, String billno, String res02, Page page);
+			String receiptid, String customerid, String receiptdateLow, String receiptdateHigh, String billno, String res02, String expressName, Page page);
 	
 	/**
 	 * 根据ID查询记录
@@ -47,4 +48,10 @@ public interface FinanceService {
 	 * @param finance
 	 */
 	public void updateFinance(FinanceDto finance);
+	
+	/**
+	 * 删除记录
+	 * @param id
+	 */
+	public void deleteFinance(String id);
 }

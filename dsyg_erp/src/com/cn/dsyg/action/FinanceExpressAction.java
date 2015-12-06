@@ -50,10 +50,12 @@ public class FinanceExpressAction extends BaseAction {
 	//单据日期终
 	private String strReceiptdateHigh;
 	
+	//快递单号
 	private String strExpressno;
-	
 	//客户名称
 	private String strCustomerName;
+	//主题（快递名称）
+	private String strExpressName;
 
 	//新增
 	private FinanceDto addFinanceDto;
@@ -61,6 +63,35 @@ public class FinanceExpressAction extends BaseAction {
 	//修改
 	private FinanceDto updFinanceDto;
 	private String updFinanceId;
+	
+	//删除
+	private String delFinanceId;
+	
+	/**
+	 * 删除快递单信息
+	 * @return
+	 */
+	public String delFinanceExpressAction() {
+		try {
+			this.clearMessages();
+			//这里只可以删除快递单管理页面新增的信息（没有关联单据号的数据）
+			FinanceDto finance = financeService.queryFinanceByID(delFinanceId);
+			if(finance != null) {
+				if(StringUtil.isNotBlank(finance.getInvoiceid())) {
+					this.addActionMessage("该记录有关联单据号，不能删除！");
+				}
+				//删除
+				financeService.deleteFinance(delFinanceId);
+				this.addActionMessage("删除成功！");
+				//刷新页面
+				queryData();
+			}
+		} catch(Exception e) {
+			log.error("showUpdFinanceExpressAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 	
 	/**
 	 * 显示修改快递单页面
@@ -167,6 +198,8 @@ public class FinanceExpressAction extends BaseAction {
 			strReceiptdateLow = "";
 			strReceiptdateHigh = "";
 			strExpressno = "";
+			strExpressName = "";
+			strCustomerName = "";
 			
 			financeList = new ArrayList<FinanceDto>();
 			
@@ -230,7 +263,7 @@ public class FinanceExpressAction extends BaseAction {
 		this.page.setStartIndex(startIndex);
 		//这里只查询快递财务记录
 		page = financeService.queryFinanceByPage(strExpressno, "", "" + Constants.FINANCE_TYPE_DELIVERY, "",
-				"", "", strReceiptdateLow, strReceiptdateHigh, "", strCustomerName, page);
+				"", "", strReceiptdateLow, strReceiptdateHigh, "", strCustomerName, strExpressName, page);
 		financeList = (List<FinanceDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -396,6 +429,22 @@ public class FinanceExpressAction extends BaseAction {
 
 	public void setStrExpressno(String strExpressno) {
 		this.strExpressno = strExpressno;
+	}
+
+	public String getStrExpressName() {
+		return strExpressName;
+	}
+
+	public void setStrExpressName(String strExpressName) {
+		this.strExpressName = strExpressName;
+	}
+
+	public String getDelFinanceId() {
+		return delFinanceId;
+	}
+
+	public void setDelFinanceId(String delFinanceId) {
+		this.delFinanceId = delFinanceId;
 	}
 
 }

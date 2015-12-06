@@ -74,6 +74,9 @@
 		<isNotEmpty prepend="and" property="res02">
 			T.res02 like '%$res02$%' ESCAPE '/'
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="customername">
+			T.customername like '%$customername$%' ESCAPE '/'
+		</isNotEmpty>
 		order by T.updatedate desc,T.id desc
 		LIMIT #start#, #end#
 	</select>
@@ -110,6 +113,9 @@
 		<isNotEmpty prepend="and" property="res02">
 			T.res02 like '%$res02$%' ESCAPE '/'
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="customername">
+			T.customername like '%$customername$%' ESCAPE '/'
+		</isNotEmpty>
 	</select>
 	
 	<select id="queryFinanceByID" parameterClass="java.util.Map" resultMap="FinanceDto">
@@ -131,6 +137,10 @@
 			#customerid#,#customername#,#customertel#,#customermanager#,#customeraddress#,#customermail#,#note#,#rank#,#status#,
 			#res01#,#res02#,#res03#,#res04#,#res05#,#res06#,#res07#,#res08#,#res09#,#res10#,#createuid#,NOW(),#updateuid#,NOW())
 	</insert>
+	
+	<delete id="deleteFinance" parameterClass="java.util.Map">
+		DELETE FROM etb_finance WHERE id = #id#
+	</delete>
 	
 	<update id="updateFinance" parameterClass="com.cn.dsyg.dto.FinanceDto">
 		update etb_finance

@@ -306,25 +306,39 @@
 						<label class="pdf10">单据日期</label>
 						<div class="box1_left"></div>
 						<div class="box1_center date_input">
-							<input type="text" disabled="disabled" style="width: 105px;" id="receiptdateLow" value="<s:property value="strReceiptdateLow"/>" maxlength="10" />
+							<input type="text" disabled="disabled" style="width: 85px;" id="receiptdateLow" value="<s:property value="strReceiptdateLow"/>" maxlength="10" />
 							<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('receiptdateLow'));"></a>
 						</div>
 						<div class="box1_right"></div>
 						<label>-</label>
 						<div class="box1_left"></div>
 						<div class="box1_center date_input">
-							<input type="text" disabled="disabled" style="width: 105px;" id="receiptdateHigh" value="<s:property value="strReceiptdateHigh"/>" maxlength="10" />
+							<input type="text" disabled="disabled" style="width: 85px;" id="receiptdateHigh" value="<s:property value="strReceiptdateHigh"/>" maxlength="10" />
 							<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('receiptdateHigh'));"></a>
 						</div>
 						<div class="box1_right"></div>
-						<label class="pdf10">　　发票号</label>
+						<label class="pdf10">　发票号</label>
 						<div class="box1_left"></div>
 						<div class="box1_center">
-							<s:textfield name="strBillno" id="strBillno" cssStyle="width:180px;" maxlength="32" theme="simple"></s:textfield>
+							<s:textfield name="strBillno" id="strBillno" cssStyle="width:120px;" maxlength="32" theme="simple"></s:textfield>
+						</div>
+						<div class="box1_right"></div>
+						
+						<label class="pdf10">　客户名</label>
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<s:textfield name="strCustomername" id="strCustomername" cssStyle="width:100px;" maxlength="32" theme="simple"></s:textfield>
+						</div>
+						
+						<div class="box1_right"></div>
+						<label class="pdf10">　入出库单</label>
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<s:textfield name="strInvoiceid" id="strInvoiceid" cssStyle="width:160px;" maxlength="32" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
 					</div>
-					<div class="btn" style="margin-left: 120px;">
+					<div class="btn" style="margin-left: 40px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
 							<input type="button" class="input40" value="检索" onclick="queryList();"/>

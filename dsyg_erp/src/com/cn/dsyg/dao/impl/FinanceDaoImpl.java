@@ -19,7 +19,7 @@ public class FinanceDaoImpl extends BaseDao implements FinanceDao {
 	@Override
 	public List<FinanceDto> queryFinanceByPage(String expressno, String status,
 			String financetype, String invoiceid, String receiptid,
-			String customerid, String receiptdateLow, String receiptdateHigh, String billno, String res02,
+			String customerid, String receiptdateLow, String receiptdateHigh, String billno, String res02, String expressName,
 			int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("status", status);
@@ -32,6 +32,7 @@ public class FinanceDaoImpl extends BaseDao implements FinanceDao {
 		paramMap.put("receiptdateHigh", receiptdateHigh);
 		paramMap.put("billno", billno);
 		paramMap.put("res02", res02);
+		paramMap.put("customername", expressName);
 		paramMap.put("start", start);
 		paramMap.put("end", end);
 		@SuppressWarnings("unchecked")
@@ -42,7 +43,7 @@ public class FinanceDaoImpl extends BaseDao implements FinanceDao {
 	@Override
 	public int queryFinanceCountByPage(String expressno, String status, String financetype,
 			String invoiceid, String receiptid, String customerid,
-			String receiptdateLow, String receiptdateHigh, String billno, String res02) {
+			String receiptdateLow, String receiptdateHigh, String billno, String res02, String expressName) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("status", status);
 		paramMap.put("res08", expressno);
@@ -54,6 +55,7 @@ public class FinanceDaoImpl extends BaseDao implements FinanceDao {
 		paramMap.put("receiptdateHigh", receiptdateHigh);
 		paramMap.put("billno", billno);
 		paramMap.put("res02", res02);
+		paramMap.put("customername", expressName);
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryFinanceCountByPage", paramMap);
 	}
 	
@@ -85,6 +87,13 @@ public class FinanceDaoImpl extends BaseDao implements FinanceDao {
 	@Override
 	public void insertFinance(FinanceDto finance) {
 		getSqlMapClientTemplate().insert("insertFinance", finance);
+	}
+	
+	@Override
+	public void deleteFinance(String id) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("id", id);
+		getSqlMapClientTemplate().delete("deleteFinance", paramMap);
 	}
 
 	@Override
