@@ -287,6 +287,10 @@ public class WarehouseServiceImpl implements WarehouseService {
 					//根据ID查询库存记录
 					warehouse = warehouseDao.queryWarehouseByID(id);
 					if(warehouse != null) {
+						//数据check
+						if(warehouse.getStatus() != Constants.WAREHOUSE_STATUS_NEW) {
+							throw new RuntimeException("当前记录状态已更改，不能生成入库单！");
+						}
 						if(StringUtil.isBlank(warehousename)) {
 							warehousename = warehouse.getWarehousename();
 						}
@@ -505,6 +509,11 @@ public class WarehouseServiceImpl implements WarehouseService {
 					//根据ID查询库存记录
 					warehouse = warehouseDao.queryWarehouseByID(id);
 					if(warehouse != null) {
+						//数据check
+						if(warehouse.getStatus() != Constants.WAREHOUSE_STATUS_NEW) {
+							throw new RuntimeException("当前记录状态已更改，不能生成出库单！");
+						}
+						
 						if(StringUtil.isBlank(warehousename)) {
 							warehousename = warehouse.getWarehousename();
 						}

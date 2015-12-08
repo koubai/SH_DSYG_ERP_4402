@@ -16,6 +16,7 @@
 		$("#container").height(h - 20);
 	});
 	
+	var b = true;
 	//库存确认
 	function createrpt() {
 		var ids = getSelectedID();
@@ -24,8 +25,13 @@
 			return;
 		}
 		$("#strOkIds").val(ids);
-		document.mainform.action = '../warehouse/warehouseInOkAction.action';
-		document.mainform.submit();
+		if(b) {
+			if(confirm("确认生成入库单吗？")) {
+				b = false;
+				document.mainform.action = '../warehouse/warehouseInOkAction.action';
+				document.mainform.submit();
+			}
+		}
 	}
 	
 	function getSelectedID() {
