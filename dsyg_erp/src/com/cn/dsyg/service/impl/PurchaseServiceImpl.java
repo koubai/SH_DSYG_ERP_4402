@@ -484,15 +484,27 @@ public class PurchaseServiceImpl implements PurchaseService {
 		//入库金额含税=入库金额*税率
 		BigDecimal taxamount = new BigDecimal(0);
 		
-		//入出库金额（含税）=入库金额*（1+税率）
-		List<Dict01Dto> listRate = dict01Dao.queryDict01ByFieldcode(Constants.DICT_RATE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
-		//默认为0
-		BigDecimal rate = new BigDecimal(0);
-		if(listRate != null && listRate.size() > 0) {
-			rate = new BigDecimal(listRate.get(0).getCode());
-			rate = rate.add(new BigDecimal(1));
-			taxamount = amount.multiply(rate);
-			taxamount = taxamount.setScale(2, BigDecimal.ROUND_HALF_UP);
+		//入库金额（含税）
+		if(purchaseItem.getRemainquantity().floatValue() == 0) {
+			//若当前ITEM为最后一部分预入库的ITEM，则需要通过含税总金额-之前入库的金额，这里防止含税总金额用户自己手动修改，导致金额合计时不正确
+			//之前的预入库数量
+			BigDecimal oldQuantity = purchaseItem.getQuantity().subtract(purchaseItem.getBeforequantity());
+			//之前的预入库金额（含税）
+			BigDecimal oldAmount = purchaseItem.getTaxunitprice().multiply(oldQuantity);
+			//当前库存记录的含税金额=含税总金额-之前的预入库金额（含税）
+			taxamount = purchaseItem.getTaxamount().subtract(oldAmount);
+		} else {
+			//不是最后一部分预入库的ITEM
+			//入入库金额（含税）=入库金额*（1+税率）
+			List<Dict01Dto> listRate = dict01Dao.queryDict01ByFieldcode(Constants.DICT_RATE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+			//默认为0
+			BigDecimal rate = new BigDecimal(0);
+			if(listRate != null && listRate.size() > 0) {
+				rate = new BigDecimal(listRate.get(0).getCode());
+				rate = rate.add(new BigDecimal(1));
+				taxamount = amount.multiply(rate);
+				taxamount = taxamount.setScale(2, BigDecimal.ROUND_HALF_UP);
+			}
 		}
 		
 		warehouse.setAmount(amount);

@@ -287,7 +287,7 @@ public class SalesServiceImpl implements SalesService {
 			List<SalesItemDto> itemList = salesItemDao.querySalesItemBySalesno(sales.getSalesno());
 			if(itemList != null && itemList.size() > 0) {
 				boolean b = true;
-				//判断当前的采购单对应的货物是否都已入库：采购数量=入库数量
+				//判断当前的采购单对应的货物是否都已出库：采购数量=出库数量
 				for(SalesItemDto item : itemList) {
 					if(item.getQuantity() != null && item.getQuantity().floatValue() > item.getOutquantity().floatValue()) {
 						b = false;
@@ -306,7 +306,7 @@ public class SalesServiceImpl implements SalesService {
 				}
 				//以上2个条件均满足，则更新采购单状态
 				if(b) {
-					//需要更新销售单状态=已入库
+					//需要更新销售单状态=已出库
 					sales.setStatus(Constants.SALES_STATUS_WAREHOUSE_OK);
 					sales.setUpdateuid(userid);
 					salesDao.updateSales(sales);
@@ -401,15 +401,27 @@ public class SalesServiceImpl implements SalesService {
 		//出库金额含税=出库金额*税率
 		BigDecimal taxamount = new BigDecimal(0);
 		
-		//出库金额（含税）=出库金额*（1+税率）
-		List<Dict01Dto> listRate = dict01Dao.queryDict01ByFieldcode(Constants.DICT_RATE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
-		//默认为0
-		BigDecimal rate = new BigDecimal(0);
-		if(listRate != null && listRate.size() > 0) {
-			rate = new BigDecimal(listRate.get(0).getCode());
-			rate = rate.add(new BigDecimal(1));
-			taxamount = amount.multiply(rate);
-			taxamount = taxamount.setScale(2, BigDecimal.ROUND_HALF_UP);
+		//出库金额（含税）
+		if(salesItem.getRemainquantity().floatValue() == 0) {
+			//若当前ITEM为最后一部分预出库的ITEM，则需要通过含税总金额-之前出库的金额，这里防止含税总金额用户自己手动修改，导致金额合计时不正确
+			//之前的预出库数量
+			BigDecimal oldQuantity = salesItem.getQuantity().subtract(salesItem.getBeforequantity());
+			//之前的预出库金额（含税）
+			BigDecimal oldAmount = salesItem.getTaxunitprice().multiply(oldQuantity);
+			//当前库存记录的含税金额=含税总金额-之前的预出库金额（含税）
+			taxamount = salesItem.getTaxamount().subtract(oldAmount);
+		} else {
+			//不是最后一部分预出库的ITEM
+			//出库金额（含税）=出库金额*（1+税率）
+			List<Dict01Dto> listRate = dict01Dao.queryDict01ByFieldcode(Constants.DICT_RATE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+			//默认为0
+			BigDecimal rate = new BigDecimal(0);
+			if(listRate != null && listRate.size() > 0) {
+				rate = new BigDecimal(listRate.get(0).getCode());
+				rate = rate.add(new BigDecimal(1));
+				taxamount = amount.multiply(rate);
+				taxamount = taxamount.setScale(2, BigDecimal.ROUND_HALF_UP);
+			}
 		}
 		
 		//入出库金额
