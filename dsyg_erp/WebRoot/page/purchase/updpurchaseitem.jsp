@@ -262,68 +262,15 @@
 		remain = remain.toFixed(2);
 		
 		tds[13].innerHTML = remain;
-		//采购金额未税
-		var amount = purchaseQuantity * parseFloat(price);
-		tds[16].getElementsByTagName("input")[0].value = amount.toFixed(2);
 		
 		//补充隐藏TD中的数据内容
 		//===============================================
-		inputs[8].value = price;
 		//入库数量
 		inputs[9].value = purchaseQuantity;
 		//预入库数量
 		inputs[10].value = beforeQuantity;
 		//未入库数量
 		inputs[11].value = remain;
-		//采购金额未税
-		inputs[12].value = amount.toFixed(2);
-		
-		//备注
-		inputs[15].value = res09;
-		
-		//含税单价
-		inputs[16].value = taxprices;
-		
-		//采购金额已税
-		if(amount != "") {
-			//采购金额已税=未税金额 * (1 + rate)
-			var vv = amount * (1 + rate);
-			inputs[13].value = vv.toFixed(2);
-			//输入框金额也对应变更
-			tds[17].getElementsByTagName("input")[0].value = vv.toFixed(2);
-		}
-		//===============================================
-		//采购金额未税
-		var calcAmount = 0;
-		//已付金额（默认为0）
-		var calcPaidamount = 0;
-		//采购金额含税
-		var calcTaxamount = 0;
-		
-		var rows = document.getElementById("productData").rows;
-		for(var i = 0; i < rows.length; i++) {
-			var childs = rows[i].cells[0].getElementsByTagName("input");
-			if(childs[12].value != "") {
-				calcAmount += parseFloat(childs[12].value);
-			}
-			if(childs[13].value != "") {
-				calcTaxamount += parseFloat(childs[13].value);
-			}
-		}
-		
-		//采购金额不含税
-		$("#totalamount").val(calcAmount.toFixed(2));
-		$("#tmpTotalamount").val(calcAmount.toFixed(2));
-		
-		//采购金额含税
-		$("#taxamount").val(calcTaxamount.toFixed(2));
-		$("#tmpTaxamount").val(calcTaxamount.toFixed(2));
-		
-		//已付金额
-		if(paidamount == "") {
-			$("#paidamount").val(calcPaidamount.toFixed(2));
-			$("#tmpPaidamount").val(calcPaidamount.toFixed(2));
-		}
 	}
 	
 	function changeTheme() {
