@@ -413,15 +413,18 @@ public class SalesServiceImpl implements SalesService {
 		} else {
 			//不是最后一部分预出库的ITEM
 			//出库金额（含税）=出库金额*（1+税率）
-			List<Dict01Dto> listRate = dict01Dao.queryDict01ByFieldcode(Constants.DICT_RATE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
-			//默认为0
-			BigDecimal rate = new BigDecimal(0);
-			if(listRate != null && listRate.size() > 0) {
-				rate = new BigDecimal(listRate.get(0).getCode());
-				rate = rate.add(new BigDecimal(1));
-				taxamount = amount.multiply(rate);
-				taxamount = taxamount.setScale(2, BigDecimal.ROUND_HALF_UP);
-			}
+//			List<Dict01Dto> listRate = dict01Dao.queryDict01ByFieldcode(Constants.DICT_RATE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+//			//默认为0
+//			BigDecimal rate = new BigDecimal(0);
+//			if(listRate != null && listRate.size() > 0) {
+//				rate = new BigDecimal(listRate.get(0).getCode());
+//				rate = rate.add(new BigDecimal(1));
+//				taxamount = amount.multiply(rate);
+//				taxamount = taxamount.setScale(2, BigDecimal.ROUND_HALF_UP);
+//			}
+			//含税金额=含税单价*数量
+			taxamount = salesItem.getBeforequantity().multiply(salesItem.getTaxunitprice());
+			taxamount = taxamount.setScale(2, BigDecimal.ROUND_HALF_UP);
 		}
 		
 		//入出库金额

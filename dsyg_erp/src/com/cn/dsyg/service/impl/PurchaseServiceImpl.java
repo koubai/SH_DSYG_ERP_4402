@@ -496,15 +496,17 @@ public class PurchaseServiceImpl implements PurchaseService {
 		} else {
 			//不是最后一部分预入库的ITEM
 			//入入库金额（含税）=入库金额*（1+税率）
-			List<Dict01Dto> listRate = dict01Dao.queryDict01ByFieldcode(Constants.DICT_RATE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
-			//默认为0
-			BigDecimal rate = new BigDecimal(0);
-			if(listRate != null && listRate.size() > 0) {
-				rate = new BigDecimal(listRate.get(0).getCode());
-				rate = rate.add(new BigDecimal(1));
-				taxamount = amount.multiply(rate);
-				taxamount = taxamount.setScale(2, BigDecimal.ROUND_HALF_UP);
-			}
+//			List<Dict01Dto> listRate = dict01Dao.queryDict01ByFieldcode(Constants.DICT_RATE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+//			//默认为0
+//			BigDecimal rate = new BigDecimal(0);
+//			if(listRate != null && listRate.size() > 0) {
+//				rate = new BigDecimal(listRate.get(0).getCode());
+//				rate = rate.add(new BigDecimal(1));
+//				taxamount = amount.multiply(rate);
+//				taxamount = taxamount.setScale(2, BigDecimal.ROUND_HALF_UP);
+//			}
+			taxamount = purchaseItem.getBeforequantity().multiply(purchaseItem.getTaxunitprice());
+			taxamount = taxamount.setScale(2, BigDecimal.ROUND_HALF_UP);
 		}
 		
 		warehouse.setAmount(amount);
