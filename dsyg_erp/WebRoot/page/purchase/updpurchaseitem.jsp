@@ -667,8 +667,7 @@
 	}
 
 	function exportData() {
-		document.mainform.action = '../purchase/exportPurchaseAction.action';
-		document.mainform.submit();
+		window.location.href = '../purchase/exportPurchaseAction.action?updPurchaseId=' + $("#id").val();
 	}
 	
 	function productCompare() {
@@ -694,6 +693,8 @@
 			-->
 			<s:form id="mainform" name="mainform" method="POST">
 				<s:hidden name="common_rate" id="common_rate"></s:hidden>
+				
+				<s:hidden name="updPurchaseDto.id" id="id"></s:hidden>
 				
 				<s:hidden name="updPurchaseDto.supplierid" id="supplierid"></s:hidden>
 				<s:hidden name="updPurchaseDto.purchasedate" id="purchasedate"></s:hidden>
