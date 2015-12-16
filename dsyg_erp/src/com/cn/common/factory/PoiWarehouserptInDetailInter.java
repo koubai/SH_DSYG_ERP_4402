@@ -95,6 +95,7 @@ public class PoiWarehouserptInDetailInter extends Poi2007Base {
 					XSSFCell cell7 = row.createCell(7);
 					XSSFCell cell8 = row.createCell(8);
 					XSSFCell cell9 = row.createCell(9);
+					XSSFCell cell10 = row.createCell(10);
 					
 					cell0.setCellValue(num + 1);
 					cell0.setCellStyle(style);
@@ -117,11 +118,13 @@ public class PoiWarehouserptInDetailInter extends Poi2007Base {
 						cell6.setCellValue("乱尺");
 					}
 					cell7.setCellStyle(style);
-					cell7.setCellValue(dictMap.get(Constants.DICT_UNIT_TYPE + "_" + product.getUnit()));
+					cell7.setCellValue(product.getItem10());
 					cell8.setCellStyle(style);
-					cell8.setCellValue(product.getNum());
+					cell8.setCellValue(dictMap.get(Constants.DICT_UNIT_TYPE + "_" + product.getUnit()));
 					cell9.setCellStyle(style);
-					cell9.setCellValue(dictMap.get(Constants.DICT_MAKEAREA + "_" + product.getMakearea()));
+					cell9.setCellValue(product.getNum());
+					cell10.setCellStyle(style);
+					cell10.setCellValue(dictMap.get(Constants.DICT_MAKEAREA + "_" + product.getMakearea()));
 					num++;
 				}
 			} else {
@@ -136,6 +139,7 @@ public class PoiWarehouserptInDetailInter extends Poi2007Base {
 				XSSFCell cell7 = row.createCell(7);
 				XSSFCell cell8 = row.createCell(8);
 				XSSFCell cell9 = row.createCell(9);
+				XSSFCell cell10 = row.createCell(10);
 				
 				cell0.setCellValue(num + 1);
 				cell0.setCellStyle(style);
@@ -159,6 +163,8 @@ public class PoiWarehouserptInDetailInter extends Poi2007Base {
 				cell8.setCellStyle(style);
 				cell9.setCellValue("");
 				cell9.setCellStyle(style);
+				cell10.setCellValue("");
+				cell10.setCellStyle(style);
 				num++;
 			}
 		}
@@ -184,15 +190,17 @@ public class PoiWarehouserptInDetailInter extends Poi2007Base {
 		heads.add("规格");
 		sheet.setColumnWidth(4, 25 * 256);
 		heads.add("颜色");
-		sheet.setColumnWidth(5, 10 * 256);
+		sheet.setColumnWidth(5, 6 * 256);
+		heads.add("形式");
+		sheet.setColumnWidth(6, 10 * 256);
 		heads.add("包装");
-		sheet.setColumnWidth(6, 12 * 256);
-		heads.add("单位");
 		sheet.setColumnWidth(7, 10 * 256);
+		heads.add("单位");
+		sheet.setColumnWidth(8, 6 * 256);
 		heads.add("数量");
-		sheet.setColumnWidth(8, 14 * 256);
+		sheet.setColumnWidth(9, 14 * 256);
 		heads.add("产地");
-		sheet.setColumnWidth(9, 12 * 256);
+		sheet.setColumnWidth(10, 12 * 256);
 		//heads.add("税后金额");
 		//sheet.setColumnWidth(9, 15 * 256);
 		

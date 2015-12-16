@@ -61,7 +61,7 @@ public class PoiSalesPrice {
 
         templateContent = templateContent.replaceAll("#customername#", updSalesDto.getCustomername());
         templateContent = templateContent.replaceAll("#customermanager#", updSalesDto.getCustomermanager());
-        templateContent = templateContent.replaceAll("#fromname#", (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID));
+        templateContent = templateContent.replaceAll("#fromname#", (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME));
         templateContent = templateContent.replaceAll("#fax#", updSalesDto.getCustomerfax());
         templateContent = templateContent.replaceAll("#date#", str_date);
         templateContent = templateContent.replaceAll("#tel#", updSalesDto.getCustomertel());
@@ -103,7 +103,7 @@ public class PoiSalesPrice {
         	}
             products.append("</td>"); 
             products.append("<td style=\"border:solid; border-width:0px 0px 1px 1px;\">"); 
-            products.append("￥" + updSalesItemList.get(i).getUnitprice());  
+            products.append("￥" + updSalesItemList.get(i).getTaxunitprice());  
             products.append("</td>");
             products.append("<td style=\"border:solid; border-width:0px 1px 1px 1px; font-weight:bold\">"); 
         	if(updSalesItemList.get(i).getRes09() != null){
