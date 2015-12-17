@@ -20,7 +20,6 @@ import com.cn.dsyg.dao.SalesItemDao;
 import com.cn.dsyg.dao.UserDao;
 import com.cn.dsyg.dao.WarehouseDao;
 import com.cn.dsyg.dao.WarehouserptDao;
-import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.FinanceDto;
 import com.cn.dsyg.dto.SalesDto;
 import com.cn.dsyg.dto.SalesItemDto;
@@ -305,7 +304,8 @@ public class SalesServiceImpl implements SalesService {
 					}
 				}
 				//以上2个条件均满足，则更新采购单状态
-				if(b) {
+				if(b && "0".equals(sales.getRes02())) {
+					//这里只修改类型=普通的销售单，对于询价和询样不做更新。
 					//需要更新销售单状态=已出库
 					sales.setStatus(Constants.SALES_STATUS_WAREHOUSE_OK);
 					sales.setUpdateuid(userid);
