@@ -78,6 +78,7 @@ public class PoiWarehouseCheck extends Poi2007Base {
 			XSSFCell cell6 = row.createCell(6);
 			XSSFCell cell7 = row.createCell(7);
 			XSSFCell cell8 = row.createCell(8);
+			XSSFCell cell9 = row.createCell(9);
 			cell0.setCellValue(i + 1);
 			cell0.setCellStyle(style);
 			cell1.setCellValue(dictMap.get(Constants.DICT_GOODS_TYPE + "_" + warehouseCheck.getFieldno()));
@@ -96,10 +97,12 @@ public class PoiWarehouseCheck extends Poi2007Base {
 				cell6.setCellValue("乱尺");
 			}
 			cell6.setCellStyle(style);
-			cell7.setCellValue(warehouseCheck.getSuppliername());
+			cell7.setCellValue(warehouseCheck.getItem10());
 			cell7.setCellStyle(style);
-			cell8.setCellValue("" + warehouseCheck.getWarehouseamount());
+			cell8.setCellValue(warehouseCheck.getSuppliername());
 			cell8.setCellStyle(style);
+			cell9.setCellValue("" + warehouseCheck.getWarehouseamount());
+			cell9.setCellStyle(style);
 		}
 	}
 	
@@ -115,19 +118,21 @@ public class PoiWarehouseCheck extends Poi2007Base {
 		heads.add("主题");
 		sheet.setColumnWidth(1, 15 * 256);
 		heads.add("仓库");
-		sheet.setColumnWidth(2, 20 * 256);
+		sheet.setColumnWidth(2, 10 * 256);
 		heads.add("品名");
 		sheet.setColumnWidth(3, 20 * 256);
 		heads.add("规格");
-		sheet.setColumnWidth(4, 10 * 256);
+		sheet.setColumnWidth(4, 50 * 256);
 		heads.add("颜色");
-		sheet.setColumnWidth(5, 20 * 256);
+		sheet.setColumnWidth(5, 10 * 256);
+		heads.add("形式");
+		sheet.setColumnWidth(6, 10 * 256);
 		heads.add("包装");
-		sheet.setColumnWidth(6, 30 * 256);
-		heads.add("供应商");
 		sheet.setColumnWidth(7, 30 * 256);
+		heads.add("供应商");
+		sheet.setColumnWidth(8, 30 * 256);
 		heads.add("库存数量");
-		sheet.setColumnWidth(8, 10 * 256);
+		sheet.setColumnWidth(9, 15 * 256);
 		
 		//Head部分颜色字体
 		XSSFFont font = workbook.createFont();
