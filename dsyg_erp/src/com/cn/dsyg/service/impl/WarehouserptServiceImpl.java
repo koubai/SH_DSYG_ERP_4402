@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import com.cn.common.util.Constants;
@@ -214,42 +216,81 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 				String[] infos = rpt.getProductinfo().split("#");
 				String[] parents = rpt.getParentid().split(",");
 				if(infos.length == parents.length){
+					Map<String, ProductDto> map = new HashMap<String, ProductDto>();
 					for(int i=0; i<infos.length; i++) {
 						if(StringUtil.isNotBlank(infos[i])) {
 							String[] ll = infos[i].split(",");
-							ProductDto product = productDao.queryProductByID(ll[0]);
-							WarehouseDto warehouse = warehouseDao.queryWarehouseByWarehouseno(parents[i]);
-							String parentid = "";
-							if(rpt.getWarehousetype() == 1){
-								PurchaseDto purchase = purchaseDao.queryPurchaseByNo(warehouse.getParentid());
-								parentid = purchase == null ? "" : purchase.getTheme2();
-							} else {
-								SalesDto sales = salesDao.querySalesByNo(warehouse.getParentid());
-								parentid = sales == null ? "" : sales.getTheme2();
-							}
-							if(product != null) {
-								//货物数量
-								product.setNum(ll[1]);
-								BigDecimal num = new BigDecimal(ll[1]);
-								product.setNumabs(StringUtil.BigDecimal2StrAbs(num, 2));
-								//货物金额
-								product.setAmount(ll[2]);
+							
+							WarehouseDto ww = warehouseDao.queryWarehouseByWarehouseno(parents[i]);
+							String key = ll[0] + "_" + ww.getParentid();
+							if(map.get(key) != null) {
+								//存在该订单的货物记录，需要合并
+								ProductDto pp = map.get(key);
+								//数量
+								BigDecimal nn = new BigDecimal(pp.getNum());
+								BigDecimal n = new BigDecimal(ll[1]);
+								//金额
+								BigDecimal aa = new BigDecimal(pp.getAmount());
+								BigDecimal a = new BigDecimal(ll[2]);
+								
 								//RES09 特殊订单号
-								if (ll.length > 3){	
-									if (StringUtil.isNotBlank(ll[3]))
-										product.setRes09(ll[3]);
+								String res09 = "";
+								if(StringUtil.isNotBlank(pp.getRes09())) {
+									res09 += pp.getRes09() + ",";
 								}
-								//含税单价
-								if (ll.length > 4){	
-									if (StringUtil.isNotBlank(ll[4]))
-										product.setUnitprice((ll[4]));
+								if(StringUtil.isNotBlank(ll[3])) {
+									res09 += ll[3] + ",";
 								}
-								product.setHasbroken("0");
-								product.setBrokennum("0");
-								product.setParentid(parentid);;
-								list.add(product);
+								if(StringUtil.isNotBlank(res09)) {
+									res09 = res09.substring(0, res09.length() - 1);
+								}
+								pp.setRes09(res09);
+								
+								pp.setNum("" + nn.add(n));
+								pp.setAmount("" + aa.add(a));
+								pp.setNumabs(StringUtil.BigDecimal2StrAbs(nn.add(n), 2));
+								map.put(key, pp);
+							} else {
+								//没有该货物记录，则直接添加到MAP中
+								ProductDto product = productDao.queryProductByID(ll[0]);
+								WarehouseDto warehouse = warehouseDao.queryWarehouseByWarehouseno(parents[i]);
+								String parentid = "";
+								if(rpt.getWarehousetype() == 1){
+									PurchaseDto purchase = purchaseDao.queryPurchaseByNo(warehouse.getParentid());
+									parentid = purchase == null ? "" : purchase.getTheme2();
+								} else {
+									SalesDto sales = salesDao.querySalesByNo(warehouse.getParentid());
+									parentid = sales == null ? "" : sales.getTheme2();
+								}
+								if(product != null) {
+									//货物数量
+									product.setNum(ll[1]);
+									BigDecimal num = new BigDecimal(ll[1]);
+									product.setNumabs(StringUtil.BigDecimal2StrAbs(num, 2));
+									//货物金额
+									product.setAmount(ll[2]);
+									//RES09 特殊订单号
+									if (ll.length > 3){	
+										if (StringUtil.isNotBlank(ll[3]))
+											product.setRes09(ll[3]);
+									}
+									//含税单价
+									if (ll.length > 4){	
+										if (StringUtil.isNotBlank(ll[4]))
+											product.setUnitprice((ll[4]));
+									}
+									product.setHasbroken("0");
+									product.setBrokennum("0");
+									product.setParentid(parentid);
+									map.put(key, product);
+								}
 							}
 						}
+					}
+					
+					//对入出库单有相同货物ID的进行合并
+					for(Map.Entry<String, ProductDto> entry : map.entrySet()) {
+						list.add(entry.getValue());
 					}
 					rpt.setListProduct(list);
 				}
