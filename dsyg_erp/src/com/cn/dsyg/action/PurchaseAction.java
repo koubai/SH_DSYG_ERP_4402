@@ -562,11 +562,11 @@ public class PurchaseAction extends BaseAction {
 //			this.addActionMessage("请选择供应商！");
 //			return false;
 //		}
-		if(purchase.getTotalamount() == null || purchase.getTotalamount().doubleValue() <= 0) {
+		if(purchase.getTotalamount() == null || purchase.getTotalamount().doubleValue() < 0) {
 			this.addActionMessage("采购金额（不含税）不能小于0！");
 			return false;
 		}
-		if(purchase.getTaxamount() == null || purchase.getTaxamount().doubleValue() <= 0) {
+		if(purchase.getTaxamount() == null || purchase.getTaxamount().doubleValue() < 0) {
 			this.addActionMessage("采购金额（含税）不能小于0！");
 			return false;
 		}
