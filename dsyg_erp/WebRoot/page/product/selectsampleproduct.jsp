@@ -77,6 +77,8 @@
 		var makearea = inputs[14].value;
 		//包装
 		var item10 = inputs[15].value;
+		//产地名
+		var makeareaname = inputs[16].value;
 		
 		getOpener().document.getElementById("productid").value = id;
 		getOpener().document.getElementById("tradename").value = tradename;
@@ -94,6 +96,8 @@
 			getOpener().document.getElementById("show_packaging").value = "packaging";
 
 		getOpener().document.getElementById("item10").value = item10;
+		
+		getOpener().document.getElementById("makearea").value = makeareaname;
 	}
 	
 	function getSelectedID() {

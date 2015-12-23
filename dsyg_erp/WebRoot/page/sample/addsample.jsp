@@ -295,8 +295,12 @@
 								</s:iterator>			
 								</s:textfield>
 							</td>
-							<td align="right"></td>
-							<td align="right"></td>
+							<td align="right">
+								<label class="pdf10"><font color="red">&nbsp;</font>产地</label>
+							</td>
+							<td>
+								<s:textfield name="addSampleDto.makearea" disabled="true" id="makearea" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
+							</td>
 						</tr>
 						<tr>
 							<td align="right">

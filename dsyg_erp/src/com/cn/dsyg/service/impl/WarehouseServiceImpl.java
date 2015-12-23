@@ -196,6 +196,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 					warehouseDto.setPackaging(product.getPackaging());
 					warehouseDto.setUnit(product.getUnit());
 					warehouseDto.setItem10(product.getItem10());
+					warehouseDto.setMakearea(product.getMakearea());
 				}
 			}
 		}

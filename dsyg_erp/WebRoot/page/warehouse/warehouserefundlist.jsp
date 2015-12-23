@@ -215,7 +215,7 @@
 									</td>
 									<td>
 										<s:iterator id="makeareaList" value="makeareaList" status="st3">
-											<s:if test="%{makeareaList[#st3.index].code == warehouseList[#st1.index].res03}">
+											<s:if test="%{makeareaList[#st3.index].code == warehouseList[#st1.index].makearea}">
 												<s:property value="fieldname"/>
 											</s:if>
 										</s:iterator>

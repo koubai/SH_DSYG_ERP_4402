@@ -66,6 +66,11 @@ public class SampleDto extends BaseDto {
 	 * 单位
 	 */
 	private String unit;
+	
+	/**
+	 * 产地
+	 */
+	private String makearea;
 
 	/**
 	 * 数量
@@ -378,6 +383,14 @@ public class SampleDto extends BaseDto {
 
 	public void setUnit(String unit) {
 		this.unit = unit;
+	}
+
+	public String getMakearea() {
+		return makearea;
+	}
+
+	public void setMakearea(String makearea) {
+		this.makearea = makearea;
 	}
 
 

@@ -287,8 +287,12 @@
 									</s:if>
 								</s:iterator>			
 							</td>
-							<td align="right"></td>
-							<td align="right"></td>
+							<td align="right">
+								<label class="pdf10"><font color="red">&nbsp;</font>产地</label>
+							</td>
+							<td>
+								<input id="makearea" type="text" disabled="disabled" style="width:300px;" value="<s:iterator id="makeareaList" value="makeareaList" status="st3"><s:if test="%{makeareaList[#st3.index].code == updSampleDto.makearea}"><s:property value="fieldname"/></s:if></s:iterator>"/>
+							</td>
 						</tr>
 						<tr>
 							<td align="right">
