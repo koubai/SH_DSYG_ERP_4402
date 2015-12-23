@@ -35,12 +35,63 @@
 		var tds = tr.getElementsByTagName("td");
 		var inputs = tds[0].getElementsByTagName("input");
 		
+		//类型
+		var fieldno = inputs[1].value;
+		//类型名
+		var fieldnoName = inputs[2].value;
 		//品名
 		var tradename = inputs[3].value;
+		//规格
+		var typeno = inputs[4].value;
+		//颜色
+		var color = inputs[5].value;
+		//颜色名
+		var colorName = inputs[6].value;
+		//单位
+		var unit = inputs[7].value;
+		//单位名
+		var unitName = inputs[8].value;
+		//形式
+		var packaging = inputs[9].value;
+		//包装名
+		var packagingName = inputs[10].value;
+		//是否样品
+		var sampleflag = inputs[11].value;
+		//采购价格
+		var purchaseprice = inputs[12].value;
+		//销售价格
+		var salesprice = inputs[13].value;
+		//产地
+		var makearea = inputs[14].value;
+		//包装
+		var item10 = inputs[15].value;
+		
+		getOpener().document.getElementById("productid").value = id;
+//		getOpener().document.getElementById("tradename").value = tradename;
+		getOpener().document.getElementById("tmpProductname").value = tradename;
+		getOpener().document.getElementById("typeno").value = typeno;
+		getOpener().document.getElementById("color").value = color;
+		getOpener().document.getElementById("unit").value = unit;
+		getOpener().document.getElementById("packaging").value = packaging;
+		getOpener().document.getElementById("show_color").value = colorName;
+		getOpener().document.getElementById("show_unit").value = unitName;
+		if (packaging == "0")
+			getOpener().document.getElementById("show_packaging").value = "整箱";
+		else if (packaging == "1")
+			getOpener().document.getElementById("show_packaging").value = "乱尺";
+		else
+			getOpener().document.getElementById("show_packaging").value = "packaging";
+
+		getOpener().document.getElementById("item10").value = item10;
+		getOpener().document.getElementById("makearea").value = makearea;
+		
+		//品名
+/*		var tradename = inputs[3].value;
 		
 		getOpener().document.getElementById("productid").value = id;
 		getOpener().document.getElementById("productname").value = tradename;
 		getOpener().document.getElementById("tmpProductname").value = tradename;
+		*/
 		window.close();
 	}
 	

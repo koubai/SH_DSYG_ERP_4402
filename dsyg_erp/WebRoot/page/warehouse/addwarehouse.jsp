@@ -101,7 +101,7 @@
 				<div class="tittle_left">
 				</div>
 				<div class="tittle_center" style="width:150px;">
-					退换货信息输入
+					库存修改信息输入
 				</div>
 				<div class="tittle_right">
 				</div>
@@ -110,6 +110,11 @@
 				<s:hidden name="addWarehouseDto.productid" id="productid"></s:hidden>
 				<s:hidden name="addWarehouseDto.note" id="note"></s:hidden>
 				<s:hidden name="addWarehouseDto.productname" id="productname"></s:hidden>
+				<s:hidden name="addWarehouseDto.color" id="color"></s:hidden>
+				<s:hidden name="addWarehouseDto.packaging" id="packaging"></s:hidden>
+				<s:hidden name="addWarehouseDto.unit" id="unit"></s:hidden>
+				<s:hidden name="addWarehouseDto.makearea" id="makearea"></s:hidden>
+				
 				<div class="searchbox update" style="height:0px;">
 					<table width="100%" border="0" cellpadding="5" cellspacing="0">
 						<tr>
@@ -211,6 +216,78 @@
 								<div class="box1_right"></div>
 							</td>
 						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10"><font color="red">&nbsp;</font>规格</label>
+							</td>
+							<td>
+								<s:textfield name="addWarehouseDto.typeno" disabled="true" id="typeno" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
+							</td>
+							<td align="right">
+								<label class="pdf10"><font color="red">&nbsp;</font>颜色</label>
+							</td>
+							<td>
+								<s:textfield name="show_color" disabled="true" id="show_color" cssStyle="width:300px;" maxlength="64" theme="simple">
+  								<s:iterator id="colorList" value="colorList" status="st3">
+									<s:if test="%{colorList[#st3.index].code == addWarehouseDto.color}">
+										<s:property value="fieldname"/>
+									</s:if>
+								</s:iterator>
+								</s:textfield>
+ 							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10"><font color="red">&nbsp;</font>形式</label>
+							</td>
+							<td>
+								<s:textfield name="show_packaging" disabled="true" id="show_packaging" cssStyle="width:300px;" maxlength="64" theme="simple">
+	  	 							<s:if test='%{addWarehouseDto.packaging == "0"}'><s:property value="整箱"/>
+									</s:if>
+									<s:elseif test='%{addWarehouseDto.packaging == "1"}'><s:property value="乱尺"/>
+									</s:elseif>
+									<s:elseif test='%{addWarehouseDto.packaging == "2"}'><s:property value="样品"/>
+									</s:elseif>
+									<s:else>
+										<s:property value="addWarehouseDto.packaging"/>
+									</s:else>
+								</s:textfield>
+ 							</td>
+							<td align="right">
+								<label class="pdf10"><font color="red">&nbsp;</font>包装</label>
+							</td>
+							<td>
+								<s:textfield name="addWarehouseDto.item10" disabled="true" id="item10" cssStyle="width:300px;" maxlength="64" theme="simple"></s:textfield>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10"><font color="red">&nbsp;</font>单位</label>
+							</td>
+							<td>
+								<s:textfield name="fieldname" disabled="true" id="show_unit" cssStyle="width:100px;" maxlength="64" theme="simple">
+								<s:iterator id="unitList" value="unitList" status="st4">
+									<s:if test="%{unitList[#st4.index].code == addWarehouseDto.unit}">
+										<s:property value="fieldname"/>
+									</s:if>
+								</s:iterator>			
+								</s:textfield>
+							</td>
+							<td align="right">
+								<!-- <label class="pdf10"><font color="red">&nbsp;</font>产地</label> -->
+							</td>
+							<td>
+								<!-- <s:textfield name="fieldname" disabled="true" id="makearea" cssStyle="width:100px;" maxlength="64" theme="simple">
+								<s:iterator id="makeareaList" value="makeareaList" status="st3">
+									<s:if test="%{makeareaList[#st3.index].code == addWarehouseDto.makearea}">
+										<s:property value="fieldname"/>
+									</s:if>
+								</s:iterator>
+								</s:textfield> -->
+							</td>
+
+						</tr>
+						
 						<!--
 						<tr>
 							<td align="right">
