@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?mso-infoPathSolution name="urn:schemas-microsoft-com:office:infopath:DSYG-RMBREQ8:-myXSD-2004-08-13T01-25-29" href="manifest.xsf" solutionVersion="1.0.0.41" productVersion="12.0.0" PIVersion="1.0.0.0" ?>
+<?mso-application progid="InfoPath.Document"?>
+<my:myFields xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:my="http://schemas.microsoft.com/office/infopath/2003/myXSD/2004-08-13T01:25:29" xmlns:xd="http://schemas.microsoft.com/office/infopath/2003">
+	<my:TO>SESH </my:TO>
+	<my:FM>上海D.S.Y.G.</my:FM>
+	<my:N0></my:N0>
+	<my:DATE></my:DATE>
+	<my:AREA></my:AREA>
+	<my:group1>
+		<my:group2>
+			<my:DESCRIPTION-01></my:DESCRIPTION-01>
+			<my:DESCRIPTION-02></my:DESCRIPTION-02>
+			<my:COLOR></my:COLOR>
+			<my:QTY>0.00</my:QTY>
+			<my:UNIT_PRICE>0.00</my:UNIT_PRICE>
+			<my:AMOUNT xsi:nil="true"></my:AMOUNT>
+		</my:group2>
+	</my:group1>
+	<my:合计不含税 xsi:nil="true"></my:合计不含税>
+	<my:合计含税 xsi:nil="true"></my:合计含税>
+	<my:no-1></my:no-1>
+	<my:备注></my:备注>
+	<my:field1></my:field1>
+	<my:field2 xsi:nil="true"></my:field2>
+</my:myFields>

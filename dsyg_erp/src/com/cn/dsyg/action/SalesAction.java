@@ -10,7 +10,13 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
+import com.cn.common.factory.Poi2007Base;
+import com.cn.common.factory.PoiFactory;
 import com.cn.common.factory.PoiSalesPrice;
+import com.cn.common.factory.PoiSalesPriceOrder;
+import com.cn.common.factory.PurchaseXml;
+import com.cn.common.factory.SalesSumicardXml;
+import com.cn.common.factory.SalesSumitubeXml;
 import com.cn.common.util.Constants;
 import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
@@ -85,6 +91,7 @@ public class SalesAction extends BaseAction {
 	private List<SalesItemDto> tmpUpdSalesItemList;
 	private String theme2;
 	private String salesno;
+	private String exporttype;
 	
 	//删除
 	private String delSalesId;
@@ -451,6 +458,9 @@ public class SalesAction extends BaseAction {
 		try {
 			this.clearMessages();
 			initDictList();
+			//颜色，这里需要是英文的，故这里写死取英文字典数据 update by frank
+			colorList = dict01Service.queryDict01ByFieldcode(Constants.DICT_COLOR_TYPE, Constants.SYSTEM_LANGUAGE_ENGLISH);
+			makeareaList = dict01Service.queryDict01ByFieldcode(Constants.DICT_MAKEAREA, Constants.SYSTEM_LANGUAGE_ENGLISH);
 			String type = "" + Constants.EXCEL_TYPE_SALES_PRICE;
 			//字典数据组织个MAP
 			Map<String, String> dictMap = new HashMap<String, String>();
@@ -479,13 +489,7 @@ public class SalesAction extends BaseAction {
 					dictMap.put(Constants.DICT_PAY_TYPE + "_" + dict.getCode(), dict.getFieldname());
 				}
 			}
-			String name = StringUtil.createHtmlFileName(type);
-			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
-			response.setContentType("text/html; charset=GB2312");
-			response.setCharacterEncoding("GB2312");
-			//Poi2007Base base = PoiFactory.getPoi(type);
-			PoiSalesPrice base = new PoiSalesPrice();
-			base.setDictMap(dictMap);
+
 			//查询所有数据
 			updSalesItemList = new ArrayList<SalesItemDto>();
 			updSalesDto = salesService.querySalesByID(updSalesId);
@@ -493,10 +497,42 @@ public class SalesAction extends BaseAction {
 				updSalesItemList = salesItemService.querySalesItemBySalesno(updSalesDto.getSalesno());
 			}
 			
+			System.out.println("exporttype is: " + exporttype);
+			if(exporttype != null && exporttype.equals("sumitube")){
+				String name = StringUtil.createXmlFileName(type);
+				response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+				response.setContentType("text/xml;charset=GB2312");
+				//导出xml
+				SalesSumitubeXml salesXml = new SalesSumitubeXml();
+				salesXml.setDictMap(dictMap);
+				salesXml.exportXml(response.getOutputStream(), updSalesDto, updSalesItemList);
+				log.info("exportXML success.");
+				return SUCCESS;
+			} else if(exporttype != null && exporttype.equals("sumicard")){
+				String name = StringUtil.createXmlFileName(type);
+				response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+				response.setContentType("text/xml;charset=GB2312");
+				//导出xml
+				SalesSumicardXml salesXml = new SalesSumicardXml();
+				salesXml.setDictMap(dictMap);
+				salesXml.exportXml(response.getOutputStream(), updSalesDto, updSalesItemList);
+				log.info("exportXML success.");
+				return SUCCESS;
+			}
+
+			String name = StringUtil.createHtmlFileName(type);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("text/html; charset=GB2312");
+			response.setCharacterEncoding("GB2312");
+			PoiSalesPrice base = new PoiSalesPrice();
+			if(exporttype != null && exporttype.equals("order")){
+				base = new PoiSalesPriceOrder();
+			}
+			base.setDictMap(dictMap);
 			base.toHtml(response, updSalesDto, updSalesItemList);
 			
 		} catch(Exception e) {
-			log.error("exportProductCostAction error:" + e);
+			log.error("exportSalesPriceAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -839,5 +875,13 @@ public class SalesAction extends BaseAction {
 
 	public void setSalesno(String salesno) {
 		this.salesno = salesno;
+	}
+
+	public String getExporttype() {
+		return exporttype;
+	}
+
+	public void setExporttype(String exporttype) {
+		this.exporttype = exporttype;
 	}
 }

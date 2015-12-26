@@ -65,6 +65,8 @@ public class Constants {
 	public final static String EXCEL_TYPE_PRODUCT_COST = "productcost";
 	//报价单数据
 	public final static String EXCEL_TYPE_SALES_PRICE = "salesprice";
+	//报价单数据
+	public final static String EXCEL_TYPE_SALES_PRICE_ORDER = "salespriceorder";
 	//采购单数据
 	public final static String EXCEL_TYPE_PURCHASEITEM = "purchaseitem";
 	
