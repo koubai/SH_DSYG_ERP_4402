@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -216,13 +216,14 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 				String[] infos = rpt.getProductinfo().split("#");
 				String[] parents = rpt.getParentid().split(",");
 				if(infos.length == parents.length){
-					Map<String, ProductDto> map = new HashMap<String, ProductDto>();
+					Map<String, ProductDto> map = new LinkedHashMap<String, ProductDto>();
 					for(int i=0; i<infos.length; i++) {
 						if(StringUtil.isNotBlank(infos[i])) {
 							String[] ll = infos[i].split(",");
 							
 							WarehouseDto ww = warehouseDao.queryWarehouseByWarehouseno(parents[i]);
-							String key = ll[0] + "_" + ww.getParentid();
+							//KEY=产品ID_销售单ID_含税单价，同一个销售单含税单价有可能不一样。
+							String key = ll[0] + "_" + ww.getParentid() + "_" + ww.getRes02();
 							if(map.get(key) != null) {
 								//存在该订单的货物记录，需要合并
 								ProductDto pp = map.get(key);
