@@ -223,7 +223,11 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 							
 							WarehouseDto ww = warehouseDao.queryWarehouseByWarehouseno(parents[i]);
 							//KEY=产品ID_销售单ID_含税单价，同一个销售单含税单价有可能不一样。
-							String key = ll[0] + "_" + ww.getParentid() + "_" + ww.getRes02();
+							BigDecimal taxprice = new BigDecimal(0);
+							if(StringUtil.isNotBlank(ww.getRes02())) {
+								taxprice = new BigDecimal(ww.getRes02()).setScale(6, BigDecimal.ROUND_HALF_UP);;
+							}
+							String key = ll[0] + "_" + ww.getParentid() + "_" + taxprice;
 							if(map.get(key) != null) {
 								//存在该订单的货物记录，需要合并
 								ProductDto pp = map.get(key);
