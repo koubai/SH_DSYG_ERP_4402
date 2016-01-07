@@ -221,13 +221,21 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 						if(StringUtil.isNotBlank(infos[i])) {
 							String[] ll = infos[i].split(",");
 							
+							String key = "";
+							
 							WarehouseDto ww = warehouseDao.queryWarehouseByWarehouseno(parents[i]);
 							//KEY=产品ID_销售单ID_含税单价，同一个销售单含税单价有可能不一样。
 							BigDecimal taxprice = new BigDecimal(0);
-							if(StringUtil.isNotBlank(ww.getRes02())) {
-								taxprice = new BigDecimal(ww.getRes02()).setScale(6, BigDecimal.ROUND_HALF_UP);;
+							if(ww != null) {
+								if(StringUtil.isNotBlank(ww.getRes02())) {
+									taxprice = new BigDecimal(ww.getRes02()).setScale(6, BigDecimal.ROUND_HALF_UP);;
+								}
+								key = ll[0] + "_" + ww.getParentid() + "_" + taxprice;
+							} else {
+								//由于库存记录不存在（这里是因为双浏览器操作导致库存记录消失），所以就用库存no来作为KEY的一部分
+								key = ll[0] + "_" + parents[i] + "_" + taxprice;
 							}
-							String key = ll[0] + "_" + ww.getParentid() + "_" + taxprice;
+							
 							if(map.get(key) != null) {
 								//存在该订单的货物记录，需要合并
 								ProductDto pp = map.get(key);
@@ -243,7 +251,7 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 								if(StringUtil.isNotBlank(pp.getRes09())) {
 									res09 += pp.getRes09() + ",";
 								}
-								if(StringUtil.isNotBlank(ll[3])) {
+								if(ll.length > 3 && StringUtil.isNotBlank(ll[3])) {
 									res09 += ll[3] + ",";
 								}
 								if(StringUtil.isNotBlank(res09)) {
@@ -260,12 +268,15 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 								ProductDto product = productDao.queryProductByID(ll[0]);
 								WarehouseDto warehouse = warehouseDao.queryWarehouseByWarehouseno(parents[i]);
 								String parentid = "";
-								if(rpt.getWarehousetype() == 1){
-									PurchaseDto purchase = purchaseDao.queryPurchaseByNo(warehouse.getParentid());
-									parentid = purchase == null ? "" : purchase.getTheme2();
-								} else {
-									SalesDto sales = salesDao.querySalesByNo(warehouse.getParentid());
-									parentid = sales == null ? "" : sales.getTheme2();
+								
+								if(warehouse != null) {
+									if(rpt.getWarehousetype() == 1){
+										PurchaseDto purchase = purchaseDao.queryPurchaseByNo(warehouse.getParentid());
+										parentid = purchase == null ? "" : purchase.getTheme2();
+									} else {
+										SalesDto sales = salesDao.querySalesByNo(warehouse.getParentid());
+										parentid = sales == null ? "" : sales.getTheme2();
+									}
 								}
 								if(product != null) {
 									//货物数量
