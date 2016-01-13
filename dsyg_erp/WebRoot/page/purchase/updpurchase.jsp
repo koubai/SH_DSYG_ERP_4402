@@ -718,9 +718,10 @@
 		window.location.href = "../purchase/queryPurchaseAction.action";
 	}
 
-	function exportData() {
-		document.mainform.action = '../purchase/exportPurchaseAction.action';
-		document.mainform.submit();
+	function exportData(flag) {
+		window.location.href = '../purchase/exportPurchaseAction.action?exporttype=' + flag;
+		//document.mainform.action = '../purchase/exportPurchaseAction.action';
+		//document.mainform.submit();
 	}
 	
 	function productCompare() {
@@ -1216,6 +1217,33 @@
 									<div class="box1_left"></div>
 									<div class="box1_center">
 										<input class="input80" type="button" value="导出" onclick="exportData();"/>
+									</div>
+									<div class="box1_right"></div>
+								</div>
+							</td>
+							<td>
+								<div class="btn">
+									<div class="box1_left"></div>
+									<div class="box1_center">
+										<input class="input80" type="button" value="导出英文版1" onclick="exportData('sumitube');"/>
+									</div>
+									<div class="box1_right"></div>
+								</div>
+							</td>
+							<td>
+								<div class="btn">
+									<div class="box1_left"></div>
+									<div class="box1_center">
+										<input class="input80" type="button" value="导出英文版2" onclick="exportData('sumicard');"/>
+									</div>
+									<div class="box1_right"></div>
+								</div>
+							</td>
+							<td>
+								<div class="btn">
+									<div class="box1_left"></div>
+									<div class="box1_center">
+										<input class="input80" type="button" value="导出html" onclick="exportData('html');"/>
 									</div>
 									<div class="box1_right"></div>
 								</div>

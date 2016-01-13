@@ -12,6 +12,9 @@ import org.apache.log4j.Logger;
 import com.cn.common.action.BaseAction;
 import com.cn.common.factory.Poi2007Base;
 import com.cn.common.factory.PoiFactory;
+import com.cn.common.factory.PoiPurchaseOrder;
+import com.cn.common.factory.PurchaseSumicardXml;
+import com.cn.common.factory.PurchaseSumitubeXml;
 import com.cn.common.factory.PurchaseXml;
 import com.cn.common.util.Constants;
 import com.cn.common.util.DateUtil;
@@ -80,7 +83,8 @@ public class PurchaseAction extends BaseAction {
 	private List<PurchaseItemDto> updPurchaseItemList;
 	private List<PurchaseItemDto> tmpUpdPurchaseItemList;
 	private String theme2;
-	
+	private String exporttype;
+
 	//删除
 	private String delPurchaseId;
 	
@@ -474,6 +478,7 @@ public class PurchaseAction extends BaseAction {
 			
 			//颜色，这里需要是英文的，故这里写死取英文字典数据 update by frank
 			colorList = dict01Service.queryDict01ByFieldcode(Constants.DICT_COLOR_TYPE, Constants.SYSTEM_LANGUAGE_ENGLISH);
+			makeareaList = dict01Service.queryDict01ByFieldcode(Constants.DICT_MAKEAREA, Constants.SYSTEM_LANGUAGE_ENGLISH);
 			
 			//字典数据组织个MAP
 			Map<String, String> dictMap = new HashMap<String, String>();
@@ -497,6 +502,11 @@ public class PurchaseAction extends BaseAction {
 					dictMap.put(Constants.DICT_COLOR_TYPE + "_" + dict.getCode(), dict.getFieldname());
 				}
 			}
+			if(payTypeList != null && payTypeList.size() > 0) {
+				for(Dict01Dto dict : payTypeList) {
+					dictMap.put(Constants.DICT_PAY_TYPE + "_" + dict.getCode(), dict.getFieldname());
+				}
+			}
 
 			String name = StringUtil.createXmlFileName(Constants.EXCEL_TYPE_PURCHASEITEM);
 			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
@@ -507,6 +517,34 @@ public class PurchaseAction extends BaseAction {
 			if(updPurchaseDto != null) {
 				updPurchaseItemList = purchaseItemService.queryPurchaseItemByPurchaseno(updPurchaseDto.getPurchaseno());
 			}
+			
+			System.out.println("exporttype is: " + exporttype);
+			if(exporttype != null && exporttype.equals("sumitube")){
+				//导出xml
+				PurchaseSumitubeXml salesXml = new PurchaseSumitubeXml();
+				salesXml.setDictMap(dictMap);
+				salesXml.exportXml(response.getOutputStream(), updPurchaseDto, updPurchaseItemList);
+				log.info("exportXML success.");
+				return SUCCESS;
+			} else if(exporttype != null && exporttype.equals("sumicard")){
+				//导出xml
+				PurchaseSumicardXml salesXml = new PurchaseSumicardXml();
+				salesXml.setDictMap(dictMap);
+				salesXml.exportXml(response.getOutputStream(), updPurchaseDto, updPurchaseItemList);
+				log.info("exportXML success.");
+				return SUCCESS;
+			} else if(exporttype != null && exporttype.equals("html")){
+				String name_html = StringUtil.createHtmlFileName(Constants.EXCEL_TYPE_PURCHASEITEM);
+				response.setHeader("Content-Disposition","attachment;filename=" + name_html);//指定下载的文件名
+				response.setContentType("text/html; charset=GB2312");
+				response.setCharacterEncoding("GB2312");
+				PoiPurchaseOrder base = new PoiPurchaseOrder();
+				base.setDictMap(dictMap);
+				base.toHtml(response, updPurchaseDto, updPurchaseItemList);
+				log.info("exportHTML success.");
+				return SUCCESS;
+			}
+			
 			//导出xml
 			PurchaseXml purchaseXml = new PurchaseXml();
 			purchaseXml.setDictMap(dictMap);
@@ -832,5 +870,13 @@ public class PurchaseAction extends BaseAction {
 
 	public void setStrStatus(String strStatus) {
 		this.strStatus = strStatus;
+	}
+	
+	public String getExporttype() {
+		return exporttype;
+	}
+
+	public void setExporttype(String exporttype) {
+		this.exporttype = exporttype;
 	}
 }
