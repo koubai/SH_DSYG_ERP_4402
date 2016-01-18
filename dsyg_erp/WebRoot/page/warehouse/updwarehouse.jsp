@@ -60,7 +60,7 @@
 			$("#quantity").focus();
 			return;
 		}
-		if(!isReal(quantity)) {
+		if(!isAllReal(quantity)) {
 			alert("数量格式不正确！");
 			obj.focus();
 			return;

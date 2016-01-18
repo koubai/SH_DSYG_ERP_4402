@@ -888,7 +888,7 @@
 					(SELECT * FROM 
 					(SELECT W.productid as productidw,SUM(W.quantity) AS quantityw
 					FROM etb_warehouse W WHERE 1 = 1
-					and warehousetype = '3'
+					and warehousetype = '6'
 					group by W.productid) S2) S4
 					ON S1.productid = S4.productidw
 					
@@ -910,7 +910,7 @@
 					(SELECT * FROM 
 					(SELECT W.productid as productidw,SUM(W.quantity) AS quantityw
 					FROM etb_warehouse W WHERE 1 = 1
-					and warehousetype = '3'
+					and warehousetype = '6'
 					group by W.productid) S2) S4
 					ON S1.productid = S4.productidw
 				) S, etb_product T WHERE T.id = S.productid or T.id = S.productids
@@ -956,7 +956,7 @@
 					(SELECT * FROM 
 					(SELECT W.productid as productidw,SUM(W.quantity) AS quantityw
 					FROM etb_warehouse W WHERE 1 = 1
-					and warehousetype = '3'
+					and warehousetype = '6'
 					group by W.productid) S2) S4
 					ON S1.productid = S4.productidw
 					
@@ -978,7 +978,7 @@
 					(SELECT * FROM 
 					(SELECT W.productid as productidw,SUM(W.quantity) AS quantityw
 					FROM etb_warehouse W WHERE 1 = 1
-					and warehousetype = '3'
+					and warehousetype = '6'
 					group by W.productid) S2) S4
 					ON S1.productid = S4.productidw
 				) S, etb_product T WHERE T.id = S.productid or T.id = S.productids
