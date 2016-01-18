@@ -1216,7 +1216,7 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="导出" onclick="exportData();"/>
+										<input class="input80" type="button" value="标准版导出" onclick="exportData();"/>
 									</div>
 									<div class="box1_right"></div>
 								</div>
@@ -1225,7 +1225,7 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="导出英文版1" onclick="exportData('sumitube');"/>
+										<input class="input80" type="button" value="标准版2导出" onclick="exportData('sumitube');"/>
 									</div>
 									<div class="box1_right"></div>
 								</div>
@@ -1234,7 +1234,7 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="导出英文版2" onclick="exportData('sumicard');"/>
+										<input class="input80" type="button" value="FFC导出" onclick="exportData('sumicard');"/>
 									</div>
 									<div class="box1_right"></div>
 								</div>
@@ -1243,7 +1243,7 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="导出html" onclick="exportData('html');"/>
+										<input class="input80" type="button" value="中文版导出" onclick="exportData('html');"/>
 									</div>
 									<div class="box1_right"></div>
 								</div>
