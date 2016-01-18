@@ -135,17 +135,24 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 	public List<WarehouserptDto> queryAllWarehouserptToExport(String status,
 			String warehousetype, String warehouseno, String theme1,
 			String parentid, String supplierid, String productid) {
+		//TODO
 		List<WarehouserptDto> listWarehouserpt = warehouserptDao.queryAllWarehouserptToExport(status, warehousetype, warehouseno, theme1, parentid, supplierid, productid);
 		if(listWarehouserpt != null && listWarehouserpt.size() > 0) {
 			for(WarehouserptDto rpt : listWarehouserpt) {
 				//查询对应的库存记录列表
-				if(StringUtil.isNotBlank(rpt.getProductinfo())) {
+				if(StringUtil.isNotBlank(rpt.getProductinfo()) && StringUtil.isNotBlank(rpt.getParentid())
+						&& (rpt.getParentid().split(",").length == rpt.getProductinfo().split("#").length)) {
+					//若产品信息数据正常，则按正常数据查询
 					List<ProductDto> list = new ArrayList<ProductDto>();
 					String[] infos = rpt.getProductinfo().split("#");
-					for(String info : infos) {
-						if(StringUtil.isNotBlank(info)) {
+					String[] parents = rpt.getParentid().split(",");
+					ProductDto product = null;
+					WarehouseDto warehouse = null;
+					for(int i = 0; i < infos.length; i++) {
+						String info = infos[i];
+						if(StringUtil.isNotBlank(info) && !"null".equalsIgnoreCase(info)) {
 							String[] ll = info.split(",");
-							ProductDto product = productDao.queryProductByID(ll[0]);
+							product = productDao.queryProductByID(ll[0]);
 							if(product != null) {
 								//货物数量
 								product.setNum(ll[1]);
@@ -156,11 +163,21 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 									if (StringUtil.isNotBlank(ll[3]))
 										product.setRes09(ll[3]);									
 								}
-								//税后单价
-//								if (ll.length > 4){	
-//									if (StringUtil.isNotBlank(ll[4]))
-//										product.setRes09(ll[4]);
-//								}
+								product.setHasbroken("0");
+								product.setBrokennum("0");
+								list.add(product);
+							}
+						} else {
+							//尝试根据父单号查询
+							warehouse = warehouseDao.queryWarehouseByWarehouseno(parents[i]);
+							if(warehouse != null) {
+								product = productDao.queryProductByID(warehouse.getProductid());
+								//货物数量
+								product.setNum("" + warehouse.getQuantity());
+								//货物金额
+								product.setAmount("" + warehouse.getTaxamount());
+								//RES09 特殊订单号
+								product.setRes09(StringUtil.getStr(warehouse.getRes09()));
 								product.setHasbroken("0");
 								product.setBrokennum("0");
 								list.add(product);
@@ -168,6 +185,43 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 						}
 					}
 					rpt.setListProduct(list);
+				} else {
+					//查询对应的库存记录列表
+					//if(StringUtil.isNotBlank(rpt.getProductinfo())) {
+					//这里全部根据父单号来查询
+					if(StringUtil.isNotBlank(rpt.getParentid())) {
+						List<ProductDto> list = new ArrayList<ProductDto>();
+						//String[] infos = rpt.getProductinfo().split("#");
+						String[] parents = rpt.getParentid().split(",");
+						//for(String info : infos) {
+						WarehouseDto warehouse = null;
+						ProductDto product = null;
+						for(String pid : parents) {
+							if(StringUtil.isNotBlank(pid)) {
+								//String[] ll = info.split(",");
+								//查询库存记录
+								warehouse = warehouseDao.queryWarehouseByWarehouseno(pid);
+								if(warehouse != null) {
+									//查询产品数据
+									product = productDao.queryProductByID(warehouse.getProductid());
+									if(product != null) {
+										//货物数量
+										product.setNum("" + warehouse.getQuantity());
+										//货物金额
+										product.setAmount("" + warehouse.getTaxamount());
+										//RES09 特殊订单号
+										product.setRes09(StringUtil.getStr(warehouse.getRes09()));									
+										product.setHasbroken("0");
+										product.setBrokennum("0");
+										list.add(product);
+									}
+								} else {
+									//由于库存记录不存在（这里是因为双浏览器操作导致库存记录消失），这里就什么都不做。
+								}
+							}
+						}
+						rpt.setListProduct(list);
+					}
 				}
 			}
 		}
@@ -209,13 +263,14 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 	@Override
 	public WarehouserptDto queryWarehouserptByID(String id) {
 		WarehouserptDto rpt = warehouserptDao.queryWarehouserptByID(id);
+		//TODO
 		if(rpt != null) {
 			//查询对应的库存记录列表
 			if(StringUtil.isNotBlank(rpt.getProductinfo()) && StringUtil.isNotBlank(rpt.getParentid())) {
 				List<ProductDto> list = new ArrayList<ProductDto>();
 				String[] infos = rpt.getProductinfo().split("#");
 				String[] parents = rpt.getParentid().split(",");
-				if(infos.length == parents.length){
+				if(infos.length == parents.length) {
 					Map<String, ProductDto> map = new LinkedHashMap<String, ProductDto>();
 					for(int i=0; i<infos.length; i++) {
 						if(StringUtil.isNotBlank(infos[i])) {
@@ -309,6 +364,79 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 						list.add(entry.getValue());
 					}
 					rpt.setListProduct(list);
+				} else {
+					//直接根据父单号查询数据
+					Map<String, ProductDto> map = new LinkedHashMap<String, ProductDto>();
+					for(int i = 0; i < parents.length; i++) {
+						if(StringUtil.isNotBlank(parents[i])) {
+							String key = "";
+							
+							WarehouseDto ww = warehouseDao.queryWarehouseByWarehouseno(parents[i]);
+							//KEY=产品ID_销售单ID_含税单价，同一个销售单含税单价有可能不一样。
+							BigDecimal taxprice = new BigDecimal(0);
+							if(ww != null) {
+								if(StringUtil.isNotBlank(ww.getRes02())) {
+									taxprice = new BigDecimal(ww.getRes02()).setScale(6, BigDecimal.ROUND_HALF_UP);;
+								}
+								key = "" + ww.getProductid() + "_" + ww.getParentid() + "_" + taxprice;
+								
+								if(map.get(key) != null) {
+									//存在该订单的货物记录，需要合并
+									ProductDto pp = map.get(key);
+									//数量
+									BigDecimal nn = new BigDecimal(pp.getNum());
+									BigDecimal n = ww.getQuantity();
+									//金额
+									BigDecimal aa = new BigDecimal(pp.getAmount());
+									BigDecimal a = ww.getTaxamount();
+									
+									//RES09 特殊订单号
+									pp.setRes09(StringUtil.getStr(ww.getRes09()));
+									
+									pp.setNum("" + nn.add(n));
+									pp.setAmount("" + aa.add(a));
+									pp.setNumabs(StringUtil.BigDecimal2StrAbs(nn.add(n), 2));
+									map.put(key, pp);
+								} else {
+									//没有该货物记录，则直接添加到MAP中
+									ProductDto product = productDao.queryProductByID(ww.getProductid());
+									String parentid = "";
+									
+									if(rpt.getWarehousetype() == 1){
+										PurchaseDto purchase = purchaseDao.queryPurchaseByNo(ww.getParentid());
+										parentid = purchase == null ? "" : purchase.getTheme2();
+									} else {
+										SalesDto sales = salesDao.querySalesByNo(ww.getParentid());
+										parentid = sales == null ? "" : sales.getTheme2();
+									}
+									if(product != null) {
+										//货物数量
+										product.setNum("" + ww.getQuantity());
+										BigDecimal num = ww.getQuantity();
+										product.setNumabs(StringUtil.BigDecimal2StrAbs(num, 2));
+										//货物金额
+										product.setAmount("" + ww.getTaxamount());
+										//RES09 特殊订单号
+										product.setRes09(StringUtil.getStr(ww.getRes09()));
+										//含税单价
+										product.setUnitprice(StringUtil.getStr(ww.getRes02()));
+										product.setHasbroken("0");
+										product.setBrokennum("0");
+										product.setParentid(parentid);
+										map.put(key, product);
+									}
+								}
+							} else {
+								//由于库存记录不存在（这里是因为双浏览器操作导致库存记录消失），这里就什么都不做。
+							}
+						}
+					}
+					
+					//对入出库单有相同货物ID的进行合并
+					for(Map.Entry<String, ProductDto> entry : map.entrySet()) {
+						list.add(entry.getValue());
+					}
+					rpt.setListProduct(list);
 				}
 			}
 		}
@@ -319,11 +447,13 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 	public WarehouserptDto queryWarehouserptInterByID(String id) {
 		WarehouserptDto rpt = warehouserptDao.queryWarehouserptByID(id);
 		if(rpt != null) {
+			//TODO
 			//查询对应的库存记录列表
-			if(StringUtil.isNotBlank(rpt.getProductinfo())) {
+			if(StringUtil.isNotBlank(rpt.getProductinfo()) && StringUtil.isNotBlank(rpt.getParentid())
+					&& (rpt.getParentid().split(",").length == rpt.getProductinfo().split("#").length)) {
 				List<ProductDto> list = new ArrayList<ProductDto>();
 				String[] infos = rpt.getProductinfo().split("#");
-				for(int i=0; i<infos.length; i++) {
+				for(int i = 0; i < infos.length; i++) {
 					if(StringUtil.isNotBlank(infos[i])) {
 						String[] ll = infos[i].split(",");
 						ProductDto product = productDao.queryProductByID(ll[0]);
@@ -373,6 +503,54 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 								product.setBrokennum("0");
 								list.add(product);
 							}
+						}
+					}
+				}
+				rpt.setListProduct(list);
+			} else {
+				//根据父单号查询
+				List<ProductDto> list = new ArrayList<ProductDto>();
+				String[] parents = rpt.getParentid().split(",");
+				WarehouseDto ww = null;
+				for(int i = 0; i < parents.length; i++) {
+					if(StringUtil.isNotBlank(parents[i])) {
+						ww = warehouseDao.queryWarehouseByWarehouseno(parents[i]);
+						if(ww != null) {
+							ProductDto product = productDao.queryProductByID(ww.getProductid());
+							if(product != null) {
+								boolean isInlist = false;
+								int index = 0;
+								for (int j = 0; j < list.size(); j++) { 
+									if(list.get(j).getId() == Long.parseLong(ww.getProductid())){
+										isInlist = true;
+										index = j;
+									}
+								}
+								if(isInlist) {
+									//货物数量
+									BigDecimal num = new BigDecimal(list.get(index).getNum());
+									BigDecimal num_new = ww.getQuantity();
+									list.get(index).setNum(num.add(num_new).toString());
+									//list.get(index).setNum(String.valueOf(Integer.parseInt(list.get(index).getNum()) + Integer.parseInt(ll[1])));
+									//货物金额
+									list.get(index).setAmount(String.valueOf(Double.parseDouble(list.get(index).getAmount()) + Double.parseDouble("" + ww.getTaxamount())));
+									//RES09 特殊订单号
+									list.get(index).setRes09(StringUtil.getStr(ww.getRes09()));
+								} else {
+									//货物数量
+									product.setNum("" + ww.getQuantity());
+									//货物金额
+									product.setAmount("" + ww.getTaxamount());
+									//RES09 特殊订单号
+									product.setRes09(StringUtil.getStr(ww.getRes09()));
+									//税后单价
+									product.setHasbroken("0");
+									product.setBrokennum("0");
+									list.add(product);
+								}
+							}
+						} else {
+							//由于库存记录不存在（这里是因为双浏览器操作导致库存记录消失），这里就什么都不做。
 						}
 					}
 				}
