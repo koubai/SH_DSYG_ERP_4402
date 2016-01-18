@@ -52,6 +52,15 @@ public class PurchaseXml {
 	        if(StringUtil.isNotBlank(updPurchaseDto.getShowPurchasedate())){
 	        	date.setText(updPurchaseDto.getShowPurchasedate());
 	        }
+	
+	        String str_area = "";
+	        if(StringUtil.isNotBlank(updPurchaseItemList.get(0).getMakearea())){
+	        	str_area = dictMap.get(Constants.DICT_MAKEAREA + "_" + updPurchaseItemList.get(0).getMakearea());
+	        	if(str_area == null)
+	        		str_area = "";
+	        }
+	        Element area = (Element) doc.selectSingleNode("//my:AREA");
+	        area.setText(str_area);
 	        
 	        Node des01 = doc.selectSingleNode("//my:group1/my:group2/my:DESCRIPTION-01"); 
 	        if(StringUtil.isNotBlank(updPurchaseItemList.get(0).getItem11())){
