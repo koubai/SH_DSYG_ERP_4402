@@ -71,6 +71,7 @@ input,img,label{ vertical-align:middle;}
 .tab_content{ height:350px; border-bottom:1px solid #ddd; overflow:auto; margin-top:-1px;}
 .tab_content2{ height:800px; border-bottom:1px solid #ddd; overflow:auto; margin-top:-1px;background:#fff;}
 .tr_bg{ background:#F9F9F9;}
+.tr_bg2{ background:#F2DBDB;}
 .pages{ float:right; padding-top:10px;}
 .pages ul{ margin:0; padding:0;}
 .pages ul li{ float:left; height:24px; line-height:24px;}

@@ -736,9 +736,9 @@
 	
 	<select id="queryProductBookByProductid" parameterClass="java.util.Map" resultMap="WarehouseOkDto">
 		select * from (
-			select id as ids,quantity,A.warehousetype,IF(A.warehousetype = 1, A.suppliername, A.customername) AS suppliername,A.tradename,A.typeno,A.color,A.packaging,A.unit,A.makearea,A.supplierid,A.theme1,A.productid,A.warehousename,A.plandate from (
+			select id as ids,quantity,A.warehousetype,IF(A.warehousetype = 1, A.suppliername, A.customername) AS suppliername,A.tradename,A.typeno,A.color,A.packaging,A.unit,A.makearea,A.supplierid,A.theme1,A.productid,A.warehousename,A.wwd plandate from (
 				select * from (
-					select T.*,
+				select T.*, R.warehousedate wwd,
 						(select S.suppliername from etb_supplier S where S.id = T.supplierid) as suppliername,
 						(SELECT S.customername FROM etb_customer S WHERE S.id = T.supplierid) as customername,
 						(select P.tradename from etb_product P where P.id = T.productid) as tradename,
@@ -747,8 +747,9 @@
 						(select P.packaging from etb_product P where P.id = T.productid) as packaging,
 						(select P.unit from etb_product P where P.id = T.productid) as unit,
 						(select P.makearea from etb_product P where P.id = T.productid) as makearea
-					from etb_warehouse T where 1 = 1
-						<isNotEmpty prepend="and" property="productid">
+					from etb_warehouse T, etb_warehouserpt R where 1 = 1
+						and R.parentid like CONCAT("%",T.warehouseno,"%")
+					<isNotEmpty prepend="and" property="productid">
 							T.productid = #productid#
 						</isNotEmpty>
 						<isNotEmpty prepend="and" property="warehousetype">
@@ -780,7 +781,7 @@
 	
 	<select id="queryWarehouseOkByPage" parameterClass="java.util.Map" resultMap="WarehouseOkDto">
 		select * from (
-			select GROUP_CONCAT(id) as ids,sum(A.quantity) as quantity,A.warehousetype,IF(A.warehousetype = 1, A.suppliername, A.customername) AS suppliername,A.tradename,A.typeno,A.color,A.packaging,A.unit,A.makearea,A.supplierid,A.theme1,A.productid,A.warehousename,A.plandate from (
+			select GROUP_CONCAT(id) as ids,sum(A.quantity) as quantity,A.warehousetype,IF(A.warehousetype = 1, A.suppliername, A.customername) AS suppliername,A.tradename,A.typeno,A.color,A.packaging,A.item10,A.unit,A.makearea,A.supplierid,A.theme1,A.productid,A.warehousename,A.plandate from (
 				select * from (
 					select T.*,
 						(select S.suppliername from etb_supplier S where S.id = T.supplierid) as suppliername,
@@ -789,6 +790,7 @@
 						(select P.typeno from etb_product P where P.id = T.productid) as typeno,
 						(select P.color from etb_product P where P.id = T.productid) as color,
 						(select P.packaging from etb_product P where P.id = T.productid) as packaging,
+						(select P.item10 from etb_product P where P.id = T.productid) as item10,
 						(select P.unit from etb_product P where P.id = T.productid) as unit,
 						(select P.makearea from etb_product P where P.id = T.productid) as makearea
 					from etb_warehouse T where 1 = 1
@@ -814,7 +816,7 @@
 					<isNotEmpty prepend="and" property="color">
 						C.color = #color#
 					</isNotEmpty>
-			) A group by A.tradename,A.typeno,A.color,A.packaging,A.unit,A.supplierid,A.theme1,A.productid,A.warehousename,A.plandate,A.warehousetype
+			) A group by A.tradename,A.typeno,A.color,A.packaging,A.item10,A.unit,A.supplierid,A.theme1,A.productid,A.warehousename,A.plandate,A.warehousetype
 		) AA where 1 = 1 and AA.quantity != 0
 		order by AA.tradename asc
 		LIMIT #start#, #end#
@@ -822,7 +824,7 @@
 
 	<select id="queryWarehouseOkCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from (
-			select sum(A.quantity) as quantity,A.warehousetype,A.suppliername,A.tradename,A.typeno,A.color,A.packaging,A.unit,A.supplierid,A.theme1,A.productid,A.warehousename from (
+			select sum(A.quantity) as quantity,A.warehousetype,A.suppliername,A.tradename,A.typeno,A.color,A.packaging,A.item10,A.unit,A.supplierid,A.theme1,A.productid,A.warehousename from (
 				select * from (
 					select T.*,
 						(select S.suppliername from etb_supplier S where S.id = T.supplierid) as suppliername,
@@ -830,6 +832,7 @@
 						(select P.typeno from etb_product P where P.id = T.productid) as typeno,
 						(select P.color from etb_product P where P.id = T.productid) as color,
 						(select P.packaging from etb_product P where P.id = T.productid) as packaging,
+						(select P.item10 from etb_product P where P.id = T.productid) as item10,
 						(select P.unit from etb_product P where P.id = T.productid) as unit,
 						(select P.makearea from etb_product P where P.id = T.productid) as makearea
 					from etb_warehouse T where 1 = 1
@@ -855,7 +858,7 @@
 					<isNotEmpty prepend="and" property="color">
 						C.color = #color#
 					</isNotEmpty>
-			) A group by A.tradename,A.typeno,A.color,A.packaging,A.unit,A.supplierid,A.theme1,A.productid,A.warehousename,A.warehousetype
+			) A group by A.tradename,A.typeno,A.color,A.packaging,A.item10,A.unit,A.supplierid,A.theme1,A.productid,A.warehousename,A.warehousetype
 		) B where 1 = 1 and B.quantity != 0
 	</select>
 	

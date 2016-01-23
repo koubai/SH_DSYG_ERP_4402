@@ -147,6 +147,7 @@
 								<td width="60">颜色</td>
 								<td width="60">包装</td>
 								<td width="60">形式</td>
+								<td width="60">产地</td>
 								<td width="80">订单数量</td>
 								<td width="80">库存数量</td>
 								<td width="80">差数</td>
@@ -177,13 +178,20 @@
 											</s:if>
 										</s:iterator>
 									</td>
-									<td><s:property value="item01"/></td>
+									<td><s:property value="item10"/></td>
 									<td>
 										<s:if test='%{warehouseDetailList[#st1.index].packaging == "0"}'>整箱</s:if>
 										<s:elseif test='%{warehouseDetailList[#st1.index].packaging == "1"}'>乱尺</s:elseif>
 										<s:else>
 											<s:property value="packaging"/>
 										</s:else>
+									</td>
+									<td>
+										<s:iterator id="makeareaList" value="makeareaList" status="st3">
+											<s:if test="%{makeareaList[#st3.index].code == warehouseDetailList[#st1.index].makearea}">
+											<s:property value="fieldname"/>
+											</s:if>
+										</s:iterator>
 									</td>
 									<td align="right"><a href="#" onclick="showSales('<s:property value="id"/>');"><u><s:property value="quantitys"/></u></a></td>
 									<td align="right"><s:property value="quantity"/></td>

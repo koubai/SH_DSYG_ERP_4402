@@ -76,10 +76,15 @@ public class WarehouseOkDto extends BaseAction {
 	private String color;
 	
 	/**
-	 * 包装
+	 * 形式
 	 */
 	private String packaging;
 	
+	/**
+	 * 包装
+	 */
+	private String item10;
+
 	/**
 	 * 单位
 	 */
@@ -223,5 +228,14 @@ public class WarehouseOkDto extends BaseAction {
 	public void setMakearea(String makearea) {
 		this.makearea = makearea;
 	}
+
+	public String getItem10() {
+		return item10;
+	}
+
+	public void setItem10(String item10) {
+		this.item10 = item10;
+	}
+
 
 }

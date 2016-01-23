@@ -159,15 +159,16 @@
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
 								<td width="40">序号</td>
-								<td width="120">仓库</td>
+								<td width="20">仓库</td>
 								<td width="80">类型</td>
-								<td width="120">品名</td>
+								<td width="100">品名</td>
 								<td width="120">规格</td>
 								<td width="60">颜色</td>
-								<td width="60">包装</td>
+								<td width=40">形式</td>
+								<td width="100">包装</td>
 								<td width="60">产地</td>
 								<td width="120">供应商/客户</td>
-								<td width="80">库存数量</td>
+								<td width="80">出入库存量</td>
 							</tr>
 							<s:iterator id="warehouseOkList" value="warehouseOkList" status="st1">
 								<s:if test="#st1.odd==true">
@@ -202,6 +203,7 @@
 											<s:property value="packaging"/>
 										</s:else>
 									</td>
+									<td><s:property value="item10"/></td>
 									<td>
 										<s:iterator id="makeareaList" value="makeareaList" status="st3">
 											<s:if test="%{makeareaList[#st3.index].code == warehouseOkList[#st1.index].makearea}">
@@ -210,7 +212,7 @@
 										</s:iterator>
 									</td>
 									<td><s:property value="suppliername"/></td>
-									<td align="left"><a href="#" onclick="showDetail('<s:property value="productid"/>');"><u><s:property value="quantity"/></u></a></td>
+									<td align="right"><a href="#" onclick="showDetail('<s:property value="productid"/>');"><u><s:property value="quantity"/></u></a></td>
 								</tr>
 							</s:iterator>
 						</table>
@@ -263,30 +265,6 @@
 							</li>
 						</ul>
 					</div>
-				</div>
-				<div class="btns" style="margin-top:40px; margin-left:-90px;">
-					<table border="0" style="margin:0 auto;">
-						<tr>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="详细" onclick="showBidDetail();" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="履历" onclick="" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-						</tr>
-					</table>
 				</div>
 			</s:form>
 		</div>
