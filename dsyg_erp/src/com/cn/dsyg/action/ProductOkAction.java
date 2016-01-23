@@ -165,6 +165,7 @@ public class ProductOkAction extends BaseAction {
 //		page = warehouseService.queryWarehouseOkByPage("" + Constants.WAREHOUSE_TYPE_IN,
 //				strTheme, strTradename, strTypeno, strColor, strWarehousename, "", page);
 		warehouseOkList = (List<WarehouseOkDto>) page.getItems();
+//		System.out.println(warehouseOkList.get(0).getItem10());
 		this.setStartIndex(page.getStartIndex());
 	}
 	
