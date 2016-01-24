@@ -1,5 +1,7 @@
 package com.cn.dsyg.action;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
@@ -51,6 +53,34 @@ public class WarehouseAction extends BaseAction {
 	private List<Dict01Dto> unitList;
 	//产地
 	private List<Dict01Dto> makeareaList;
+	
+	//验证产品数量
+	//信息格式：productid,productnum#productid,productnum...
+	private String productInfo;
+	
+	/**
+	 * 验证产品数量
+	 * @return
+	 * @throws IOException 
+	 */
+	public String checkProductAmountAction() throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out;
+		String result = "";
+		String msg = "";
+		try {
+			msg = warehouseService.checkProductAmount(productInfo);
+		} catch (Exception e) {
+			log.error(e);
+			msg = "在验证产品数量过程中产生系统异常！请联系管理员。";
+		}
+		out = response.getWriter();
+		result = "{\"msg\":\"" + msg + "\"}";
+		log.info("checkProductAmount result=" + result);
+		out.write(result);
+		out.flush();
+		return null;
+	}
 	
 	/**
 	 * 显示库存产品页面
@@ -257,5 +287,13 @@ public class WarehouseAction extends BaseAction {
 
 	public void setStrFieldno(String strFieldno) {
 		this.strFieldno = strFieldno;
+	}
+
+	public String getProductInfo() {
+		return productInfo;
+	}
+
+	public void setProductInfo(String productInfo) {
+		this.productInfo = productInfo;
 	}
 }

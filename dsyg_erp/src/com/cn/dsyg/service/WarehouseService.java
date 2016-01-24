@@ -17,6 +17,13 @@ import com.cn.dsyg.dto.WarehouseOkDto;
 public interface WarehouseService {
 	
 	/**
+	 * 产品数量验证
+	 * @param productInfo
+	 * @return
+	 */
+	public String checkProductAmount(String productInfo);
+	
+	/**
 	 * 根据产品ID盘点库存数量
 	 * @param productid
 	 * @param num

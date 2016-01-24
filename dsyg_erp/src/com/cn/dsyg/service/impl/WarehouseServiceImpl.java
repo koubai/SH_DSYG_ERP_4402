@@ -68,6 +68,42 @@ public class WarehouseServiceImpl implements WarehouseService {
 	private UserDao userDao;
 	
 	@Override
+	public String checkProductAmount(String productInfo) {
+		String result = "";
+		if(StringUtil.isNotBlank(productInfo)) {
+			String[] list = productInfo.split("#");
+			ProductDto product = null;
+			int index = 1;
+			for(String info : list) {
+				if(StringUtil.isNotBlank(info)) {
+					String ss[] = info.split(",");
+					Double dd = warehouseDao.queryAmountByProductId(ss[0]);
+					BigDecimal warehouseAmount = new BigDecimal(0).setScale(2, BigDecimal.ROUND_HALF_UP);
+					BigDecimal salesAmount = new BigDecimal(ss[1]);
+					//数量为空，则默认为0
+					if(dd != null) {
+						warehouseAmount = new BigDecimal(dd).setScale(2, BigDecimal.ROUND_HALF_UP);
+					}
+					if(warehouseAmount.compareTo(salesAmount) < 0) {
+						product = productDao.queryProductByID(ss[0]);
+						//tradename typeno packaging item10 
+						//说明库存数量不够
+						result += "NO" + index + "【" + StringUtil.getStr(product.getTradename()) + " "
+								+ StringUtil.getStr(product.getTypeno()) + " "
+								+ StringUtil.getStr(product.getPackaging()) + " "
+								+ StringUtil.getStr(product.getItem10()) + "】库存不足" + ss[1] + "，现库存" + warehouseAmount + "，\\n";
+					}
+					index++;
+				}
+			}
+			if(StringUtil.isNotBlank(result)) {
+				result = result.substring(0, result.length() - 3) + "。";
+			}
+		}
+		return result;
+	}
+	
+	@Override
 	public boolean checkProductQuantity(String productid, String num, String productposition, String userid) {
 		//查询原始库存
 		ProductQuantityDto p = warehouseDao.queryProductQuantityById(productid);

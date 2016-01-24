@@ -165,6 +165,10 @@
 			<result name="*">/page/warehouse/productbook.jsp</result>
 		</action>
 		
+		<action name="checkProductAmountAction" class="warehouseAction" method="checkProductAmountAction">
+			<result type="json"></result>
+		</action>
+		
 	</package>
 
 </struts>

@@ -332,6 +332,10 @@
 		select SUM(T.quantity) as quantity,T.productid from etb_warehouse T where 1 = 1 and productid = #productid#
 	</select>
 	
+	<select id="queryAmountByProductId" resultClass="java.lang.Double" parameterClass="java.util.Map">
+		select sum(quantity) from etb_warehouse where productid = #productid# and warehousetype in (1,2,6)
+	</select>
+	
 	<!-- warehouserefund begin -->
 	<select id="queryWarehouseRefundByPage" parameterClass="java.util.Map" resultMap="WarehouseDto">
 		select * from (

@@ -1,5 +1,6 @@
 package com.cn.dsyg.dao.impl;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +8,6 @@ import java.util.Map;
 import com.cn.common.dao.BaseDao;
 import com.cn.dsyg.dao.WarehouseDao;
 import com.cn.dsyg.dto.ProductQuantityDto;
-import com.cn.dsyg.dto.PurchaseItemDto;
 import com.cn.dsyg.dto.WarehouseCheckDto;
 import com.cn.dsyg.dto.WarehouseDetailDto;
 import com.cn.dsyg.dto.WarehouseDto;
@@ -22,6 +22,13 @@ import com.cn.dsyg.dto.WarehouseProductDto;
  * @version 1.0
  */
 public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
+	
+	@Override
+	public Double queryAmountByProductId(String productid) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("productid", productid);
+		return (Double) getSqlMapClientTemplate().queryForObject("queryAmountByProductId", paramMap);
+	}
 	
 	@Override
 	public ProductQuantityDto queryProductQuantityById(String productid) {

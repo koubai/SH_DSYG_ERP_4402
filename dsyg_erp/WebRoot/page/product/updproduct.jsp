@@ -440,7 +440,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
-									<s:textfield name="updProductDto.typeno" id="typeno" maxlength="32" cssStyle="width:300px;" theme="simple"></s:textfield>
+									<s:textfield name="updProductDto.typeno" id="typeno" maxlength="64" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
 							</td>

@@ -1,9 +1,9 @@
 package com.cn.dsyg.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.cn.dsyg.dto.ProductQuantityDto;
-import com.cn.dsyg.dto.PurchaseItemDto;
 import com.cn.dsyg.dto.WarehouseCheckDto;
 import com.cn.dsyg.dto.WarehouseDetailDto;
 import com.cn.dsyg.dto.WarehouseDto;
@@ -18,6 +18,13 @@ import com.cn.dsyg.dto.WarehouseProductDto;
  * @version 1.0
  */
 public interface WarehouseDao {
+	
+	/**
+	 * 根据产品ID，查询库存数量（状态=1，2，6的）
+	 * @param productid
+	 * @return
+	 */
+	public Double queryAmountByProductId(String productid);
 	
 	/**
 	 * 根据产品ID查询库存数量
