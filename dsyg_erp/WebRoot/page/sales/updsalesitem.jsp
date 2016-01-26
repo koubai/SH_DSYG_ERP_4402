@@ -12,6 +12,8 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
 <title>订单详细</title>
 <script type="text/javascript">
+	var addflag = false;
+	
 	function upd() {
 		if($("#status").val() == "20") {
 			if(!$("#tmpRefund").attr("checked")) {
@@ -20,10 +22,35 @@
 			}
 		}
 		if(checkItem()) {
+			addflag = true;
+			/*
 			if(confirm("确定提交吗？")) {
-				document.mainform.action = "<%=request.getContextPath()%>/sales/updSalesitemAction.action";
-				document.mainform.submit();
-			}
+			}//*/
+			
+			//验证货物数量
+			$.ajax({
+				url:"<%=request.getContextPath()%>/warehouse/checkProductAmountAction.action?date" + new Date(),
+				async:false,
+				type:"POST",
+				dataType:"json",
+				data:{
+					"productInfo":$("#productAmountInfo").val()
+				},
+				success:function(data) {
+					if(data.msg != "") {
+						alert(data.msg);
+					} else {
+						if(confirm("确定提交吗？")) {
+							document.mainform.action = "<%=request.getContextPath()%>/sales/updSalesitemAction.action";
+							document.mainform.submit();		
+						}
+					}
+					addflag = false;
+				},
+				error:function(data) {
+					addflag = false;
+				}
+			});//*/
 		}
 	}
 	
@@ -497,6 +524,7 @@
 	function setSalesItemList() {
 		$("#salesItemTable").empty();
 		var rows = document.getElementById("productData").rows;
+		var productAmountInfo = "";
 		for(var i = 0; i < rows.length; i++) {
 			var childs = rows[i].cells[0].getElementsByTagName("input");
 			var id = childs[0].value;
@@ -530,6 +558,11 @@
 			//销售货物列表
 			var td = document.createElement("td");
 			
+			//预出库数
+			if(parseFloat(beforequantity) != 0) {
+				productAmountInfo += productid + "," + beforequantity + "#";
+			}
+			
 			//货物数据check
 			if(quantity == "") {
 				alert("销售数量不能为空！");
@@ -561,6 +594,7 @@
 			tr.appendChild(td);
 			document.getElementById("salesItemTable").appendChild(tr);
 		}
+		$("#productAmountInfo").val(productAmountInfo);
 		return true;
 	}
 	
@@ -743,6 +777,7 @@
 							<td>
 								<div class="box1_left"></div>
 								<div class="box1_center">
+									<input type="hidden" id="productAmountInfo"/>
 									<s:textfield name="updSalesDto.theme2" id="theme2" disabled="true" cssStyle="width:300px;" maxlength="32" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>

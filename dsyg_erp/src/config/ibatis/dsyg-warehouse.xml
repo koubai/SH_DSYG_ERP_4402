@@ -864,7 +864,7 @@
 					<isNotEmpty prepend="and" property="color">
 						C.color = #color#
 					</isNotEmpty>
-			) A group by A.tradename,A.typeno,A.color,A.packaging,A.item10,A.unit,A.supplierid,A.theme1,A.productid,A.warehousename,A.warehousetype
+			) A group by A.tradename,A.typeno,A.color,A.packaging,A.item10,A.unit,A.supplierid,A.theme1,A.productid,A.warehousename,A.plandate,A.warehousetype
 		) B where 1 = 1 and B.quantity != 0
 	</select>
 	
