@@ -753,8 +753,9 @@
 						(select P.item10 from etb_product P where P.id = T.productid) as item10,
 						(select P.unit from etb_product P where P.id = T.productid) as unit,
 						(select P.makearea from etb_product P where P.id = T.productid) as makearea
-					from etb_warehouse T, etb_warehouserpt R where 1 = 1
-						and R.parentid like CONCAT("%",T.warehouseno,"%")
+					from etb_warehouse T left join etb_warehouserpt R 
+						on R.parentid like CONCAT("%",T.warehouseno,"%")
+					where 1 = 1 
 					<isNotEmpty prepend="and" property="productid">
 							T.productid = #productid#
 						</isNotEmpty>
