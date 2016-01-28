@@ -16,13 +16,14 @@
 		if(checkItem()) {
 			addflag = true;
 			
+			/*/
 			if(confirm("确定提交吗？")) {
 				document.mainform.action = "../sales/addSalesAction.action";
 				document.mainform.submit();
-			}
+			}//*/
 			
 			//验证货物数量
-			/*
+			//*
 			$.ajax({
 				url:"../warehouse/checkProductAmountAction.action?date" + new Date(),
 				async:false,
@@ -638,7 +639,7 @@
 			//销售货物列表
 			var td = document.createElement("td");
 			
-			productAmountInfo += productid + "," + quantity + "#";
+			productAmountInfo += productid + "," + beforequantity + "#";
 			
 			//货物数据check
 			if(quantity == "") {

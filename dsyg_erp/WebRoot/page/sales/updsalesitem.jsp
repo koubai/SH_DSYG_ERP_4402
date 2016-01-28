@@ -559,9 +559,7 @@
 			var td = document.createElement("td");
 			
 			//预出库数
-			if(parseFloat(beforequantity) != 0) {
-				productAmountInfo += productid + "," + beforequantity + "#";
-			}
+			productAmountInfo += productid + "," + beforequantity + "#";
 			
 			//货物数据check
 			if(quantity == "") {

@@ -80,18 +80,21 @@ public class WarehouseServiceImpl implements WarehouseService {
 					Double dd = warehouseDao.queryAmountByProductId(ss[0]);
 					BigDecimal warehouseAmount = new BigDecimal(0).setScale(2, BigDecimal.ROUND_HALF_UP);
 					BigDecimal salesAmount = new BigDecimal(ss[1]);
-					//数量为空，则默认为0
-					if(dd != null) {
-						warehouseAmount = new BigDecimal(dd).setScale(2, BigDecimal.ROUND_HALF_UP);
-					}
-					if(warehouseAmount.compareTo(salesAmount) < 0) {
-						product = productDao.queryProductByID(ss[0]);
-						//tradename typeno packaging item10 
-						//说明库存数量不够
-						result += "NO" + index + "【" + StringUtil.getStr(product.getTradename()) + " "
-								+ StringUtil.getStr(product.getTypeno()) + " "
-								+ StringUtil.getStr(product.getPackaging()) + " "
-								+ StringUtil.getStr(product.getItem10()) + "】库存不足" + ss[1] + "，现库存" + warehouseAmount + "，\\n";
+					//只CHECK预出库数量!=0的
+					if(salesAmount.compareTo(new BigDecimal(0)) != 0) {
+						//数量为空，则默认为0
+						if(dd != null) {
+							warehouseAmount = new BigDecimal(dd).setScale(2, BigDecimal.ROUND_HALF_UP);
+						}
+						if(warehouseAmount.compareTo(salesAmount) < 0) {
+							product = productDao.queryProductByID(ss[0]);
+							//tradename typeno packaging item10 
+							//说明库存数量不够
+							result += "NO" + index + "【" + StringUtil.getStr(product.getTradename()) + " "
+									+ StringUtil.getStr(product.getTypeno()) + " "
+									+ StringUtil.getStr(product.getPackaging()) + " "
+									+ StringUtil.getStr(product.getItem10()) + "】库存不足" + ss[1] + "，现库存" + warehouseAmount + "，\\n";
+						}
 					}
 					index++;
 				}
