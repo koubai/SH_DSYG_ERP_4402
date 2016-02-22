@@ -10,11 +10,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
-import com.cn.common.factory.Poi2007Base;
-import com.cn.common.factory.PoiFactory;
 import com.cn.common.factory.PoiSalesPrice;
 import com.cn.common.factory.PoiSalesPriceOrder;
-import com.cn.common.factory.PurchaseXml;
 import com.cn.common.factory.SalesSumicardXml;
 import com.cn.common.factory.SalesSumitubeXml;
 import com.cn.common.util.Constants;
@@ -100,6 +97,24 @@ public class SalesAction extends BaseAction {
 	private String strProdoctid;
 	private String strCustomerid;
 	private List<SalesItemDto> salesItemList;
+	
+	/**
+	 * 终了销售单
+	 * @return
+	 */
+	public String finishSalesAction() {
+		try {
+			this.clearMessages();
+			//当前操作用户ID
+			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			salesService.finishSales(updSalesId, username);
+			this.addActionMessage("修改成功！");
+		} catch(Exception e) {
+			log.error("finishSalesAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 	
 	/**
 	 * 删除销售单

@@ -531,6 +531,17 @@ public class PurchaseServiceImpl implements PurchaseService {
 		
 		warehouseDao.insertWarehouse(warehouse);
 	}
+	
+	@Override
+	public void finishPurchase(String id, String userid) {
+		PurchaseDto purchase = purchaseDao.queryPurchaseByID(id);
+		if(purchase != null) {
+			//状态=终了（已收货）
+			purchase.setStatus(Constants.PURCHASE_STATUS_WAREHOUSE_OK);
+			purchase.setUpdateuid(userid);
+			purchaseDao.updatePurchase(purchase);
+		}
+	}
 
 	public PurchaseDao getPurchaseDao() {
 		return purchaseDao;

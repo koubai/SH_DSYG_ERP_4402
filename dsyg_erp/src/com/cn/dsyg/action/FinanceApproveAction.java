@@ -397,7 +397,7 @@ public class FinanceApproveAction extends BaseAction {
 		}
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		page = warehouserptService.queryWarehouserptByPage("", type, "", "", "", "", "", strWarehousedateLow, strWarehousedateHigh, strSuppliername,"", page);
+		page = warehouserptService.queryWarehouserptByPage("", "", type, "", "", "", "", "", strWarehousedateLow, strWarehousedateHigh, strSuppliername,"", page);
 		warehouserptList = (List<WarehouserptDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}

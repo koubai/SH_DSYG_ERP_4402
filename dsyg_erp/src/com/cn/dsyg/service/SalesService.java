@@ -105,4 +105,11 @@ public interface SalesService {
 	 * @param status
 	 */
 	public void updateFinanceSales(String id, String userid, String status);
+	
+	/**
+	 * 终了销售单
+	 * @param id
+	 * @param userid
+	 */
+	public void finishSales(String id, String userid);
 }

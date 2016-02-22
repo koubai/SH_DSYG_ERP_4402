@@ -324,6 +324,12 @@
 		<result property="quantity" column="quantity" />
 	</resultMap>
 	
+	<select id="queryWarehouseByTheme2" parameterClass="java.util.Map" resultMap="WarehouseDto">
+		select T.* from etb_warehouse T where 1 = 1 and T.warehousetype = #warehousetype#
+			and T.theme2 LIKE '%$theme2$%' ESCAPE '/'
+			ORDER BY T.id
+	</select>
+	
 	<select id="queryWarehouseByIds" parameterClass="java.util.Map" resultMap="WarehouseProductDto">
 		select T.* from etb_warehouse T where 1 = 1 and id in ($ids$)
 	</select>

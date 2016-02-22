@@ -56,6 +56,23 @@
 		<result property="updatedate" column="updatedate" />
 	</resultMap>
 	
+	<select id="queryWarehouserptByWarehouse" parameterClass="java.util.Map" resultMap="WarehouserptDto">
+		select T.* from etb_warehouserpt T where 1 = 1
+		<isNotEmpty prepend="and" property="warehousetype">
+			T.warehousetype = #warehousetype#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="warehouseno">
+			T.warehouseno = #warehouseno#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="parentid">
+			T.parentid like '%$parentid$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="suppliername">
+			T.suppliername like '%$suppliername$%' ESCAPE '/'
+		</isNotEmpty>
+		order by T.warehouseno desc
+	</select>
+	
 	<select id="queryAllWarehouserptToExport" parameterClass="java.util.Map" resultMap="WarehouserptDto">
 		select T.* from etb_warehouserpt T where 1 = 1
 		<isNotEmpty prepend="and" property="status">
@@ -106,7 +123,7 @@
 			T.warehousedate <![CDATA[<]]> #endDate#
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="suppliername">
-			T.suppliername like '%$suppliername$%'
+			T.suppliername like '%$suppliername$%' ESCAPE '/'
 		</isNotEmpty>
 		order by T.warehouseno desc
 		LIMIT #start#, #end#
@@ -139,7 +156,7 @@
 			T.warehousedate <![CDATA[<]]> #endDate#
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="suppliername">
-			T.suppliername like '%$suppliername$%'
+			T.suppliername like '%$suppliername$%' ESCAPE '/'
 		</isNotEmpty>
 	</select>
 	

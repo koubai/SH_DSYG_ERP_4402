@@ -94,6 +94,24 @@ public class PurchaseAction extends BaseAction {
 	private List<PurchaseItemDto> purchaseItemList;
 	
 	/**
+	 * 终了采购单
+	 * @return
+	 */
+	public String finishPurchaseAction() {
+		try {
+			this.clearMessages();
+			//当前操作用户ID
+			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			purchaseService.finishPurchase(updPurchaseId, username);
+			this.addActionMessage("修改成功！");
+		} catch(Exception e) {
+			log.error("finishPurchaseAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
 	 * 删除采购单
 	 * @return
 	 */

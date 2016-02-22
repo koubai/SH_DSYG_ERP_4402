@@ -799,6 +799,17 @@
 		url += "?date=" + new Date();
 		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 	}
+	
+	function changeThis(obj) {
+		if(obj.checked) {
+			if(confirm("确定终了订单？")) {
+				document.mainform.action = "../sales/finishSalesAction.action";
+				document.mainform.submit();
+			} else {
+				obj.checked = false;
+			}
+		}
+	}
 </script>
 </head>
 <body>
@@ -1112,13 +1123,19 @@
 							<td align="right">
 								<label class="pdf10">退换货标识</label>
 							</td>
-							<td colspan="3">
+							<td>
 								<s:if test='updSalesDto.refundflag == "1"'>
 									<input id="tmpRefund" type="checkbox" onclick="changeBackcolor(this);" checked="checked" value="1"/>
 								</s:if>
 								<s:else>
 									<input id="tmpRefund" type="checkbox" onclick="changeBackcolor(this);" value="1"/>
 								</s:else>
+							</td>
+							<td align="right">
+								<label class="pdf10">订单终了</label>
+							</td>
+							<td>
+								<input id="finishOrder" type="checkbox" onclick="changeThis(this);"/>
 							</td>
 						</tr>
 						<tr>

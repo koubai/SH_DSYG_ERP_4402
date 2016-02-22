@@ -29,6 +29,7 @@ public interface WarehouserptService {
 	
 	/**
 	 * 翻页查询
+	 * @param no 采购单OR订单
 	 * @param status
 	 * @param warehousetype
 	 * @param warehouseno
@@ -41,7 +42,7 @@ public interface WarehouserptService {
 	 * @param page
 	 * @return
 	 */
-	public Page queryWarehouserptByPage(String status, String warehousetype,
+	public Page queryWarehouserptByPage(String no, String status, String warehousetype,
 			String warehouseno, String theme1, String parentid, String supplierid,
 			String productid, String beginDate, String endDate, String strSuppliername,String strWarehouseno, Page page);
 	

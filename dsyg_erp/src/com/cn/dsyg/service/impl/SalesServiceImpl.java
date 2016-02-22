@@ -495,6 +495,17 @@ public class SalesServiceImpl implements SalesService {
 	public void insertSales(SalesDto sales) {
 		salesDao.insertSales(sales);
 	}
+	
+	@Override
+	public void finishSales(String id, String userid) {
+		SalesDto sales = salesDao.querySalesByID(id);
+		if(sales != null) {
+			//状态=终了（已收货）
+			sales.setStatus(Constants.SALES_STATUS_WAREHOUSE_OK);
+			sales.setUpdateuid(userid);
+			salesDao.updateSales(sales);
+		}
+	}
 
 	public SalesDao getSalesDao() {
 		return salesDao;

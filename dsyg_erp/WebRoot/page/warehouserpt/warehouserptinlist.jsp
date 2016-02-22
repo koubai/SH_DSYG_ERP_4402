@@ -136,7 +136,7 @@
 					<div class="box1">
 						<label class="pdf10">入库单号</label>
 						<div class="box1_left"></div>
-						<div class="box1_center date_input">
+						<div class="box1_center">
 							<s:textfield name="strWarehouseno" cssStyle="width:200px;" id="strWarehouseno" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
@@ -144,8 +144,16 @@
 					<div class="box1">
 						<label class="pdf10">供应商名</label>
 						<div class="box1_left"></div>
-						<div class="box1_center date_input">
+						<div class="box1_center">
 							<s:textfield name="strSuppliername" cssStyle="width:200px;" id="strSuppliername" theme="simple"></s:textfield>
+						</div>
+						<div class="box1_right"></div>
+					</div>
+					<div class="box1">
+						<label class="pdf10">采购单号</label>
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<s:textfield name="strNo" cssStyle="width:200px;" id="strNo" theme="simple"></s:textfield>
 						</div>
 						<div class="box1_right"></div>
 					</div>

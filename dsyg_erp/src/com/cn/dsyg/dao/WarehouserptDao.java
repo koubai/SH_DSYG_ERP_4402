@@ -13,6 +13,17 @@ import com.cn.dsyg.dto.WarehouserptDto;
 public interface WarehouserptDao {
 	
 	/**
+	 * 根据库存单号模糊查询RPT
+	 * @param warehousetype
+	 * @param warehouseno
+	 * @param parentid
+	 * @param suppliername
+	 * @return
+	 */
+	public List<WarehouserptDto> queryWarehouserptByWarehouse(String warehousetype,
+			String warehouseno, String parentid, String suppliername);
+	
+	/**
 	 * 导出入出库单数据
 	 * @param status
 	 * @param warehousetype

@@ -729,6 +729,17 @@
 		url += "?date=" + new Date();
 		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 	}
+	
+	function changeThis(obj) {
+		if(obj.checked) {
+			if(confirm("确定终了采购单？")) {
+				document.mainform.action = "../purchase/finishPurchaseAction.action";
+				document.mainform.submit();
+			} else {
+				obj.checked = false;
+			}
+		}
+	}
 </script>
 </head>
 <body>
@@ -1025,6 +1036,14 @@
 									<s:textfield name="updPurchaseDto.res04" id="res04" maxlength="10" cssStyle="width:300px;" theme="simple"></s:textfield>
 								</div>
 								<div class="box1_right"></div>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10">采购单终了</label>
+							</td>
+							<td colspan="3">
+								<input id="finishOrder" type="checkbox" onclick="changeThis(this);"/>
 							</td>
 						</tr>
 						<tr>

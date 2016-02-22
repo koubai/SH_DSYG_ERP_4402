@@ -1,6 +1,5 @@
 package com.cn.dsyg.dao;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import com.cn.dsyg.dto.ProductQuantityDto;
@@ -32,6 +31,14 @@ public interface WarehouseDao {
 	 * @return
 	 */
 	public ProductQuantityDto queryProductQuantityById(String productid);
+	
+	/**
+	 * 根据采购单OR销售单模糊查询库存记录
+	 * @param warehousetype
+	 * @param theme2
+	 * @return
+	 */
+	public List<WarehouseDto> queryWarehouseByTheme2(String warehousetype, String theme2);
 	
 	/**
 	 * 翻页查询退换货记录

@@ -105,4 +105,11 @@ public interface PurchaseService {
 	 * @param Purchase
 	 */
 	public void updatePurchase(PurchaseDto purchase);
+	
+	/**
+	 * 终了采购单
+	 * @param id
+	 * @param userid
+	 */
+	public void finishPurchase(String id, String userid);
 }
