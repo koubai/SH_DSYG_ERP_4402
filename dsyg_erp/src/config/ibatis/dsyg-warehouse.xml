@@ -413,7 +413,7 @@
 			<isNotEmpty prepend="and" property="color">
 				A.color = #color#
 			</isNotEmpty>
-			ORDER BY A.updatedate,A.id desc
+			order by A.belongto,A.fieldno,A.tradename,A.typeno,A.color,A.item10,A.packaging,A.id asc
 	</select>
 	
 	<select id="queryWarehouseCheckByPage" parameterClass="java.util.Map" resultMap="WarehouseCheckDto">
