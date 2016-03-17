@@ -396,6 +396,12 @@ public class SalesServiceImpl implements SalesService {
 		//产地
 		warehouse.setRes03("" + salesItem.getMakearea());
 		
+		//计算成本价
+		WarehouseDto cbj = warehouseDao.queryCbjWarehouseByProductid(salesItem.getProductid());
+		if(cbj != null) {
+			warehouse.setRes04(cbj.getRes04());
+		}
+		
 		//出库金额=出库数量*单价
 		BigDecimal amount = salesItem.getUnitprice().multiply(salesItem.getBeforequantity());
 		//出库金额含税=出库金额*税率

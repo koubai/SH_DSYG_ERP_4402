@@ -183,7 +183,7 @@ public class WarehouseDto extends BaseAction {
 	private String res03;
 
 	/**
-	 * 预备项目4
+	 * 成本价 update by frank 20160317
 	 */
 	private String res04;
 

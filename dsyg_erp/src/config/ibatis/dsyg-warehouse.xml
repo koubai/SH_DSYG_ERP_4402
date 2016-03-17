@@ -324,6 +324,16 @@
 		<result property="quantity" column="quantity" />
 	</resultMap>
 	
+	<resultMap id="WarehouseCbjDto" class="com.cn.dsyg.dto.WarehouseDto">
+		<result property="productid" column="productid" />
+		<result property="res04" column="res04" />
+	</resultMap>
+	
+	<select id="queryCbjWarehouseByProductid" parameterClass="java.util.Map" resultMap="WarehouseCbjDto">
+		SELECT W.productid,ROUND(SUM(W.unitprice * W.quantity) / SUM(W.quantity),6) AS res04 FROM etb_warehouse W WHERE 
+			W.warehousetype = 1 AND W.productid = #productid# AND W.res05 IS NULL GROUP BY W.productid ORDER BY W.productid
+	</select>
+	
 	<select id="queryWarehouseByTheme2" parameterClass="java.util.Map" resultMap="WarehouseDto">
 		select T.* from etb_warehouse T where 1 = 1 and T.warehousetype = #warehousetype#
 			and T.theme2 LIKE '%$theme2$%' ESCAPE '/'

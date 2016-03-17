@@ -23,6 +23,18 @@ import com.cn.dsyg.dto.WarehouseProductDto;
 public class WarehouseDaoImpl extends BaseDao implements WarehouseDao {
 	
 	@Override
+	public WarehouseDto queryCbjWarehouseByProductid(String productid) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("productid", productid);
+		@SuppressWarnings("unchecked")
+		List<WarehouseDto> list = getSqlMapClientTemplate().queryForList("queryCbjWarehouseByProductid", paramMap);
+		if(list != null && list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+	}
+	
+	@Override
 	public List<WarehouseDto> queryWarehouseByTheme2(String warehousetype,
 			String theme2) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();

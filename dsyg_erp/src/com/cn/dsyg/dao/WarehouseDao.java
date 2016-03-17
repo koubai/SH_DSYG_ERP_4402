@@ -19,6 +19,13 @@ import com.cn.dsyg.dto.WarehouseProductDto;
 public interface WarehouseDao {
 	
 	/**
+	 * 成本价计算
+	 * @param productid
+	 * @return
+	 */
+	public WarehouseDto queryCbjWarehouseByProductid(String productid);
+	
+	/**
 	 * 根据产品ID，查询库存数量（状态=1，2，6的）
 	 * @param productid
 	 * @return
