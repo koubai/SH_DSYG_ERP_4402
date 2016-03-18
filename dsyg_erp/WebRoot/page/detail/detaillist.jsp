@@ -183,7 +183,7 @@
 				</div>
 				<div class="searchbox update">
 					<div class="box1">
-							<s:textfield name="productdetail" id="productdetail"  theme="simple" style="background:#F3F3F3;border:none;width:400px"></s:textfield>
+							<s:textfield name="productdetail" id="productdetail"  theme="simple" style="background:#F3F3F3;border:none;width:600px"></s:textfield>
 					</div>
 					<div class="btn" style="margin-left: 60px;">
 						<div class="box1_left"></div>
