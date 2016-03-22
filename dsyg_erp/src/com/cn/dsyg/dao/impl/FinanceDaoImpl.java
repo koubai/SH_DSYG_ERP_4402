@@ -15,6 +15,15 @@ import com.cn.dsyg.dto.FinanceDto;
  * @version 1.0
  */
 public class FinanceDaoImpl extends BaseDao implements FinanceDao {
+	
+	@Override
+	public List<FinanceDto> queryFinanceByStatus(String status) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("status", status);
+		@SuppressWarnings("unchecked")
+		List<FinanceDto> list = getSqlMapClientTemplate().queryForList("queryFinanceByStatus", paramMap);
+		return list;
+	}
 
 	@Override
 	public List<FinanceDto> queryFinanceByPage(String expressno, String status,

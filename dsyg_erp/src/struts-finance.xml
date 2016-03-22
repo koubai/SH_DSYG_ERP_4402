@@ -177,6 +177,14 @@
 			<result name="checkerror">/page/pregathering/gatheringlist.jsp</result>
 		</action>
 		
+		<action name="showKaiPiaoAction" class="financeAction" method="showKaiPiaoAction">
+			<result name="success">/page/finance/kaipiaolist.jsp</result>
+		</action>
+		
+		<action name="kaiPiaoAction" class="financeAction" method="kaiPiaoAction">
+			<result name="success">/page/finance/kaipiaolist.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

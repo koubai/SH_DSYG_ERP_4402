@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.cn.common.util.Constants;
+import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
@@ -31,6 +32,30 @@ public class FinanceServiceImpl implements FinanceService {
 	private WarehouserptDao warehouserptDao;
 	private WarehouseDao warehouseDao;
 	private UserDao userDao;
+	
+	@Override
+	public void kaiPiao(String ids, String billno, String userid) {
+		if(StringUtil.isNotBlank(ids)) {
+			String list[] = ids.split(",");
+			FinanceDto finance = null;
+			Date date = new Date();
+			for(String id : list) {
+				if(StringUtil.isNotBlank(id)) {
+					finance = financeDao.queryFinanceByID(id);
+					finance.setRes10(billno);
+					finance.setUpdateuid(userid);
+					//开票日期+金额
+					finance.setRes09(DateUtil.dateToShortStr(date) + "&&" + finance.getAmount());
+					financeDao.updateFinance(finance);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public List<FinanceDto> queryFinanceByStatus(String status) {
+		return financeDao.queryFinanceByStatus(status);
+	}
 
 	@Override
 	public Page queryFinanceByPage(String expressno, String status, String financetype,

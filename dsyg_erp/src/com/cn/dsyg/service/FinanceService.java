@@ -1,5 +1,7 @@
 package com.cn.dsyg.service;
 
+import java.util.List;
+
 import com.cn.common.util.Page;
 import com.cn.dsyg.dto.FinanceDto;
 
@@ -10,6 +12,21 @@ import com.cn.dsyg.dto.FinanceDto;
  * @version 1.0
  */
 public interface FinanceService {
+	
+	/**
+	 * 开票
+	 * @param ids
+	 * @param billno
+	 * @param userid
+	 */
+	public void kaiPiao(String ids, String billno, String userid);
+	
+	/**
+	 * 根据状态查询财务记录
+	 * @param status
+	 * @return
+	 */
+	public List<FinanceDto> queryFinanceByStatus(String status);
 
 	/**
 	 * 翻页查询财务信息

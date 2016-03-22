@@ -11,6 +11,13 @@ import com.cn.dsyg.dto.FinanceDto;
  * @version 1.0
  */
 public interface FinanceDao {
+	
+	/**
+	 * 根据状态查询财务记录
+	 * @param status
+	 * @return
+	 */
+	public List<FinanceDto> queryFinanceByStatus(String status);
 
 	/**
 	 * 翻页查询财务信息

@@ -280,6 +280,14 @@
 			return;
 		}	
 	}
+	
+	//开票
+	function kaipiao() {
+		//弹出开票页面
+		var url = "../finance/showKaiPiaoAction.action";
+		url += "?date=" + new Date();
+		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:1200px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	}
 </script>
 </head>
 <body>
@@ -342,6 +350,13 @@
 						<div class="box1_left"></div>
 						<div class="box1_center">
 							<input type="button" class="input40" value="检索" onclick="queryList();"/>
+						</div>
+						<div class="box1_right"></div>
+					</div>
+					<div class="btn" style="margin-left: 10px;">
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<input type="button" class="input40" value="开票" onclick="kaipiao();"/>
 						</div>
 						<div class="box1_right"></div>
 					</div>

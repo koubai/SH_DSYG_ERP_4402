@@ -77,6 +77,60 @@ public class FinanceAction extends BaseAction {
 	private String strBillamount2;
 	private String strBillamount3;
 	
+	//开票
+	private List<FinanceDto> kaipiaoList;
+	private String strFaPiaoNo;
+	private String strFaPiaoAmount;
+	private String strIds;
+	
+	/**
+	 * 开票
+	 * @return
+	 */
+	public String kaiPiaoAction() {
+		try {
+			this.clearMessages();
+			
+			//当前操作用户ID
+			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			//开票
+			log.info("strIds=" + strIds);
+			financeService.kaiPiao(strIds, strFaPiaoNo, username);
+			
+			//重新查询财务记录
+			kaipiaoList = financeService.queryFinanceByStatus("" + Constants.FINANCE_STATUS_NEW
+					+ "," + Constants.FINANCE_STATUS_PAY_APPLY + "," + Constants.FINANCE_STATUS_PAY_PAYED);
+			
+			strFaPiaoNo = "";
+			strFaPiaoAmount = "";
+			strIds = "";
+		} catch(Exception e) {
+			log.error("showKaiPiaoAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 显示开票页面
+	 * @return
+	 */
+	public String showKaiPiaoAction() {
+		try {
+			this.clearMessages();
+			strFaPiaoNo = "";
+			strFaPiaoAmount = "";
+			strIds = "";
+			//查询未开票的财务记录
+			kaipiaoList = financeService.queryFinanceByStatus("" + Constants.FINANCE_STATUS_NEW
+					+ "," + Constants.FINANCE_STATUS_PAY_APPLY + "," + Constants.FINANCE_STATUS_PAY_PAYED);
+		} catch(Exception e) {
+			log.error("showKaiPiaoAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
 	/**
 	 * 更新财务记录状态（需输入发票号）
 	 * @return
@@ -726,5 +780,37 @@ public class FinanceAction extends BaseAction {
 
 	public void setStrInvoiceid(String strInvoiceid) {
 		this.strInvoiceid = strInvoiceid;
+	}
+
+	public List<FinanceDto> getKaipiaoList() {
+		return kaipiaoList;
+	}
+
+	public void setKaipiaoList(List<FinanceDto> kaipiaoList) {
+		this.kaipiaoList = kaipiaoList;
+	}
+
+	public String getStrFaPiaoNo() {
+		return strFaPiaoNo;
+	}
+
+	public void setStrFaPiaoNo(String strFaPiaoNo) {
+		this.strFaPiaoNo = strFaPiaoNo;
+	}
+
+	public String getStrFaPiaoAmount() {
+		return strFaPiaoAmount;
+	}
+
+	public void setStrFaPiaoAmount(String strFaPiaoAmount) {
+		this.strFaPiaoAmount = strFaPiaoAmount;
+	}
+
+	public String getStrIds() {
+		return strIds;
+	}
+
+	public void setStrIds(String strIds) {
+		this.strIds = strIds;
 	}
 }
