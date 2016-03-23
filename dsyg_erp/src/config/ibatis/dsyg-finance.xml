@@ -43,7 +43,11 @@
 	</resultMap>
 	
 	<select id="queryFinanceByStatus" parameterClass="java.util.Map" resultMap="FinanceDto">
-		select T.* from etb_finance T where 1 = 1 and mode = '1' and T.status in ($status$) order by T.updatedate desc,T.id desc
+		select T.* from etb_finance T where 1 = 1 and T.status in ($status$)
+		<isNotEmpty prepend="and" property="res10sql">
+			$res10sql$
+		</isNotEmpty>
+		order by T.updatedate desc,T.id desc
 	</select>
 	
 	<select id="queryFinanceByPage" parameterClass="java.util.Map" resultMap="FinanceDto">

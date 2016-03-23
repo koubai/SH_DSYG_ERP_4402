@@ -79,6 +79,7 @@ public class FinanceAction extends BaseAction {
 	
 	//开票
 	private List<FinanceDto> kaipiaoList;
+	private String strRes10;
 	private String strFaPiaoNo;
 	private String strFaPiaoAmount;
 	private String strIds;
@@ -99,11 +100,32 @@ public class FinanceAction extends BaseAction {
 			
 			//重新查询财务记录
 			kaipiaoList = financeService.queryFinanceByStatus("" + Constants.FINANCE_STATUS_NEW
-					+ "," + Constants.FINANCE_STATUS_PAY_APPLY + "," + Constants.FINANCE_STATUS_PAY_PAYED);
+					+ "," + Constants.FINANCE_STATUS_PAY_APPLY + "," + Constants.FINANCE_STATUS_PAY_PAYED, strRes10);
 			
 			strFaPiaoNo = "";
 			strFaPiaoAmount = "";
 			strIds = "";
+		} catch(Exception e) {
+			log.error("showKaiPiaoAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 开票页面查询
+	 * @return
+	 */
+	public String queryKaiPiaoAction() {
+		try {
+			this.clearMessages();
+			strFaPiaoNo = "";
+			strFaPiaoAmount = "";
+			strIds = "";
+			
+			//重新查询财务记录
+			kaipiaoList = financeService.queryFinanceByStatus("" + Constants.FINANCE_STATUS_NEW
+					+ "," + Constants.FINANCE_STATUS_PAY_APPLY + "," + Constants.FINANCE_STATUS_PAY_PAYED, strRes10);
 		} catch(Exception e) {
 			log.error("showKaiPiaoAction error:" + e);
 			return ERROR;
@@ -119,11 +141,12 @@ public class FinanceAction extends BaseAction {
 		try {
 			this.clearMessages();
 			strFaPiaoNo = "";
+			strRes10 = "1";
 			strFaPiaoAmount = "";
 			strIds = "";
 			//查询未开票的财务记录
 			kaipiaoList = financeService.queryFinanceByStatus("" + Constants.FINANCE_STATUS_NEW
-					+ "," + Constants.FINANCE_STATUS_PAY_APPLY + "," + Constants.FINANCE_STATUS_PAY_PAYED);
+					+ "," + Constants.FINANCE_STATUS_PAY_APPLY + "," + Constants.FINANCE_STATUS_PAY_PAYED, strRes10);
 		} catch(Exception e) {
 			log.error("showKaiPiaoAction error:" + e);
 			return ERROR;
@@ -812,5 +835,13 @@ public class FinanceAction extends BaseAction {
 
 	public void setStrIds(String strIds) {
 		this.strIds = strIds;
+	}
+
+	public String getStrRes10() {
+		return strRes10;
+	}
+
+	public void setStrRes10(String strRes10) {
+		this.strRes10 = strRes10;
 	}
 }

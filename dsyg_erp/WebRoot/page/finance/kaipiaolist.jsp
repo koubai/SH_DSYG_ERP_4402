@@ -14,6 +14,11 @@
 	$(function() {
 	});
 	
+	function queryList() {
+		document.mainform.action = "../finance/queryKaiPiaoAction.action";
+		document.mainform.submit();
+	}
+	
 	function checkCheckboxTr(tr, evt, id, amount) {
 		var total = parseFloat($("#totalAmount").text());
 		var ids = $("#strIds").val();
@@ -73,6 +78,39 @@
 <s:form id="mainform" name="mainform" method="POST">
 	<s:hidden name="strIds" id="strIds"></s:hidden>
 	<div id="container" style="width: 100%; height: 100%;">
+		<div class="searchbox">
+			<div class="box1">
+				<label class="pdf10">发票号：</label>
+				<div class="box1_left"></div>
+				<div class="box1_center">
+					<select name="strRes10" id="strRes10" style="width: 180px;">
+						<s:if test='%{strRes10 == "1"}'>
+							<option value="">所有数据</option>
+							<option value="1" selected="selected">不为空</option>
+							<option value="2">为空</option>
+						</s:if>
+						<s:elseif test='%{strRes10 == "2"}'>
+							<option value="">所有数据</option>
+							<option value="1">不为空</option>
+							<option value="2" selected="selected">为空</option>
+						</s:elseif>
+						<s:else>
+							<option value="" selected="selected">所有数据</option>
+							<option value="1">不为空</option>
+							<option value="2">为空</option>
+						</s:else>
+					</select>
+				</div>
+				<div class="box1_right"></div>
+			</div>
+			<div class="btn" style="margin-left: 0px;">
+				<div class="box1_left"></div>
+				<div class="box1_center">
+					<input type="button" class="input40" value="检索" onclick="queryList();"/>
+				</div>
+				<div class="box1_right"></div>
+			</div>
+		</div>
 		<div class="data_table" style="padding:0px;">
 			<div class="tab_tittle">
 				<table width="100%" border="1" cellpadding="5" cellspacing="0">

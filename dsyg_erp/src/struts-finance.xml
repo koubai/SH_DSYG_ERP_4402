@@ -181,6 +181,10 @@
 			<result name="success">/page/finance/kaipiaolist.jsp</result>
 		</action>
 		
+		<action name="queryKaiPiaoAction" class="financeAction" method="queryKaiPiaoAction">
+			<result name="success">/page/finance/kaipiaolist.jsp</result>
+		</action>
+		
 		<action name="kaiPiaoAction" class="financeAction" method="kaiPiaoAction">
 			<result name="success">/page/finance/kaipiaolist.jsp</result>
 		</action>

@@ -53,8 +53,16 @@ public class FinanceServiceImpl implements FinanceService {
 	}
 	
 	@Override
-	public List<FinanceDto> queryFinanceByStatus(String status) {
-		return financeDao.queryFinanceByStatus(status);
+	public List<FinanceDto> queryFinanceByStatus(String status, String res10) {
+		String res10sql = "";
+		if("1".equals(res10)) {
+			//发票号不为空
+			res10sql = " T.res10 IS NOT NULL ";
+		} else if("2".equals(res10)) {
+			//发票号为空
+			res10sql = " T.res10 IS NULL ";
+		}
+		return financeDao.queryFinanceByStatus(status, res10sql);
 	}
 
 	@Override

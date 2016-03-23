@@ -24,9 +24,10 @@ public interface FinanceService {
 	/**
 	 * 根据状态查询财务记录
 	 * @param status
+	 * @param res10
 	 * @return
 	 */
-	public List<FinanceDto> queryFinanceByStatus(String status);
+	public List<FinanceDto> queryFinanceByStatus(String status, String res10);
 
 	/**
 	 * 翻页查询财务信息
