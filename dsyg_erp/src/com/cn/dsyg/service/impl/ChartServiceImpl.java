@@ -134,6 +134,14 @@ public class ChartServiceImpl implements ChartService{
     	return list;
     }
 
+	// 取得产品销售数据
+    public List<ChartDto> getAccountSubData(String belongto, String theme, String from_date, String to_date, String dur_type, String handerList) {  
+    	List<ChartDto>  list = new ArrayList<ChartDto>();
+        list = queryProductProfitByDate(belongto, theme, from_date, to_date, dur_type, handerList);
+    	
+    	return list;
+    }
+
     // 取得供应商数据
     public List<ChartDto> getSupplierData(String belongto, String theme, String from_date, String to_date, String dur_type, String handerList) {  
     	List<ChartDto>  list = new ArrayList<ChartDto>();
@@ -290,6 +298,35 @@ public class ChartServiceImpl implements ChartService{
 				}
 			} else {
 				List<ChartDto> list = chartDao.queryFinanceByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
+				if (list.size() > 0 && list.get(0).getId() != null)
+					alllist.addAll(list);
+			}
+			return alllist;
+		}catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+    // get Product profit data by date
+	public List<ChartDto> queryProductProfitByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList) {
+		try {
+			if (ctx != null){
+	        	chartDao = (ChartDao)ctx.getBean("chartDao");
+		        System.out.println("chartDao not null" );
+			}else
+		        System.out.println("chartDao is null" );
+				
+			List<ChartDto> alllist = new ArrayList<ChartDto>();
+			if(StringUtil.isNotBlank(handerList)) {
+				String ss[] = handerList.split(",");
+				for(String s : ss) {
+					List<ChartDto> list = chartDao.queryProductProfitByDate(belongto, theme1, from_date, to_date, dur_type, s);
+					if (list.size() > 0 && list.get(0).getId() != null)
+						alllist.addAll(list);
+				}
+			} else {
+				List<ChartDto> list = chartDao.queryProductProfitByDate(belongto, theme1, from_date, to_date, dur_type, handerList);
 				if (list.size() > 0 && list.get(0).getId() != null)
 					alllist.addAll(list);
 			}
@@ -475,6 +512,10 @@ public class ChartServiceImpl implements ChartService{
             	// get Saler's detail data 
             	else if (pattern.equals("7")){
             		list = getCustomerData(belongto, "", from_date, to_date, dur_type, handerList);
+            	}
+            	// get Account's data 
+            	else if (pattern.equals("9")){
+            		list = getAccountSubData(belongto, "", from_date, to_date, dur_type, handerList);
             	}
         		
                 Map<String, String> item_map = null;

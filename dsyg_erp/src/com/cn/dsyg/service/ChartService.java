@@ -31,6 +31,7 @@ public interface ChartService {
     public List<ChartDto> getBuyData(String belongto, String theme, String from_date, String to_date, String dur_type, String handerList);
     public List<ChartDto> getDeliveryData(String belongto, String theme, String from_date, String to_date, String dur_type, String handerList);
     public List<ChartDto> getAccountData(String belongto, String theme, String from_date, String to_date, String dur_type, String handerList);
+    public List<ChartDto> getAccountSubData(String belongto, String theme, String from_date, String to_date, String dur_type, String handerList);
 	public List<ChartDto> getSupplierData(String belongto, String theme, String from_date, String to_date, String dur_type, String handerList);
 	public List<ChartDto> getCustomerData(String belongto, String theme, String from_date, String to_date, String dur_type, String handerList);
 	public List<ChartDto> queryPurchaseByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList);

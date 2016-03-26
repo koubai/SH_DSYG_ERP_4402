@@ -48,6 +48,10 @@
 			<result name="*">/page/intermana/chart_account.jsp</result>
 		</action>
 		
+		<action name="showProfitInfoMainChartAction" class="chartAction" method="showProfitInfoMainChartAction">
+			<result name="*">/page/intermana/chart_account_sub.jsp</result>
+		</action>
+
 		<action name="showSupplierInfoMainChartAction" class="chartAction" method="showSupplierInfoMainChartAction">
 			<result name="*">/page/intermana/chart_supplier.jsp</result>
 		</action>

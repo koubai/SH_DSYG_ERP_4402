@@ -261,6 +261,16 @@ public class ChartAction extends BaseAction {
 		}
 	}
 
+    public String showProfitInfoMainChartAction(){  
+    	try{
+            System.out.println("showProfitInfoMainChartAction success"); 
+	        return SUCCESS;  
+		} catch(Exception e) {
+			log.error("showProfitInfoMainChartAction error:" + e);
+			return ERROR;
+		}
+	}
+    
     public String showSupplierInfoMainChartAction(){  
     	try{
             System.out.println("showSupplierInfoMainChartAction success"); 
@@ -312,6 +322,10 @@ public class ChartAction extends BaseAction {
     } 
     // Get Accounting's individual data
     public String getAccountDataAction() {  
+        return SUCCESS;  
+    }
+    // Get Product profit individual data
+    public String getAccountSubDataAction() {  
         return SUCCESS;  
     }
           
