@@ -44,7 +44,7 @@
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='1'
-			and T.status >= '20'
+			and T.STATUS >= '20'
 			and T.parentid = P.purchaseno 
 			and T.productid= P.productid
 			and P.handler = TU.userid
@@ -87,7 +87,7 @@
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='1'
-			and T.status >= '20'
+			and T.STATUS >= '20'
 			and T.parentid = P.purchaseno 
 			and T.productid= P.productid
 			and P.handler = TU.userid
@@ -130,7 +130,7 @@
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='1'
-			and T.status >= '20'
+			and T.STATUS >= '20'
 			and T.parentid = P.purchaseno 
 			and T.productid= P.productid
 			and P.handler = TU.userid
@@ -173,7 +173,7 @@
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='1'
-			and T.status >= '20'
+			and T.STATUS >= '20'
 			and T.parentid = P.purchaseno 
 			and T.productid= P.productid
 			and P.handler = TU.userid
@@ -217,7 +217,7 @@
 			where 1=1
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
-			and T.status >= '20'
+			and T.STATUS >= '20'
 			and T.parentid = S.salesno
 			and T.productid= S.productid
 			and T.supplierid = TC.id
@@ -263,7 +263,7 @@
 			where 1=1
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
-			and T.status >= '20'
+			and T.STATUS >= '20'
 			and T.parentid = S.salesno
 			and T.productid= S.productid
 			and T.supplierid = TC.id
@@ -308,7 +308,7 @@
 			where 1=1
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
-			and T.status >= '20'
+			and T.STATUS >= '20'
 			and T.parentid = S.salesno
 			and T.productid= S.productid
 			and T.supplierid = TC.id
@@ -353,7 +353,7 @@
 			where 1=1
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
-			and T.status >= '20'
+			and T.STATUS >= '20'
 			and T.parentid = S.salesno
 			and T.productid= S.productid
 			and T.supplierid = TC.id
@@ -399,7 +399,7 @@
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
-			and T.status >= '20'
+			and T.STATUS >= '20'
 			and T.parentid = S.salesno
 			and T.productid= S.productid
 			and S.handler = TU.userid
@@ -442,7 +442,7 @@
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
-			and T.status >= '20'
+			and T.STATUS >= '20'
 			and T.parentid = S.salesno
 			and T.productid= S.productid
 			and S.handler = TU.userid
@@ -485,7 +485,7 @@
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.warehousetype='2'
-			and T.status >= '20'
+			and T.STATUS >= '20'
 			and T.parentid = S.salesno
 			and T.productid= S.productid
 			and S.handler = TU.userid
@@ -528,7 +528,7 @@
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.financetype='3'
-			and T.status='99'
+			and T.STATUS='99'
 			and T.customerid = TU.id
 			<isNotEmpty prepend="and" property="from_date">
 				T.accountdate <![CDATA[>=]]> #from_date#
@@ -564,7 +564,7 @@
 			where 1=1 
 			and T.belongto = #belongto#
 			and T.financetype='3'
-			and T.status='99'
+			and T.STATUS='99'
 			and T.customerid = TU.id
 			<isNotEmpty prepend="and" property="from_date">
 				T.accountdate <![CDATA[>=]]> #from_date#
@@ -806,8 +806,8 @@
 			from etb_warehouse T, etb_product TP
 			where 1=1 
 			and T.warehousetype = '2'
-			AND t.STATUS >= '20'
-			AND TP.id = t.productid
+			AND T.STATUS >= '20'
+			AND TP.id = T.productid
 			<isNotEmpty prepend="and" property="from_date">
 				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
@@ -842,8 +842,8 @@
 			from etb_warehouse T, etb_product TP
 			where 1=1 
 			and T.warehousetype = '2'
-			AND t.STATUS >= '20'
-			AND TP.id = t.productid
+			AND T.STATUS >= '20'
+			AND TP.id = T.productid
 			<isNotEmpty prepend="and" property="from_date">
 				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
@@ -877,8 +877,8 @@
 			from etb_warehouse T, etb_product TP
 			where 1=1 
 			and T.warehousetype = '2'
-			AND t.STATUS >= '20'
-			AND TP.id = t.productid
+			AND T.STATUS >= '20'
+			AND TP.id = T.productid
 			<isNotEmpty prepend="and" property="from_date">
 				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
@@ -912,8 +912,8 @@
 			from etb_warehouse T, etb_product TP
 			where 1=1 
 			and T.warehousetype = '2'
-			AND t.STATUS >= '20'
-			AND TP.id = t.productid
+			AND T.STATUS >= '20'
+			AND TP.id = T.productid
 			<isNotEmpty prepend="and" property="from_date">
 				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
@@ -948,8 +948,8 @@
 			from etb_warehouse T, etb_product TP
 			where 1=1 
 			and T.warehousetype = '2'
-			AND t.STATUS >= '20'
-			AND TP.id = t.productid
+			AND T.STATUS >= '20'
+			AND TP.id = T.productid
 			<isNotEmpty prepend="and" property="from_date">
 				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
@@ -983,8 +983,8 @@
 			from etb_warehouse T, etb_product TP
 			where 1=1 
 			and T.warehousetype = '2'
-			AND t.STATUS >= '20'
-			AND TP.id = t.productid
+			AND T.STATUS >= '20'
+			AND TP.id = T.productid
 			<isNotEmpty prepend="and" property="from_date">
 				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
@@ -1018,8 +1018,8 @@
 			from etb_warehouse T, etb_product TP
 			where 1=1 
 			and T.warehousetype = '2'
-			AND t.STATUS >= '20'
-			AND TP.id = t.productid
+			AND T.STATUS >= '20'
+			AND TP.id = T.productid
 			<isNotEmpty prepend="and" property="from_date">
 				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
@@ -1053,8 +1053,8 @@
 			from etb_warehouse T, etb_product TP
 			where 1=1 
 			and T.warehousetype = '2'
-			AND t.STATUS >= '20'
-			AND TP.id = t.productid
+			AND T.STATUS >= '20'
+			AND TP.id = T.productid
 			<isNotEmpty prepend="and" property="from_date">
 				T.warehousedate <![CDATA[>=]]> #from_date#
 			</isNotEmpty>
@@ -1396,7 +1396,7 @@
 			) as test3
 			on 1=1 
 			and T.belongto = #belongto#
-			and T.status >= '0'
+			and T.STATUS >= '0'
 			and T.financetype='2'
 			<isNotEmpty prepend="and" property="from_date">
 				T.accountdate <![CDATA[>=]]> #from_date#
