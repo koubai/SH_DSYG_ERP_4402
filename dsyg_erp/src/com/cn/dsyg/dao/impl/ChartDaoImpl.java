@@ -128,7 +128,7 @@ public class ChartDaoImpl extends BaseDao implements ChartDao {
 		return list;
 	}
 	
-	public List<ChartDto> queryProductProfitByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList){
+	public List<ChartDto> queryProductProfitByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList, String tp){
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("belongto", belongto);
 		paramMap.put("theme1", theme1);
@@ -137,12 +137,22 @@ public class ChartDaoImpl extends BaseDao implements ChartDao {
 		paramMap.put("handerList", handerList);
 
 		List<ChartDto> list = null;
-		if (dur_type.equals("1")){
-			list = getSqlMapClientTemplate().queryForList("queryProductProfitByDateM", paramMap);
-		} else if (dur_type.equals("2")){
-			list = getSqlMapClientTemplate().queryForList("queryProductProfitByDateQ", paramMap);
-		} else if (dur_type.equals("3")){
-			list = getSqlMapClientTemplate().queryForList("queryProductProfitByDateY", paramMap);			
+		if (tp.equals("0")){
+			if (dur_type.equals("1")){
+				list = getSqlMapClientTemplate().queryForList("queryProductProfitByDateM", paramMap);
+			} else if (dur_type.equals("2")){
+				list = getSqlMapClientTemplate().queryForList("queryProductProfitByDateQ", paramMap);
+			} else if (dur_type.equals("3")){
+				list = getSqlMapClientTemplate().queryForList("queryProductProfitByDateY", paramMap);			
+			}
+		}else{
+			if (dur_type.equals("1")){
+				list = getSqlMapClientTemplate().queryForList("queryProductProfitByDateMB", paramMap);
+			} else if (dur_type.equals("2")){
+				list = getSqlMapClientTemplate().queryForList("queryProductProfitByDateQB", paramMap);
+			} else if (dur_type.equals("3")){
+				list = getSqlMapClientTemplate().queryForList("queryProductProfitByDateYB", paramMap);			
+			}
 		}
 		return list;
 	}

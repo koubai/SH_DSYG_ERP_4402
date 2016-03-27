@@ -121,8 +121,11 @@ public class ChartServlet extends HttpServlet {
             jsonArr = chartService.getData(belongto, "8", from_date, to_date, dur_type, handerList);        	
         }
         // Get Product profit individual data
-        else if (act.equals("getAccountSubData")){
+        else if (act.equals("getAccountSubDataA")){
             jsonArr = chartService.getData(belongto, "9", from_date, to_date, dur_type, handerList);        	
+        }
+        else if (act.equals("getAccountSubDataB")){
+            jsonArr = chartService.getData(belongto, "10", from_date, to_date, dur_type, handerList);        	
         }
         
         out.println(jsonArr.toString());  

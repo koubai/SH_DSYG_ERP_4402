@@ -788,7 +788,7 @@
 	</select>
 	
 	<select id="queryProductProfitByDate" parameterClass="java.util.Map" resultMap="ChartDto">
-		select test.aid as id, CONCAT(TU.fieldname," (","销售额"," )") as handler, "销售额" as theme1, years as pur_year, 
+		select test.aid as id, CONCAT(TU.fieldname," (","销售额",")") as handler, "销售额" as theme1, years as pur_year, 
 			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
 			SUM(case when months=02 then pur_sum_data else 0 end) 'pur_month02',   
 			SUM(case when months=03 then pur_sum_data else 0 end) 'pur_month03',   
@@ -803,40 +803,6 @@
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
 			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, TP.fieldno as aid, "" as handler, sum(T.taxamount) as pur_sum_data     
-			from etb_warehouse T, etb_product TP
-			where 1=1 
-			and T.warehousetype = '2'
-			AND t.STATUS >= '20'
-			AND TP.id = t.productid
-			<isNotEmpty prepend="and" property="from_date">
-				T.warehousedate <![CDATA[>=]]> #from_date#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property="to_date">
-				T.warehousedate <![CDATA[<=]]> #to_date#
-			</isNotEmpty>
-			group by aid, years, months			
-		)as test , tbdict01 TU
-		where 
-		  test.aid = TU.code
-			and TU.fieldcode = 'goods'
-			and TU.lang = 'c'
-		group by id, handler, pur_year
-	UNION
-		select test.aid as id, CONCAT(TU.fieldname," (","利润"," )") as handler, "利润" as theme1, years as pur_year, 
-			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
-			SUM(case when months=02 then pur_sum_data else 0 end) 'pur_month02',   
-			SUM(case when months=03 then pur_sum_data else 0 end) 'pur_month03',  
-			SUM(case when months=04 then pur_sum_data else 0 end) 'pur_month04',   
-			SUM(case when months=05 then pur_sum_data else 0 end) 'pur_month05',   
-			SUM(case when months=06 then pur_sum_data else 0 end) 'pur_month06',  
-			SUM(case when months=07 then pur_sum_data else 0 end) 'pur_month07',   
-			SUM(case when months=08 then pur_sum_data else 0 end) 'pur_month08',   
-			SUM(case when months=09 then pur_sum_data else 0 end) 'pur_month09',   
-			SUM(case when months=10 then pur_sum_data else 0 end) 'pur_month10',   
-			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
-			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
-		from(   
-			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, TP.fieldno as aid, "" as handler, round(sum(T.taxamount-cast(T.res04 as DECIMAL(18,6))* IF(T.res05 IS NULL,-1,1)*T.quantity*1.17),6) as pur_sum_data     
 			from etb_warehouse T, etb_product TP
 			where 1=1 
 			and T.warehousetype = '2'
@@ -856,8 +822,9 @@
 			and TU.lang = 'c'
 		group by id, handler, pur_year
 	</select>
+	
 	<select id="queryProductProfitByDateM" parameterClass="java.util.Map" resultMap="ChartDto">
-		select test.aid as id, CONCAT(TU.fieldname," (","销售额"," )") as handler, "销售额" as theme1, years as pur_year, 
+		select test.aid as id, CONCAT(TU.fieldname," (","销售额",")") as handler, "销售额" as theme1, years as pur_year, 
 			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
 			SUM(case when months=02 then pur_sum_data else 0 end) 'pur_month02',   
 			SUM(case when months=03 then pur_sum_data else 0 end) 'pur_month03',   
@@ -872,40 +839,6 @@
 			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
 		from(   
 			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, TP.fieldno as aid, "" as handler, sum(T.taxamount) as pur_sum_data     
-			from etb_warehouse T, etb_product TP
-			where 1=1 
-			and T.warehousetype = '2'
-			AND t.STATUS >= '20'
-			AND TP.id = t.productid
-			<isNotEmpty prepend="and" property="from_date">
-				T.warehousedate <![CDATA[>=]]> #from_date#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property="to_date">
-				T.warehousedate <![CDATA[<=]]> #to_date#
-			</isNotEmpty>
-			group by aid, years, months			
-		)as test , tbdict01 TU
-		where 
-		  test.aid = TU.code
-			and TU.fieldcode = 'goods'
-			and TU.lang = 'c'
-		group by id, handler, pur_year
-	UNION
-		select test.aid as id, CONCAT(TU.fieldname," (","利润"," )") as handler, "利润" as theme1, years as pur_year, 
-			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
-			SUM(case when months=02 then pur_sum_data else 0 end) 'pur_month02',   
-			SUM(case when months=03 then pur_sum_data else 0 end) 'pur_month03',  
-			SUM(case when months=04 then pur_sum_data else 0 end) 'pur_month04',   
-			SUM(case when months=05 then pur_sum_data else 0 end) 'pur_month05',   
-			SUM(case when months=06 then pur_sum_data else 0 end) 'pur_month06',  
-			SUM(case when months=07 then pur_sum_data else 0 end) 'pur_month07',   
-			SUM(case when months=08 then pur_sum_data else 0 end) 'pur_month08',   
-			SUM(case when months=09 then pur_sum_data else 0 end) 'pur_month09',   
-			SUM(case when months=10 then pur_sum_data else 0 end) 'pur_month10',   
-			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
-			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
-		from(   
-			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, TP.fieldno as aid, "" as handler, round(sum(T.taxamount-cast(T.res04 as DECIMAL(18,6))* IF(T.res05 IS NULL,-1,1)*T.quantity*1.17),6) as pur_sum_data     
 			from etb_warehouse T, etb_product TP
 			where 1=1 
 			and T.warehousetype = '2'
@@ -926,7 +859,7 @@
 		group by id, handler, pur_year
 	</select>
 	<select id="queryProductProfitByDateQ" parameterClass="java.util.Map" resultMap="ChartDto">
-		select test.aid as id, CONCAT(TU.fieldname," (","销售额"," )") as handler, "销售额" as theme1, years as pur_year, 
+		select test.aid as id, CONCAT(TU.fieldname," (","销售额",")") as handler, "销售额" as theme1, years as pur_year, 
 			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
 			SUM(case when months=02 then pur_sum_data else 0 end) 'pur_month02',   
 			SUM(case when months=03 then pur_sum_data else 0 end) 'pur_month03',   
@@ -959,43 +892,9 @@
 			and TU.fieldcode = 'goods'
 			and TU.lang = 'c'
 		group by id, handler, pur_year
-	UNION
-		select test.aid as id, CONCAT(TU.fieldname," (","利润"," )") as handler, "利润" as theme1, years as pur_year, 
-			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
-			SUM(case when months=02 then pur_sum_data else 0 end) 'pur_month02',   
-			SUM(case when months=03 then pur_sum_data else 0 end) 'pur_month03',  
-			SUM(case when months=04 then pur_sum_data else 0 end) 'pur_month04',   
-			NULL 'pur_month05',   
-			NULL 'pur_month06',   
-			NULL 'pur_month07',   
-			NULL 'pur_month08',   
-			NULL 'pur_month09',   
-			NULL 'pur_month10',   
-			NULL 'pur_month11',   
-			NULL 'pur_month12'   
-		from(   
-			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, TP.fieldno as aid, "" as handler, round(sum(T.taxamount-cast(T.res04 as DECIMAL(18,6))* IF(T.res05 IS NULL,-1,1)*T.quantity*1.17),6) as pur_sum_data     
-			from etb_warehouse T, etb_product TP
-			where 1=1 
-			and T.warehousetype = '2'
-			AND t.STATUS >= '20'
-			AND TP.id = t.productid
-			<isNotEmpty prepend="and" property="from_date">
-				T.warehousedate <![CDATA[>=]]> #from_date#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property="to_date">
-				T.warehousedate <![CDATA[<=]]> #to_date#
-			</isNotEmpty>
-			group by aid, years, months			
-		)as test , tbdict01 TU
-		where 
-		  test.aid = TU.code
-			and TU.fieldcode = 'goods'
-			and TU.lang = 'c'
-		group by id, handler, pur_year
 	</select>
 	<select id="queryProductProfitByDateY" parameterClass="java.util.Map" resultMap="ChartDto">
-		select test.aid as id, CONCAT(TU.fieldname," (","销售额"," )") as handler, "销售额" as theme1, years as pur_year, 
+		select test.aid as id, CONCAT(TU.fieldname," (","销售额",")") as handler, "销售额" as theme1, years as pur_year, 
 			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
 			NULL 'pur_month02',   
 			NULL 'pur_month03',   
@@ -1028,8 +927,115 @@
 			and TU.fieldcode = 'goods'
 			and TU.lang = 'c'
 		group by id, handler, pur_year
-	UNION
-		select test.aid as id, CONCAT(TU.fieldname," (","利润"," )") as handler, "利润" as theme1, years as pur_year, 
+	</select>
+
+	<select id="queryProductProfitByDateB" parameterClass="java.util.Map" resultMap="ChartDto">
+		select test.aid as id, CONCAT(TU.fieldname," (","利润",")") as handler, "利润" as theme1, years as pur_year, 
+			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
+			SUM(case when months=02 then pur_sum_data else 0 end) 'pur_month02',   
+			SUM(case when months=03 then pur_sum_data else 0 end) 'pur_month03',  
+			SUM(case when months=04 then pur_sum_data else 0 end) 'pur_month04',   
+			SUM(case when months=05 then pur_sum_data else 0 end) 'pur_month05',   
+			SUM(case when months=06 then pur_sum_data else 0 end) 'pur_month06',  
+			SUM(case when months=07 then pur_sum_data else 0 end) 'pur_month07',   
+			SUM(case when months=08 then pur_sum_data else 0 end) 'pur_month08',   
+			SUM(case when months=09 then pur_sum_data else 0 end) 'pur_month09',   
+			SUM(case when months=10 then pur_sum_data else 0 end) 'pur_month10',   
+			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
+			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
+		from(   
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, TP.fieldno as aid, "" as handler, round(sum(T.taxamount-cast(T.res04 as DECIMAL(18,6))* IF(T.res05 IS NULL,-1,1)*T.quantity*1.17),2) as pur_sum_data     
+			from etb_warehouse T, etb_product TP
+			where 1=1 
+			and T.warehousetype = '2'
+			AND t.STATUS >= '20'
+			AND TP.id = t.productid
+			<isNotEmpty prepend="and" property="from_date">
+				T.warehousedate <![CDATA[>=]]> #from_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="to_date">
+				T.warehousedate <![CDATA[<=]]> #to_date#
+			</isNotEmpty>
+			group by aid, years, months			
+		)as test , tbdict01 TU
+		where 
+		  test.aid = TU.code
+			and TU.fieldcode = 'goods'
+			and TU.lang = 'c'
+		group by id, handler, pur_year
+	</select>
+	<select id="queryProductProfitByDateMB" parameterClass="java.util.Map" resultMap="ChartDto">
+		select test.aid as id, CONCAT(TU.fieldname," (","利润",")") as handler, "利润" as theme1, years as pur_year, 
+			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
+			SUM(case when months=02 then pur_sum_data else 0 end) 'pur_month02',   
+			SUM(case when months=03 then pur_sum_data else 0 end) 'pur_month03',  
+			SUM(case when months=04 then pur_sum_data else 0 end) 'pur_month04',   
+			SUM(case when months=05 then pur_sum_data else 0 end) 'pur_month05',   
+			SUM(case when months=06 then pur_sum_data else 0 end) 'pur_month06',  
+			SUM(case when months=07 then pur_sum_data else 0 end) 'pur_month07',   
+			SUM(case when months=08 then pur_sum_data else 0 end) 'pur_month08',   
+			SUM(case when months=09 then pur_sum_data else 0 end) 'pur_month09',   
+			SUM(case when months=10 then pur_sum_data else 0 end) 'pur_month10',   
+			SUM(case when months=11 then pur_sum_data else 0 end) 'pur_month11',   
+			SUM(case when months=12 then pur_sum_data else 0 end) 'pur_month12'   
+		from(   
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, TP.fieldno as aid, "" as handler, round(sum(T.taxamount-cast(T.res04 as DECIMAL(18,6))* IF(T.res05 IS NULL,-1,1)*T.quantity*1.17),2) as pur_sum_data     
+			from etb_warehouse T, etb_product TP
+			where 1=1 
+			and T.warehousetype = '2'
+			AND t.STATUS >= '20'
+			AND TP.id = t.productid
+			<isNotEmpty prepend="and" property="from_date">
+				T.warehousedate <![CDATA[>=]]> #from_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="to_date">
+				T.warehousedate <![CDATA[<=]]> #to_date#
+			</isNotEmpty>
+			group by aid, years, months			
+		)as test , tbdict01 TU
+		where 
+		  test.aid = TU.code
+			and TU.fieldcode = 'goods'
+			and TU.lang = 'c'
+		group by id, handler, pur_year
+	</select>
+	<select id="queryProductProfitByDateQB" parameterClass="java.util.Map" resultMap="ChartDto">
+		select test.aid as id, CONCAT(TU.fieldname," (","利润",")") as handler, "利润" as theme1, years as pur_year, 
+			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
+			SUM(case when months=02 then pur_sum_data else 0 end) 'pur_month02',   
+			SUM(case when months=03 then pur_sum_data else 0 end) 'pur_month03',  
+			SUM(case when months=04 then pur_sum_data else 0 end) 'pur_month04',   
+			NULL 'pur_month05',   
+			NULL 'pur_month06',   
+			NULL 'pur_month07',   
+			NULL 'pur_month08',   
+			NULL 'pur_month09',   
+			NULL 'pur_month10',   
+			NULL 'pur_month11',   
+			NULL 'pur_month12'   
+		from(   
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, TP.fieldno as aid, "" as handler, round(sum(T.taxamount-cast(T.res04 as DECIMAL(18,6))* IF(T.res05 IS NULL,-1,1)*T.quantity*1.17),2) as pur_sum_data     
+			from etb_warehouse T, etb_product TP
+			where 1=1 
+			and T.warehousetype = '2'
+			AND t.STATUS >= '20'
+			AND TP.id = t.productid
+			<isNotEmpty prepend="and" property="from_date">
+				T.warehousedate <![CDATA[>=]]> #from_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="to_date">
+				T.warehousedate <![CDATA[<=]]> #to_date#
+			</isNotEmpty>
+			group by aid, years, months			
+		)as test , tbdict01 TU
+		where 
+		  test.aid = TU.code
+			and TU.fieldcode = 'goods'
+			and TU.lang = 'c'
+		group by id, handler, pur_year
+	</select>
+	<select id="queryProductProfitByDateYB" parameterClass="java.util.Map" resultMap="ChartDto">
+		select test.aid as id, CONCAT(TU.fieldname," (","利润",")") as handler, "利润" as theme1, years as pur_year, 
 			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
 			NULL 'pur_month02',   
 			NULL 'pur_month03',   
@@ -1043,7 +1049,7 @@
 			NULL 'pur_month11',   
 			NULL 'pur_month12'   
 		from(   
-			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, TP.fieldno as aid, "" as handler, round(sum(T.taxamount-cast(T.res04 as DECIMAL(18,6))* IF(T.res05 IS NULL,-1,1)*T.quantity*1.17),6) as pur_sum_data     
+			select DATE_FORMAT(T.warehousedate,'%y') as years, DATE_FORMAT(T.warehousedate,'%m') months, TP.fieldno as aid, "" as handler, round(sum(T.taxamount-cast(T.res04 as DECIMAL(18,6))* IF(T.res05 IS NULL,-1,1)*T.quantity*1.17),2) as pur_sum_data     
 			from etb_warehouse T, etb_product TP
 			where 1=1 
 			and T.warehousetype = '2'
