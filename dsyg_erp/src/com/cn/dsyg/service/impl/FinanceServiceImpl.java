@@ -53,7 +53,10 @@ public class FinanceServiceImpl implements FinanceService {
 	}
 	
 	@Override
-	public List<FinanceDto> queryFinanceByStatus(String status, String res10) {
+	public List<FinanceDto> queryFinanceByStatus(String status, String res10, String customername, String invoiceid) {
+		customername = StringUtil.replaceDatabaseKeyword_mysql(customername);
+		invoiceid = StringUtil.replaceDatabaseKeyword_mysql(invoiceid);
+		
 		String res10sql = "";
 		if("1".equals(res10)) {
 			//发票号不为空
@@ -62,7 +65,7 @@ public class FinanceServiceImpl implements FinanceService {
 			//发票号为空
 			res10sql = " T.res10 IS NULL ";
 		}
-		return financeDao.queryFinanceByStatus(status, res10sql);
+		return financeDao.queryFinanceByStatus(status, res10sql, customername, invoiceid);
 	}
 
 	@Override

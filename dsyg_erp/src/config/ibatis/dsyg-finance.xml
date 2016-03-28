@@ -44,6 +44,13 @@
 	
 	<select id="queryFinanceByStatus" parameterClass="java.util.Map" resultMap="FinanceDto">
 		select T.* from etb_finance T where 1 = 1 and T.status in ($status$)
+		<isNotEmpty prepend="and" property="customername">
+			T.customername like '%$customername$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="invoiceid">
+			T.invoiceid like '%$invoiceid$%' ESCAPE '/'
+		</isNotEmpty>
+		
 		<isNotEmpty prepend="and" property="res10sql">
 			$res10sql$
 		</isNotEmpty>

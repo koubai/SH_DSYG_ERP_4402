@@ -16,9 +16,11 @@ public interface FinanceDao {
 	 * 根据状态查询财务记录
 	 * @param status
 	 * @param res10sql
+	 * @param customername
+	 * @param invoiceid
 	 * @return
 	 */
-	public List<FinanceDto> queryFinanceByStatus(String status, String res10sql);
+	public List<FinanceDto> queryFinanceByStatus(String status, String res10sql, String customername, String invoiceid);
 
 	/**
 	 * 翻页查询财务信息
