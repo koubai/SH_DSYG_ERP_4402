@@ -80,6 +80,10 @@ public class FinanceAction extends BaseAction {
 	//开票
 	private List<FinanceDto> kaipiaoList;
 	private String strRes10;
+	//客户名
+	private String strFaPiaoCustomername;
+	//入出库单号
+	private String strFaPiaoInvoiceid;
 	private String strFaPiaoNo;
 	private String strFaPiaoAmount;
 	private String strIds;
@@ -100,7 +104,8 @@ public class FinanceAction extends BaseAction {
 			
 			//重新查询财务记录
 			kaipiaoList = financeService.queryFinanceByStatus("" + Constants.FINANCE_STATUS_NEW
-					+ "," + Constants.FINANCE_STATUS_PAY_APPLY + "," + Constants.FINANCE_STATUS_PAY_PAYED, strRes10);
+					+ "," + Constants.FINANCE_STATUS_PAY_APPLY + "," + Constants.FINANCE_STATUS_PAY_PAYED,
+					strRes10, strFaPiaoCustomername, strFaPiaoInvoiceid);
 			
 			strFaPiaoNo = "";
 			strFaPiaoAmount = "";
@@ -125,7 +130,8 @@ public class FinanceAction extends BaseAction {
 			
 			//重新查询财务记录
 			kaipiaoList = financeService.queryFinanceByStatus("" + Constants.FINANCE_STATUS_NEW
-					+ "," + Constants.FINANCE_STATUS_PAY_APPLY + "," + Constants.FINANCE_STATUS_PAY_PAYED, strRes10);
+					+ "," + Constants.FINANCE_STATUS_PAY_APPLY + "," + Constants.FINANCE_STATUS_PAY_PAYED,
+					strRes10, strFaPiaoCustomername, strFaPiaoInvoiceid);
 		} catch(Exception e) {
 			log.error("showKaiPiaoAction error:" + e);
 			return ERROR;
@@ -141,12 +147,15 @@ public class FinanceAction extends BaseAction {
 		try {
 			this.clearMessages();
 			strFaPiaoNo = "";
+			strFaPiaoCustomername = "";
+			strFaPiaoInvoiceid = "";
 			strRes10 = "1";
 			strFaPiaoAmount = "";
 			strIds = "";
 			//查询未开票的财务记录
 			kaipiaoList = financeService.queryFinanceByStatus("" + Constants.FINANCE_STATUS_NEW
-					+ "," + Constants.FINANCE_STATUS_PAY_APPLY + "," + Constants.FINANCE_STATUS_PAY_PAYED, strRes10);
+					+ "," + Constants.FINANCE_STATUS_PAY_APPLY + "," + Constants.FINANCE_STATUS_PAY_PAYED,
+					strRes10, strFaPiaoCustomername, strFaPiaoInvoiceid);
 		} catch(Exception e) {
 			log.error("showKaiPiaoAction error:" + e);
 			return ERROR;
@@ -843,5 +852,21 @@ public class FinanceAction extends BaseAction {
 
 	public void setStrRes10(String strRes10) {
 		this.strRes10 = strRes10;
+	}
+
+	public String getStrFaPiaoCustomername() {
+		return strFaPiaoCustomername;
+	}
+
+	public void setStrFaPiaoCustomername(String strFaPiaoCustomername) {
+		this.strFaPiaoCustomername = strFaPiaoCustomername;
+	}
+
+	public String getStrFaPiaoInvoiceid() {
+		return strFaPiaoInvoiceid;
+	}
+
+	public void setStrFaPiaoInvoiceid(String strFaPiaoInvoiceid) {
+		this.strFaPiaoInvoiceid = strFaPiaoInvoiceid;
 	}
 }

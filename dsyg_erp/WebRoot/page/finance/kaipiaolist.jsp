@@ -103,6 +103,22 @@
 				</div>
 				<div class="box1_right"></div>
 			</div>
+			<div class="box1">
+				<label class="pdf10">客户名：</label>
+				<div class="box1_left"></div>
+				<div class="box1_center">
+					<s:textfield name="strFaPiaoCustomername" id="strFaPiaoCustomername" cssStyle="width:120px;" maxlength="32" theme="simple"></s:textfield>
+				</div>
+				<div class="box1_right"></div>
+			</div>
+			<div class="box1">
+				<label class="pdf10">入出库单号：</label>
+				<div class="box1_left"></div>
+				<div class="box1_center">
+					<s:textfield name="strFaPiaoInvoiceid" id="strFaPiaoInvoiceid" cssStyle="width:120px;" maxlength="32" theme="simple"></s:textfield>
+				</div>
+				<div class="box1_right"></div>
+			</div>
 			<div class="btn" style="margin-left: 0px;">
 				<div class="box1_left"></div>
 				<div class="box1_center">
