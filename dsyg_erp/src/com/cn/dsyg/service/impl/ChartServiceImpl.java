@@ -24,6 +24,7 @@ import com.cn.dsyg.dao.ChartDao;
 import com.cn.dsyg.dao.UserDao;
 import com.cn.dsyg.dto.ChartDto;
 import com.cn.dsyg.dto.ChartSaleTotalDto;
+import com.cn.dsyg.dto.WarehouseCostDto;
 import com.cn.dsyg.dto.UserDto;
 import com.cn.dsyg.service.ChartService;
 import com.cn.dsyg.servlet.ChartServlet;
@@ -424,6 +425,31 @@ public class ChartServiceImpl implements ChartService{
 	}
 	
 	
+	// 从数据库中取得各类数据，放入JSON，由年单位转为月数组，并排序
+    public JSONArray getWarehouseCostData() { 
+    	try {
+			if (ctx != null){
+	        	chartDao = (ChartDao)ctx.getBean("chartDao");
+		        System.out.println("chartDao not null" );
+			}else
+		        System.out.println("chartDao is null" );
+
+			ArrayList<WarehouseCostDto>  list = new ArrayList<WarehouseCostDto>();
+    		list = (ArrayList<WarehouseCostDto>) chartDao.queryWarehouseCost();
+        	JSONArray jsonArr = new JSONArray();  
+        	for (int i=0; i<list.size(); i++){
+        	    JSONObject item = null;  
+        	    item = new JSONObject();
+        	    item.put("name", list.get(i).getTypeName());
+        	    item.put("data", list.get(i).getWarehouseCost());
+        	    jsonArr.put(item);
+        	}
+        	return jsonArr;
+		}catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+    }
 	
 	// 从数据库中取得各类数据，放入JSON，由年单位转为月数组，并排序
     public JSONArray getData(String belongto, String pattern, String from_date, String to_date, String dur_type, String handerList) {  

@@ -8,6 +8,7 @@ import com.cn.common.dao.BaseDao;
 import com.cn.dsyg.dao.ChartDao;
 import com.cn.dsyg.dto.ChartDto;
 import com.cn.dsyg.dto.ChartSaleTotalDto;
+import com.cn.dsyg.dto.WarehouseCostDto;
 
 public class ChartDaoImpl extends BaseDao implements ChartDao {
 	/**
@@ -192,6 +193,13 @@ public class ChartDaoImpl extends BaseDao implements ChartDao {
 		} else if (dur_type.equals("3")){
 			list = getSqlMapClientTemplate().queryForList("queryCustomerByDateY", paramMap);
 		}
+		return list;
+	}
+	
+	public List<WarehouseCostDto> queryWarehouseCost(){
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		List<WarehouseCostDto> list = null;
+		list = getSqlMapClientTemplate().queryForList("queryWarehouseCost", paramMap);
 		return list;
 	}
 }

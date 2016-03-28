@@ -1406,5 +1406,34 @@
 			</isNotEmpty>
 		)as test 
 	</select>
+
+	<resultMap id="WarehouseCostDto" class="com.cn.dsyg.dto.WarehouseCostDto">
+		<result property="TypeName" column="fieldname" />
+		<result property="WarehouseCost" column="warehousecost" />
+	</resultMap>
 	
+	<select id="queryWarehouseCost" parameterClass="java.util.Map" resultMap="WarehouseCostDto">
+	SELECT D.fieldname, C.warehousecost
+	FROM (
+		SELECT P.fieldno as typeno, sum(S.allleave) as warehousecost
+		FROM (
+			SELECT W.productid, T.cbj, sum(quantity) as kc, T.cbj*sum(quantity) as allleave 
+			FROM (
+				SELECT productid, sum(taxamount) as sumamount, sum(quantity) as inquantity, (sum(taxamount)/sum(quantity)) as cbj
+				FROM etb_warehouse
+				WHERE warehousetype = 1
+				AND status >= 20
+				GROUP BY productid
+			)T, etb_warehouse W
+			WHERE T.productid=W.productid
+			GROUP BY W.productid
+		)S LEFT JOIN etb_product P
+		ON S.productid = P.id
+		GROUP BY P.fieldno
+	)C, tbdict01 D
+	WHERE C.typeno= D.code
+	AND D.fieldcode = 'goods'
+	AND D.lang='c'
+	ORDER BY C.typeno
+	</select>	
 </sqlMap>
