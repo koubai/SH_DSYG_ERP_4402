@@ -21,6 +21,7 @@
 			}
 		}
 		if(checkItem()) {
+			tmpCalcAmount();
 			addflag = true;
 			
 			/*
@@ -668,6 +669,32 @@
 		$("#productAmountInfo").val(productAmountInfo);
 		return true;
 	}
+	
+	//计算总金额（更新的时候删除产品后，总金额未做计算，这里要重新计算）
+	function tmpCalcAmount() {
+		var rows = document.getElementById("productData").rows;
+		//总金额
+		var all = 0.00;
+		//总金额含税
+		var taxall = 0.00;
+		for(var i = 0; i < rows.length; i++) {
+			var childs = rows[i].cells[0].getElementsByTagName("input");
+			var amount = childs[12].value;
+			var taxamount = childs[13].value;
+			if(amount != "") {
+				all += parseFloat(amount);
+				taxall += parseFloat(taxamount);
+			}
+		}
+		//采购金额不含税
+		$("#amount").val(all.toFixed(2));
+		$("#tmpAmount").val(all.toFixed(2));
+		
+		//采购金额含税
+		$("#taxamount").val(taxall.toFixed(2));
+		$("#tmpTaxamount").val(taxall.toFixed(2));
+	}
+	
 	
 	function createInput(id, value) {
 		var input = document.createElement("input");
