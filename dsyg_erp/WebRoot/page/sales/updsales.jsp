@@ -686,11 +686,11 @@
 				taxall += parseFloat(taxamount);
 			}
 		}
-		//采购金额不含税
+		//销售金额不含税
 		$("#amount").val(all.toFixed(2));
 		$("#tmpAmount").val(all.toFixed(2));
 		
-		//采购金额含税
+		//销售金额含税
 		$("#taxamount").val(taxall.toFixed(2));
 		$("#tmpTaxamount").val(taxall.toFixed(2));
 	}

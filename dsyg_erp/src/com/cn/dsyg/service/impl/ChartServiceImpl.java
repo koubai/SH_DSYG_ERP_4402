@@ -439,9 +439,12 @@ public class ChartServiceImpl implements ChartService{
         	JSONArray jsonArr = new JSONArray();  
         	for (int i=0; i<list.size(); i++){
         	    JSONObject item = null;  
+        	    ArrayList<String> datalist = new ArrayList<String>();  
+        	    datalist.add(list.get(i).getWarehouseCost());
+        	    datalist.add(list.get(i).getLeaveQuantity());
         	    item = new JSONObject();
         	    item.put("name", list.get(i).getTypeName());
-        	    item.put("data", list.get(i).getWarehouseCost());
+        	    item.put("data", datalist);
         	    jsonArr.put(item);
         	}
         	return jsonArr;
