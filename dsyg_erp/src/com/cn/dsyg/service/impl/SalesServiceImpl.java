@@ -392,7 +392,7 @@ public class SalesServiceImpl implements SalesService {
 		//单价
 		warehouse.setUnitprice(salesItem.getUnitprice());
 		//含税单价
-		warehouse.setRes02("" + salesItem.getTaxunitprice());
+		warehouse.setRes02("" + salesItem.getTaxunitprice().setScale(6, BigDecimal.ROUND_HALF_UP));
 		//产地
 		warehouse.setRes03("" + salesItem.getMakearea());
 		

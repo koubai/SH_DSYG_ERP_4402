@@ -475,7 +475,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		//单价
 		warehouse.setUnitprice(purchaseItem.getUnitprice());
 		//含税单价
-		warehouse.setRes02("" + purchaseItem.getTaxunitprice());
+		warehouse.setRes02("" + purchaseItem.getTaxunitprice().setScale(6, BigDecimal.ROUND_HALF_UP));
 		//产地
 		warehouse.setRes03("" + purchaseItem.getMakearea());
 		
