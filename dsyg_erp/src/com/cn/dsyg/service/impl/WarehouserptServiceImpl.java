@@ -410,7 +410,12 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 					
 					//对入出库单有相同货物ID的进行合并
 					for(Map.Entry<String, ProductDto> entry : map.entrySet()) {
-						list.add(entry.getValue());
+						//去掉数量为0的货物
+						BigDecimal num = new BigDecimal(entry.getValue().getNum());
+						BigDecimal zero = new BigDecimal(0);
+						if(zero.compareTo(num) != 0) {
+							list.add(entry.getValue());
+						}
 					}
 					rpt.setListProduct(list);
 				} else {
@@ -483,7 +488,12 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 					
 					//对入出库单有相同货物ID的进行合并
 					for(Map.Entry<String, ProductDto> entry : map.entrySet()) {
-						list.add(entry.getValue());
+						//去掉数量为0的货物
+						BigDecimal num = new BigDecimal(entry.getValue().getNum());
+						BigDecimal zero = new BigDecimal(0);
+						if(zero.compareTo(num) != 0) {
+							list.add(entry.getValue());
+						}
 					}
 					rpt.setListProduct(list);
 				}
