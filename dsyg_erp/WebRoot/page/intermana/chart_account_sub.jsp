@@ -106,6 +106,8 @@
             col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+"产品种类"+"</strong>";
    		    col = row.insertCell(1);   
             col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+"库存成本"+"</strong>";
+   		    col = row.insertCell(2);   
+            col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+"剩余数量"+"</strong>";
             d=document.getElementById('planTableC').deleteTFoot();
 			x=document.getElementById('planTableC').createTFoot();
 			var sum_warehousecost=0;
@@ -117,8 +119,10 @@
 	    		 var col = row.insertCell(0);                
 	             col.innerHTML = "<style>strong1{float: right;}</style><strong1>"+u.name+"</strong1>";
 				 col = row.insertCell(1);   
-	             col.innerHTML = "<style>strong1{float: right;}</style><strong1>"+Number(u.data).toFixed(2).toString()+"</strong1>";
-	             sum_warehousecost = sum_warehousecost + Number(u.data);
+	             col.innerHTML = "<style>strong1{float: right;}</style><strong1>"+Number(u.data[0]).toFixed(2).toString()+"</strong1>";
+				 col = row.insertCell(2);   
+	             col.innerHTML = "<style>strong1{float: right;}</style><strong1>"+Number(u.data[1]).toFixed(2).toString()+"</strong1>";
+	             sum_warehousecost = sum_warehousecost + Number(u.data[0]);
 	        });		        
 			row = x.insertRow(row_no+1);
     		col = row.insertCell(0);                

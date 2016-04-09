@@ -11,7 +11,7 @@
 body {
 	font:12px Arial, Helvetica, sans-serif;
 	color: #000;
-	background-color: #EEF2FB;
+	background-color: #A6EAD3;
 	margin: 0px;
 }
 #container {

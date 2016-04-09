@@ -1410,12 +1410,13 @@
 	<resultMap id="WarehouseCostDto" class="com.cn.dsyg.dto.WarehouseCostDto">
 		<result property="TypeName" column="fieldname" />
 		<result property="WarehouseCost" column="warehousecost" />
+		<result property="LeaveQuantity" column="leavequantity" />
 	</resultMap>
 	
 	<select id="queryWarehouseCost" parameterClass="java.util.Map" resultMap="WarehouseCostDto">
-	SELECT D.fieldname, C.warehousecost
+	SELECT D.fieldname, C.warehousecost, C.leavequantity
 	FROM (
-		SELECT P.fieldno as typeno, sum(S.allleave) as warehousecost
+		SELECT P.fieldno as typeno, sum(S.allleave) as warehousecost, sum(S.kc) as leavequantity
 		FROM (
 			SELECT W.productid, T.cbj, sum(quantity) as kc, T.cbj*sum(quantity) as allleave 
 			FROM (

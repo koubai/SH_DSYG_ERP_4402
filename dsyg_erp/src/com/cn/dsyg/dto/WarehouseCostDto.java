@@ -11,6 +11,7 @@ public class WarehouseCostDto extends BaseDto {
 	
 	private String TypeName;
 	private String WarehouseCost;
+	private String LeaveQuantity;
 
 	public String getTypeName() {
 		return TypeName;
@@ -23,6 +24,12 @@ public class WarehouseCostDto extends BaseDto {
 	}
 	public void setWarehouseCost(String warehouseCost) {
 		WarehouseCost = warehouseCost;
+	}
+	public String getLeaveQuantity() {
+		return LeaveQuantity;
+	}
+	public void setLeaveQuantity(String leaveQuantity) {
+		LeaveQuantity = leaveQuantity;
 	}
 
 }
