@@ -44,6 +44,8 @@ public interface ChartService {
 	public List<ChartSaleTotalDto> getSaleTotalData(String belongto, String theme, String from_date, String to_date, String dur_type, String handerList);
 	public List<ChartDto> queryProductProfitByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList, String tp);
     public JSONArray getWarehouseCostData();
+    public JSONArray getUnOutWarehouseCostData();
+    public JSONArray getUnInWarehouseCostData();
 
 	public Map<String, String> getInitDataMap(int i_fy, int i_ty, int i_fm, int i_tm, String dur_type);  
 	public Map<String, String> setDataMap( Map<String, String> data_map, ChartDto chd );  

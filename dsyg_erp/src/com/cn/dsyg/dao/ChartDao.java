@@ -22,5 +22,7 @@ public interface ChartDao {
 	public List<ChartSaleTotalDto> querySaleTotalByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList);
 	public List<ChartDto> queryProductProfitByDate(String belongto, String theme1, String from_date, String to_date, String dur_type, String handerList, String tp);
 	public List<WarehouseCostDto> queryWarehouseCost();
+	public List<WarehouseCostDto> queryUnOutWarehouseCost();
+	public List<WarehouseCostDto> queryUnInWarehouseCost();
 
 }

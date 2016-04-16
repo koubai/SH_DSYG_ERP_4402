@@ -202,4 +202,18 @@ public class ChartDaoImpl extends BaseDao implements ChartDao {
 		list = getSqlMapClientTemplate().queryForList("queryWarehouseCost", paramMap);
 		return list;
 	}
+
+	public List<WarehouseCostDto> queryUnOutWarehouseCost(){
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		List<WarehouseCostDto> list = null;
+		list = getSqlMapClientTemplate().queryForList("queryUnOutWarehouseCost", paramMap);
+		return list;
+	}
+	
+	public List<WarehouseCostDto> queryUnInWarehouseCost(){
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		List<WarehouseCostDto> list = null;
+		list = getSqlMapClientTemplate().queryForList("queryUnInWarehouseCost", paramMap);
+		return list;
+	}
 }

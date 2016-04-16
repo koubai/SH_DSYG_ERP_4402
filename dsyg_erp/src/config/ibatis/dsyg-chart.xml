@@ -1437,4 +1437,33 @@
 	AND D.lang='c'
 	ORDER BY C.typeno
 	</select>	
+	
+	<select id="queryUnOutWarehouseCost" parameterClass="java.util.Map" resultMap="WarehouseCostDto">
+	SELECT D.fieldname, C.warehousecost, C.leavequantity
+	FROM (
+		select P.fieldno as typeno, SUM(S.remainquantity * S.taxunitprice) as warehousecost, Sum(S.remainquantity) leavequantity
+		from etb_salesitem S, etb_product P
+		where S.productid = P.id
+		group by P.fieldno
+	)C, tbdict01 D
+	WHERE C.typeno= D.code
+	AND D.fieldcode = 'goods'
+	AND D.lang='c'
+	ORDER BY C.typeno
+	</select>	
+	
+	<select id="queryUnInWarehouseCost" parameterClass="java.util.Map" resultMap="WarehouseCostDto">
+	SELECT D.fieldname, C.warehousecost, C.leavequantity
+	FROM (
+		select P.fieldno as typeno, SUM(S.remainquantity * S.taxunitprice) as warehousecost, Sum(S.remainquantity) leavequantity
+		from etb_purchaseitem S, etb_product P
+		where S.productid = P.id
+		group by P.fieldno
+	)C, tbdict01 D
+	WHERE C.typeno= D.code
+	AND D.fieldcode = 'goods'
+	AND D.lang='c'
+	ORDER BY C.typeno
+	</select>	
+	
 </sqlMap>

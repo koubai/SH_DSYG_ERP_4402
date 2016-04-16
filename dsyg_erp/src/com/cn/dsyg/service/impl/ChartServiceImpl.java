@@ -453,7 +453,66 @@ public class ChartServiceImpl implements ChartService{
 			return null;
 		}
     }
-	
+
+	// 从数据库中取得各类数据，放入JSON，由年单位转为月数组，并排序
+    public JSONArray getUnOutWarehouseCostData() { 
+    	try {
+			if (ctx != null){
+	        	chartDao = (ChartDao)ctx.getBean("chartDao");
+		        System.out.println("chartDao not null" );
+			}else
+		        System.out.println("chartDao is null" );
+
+			ArrayList<WarehouseCostDto>  list = new ArrayList<WarehouseCostDto>();
+    		list = (ArrayList<WarehouseCostDto>) chartDao.queryUnOutWarehouseCost();
+        	JSONArray jsonArr = new JSONArray();  
+        	for (int i=0; i<list.size(); i++){
+        	    JSONObject item = null;  
+        	    ArrayList<String> datalist = new ArrayList<String>();  
+        	    datalist.add(list.get(i).getWarehouseCost());
+        	    datalist.add(list.get(i).getLeaveQuantity());
+        	    item = new JSONObject();
+        	    item.put("name", list.get(i).getTypeName());
+        	    item.put("data", datalist);
+        	    jsonArr.put(item);
+        	}
+        	return jsonArr;
+		}catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+    }
+
+	// 从数据库中取得各类数据，放入JSON，由年单位转为月数组，并排序
+    public JSONArray getUnInWarehouseCostData() { 
+    	try {
+			if (ctx != null){
+	        	chartDao = (ChartDao)ctx.getBean("chartDao");
+		        System.out.println("chartDao not null" );
+			}else
+		        System.out.println("chartDao is null" );
+
+			ArrayList<WarehouseCostDto>  list = new ArrayList<WarehouseCostDto>();
+    		list = (ArrayList<WarehouseCostDto>) chartDao.queryUnInWarehouseCost();
+        	JSONArray jsonArr = new JSONArray();  
+        	for (int i=0; i<list.size(); i++){
+        	    JSONObject item = null;  
+        	    ArrayList<String> datalist = new ArrayList<String>();  
+        	    datalist.add(list.get(i).getWarehouseCost());
+        	    datalist.add(list.get(i).getLeaveQuantity());
+        	    item = new JSONObject();
+        	    item.put("name", list.get(i).getTypeName());
+        	    item.put("data", datalist);
+        	    jsonArr.put(item);
+        	}
+        	return jsonArr;
+		}catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+    }
+
+    
 	// 从数据库中取得各类数据，放入JSON，由年单位转为月数组，并排序
     public JSONArray getData(String belongto, String pattern, String from_date, String to_date, String dur_type, String handerList) {  
     	int i_fy;

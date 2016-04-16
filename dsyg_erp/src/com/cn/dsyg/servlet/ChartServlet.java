@@ -130,6 +130,12 @@ public class ChartServlet extends HttpServlet {
         else if (act.equals("getWarehouseCostData")){
             jsonArr = chartService.getWarehouseCostData();        	
         }
+        else if (act.equals("getUnOutWarehouseCostData")){
+            jsonArr = chartService.getUnOutWarehouseCostData();        	
+        }
+        else if (act.equals("getUnInWarehouseCostData")){
+            jsonArr = chartService.getUnInWarehouseCostData();        	
+        }
         
         out.println(jsonArr.toString());  
         out.flush();  

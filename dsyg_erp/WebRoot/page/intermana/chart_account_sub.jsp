@@ -134,7 +134,86 @@
    		    col = row.insertCell(1);   
             col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+sum_warehousecost.toFixed(2).toString()+"</strong2>";
 	    };  
-	    	    
+
+	    
+		function viewUnOutWarehouseCostData(datao) {
+			var jsonobj=eval(datao);  
+			var newLine = $("#planTableD").length;
+			var d=document.getElementById('planTableD').deleteTHead();
+			var x=document.getElementById('planTableD').createTHead();
+			var row = x.insertRow(0);   
+            var col = row.insertCell(0);         
+            col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+"产品种类"+"</strong>";
+   		    col = row.insertCell(1);   
+            col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+"已销售未出库金额"+"</strong>";
+   		    col = row.insertCell(2);   
+            col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+"已销售未出库数量"+"</strong>";
+            d=document.getElementById('planTableD').deleteTFoot();
+			x=document.getElementById('planTableD').createTFoot();
+			var sum_warehousecost=0;
+
+			var row_no=0;
+	        $.each(jsonobj, function(i, u){	         				
+	    		 var row = x.insertRow(i);
+	    		 row_no = i;
+	    		 var col = row.insertCell(0);                
+	             col.innerHTML = "<style>strong1{float: right;}</style><strong1>"+u.name+"</strong1>";
+				 col = row.insertCell(1);   
+	             col.innerHTML = "<style>strong1{float: right;}</style><strong1>"+Number(u.data[0]).toFixed(2).toString()+"</strong1>";
+				 col = row.insertCell(2);   
+	             col.innerHTML = "<style>strong1{float: right;}</style><strong1>"+Number(u.data[1]).toFixed(2).toString()+"</strong1>";
+	             sum_warehousecost = sum_warehousecost + Number(u.data[0]);
+	        });		        
+			row = x.insertRow(row_no+1);
+    		col = row.insertCell(0);                
+            col.innerHTML = "<style>strong1{float: right;}</style><strong1>  </strong1>";
+			row_no++;
+			row = x.insertRow(row_no+1); 
+    		col = row.insertCell(0);    
+            col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+"已销售未出库金额总计:"+"</strong2>";
+   		    col = row.insertCell(1);   
+            col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+sum_warehousecost.toFixed(2).toString()+"</strong2>";
+	    };  
+
+		function viewUnInWarehouseCostData(datao) {
+			var jsonobj=eval(datao);  
+			var newLine = $("#planTableE").length;
+			var d=document.getElementById('planTableE').deleteTHead();
+			var x=document.getElementById('planTableE').createTHead();
+			var row = x.insertRow(0);   
+            var col = row.insertCell(0);         
+            col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+"产品种类"+"</strong>";
+   		    col = row.insertCell(1);   
+            col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+"已采购未入库金额"+"</strong>";
+   		    col = row.insertCell(2);   
+            col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+"已采购未入库数量"+"</strong>";
+            d=document.getElementById('planTableE').deleteTFoot();
+			x=document.getElementById('planTableE').createTFoot();
+			var sum_warehousecost=0;
+
+			var row_no=0;
+	        $.each(jsonobj, function(i, u){	         				
+	    		 var row = x.insertRow(i);
+	    		 row_no = i;
+	    		 var col = row.insertCell(0);                
+	             col.innerHTML = "<style>strong1{float: right;}</style><strong1>"+u.name+"</strong1>";
+				 col = row.insertCell(1);   
+	             col.innerHTML = "<style>strong1{float: right;}</style><strong1>"+Number(u.data[0]).toFixed(2).toString()+"</strong1>";
+				 col = row.insertCell(2);   
+	             col.innerHTML = "<style>strong1{float: right;}</style><strong1>"+Number(u.data[1]).toFixed(2).toString()+"</strong1>";
+	             sum_warehousecost = sum_warehousecost + Number(u.data[0]);
+	        });		        
+			row = x.insertRow(row_no+1);
+    		col = row.insertCell(0);                
+            col.innerHTML = "<style>strong1{float: right;}</style><strong1>  </strong1>";
+			row_no++;
+			row = x.insertRow(row_no+1); 
+    		col = row.insertCell(0);    
+            col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+"已采购未入库金额总计:"+"</strong2>";
+   		    col = row.insertCell(1);   
+            col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+sum_warehousecost.toFixed(2).toString()+"</strong2>";
+	    };  	    
+	    
 	    function getAccountSubData3M() {
 //     		alert("会计3");
 		   	var rds = document.getElementsByName("mtype");
@@ -389,6 +468,8 @@
 			ajaxRequestDataA("getAccountSubDataA", fromDate, toDate, dur_type, "销售");
 			ajaxRequestDataB("getAccountSubDataB", fromDate, toDate, dur_type, "利润");
 			ajaxRequestDataC("getWarehouseCostData");
+			ajaxRequestDataD("getUnOutWarehouseCostData");
+			ajaxRequestDataE("getUnInWarehouseCostData");
 		}
 		
 		function ajaxRequestDataA(act, fromDate, toDate, dur_type, tit){
@@ -452,6 +533,28 @@
                 async: false,
                 success: function (data) {
         			viewWarehouseCostData(data);
+                }
+            });
+		}
+		function ajaxRequestDataD(act){
+            $.ajax({
+				url: '${pageContext.request.contextPath}/ChartServlet.servlet?action='+act,
+                type: "POST",
+                dataType: "text",
+                async: false,
+                success: function (data) {
+                	viewUnOutWarehouseCostData(data);
+                }
+            });
+		}
+		function ajaxRequestDataE(act){
+            $.ajax({
+				url: '${pageContext.request.contextPath}/ChartServlet.servlet?action='+act,
+                type: "POST",
+                dataType: "text",
+                async: false,
+                success: function (data) {
+                	viewUnInWarehouseCostData(data);
                 }
             });
 		}
@@ -545,17 +648,34 @@
 				</td>
 			</tr>
 			</table>			
-			<br><br><br>
+			<br><br>
 			<div id="dateMessage">   
 			<!-- <table id="planTable" border:1px solid #000 style="border-collapse:collapse;"> -->
 			<table id="planTable" border:1px  cellpadding="3" cellspacing="1" style="background-color: #b9d8f3;">
 			</table>			
-			<br><br><br>
+			<br><br>
 			<table id="planTableB" border:1px  cellpadding="3" cellspacing="1" style="background-color: #b9d8f3;">
 			</table>			
-			<br><br><br>
-			<table id="planTableC" border:1px  cellpadding="3" cellspacing="1" style="background-color: #b9d8f3;">
-			</table>			
+			<br><br>
+			<table id="dataM">
+			<tr>
+				<td>
+					<table id="planTableC" border:1px  cellpadding="3" cellspacing="1" style="background-color: #b9d8f3;" width="400">
+					</table>			
+					<br><br>
+				</td>
+				<td>
+					<table id="planTableD" border:1px  cellpadding="3" cellspacing="1" style="background-color: #b9d8f3;" width="400">
+					</table>			
+					<br><br>
+				</td>
+				<td>
+					<table id="planTableE" border:1px  cellpadding="3" cellspacing="1" style="background-color: #b9d8f3;" width="400">
+					</table>			
+					<br><br>
+				</td>
+		    </tr>
+			</table>
 		    </div>
 			<br><br><br>
 			<table>
