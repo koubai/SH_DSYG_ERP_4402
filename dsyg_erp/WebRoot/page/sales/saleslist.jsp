@@ -85,6 +85,26 @@
 		$("#strSalesdateHigh").attr("value", $("#salesDateHigh").val());
 	}
 
+	// Search Product
+	function srhProduct() {
+		//主题
+		var theme1 = "";//$("#theme1").val().trim();
+		
+		//这里需要查询库存数据
+		//url += "?strFieldno=" + theme1 + "&strCustomerId=" + customerid + "&date=" + new Date();
+		var url = '<%=request.getContextPath()%>/product/showProductidSelectPage.action';
+		url += "?strFieldno=" + theme1 + "&date=" + new Date();
+		
+		//window.open(url);
+		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	}
+	
+	// clear Product
+	function clrProduct() {
+		$("#productinfo").attr("value", "");
+		$("#productid").attr("value", "");
+	}
+	
 	//查询数据
 	function queryList() {
 		setQueryDate();
@@ -158,6 +178,7 @@
 				<s:hidden name="strSalesdateHigh" id="strSalesdateHigh"/>
 				<s:hidden name="intPageSize" id="intPageSize"/>
 				<s:hidden name="strType" id="strType"/>
+				<s:hidden name="productid" id="productid"/>
 				<div class="searchbox">
 					<div class="box1">
 						<label class="pdf10">销售订单号</label>
@@ -226,7 +247,7 @@
 						</div>
 						<div class="box1_right"></div>
 					</div>
-					<div class="box1" style="margin-top: 6px; margin-left: 70px;">
+					<div class="box1" style="margin-top: 6px; margin-left: 50px;">
 						<s:if test='strType == "1"'>
 							<input name="tmpType" type="radio" value="0"/>订单 <input name="tmpType" checked="checked" type="radio" value="1"/>询价
 						</s:if>
@@ -234,7 +255,26 @@
 							<input name="tmpType" type="radio" checked="checked" value="0"/>订单 <input name="tmpType" type="radio" value="1"/>询价
 						</s:else>
 					</div>
-					<div class="btn" style="margin-left: 430px;">
+					<div class="box1" style="margin-top: 6px; margin-left: 50px;">
+						<div class="box1_left">
+							<input type ="text" name="productinfo" id="productinfo" size="30" maxlength="150" theme="simple" disabled="disabled"></>
+						</div>
+						<div class="btn" style="margin-left: 230px;">
+							<div class="box1_left"></div>							
+							<div class="box1_center">
+								<input class="input40" type="button" onclick="clrProduct();" value="清除" />							
+							</div>
+							<div class="box1_right"></div>
+						</div>
+						<div class="btn" style="margin-left: 10px;">
+							<div class="box1_left"></div>							
+							<div class="box1_center">
+								<input class="input40" type="button" onclick="srhProduct();" value="产品" />							
+							</div>
+							<div class="box1_right"></div>
+						</div>
+					</div>
+					<div class="btn" style="margin-top: 6px; margin-left: 180px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
 							<input type="button" class="input40" value="检索" onclick="queryList();"/>

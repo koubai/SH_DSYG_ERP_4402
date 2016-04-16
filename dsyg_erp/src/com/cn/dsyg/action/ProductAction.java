@@ -543,6 +543,30 @@ public class ProductAction extends BaseAction {
 	}
 	
 	/**
+	 * 显示销售选择页面
+	 * @return
+	 */
+	public String showProductidSelectPage() {
+		try {
+			this.clearMessages();
+			//这里产品选择页面，不需要关键字检索
+			strKeyword = "";
+			startIndex = 0;
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			queryData();
+		} catch(Exception e) {
+			log.error("showProductidSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	
+	
+	
+	/**
 	 * 查询产品（销售单选择页面）
 	 * @return
 	 */

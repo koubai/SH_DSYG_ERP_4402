@@ -113,13 +113,17 @@
 		<isNotEmpty prepend="and" property="res02">
 			T.res02 = #res02#
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="productid">
+			CONCAT(',',T.productlist) like '%,$productid$,%' ESCAPE '/'
+		</isNotEmpty>
 		<isNotEmpty prepend="and" property="status">
 			T.status = #status#
 		</isNotEmpty>
 	</select>
 	
 	<select id="querySalesByPage" parameterClass="java.util.Map" resultMap="SalesDto">
-		select T.* from etb_sales T where 1 = 1 and status > 0
+		select T.*, T2.outquantity from etb_sales T, etb_salesitem T2, where 1 = 1 and status > 0
+		and T.saleno=T2.salesno
 		<isNotEmpty prepend="and" property="bookdateLow">
 			T.bookdate <![CDATA[>=]]> #bookdateLow#
 		</isNotEmpty>
@@ -131,6 +135,9 @@
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="customername">
 			T.customername like '%$customername$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="productid">
+			CONCAT(',',T.productlist) like '%,$productid$,%' ESCAPE '/'
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="res02">
 			T.res02 = #res02#

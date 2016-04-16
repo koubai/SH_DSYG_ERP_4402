@@ -65,6 +65,8 @@ public class SalesAction extends BaseAction {
 	private String strType;
 	//状态
 	private String strStatus;
+	//产品ID
+	private String productid;
 	
 	//销售主题
 	private List<Dict01Dto> goodsList;
@@ -626,7 +628,7 @@ public class SalesAction extends BaseAction {
 		initDictList();
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		page = salesService.querySalesByPage(strSalesdateLow, strSalesdateHigh, strTheme2, strType, strCustomername, strStatus, page);
+		page = salesService.querySalesByPage(strSalesdateLow, strSalesdateHigh, strTheme2, strType, strCustomername, productid, strStatus, page);
 		salesList = (List<SalesDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -899,4 +901,13 @@ public class SalesAction extends BaseAction {
 	public void setExporttype(String exporttype) {
 		this.exporttype = exporttype;
 	}
+
+	public String getProductid() {
+		return productid;
+	}
+
+	public void setProductid(String productid) {
+		this.productid = productid;
+	}
+
 }
