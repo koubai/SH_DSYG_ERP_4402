@@ -36,6 +36,19 @@ public interface SalesService {
 	public String addSales(SalesDto sales, List<SalesItemDto> listSalesItem, String userid);
 
 	/**
+	 * 翻页查询满足条件的销售数据(without productid)
+	 * @param bookdateLow
+	 * @param bookdateHigh
+	 * @param theme2
+	 * @param type
+	 * @param customername
+	 * @param status
+	 * @param page
+	 * @return
+	 */
+	public Page querySalesByPage(String bookdateLow, String bookdateHigh, String theme2, String type, String customername, String status, Page page);
+	
+	/**
 	 * 翻页查询满足条件的销售数据
 	 * @param bookdateLow
 	 * @param bookdateHigh
@@ -46,8 +59,8 @@ public interface SalesService {
 	 * @param page
 	 * @return
 	 */
-	public Page querySalesByPage(String bookdateLow, String bookdateHigh, String theme2, String type, String customername, String productid, String status, Page page);
-	
+	public Page querySalesExtByPage(String bookdateLow, String bookdateHigh, String theme2, String type, String customername, String productid, String status, Page page);
+
 	/**
 	 * 根据ID查询销售单数据
 	 * @param id

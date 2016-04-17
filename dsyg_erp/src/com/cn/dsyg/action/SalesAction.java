@@ -21,6 +21,7 @@ import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.SalesDto;
+import com.cn.dsyg.dto.SalesExtDto;
 import com.cn.dsyg.dto.SalesItemDto;
 import com.cn.dsyg.service.Dict01Service;
 import com.cn.dsyg.service.SalesItemService;
@@ -50,7 +51,7 @@ public class SalesAction extends BaseAction {
 	//一页显示数据条数
 	private Integer intPageSize;
 	//页面显示的销售数据列表
-	private List<SalesDto> salesList;
+	private List<SalesExtDto> salesList;
 	
 	//查询条件
 	//销售日期起
@@ -402,7 +403,8 @@ public class SalesAction extends BaseAction {
 			strCustomername = "";
 			strType = "0";
 			strStatus = "";
-			salesList = new ArrayList<SalesDto>();
+			productid = "";
+			salesList = new ArrayList<SalesExtDto>();
 			
 			queryData();
 		} catch(Exception e) {
@@ -628,8 +630,13 @@ public class SalesAction extends BaseAction {
 		initDictList();
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		page = salesService.querySalesByPage(strSalesdateLow, strSalesdateHigh, strTheme2, strType, strCustomername, productid, strStatus, page);
-		salesList = (List<SalesDto>) page.getItems();
+		System.out.println("A1:");
+
+		page = salesService.querySalesExtByPage(strSalesdateLow, strSalesdateHigh, strTheme2, strType, strCustomername, productid, strStatus, page);
+		System.out.println("A2:");
+		salesList = (List<SalesExtDto>) page.getItems();
+		System.out.println("A3:");
+
 		this.setStartIndex(page.getStartIndex());
 	}
 	
@@ -690,7 +697,7 @@ public class SalesAction extends BaseAction {
 		return intPageSize;
 	}
 
-	public List<SalesDto> getSalesList() {
+	public List<SalesExtDto> getSalesList() {
 		return salesList;
 	}
 
@@ -750,7 +757,7 @@ public class SalesAction extends BaseAction {
 		this.intPageSize = intPageSize;
 	}
 
-	public void setSalesList(List<SalesDto> salesList) {
+	public void setSalesList(List<SalesExtDto> salesList) {
 		this.salesList = salesList;
 	}
 

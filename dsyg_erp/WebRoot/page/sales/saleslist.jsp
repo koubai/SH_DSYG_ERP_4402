@@ -336,6 +336,7 @@
 									<td width="100">销售金额（含税）</td>
 									<td width="100">已付金额（含税）</td>
 								</s:else>
+								<td width="60">数量</td>
 								<td width="60">状态</td>
 								<td width="80">备注</td>
 							</tr>
@@ -396,6 +397,7 @@
 									<td align="right"><s:property value="amount"/></td>
 									<td align="right"><s:property value="taxamount"/></td>
 									<td align="right"><s:property value="paidamount"/></td>
+									<td align="right"><s:property value="quantity"/></td>
 									<td>
 										<s:if test="%{status == 10}">
 											未发货

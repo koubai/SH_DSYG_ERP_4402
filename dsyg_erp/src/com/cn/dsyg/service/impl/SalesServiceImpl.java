@@ -22,6 +22,7 @@ import com.cn.dsyg.dao.WarehouseDao;
 import com.cn.dsyg.dao.WarehouserptDao;
 import com.cn.dsyg.dto.FinanceDto;
 import com.cn.dsyg.dto.SalesDto;
+import com.cn.dsyg.dto.SalesExtDto;
 import com.cn.dsyg.dto.SalesItemDto;
 import com.cn.dsyg.dto.UserDto;
 import com.cn.dsyg.dto.WarehouseDto;
@@ -147,11 +148,11 @@ public class SalesServiceImpl implements SalesService {
 
 	@Override
 	public Page querySalesByPage(String bookdateLow, String bookdateHigh, String theme2,
-			String type, String customername, String productid, String status, Page page) {
+			String type, String customername, String status, Page page) {
 		customername = StringUtil.replaceDatabaseKeyword_mysql(customername);
 		
 		//查询总记录数
-		int totalCount = salesDao.querySalesCountByPage(bookdateLow, bookdateHigh, theme2, type, customername, productid, status);
+		int totalCount = salesDao.querySalesCountByPage(bookdateLow, bookdateHigh, theme2, type, customername, status);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -159,7 +160,7 @@ public class SalesServiceImpl implements SalesService {
 			page.setTotalPage(totalCount / page.getPageSize());
 		}
 		//翻页查询记录
-		List<SalesDto> list = salesDao.querySalesByPage(bookdateLow, bookdateHigh, theme2, type, customername, productid, status,
+		List<SalesExtDto> list = salesDao.querySalesByPage(bookdateLow, bookdateHigh, theme2, type, customername, status,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		if(list != null && list.size() > 0) {
 			for(SalesDto sales : list) {
@@ -189,6 +190,71 @@ public class SalesServiceImpl implements SalesService {
 		page.setItems(list);
 		return page;
 	}
+
+	@Override
+	public Page querySalesExtByPage(String bookdateLow, String bookdateHigh, String theme2,
+			String type, String customername, String productid, String status, Page page) {
+		customername = StringUtil.replaceDatabaseKeyword_mysql(customername);
+		
+		//查询总记录数
+		int totalCount = 0;
+		System.out.println("a1:"+totalCount);
+		if (!productid.isEmpty() && !productid.equals("")){
+			System.out.println("a2b:"+totalCount);
+			totalCount = salesDao.querySalesExtCountByPage(bookdateLow, bookdateHigh, theme2, type, customername, productid, status);
+			System.out.println("a2:"+totalCount);
+		} else {
+			System.out.println("a2c:"+totalCount);
+			totalCount = salesDao.querySalesCountByPage(bookdateLow, bookdateHigh, theme2, type, customername, status);
+			System.out.println("a3:"+totalCount);
+		}			
+		System.out.println("aa:"+totalCount);
+		page.setTotalCount(totalCount);
+		if(totalCount % page.getPageSize() > 0) {
+			page.setTotalPage(totalCount / page.getPageSize() + 1);
+		} else {
+			page.setTotalPage(totalCount / page.getPageSize());
+		}
+		//翻页查询记录
+		List<SalesExtDto> list = null;
+		if (!productid.isEmpty() && !productid.equals("")){
+			list = salesDao.querySalesExtByPage(bookdateLow, bookdateHigh, theme2, type, customername, productid, status,
+				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+			System.out.println("bb:"+list.size());
+		} else {
+			list = salesDao.querySalesByPage(bookdateLow, bookdateHigh, theme2, type, customername, status,
+					page.getStartIndex() * page.getPageSize(), page.getPageSize());
+			System.out.println("bb:"+list.size());
+		}
+		System.out.println("cc:"+list.size());
+		if(list != null && list.size() > 0) {
+			for(SalesExtDto sales : list) {
+				UserDto user = userDao.queryUserByID(sales.getHandler());
+				if(user != null) {
+					sales.setHandlername(user.getUsername());
+				}
+				
+				//查询退换货数据
+				String rptno = "";
+				List<WarehouseDto> warehouseList = warehouseDao.queryWarehouseByParentid(sales.getSalesno(), "1");
+				if(warehouseList != null && warehouseList.size() > 0) {
+					for(WarehouseDto warehouse : warehouseList) {
+						//查询RPT记录
+						WarehouserptDto rpt = warehouserptDao.queryWarehouserptByParentid(warehouse.getWarehouseno());
+						if(rpt != null) {
+							//RPT单号
+							rptno += rpt.getWarehouseno() + "\r\n";
+						}
+					}
+				}
+				if(StringUtil.isNotBlank(rptno)) {
+					sales.setRptno("退换货出库单：\r\n" + rptno);
+				}
+			}
+		}
+		page.setItems(list);
+		return page;
+	}	
 	
 	@Override
 	public void updateSales(SalesDto sales, List<SalesItemDto> listSalesItem, String userid) {
