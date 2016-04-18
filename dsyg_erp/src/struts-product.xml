@@ -65,15 +65,21 @@
 		<action name="turnProductSingleSelectPage" class="productAction" method="turnProductSingleSelectPage">
 			<result name="*">/page/product/selectsingleproduct.jsp</result>
 		</action>
+
+		<action name="showProductidSelectPage" class="productAction" method="showProductidSelectPage">
+			<result name="*">/page/product/selectproductid.jsp</result>
+		</action>
+		<action name="queryProductidSelectPage" class="productAction" method="queryProductidSelectPage">
+			<result name="*">/page/product/selectproductid.jsp</result>
+		</action>
+		<action name="turnProductidSelectPage" class="productAction" method="turnProductidSelectPage">
+			<result name="*">/page/product/selectproductid.jsp</result>
+		</action>
 		
 		<action name="showSalesProductSelectPage" class="productAction" method="showSalesProductSelectPage">
 			<result name="*">/page/product/selectsalesproduct.jsp</result>
 		</action>
 
-		<action name="showProductidSelectPage" class="productAction" method="showProductidSelectPage">
-			<result name="*">/page/product/selectproductid.jsp</result>
-		</action>
-		
 		<action name="querySalesProductSelectPage" class="productAction" method="querySalesProductSelectPage">
 			<result name="*">/page/product/selectsalesproduct.jsp</result>
 		</action>

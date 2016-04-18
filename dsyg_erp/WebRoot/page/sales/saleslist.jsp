@@ -257,7 +257,7 @@
 					</div>
 					<div class="box1" style="margin-top: 6px; margin-left: 50px;">
 						<div class="box1_left">
-							<input type ="text" name="productinfo" id="productinfo" size="30" maxlength="150" theme="simple" disabled="disabled"></>
+							<s:textfield name="productinfo" id="productinfo" size="30" maxlength="150" theme="simple" disabled="disabled"></s:textfield>
 						</div>
 						<div class="btn" style="margin-left: 230px;">
 							<div class="box1_left"></div>							

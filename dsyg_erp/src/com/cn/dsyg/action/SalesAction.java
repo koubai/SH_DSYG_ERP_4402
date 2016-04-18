@@ -68,7 +68,8 @@ public class SalesAction extends BaseAction {
 	private String strStatus;
 	//产品ID
 	private String productid;
-	
+	//产品信息
+	private String 	productinfo;	
 	//销售主题
 	private List<Dict01Dto> goodsList;
 	//颜色
@@ -913,5 +914,14 @@ public class SalesAction extends BaseAction {
 	public void setProductid(String productid) {
 		this.productid = productid;
 	}
+	
+	public String getProductinfo() {
+		return productinfo;
+	}
+
+	public void setProductinfo(String productinfo) {
+		this.productinfo = productinfo;
+	}
+
 
 }

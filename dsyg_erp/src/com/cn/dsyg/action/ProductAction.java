@@ -543,7 +543,7 @@ public class ProductAction extends BaseAction {
 	}
 	
 	/**
-	 * 显示销售选择页面
+	 * 显示选择页面
 	 * @return
 	 */
 	public String showProductidSelectPage() {
@@ -563,7 +563,41 @@ public class ProductAction extends BaseAction {
 		return SUCCESS;
 	}
 	
+	/**
+	 * 查询产品（选择页面）
+	 * @return
+	 */
+	public String queryProductidSelectPage() {
+		try {
+			this.clearMessages();
+			startIndex = 0;
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
+			queryData();
+		} catch(Exception e) {
+			log.error("queryProductidSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 	
+	/**
+	 * 翻页产品（选择页面）
+	 * @return
+	 */
+	public String turnProductidSelectPage() {
+		try {
+			this.clearMessages();
+			queryData();
+		} catch(Exception e) {
+			log.error("turnProductidSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 	
 	
 	/**

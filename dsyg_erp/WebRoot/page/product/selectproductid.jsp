@@ -16,13 +16,13 @@
 	
 	function queryList() {
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../product/querySalesProductSelectPage.action';
+		document.mainform.action = '../product/queryProductidSelectPage.action';
 		document.mainform.submit();
 	}
 	
 	function showUnit(id){
 		var strCustomerId = document.getElementById("strCustomerId").value;
-		var url = '<%=request.getContextPath()%>/sales/showProductSalesPricePage.action';
+		var url = '<%=request.getContextPath()%>/sales/showProductidSelectPage.action';
 		//strFlag=1采购单，strFlag=2销售单
 		strCustomerId="";
 		url += "?strProdoctid=" + id + "&strCustomerid=" + strCustomerId + "&strFlag=2" + "&date=" + new Date();
@@ -135,14 +135,14 @@
 	function changepagesize(pagesize) {
 		$("#intPageSize").attr("value", pagesize);
 		$("#startIndex").attr("value", "0");
-		document.mainform.action = '../product/querySalesProductSelectPage.action';
+		document.mainform.action = '../product/queryProductidSelectPage.action';
 		document.mainform.submit();
 	}
 	
 	//翻页
 	function changePage(pageNum) {
 		$("#startIndex").attr("value", pageNum);
-		document.mainform.action = '../product/turnSalesProductSelectPage.action';
+		document.mainform.action = '../product/turnProductidSelectPage.action';
 		document.mainform.submit();
 	}
 

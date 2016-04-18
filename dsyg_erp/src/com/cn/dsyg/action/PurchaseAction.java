@@ -74,7 +74,9 @@ public class PurchaseAction extends BaseAction {
 	private List<Dict01Dto> payTypeList;
 	//产品ID
 	private String productid;
-		
+	//产品信息
+	private String 	productinfo;	
+
 	//新增
 	private PurchaseDto addPurchaseDto;
 	private List<PurchaseItemDto> addPurchaseItemList;
@@ -907,5 +909,13 @@ public class PurchaseAction extends BaseAction {
 
 	public void setProductid(String productid) {
 		this.productid = productid;
+	}
+	
+	public String getProductinfo() {
+		return productinfo;
+	}
+
+	public void setProductinfo(String productinfo) {
+		this.productinfo = productinfo;
 	}
 }

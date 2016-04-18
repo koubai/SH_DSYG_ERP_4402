@@ -12,7 +12,7 @@
 body{ font-size:28px; color:#FFF; background: #75D2FF url(<%=request.getContextPath()%>/images/bg7.jpg) no-repeat fixed bottom;  
 }  
 a { color:#FFF}  
-.classname { margin-left: 50px; margin-right: 50px; border:solid 1px #2d2d2d;  text-align:center; background:#08B783; padding:50px 50px 50px 50px;  -moz-border-radius: 5px;  -webkit-border-radius: 5px; border-radius: 5px;}  
+.classname { margin-left: 50px; margin-right: 50px; border:solid 1px #2d2d2d;  text-align:center; background:#0080C0; padding:50px 50px 50px 50px;  -moz-border-radius: 5px;  -webkit-border-radius: 5px; border-radius: 5px;}  
 .classname{text-shadow:5px  5px 5px #000000;}  
 .classname{-moz-box-shadow:10px  10px 5px #000000;-webkit-box-shadow:10px  10px 5px #000000;box-shadow:10px  10px 5px #000000;}   
 </style>  
@@ -56,7 +56,7 @@ a { color:#FFF}
 </script>
 </head>
 <body>
-		<div class="classname">DSYG_东升盈港企业内部管理系统 (深圳)</div> 
+		<div class="classname">DSYG_东升盈港企业内部管理系统</div> 
 		<div class="content">
 		<s:form id="mainform" name="mainform" method="POST">
 			<table class="login_tab" border="0" cellpadding="0" cellspacing="15">
