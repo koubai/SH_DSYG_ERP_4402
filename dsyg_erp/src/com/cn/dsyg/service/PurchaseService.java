@@ -49,6 +49,18 @@ public interface PurchaseService {
 			String theme2, String status, Page page);
 	
 	/**
+	 * 翻页查询满足条件的采购数据
+	 * @param purchasedateLow
+	 * @param purchasedateHigh
+	 * @param theme2 单号
+	 * @param status
+	 * @param page
+	 * @return
+	 */
+	public Page queryPurchaseExtByPage(String purchasedateLow, String purchasedateHigh,
+			String theme2, String productid, String status, Page page);
+
+	/**
 	 * 根据ID查询采购单数据
 	 * @param id
 	 * @return

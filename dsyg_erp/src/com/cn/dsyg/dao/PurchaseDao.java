@@ -3,6 +3,7 @@ package com.cn.dsyg.dao;
 import java.util.List;
 
 import com.cn.dsyg.dto.PurchaseDto;
+import com.cn.dsyg.dto.PurchaseExtDto;
 
 /**
  * @name PurchaseDao.java
@@ -57,6 +58,16 @@ public interface PurchaseDao {
 	public int queryPurchaseCountByPage(String purchasedateLow, String purchasedateHigh, String theme2, String status);
 	
 	/**
+	 * 根据条件查询满足条件的采购单数量
+	 * @param purchasedateLow
+	 * @param purchasedateHigh
+	 * @param theme2
+	 * @param status
+	 * @return
+	 */
+	public int queryPurchaseExtCountByPage(String purchasedateLow, String purchasedateHigh, String theme2, String productid, String status);
+
+	/**
 	 * 翻页查询满足条件的采购数据
 	 * @param purchasedateLow
 	 * @param purchasedateHigh
@@ -66,9 +77,22 @@ public interface PurchaseDao {
 	 * @param end
 	 * @return
 	 */
-	public List<PurchaseDto> queryPurchaseByPage(String purchasedateLow,
+	public List<PurchaseExtDto> queryPurchaseByPage(String purchasedateLow,
 			String purchasedateHigh, String theme2, String status, int start, int end);
 	
+	/**
+	 * 翻页查询满足条件的采购数据
+	 * @param purchasedateLow
+	 * @param purchasedateHigh
+	 * @param theme2
+	 * @param status
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public List<PurchaseExtDto> queryPurchaseExtByPage(String purchasedateLow,
+			String purchasedateHigh, String theme2, String productid, String status, int start, int end);
+
 	/**
 	 * 根据ID查询采购单数据
 	 * @param id

@@ -70,6 +70,26 @@
 		}
 	}
 	
+	// Search Product
+	function srhProduct() {
+		//主题
+		var theme1 = "";//$("#theme1").val().trim();
+		
+		//这里需要查询库存数据
+		//url += "?strFieldno=" + theme1 + "&strCustomerId=" + customerid + "&date=" + new Date();
+		var url = '<%=request.getContextPath()%>/product/showProductidSelectPage.action';
+		url += "?strFieldno=" + theme1 + "&date=" + new Date();
+		
+		//window.open(url);
+		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	}
+	
+	// clear Product
+	function clrProduct() {
+		$("#productinfo").attr("value", "");
+		$("#productid").attr("value", "");
+	}
+	
 	//查询日期赋值
 	function setQueryDate() {
 		$("#strPurchasedateLow").attr("value", $("#purchaseDateLow").val());
@@ -152,6 +172,7 @@
 				<s:hidden name="startIndex" id="startIndex"/>
 				<s:hidden name="strPurchasedateLow" id="strPurchasedateLow"/>
 				<s:hidden name="strPurchasedateHigh" id="strPurchasedateHigh"/>
+				<s:hidden name="productid" id="productid"/>
 				<s:hidden name="intPageSize" id="intPageSize"/>
 				<div class="searchbox">
 					<div class="box1">
@@ -211,6 +232,25 @@
 						</div>
 						<div class="box1_right"></div>
 					</div>
+					<div class="box1" style="margin-top: 6px; margin-left: 50px;">
+						<div class="box1_left">
+							<input type ="text" name="productinfo" id="productinfo" size="30" maxlength="150" theme="simple" disabled="disabled"></>
+						</div>
+						<div class="btn" style="margin-left: 230px;">
+							<div class="box1_left"></div>							
+							<div class="box1_center">
+								<input class="input40" type="button" onclick="clrProduct();" value="清除" />							
+							</div>
+							<div class="box1_right"></div>
+						</div>
+						<div class="btn" style="margin-left: 10px;">
+							<div class="box1_left"></div>							
+							<div class="box1_center">
+								<input class="input40" type="button" onclick="srhProduct();" value="产品" />							
+							</div>
+							<div class="box1_right"></div>
+						</div>
+					</div>
 					<div class="btn" style="margin-left: 100px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
@@ -249,6 +289,7 @@
 								<td width="120">采购金额（不含税）</td>
 								<td width="110">采购金额（含税）</td>
 								<td width="110">已付金额（含税）</td>
+								<td width="60">数量</td>
 								<td width="60">状态</td>
 								<td width="80">备注</td>
 							</tr>
@@ -294,6 +335,7 @@
 									<td align="right"><s:property value="totalamount"/></td>
 									<td align="right"><s:property value="taxamount"/></td>
 									<td align="right"><s:property value="paidamount"/></td>
+									<td align="right"><s:property value="quantity"/></td>
 									<td>
 										<s:if test="%{status == 10}">
 											未收货

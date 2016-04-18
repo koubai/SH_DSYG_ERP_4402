@@ -23,7 +23,9 @@ import com.cn.dsyg.dao.WarehouserptDao;
 import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.FinanceDto;
 import com.cn.dsyg.dto.PurchaseDto;
+import com.cn.dsyg.dto.PurchaseExtDto;
 import com.cn.dsyg.dto.PurchaseItemDto;
+import com.cn.dsyg.dto.SalesExtDto;
 import com.cn.dsyg.dto.UserDto;
 import com.cn.dsyg.dto.WarehouseDto;
 import com.cn.dsyg.dto.WarehouserptDto;
@@ -95,10 +97,66 @@ public class PurchaseServiceImpl implements PurchaseService {
 			page.setTotalPage(totalCount / page.getPageSize());
 		}
 		//翻页查询记录
-		List<PurchaseDto> list = purchaseDao.queryPurchaseByPage(purchasedateLow, purchasedateHigh, theme2, status,
+		List<PurchaseExtDto> list = purchaseDao.queryPurchaseByPage(purchasedateLow, purchasedateHigh, theme2, status,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		if(list != null && list.size() > 0) {
 			for(PurchaseDto purchase : list) {
+				UserDto user = userDao.queryUserByID(purchase.getHandler());
+				if(user != null) {
+					purchase.setHandlername(user.getUsername());
+				}
+				
+				//查询退换货数据
+				String rptno = "";
+				List<WarehouseDto> warehouseList = warehouseDao.queryWarehouseByParentid(purchase.getPurchaseno(), "1");
+				if(warehouseList != null && warehouseList.size() > 0) {
+					for(WarehouseDto warehouse : warehouseList) {
+						//查询RPT记录
+						WarehouserptDto rpt = warehouserptDao.queryWarehouserptByParentid(warehouse.getWarehouseno());
+						if(rpt != null) {
+							//RPT单号
+							rptno += rpt.getWarehouseno() + "\r\n";
+						}
+					}
+				}
+				if(StringUtil.isNotBlank(rptno)) {
+					purchase.setRptno("退换货入库单：\r\n" + rptno);
+				}
+			}
+		}
+		page.setItems(list);
+		return page;
+	}
+
+	@Override
+	public Page queryPurchaseExtByPage(String purchasedateLow,
+			String purchasedateHigh, String theme2, String productid, String status, Page page) {
+		//查询总记录数
+		int totalCount = 0;
+		purchaseDao.queryPurchaseCountByPage(purchasedateLow, purchasedateHigh, theme2, status);
+		if (!productid.isEmpty() && !productid.equals("")){
+			totalCount = purchaseDao.queryPurchaseExtCountByPage(purchasedateLow, purchasedateHigh, theme2, productid, status);
+		} else {
+			totalCount = purchaseDao.queryPurchaseCountByPage(purchasedateLow, purchasedateHigh, theme2, status);
+		}			
+		page.setTotalCount(totalCount);
+		if(totalCount % page.getPageSize() > 0) {
+			page.setTotalPage(totalCount / page.getPageSize() + 1);
+		} else {
+			page.setTotalPage(totalCount / page.getPageSize());
+		}
+		//翻页查询记录
+		List<PurchaseExtDto> list = null;
+		if (!productid.isEmpty() && !productid.equals("")){
+			list = purchaseDao.queryPurchaseExtByPage(purchasedateLow, purchasedateHigh, theme2, productid, status,
+					page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		} else {
+			list = purchaseDao.queryPurchaseByPage(purchasedateLow, purchasedateHigh, theme2, status,
+					page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		}
+
+		if(list != null && list.size() > 0) {
+			for(PurchaseExtDto purchase : list) {
 				UserDto user = userDao.queryUserByID(purchase.getHandler());
 				if(user != null) {
 					purchase.setHandlername(user.getUsername());

@@ -198,17 +198,11 @@ public class SalesServiceImpl implements SalesService {
 		
 		//查询总记录数
 		int totalCount = 0;
-		System.out.println("a1:"+totalCount);
 		if (!productid.isEmpty() && !productid.equals("")){
-			System.out.println("a2b:"+totalCount);
 			totalCount = salesDao.querySalesExtCountByPage(bookdateLow, bookdateHigh, theme2, type, customername, productid, status);
-			System.out.println("a2:"+totalCount);
 		} else {
-			System.out.println("a2c:"+totalCount);
 			totalCount = salesDao.querySalesCountByPage(bookdateLow, bookdateHigh, theme2, type, customername, status);
-			System.out.println("a3:"+totalCount);
 		}			
-		System.out.println("aa:"+totalCount);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -220,13 +214,10 @@ public class SalesServiceImpl implements SalesService {
 		if (!productid.isEmpty() && !productid.equals("")){
 			list = salesDao.querySalesExtByPage(bookdateLow, bookdateHigh, theme2, type, customername, productid, status,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
-			System.out.println("bb:"+list.size());
 		} else {
 			list = salesDao.querySalesByPage(bookdateLow, bookdateHigh, theme2, type, customername, status,
 					page.getStartIndex() * page.getPageSize(), page.getPageSize());
-			System.out.println("bb:"+list.size());
 		}
-		System.out.println("cc:"+list.size());
 		if(list != null && list.size() > 0) {
 			for(SalesExtDto sales : list) {
 				UserDto user = userDao.queryUserByID(sales.getHandler());

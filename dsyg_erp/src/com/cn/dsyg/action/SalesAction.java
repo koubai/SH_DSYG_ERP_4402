@@ -630,12 +630,9 @@ public class SalesAction extends BaseAction {
 		initDictList();
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		System.out.println("A1:");
 
 		page = salesService.querySalesExtByPage(strSalesdateLow, strSalesdateHigh, strTheme2, strType, strCustomername, productid, strStatus, page);
-		System.out.println("A2:");
 		salesList = (List<SalesExtDto>) page.getItems();
-		System.out.println("A3:");
 
 		this.setStartIndex(page.getStartIndex());
 	}

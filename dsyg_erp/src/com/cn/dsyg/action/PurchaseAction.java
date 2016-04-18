@@ -72,6 +72,8 @@ public class PurchaseAction extends BaseAction {
 	private List<Dict01Dto> makeareaList;
 	//支付方式
 	private List<Dict01Dto> payTypeList;
+	//产品ID
+	private String productid;
 		
 	//新增
 	private PurchaseDto addPurchaseDto;
@@ -423,6 +425,7 @@ public class PurchaseAction extends BaseAction {
 			strPurchasedateHigh = "";
 			strTheme2 = "";
 			strStatus = "";
+			productid = "";
 			purchaseList = new ArrayList<PurchaseDto>();
 			
 			queryData();
@@ -647,7 +650,7 @@ public class PurchaseAction extends BaseAction {
 		initDictList();
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		page = purchaseService.queryPurchaseByPage(strPurchasedateLow, strPurchasedateHigh, strTheme2, strStatus, page);
+		page = purchaseService.queryPurchaseExtByPage(strPurchasedateLow, strPurchasedateHigh, strTheme2, productid, strStatus, page);
 		purchaseList = (List<PurchaseDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -896,5 +899,13 @@ public class PurchaseAction extends BaseAction {
 
 	public void setExporttype(String exporttype) {
 		this.exporttype = exporttype;
+	}
+
+	public String getProductid() {
+		return productid;
+	}
+
+	public void setProductid(String productid) {
+		this.productid = productid;
 	}
 }

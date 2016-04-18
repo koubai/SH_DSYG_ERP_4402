@@ -242,10 +242,10 @@
 					</tr>
 					<s:iterator id="productList" value="productList" status="st1">
 						<s:if test="#st1.odd==true">
-							<tr class="tr_bg" onclick="checkCheckboxCuTr(this, event, 1, 0);">
+							<tr class="tr_bg" onclick="checkRadioTr1(this, event, 1, 0);">
 						</s:if>
 						<s:else>
-							<tr onclick="checkCheckboxCuTr(this, event, 1, 0);">
+							<tr onclick="checkRadioTr1(this, event, 1, 0);">
 						</s:else>
 							<td style="display: none;">
 								<input type="hidden" value="<s:property value="id"/>"/>
@@ -267,7 +267,7 @@
 								<input type="hidden" value="<s:iterator id="makeareaList" value="makeareaList" status="st3"><s:if test="%{makeareaList[#st3.index].code == productList[#st1.index].makearea}"><s:property value="fieldname"/></s:if></s:iterator>"/>
 							</td>
 							<!-- <td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td> -->
-							<td><input name="radioKey" type="checkbox" value="<s:property value="id"/>"/></td>
+							<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>							
 							<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
 							<td>
 								<s:iterator id="goodsList" value="goodsList" status="st3">

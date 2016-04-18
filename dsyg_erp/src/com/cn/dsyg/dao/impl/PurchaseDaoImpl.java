@@ -7,6 +7,7 @@ import java.util.Map;
 import com.cn.common.dao.BaseDao;
 import com.cn.dsyg.dao.PurchaseDao;
 import com.cn.dsyg.dto.PurchaseDto;
+import com.cn.dsyg.dto.PurchaseExtDto;
 
 /**
  * @name PurchaseDaoImpl.java
@@ -89,7 +90,19 @@ public class PurchaseDaoImpl extends BaseDao implements PurchaseDao {
 	}
 
 	@Override
-	public List<PurchaseDto> queryPurchaseByPage(String purchasedateLow,
+	public int queryPurchaseExtCountByPage(String purchasedateLow,
+			String purchasedateHigh, String theme2, String productid, String status) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("purchasedateLow", purchasedateLow);
+		paramMap.put("purchasedateHigh", purchasedateHigh);
+		paramMap.put("theme2", theme2);
+		paramMap.put("productid", productid);
+		paramMap.put("status", status);
+		return (Integer) getSqlMapClientTemplate().queryForObject("queryPurchaseExtCountByPage", paramMap);
+	}
+	
+	@Override
+	public List<PurchaseExtDto> queryPurchaseByPage(String purchasedateLow,
 			String purchasedateHigh, String theme2, String status, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("purchasedateLow", purchasedateLow);
@@ -99,10 +112,26 @@ public class PurchaseDaoImpl extends BaseDao implements PurchaseDao {
 		paramMap.put("start", start);
 		paramMap.put("end", end);
 		@SuppressWarnings("unchecked")
-		List<PurchaseDto> list = getSqlMapClientTemplate().queryForList("queryPurchaseByPage", paramMap);
+		List<PurchaseExtDto> list = getSqlMapClientTemplate().queryForList("queryPurchaseByPage", paramMap);
 		return list;
 	}
 
+	@Override
+	public List<PurchaseExtDto> queryPurchaseExtByPage(String purchasedateLow,
+			String purchasedateHigh, String theme2, String productid, String status, int start, int end) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("purchasedateLow", purchasedateLow);
+		paramMap.put("purchasedateHigh", purchasedateHigh);
+		paramMap.put("theme2", theme2);
+		paramMap.put("productid", productid);
+		paramMap.put("status", status);
+		paramMap.put("start", start);
+		paramMap.put("end", end);
+		@SuppressWarnings("unchecked")
+		List<PurchaseExtDto> list = getSqlMapClientTemplate().queryForList("queryPurchaseExtByPage", paramMap);
+		return list;
+	}
+	
 	@Override
 	public PurchaseDto queryPurchaseByID(String id) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
