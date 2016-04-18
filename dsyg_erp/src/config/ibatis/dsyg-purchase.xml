@@ -187,7 +187,7 @@
 		LIMIT #start#, #end#
 	</select>
 	<select id="queryPurchaseExtByPage" parameterClass="java.util.Map" resultMap="PurchaseExtDto">
-		select T.*, T2.outquantity as quantity from etb_purchase T, etb_salesitem T2 where 1 = 1 and T.status > 0
+		select T.*, T2.outquantity as quantity from etb_purchase T, etb_purchaseitem T2 where 1 = 1 and T.status > 0
 		and T.purchaseno = T2.purchaseno
 		<isNotEmpty prepend="and" property="purchasedateLow">
 			T.purchasedate <![CDATA[>=]]> #purchasedateLow#
