@@ -215,14 +215,15 @@
 							<tr class="tittle">
 								<td width="20"></td>
 								<td width="20">序号</td>
-								<td width="60">类型</td>
+								<td width="40">类型</td>
 								<td width="60">品名</td>
-								<td width="60">规格</td>
-								<td width="60">颜色</td>
-								<td width="60">形式</td>
+								<td width="80">规格</td>
+								<td width="40">颜色</td>
+								<td width="40">形式</td>
 								<td width="60">包装</td>
-								<td width="60">产地</td>
+								<td width="40">产地</td>
 								<td width="60">住友编码</td>
+								<td width="40">显示与否</td>
 							</tr>
 							<s:iterator id="productList" value="productList" status="st1">
 								<s:if test="#st1.odd==true">
@@ -269,6 +270,10 @@
 									</td>
 									<td>
 										<s:property value="item11"/>
+									</td>
+									<td>
+										<s:if test="%{rank <= 50}">显示</s:if>
+										<s:else>不显示</s:else>
 									</td>
 								</tr>
 							</s:iterator>

@@ -274,7 +274,7 @@
 							<div class="box1_right"></div>
 						</div>
 					</div>
-					<div class="btn" style="margin-top: 6px; margin-left: 180px;">
+					<div class="btn" style="margin-top: 6px; margin-left: 50px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
 							<input type="button" class="input40" value="检索" onclick="queryList();"/>

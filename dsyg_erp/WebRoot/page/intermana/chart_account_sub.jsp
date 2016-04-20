@@ -145,9 +145,9 @@
             var col = row.insertCell(0);         
             col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+"产品种类"+"</strong>";
    		    col = row.insertCell(1);   
-            col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+"已销售未出库金额"+"</strong>";
+            col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+"订单未发货金额"+"</strong>";
    		    col = row.insertCell(2);   
-            col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+"已销售未出库数量"+"</strong>";
+            col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+"订单未发货数量"+"</strong>";
             d=document.getElementById('planTableD').deleteTFoot();
 			x=document.getElementById('planTableD').createTFoot();
 			var sum_warehousecost=0;
@@ -170,7 +170,7 @@
 			row_no++;
 			row = x.insertRow(row_no+1); 
     		col = row.insertCell(0);    
-            col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+"已销售未出库金额总计:"+"</strong2>";
+            col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+"订单未发货金额总计:"+"</strong2>";
    		    col = row.insertCell(1);   
             col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+sum_warehousecost.toFixed(2).toString()+"</strong2>";
 	    };  
@@ -184,9 +184,9 @@
             var col = row.insertCell(0);         
             col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+"产品种类"+"</strong>";
    		    col = row.insertCell(1);   
-            col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+"已采购未入库金额"+"</strong>";
+            col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+"采购单未入库金额"+"</strong>";
    		    col = row.insertCell(2);   
-            col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+"已采购未入库数量"+"</strong>";
+            col.innerHTML = "<style>strong{background:#59c9ff}</style><strong>"+"采购单未入库数量"+"</strong>";
             d=document.getElementById('planTableE').deleteTFoot();
 			x=document.getElementById('planTableE').createTFoot();
 			var sum_warehousecost=0;
@@ -209,7 +209,7 @@
 			row_no++;
 			row = x.insertRow(row_no+1); 
     		col = row.insertCell(0);    
-            col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+"已采购未入库金额总计:"+"</strong2>";
+            col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+"采购单未入库金额总计:"+"</strong2>";
    		    col = row.insertCell(1);   
             col.innerHTML = "<style>strong2{float: right;background:#b9ffb9}</style><strong2>"+sum_warehousecost.toFixed(2).toString()+"</strong2>";
 	    };  	    
@@ -664,11 +664,15 @@
 					</table>			
 					<br><br>
 				</td>
+		    </tr>
+		    <tr>
 				<td>
 					<table id="planTableD" border:1px  cellpadding="3" cellspacing="1" style="background-color: #b9d8f3;" width="400">
 					</table>			
 					<br><br>
 				</td>
+		    </tr>
+		    <tr>
 				<td>
 					<table id="planTableE" border:1px  cellpadding="3" cellspacing="1" style="background-color: #b9d8f3;" width="400">
 					</table>			
