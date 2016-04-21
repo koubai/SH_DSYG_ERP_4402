@@ -211,7 +211,7 @@
 	</select>
 
 	<select id="querySalesExtByPage" parameterClass="java.util.Map" resultMap="SalesExtDto">
-		select T.*, T2.outquantity as quantity from etb_sales T, etb_salesitem T2 where 1 = 1 and T.status > 0
+		select T.*, T2.quantity as quantity from etb_sales T, etb_salesitem T2 where 1 = 1 and T.status > 0
 		and T.salesno = T2.salesno
 		<isNotEmpty prepend="and" property="bookdateLow">
 			T.bookdate <![CDATA[>=]]> #bookdateLow#
