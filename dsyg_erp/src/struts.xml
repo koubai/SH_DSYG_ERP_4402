@@ -16,6 +16,8 @@
 	<include file="struts-qa.xml"></include>
 	<!-- sample -->
 	<include file="struts-sample.xml"></include>
+	<!-- untaxinfo -->
+	<include file="struts-untaxinfo.xml"></include>
 	<!-- user -->
 	<include file="struts-user.xml"></include>
 	<!-- chart -->

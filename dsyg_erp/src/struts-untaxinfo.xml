@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="untaxinfo" extends="struts-erp" namespace="/untaxinfo">
+	
+		<action name="showUntaxInfoAction" class="untaxinfoAction" method="showUntaxInfoAction">
+			<result name="*">/page/untaxinfo/untaxinfolist.jsp</result>
+		</action>
+		
+		<action name="queryUntaxInfoAction" class="untaxinfoAction" method="queryUntaxInfoAction">
+			<result name="*">/page/untaxinfo/untaxinfolist.jsp</result>
+		</action>
+		
+		<action name="turnUntaxInfoAction" class="untaxinfoAction" method="turnUntaxInfoAction">
+			<result name="*">/page/untaxinfo/untaxinfolist.jsp</result>
+		</action>
+		
+		<action name="showAddUntaxInfoAction" class="untaxinfoAction" method="showAddUntaxInfoAction">
+			<result name="*">/page/untaxinfo/adduntaxinfo.jsp</result>
+		</action>
+		
+		<action name="addUntaxInfoAction" class="untaxinfoAction" method="addUntaxInfoAction">
+			<result name="*">/page/untaxinfo/adduntaxinfo.jsp</result>
+		</action>
+		
+		<action name="showUpdUntaxInfoAction" class="untaxinfoAction" method="showUpdUntaxInfoAction">
+			<result name="*">/page/untaxinfo/upduntaxinfo.jsp</result>
+		</action>
+		
+		<action name="updUntaxInfoAction" class="untaxinfoAction" method="updUntaxInfoAction">
+			<result name="*">/page/untaxinfo/upduntaxinfo.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>
