@@ -52,14 +52,13 @@ public class UntaxInfoServiceImpl implements UntaxInfoService {
 	}
 
 	@Override
-	public Page queryUntaxInfoByPage(String warehousename, String productid,
+	public Page queryUntaxInfoByPage(String productid,
 			String status, String tradename, String customername, Page page) {
-		warehousename = StringUtil.replaceDatabaseKeyword_mysql(warehousename);
 		customername = StringUtil.replaceDatabaseKeyword_mysql(customername);
 		tradename = StringUtil.replaceDatabaseKeyword_mysql(tradename);
 		
 		//查询总记录数
-		int totalCount = untaxinfoDao.queryUntaxInfoCountByPage(warehousename, productid, status, tradename, customername);
+		int totalCount = untaxinfoDao.queryUntaxInfoCountByPage(productid, status, tradename, customername);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -67,7 +66,7 @@ public class UntaxInfoServiceImpl implements UntaxInfoService {
 			page.setTotalPage(totalCount / page.getPageSize());
 		}
 		//翻页查询记录
-		List<UntaxInfoDto> list = untaxinfoDao.queryUntaxInfoByPage(warehousename, productid, status, tradename, customername,
+		List<UntaxInfoDto> list = untaxinfoDao.queryUntaxInfoByPage(productid, status, tradename, customername,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		if(list != null && list.size() > 0) {
 			for(UntaxInfoDto untaxinfo : list) {

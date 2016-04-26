@@ -9,6 +9,19 @@
 		</property>
 	</bean>
 
+	<!-- UntaxInfo -->
+	<bean id="untaxInfoAction" class="com.cn.dsyg.action.UntaxInfoAction" scope="session">
+		<property name="dict01Service">
+			<ref bean="dict01Service" />
+		</property>
+		<property name="productService">
+			<ref bean="productService" />
+		</property>
+		<property name="untaxInfoService">
+			<ref bean="untaxInfoService" />
+		</property>
+	</bean>
+
 	<!-- Sample -->
 	<bean id="sampleAction" class="com.cn.dsyg.action.SampleAction" scope="session">
 		<property name="dict01Service">

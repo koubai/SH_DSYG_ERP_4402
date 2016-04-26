@@ -36,7 +36,7 @@ public interface UntaxInfoDao {
 	 * @param end
 	 * @return
 	 */
-	public List<UntaxInfoDto> queryUntaxInfoByPage(String warehousename,
+	public List<UntaxInfoDto> queryUntaxInfoByPage(
 			String productid, String status, String tradename, String customername, int start, int end);
 	
 	/**
@@ -48,7 +48,7 @@ public interface UntaxInfoDao {
 	 * @param customername
 	 * @return
 	 */
-	public int queryUntaxInfoCountByPage(String warehousename,
+	public int queryUntaxInfoCountByPage(
 			String productid, String status, String tradename, String customername);
 	
 	/**

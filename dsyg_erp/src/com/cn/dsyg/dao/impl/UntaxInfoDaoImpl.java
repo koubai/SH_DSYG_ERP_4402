@@ -38,10 +38,9 @@ public class UntaxInfoDaoImpl extends BaseDao implements UntaxInfoDao {
 	}
 
 	@Override
-	public List<UntaxInfoDto> queryUntaxInfoByPage(String warehousename,
+	public List<UntaxInfoDto> queryUntaxInfoByPage(
 			String productid, String status, String tradename, String customername, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("warehousename", warehousename);
 		paramMap.put("productid", productid);
 		paramMap.put("status", status);
 		paramMap.put("tradename", tradename);
@@ -54,10 +53,9 @@ public class UntaxInfoDaoImpl extends BaseDao implements UntaxInfoDao {
 	}
 
 	@Override
-	public int queryUntaxInfoCountByPage(String warehousename, String productid,
+	public int queryUntaxInfoCountByPage(String productid,
 			String status, String tradename, String customername) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("warehousename", warehousename);
 		paramMap.put("productid", productid);
 		paramMap.put("status", status);
 		paramMap.put("tradename", tradename);

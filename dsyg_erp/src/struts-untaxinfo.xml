@@ -6,27 +6,27 @@
 
 	<package name="untaxinfo" extends="struts-erp" namespace="/untaxinfo">
 	
-		<action name="showUntaxInfoAction" class="untaxinfoAction" method="showUntaxInfoAction">
+		<action name="showUntaxInfoAction" class="untaxInfoAction" method="showUntaxInfoAction">
 			<result name="*">/page/untaxinfo/untaxinfolist.jsp</result>
 		</action>
 		
-		<action name="queryUntaxInfoAction" class="untaxinfoAction" method="queryUntaxInfoAction">
+		<action name="queryUntaxInfoAction" class="untaxInfoAction" method="queryUntaxInfoAction">
 			<result name="*">/page/untaxinfo/untaxinfolist.jsp</result>
 		</action>
 		
-		<action name="turnUntaxInfoAction" class="untaxinfoAction" method="turnUntaxInfoAction">
+		<action name="turnUntaxInfoAction" class="untaxInfoAction" method="turnUntaxInfoAction">
 			<result name="*">/page/untaxinfo/untaxinfolist.jsp</result>
 		</action>
 		
-		<action name="showAddUntaxInfoAction" class="untaxinfoAction" method="showAddUntaxInfoAction">
+		<action name="showAddUntaxInfoAction" class="untaxInfoAction" method="showAddUntaxInfoAction">
 			<result name="*">/page/untaxinfo/adduntaxinfo.jsp</result>
 		</action>
 		
-		<action name="addUntaxInfoAction" class="untaxinfoAction" method="addUntaxInfoAction">
+		<action name="addUntaxInfoAction" class="untaxInfoAction" method="addUntaxInfoAction">
 			<result name="*">/page/untaxinfo/adduntaxinfo.jsp</result>
 		</action>
 		
-		<action name="showUpdUntaxInfoAction" class="untaxinfoAction" method="showUpdUntaxInfoAction">
+		<action name="showUpdUntaxInfoAction" class="untaxInfoAction" method="showUpdUntaxInfoAction">
 			<result name="*">/page/untaxinfo/upduntaxinfo.jsp</result>
 		</action>
 		

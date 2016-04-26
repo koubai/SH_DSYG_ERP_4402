@@ -26,7 +26,6 @@ public interface UntaxInfoService {
 	
 	/**
 	 * 分页查询数据
-	 * @param warehousename
 	 * @param productid
 	 * @param status
 	 * @param tradename
@@ -34,7 +33,7 @@ public interface UntaxInfoService {
 	 * @param page
 	 * @return
 	 */
-	public Page queryUntaxInfoByPage(String warehousename,
+	public Page queryUntaxInfoByPage(
 			String productid, String status, String tradename, String customername, Page page);
 	
 	/**

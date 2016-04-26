@@ -35,6 +35,25 @@
 		</property>
 	</bean>
 
+	<!-- UntaxInfo -->
+	<bean id="untaxInfoService" class="com.cn.dsyg.service.impl.UntaxInfoServiceImpl" >
+		<property name="untaxInfoDao">
+			<ref local="untaxInfoDao"/>
+		</property>
+		<property name="productDao">
+			<ref local="productDao"/>
+		</property>
+		<property name="customerDao">
+			<ref local="customerDao"/>
+		</property>
+	</bean>
+	
+	<bean id="untaxInfoDao" class="com.cn.dsyg.dao.impl.UntaxInfoDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+
 	<!-- Sample -->
 	<bean id="sampleService" class="com.cn.dsyg.service.impl.SampleServiceImpl" >
 		<property name="sampleDao">

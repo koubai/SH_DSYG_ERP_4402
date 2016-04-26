@@ -12,12 +12,9 @@ import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.Dict01Dto;
-import com.cn.dsyg.dto.SampleDto;
-import com.cn.dsyg.dto.SampleTotleDto;
 import com.cn.dsyg.dto.UntaxInfoDto;
 import com.cn.dsyg.service.Dict01Service;
 import com.cn.dsyg.service.ProductService;
-import com.cn.dsyg.service.SampleService;
 import com.cn.dsyg.service.UntaxInfoService;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -28,6 +25,11 @@ import com.opensymphony.xwork2.ActionContext;
  * @version 1.0
  */
 public class UntaxInfoAction extends BaseAction {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -937579539202210904L;
 
 	private static final Logger log = LogManager.getLogger(UntaxInfoAction.class);
 	
@@ -42,7 +44,7 @@ public class UntaxInfoAction extends BaseAction {
 	//一页显示数据条数
 	private Integer intPageSize;
 	
-	private List<UntaxInfoDto> untaxinfoList;
+	private List<UntaxInfoDto> untaxInfoList;
 	
 	//查询条件
 	//品名
@@ -66,10 +68,8 @@ public class UntaxInfoAction extends BaseAction {
 	private UntaxInfoDto updUntaxInfoDto;
 	private String updUntaxInfoId;
 	
-	//样品汇总
+	//
 	private String strProductid;
-	private UntaxInfoDto untaxInfoDto;
-	private List<UntaxInfoDto> untaxInfoList;
 	
 	
 	/**
@@ -180,7 +180,7 @@ public class UntaxInfoAction extends BaseAction {
 			page = new Page(intPageSize);
 			queryData();
 		} catch(Exception e) {
-			log.error("showSampleAction error:" + e);
+			log.error("showUntaxInfoAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -235,7 +235,7 @@ public class UntaxInfoAction extends BaseAction {
 		initDictList();
 		//翻页查询所有入库汇总记录
 		this.page.setStartIndex(startIndex);
-		page = untaxinfoService.queryUntaxInfoByPage("", "", "", strTradename, strCustomername, page);
+		page = untaxinfoService.queryUntaxInfoByPage("", "", strTradename, strCustomername, page);
 		untaxInfoList = (List<UntaxInfoDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -258,7 +258,7 @@ public class UntaxInfoAction extends BaseAction {
 	
 	/**
 	 * 验证数据
-	 * @param sample
+	 * @param untaxinfo
 	 * @return
 	 */
 	private boolean checkData(UntaxInfoDto untaxInfo) {
@@ -385,16 +385,16 @@ public class UntaxInfoAction extends BaseAction {
 		return untaxinfoService;
 	}
 
-	public void setSampleService(UntaxInfoService untaxInfoService) {
+	public void setUntaxInfoService(UntaxInfoService untaxInfoService) {
 		this.untaxinfoService = untaxInfoService;
 	}
 
 	public List<UntaxInfoDto> getUntaxInfoList() {
-		return untaxinfoList;
+		return untaxInfoList;
 	}
 
 	public void setUntaxInfoList(List<UntaxInfoDto> untaxInfoList) {
-		this.untaxinfoList = untaxInfoList;
+		this.untaxInfoList = untaxInfoList;
 	}
 
 	public UntaxInfoDto getAddUntaxInfoDto() {
