@@ -14,10 +14,69 @@
 	function upd() {
 		if(checkItem()) {
 			if(confirm("确定修改吗？")) {
-				document.mainform.action = "../untaxinfo/upduntaxinfoAction.action";
+				document.mainform.action = "../untaxinfo/updUntaxInfoAction.action";
 				document.mainform.submit();
 			}
 		}
+	}
+	
+	//计算销售数量及金额
+	function calcquantity(obj, type) {
+		if(type == "1") {
+			//是否是数字check
+			if(!isReal(obj.value)) {
+				alert("销售数量必须是数字！");
+				checkflag = ture;
+				obj.focus();
+				checkflag = false;
+				return;
+			}
+		} else if(type == "4") {
+			//是否实数check
+			if(!isReal(obj.value)) {
+				alert("未税单价格式不正确！");
+				checkflag = ture;
+				obj.focus();
+				checkflag = false;
+				return;
+			}
+		} else {
+			//是否实数check
+			if(!isReal(obj.value)) {
+				alert("销售金额（未税）格式不正确！");
+				obj.focus();
+				checkflag = false;
+				return;
+			}
+		}
+
+		//销售货物数量
+		var salesQuantity = $("#tmpQuantity").val().trim();			
+		if(salesQuantity == "") {
+			salesQuantity = 0;
+		} else {
+			salesQuantity = parseFloat(salesQuantity).toFixed(2);
+		}
+	
+		//单价
+		var price = $("#tmpUnitprice").val().trim();
+		if(price == "") {
+			price = 0;
+		} else {
+			price = parseFloat(price).toFixed(6);			
+		}
+		
+		//销售金额
+		var amount = parseFloat(price) * parseFloat(salesQuantity);
+		$("#tmpAmount").val(amount.toFixed(2));
+		if(amount == "") {
+			amount = 0;
+		} else {
+			amount = parseFloat(amount).toFixed(2);			
+		}
+		$("#quantity").val(salesQuantity);
+		$("#unitprice").val(price);
+		$("#amount").val(amount);
 	}
 	
 	//验证数据格式
@@ -37,8 +96,11 @@
 		//供应商名
 		var suppliername = $("#suppliername").val().trim();
 		
+		var tmpUnitprice = $("#tmpUnitprice").val().trim();
 		var tmpQuantity = $("#tmpQuantity").val().trim();
+		var tmpAmount = $("#tmpAmount").val().trim();
 		var tempNote = $("#tempNote").val().trim();
+		var tempNote2 = $("#tempNote2").val().trim();
 		
 		if(productid == "") {
 			alert("请选择产品！");
@@ -51,7 +113,7 @@
 			return;
 		}
 		
-		var list = document.getElementsByName("tmpType");
+/*		var list = document.getElementsByName("tmpType");
 		var type = "";
 		for(var i = 0; i < list.length; i++) {
 			if(list[i].checked) {
@@ -93,6 +155,8 @@
 			$("#sampleCustomerid").val(customerid);
 			$("#sampleCustomername").val(customername);
 		}
+*/
+		$("#customertype").val("2");
 		
 		if(tmpQuantity == "") {
 			alert("数量不能为空！");
@@ -104,19 +168,41 @@
 			$("#tmpQuantity").focus();
 			return;
 		}
-		if(tempNote ==  "") {
+		if(!isReal(tmpUnitprice)) {
+			alert("未税单价格式不正确！");
+			$("#tmpUnitprice").focus();
+			return;
+		}
+		if(!isReal(tmpAmount)) {
+			alert("未税金额格式不正确！");
+			$("#tmpAmount").focus();
+			return;
+		}
+/*		if(tempNote ==  "") {
 			alert("备注不能为空！");
 			$("#tempNote").focus();
 			return false;
 		}
+		*/		
 		if(tempNote.length > 250) {
 			alert("备注不能超过250个字！");
 			$("#tempNote").focus();
 			return false;
 		}
+		if(tempNote2.length > 250) {
+			alert("备注2不能超过250个字！");
+			$("#tempNote2").focus();
+			return false;
+		}
+		$("#untaxinfoCustomerid").val(customerid);
+		$("#untaxinfoCustomername").val(customername);
 		$("#quantity").val(tmpQuantity);
+		$("#showQuantity").val(tmpQuantity);
+		$("#unitprice").val(tmpUnitprice);
+		$("#amount").val(tmpAmount);
 		//备注
 		$("#note").val($("#tempNote").val());
+		$("#note2").val($("#tempNote2").val());
 		return true;
 	}
 	
@@ -142,7 +228,7 @@
 		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 	}
 	
-	function selectType(obj) {
+/*	function selectType(obj) {
 		if(obj.checked) {
 			if(obj.value == "1") {
 				//供应商
@@ -169,9 +255,9 @@
 			}
 		}
 	}
-	
+*/	
 	function goBack() {
-		window.location.href = "../untaxinfo/queryUntaxinfoAction.action";
+		window.location.href = "../untaxinfo/queryUntaxInfoAction.action";
 	}
 </script>
 </head>
@@ -182,7 +268,7 @@
 				<div class="tittle_left">
 				</div>
 				<div class="tittle_center" style="width:150px;">
-					未税销售产品信息输入
+					未税销售产品信息更新
 				</div>
 				<div class="tittle_right">
 				</div>
@@ -190,7 +276,7 @@
 			<s:form id="mainform" name="mainform" method="POST" enctype="multipart/form-data">
 				<s:hidden name="updUntaxInfoDto.note" id="note"></s:hidden>
 				<s:hidden name="updUntaxInfoDto.productid" id="productid"></s:hidden>
-				
+				<s:hidden name="updUntaxInfoDto.showQuantity" id="showQuantity"></s:hidden>				
 				<s:hidden name="updUntaxInfoDto.quantity" id="quantity"></s:hidden>
 				<s:hidden name="updUntaxInfoDto.color" id="color"></s:hidden>
 				<s:hidden name="updUntaxInfoDto.packaging" id="packaging"></s:hidden>
@@ -199,6 +285,9 @@
 				<s:hidden name="updUntaxInfoDto.customertype" id="customertype"></s:hidden>
 				<s:hidden name="updUntaxInfoDto.customerid" id="untaxinfoCustomerid"></s:hidden>
 				<s:hidden name="updUntaxInfoDto.customername" id="untaxinfoCustomername"></s:hidden>
+				<s:hidden name="updUntaxInfoDto.unitprice" id="unitprice"></s:hidden>
+				<s:hidden name="updUntaxInfoDto.amount" id="amount"></s:hidden>
+				<s:hidden name="updUntaxInfoDto.note2" id="note2"></s:hidden>
 				<div class="searchbox update" style="height:0px;">
 					<table width="100%" border="0" cellpadding="5" cellspacing="0">
 						<tr>
@@ -342,6 +431,8 @@
 									<div class="box1_right"></div>
 								</div>
 							</td>
+						</tr>
+						<tr>
 							<td align="right">
 								<label class="pdf10"><font color="red">*</font>数量</label>
 							</td>
@@ -355,10 +446,40 @@
 						</tr>
 						<tr>
 							<td align="right">
+								<label class="pdf10"><font color="red">*</font>未税单价</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<input type="text" id="tmpUnitprice" style="width:300px;" maxlength="64" onblur="calcquantity(this, '4');" value="<s:property value="updUntaxInfoDto.unitprice"/>"/>
+								</div>
+								<div class="box1_right"></div>
+							</td>
+							<td align="right">
+								<label class="pdf10"><font color="red">*</font>未税金额</label>
+							</td>
+							<td>
+								<div class="box1_left"></div>
+								<div class="box1_center">
+									<input type="text" id="tmpAmount" style="width:300px;" maxlength="64" value="<s:property value="updUntaxInfoDto.amount"/>"/>
+								</div>
+								<div class="box1_right"></div>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
 								<label class="pdf10">备注</label>
 							</td>
 							<td colspan="3">
 								<textarea rows="5" cols="150" style="width:895px;" id="tempNote"><s:property value="updUntaxInfoDto.note"/></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<label class="pdf10"><font color="red">&nbsp</font>备注2</label>
+							</td>
+							<td colspan="3">
+								<textarea rows="5" cols="150" style="width:895px;" id="tempNote2"><s:property value="updUntaxInfoDto.note2"/></textarea>
 							</td>
 						</tr>
 					</table>

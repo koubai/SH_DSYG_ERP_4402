@@ -47,4 +47,5 @@ public interface UntaxInfoService {
 	 * @param untaxinfo
 	 */
 	public void updateUntaxInfo(UntaxInfoDto untaxinfo);
+
 }

@@ -1,6 +1,5 @@
 package com.cn.dsyg.service.impl;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import com.cn.common.util.Page;
@@ -8,7 +7,6 @@ import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.CustomerDao;
 import com.cn.dsyg.dao.ProductDao;
 import com.cn.dsyg.dao.UntaxInfoDao;
-import com.cn.dsyg.dto.CustomerDto;
 import com.cn.dsyg.dto.ProductDto;
 import com.cn.dsyg.dto.UntaxInfoDto;
 import com.cn.dsyg.service.UntaxInfoService;
@@ -34,6 +32,7 @@ public class UntaxInfoServiceImpl implements UntaxInfoService {
 	@Override
 	public UntaxInfoDto queryUntaxInfoId(String id) {
 		UntaxInfoDto untaxinfo = untaxinfoDao.queryUntaxInfoId(id);
+		untaxinfo.setShowQuantity(untaxinfo.getQuantity());
 		ProductDto product = productDao.queryProductByID(untaxinfo.getProductid());
 		if(product != null) {
 			untaxinfo.setTradename(product.getTradename());
@@ -43,10 +42,6 @@ public class UntaxInfoServiceImpl implements UntaxInfoService {
 			untaxinfo.setItem10(product.getItem10());
 			untaxinfo.setUnit(product.getUnit());
 			untaxinfo.setMakearea(product.getMakearea());
-			CustomerDto customer = customerDao.queryAllEtbCustomerByID(untaxinfo.getRes01());
-			if(customer != null) {
-				untaxinfo.setCustomername(customer.getCustomername());
-			}
 		}
 		return untaxinfo;
 	}
@@ -78,10 +73,6 @@ public class UntaxInfoServiceImpl implements UntaxInfoService {
 					untaxinfo.setPackaging(product.getPackaging());
 					untaxinfo.setItem10(product.getItem10());
 					untaxinfo.setUnit(product.getUnit());
-//					CustomerDto customer = customerDao.queryAllEtbCustomerByID(untaxinfo.getRes01());
-//					if(customer != null) {
-//						untaxinfo.setCustomername(customer.getCustomername());
-//					}
 				}
 			}
 		}
@@ -91,25 +82,11 @@ public class UntaxInfoServiceImpl implements UntaxInfoService {
 
 	@Override
 	public void insertUntaxInfo(UntaxInfoDto untaxinfo) {
-		if("2".equals(untaxinfo.getCustomertype())) {
-			//送样，对应的数量应为负数
-			BigDecimal quantity = new BigDecimal(untaxinfo.getQuantity());
-			if(quantity.compareTo(new BigDecimal(0)) > 0) {
-				untaxinfo.setQuantity("" + quantity.multiply(new BigDecimal(-1)));
-			}
-		}
 		untaxinfoDao.insertUntaxInfo(untaxinfo);
 	}
 
 	@Override
 	public void updateUntaxInfo(UntaxInfoDto untaxinfo) {
-		if("2".equals(untaxinfo.getCustomertype())) {
-			//送样，对应的数量应为负数
-			BigDecimal quantity = new BigDecimal(untaxinfo.getQuantity());
-			if(quantity.compareTo(new BigDecimal(0)) > 0) {
-				untaxinfo.setQuantity("" + quantity.multiply(new BigDecimal(-1)));
-			}
-		}
 		untaxinfoDao.updateUntaxInfo(untaxinfo);
 	}
 

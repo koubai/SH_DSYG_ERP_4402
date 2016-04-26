@@ -17,7 +17,7 @@
 	});
 	
 	function add() {
-		document.mainform.action = "../untaxinfo/showUntaxInfoAction.action";
+		document.mainform.action = "../untaxinfo/showAddUntaxInfoAction.action";
 		document.mainform.submit();
 	}
 	
@@ -27,8 +27,21 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
-			document.mainform.action = "../untaxinfo/showUntaxInfoAction.action?updSampleId=" + id;
+			document.mainform.action = "../untaxinfo/showUpdUntaxInfoAction.action?updUntaxInfoId=" + id;
 			document.mainform.submit();
+		}
+	}
+
+	function del() {
+		var id = getSelectedID();
+		if(id == "") {
+			alert("请选择一条记录！");
+			return;
+		} else {
+			if(confirm("确定删除该记录吗？")) {
+				document.mainform.action = "../untaxinfo/delUntaxInfoAction.action?delUntaxInfoId=" + id;
+				document.mainform.submit();
+			}
 		}
 	}
 	
@@ -144,7 +157,7 @@
 						</div>
 						<div class="box1_right"></div>
 					</div>
-					<div class="btn" style="margin-right: 200px; float: right;">
+					<div class="btn" style="margin-left: 300px;">
 						<div class="box1_left"></div>
 						<div class="box1_center">
 							<input type="button" class="input40" value="检索" onclick="queryList();"/>
@@ -157,6 +170,7 @@
 					<div class="icons thums">
 						<a class="add" onclick="add();">增加</a>
 						<a class="edit" onclick="upd();">修改</a>
+						<a class="delete" onclick="del();">删除</a>
 					</div>
 				</div>
 				<div class="data_table" style="padding:0px;">
@@ -178,7 +192,7 @@
 								<td width="100">包装</td>
 								<td width="20">单位</td>
 								<td width="20">单价</td>
-								<td width="60">样品数量</td>
+								<td width="60">数量</td>
 								<td width="20">金额</td>
 								<td width="100">备注1</td>
 								<td width="100">备注2</td>
@@ -193,7 +207,7 @@
 								</s:else>
 									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
-									<td><s:property value="createdate"/></td>
+									<td><s:property value="plandate" /></td>
 									<td>
 										<s:property value="customername"/>
 									</td>
@@ -239,7 +253,7 @@
 										<s:property value="note"/>
 									</td>
 									<td>
-										<s:property value="res10"/>
+										<s:property value="note2"/>
 									</td>
 									<td>
 										<s:date name="updatedate" format="yyyy/MM/dd HH:mm:ss"/>

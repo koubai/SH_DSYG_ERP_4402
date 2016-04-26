@@ -72,4 +72,5 @@ public class UntaxInfoDaoImpl extends BaseDao implements UntaxInfoDao {
 	public void updateUntaxInfo(UntaxInfoDto untaxinfo) {
 		getSqlMapClientTemplate().update("updateUntaxInfo", untaxinfo);
 	}
+
 }

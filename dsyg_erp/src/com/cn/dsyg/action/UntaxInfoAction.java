@@ -67,10 +67,12 @@ public class UntaxInfoAction extends BaseAction {
 	//修改
 	private UntaxInfoDto updUntaxInfoDto;
 	private String updUntaxInfoId;
+	//删除
+	private UntaxInfoDto delUntaxInfoDto;
+	private String delUntaxInfoId;
 	
 	//
 	private String strProductid;
-	
 	
 	/**
 	 * 显示修改页面
@@ -97,6 +99,8 @@ public class UntaxInfoAction extends BaseAction {
 	public String updUntaxInfoAction() {
 		try {
 			this.clearMessages();
+			log.error("updUntaxInfoAction AAA:");
+
 			//数据验证
 			if(!checkData(updUntaxInfoDto)) {
 				return "checkerror";
@@ -112,6 +116,37 @@ public class UntaxInfoAction extends BaseAction {
 		}
 		return SUCCESS;
 	}
+	
+	/**
+	 * 删除
+	 * @return
+	 */
+	public String delUntaxInfoAction() {
+		try {			
+			this.clearMessages();
+			if(StringUtil.isBlank(delUntaxInfoId)) {
+				this.addActionMessage("未税销售信息代码为空！");
+				return "checkerror";
+			}
+			delUntaxInfoDto = untaxinfoService.queryUntaxInfoId(delUntaxInfoId);			
+			delUntaxInfoDto.setStatus(Constants.STATUS_DEL);
+			//当前操作用户ID
+			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			delUntaxInfoDto.setUpdateuid(username);
+			//删除
+			untaxinfoService.updateUntaxInfo(delUntaxInfoDto);
+			this.addActionMessage("删除未税销售信息成功！");
+			delUntaxInfoId = "";
+			//刷新页面
+			startIndex = 0;
+			queryData();
+		} catch(Exception e) {
+			log.error("delUntaxInfoAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+
 	
 	/**
 	 * 显示新增页面
@@ -147,6 +182,7 @@ public class UntaxInfoAction extends BaseAction {
 			}
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			addUntaxInfoDto.setHandler(username);
 			addUntaxInfoDto.setUpdateuid(username);
 			addUntaxInfoDto.setCreateuid(username);
 			addUntaxInfoDto.setRank(Constants.ROLE_RANK_OPERATOR);
@@ -235,7 +271,7 @@ public class UntaxInfoAction extends BaseAction {
 		initDictList();
 		//翻页查询所有入库汇总记录
 		this.page.setStartIndex(startIndex);
-		page = untaxinfoService.queryUntaxInfoByPage("", "", strTradename, strCustomername, page);
+		page = untaxinfoService.queryUntaxInfoByPage("", "1", strTradename, strCustomername, page);
 		untaxInfoList = (List<UntaxInfoDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -443,6 +479,22 @@ public class UntaxInfoAction extends BaseAction {
 
 	public void setStrProductid(String strProductid) {
 		this.strProductid = strProductid;
+	}
+
+	public String getDelUntaxInfoId() {
+		return delUntaxInfoId;
+	}
+
+	public void setDelUntaxInfoId(String delUntaxInfoId) {
+		this.delUntaxInfoId = delUntaxInfoId;
+	}
+
+	public UntaxInfoDto getDelUntaxInfoDto() {
+		return delUntaxInfoDto;
+	}
+
+	public void setDelUntaxInfoDto(UntaxInfoDto delUntaxInfoDto) {
+		this.delUntaxInfoDto = delUntaxInfoDto;
 	}
 
 }

@@ -42,6 +42,7 @@
 		left join etb_product P
 		on P.id = S.productid
 		where 1 = 1
+		and status = '1'
 		<isNotEmpty prepend="and" property="productid">
 			S.productid = #productid#
 		</isNotEmpty>
@@ -75,7 +76,7 @@
 		<isNotEmpty prepend="and" property="customername">
 			A.customername like '%$customername$%' ESCAPE '/'
 		</isNotEmpty>
-		order by A.updatedate desc, A.id desc
+		order by A.plandate desc, A.id desc
 		LIMIT #start#, #end#
 	</select>
 	
@@ -103,11 +104,11 @@
 	</select>
 	
 	<insert id="insertUntaxInfo" parameterClass="com.cn.dsyg.dto.UntaxInfoDto">
-		insert into etb_untaxinfo(belongto,productid,tradename,quantity,outquantity,beforequantity,remainquantity,
+		insert into etb_untaxinfo(belongto,productid,quantity,outquantity,beforequantity,remainquantity,
 			unitprice,taxunitprice,amount,taxamount,plandate,handler,customertype,customerid,customername,note,note2,rank,
 			status,res01,res02,res03,res04,res05,createuid,createdate,updateuid,updatedate)
-		values(#belongto#,#productid#,#tradename#,#quantity#,#outquantity#,#beforequantity#,#remainquantity#,
-			#unitprice#,#taxunitprice#,#amount#,#taxamount#,#plandate#,#handler#,#customertype#,#customerid#,#customername#,
+		values(#belongto#,#productid#,#quantity#,#outquantity#,#beforequantity#,#remainquantity#,
+			#unitprice#,#taxunitprice#,#amount#,#taxamount#,NOW(),#handler#,#customertype#,#customerid#,#customername#,
 			#note#,#note2#,#rank#,#status#,#res01#,#res02#,#res03#,#res04#,#res05#,#createuid#,NOW(),#updateuid#,NOW())
 	</insert>
 	
@@ -115,7 +116,6 @@
 		update etb_untaxinfo
 		set belongto = #belongto#,
 			productid = #productid#,
-			tradename = #tradename#,
 			quantity = #quantity#,
 			outquantity = #outquantity#,
 			beforequantity = #beforequantity#,

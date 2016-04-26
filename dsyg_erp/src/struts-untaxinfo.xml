@@ -30,10 +30,14 @@
 			<result name="*">/page/untaxinfo/upduntaxinfo.jsp</result>
 		</action>
 		
-		<action name="updUntaxInfoAction" class="untaxinfoAction" method="updUntaxInfoAction">
+		<action name="updUntaxInfoAction" class="untaxInfoAction" method="updUntaxInfoAction">
 			<result name="*">/page/untaxinfo/upduntaxinfo.jsp</result>
 		</action>
-		
+
+		<action name="delUntaxInfoAction" class="untaxInfoAction" method="delUntaxInfoAction">
+			<result name="*">/page/untaxinfo/untaxinfolist.jsp</result>
+		</action>
+
 	</package>
 
 </struts>
