@@ -6,15 +6,24 @@
 
 	<resultMap id="UntaxInfoDto" class="com.cn.dsyg.dto.UntaxInfoDto">
 		<result property="id" column="id" />
-		<result property="warehousename" column="warehousename" />
 		<result property="belongto" column="belongto" />
 		<result property="productid" column="productid" />
 		<result property="tradename" column="tradename" />
 		<result property="quantity" column="quantity" />
+		<result property="outquantity" column="outquantity" />
+		<result property="beforequantity" column="beforequantity" />
+		<result property="remainquantity" column="remainquantity" />
+		<result property="unitprice" column="unitprice" />
+		<result property="taxunitprice" column="taxunitprice" />
+		<result property="amount" column="amount" />
+		<result property="taxamount" column="taxamount" />
+		<result property="plandate" column="plandate" />
+		<result property="handler" column="handler" />
 		<result property="customertype" column="customertype" />
 		<result property="customerid" column="customerid" />
 		<result property="customername" column="customername" />
 		<result property="note" column="note" />
+		<result property="note2" column="note2" />
 		<result property="rank" column="rank" />
 		<result property="status" column="status" />
 		<result property="res01" column="res01" />
@@ -94,22 +103,34 @@
 	</select>
 	
 	<insert id="insertUntaxInfo" parameterClass="com.cn.dsyg.dto.UntaxInfoDto">
-		insert into etb_untaxinfo(warehousename,belongto,productid,quantity,customertype,customerid,customername,note,rank,
+		insert into etb_untaxinfo(belongto,productid,tradename,quantity,outquantity,beforequantity,remainquantity,
+			unitprice,taxunitprice,amount,taxamount,plandate,handler,customertype,customerid,customername,note,note2,rank,
 			status,res01,res02,res03,res04,res05,createuid,createdate,updateuid,updatedate)
-		values(#warehousename#,#belongto#,#productid#,#quantity#,#customertype#,#customerid#,#customername#,#note#,#rank#,
-			#status#,#res01#,#res02#,#res03#,#res04#,#res05#,#createuid#,NOW(),#updateuid#,NOW())
+		values(#belongto#,#productid#,#tradename#,#quantity#,#outquantity#,#beforequantity#,#remainquantity#,
+			#unitprice#,#taxunitprice#,#amount#,#taxamount#,#plandate#,#handler#,#customertype#,#customerid#,#customername#,
+			#note#,#note2#,#rank#,#status#,#res01#,#res02#,#res03#,#res04#,#res05#,#createuid#,NOW(),#updateuid#,NOW())
 	</insert>
 	
 	<update id="updateUntaxInfo" parameterClass="com.cn.dsyg.dto.UntaxInfoDto">
 		update etb_untaxinfo
-		set warehousename = #warehousename#,
-			belongto = #belongto#,
+		set belongto = #belongto#,
 			productid = #productid#,
+			tradename = #tradename#,
 			quantity = #quantity#,
+			outquantity = #outquantity#,
+			beforequantity = #beforequantity#,
+			remainquantity = #remainquantity#,
+			unitprice = #unitprice#,
+			taxunitprice = #taxunitprice#,
+			amount = #amount#,
+			taxamount = #taxamount#,
+			plandate = #plandate#,
+			handler = #handler#,
 			customertype = #customertype#,
 			customerid = #customerid#,
 			customername = #customername#,
 			note = #note#,
+			note2= #note2#,
 			rank = #rank#,
 			status = #status#,
 			res01 = #res01#,

@@ -13,18 +13,16 @@ import com.cn.common.dto.BaseDto;
  */
 public class UntaxInfoDto extends BaseDto {
 
-	private static final long serialVersionUID = 7374855688396250983L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4063543508667101898L;
 
 	/**
 	 * id
 	 */
 	private Long id;
 	
-	/**
-	 * 仓库
-	 */
-	private String warehousename;
-
 	/**
 	 * 所属地（以后可能分上海和深圳）
 	 */
@@ -78,10 +76,55 @@ public class UntaxInfoDto extends BaseDto {
 	private String quantity;
 	
 	/**
+	 * 数量
+	 */
+	private String outquantity;
+
+	/**
+	 * 预出库数量
+	 */
+	private String beforequantity;
+
+	/**
+	 * 未出库数量
+	 */
+	private String remainquantity;
+
+	/**
 	 * 数量（显示用）
 	 */
 	private String showQuantity;
 	
+	/**
+	 * 销售单价
+	 */
+	private BigDecimal unitprice;
+	
+	/**
+	 * 销售单价（税后）
+	 */
+	private BigDecimal taxunitprice;
+
+	/**
+	 * 金额
+	 */
+	private BigDecimal amount;
+
+	/**
+	 * 金额（含税）
+	 */
+	private BigDecimal taxamount;
+	
+	/**
+	 * 预出库时间
+	 */
+	private String plandate;
+
+	/**
+	 * 销售
+	 */
+	private String handler;
+
 	/**
 	 * 客户类型，1为供应商，2为客户
 	 */
@@ -101,6 +144,11 @@ public class UntaxInfoDto extends BaseDto {
 	 * 备注
 	 */
 	private String note;
+
+	/**
+	 * 备注2
+	 */
+	private String note2;
 	
 	/**
 	 * 级别(0-99)
@@ -165,14 +213,6 @@ public class UntaxInfoDto extends BaseDto {
 		this.id = id;
 	}
 
-	public String getWarehousename() {
-		return warehousename;
-	}
-
-	public void setWarehousename(String warehousename) {
-		this.warehousename = warehousename;
-	}
-
 	public String getBelongto() {
 		return belongto;
 	}
@@ -221,6 +261,30 @@ public class UntaxInfoDto extends BaseDto {
 		this.packaging = packaging;
 	}
 
+	public String getItem10() {
+		return item10;
+	}
+
+	public void setItem10(String item10) {
+		this.item10 = item10;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	public String getMakearea() {
+		return makearea;
+	}
+
+	public void setMakearea(String makearea) {
+		this.makearea = makearea;
+	}
+
 	public String getQuantity() {
 		return quantity;
 	}
@@ -229,12 +293,124 @@ public class UntaxInfoDto extends BaseDto {
 		this.quantity = quantity;
 	}
 
+	public String getOutquantity() {
+		return outquantity;
+	}
+
+	public void setOutquantity(String outquantity) {
+		this.outquantity = outquantity;
+	}
+
+	public String getBeforequantity() {
+		return beforequantity;
+	}
+
+	public void setBeforequantity(String beforequantity) {
+		this.beforequantity = beforequantity;
+	}
+
+	public String getRemainquantity() {
+		return remainquantity;
+	}
+
+	public void setRemainquantity(String remainquantity) {
+		this.remainquantity = remainquantity;
+	}
+
+	public String getShowQuantity() {
+		return showQuantity;
+	}
+
+	public void setShowQuantity(String showQuantity) {
+		this.showQuantity = showQuantity;
+	}
+
+	public BigDecimal getUnitprice() {
+		return unitprice;
+	}
+
+	public void setUnitprice(BigDecimal unitprice) {
+		this.unitprice = unitprice;
+	}
+
+	public BigDecimal getTaxunitprice() {
+		return taxunitprice;
+	}
+
+	public void setTaxunitprice(BigDecimal taxunitprice) {
+		this.taxunitprice = taxunitprice;
+	}
+
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+
+	public BigDecimal getTaxamount() {
+		return taxamount;
+	}
+
+	public void setTaxamount(BigDecimal taxamount) {
+		this.taxamount = taxamount;
+	}
+
+	public String getPlandate() {
+		return plandate;
+	}
+
+	public void setPlandate(String plandate) {
+		this.plandate = plandate;
+	}
+
+	public String getHandler() {
+		return handler;
+	}
+
+	public void setHandler(String handler) {
+		this.handler = handler;
+	}
+
+	public String getCustomertype() {
+		return customertype;
+	}
+
+	public void setCustomertype(String customertype) {
+		this.customertype = customertype;
+	}
+
+	public String getCustomerid() {
+		return customerid;
+	}
+
+	public void setCustomerid(String customerid) {
+		this.customerid = customerid;
+	}
+
+	public String getCustomername() {
+		return customername;
+	}
+
+	public void setCustomername(String customername) {
+		this.customername = customername;
+	}
+
 	public String getNote() {
 		return note;
 	}
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public String getNote2() {
+		return note2;
+	}
+
+	public void setNote2(String note2) {
+		this.note2 = note2;
 	}
 
 	public Integer getRank() {
@@ -324,74 +500,5 @@ public class UntaxInfoDto extends BaseDto {
 	public void setUpdatedate(Date updatedate) {
 		this.updatedate = updatedate;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public String getItem10() {
-		return item10;
-	}
-
-	public void setItem10(String item10) {
-		this.item10 = item10;
-	}
-
-	public String getCustomername() {
-		return customername;
-	}
-
-	public void setCustomername(String customername) {
-		this.customername = customername;
-	}
-
-	public String getCustomertype() {
-		return customertype;
-	}
-
-	public void setCustomertype(String customertype) {
-		this.customertype = customertype;
-	}
-
-	public String getCustomerid() {
-		return customerid;
-	}
-
-	public void setCustomerid(String customerid) {
-		this.customerid = customerid;
-	}
-
-	public String getShowQuantity() {
-		if(quantity != null && !"".equals(quantity)) {
-			BigDecimal tmp = new BigDecimal(quantity);
-			if(tmp.compareTo(new BigDecimal(0)) < 0) {
-				showQuantity = "" + tmp.multiply(new BigDecimal(-1));
-			} else {
-				showQuantity = quantity;
-			}
-		}
-		return showQuantity;
-	}
-
-	public void setShowQuantity(String showQuantity) {
-		this.showQuantity = showQuantity;
-	}
-
-	public String getUnit() {
-		return unit;
-	}
-
-	public void setUnit(String unit) {
-		this.unit = unit;
-	}
-
-	public String getMakearea() {
-		return makearea;
-	}
-
-	public void setMakearea(String makearea) {
-		this.makearea = makearea;
-	}
-
-
+	
 }

@@ -22,9 +22,9 @@ import com.cn.dsyg.service.UntaxInfoService;
 import com.opensymphony.xwork2.ActionContext;
 
 /**
- * @name SampleAction.java
- * @author Frank
- * @time 2015-9-12下午5:59:54
+ * @name UntaxInfoAction.java
+ * @author Pei
+ * @time 2016-4-25下午5:59:54
  * @version 1.0
  */
 public class UntaxInfoAction extends BaseAction {
@@ -82,7 +82,7 @@ public class UntaxInfoAction extends BaseAction {
 			//初期化字典数据
 			initDictList();
 
-			updUntaxInfoDto = untaxInfoService.queryUntaxInfoId(updUntaxInfoId);
+			updUntaxInfoDto = untaxinfoService.queryUntaxInfoId(updUntaxInfoId);
 		} catch(Exception e) {
 			log.error("showUpdUntaxInfoAction error:" + e);
 			return ERROR;
@@ -104,7 +104,7 @@ public class UntaxInfoAction extends BaseAction {
 			//当前操作用户ID
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
 			updUntaxInfoDto.setUpdateuid(username);
-			untaxInfoService.updateUntaxInfo(updUntaxInfoDto);
+			untaxinfoService.updateUntaxInfo(updUntaxInfoDto);
 			this.addActionMessage("修改成功！");
 		} catch(Exception e) {
 			log.error("updUntaxInfoAction error:" + e);
@@ -150,11 +150,10 @@ public class UntaxInfoAction extends BaseAction {
 			addUntaxInfoDto.setUpdateuid(username);
 			addUntaxInfoDto.setCreateuid(username);
 			addUntaxInfoDto.setRank(Constants.ROLE_RANK_OPERATOR);
-			addUntaxInfoDto.setWarehousename(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_WAREHOUSE_NAME));
 			addUntaxInfoDto.setBelongto(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG));
 			//默认状态=有效
 			addUntaxInfoDto.setStatus(Constants.STATUS_NORMAL);
-			untaxInfoService.insertUntaxInfo(addUntaxInfoDto);
+			untaxinfoService.insertUntaxInfo(addUntaxInfoDto);
 			this.addActionMessage("添加成功！");
 			addUntaxInfoDto = new UntaxInfoDto();
 		} catch(Exception e) {
@@ -236,7 +235,7 @@ public class UntaxInfoAction extends BaseAction {
 		initDictList();
 		//翻页查询所有入库汇总记录
 		this.page.setStartIndex(startIndex);
-		page = untaxInfoService.queryUntaxInfoByPage("", "", "", strTradename, strCustomername, page);
+		page = untaxinfoService.queryUntaxInfoByPage("", "", "", strTradename, strCustomername, page);
 		untaxInfoList = (List<UntaxInfoDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -382,20 +381,20 @@ public class UntaxInfoAction extends BaseAction {
 		this.makeareaList = makeareaList;
 	}
 
-	public SampleService getUntaxInfoService() {
-		return untaxInfoService;
+	public UntaxInfoService getUntaxInfoService() {
+		return untaxinfoService;
 	}
 
 	public void setSampleService(UntaxInfoService untaxInfoService) {
-		this.untaxInfoService = untaxInfoService;
+		this.untaxinfoService = untaxInfoService;
 	}
 
-	public List<SampleDto> getUntaxInfoList() {
-		return untaxInfoList;
+	public List<UntaxInfoDto> getUntaxInfoList() {
+		return untaxinfoList;
 	}
 
 	public void setUntaxInfoList(List<UntaxInfoDto> untaxInfoList) {
-		this.untaxInfoList = untaxInfoList;
+		this.untaxinfoList = untaxInfoList;
 	}
 
 	public UntaxInfoDto getAddUntaxInfoDto() {
