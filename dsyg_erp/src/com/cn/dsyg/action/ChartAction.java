@@ -1,17 +1,8 @@
 package com.cn.dsyg.action;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -20,14 +11,21 @@ import org.json.JSONArray;
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
+import com.cn.common.util.PropertiesConfig;
 import com.cn.dsyg.dto.CustomerDto;
 import com.cn.dsyg.dto.DeliveryDto;
+import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.SupplierDto;
+import com.cn.dsyg.dto.UndeliProductDto;
 import com.cn.dsyg.dto.UserDto;
 import com.cn.dsyg.service.ChartService;
 import com.cn.dsyg.service.CustomerService;
 import com.cn.dsyg.service.DeliveryService;
+import com.cn.dsyg.service.Dict01Service;
+import com.cn.dsyg.service.ProductService;
+import com.cn.dsyg.service.SampleService;
 import com.cn.dsyg.service.SupplierService;
+import com.cn.dsyg.service.UndeliProductService;
 import com.cn.dsyg.service.UserService;
 
 
@@ -36,7 +34,7 @@ public class ChartAction extends BaseAction {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3220766635860750596L;
+	private static final long serialVersionUID = -4283678393190804679L;
 
 	private static final Logger log = LogManager.getLogger(ChartAction.class);
 
@@ -60,7 +58,8 @@ public class ChartAction extends BaseAction {
 	private List<SupplierDto> supplierList;
 	private List<CustomerDto> customerList;
 	private List<DeliveryDto> deliveryList;
-	
+	private List<UndeliProductDto> undeliproductList;
+
 	private String strKeyword;	
 	private String strFieldno;
 	private String strUserIdFrom;
@@ -69,8 +68,84 @@ public class ChartAction extends BaseAction {
 	private SupplierService supplierService;
 	private CustomerService customerService;
 	private DeliveryService deliveryService;
+	private UndeliProductService undeliproductService;
+	private String fieldno;
+	private String iotype;
+	private String fromDate;	
+	private String toDate;
+	private Dict01Service dict01Service;
 
+	//采购主题
+	private List<Dict01Dto> goodsList;
+	//颜色
+	private List<Dict01Dto> colorList;
+	//单位
+	private List<Dict01Dto> unitList;
+	//产地
+	private List<Dict01Dto> makeareaList;
 	
+	public Dict01Service getDict01Service() {
+		return dict01Service;
+	}
+	public void setDict01Service(Dict01Service dict01Service) {
+		this.dict01Service = dict01Service;
+	}
+	public String getFieldno() {
+		return fieldno;
+	}
+	public List<Dict01Dto> getGoodsList() {
+		return goodsList;
+	}
+	public void setGoodsList(List<Dict01Dto> goodsList) {
+		this.goodsList = goodsList;
+	}
+	public List<Dict01Dto> getColorList() {
+		return colorList;
+	}
+	public void setColorList(List<Dict01Dto> colorList) {
+		this.colorList = colorList;
+	}
+	public List<Dict01Dto> getUnitList() {
+		return unitList;
+	}
+	public void setUnitList(List<Dict01Dto> unitList) {
+		this.unitList = unitList;
+	}
+	public List<Dict01Dto> getMakeareaList() {
+		return makeareaList;
+	}
+	public void setMakeareaList(List<Dict01Dto> makeareaList) {
+		this.makeareaList = makeareaList;
+	}
+	public void setFieldno(String fieldno) {
+		this.fieldno = fieldno;
+	}
+
+	public String getIotype() {
+		return iotype;
+	}
+	public void setIotype(String iotype) {
+		this.iotype = iotype;
+	}
+
+	public String getFromDate() {
+		return fromDate;
+	}
+	public void setFromDate(String fromDate) {
+		this.fromDate = fromDate;
+	}
+	public String getToDate() {
+		return toDate;
+	}
+	public void setToDate(String toDate) {
+		this.toDate = toDate;
+	}
+	public UndeliProductService getUndeliproductService() {
+		return undeliproductService;
+	}
+	public void setUndeliproductService(UndeliProductService undeliproductService) {
+		this.undeliproductService = undeliproductService;
+	}
 	public List<SupplierDto> getSupplierList() {
 		return supplierList;
 	}
@@ -132,8 +207,6 @@ public class ChartAction extends BaseAction {
 		this.strUserIdTo = strUserIdTo;
 	}
 
-	
-
 	public String getStrKeyword() {
 		return strKeyword;
 	}
@@ -164,7 +237,6 @@ public class ChartAction extends BaseAction {
 	public void setUserList(List<UserDto> userList) {
 		this.userList = userList;
 	}
-
 	
 	public String getSeries_X() {
 		return series_X;
@@ -635,4 +707,41 @@ public class ChartAction extends BaseAction {
 	}
 
 
+	public List<UndeliProductDto> getUndeliproductList() {
+		return undeliproductList;
+	}
+	public void setUndeliproductList(List<UndeliProductDto> undeliproductList) {
+		this.undeliproductList = undeliproductList;
+	}
+
+	/**
+	 * 数据查询
+	 */
+	public String queryUnDeliProductDataAction(){
+    	try{
+    		initDictList();
+			undeliproductList = (List<UndeliProductDto>)undeliproductService.queryUnDeliProductByType(fromDate, toDate, iotype, fieldno);
+	        return SUCCESS;  
+		} catch(Exception e) {
+			return ERROR;
+		}	
+	}
+	
+	/**
+	 * 初期化字典数据
+	 */
+	private void initDictList() {
+		//采购主题
+		goodsList = dict01Service.queryDict01ByFieldcode(Constants.DICT_GOODS_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		System.out.println("goodsList.size" + goodsList.size());
+		//产地
+		makeareaList = dict01Service.queryDict01ByFieldcode(Constants.DICT_MAKEAREA, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		System.out.println("makeareaList" + makeareaList.size());
+		//颜色
+		colorList = dict01Service.queryDict01ByFieldcode(Constants.DICT_COLOR_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		System.out.println("colorList" + colorList.size());
+		//单位
+		unitList = dict01Service.queryDict01ByFieldcode(Constants.DICT_UNIT_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		System.out.println("unitList" + unitList.size());
+	}
 }

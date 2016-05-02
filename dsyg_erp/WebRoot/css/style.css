@@ -50,6 +50,7 @@ input,img,label{ vertical-align:middle;}
 .date{  float:left;width:16px; height:16px; display:block; background:url(../images/date.png) no-repeat; margin-top:7px; cursor:pointer;}
 .input40{ width:40px;}
 .input80{ width:80px;}
+.input120{ width:120px;}
 .input180{ width:184px;}
 .input200{ width:200px;}
 .btn:hover{ opacity:0.8;}

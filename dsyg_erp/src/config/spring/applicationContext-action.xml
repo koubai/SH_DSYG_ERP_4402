@@ -332,7 +332,12 @@
 		<property name="deliveryService">
 			<ref bean="deliveryService"/>
 		</property>
-		
+		<property name="dict01Service">
+			<ref bean="dict01Service"/>
+		</property>
+		<property name="undeliproductService">
+			<ref bean="undeliproductService"/>
+		</property>
 	</bean>
 
 	<!-- detail -->

@@ -65,7 +65,6 @@
 			<result name="*">/page/intermana/chart_supplier_selectusers.jsp</result>
 		</action>
 
-
 		<action name="showCustomerInfoMainChartAction" class="chartAction" method="showCustomerInfoMainChartAction">
 			<result name="*">/page/intermana/chart_customer.jsp</result>
 		</action>
@@ -78,6 +77,11 @@
 		<action name="turnCustomerSelectPage" class="chartAction" method="turnCustomerSelectPage">
 			<result name="*">/page/intermana/chart_customer_selectusers.jsp</result>
 		</action>
+
+		<action name="queryUnDeliProductDataAction" class="chartAction" method="queryUnDeliProductDataAction">
+			<result name="*">/page/intermana/undeliproduct.jsp</result>
+		</action>
+
 	</package>
 
 </struts>

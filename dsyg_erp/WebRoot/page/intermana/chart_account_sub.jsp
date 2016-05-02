@@ -15,10 +15,37 @@
 		
 		<!-- 2. Add the JavaScript to initialize the chart on document ready -->
 		<script type="text/javascript">
+		Date.prototype.Format = function(fmt)   
+		{ 
+		  var o = {   
+		    "M+" : this.getMonth()+1,                 //月份   
+		    "d+" : this.getDate(),                    //日   
+		    "h+" : this.getHours(),                   //小时   
+		    "m+" : this.getMinutes(),                 //分   
+		    "s+" : this.getSeconds(),                 //秒   
+		    "q+" : Math.floor((this.getMonth()+3)/3), //季度   
+		    "S"  : this.getMilliseconds()             //毫秒   
+		  };   
+		  if(/(y+)/.test(fmt))   
+		    fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
+		  for(var k in o)   
+		    if(new RegExp("("+ k +")").test(fmt))   
+		  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+		  return fmt;   
+		}
+
 		$(function () {  
+			var toD = new Date().Format("yyyy-MM-dd");
+			$("#toDate").val(toD);
 			getAccountSubData3M();
 		});	     	    
 
+		function queryUnDeliProductData(iotype) {
+			$("#iotype").val(iotype);
+			document.mainform.action = '<%=request.getContextPath()%>/chart/queryUnDeliProductDataAction.action';
+			document.mainform.submit();
+		}
+		
 		function viewData(X_data, datao, type) {
 			var jsonobj=eval(datao);  
 
@@ -577,11 +604,14 @@
 		<div class="tab_content2" >	
 		<!-- 3. Add the container -->
 		<br><br>
+		<s:form id="mainform" name="mainform" method="POST">
 			<input type="hidden" id="h1" value="<s:property value="str" />" />
 			<input type="hidden" id="h2" value="<s:property value="series" />" />
 			<input type="hidden" id="h3" value="<s:property value="series_X" />" />
 			<input type="hidden" id="periodtype" value="<s:property value="periodtype" />" />
 			<input type="hidden" name="handerList" id="handerList" value="" />
+			<input type="hidden" name="fieldno" id="fieldno" value="01" />
+			<input type="hidden" name="iotype" id="iotype" value="" />
 			<table width="50%" border="0" cellpadding="5" cellspacing="0">
 				<tr>
 				</tr>
@@ -590,13 +620,13 @@
 					<td>
 						<div class="box1_left"></div>
 						<div class="box1_center date_input">				
-							<input type="text" name="fromDate" id="fromDate" value="2015-01-01" />
+							<input type="text" name="fromDate" id="fromDate" value="2015-08-01" />
 							<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('fromDate'));"></a>
 						</div>
 						<div class="box1_right">&nbsp&nbsp-</div>
 						<div class="box1_left" style="margin-left: 30px;"></div>
 						<div class="box1_center date_input">				
-							<input type="text" name="toDate" id="toDate" value="2016-01-01" />
+							<input type="text" name="toDate" id="toDate" value=#toDate />
 							<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('toDate'));"></a>
 						</div>
 						<div class="box1_right"></div>
@@ -617,6 +647,7 @@
 					</td>
 				</tr>
 			</table>
+		</s:form>	
 			<table>
 			<tr>
 				<td>
@@ -671,12 +702,30 @@
 					</table>			
 					<br><br>
 				</td>
+				<td>
+					<div class="btn" style="margin-right: 200px; float: right;">
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<input type="button" class="input120" value="销售未发货产品信息检索" onclick="queryUnDeliProductData(2);"/>
+						</div>
+						<div class="box1_right"></div>
+					</div>
+				</td>
 		    </tr>
 		    <tr>
 				<td>
 					<table id="planTableE" border:1px  cellpadding="3" cellspacing="1" style="background-color: #b9d8f3;" width="400">
 					</table>			
 					<br><br>
+				</td>
+				<td>
+					<div class="btn" style="margin-right: 200px; float: right;">
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<input type="button" class="input120" value="采购未进货产品信息检索" onclick="queryUnDeliProductData(1);"/>
+						</div>
+						<div class="box1_right"></div>
+					</div>
 				</td>
 		    </tr>
 			</table>

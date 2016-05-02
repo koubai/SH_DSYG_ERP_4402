@@ -520,4 +520,20 @@
 		</property>
 	</bean>
 	
+	<!-- UndeliProductDao -->
+	<bean id="undeliproductDao" class="com.cn.dsyg.dao.impl.UndeliProductDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- UndeliProductService -->
+	<bean id="undeliproductService" class="com.cn.dsyg.service.impl.UndeliProductServiceImpl" >
+		<property name="dict01Dao">
+			<ref local="dict01Dao"/>
+		</property>
+		<property name="undeliproductDao">
+			<ref local="undeliproductDao"/>
+		</property>
+	</bean>
 </beans>

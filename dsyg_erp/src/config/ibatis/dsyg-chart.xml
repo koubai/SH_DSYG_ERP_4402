@@ -22,7 +22,26 @@
 		<result property="Handler" column="handler" />
 		<result property="Id" column="id" />
 	</resultMap>
-	
+
+	<resultMap id="UndeliProductDto" class="com.cn.dsyg.dto.UndeliProductDto">
+		<result property="fieldno" column="fieldno" />
+		<result property="belongto" column="belongto" />
+		<result property="theme1" column="theme1" />
+		<result property="theme2" column="theme2" />
+		<result property="productid" column="productid" />
+		<result property="tradename" column="tradename" />
+		<result property="typeno" column="typeno" />
+		<result property="color" column="color" />
+		<result property="packaging" column="packaging" />
+		<result property="makearea" column="makearea" />
+		<result property="unit" column="unit" />
+		<result property="remainquantity" column="remainquantity" />
+		<result property="taxunitprice" column="taxunitprice" />
+		<result property="taxamount" column="taxamount" />
+		<result property="item01" column="item01" />
+		<result property="item10" column="item10" />
+	</resultMap>
+
 	<select id="queryPurchaseByDate" parameterClass="java.util.Map" resultMap="ChartDto">
 		select id, handler, theme1, years as pur_year, 
 			SUM(case when months=01 then pur_sum_data else 0 end) 'pur_month01',   
@@ -1464,6 +1483,42 @@
 	AND D.fieldcode = 'goods'
 	AND D.lang='c'
 	ORDER BY C.typeno
+	</select>	
+	
+	<select id="queryUnDeliSaleProductByFieldno" parameterClass="java.util.Map" resultMap="UndeliProductDto">
+	SELECT P.fieldno,P.belongto,S.theme1,S.theme2,S.productid,P.tradename,P.typeno,P.color,P.packaging,P.makearea,P.unit,S.remainquantity,S.taxunitprice,S.taxamount,P.item01,P.item10
+	FROM etb_salesitem S, etb_product P
+	WHERE 1=1
+	AND S.productid = P.id
+	AND S.remainquantity > 0
+	<isNotEmpty prepend="and" property="from_date">
+		S.plandate <![CDATA[>=]]> #from_date#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="to_date">
+		S.plandate <![CDATA[<=]]> #to_date#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="fieldno">
+		P.fieldno = #fieldno#
+	</isNotEmpty>
+	ORDER BY P.tradename, P.typeno, P.id	
+	</select>	
+	
+	<select id="queryUnDeliPurchaseProductByFieldno" parameterClass="java.util.Map" resultMap="UndeliProductDto">
+	SELECT P.fieldno,P.belongto,S.theme1,S.theme2,S.productid,P.tradename,P.typeno,P.color,P.packaging,P.makearea,P.unit,S.remainquantity,S.taxunitprice,S.taxamount,P.item01,P.item10
+	FROM etb_purchaseitem S, etb_product P
+	WHERE 1=1
+	AND S.productid = P.id
+	AND S.remainquantity > 0
+	<isNotEmpty prepend="and" property="from_date">
+		S.plandate <![CDATA[>=]]> #from_date#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="to_date">
+		S.plandate <![CDATA[<=]]> #to_date#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="fieldno">
+		P.fieldno = #fieldno#
+	</isNotEmpty>
+	ORDER BY P.tradename, P.typeno, P.id
 	</select>	
 	
 </sqlMap>
