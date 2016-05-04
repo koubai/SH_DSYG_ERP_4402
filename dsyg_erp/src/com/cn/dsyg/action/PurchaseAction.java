@@ -24,6 +24,7 @@ import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.PurchaseDto;
 import com.cn.dsyg.dto.PurchaseItemDto;
+import com.cn.dsyg.dto.SalesItemDto;
 import com.cn.dsyg.service.Dict01Service;
 import com.cn.dsyg.service.PurchaseItemService;
 import com.cn.dsyg.service.PurchaseService;
@@ -96,6 +97,11 @@ public class PurchaseAction extends BaseAction {
 	private String strProdoctid;
 	private String strSupplierid;
 	private List<PurchaseItemDto> purchaseItemList;
+	
+	//未入库产品一览用
+	//供应商名
+	private String strRemainSuppliername;
+	private List<PurchaseItemDto> remainPurchaseItemList;
 	
 	/**
 	 * 终了采购单
@@ -491,6 +497,84 @@ public class PurchaseAction extends BaseAction {
 			return ERROR;
 		}
 		return SUCCESS;
+	}
+
+	/**
+	 * 显示未入库产品一览
+	 * @return
+	 */
+	public String showRemainPurchaseAction() {
+		try {
+			this.clearMessages();
+			//页面数据初期化
+			startIndex = 0;
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			strRemainSuppliername = "";
+			remainPurchaseItemList = new ArrayList<PurchaseItemDto>();
+			
+			queryRemainData();
+		} catch(Exception e) {
+			log.error("showRemainSalesAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询未入库产品一览
+	 * @return
+	 */
+	public String queryRemainPurchaseAction() {
+		try {
+			this.clearMessages();
+			//页面数据初期化
+			startIndex = 0;
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
+			queryRemainData();
+		} catch(Exception e) {
+			log.error("queryRemainPurchaseAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页
+	 * @return
+	 */
+	public String turnRemainPurchaseAction() {
+		try {
+			this.clearMessages();
+			//页面数据初期化
+			queryRemainData();
+		} catch(Exception e) {
+			log.error("turnRemainPurchaseAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 未入库产品一览数据查询
+	 */
+	@SuppressWarnings("unchecked")
+	private void queryRemainData() {
+		if(page == null) {
+			page = new Page(intPageSize);
+		}
+		initDictList();
+		//翻页查询所有委托公司
+		this.page.setStartIndex(startIndex);
+
+		page = purchaseItemService.queryRemainPurchaseByPage(strRemainSuppliername, page);
+		remainPurchaseItemList = (List<PurchaseItemDto>) page.getItems();
+		this.setStartIndex(page.getStartIndex());
 	}
 	
 	//导出数据
@@ -917,5 +1001,21 @@ public class PurchaseAction extends BaseAction {
 
 	public void setProductinfo(String productinfo) {
 		this.productinfo = productinfo;
+	}
+
+	public String getStrRemainSuppliername() {
+		return strRemainSuppliername;
+	}
+
+	public void setStrRemainSuppliername(String strRemainSuppliername) {
+		this.strRemainSuppliername = strRemainSuppliername;
+	}
+
+	public List<PurchaseItemDto> getRemainPurchaseItemList() {
+		return remainPurchaseItemList;
+	}
+
+	public void setRemainPurchaseItemList(List<PurchaseItemDto> remainPurchaseItemList) {
+		this.remainPurchaseItemList = remainPurchaseItemList;
 	}
 }

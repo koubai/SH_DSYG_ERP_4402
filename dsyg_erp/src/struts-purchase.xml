@@ -65,6 +65,18 @@
 		<action name="exportPurchaseAction" class="purchaseAction" method="exportPurchaseAction">
 			<result name="success">/page/downloadxml.jsp</result>
 		</action>
+	
+		<action name="showRemainPurchaseAction" class="purchaseAction" method="showRemainPurchaseAction">
+			<result name="*">/page/purchase/remainpurchaselist.jsp</result>
+		</action>
+		
+		<action name="queryRemainPurchaseAction" class="purchaseAction" method="queryRemainPurchaseAction">
+			<result name="*">/page/purchase/remainpurchaselist.jsp</result>
+		</action>
+		
+		<action name="turnRemainPurchaseAction" class="purchaseAction" method="turnRemainPurchaseAction">
+			<result name="*">/page/purchase/remainpurchaselist.jsp</result>
+		</action>
 		
 	</package>
 

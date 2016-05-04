@@ -219,6 +219,8 @@ public class SalesServiceImpl implements SalesService {
 					page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		}
 		if(list != null && list.size() > 0) {
+			String allquantity = salesDao.querySalesQuantity(bookdateLow, bookdateHigh, theme2, type, customername, productid, status);
+			list.get(0).setAllquantity(allquantity);
 			for(SalesExtDto sales : list) {
 				UserDto user = userDao.queryUserByID(sales.getHandler());
 				if(user != null) {

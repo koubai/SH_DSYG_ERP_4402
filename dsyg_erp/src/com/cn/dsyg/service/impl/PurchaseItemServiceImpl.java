@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cn.common.util.Constants;
+import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
+import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.Dict01Dao;
 import com.cn.dsyg.dao.PurchaseItemDao;
 import com.cn.dsyg.dto.Dict01Dto;
@@ -85,6 +87,25 @@ public class PurchaseItemServiceImpl implements PurchaseItemService {
 			}
 		}
 		return purchaseListRet;
+	}
+
+	@Override
+	public Page queryRemainPurchaseByPage(String suppliername, Page page) {
+		suppliername = StringUtil.replaceDatabaseKeyword_mysql(suppliername);
+		
+		//查询总记录数
+		int totalCount = purchaseItemDao.queryRemainPurchaseCountByPage(suppliername);
+		page.setTotalCount(totalCount);
+		if(totalCount % page.getPageSize() > 0) {
+			page.setTotalPage(totalCount / page.getPageSize() + 1);
+		} else {
+			page.setTotalPage(totalCount / page.getPageSize());
+		}
+		//翻页查询记录
+		List<PurchaseItemDto> list = purchaseItemDao.queryRemainPurchaseByPage(suppliername,
+				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		page.setItems(list);
+		return page;
 	}
 
 	public PurchaseItemDao getPurchaseItemDao() {

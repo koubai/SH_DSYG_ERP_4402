@@ -68,6 +68,17 @@ public interface PurchaseDao {
 	public int queryPurchaseExtCountByPage(String purchasedateLow, String purchasedateHigh, String theme2, String productid, String status);
 
 	/**
+	 * 根据条件查询满足条件的采购单数量合计
+	 * @param purchasedateLow
+	 * @param purchasedateHigh
+	 * @param theme2
+	 * @param productid
+	 * @param status
+	 * @return
+	 */
+	public String queryPurchaseQuantity(String purchasedateLow, String purchasedateHigh, String theme2, String productid, String status);
+
+	/**
 	 * 翻页查询满足条件的采购数据
 	 * @param purchasedateLow
 	 * @param purchasedateHigh

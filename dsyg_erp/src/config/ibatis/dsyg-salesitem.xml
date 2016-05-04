@@ -220,6 +220,46 @@
 		order by T.id asc
 	</select>
 	
+	<select id="queryRemainSalesItemCount" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from (
+			select T.*,
+			(select C.customername from etb_customer C where C.id = T.customerid) as customername,
+			(select P.tradename from etb_product P where P.id = T.productid) as tradename,
+			(select P.typeno from etb_product P where P.id = T.productid) as typeno,
+			(select P.color from etb_product P where P.id = T.productid) as color,
+			(select P.packaging from etb_product P where P.id = T.productid) as packaging,
+			(select P.unit from etb_product P where P.id = T.productid) as unit,
+			(select P.makearea from etb_product P where P.id = T.productid) as makearea,
+			(select P.item10 from etb_product P where P.id = T.productid) as item01,
+			(select "") as bookdate
+			from etb_salesitem T where 1 = 1 and T.status = 1 and T.remainquantity > 0
+		) A where 1 = 1
+			<isNotEmpty prepend="and" property="customername">
+				A.customername like '%$customername$%'
+			</isNotEmpty>
+	</select>
+	
+	<select id="queryRemainSalesItem" parameterClass="java.util.Map" resultMap="SalesItemDto">
+		select * from (
+			select T.*,
+			(select C.customername from etb_customer C where C.id = T.customerid) as customername,
+			(select P.tradename from etb_product P where P.id = T.productid) as tradename,
+			(select P.typeno from etb_product P where P.id = T.productid) as typeno,
+			(select P.color from etb_product P where P.id = T.productid) as color,
+			(select P.packaging from etb_product P where P.id = T.productid) as packaging,
+			(select P.unit from etb_product P where P.id = T.productid) as unit,
+			(select P.makearea from etb_product P where P.id = T.productid) as makearea,
+			(select P.item10 from etb_product P where P.id = T.productid) as item01,
+			(select "") as bookdate
+			from etb_salesitem T where 1 = 1 and T.status = 1 and T.remainquantity > 0
+		) A where 1 = 1
+			<isNotEmpty prepend="and" property="customername">
+				A.customername like '%$customername$%'
+			</isNotEmpty>
+		order by A.customername asc, A.theme2 asc, A.productid asc
+		LIMIT #start#, #end#
+	</select>
+	
 	<select id="querySalesItemByID" parameterClass="java.util.Map" resultMap="SalesItemDto">
 		select * from etb_salesitem where id = #id#
 	</select>

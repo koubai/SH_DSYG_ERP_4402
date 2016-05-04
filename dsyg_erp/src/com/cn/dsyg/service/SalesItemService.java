@@ -2,6 +2,7 @@ package com.cn.dsyg.service;
 
 import java.util.List;
 
+import com.cn.common.util.Page;
 import com.cn.dsyg.dto.SalesItemDto;
 
 public interface SalesItemService {
@@ -56,4 +57,12 @@ public interface SalesItemService {
 	 * @return
 	 */
 	public List<SalesItemDto> querySalesItemByProductidForCompare(String productid, String customerid);
+
+	/**
+	 * 翻页查询未出库产品一览数据
+	 * @param customername
+	 * @param page
+	 * @return
+	 */
+	public Page queryRemainSalesByPage(String customername, Page page);
 }

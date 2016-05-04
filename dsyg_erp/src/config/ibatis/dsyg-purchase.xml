@@ -169,6 +169,26 @@
 		</isNotEmpty>
 	</select>
 	
+	<select id="queryPurchaseQuantity" resultClass="String" parameterClass="java.util.Map">
+		select sum(T2.quantity) from etb_purchase T, etb_purchaseitem T2 where 1 = 1 and T.status > 0
+		and T.purchaseno = T2.purchaseno
+		<isNotEmpty prepend="and" property="purchasedateLow">
+			T.purchasedate <![CDATA[>=]]> #purchasedateLow#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="purchasedateHigh">
+			T.purchasedate <![CDATA[<]]> #purchasedateHigh#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="status">
+			T.status = #status#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="theme2">
+			T.theme2 like '%$theme2$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="productid">
+			T2.productid = #productid#
+		</isNotEmpty>
+	</select>
+	
 	<select id="queryPurchaseByPage" parameterClass="java.util.Map" resultMap="PurchaseExtDto">
 		select T.*, "" as quantity from etb_purchase T where 1 = 1 and status > 0
 		<isNotEmpty prepend="and" property="purchasedateLow">

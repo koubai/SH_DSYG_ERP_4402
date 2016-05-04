@@ -102,6 +102,11 @@ public class SalesAction extends BaseAction {
 	private String strCustomerid;
 	private List<SalesItemDto> salesItemList;
 	
+	//未出库产品一览用
+	//客户名
+	private String strRemainCustomername;
+	private List<SalesItemDto> remainSalesItemList;
+	
 	/**
 	 * 终了销售单
 	 * @return
@@ -469,6 +474,84 @@ public class SalesAction extends BaseAction {
 		}
 		return SUCCESS;
 	}
+
+	/**
+	 * 显示未出库产品一览
+	 * @return
+	 */
+	public String showRemainSalesAction() {
+		try {
+			this.clearMessages();
+			//页面数据初期化
+			startIndex = 0;
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			strRemainCustomername = "";
+			remainSalesItemList = new ArrayList<SalesItemDto>();
+			
+			queryRemainData();
+		} catch(Exception e) {
+			log.error("showRemainSalesAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询未出库产品一览
+	 * @return
+	 */
+	public String queryRemainSalesAction() {
+		try {
+			this.clearMessages();
+			//页面数据初期化
+			startIndex = 0;
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
+			queryRemainData();
+		} catch(Exception e) {
+			log.error("queryRemainSalesAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页
+	 * @return
+	 */
+	public String turnRemainSalesAction() {
+		try {
+			this.clearMessages();
+			//页面数据初期化
+			queryRemainData();
+		} catch(Exception e) {
+			log.error("turnRemainSalesAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 未出库产品一览数据查询
+	 */
+	@SuppressWarnings("unchecked")
+	private void queryRemainData() {
+		if(page == null) {
+			page = new Page(intPageSize);
+		}
+		initDictList();
+		//翻页查询所有委托公司
+		this.page.setStartIndex(startIndex);
+
+		page = salesItemService.queryRemainSalesByPage(strRemainCustomername, page);
+		remainSalesItemList = (List<SalesItemDto>) page.getItems();
+		this.setStartIndex(page.getStartIndex());
+	}
 	
 	/**
 	 * 导出数据
@@ -634,7 +717,6 @@ public class SalesAction extends BaseAction {
 
 		page = salesService.querySalesExtByPage(strSalesdateLow, strSalesdateHigh, strTheme2, strType, strCustomername, productid, strStatus, page);
 		salesList = (List<SalesExtDto>) page.getItems();
-
 		this.setStartIndex(page.getStartIndex());
 	}
 	
@@ -921,6 +1003,22 @@ public class SalesAction extends BaseAction {
 
 	public void setProductinfo(String productinfo) {
 		this.productinfo = productinfo;
+	}
+
+	public String getStrRemainCustomername() {
+		return strRemainCustomername;
+	}
+
+	public void setStrRemainCustomername(String strRemainCustomername) {
+		this.strRemainCustomername = strRemainCustomername;
+	}
+
+	public List<SalesItemDto> getRemainSalesItemList() {
+		return remainSalesItemList;
+	}
+
+	public void setRemainSalesItemList(List<SalesItemDto> remainSalesItemList) {
+		this.remainSalesItemList = remainSalesItemList;
 	}
 
 

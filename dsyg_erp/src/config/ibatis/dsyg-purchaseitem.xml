@@ -153,6 +153,48 @@
 		) A where 1 = 1 and A.status1 != 20 order by A.updatedate,A.id desc
 	</select>
 	
+	<select id="queryRemainPurchaseItemCount" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from (
+			select T.*,
+			(select S.suppliername from etb_supplier S where S.id = T.supplierid) as suppliername,
+			(select P.tradename from etb_product P where P.id = T.productid) as tradename,
+			(select P.typeno from etb_product P where P.id = T.productid) as typeno,
+			(select P.color from etb_product P where P.id = T.productid) as color,
+			(select P.packaging from etb_product P where P.id = T.productid) as packaging,
+			(select P.unit from etb_product P where P.id = T.productid) as unit,
+			(select P.makearea from etb_product P where P.id = T.productid) as makearea,
+			(select P.item10 from etb_product P where P.id = T.productid) as item01,
+			(select P.item11 from etb_product P where P.id = T.productid) as item11,
+			(select "") as purchasedate
+			from etb_purchaseitem T where 1 = 1 and T.status != 20 and T.remainquantity > 0
+		) A where 1 = 1
+			<isNotEmpty prepend="and" property="suppliername">
+				A.suppliername like '%$suppliername$%'
+			</isNotEmpty>
+	</select>
+	
+	<select id="queryRemainPurchaseItem" parameterClass="java.util.Map" resultMap="PurchaseItemDto">
+		select * from (
+			select T.*,
+			(select S.suppliername from etb_supplier S where S.id = T.supplierid) as suppliername,
+			(select P.tradename from etb_product P where P.id = T.productid) as tradename,
+			(select P.typeno from etb_product P where P.id = T.productid) as typeno,
+			(select P.color from etb_product P where P.id = T.productid) as color,
+			(select P.packaging from etb_product P where P.id = T.productid) as packaging,
+			(select P.unit from etb_product P where P.id = T.productid) as unit,
+			(select P.makearea from etb_product P where P.id = T.productid) as makearea,
+			(select P.item10 from etb_product P where P.id = T.productid) as item01,
+			(select P.item11 from etb_product P where P.id = T.productid) as item11,
+			(select "") as purchasedate
+			from etb_purchaseitem T where 1 = 1 and T.status != 20 and T.remainquantity > 0
+		) A where 1 = 1
+			<isNotEmpty prepend="and" property="suppliername">
+				A.suppliername like '%$suppliername$%'
+			</isNotEmpty>
+		order by A.suppliername asc, A.theme2 asc, A.productid asc
+		LIMIT #start#, #end#
+	</select>
+	
 	<select id="queryPurchaseItemByPurchaseno" parameterClass="java.util.Map" resultMap="PurchaseItemDto">
 		select T.*,
 		(select P.tradename from etb_product P where P.id = T.productid) as tradename,

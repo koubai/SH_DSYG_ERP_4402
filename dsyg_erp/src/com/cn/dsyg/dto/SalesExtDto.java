@@ -18,6 +18,10 @@ public class SalesExtDto extends SalesDto {
 	 * 数量
 	 */
 	private String quantity;
+	/**
+	 * 数量合计
+	 */
+	private String allquantity;
 
 	public String getQuantity() {
 		return quantity;
@@ -25,6 +29,14 @@ public class SalesExtDto extends SalesDto {
 
 	public void setQuantity(String quantity) {
 		this.quantity = quantity;
+	}
+
+	public String getAllquantity() {
+		return allquantity;
+	}
+
+	public void setAllquantity(String allquantity) {
+		this.allquantity = allquantity;
 	}
 
 }

@@ -3,6 +3,7 @@ package com.cn.dsyg.dao;
 import java.util.List;
 
 import com.cn.dsyg.dto.PurchaseItemDto;
+import com.cn.dsyg.dto.SalesItemDto;
 
 /**
  * @name PurchaseItemDao.java
@@ -74,4 +75,20 @@ public interface PurchaseItemDao {
 	 * @param purchaseItem
 	 */
 	public void updatePurchaseItem(PurchaseItemDto purchaseItem);
+	
+	/**
+	 * 根据条件查询未入库产品一览数量
+	 * @param suppliername
+	 * @return
+	 */
+	public int queryRemainPurchaseCountByPage(String suppliername);
+	
+	/**
+	 * 翻页查询未入库产品一览数据
+	 * @param suppliername
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public List<PurchaseItemDto> queryRemainPurchaseByPage(String suppliername, int start, int end);
 }

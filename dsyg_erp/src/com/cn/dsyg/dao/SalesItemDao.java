@@ -92,4 +92,20 @@ public interface SalesItemDao {
 	 * @return
 	 */
 	public List<SalesItemDto> querySalesItemByProductidForCompare(String productid, String customerid);
+	
+	/**
+	 * 根据条件查询未出库产品一览数量
+	 * @param customername
+	 * @return
+	 */
+	public int queryRemainSalesCountByPage(String customername);
+	
+	/**
+	 * 翻页查询未出库产品一览数据
+	 * @param customername
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public List<SalesItemDto> queryRemainSalesByPage(String customername, int start, int end);
 }

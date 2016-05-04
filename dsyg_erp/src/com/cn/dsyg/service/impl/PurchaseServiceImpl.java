@@ -156,6 +156,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 		}
 
 		if(list != null && list.size() > 0) {
+			String allquantity = purchaseDao.queryPurchaseQuantity(purchasedateLow, purchasedateHigh, theme2, productid, status);
+			list.get(0).setAllquantity(allquantity);
 			for(PurchaseExtDto purchase : list) {
 				UserDto user = userDao.queryUserByID(purchase.getHandler());
 				if(user != null) {

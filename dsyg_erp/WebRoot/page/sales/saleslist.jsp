@@ -416,6 +416,9 @@
 								</tr>
 							</s:iterator>
 						</table>
+						<s:if test='%{salesList.size > 0 && productid != ""}'>
+							<div style="text-align:right; margin-top:10px; margin-right:180px">订单数量合计：<s:property value="salesList[0].allquantity"/></div>
+						</s:if>
 					</div>
 					<div class="pages">
 						<ul>

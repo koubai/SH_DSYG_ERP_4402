@@ -2,6 +2,7 @@ package com.cn.dsyg.service;
 
 import java.util.List;
 
+import com.cn.common.util.Page;
 import com.cn.dsyg.dto.PurchaseItemDto;
 
 /**
@@ -62,4 +63,12 @@ public interface PurchaseItemService {
 	 * @param purchaseItem
 	 */
 	public void updatePurchaseItem(PurchaseItemDto purchaseItem);
+
+	/**
+	 * 翻页查询未入库产品一览数据
+	 * @param suppliername
+	 * @param page
+	 * @return
+	 */
+	public Page queryRemainPurchaseByPage(String suppliername, Page page);
 }

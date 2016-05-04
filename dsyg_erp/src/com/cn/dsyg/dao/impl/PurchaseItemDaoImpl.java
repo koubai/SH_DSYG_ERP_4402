@@ -7,6 +7,7 @@ import java.util.Map;
 import com.cn.common.dao.BaseDao;
 import com.cn.dsyg.dao.PurchaseItemDao;
 import com.cn.dsyg.dto.PurchaseItemDto;
+import com.cn.dsyg.dto.SalesItemDto;
 
 /**
  * @name PurchaseItemDaoImpl.java
@@ -92,6 +93,26 @@ public class PurchaseItemDaoImpl extends BaseDao implements PurchaseItemDao {
 		paramMap.put("supplierid", supplierid);
 		@SuppressWarnings("unchecked")
 		List<PurchaseItemDto> list = getSqlMapClientTemplate().queryForList("queryPurchaseItemByProductidForCompare", paramMap);
+		return list;
+	}
+
+	@Override
+	public int queryRemainPurchaseCountByPage(String suppliername) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("suppliername", suppliername);
+		return (Integer) getSqlMapClientTemplate().queryForObject("queryRemainPurchaseItemCount", paramMap);
+	}
+
+	@Override
+	public List<PurchaseItemDto> queryRemainPurchaseByPage(String suppliername,
+			int start, int end) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("suppliername", suppliername);
+		
+		paramMap.put("start", start);
+		paramMap.put("end", end);
+		@SuppressWarnings("unchecked")
+		List<PurchaseItemDto> list = getSqlMapClientTemplate().queryForList("queryRemainPurchaseItem", paramMap);
 		return list;
 	}
 }

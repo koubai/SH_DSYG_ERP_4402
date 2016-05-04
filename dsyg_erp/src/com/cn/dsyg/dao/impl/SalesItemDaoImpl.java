@@ -111,4 +111,24 @@ public class SalesItemDaoImpl extends BaseDao implements SalesItemDao {
 		List<SalesItemDto> list = getSqlMapClientTemplate().queryForList("queryDetailProductByPage", paramMap);
 		return list;
 	}
+
+	@Override
+	public int queryRemainSalesCountByPage(String customername) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("customername", customername);
+		return (Integer) getSqlMapClientTemplate().queryForObject("queryRemainSalesItemCount", paramMap);
+	}
+
+	@Override
+	public List<SalesItemDto> queryRemainSalesByPage(String customername,
+			int start, int end) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("customername", customername);
+		
+		paramMap.put("start", start);
+		paramMap.put("end", end);
+		@SuppressWarnings("unchecked")
+		List<SalesItemDto> list = getSqlMapClientTemplate().queryForList("queryRemainSalesItem", paramMap);
+		return list;
+	}
 }

@@ -61,6 +61,18 @@
 		<action name="exportSalesPriceAction" class="salesAction" method="exportSalesPriceAction">
 			<result name="success">/page/downloadhtml.jsp</result>
 		</action>
+	
+		<action name="showRemainSalesAction" class="salesAction" method="showRemainSalesAction">
+			<result name="*">/page/sales/remainsaleslist.jsp</result>
+		</action>
+		
+		<action name="queryRemainSalesAction" class="salesAction" method="queryRemainSalesAction">
+			<result name="*">/page/sales/remainsaleslist.jsp</result>
+		</action>
+		
+		<action name="turnRemainSalesAction" class="salesAction" method="turnRemainSalesAction">
+			<result name="*">/page/sales/remainsaleslist.jsp</result>
+		</action>
 		
 	</package>
 

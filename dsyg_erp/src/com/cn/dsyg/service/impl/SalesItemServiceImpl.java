@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cn.common.util.Constants;
+import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
+import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.Dict01Dao;
 import com.cn.dsyg.dao.SalesItemDao;
 import com.cn.dsyg.dto.Dict01Dto;
@@ -82,6 +84,25 @@ public class SalesItemServiceImpl implements SalesItemService {
 			}
 		}
 		return salesListRet;
+	}
+
+	@Override
+	public Page queryRemainSalesByPage(String customername, Page page) {
+		customername = StringUtil.replaceDatabaseKeyword_mysql(customername);
+		
+		//查询总记录数
+		int totalCount = salesItemDao.queryRemainSalesCountByPage(customername);
+		page.setTotalCount(totalCount);
+		if(totalCount % page.getPageSize() > 0) {
+			page.setTotalPage(totalCount / page.getPageSize() + 1);
+		} else {
+			page.setTotalPage(totalCount / page.getPageSize());
+		}
+		//翻页查询记录
+		List<SalesItemDto> list = salesItemDao.queryRemainSalesByPage(customername,
+				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		page.setItems(list);
+		return page;
 	}
 
 	public SalesItemDao getSalesItemDao() {

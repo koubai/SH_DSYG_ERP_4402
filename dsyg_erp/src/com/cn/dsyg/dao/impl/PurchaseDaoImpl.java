@@ -100,6 +100,18 @@ public class PurchaseDaoImpl extends BaseDao implements PurchaseDao {
 		paramMap.put("status", status);
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryPurchaseExtCountByPage", paramMap);
 	}
+
+	@Override
+	public String queryPurchaseQuantity(String purchasedateLow,
+			String purchasedateHigh, String theme2, String productid, String status) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("purchasedateLow", purchasedateLow);
+		paramMap.put("purchasedateHigh", purchasedateHigh);
+		paramMap.put("theme2", theme2);
+		paramMap.put("productid", productid);
+		paramMap.put("status", status);
+		return (String) getSqlMapClientTemplate().queryForObject("queryPurchaseQuantity", paramMap);
+	}
 	
 	@Override
 	public List<PurchaseExtDto> queryPurchaseByPage(String purchasedateLow,
