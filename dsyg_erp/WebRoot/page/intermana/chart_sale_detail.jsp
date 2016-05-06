@@ -14,33 +14,31 @@
 		<jsp:include  page="chart_common.jsp"/> 
 		<!-- 2. Add the JavaScript to initialize the chart on document ready -->
 		<script type="text/javascript">
+		Date.prototype.Format = function(fmt)   
+		{ 
+		  var o = {   
+		    "M+" : this.getMonth()+1,                 //月份   
+		    "d+" : this.getDate(),                    //日   
+		    "h+" : this.getHours(),                   //小时   
+		    "m+" : this.getMinutes(),                 //分   
+		    "s+" : this.getSeconds(),                 //秒   
+		    "q+" : Math.floor((this.getMonth()+3)/3), //季度   
+		    "S"  : this.getMilliseconds()             //毫秒   
+		  };   
+		  if(/(y+)/.test(fmt))   
+		    fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
+		  for(var k in o)   
+		    if(new RegExp("("+ k +")").test(fmt))   
+		  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+		  return fmt;   
+		}
+		
 		$(function () {  
+			$("#fromDate").val("2015-08-01");
+			$("#toDate").val(new Date().Format("yyyy-MM-dd"));
 			getSaleData3M();
 		});
 	     	    
-		Date.prototype.format = function(format){ 
-			var o = { 
-				"M+" : this.getMonth()+1, //month 
-				"d+" : this.getDate(), //day 
-				"h+" : this.getHours(), //hour 
-				"m+" : this.getMinutes(), //minute 
-				"s+" : this.getSeconds(), //second 
-				"q+" : Math.floor((this.getMonth()+3)/3), //quarter 
-				"S" : this.getMilliseconds() //millisecond 
-			}
-
-			if(/(y+)/.test(format)) { 
-				format = format.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length)); 
-			} 
-
-			for(var k in o) { 
-				if(new RegExp("("+ k +")").test(format)) { 
-					format = format.replace(RegExp.$1, RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length)); 
-				} 
-			} 
-			return format; 
-		}
-		
 		function get_X_Data(d1, d2, type) {
 			var m1;
 			var m2;
@@ -55,7 +53,7 @@
 				tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1,parseInt(d1.split("-")[2]));
 				for(var i = 0; i < duration + 1; i++) {
 					tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1 + i,parseInt(d1.split("-")[2]));
-					dicArray[i] = tmp_date.format("yyyy-MM");
+					dicArray[i] = tmp_date.Format("yyyy-MM");
 //					alert("dicArray[i]="+ dicArray[i]);		
 				}
 			} else if (type == "2"){
@@ -66,7 +64,7 @@
 				tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1,parseInt(d1.split("-")[2]));
 				for(var j = 0; j < (duration + 1)/3; j++) {
 					tmp_date.setFullYear(parseInt(d1.split("-")[0])+(parseInt((d1.split("-")[1])) + j * 3)/12,(parseInt((d1.split("-")[1])-1)/3 + j%4)%4,1);
-					dicArray[j] = tmp_date.format("yyyy-MM")+"季";
+					dicArray[j] = tmp_date.Format("yyyy-MM")+"季";
 //					alert("dicArray[j]="+ dicArray[j]);		
 				}				
 			} else if (type == "3"){
@@ -77,7 +75,7 @@
 				tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1,1);
 				for(var k = 0; k < duration + 1; k++) {
 					tmp_date.setFullYear(parseInt(d1.split("-")[0])+k,parseInt(d1.split("-")[1])-1,parseInt(d1.split("-")[2]));
-					dicArray[k] = tmp_date.format("yyyy");
+					dicArray[k] = tmp_date.Format("yyyy");
 //					alert("dicArray[k]="+ dicArray[k]);		
 				}
 			}
@@ -302,7 +300,7 @@
 			fromDate.setMonth(toDate.getMonth()+1-3);
 		   	for(var i=0;i<rds.length;i++){
 	           	if(rds[i].checked){
-	   				ajaxRequestData("getSaleDetailData", fromDate.format("yyyy-MM-dd"), toDate.format("yyyy-MM-dd"), rds[i].value, "销售");
+	   				ajaxRequestData("getSaleDetailData", fromDate.Format("yyyy-MM-dd"), toDate.Format("yyyy-MM-dd"), rds[i].value, "销售");
 	           	}
 		   	}
 		}
@@ -315,7 +313,7 @@
 			fromDate.setMonth(toDate.getMonth()+1-6);
 		   	for(var i=0;i<rds.length;i++){
 	           	if(rds[i].checked){
-	   				ajaxRequestData("getSaleDetailData", fromDate.format("yyyy-MM-dd"), toDate.format("yyyy-MM-dd"), rds[i].value, "销售");
+	   				ajaxRequestData("getSaleDetailData", fromDate.Format("yyyy-MM-dd"), toDate.Format("yyyy-MM-dd"), rds[i].value, "销售");
 	           	}
 		   	}
 		}
@@ -328,7 +326,7 @@
 			fromDate.setMonth(toDate.getMonth()+1-12);
 		   	for(var i=0;i<rds.length;i++){
 	           	if(rds[i].checked){
-	   				ajaxRequestData("getSaleDetailData", fromDate.format("yyyy-MM-dd"), toDate.format("yyyy-MM-dd"), rds[i].value, "销售");
+	   				ajaxRequestData("getSaleDetailData", fromDate.Format("yyyy-MM-dd"), toDate.Format("yyyy-MM-dd"), rds[i].value, "销售");
 	           	}
 		   	}
 		}
@@ -342,7 +340,7 @@
 		   	}
 		   	var toDate = document.getElementById("toDate").value;
 		   	if (toDate == null || toDate ==""){
-		   		toDate = today.format("yyyy-MM-dd");		
+		   		toDate = today.Format("yyyy-MM-dd");		
 		   	}
 		   	for(var i=0;i<rds.length;i++){
 	           	if(rds[i].checked){
@@ -409,13 +407,13 @@
 				<td>
 					<div class="box1_left"></div>
 					<div class="box1_center date_input">				
-						<input type="text" name="fromDate" id="fromDate" value="2015-01-01" />
+						<input type="text" name="fromDate" id="fromDate" value="#fromDate" />
 						<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('fromDate'));"></a>
 					</div>
 					<div class="box1_right">&nbsp&nbsp-</div>
 					<div class="box1_left" style="margin-left: 30px;"></div>
 					<div class="box1_center date_input">				
-						<input type="text" name="toDate" id="toDate" value="2016-01-01" />
+						<input type="text" name="toDate" id="toDate" value="#toDate" />
 						<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('toDate'));"></a>
 					</div>
 					<div class="box1_right"></div>

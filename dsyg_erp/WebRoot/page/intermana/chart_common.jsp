@@ -3,15 +3,15 @@
 <%@ taglib prefix="c" uri="/WEB-INF/c.tld" %>
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
 <script type="text/javascript">	     	    
-		Date.prototype.format = function(format){ 
+/*		Date.prototype.format = function(format){ 
 			var o = { 
-				"M+" : this.getMonth()+1, //month 
-				"d+" : this.getDate(), //day 
-				"h+" : this.getHours(), //hour 
-				"m+" : this.getMinutes(), //minute 
-				"s+" : this.getSeconds(), //second 
-				"q+" : Math.floor((this.getMonth()+3)/3), //quarter 
-				"S" : this.getMilliseconds() //millisecond 
+				"M+" : this.getMonth()+1, 
+				"d+" : this.getDate(),  
+				"h+" : this.getHours(),  
+				"m+" : this.getMinutes(),  
+				"s+" : this.getSeconds(), 
+				"q+" : Math.floor((this.getMonth()+3)/3), 
+				"S" : this.getMilliseconds() 
 			}
 
 			if(/(y+)/.test(format)) { 
@@ -25,8 +25,7 @@
 			} 
 			return format; 
 		}
-		
-		
+*/		
 		//+---------------------------------------------------  
 		//| 求两个时间的天数差 日期格式为 YYYY-MM-dd   
 		//+---------------------------------------------------  

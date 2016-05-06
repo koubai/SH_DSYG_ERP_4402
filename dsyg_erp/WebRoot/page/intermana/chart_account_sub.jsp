@@ -15,7 +15,7 @@
 		
 		<!-- 2. Add the JavaScript to initialize the chart on document ready -->
 		<script type="text/javascript">
-/*		Date.prototype.Format = function(fmt)   
+		Date.prototype.Format = function(fmt)   
 		{ 
 		  var o = {   
 		    "M+" : this.getMonth()+1,                 //月份   
@@ -33,11 +33,10 @@
 		  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
 		  return fmt;   
 		}
-*/
+
 		$(function () {  
-			var toD = new Date().Format("yyyy-MM-dd");
 			$("#fromDate").val("2015-08-01");
-			$("#toDate").val(toD);
+			$("#toDate").val(new Date().Format("yyyy-MM-dd"));
 			getAccountSubData3M();
 		});	     	    
 
@@ -621,13 +620,13 @@
 					<td>
 						<div class="box1_left"></div>
 						<div class="box1_center date_input">				
-							<input type="text" name="fromDate" id="fromDate" value="<s:date format="yyyy-MM-dd" name="fromDate"/>" />
-							<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('fromDate'));"></a>
+							<input type="text" name="fromDate" id="fromDate" value=#fromDate />
+							<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('fromDate'));"></a>						
 						</div>
 						<div class="box1_right">&nbsp&nbsp-</div>
 						<div class="box1_left" style="margin-left: 30px;"></div>
 						<div class="box1_center date_input">				
-							<input type="text" name="toDate" id="toDate" value=<s:date format="yyyy-MM-dd" name="toDate"/> />
+							<input type="text" name="toDate" id="toDate" value=#toDate />
 							<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('toDate'));"></a>
 						</div>
 						<div class="box1_right"></div>

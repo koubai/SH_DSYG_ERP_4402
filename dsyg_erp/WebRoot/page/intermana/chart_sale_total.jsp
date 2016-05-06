@@ -15,7 +15,28 @@
 		
 		<!-- 2. Add the JavaScript to initialize the chart on document ready -->
 		<script type="text/javascript">
+		Date.prototype.Format = function(fmt)   
+		{ 
+		  var o = {   
+		    "M+" : this.getMonth()+1,                 //月份   
+		    "d+" : this.getDate(),                    //日   
+		    "h+" : this.getHours(),                   //小时   
+		    "m+" : this.getMinutes(),                 //分   
+		    "s+" : this.getSeconds(),                 //秒   
+		    "q+" : Math.floor((this.getMonth()+3)/3), //季度   
+		    "S"  : this.getMilliseconds()             //毫秒   
+		  };   
+		  if(/(y+)/.test(fmt))   
+		    fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
+		  for(var k in o)   
+		    if(new RegExp("("+ k +")").test(fmt))   
+		  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+		  return fmt;   
+		}
+		
 		$(function () {  
+			$("#fromDate").val("2015-08-01");
+			$("#toDate").val(new Date().Format("yyyy-MM-dd"));
 			getSaleDataTD();
 		});	     	    
 
@@ -177,13 +198,13 @@
 				<td>
 					<div class="box1_left"></div>
 					<div class="box1_center date_input">				
-						<input type="text" name="fromDate" id="fromDate" value="2015-01-01" />
+						<input type="text" name="fromDate" id="fromDate" value="#fromDate" />
 						<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('fromDate'));"></a>
 					</div>
 					<div class="box1_right">&nbsp&nbsp-</div>
 					<div class="box1_left" style="margin-left: 30px;"></div>
 					<div class="box1_center date_input">				
-						<input type="text" name="toDate" id="toDate" value="2016-01-01"  />
+						<input type="text" name="toDate" id="toDate" value="#toDate"  />
 						<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('toDate'));"></a>
 					</div>
 					<div class="box1_right"></div>

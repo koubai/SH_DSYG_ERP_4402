@@ -31,7 +31,7 @@
 	}
 
 	$(function () {  
-		$("#fromDate").val("2015-08-02");
+		$("#fromDate").val("2015-08-01");
 		var myDate = new Date().Format("yyyy-MM-dd");
 		$("#toDate").val(myDate);
 	});	     	    
@@ -141,6 +141,8 @@
 								<td width="60">数量</td>
 								<td width="60">金额</td>
 							</tr>
+							<s:set var="sum_remainquantity" value="0"/>
+							<s:set var="sum_taxamount" value="0"/>
 							<s:iterator id="undeliproductList" value="undeliproductList" status="st1">
 								<tr>
 									<td><s:property value="#st1.index + 1"/></td>
@@ -173,12 +175,25 @@
 									</td>
 									<td align="right">
 										<s:property value="remainquantity"/>
+										<s:set var="sum_remainquantity" value="#sum_remainquantity+remainquantity"/>
 									</td>
 									<td align="right"> 
 										<s:property value="taxamount"/>
+										<s:set var="sum_taxamount" value="#sum_taxamount+taxamount"/>
 									</td>
 								</tr>
 							</s:iterator>
+							<tr class="tittle">
+								<td width="20"></td>
+								<td width="120"></td>
+								<td width="100"></td>
+								<td width="60"></td>
+								<td width="60"></td>
+								<td width="100"></td>
+								<td width="20">合计</td>
+								<td width="60" align="right"><s:property value="#sum_remainquantity"/></td>
+								<td width="60" align="right"><s:property value="#sum_taxamount"/></td>
+							</tr>
 						</table>
 					</div>
 				</div>
