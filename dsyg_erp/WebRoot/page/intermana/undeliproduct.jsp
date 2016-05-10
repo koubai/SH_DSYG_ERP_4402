@@ -132,11 +132,13 @@
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
 								<td width="20">序号</td>
-								<td width="120">品名</td>
+								<td width="100">品名</td>
 								<td width="100">规格</td>
-								<td width="60">颜色</td>
-								<td width="60">形式</td>
+								<td width="100">订单号</td>
+								<td width="40">颜色</td>
+								<td width="40">形式</td>
 								<td width="100">包装</td>
+								<td width="40">产地</td>
 								<td width="20">单位</td>
 								<td width="60">数量</td>
 								<td width="60">金额</td>
@@ -148,6 +150,7 @@
 									<td><s:property value="#st1.index + 1"/></td>
 									<td><s:property value="tradename"/></td>
 									<td><s:property value="typeno"/></td>
+									<td><s:property value="theme2"/></td>
 									<td>
 										<s:iterator id="colorList" value="colorList" status="st3">
 											<s:if test="%{colorList[#st3.index].code == undeliproductList[#st1.index].color}">
@@ -165,6 +168,13 @@
 									</td>
 									<td>
 										<s:property value="item10"/>
+									</td>
+									<td>
+										<s:iterator id="makeareaList" value="makeareaList" status="st5">
+											<s:if test="%{makeareaList[#st5.index].code == undeliproductList[#st1.index].makearea}">
+												<s:property value="fieldname"/>
+											</s:if>
+										</s:iterator>
 									</td>
 									<td>
 										<s:iterator id="unitList" value="unitList" status="st4">
@@ -187,9 +197,11 @@
 								<td width="20"></td>
 								<td width="120"></td>
 								<td width="100"></td>
-								<td width="60"></td>
-								<td width="60"></td>
 								<td width="100"></td>
+								<td width="40"></td>
+								<td width="40"></td>
+								<td width="100"></td>
+								<td width="40"></td>
 								<td width="20">合计</td>
 								<td width="60" align="right"><s:property value="#sum_remainquantity"/></td>
 								<td width="60" align="right"><s:property value="#sum_taxamount"/></td>
