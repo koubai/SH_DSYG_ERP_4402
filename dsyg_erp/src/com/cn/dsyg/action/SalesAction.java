@@ -408,7 +408,7 @@ public class SalesAction extends BaseAction {
 			strTheme2 = "";
 			strCustomername = "";
 			strType = "0";
-			strStatus = "";
+			strStatus = "10";
 			productid = "";
 			salesList = new ArrayList<SalesExtDto>();
 			
