@@ -520,6 +520,38 @@
 		</property>
 	</bean>
 	
+	<!-- customertrack -->
+	<bean id="customerTrackService" class="com.cn.dsyg.service.impl.CustomerTrackServiceImpl" >
+		<property name="customerTrackDao">
+			<ref local="customerTrackDao"/>
+		</property>
+		<property name="dict01Dao">
+			<ref local="dict01Dao"/>
+		</property>
+		<property name="productDao">
+			<ref local="productDao"/>
+		</property>
+	</bean>
+	
+	<bean id="customerTrackDao" class="com.cn.dsyg.dao.impl.CustomerTrackDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- issue -->
+	<bean id="issueService" class="com.cn.dsyg.service.impl.IssueServiceImpl" >
+		<property name="issueDao">
+			<ref local="issueDao"/>
+		</property>
+	</bean>
+	
+	<bean id="issueDao" class="com.cn.dsyg.dao.impl.IssueDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
 	<!-- UndeliProductDao -->
 	<bean id="undeliproductDao" class="com.cn.dsyg.dao.impl.UndeliProductDaoImpl">
 		<property name="sqlMapClient">

@@ -350,6 +350,23 @@
 		</property>
 	</bean>
 
+	<!-- customertrack -->
+	<bean id="customerTrackAction" class="com.cn.dsyg.action.CustomerTrackAction" scope="session">
+		<property name="customerTrackService">
+			<ref bean="customerTrackService"/>
+		</property>
+	</bean>
+
+	<!-- issue -->
+	<bean id="issueAction" class="com.cn.dsyg.action.IssueAction" scope="session">
+		<property name="issueService">
+			<ref bean="issueService"/>
+		</property>
+		<property name="dict01Service">
+			<ref bean="dict01Service" />
+		</property>
+	</bean>
+
 	<!-- chart -->
 	<bean id="calendarAction" class="com.cn.dsyg.action.CalendarAction" scope="session">
 	</bean>

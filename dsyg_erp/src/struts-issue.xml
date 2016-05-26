@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="issue" extends="struts-erp" namespace="/issue">
+	
+		<action name="showIssueAction" class="issueAction" method="showIssueAction">
+			<result name="*">/page/issue/issuelist.jsp</result>
+		</action>
+		
+		<action name="queryIssueList" class="issueAction" method="queryIssueList">
+			<result name="success">/page/issue/issuelist.jsp</result>
+		</action>
+		
+		<action name="turnIssuePage" class="issueAction" method="turnIssuePage">
+			<result name="success">/page/issue/issuelist.jsp</result>
+		</action>
+		
+		<action name="showAddIssueAction" class="issueAction" method="showAddIssueAction">
+			<result name="*">/page/issue/addissue.jsp</result>
+		</action>
+		
+		<action name="addIssueAction" class="issueAction" method="addIssueAction">
+			<result name="success">/page/issue/addissue.jsp</result>
+			<result name="checkerror">/page/issue/addissue.jsp</result>
+		</action>
+		
+		<action name="showUpdIssueAction" class="issueAction" method="showUpdIssueAction">
+			<result name="success">/page/issue/updissue.jsp</result>
+			<result name="checkerror">/page/issue/updissue.jsp</result>
+		</action>
+		
+		<action name="updIssueAction" class="issueAction" method="updIssueAction">
+			<result name="success">/page/issue/updissue.jsp</result>
+			<result name="checkerror">/page/issue/updissue.jsp</result>
+		</action>
+		
+		<action name="delIssueAction" class="issueAction" method="delIssueAction">
+			<result name="success">/page/issue/issuelist.jsp</result>
+			<result name="checkerror">/page/issue/issuelist.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

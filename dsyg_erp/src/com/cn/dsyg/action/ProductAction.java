@@ -599,6 +599,63 @@ public class ProductAction extends BaseAction {
 		return SUCCESS;
 	}
 	
+	/**
+	 * 显示客户跟踪选择页面
+	 * @return
+	 */
+	public String showTrackProductSelectPage() {
+		try {
+			this.clearMessages();
+			//这里产品选择页面，不需要关键字检索
+			strKeyword = "";
+			startIndex = 0;
+			//默认10条
+			intPageSize = 10;
+			page = new Page(intPageSize);
+			queryData();
+		} catch(Exception e) {
+			log.error("showTrackProductSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询客户跟踪产品（选择页面）
+	 * @return
+	 */
+	public String queryTrackProductSelectPage() {
+		try {
+			this.clearMessages();
+			startIndex = 0;
+			//默认10条
+			if(intPageSize == null) {
+				intPageSize = 10;
+			}
+			page = new Page(intPageSize);
+			queryData();
+		} catch(Exception e) {
+			log.error("queryTrackProductSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页客户跟踪产品（选择页面）
+	 * @return
+	 */
+	public String turnTrackProductSelectPage() {
+		try {
+			this.clearMessages();
+			queryData();
+		} catch(Exception e) {
+			log.error("turnTrackProductSelectPage error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
 	
 	/**
 	 * 查询产品（销售单选择页面）

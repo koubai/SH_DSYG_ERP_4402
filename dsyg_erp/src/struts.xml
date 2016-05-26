@@ -62,6 +62,10 @@
 	<include file="struts-requestcash.xml"></include>
 	<!-- detail -->
 	<include file="struts-detail.xml"></include>
+	<!-- customertrack -->
+	<include file="struts-customertrack.xml"></include>
+	<!-- issue -->
+	<include file="struts-issue.xml"></include>
 	
 	<package name="index" extends="struts-default, json-default" namespace="/index">
 		

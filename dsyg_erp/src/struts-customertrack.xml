@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="customertrack" extends="struts-erp" namespace="/customertrack">
+	
+		<action name="showCustomerTrackAction" class="customerTrackAction" method="showCustomerTrackAction">
+			<result name="*">/page/customertrack/customertracklist.jsp</result>
+		</action>
+		
+		<action name="queryCustomerTrackList" class="customerTrackAction" method="queryCustomerTrackList">
+			<result name="success">/page/customertrack/customertracklist.jsp</result>
+		</action>
+		
+		<action name="turnCustomerTrackPage" class="customerTrackAction" method="turnCustomerTrackPage">
+			<result name="success">/page/customertrack/customertracklist.jsp</result>
+		</action>
+		
+		<action name="showAddCustomerTrackAction" class="customerTrackAction" method="showAddCustomerTrackAction">
+			<result name="*">/page/customertrack/addcustomertrack.jsp</result>
+		</action>
+		
+		<action name="addCustomerTrackAction" class="customerTrackAction" method="addCustomerTrackAction">
+			<result name="success">/page/customertrack/addcustomertrack.jsp</result>
+			<result name="checkerror">/page/customertrack/addcustomertrack.jsp</result>
+		</action>
+		
+		<action name="showUpdCustomerTrackAction" class="customerTrackAction" method="showUpdCustomerTrackAction">
+			<result name="success">/page/customertrack/updcustomertrack.jsp</result>
+			<result name="checkerror">/page/customertrack/updcustomertrack.jsp</result>
+		</action>
+		
+		<action name="updCustomerTrackAction" class="customerTrackAction" method="updCustomerTrackAction">
+			<result name="success">/page/customertrack/updcustomertrack.jsp</result>
+			<result name="checkerror">/page/customertrack/updcustomertrack.jsp</result>
+		</action>
+		
+		<action name="delCustomerTrackAction" class="customerTrackAction" method="delCustomerTrackAction">
+			<result name="success">/page/customertrack/customertracklist.jsp</result>
+			<result name="checkerror">/page/customertrack/customertracklist.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

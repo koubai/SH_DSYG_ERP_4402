@@ -75,6 +75,16 @@
 		<action name="turnProductidSelectPage" class="productAction" method="turnProductidSelectPage">
 			<result name="*">/page/product/selectproductid.jsp</result>
 		</action>
+
+		<action name="showTrackProductSelectPage" class="productAction" method="showTrackProductSelectPage">
+			<result name="*">/page/product/selecttrackproduct.jsp</result>
+		</action>
+		<action name="queryTrackProductSelectPage" class="productAction" method="queryTrackProductSelectPage">
+			<result name="*">/page/product/selecttrackproduct.jsp</result>
+		</action>
+		<action name="turnTrackProductSelectPage" class="productAction" method="turnTrackProductSelectPage">
+			<result name="*">/page/product/selecttrackproduct.jsp</result>
+		</action>
 		
 		<action name="showSalesProductSelectPage" class="productAction" method="showSalesProductSelectPage">
 			<result name="*">/page/product/selectsalesproduct.jsp</result>

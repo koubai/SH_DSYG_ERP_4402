@@ -24,23 +24,35 @@
 	
 	//给父页面添加记录
 	function addUserList() {
-		var id = getSelectedID();
+		var obj = getSelectedID();
+		var id = obj.value;
 		var customerindex = document.getElementById("customerindex").value;
-		if(id == "") {
+		if(obj == null) {
 			alert("请选择一条记录！");
 			return;
 		} else {
-			getOpener().document.getElementById(customerindex).value=id; 
+			//将数据添加到父页面中
+			var tr = obj.parentNode.parentNode;
+			var tds = tr.getElementsByTagName("td");
+			var inputs = tds[0].getElementsByTagName("input");
+			var userid = inputs[1].value;
+			var username = inputs[2].value;
+			if(customerindex == "handlername"){
+				getOpener().document.getElementById("handlerid").value = userid;
+				getOpener().document.getElementById("handlername").value = username;
+			} else {
+				getOpener().document.getElementById(customerindex).value=id; 
+			}
 			window.close();
 		}
 	}
 
 	function getSelectedID() {
-		var obj = "";
+		var obj = null;
 		var list = document.getElementsByName("radioKey");
 		for(var i = 0; i < list.length; i++) {
 			if(list[i].checked) {
-				obj = list[i].value;
+				obj = list[i];
 				break;
 			}
 		}

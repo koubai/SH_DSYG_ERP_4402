@@ -35,5 +35,7 @@
 	<sqlMap resource="/config/ibatis/dsyg-position.xml" />
 	<sqlMap resource="/config/ibatis/dsyg-pregathering.xml" />
 	<sqlMap resource="/config/ibatis/dsyg-requestcash.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-customertrack.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-issue.xml" />
 	
 </sqlMapConfig>
