@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.context.ApplicationContext;
+
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
@@ -22,6 +24,7 @@ import com.cn.dsyg.service.IssueService;
 public class IssueServiceImpl implements IssueService {
 	
 	private IssueDao issueDao;
+	private ApplicationContext ctx;
 
 	@Override
 	public IssueDto queryAllIssueByID(String id) {
@@ -88,6 +91,15 @@ public class IssueServiceImpl implements IssueService {
 			issueDao.updateIssue(issue);
 		}
 	}
+	
+	/**
+	 * 查询所有未完成的紧急事件
+	 * @return
+	 */
+	public List<IssueDto> queryIssueWorking(){
+		System.out.println("queryIssueWorking DAO:");
+		return issueDao.queryIssueWorking();		
+	}
 
 	@Override
 	public List<IssueDto> queryAllIssueExport(String idLow,
@@ -102,4 +114,13 @@ public class IssueServiceImpl implements IssueService {
 	public void setissueDao(IssueDao issueDao) {
 		this.issueDao = issueDao;
 	}
+
+	public void setCtx(ApplicationContext ctx) {
+		this.ctx = ctx;
+	}
+
+	public ApplicationContext getCtx() {
+		return ctx;
+	}
+
 }

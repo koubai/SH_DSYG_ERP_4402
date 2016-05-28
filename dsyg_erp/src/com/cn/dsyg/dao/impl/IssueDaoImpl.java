@@ -28,7 +28,7 @@ public class IssueDaoImpl extends BaseDao implements IssueDao {
 		}
 		return null;
 	}
-
+	
 	@Override
 	public List<IssueDto> queryIssueByPage(String idLow,
 			String idHigh, String issueName,
@@ -78,6 +78,13 @@ public class IssueDaoImpl extends BaseDao implements IssueDao {
 	public List<IssueDto> queryAllIssue() {
 		@SuppressWarnings("unchecked")
 		List<IssueDto> list = getSqlMapClientTemplate().queryForList("queryAllIssue");
+		return list;
+	}
+
+	@Override
+	public List<IssueDto> queryIssueWorking() {
+		@SuppressWarnings("unchecked")
+		List<IssueDto> list = getSqlMapClientTemplate().queryForList("queryIssueWorking");
 		return list;
 	}
 

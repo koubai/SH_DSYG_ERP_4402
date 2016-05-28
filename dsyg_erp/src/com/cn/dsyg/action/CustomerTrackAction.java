@@ -229,7 +229,7 @@ public class CustomerTrackAction extends BaseAction {
 	public String showUpdCustomerTrackAction() {
 		try {
 			this.clearMessages();
-			System.out.println("id is: "+updateId);
+//			System.out.println("id is: "+updateId);
 			updateCustomerTrackDto = customerTrackService.queryCustomerTrackByID(updateId);
 			if(updateCustomerTrackDto == null) {
 				this.addActionMessage("该数据不存在！");
@@ -254,7 +254,7 @@ public class CustomerTrackAction extends BaseAction {
 			if(!checkData(updateCustomerTrackDto)) {
 				return "checkerror";
 			}
-			System.out.println("id is: "+updateCustomerTrackDto.getId());
+//			System.out.println("id is: "+updateCustomerTrackDto.getId());
 			//修改数据
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			updateCustomerTrackDto.setUpdateuid(username);

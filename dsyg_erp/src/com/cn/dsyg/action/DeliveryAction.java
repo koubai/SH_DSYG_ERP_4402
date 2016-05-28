@@ -327,7 +327,7 @@ public class DeliveryAction extends BaseAction {
 	public String showUpdEtbDeliveryAction() {
 		try {
 			this.clearMessages();
-			System.out.println("id is: "+updateDeliveryNo);
+//			System.out.println("id is: "+updateDeliveryNo);
 			updateDeliveryDto = deliveryService.queryEtbDeliveryByID(updateDeliveryNo);
 			if(updateDeliveryDto == null) {
 				this.addActionMessage("该数据不存在！");
@@ -352,7 +352,7 @@ public class DeliveryAction extends BaseAction {
 			if(!checkData(updateDeliveryDto)) {
 				return "checkerror";
 			}
-			System.out.println("id is: "+updateDeliveryDto.getId());
+//			System.out.println("id is: "+updateDeliveryDto.getId());
 			//修改数据
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			updateDeliveryDto.setUpdateuid(username);

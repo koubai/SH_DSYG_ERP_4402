@@ -369,6 +369,9 @@
 
 	<!-- chart -->
 	<bean id="calendarAction" class="com.cn.dsyg.action.CalendarAction" scope="session">
+		<property name="issueService">
+			<ref bean="issueService"/>
+		</property>
 	</bean>
 	
 	<!-- frame -->

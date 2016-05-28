@@ -36,9 +36,58 @@
 %>
 
 <script type="text/javascript">
-$(function() {	
-//    $('#color1').colorPicker();
+Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
 
+$(function() {	
+	//页面加载完初始化日历 
+	$.ajax({
+		url: '${pageContext.request.contextPath}/IssueServlet.servlet',
+	             type: "POST",
+	             dataType: "text",
+	             success: function (data) {
+	            	 var issuedata= eval("("+data+")");
+	            	 if (issuedata.length > 0){
+	            		var html = "<h2 class='sub_title'>紧急事件</h2>";  
+	            		html += "<table border ='1' sellspacing='1' ><tr><td align='center' width='100'>时间</td><td align='center' width='250'>事件</td><td align='center' width='50'>担当者</td><td align='center' width='50'>状态</td><td align='center' width='250'>结果</td></tr>";
+						for (var i= 0; i<issuedata.length; i++){
+							var issuedate = new Date(issuedata[i].issuedate).Format("yyyy-MM-dd");
+							html+="<tr><td>"+issuedate + "</td>";
+							html+="<td>"+issuedata[i].issuename + "</td>";
+							html+="<td>"+issuedata[i].handlername + "</td>";
+							if (issuedata[i].status == "2"){
+								html+="<td>未对应</td>";	
+							} else if (issuedata[i].status == "3"){
+								html+="<td>对应中</td>";	
+							} else if (issuedata[i].status == "4"){
+								html+="<td>完了</td>";	
+							} else {
+								html+="<td>--</td>";	
+							}
+							html+="<td>"+issuedata[i].result + "</td></tr>";
+						}	            	 
+						html+="</table>";
+						$("#issue").html(html);            		 
+						$("#issue").click(function (){
+							window.location.href = '<%=request.getContextPath()%>' + "/issue/showIssueAction.action";							
+						});						
+	            	 }
+	             }
+	         });
+//	    $('#color1').colorPicker();
 	//页面加载完初始化日历 
 	$('#calendar').fullCalendar({
 		//设置日历头部信息
@@ -108,7 +157,10 @@ $(function() {
 <jsp:include page="./page/info2.jsp" flush="true" />
 	<div class="icons"><a class="home" href="#" onclick="goHome();">返回首页</a><a class="quit" href="#" onclick="logout();">退出</a></div>
 <div id="main" style="width:1060px">
-   <h2 class="top_title"><br><br><a>欢迎使用DSYG ERP系统。</a></h2>
+   <h2 class="top_title"><br><br><a>欢迎使用DSYG ERP系统。</a></h2>  
+   <div id='issue' style="margin-top: 5px; margin-left:150px;">
+</div>
+   
    <div id='calendar'></div>
    <input type="hidden" name="userId" value="<%=userId%>">
    <input type="hidden" name="userColor" value="<%=userColor%>">

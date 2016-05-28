@@ -99,7 +99,7 @@
 		<isNotEmpty prepend="and" property="issueName">
 			T.issuename like '%$issueName$%'
 		</isNotEmpty>
-		order by T.updatedate desc
+		order by T.status asc, T.updatedate desc
 		LIMIT #start#, #end#
 	</select>
 	
@@ -128,13 +128,27 @@
 		select * from etb_issue where 1 = 1 and status <![CDATA[>]]> 0 order by updatedate desc
 	</select>
 	
+	<select id="queryIssueWorking" parameterClass="java.util.Map" resultMap="IssueDto">
+		select T.*, 
+			"" as fieldno, 
+			"" as tradename, 
+			"" as typeno,
+			"" as color,
+			"" as packaging,
+			"" as unit,
+			"" as makearea,
+			"" as item10,
+			(select U.username from tbuser U where U.userid = T.handlerid) as handlername
+		 from etb_issue T where 1 = 1 and T.status <![CDATA[<]]> 4 order by T.updatedate desc
+	</select>
+
 	<insert id="insertIssue" parameterClass="com.cn.dsyg.dto.IssueDto">
 		insert into etb_issue(issuename,issuedate,belongto,productid,customertype,customerid,customername,note,result,handlerid,
 		rank,status,res01,res02,res03,res04,res05,
 		createuid,createdate,updateuid,updatedate)
 		values(#issuename#,#issuedate#,#belongto#,#productid#,#customertype#,#customerid#,#customername#,#note#,#result#,#handlerid#,
 		#rank#,#status#,#res01#,#res02#,#res03#,#res04#,#res05#,
-		#createuid#,NOW(),#updateuid#,#updatedate#)
+		#createuid#,NOW(),#createuid#,NOW())
 	</insert>
 	
 	<update id="updateIssue" parameterClass="com.cn.dsyg.dto.IssueDto">

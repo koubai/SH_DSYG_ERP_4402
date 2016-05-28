@@ -165,7 +165,7 @@
 				</div> --%>
 				<div class="searchbox update">
 					<div class="box1" >
-						<label class="pdf10" style="width:120px">事件名称</label>
+						<label class="pdf10" style="width:150px">事件内容</label>
 						<div class="box1_left"></div>
 						<div class="box1_center">
 							<s:textfield name="strIssueName" id="strIssueName" cssStyle="width:135px;" maxlength="50" theme="simple"></s:textfield>
@@ -196,17 +196,17 @@
 					<div class="tab_content" style="height: <s:property value="intPageSize * 35"/>px;">
 						<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 							<tr class="tittle">
-								<td width="5%"></td>
-								<td width="5%">序号</td>
-								<td width="15%">事件名称</td>
-								<td width="8%">事件日期</td>
+								<td width="5"></td>
+								<td width="5">序号</td>
+								<td width="10">发生日期</td>
+								<td width="150">事件内容</td>
 								<!-- <td width="15%">产品</td> -->
-								<td width="5%">客户类型</td>
-								<td width="15%">客户名</td>
-								<td width="10%">担当者</td>
-								<td width="7%">状态</td>
-								<td width="15%">处理结果</td>
-								<td width="15%">备注</td>
+								<td width="20">客户类型</td>
+								<td width="20">客户名</td>
+								<td width="10">担当者</td>
+								<td width="10">状态</td>
+								<td width="15">处理结果</td>
+								<td width="20">备注</td>
 							</tr>
 							<s:iterator id="listIssue" value="listIssue" status="st1">
 								<s:if test="#st1.odd==true">
@@ -217,12 +217,12 @@
 								</s:else>
 									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
+									<td><s:property value="showIssuedate"/></td>
 									<td>
 										<div noWrap style="text-overflow:ellipsis;overflow:hidden">
 											<s:property value="issuename"/>
 										</div>
 									</td>
-									<td><s:property value="showIssuedate"/></td>
 									<%-- <td>
 										<s:property value="tradename"/>
 										<s:property value="typeno"/>

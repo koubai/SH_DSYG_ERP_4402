@@ -198,7 +198,7 @@ public class WarehouseDetailAction extends BaseAction {
 	public String showProductPurchasePage() {
 		try {
 			this.clearMessages();
-			System.out.println("strProdoctid is: " + strProdoctid);
+//			System.out.println("strProdoctid is: " + strProdoctid);
 			//update by frank
 			setPurchaseItemList(purchaseItemService.queryPurchaseItemByProductidForCompare(strProdoctid, ""));
 			//setPurchaseItemList(purchaseItemService.queryPurchaseItemByProductid(strProdoctid, "", 0, 100));
@@ -217,7 +217,7 @@ public class WarehouseDetailAction extends BaseAction {
 	public String showProductSalesPage() {
 		try {
 			this.clearMessages();
-			System.out.println("strProdoctid is: " + strProdoctid);
+//			System.out.println("strProdoctid is: " + strProdoctid);
 			setSalesItemList(salesItemService.querySalesItemByProductidForCompare(strProdoctid, ""));
 			//setSalesItemList(salesItemService.querySalesItemByProductid(strProdoctid, "", 0, 100));
 			

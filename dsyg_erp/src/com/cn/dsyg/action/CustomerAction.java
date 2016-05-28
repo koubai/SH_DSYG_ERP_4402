@@ -385,7 +385,7 @@ public class CustomerAction extends BaseAction {
 	public String showUpdEtbCustomerAction() {
 		try {
 			this.clearMessages();
-			System.out.println("id is: "+updateCustomerNo);
+//			System.out.println("id is: "+updateCustomerNo);
 			updateCustomerDto = customerService.queryEtbCustomerByID(updateCustomerNo);
 			if(updateCustomerDto == null) {
 				this.addActionMessage("该数据不存在！");
@@ -410,7 +410,7 @@ public class CustomerAction extends BaseAction {
 			if(!checkData(updateCustomerDto)) {
 				return "checkerror";
 			}
-			System.out.println("id is: "+updateCustomerDto.getId());
+//			System.out.println("id is: "+updateCustomerDto.getId());
 			//修改数据
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			updateCustomerDto.setUpdateuid(username);

@@ -2,6 +2,8 @@ package com.cn.dsyg.service;
 
 import java.util.List;
 
+import org.springframework.context.ApplicationContext;
+
 import com.cn.common.util.Page;
 import com.cn.dsyg.dto.IssueDto;
 
@@ -44,6 +46,12 @@ public interface IssueService {
 	public List<IssueDto> queryAllIssue();
 	
 	/**
+	 * 查询所有未完成的紧急事件
+	 * @return
+	 */
+	public List<IssueDto> queryIssueWorking();
+	
+	/**
 	 * 新增紧急事件
 	 * @param issue
 	 * @return
@@ -71,4 +79,6 @@ public interface IssueService {
 	 * @return
 	 */
 	public List<IssueDto> queryAllIssueExport(String idLow, String idHigh, String issueName);
+
+	public void setCtx(ApplicationContext ctx);
 }

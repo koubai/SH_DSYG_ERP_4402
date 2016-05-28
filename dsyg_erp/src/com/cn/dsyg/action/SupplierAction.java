@@ -311,7 +311,7 @@ public class SupplierAction extends BaseAction {
 	public String showUpdSupplierAction() {
 		try {
 			this.clearMessages();
-			System.out.println("id is: "+updateSupplierNo);
+//			System.out.println("id is: "+updateSupplierNo);
 			updateSupplierDto = supplierService.querySupplierByID(updateSupplierNo);
 			if(updateSupplierDto == null) {
 				this.addActionMessage("该数据不存在！");
@@ -336,7 +336,7 @@ public class SupplierAction extends BaseAction {
 			if(!checkData(updateSupplierDto)) {
 				return "checkerror";
 			}
-			System.out.println("id is: "+updateSupplierDto.getId());
+//			System.out.println("id is: "+updateSupplierDto.getId());
 			//修改数据
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			updateSupplierDto.setUpdateuid(username);

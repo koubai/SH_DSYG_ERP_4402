@@ -256,7 +256,7 @@ public class IssueAction extends BaseAction {
 			this.clearMessages();
 			//初期化字典数据
 			initDictList();
-			System.out.println("id is: "+updateId);
+//			System.out.println("id is: "+updateId);
 			updateIssueDto = issueService.queryIssueByID(updateId);
 			if(updateIssueDto == null) {
 				this.addActionMessage("该数据不存在！");
@@ -313,7 +313,7 @@ public class IssueAction extends BaseAction {
 			if(!checkData(updateIssueDto)) {
 				return "checkerror";
 			}
-			System.out.println("id is: "+updateIssueDto.getId());
+//			System.out.println("id is: "+updateIssueDto.getId());
 			//修改数据
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			updateIssueDto.setUpdateuid(username);

@@ -139,7 +139,7 @@ public class ProductOkAction extends BaseAction {
 	public String showProductBookPage() {
 		try {
 			this.clearMessages();
-			System.out.println("strProdoctid is: " + strProdoctid);
+//			System.out.println("strProdoctid is: " + strProdoctid);
 			warehouseOkList = warehouseService.queryProductBookByProductid(strProdoctid);
 		} catch(Exception e) {
 			log.error("showProductBookPage error:" + e);

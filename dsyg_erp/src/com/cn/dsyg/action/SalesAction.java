@@ -449,7 +449,7 @@ public class SalesAction extends BaseAction {
 	public String showProductSalesPricePage() {
 		try {
 			this.clearMessages();
-			System.out.println("strProdoctid is: " + strProdoctid + " ,strCustomerid is:" + strCustomerid);
+//			System.out.println("strProdoctid is: " + strProdoctid + " ,strCustomerid is:" + strCustomerid);
 			salesItemList = salesItemService.querySalesItemByProductid(strProdoctid, strCustomerid, 0, 99);
 			
 		} catch(Exception e) {

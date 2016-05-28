@@ -120,6 +120,16 @@
         <url-pattern>/JsonServlet.servlet</url-pattern>  
     </servlet-mapping>
     
+    <servlet>  
+       <servlet-name>IssueServlet</servlet-name>  
+       <servlet-class>com.cn.dsyg.servlet.IssueServlet</servlet-class>  
+    </servlet>  
+
+    <servlet-mapping>  
+        <servlet-name>IssueServlet</servlet-name>  
+        <url-pattern>/IssueServlet.servlet</url-pattern>  
+    </servlet-mapping>
+
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>

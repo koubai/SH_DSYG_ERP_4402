@@ -51,7 +51,13 @@ public interface IssueDao {
 	 * @return
 	 */
 	public List<IssueDto> queryAllIssue();
-	
+
+	/**
+	 * 查询所有未完成的紧急事件
+	 * @return
+	 */	
+	public List<IssueDto> queryIssueWorking();
+
 	/**
 	 * 新增紧急事件
 	 * @param issue

@@ -473,7 +473,7 @@ public class PurchaseAction extends BaseAction {
 	public String showProductPricePage() {
 		try {
 			this.clearMessages();
-			System.out.println("strProdoctid is: " + strProdoctid + " ,strSupplierid is:" + strSupplierid);
+//			System.out.println("strProdoctid is: " + strProdoctid + " ,strSupplierid is:" + strSupplierid);
 			purchaseItemList = purchaseItemService.queryPurchaseItemByProductid(strProdoctid, strSupplierid, 0, 9);
 			
 		} catch(Exception e) {
