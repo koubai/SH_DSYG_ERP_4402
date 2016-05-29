@@ -115,7 +115,7 @@
 		createuid,createdate,updateuid,updatedate)
 		values(#customername#,#belongto#,#source#,#note#,#customertel1#,#customermanager1#,#customeraddress1#,#customermail1#,#customerfax1#,
 		#product#,#customertype#,#handlerid#,#receivedate#,#status#,#res01#,#res02#,#res03#,#res04#,#res05#,#res06#,#res07#,#res08#,#res09#,#res10#,
-		#createuid#,NOW(),#updateuid#,#updatedate#)
+		#createuid#,NOW(),#createuid#,NOW())
 	</insert>
 	
 	<update id="updateCustomerTrack" parameterClass="com.cn.dsyg.dto.CustomerTrackDto">

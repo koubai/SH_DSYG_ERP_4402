@@ -72,7 +72,7 @@
 		<isNotEmpty prepend="and" property="issueName">
 			T.issuename like '%$issueName$%'
 		</isNotEmpty>
-		order by T.updatedate desc
+		order by T.issuedate desc
 	</select>
 	
 	<select id="queryIssueByPage" parameterClass="java.util.Map" resultMap="IssueDto">
@@ -99,7 +99,7 @@
 		<isNotEmpty prepend="and" property="issueName">
 			T.issuename like '%$issueName$%'
 		</isNotEmpty>
-		order by T.status asc, T.updatedate desc
+		order by T.status asc, T.issuedate desc
 		LIMIT #start#, #end#
 	</select>
 	
@@ -120,12 +120,34 @@
 	</select>
 	
 	<select id="queryAllIssueByID" parameterClass="java.util.Map" resultMap="IssueDto">
-		select * from etb_issue where 
-			id = #id#
+		select T.*, 
+			"" as fieldno, 
+			"" as tradename, 
+			"" as typeno,
+			"" as color,
+			"" as packaging,
+			"" as unit,
+			"" as makearea,
+			"" as item10,
+			"" as handlername
+		from etb_issue T where 
+		T.id = #id#
 	</select>
 	
 	<select id="queryAllIssue" parameterClass="java.util.Map" resultMap="IssueDto">
-		select * from etb_issue where 1 = 1 and status <![CDATA[>]]> 0 order by updatedate desc
+		select T.*,
+			"" as fieldno, 
+			"" as tradename, 
+			"" as typeno,
+			"" as color,
+			"" as packaging,
+			"" as unit,
+			"" as makearea,
+			"" as item10,
+			"" as handlername
+		from etb_issue T where 1 = 1 
+		and T.status <![CDATA[>]]> 0 
+		order by T.issuedate desc
 	</select>
 	
 	<select id="queryIssueWorking" parameterClass="java.util.Map" resultMap="IssueDto">
@@ -139,7 +161,9 @@
 			"" as makearea,
 			"" as item10,
 			(select U.username from tbuser U where U.userid = T.handlerid) as handlername
-		 from etb_issue T where 1 = 1 and T.status <![CDATA[<]]> 4 order by T.updatedate desc
+		 from etb_issue T where 1 = 1 
+		 and T.status <![CDATA[<]]> 4 and T.status <![CDATA[>]]> 0 
+		 order by T.issuedate desc
 	</select>
 
 	<insert id="insertIssue" parameterClass="com.cn.dsyg.dto.IssueDto">

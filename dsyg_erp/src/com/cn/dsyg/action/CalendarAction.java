@@ -48,7 +48,7 @@ public class CalendarAction extends BaseAction {
 
 	public String showCalendarAction(){  
     	try{
-    		System.out.println("showCalendarAction1");
+//    		System.out.println("showCalendarAction");
 //    		showIssueAction();
 	        return SUCCESS;  
 		} catch(Exception e) {
@@ -72,7 +72,6 @@ public class CalendarAction extends BaseAction {
 	public String showIssueAction() {
 		try {
 			this.clearMessages();
-    		System.out.println("showIssueAction");			
 			queryIssue();
 		} catch(Exception e) {
 			return ERROR;
@@ -87,9 +86,7 @@ public class CalendarAction extends BaseAction {
 	private void queryIssue() {
 		//初期化字典数据
 		listIssue = new ArrayList<IssueDto>();
-		System.out.println("before CCC:");
 		listIssue = issueService.queryIssueWorking();		
-		System.out.println("CCC:"+listIssue.size());
 		if (listIssue.size()> 0){
 			IssueFlg = true;
 		}else{

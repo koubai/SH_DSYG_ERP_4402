@@ -209,8 +209,10 @@ public class CustomerTrackAction extends BaseAction {
 			}
 			//保存数据
 			//addCustomerTrackDto.setStatus(Constants.STATUS_NORMAL);
-			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
-			addCustomerTrackDto.setCreateuid(username);
+			String user_id = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			if (addCustomerTrackDto.getHandlerid().compareTo("")==0)
+				addCustomerTrackDto.setHandlerid(user_id);
+			addCustomerTrackDto.setCreateuid(user_id);
 			String id = customerTrackService.insertCustomerTrack(addCustomerTrackDto);
 			this.addActionMessage("添加客户跟踪成功！");
 			addCustomerTrackDto = new CustomerTrackDto();
@@ -256,8 +258,8 @@ public class CustomerTrackAction extends BaseAction {
 			}
 //			System.out.println("id is: "+updateCustomerTrackDto.getId());
 			//修改数据
-			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
-			updateCustomerTrackDto.setUpdateuid(username);
+			String user_id = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			updateCustomerTrackDto.setUpdateuid(user_id);
 			customerTrackService.updateCustomerTrack(updateCustomerTrackDto);
 			this.addActionMessage("修改客户跟踪成功！");
 		} catch(Exception e) {

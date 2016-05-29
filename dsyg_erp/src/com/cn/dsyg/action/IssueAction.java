@@ -233,8 +233,12 @@ public class IssueAction extends BaseAction {
 			}
 			//保存数据
 			//addIssueDto.setStatus(Constants.STATUS_NORMAL);
-			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
-			addIssueDto.setCreateuid(username);
+			String user_id = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			if (addIssueDto.getHandlerid().compareTo("")==0)
+				addIssueDto.setHandlerid(user_id);
+			if (addIssueDto.getStatus()==1)
+				addIssueDto.setStatus(2);
+			addIssueDto.setCreateuid(user_id);
 			String id = issueService.insertIssue(addIssueDto);
 			this.addActionMessage("添加紧急事件成功！");
 			addIssueDto = new IssueDto();
@@ -315,8 +319,8 @@ public class IssueAction extends BaseAction {
 			}
 //			System.out.println("id is: "+updateIssueDto.getId());
 			//修改数据
-			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
-			updateIssueDto.setUpdateuid(username);
+			String user_id = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			updateIssueDto.setUpdateuid(user_id);
 			issueService.updateIssue(updateIssueDto);
 			this.addActionMessage("修改紧急事件成功！");
 		} catch(Exception e) {

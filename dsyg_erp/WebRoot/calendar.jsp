@@ -36,22 +36,6 @@
 %>
 
 <script type="text/javascript">
-Date.prototype.Format = function (fmt) { //author: meizz 
-    var o = {
-        "M+": this.getMonth() + 1, //月份 
-        "d+": this.getDate(), //日 
-        "h+": this.getHours(), //小时 
-        "m+": this.getMinutes(), //分 
-        "s+": this.getSeconds(), //秒 
-        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-        "S": this.getMilliseconds() //毫秒 
-    };
-    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-    for (var k in o)
-    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-    return fmt;
-}
-
 $(function() {	
 	//页面加载完初始化日历 
 	$.ajax({
@@ -61,11 +45,11 @@ $(function() {
 	             success: function (data) {
 	            	 var issuedata= eval("("+data+")");
 	            	 if (issuedata.length > 0){
-	            		var html = "<h2 class='sub_title'>紧急事件</h2>";  
-	            		html += "<table border ='1' sellspacing='1' ><tr><td align='center' width='100'>时间</td><td align='center' width='250'>事件</td><td align='center' width='50'>担当者</td><td align='center' width='50'>状态</td><td align='center' width='250'>结果</td></tr>";
+	            		var html = "<font size='2' color='#51555C'>紧急事件</font>";  
+	            		html += "<table border ='1' sellspacing='1' ><tr bgcolor='#F581AA'><td align='center' width='100'>时间</td><td align='center' width='250'>事件</td><td align='center' width='50'>担当者</td><td align='center' width='50'>状态</td><td align='center' width='250'>结果</td></tr>";
 						for (var i= 0; i<issuedata.length; i++){
-							var issuedate = new Date(issuedata[i].issuedate).Format("yyyy-MM-dd");
-							html+="<tr><td>"+issuedate + "</td>";
+							var issuedate = issuedata[i].issuedate.substring(0, 10);
+							html+="<tr><td>"+ issuedate + "</td>";
 							html+="<td>"+issuedata[i].issuename + "</td>";
 							html+="<td>"+issuedata[i].handlername + "</td>";
 							if (issuedata[i].status == "2"){

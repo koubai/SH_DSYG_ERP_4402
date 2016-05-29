@@ -97,7 +97,7 @@ public class IssueServiceImpl implements IssueService {
 	 * @return
 	 */
 	public List<IssueDto> queryIssueWorking(){
-		System.out.println("queryIssueWorking DAO:");
+//		System.out.println("queryIssueWorking DAO:");
 		return issueDao.queryIssueWorking();		
 	}
 
