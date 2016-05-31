@@ -504,7 +504,6 @@
 			var X_data = new Array();
 			X_data = get_X_Data(fromDate, toDate, dur_type);			
 //			alert("type: " + dur_type + " from_date:"+ fromDate+ " to_date:"+ toDate);		
-			
 			var handerList = $("#handerList").val().trim();
 			if( handerList== null) {
 				handerList="";

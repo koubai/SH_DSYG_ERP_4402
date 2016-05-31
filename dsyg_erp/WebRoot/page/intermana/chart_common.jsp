@@ -65,7 +65,8 @@
 	            duration = m2 - m1;
 				tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1,parseInt(d1.split("-")[2]));
 				for(var i = 0; i < duration + 1; i++) {
-					tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1 + i,parseInt(d1.split("-")[2]));
+//					tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1 + i,parseInt(d1.split("-")[2]));
+					tmp_date.setFullYear(parseInt(d1.split("-")[0]),parseInt(d1.split("-")[1])-1 + i,1);
 					dicArray[i] = tmp_date.format("yyyy-MM");
 //					alert("dicArray[i]="+ dicArray[i]);		
 				}
