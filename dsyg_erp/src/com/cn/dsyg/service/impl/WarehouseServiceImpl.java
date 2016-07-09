@@ -15,6 +15,7 @@ import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.CustomerDao;
+import com.cn.dsyg.dao.Dict01Dao;
 import com.cn.dsyg.dao.FinanceDao;
 import com.cn.dsyg.dao.PositionDao;
 import com.cn.dsyg.dao.ProductDao;
@@ -27,6 +28,7 @@ import com.cn.dsyg.dao.UserDao;
 import com.cn.dsyg.dao.WarehouseDao;
 import com.cn.dsyg.dao.WarehouserptDao;
 import com.cn.dsyg.dto.CustomerDto;
+import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.FinanceDto;
 import com.cn.dsyg.dto.PositionDto;
 import com.cn.dsyg.dto.ProductDto;
@@ -66,6 +68,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 	private ProductDao productDao;
 	private PositionDao positionDao;
 	private UserDao userDao;
+	private Dict01Dao dict01Dao;
 	
 	@Override
 	public String checkProductAmount(String productInfo) {
@@ -272,7 +275,9 @@ public class WarehouseServiceImpl implements WarehouseService {
 					warehouseCheck.setWarehouseposition(position.getProductposition());
 					warehouseCheck.setCheckAmount(position.getAmount());
 					UserDto user = userDao.queryUserByID(position.getHandler());
-					warehouseCheck.setHandlename(user.getUsername());
+					if(user != null) {
+						warehouseCheck.setHandlename(user.getUsername());
+					}
 				} else {
 					warehouseCheck.setWarehouseposition("");
 				}
@@ -440,8 +445,37 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//数据来源类型=入库单
 			warehouserpt.setWarehousetype(Constants.WAREHOUSERPT_TYPE_IN);
 			warehouserpt.setBelongto(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG));
+			
 			//入库单号
-			String warehouseno = Constants.WAREHOUSERPT_IN_NO_PRE + belongto + sdf.format(date);
+			//String warehouseno = Constants.WAREHOUSERPT_IN_NO_PRE + belongto + sdf.format(date);
+			int newVal = 1;
+			SimpleDateFormat sdfYear = new SimpleDateFormat("yyyy");
+			String year = sdfYear.format(date);
+			//根据入库单+年份查询入库单当前番号
+			List<Dict01Dto> dictList = dict01Dao.queryDict01ByFieldcode(Constants.WAREHOUSERPT_IN_NO_PRE + year, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+			if(dictList != null && dictList.size() > 0) {
+				Dict01Dto dict = dictList.get(0);
+				//入库单番号+1
+				newVal = Integer.valueOf(dict.getCode()) + 1;
+				dict.setCode("" + newVal);
+				//更新入库单番号
+				dict01Dao.updateDict01(dict);
+			} else {
+				//新增入库单番号
+				Dict01Dto dict = new Dict01Dto();
+				dict.setCode("1");
+				dict.setCreateuid("admin");
+				dict.setUpdateuid("admin");
+				dict.setFieldcode(Constants.WAREHOUSERPT_IN_NO_PRE + year);
+				dict.setFieldname(year + "入库单番号");
+				dict.setNote(year + "入库单番号");
+				dict.setLang(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+				dict.setMean(Constants.WAREHOUSERPT_IN_NO_PRE + year);
+				dict.setStatus(Constants.STATUS_NORMAL);
+				dict01Dao.insertDict01(dict);
+			}
+			String warehouseno = Constants.WAREHOUSERPT_IN_NO_PRE + belongto + StringUtil.replenishStr("" + newVal, 6);
+			
 			warehouserpt.setWarehouseno(warehouseno);
 			//仓库名
 			warehouserpt.setWarehousename(warehousename);
@@ -673,8 +707,37 @@ public class WarehouseServiceImpl implements WarehouseService {
 			//数据来源类型=出库单
 			warehouserpt.setWarehousetype(Constants.WAREHOUSERPT_TYPE_OUT);
 			warehouserpt.setBelongto(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG));
+			
 			//出库单号
-			String warehouseno = Constants.WAREHOUSERPT_OUT_NO_PRE + belongto + sdf.format(date);
+			//String warehouseno = Constants.WAREHOUSERPT_OUT_NO_PRE + belongto + sdf.format(date);
+			int newVal = 1;
+			SimpleDateFormat sdfYear = new SimpleDateFormat("yyyy");
+			String year = sdfYear.format(date);
+			//根据出库单+年份查询出库单当前番号
+			List<Dict01Dto> dictList = dict01Dao.queryDict01ByFieldcode(Constants.WAREHOUSERPT_OUT_NO_PRE + year, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+			if(dictList != null && dictList.size() > 0) {
+				Dict01Dto dict = dictList.get(0);
+				//出库单番号+1
+				newVal = Integer.valueOf(dict.getCode()) + 1;
+				dict.setCode("" + newVal);
+				//更新出库单番号
+				dict01Dao.updateDict01(dict);
+			} else {
+				//新增出库单番号
+				Dict01Dto dict = new Dict01Dto();
+				dict.setCode("1");
+				dict.setCreateuid("admin");
+				dict.setUpdateuid("admin");
+				dict.setFieldcode(Constants.WAREHOUSERPT_OUT_NO_PRE + year);
+				dict.setFieldname(year + "出库单番号");
+				dict.setNote(year + "出库单番号");
+				dict.setLang(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+				dict.setMean(Constants.WAREHOUSERPT_OUT_NO_PRE + year);
+				dict.setStatus(Constants.STATUS_NORMAL);
+				dict01Dao.insertDict01(dict);
+			}
+			String warehouseno = Constants.WAREHOUSERPT_OUT_NO_PRE + belongto + StringUtil.replenishStr("" + newVal, 6);
+			
 			warehouserpt.setWarehouseno(warehouseno);
 			//仓库名
 			warehouserpt.setWarehousename(warehousename);
@@ -1069,5 +1132,13 @@ public class WarehouseServiceImpl implements WarehouseService {
 
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
+	}
+
+	public Dict01Dao getDict01Dao() {
+		return dict01Dao;
+	}
+
+	public void setDict01Dao(Dict01Dao dict01Dao) {
+		this.dict01Dao = dict01Dao;
 	}
 }

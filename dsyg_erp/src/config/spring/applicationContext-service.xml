@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>  
+﻿<?xml version="1.0" encoding="UTF-8"?>  
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 
 <beans>
@@ -226,6 +226,9 @@
 		</property>
 		<property name="userDao">
 			<ref local="userDao"/>
+		</property>
+		<property name="dict01Dao">
+			<ref local="dict01Dao"/>
 		</property>
 	</bean>
 	

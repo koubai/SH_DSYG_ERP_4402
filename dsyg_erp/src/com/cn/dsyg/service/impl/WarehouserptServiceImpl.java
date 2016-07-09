@@ -715,9 +715,37 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 					newwarehouserpt.setWarehousetype(Constants.WAREHOUSERPT_TYPE_REFUND);
 					newwarehouserpt.setBelongto(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_BELONG));
 					
-					//入出库单号
-					SimpleDateFormat sdf1 = new SimpleDateFormat("yyMMddHHmmss");
-					String warehouserptno = Constants.WAREHOUSERPT_REFUND_NO_PRE + belongto + sdf1.format(date);
+					//退换货单号
+					//SimpleDateFormat sdf1 = new SimpleDateFormat("yyMMddHHmmss");
+					//String warehouserptno = Constants.WAREHOUSERPT_REFUND_NO_PRE + belongto + sdf1.format(date);
+					int newVal = 1;
+					SimpleDateFormat sdfYear = new SimpleDateFormat("yyyy");
+					String year = sdfYear.format(date);
+					//根据退换货+年份查询退换货当前番号
+					List<Dict01Dto> dictList = dict01Dao.queryDict01ByFieldcode(Constants.WAREHOUSERPT_REFUND_NO_PRE + year, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+					if(dictList != null && dictList.size() > 0) {
+						Dict01Dto dict = dictList.get(0);
+						//退换货番号+1
+						newVal = Integer.valueOf(dict.getCode()) + 1;
+						dict.setCode("" + newVal);
+						//更新退换货番号
+						dict01Dao.updateDict01(dict);
+					} else {
+						//新增退换货番号
+						Dict01Dto dict = new Dict01Dto();
+						dict.setCode("1");
+						dict.setCreateuid("admin");
+						dict.setUpdateuid("admin");
+						dict.setFieldcode(Constants.WAREHOUSERPT_REFUND_NO_PRE + year);
+						dict.setFieldname(year + "退换货番号");
+						dict.setNote(year + "退换货番号");
+						dict.setLang(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+						dict.setMean(Constants.WAREHOUSERPT_REFUND_NO_PRE + year);
+						dict.setStatus(Constants.STATUS_NORMAL);
+						dict01Dao.insertDict01(dict);
+					}
+					String warehouserptno = Constants.WAREHOUSERPT_REFUND_NO_PRE + belongto + StringUtil.replenishStr("" + newVal, 6);
+					
 					newwarehouserpt.setWarehouseno(warehouserptno);
 					
 					//货物信息：产品ID,产品数量,产品金额#产品ID,产品数量,产品金额
