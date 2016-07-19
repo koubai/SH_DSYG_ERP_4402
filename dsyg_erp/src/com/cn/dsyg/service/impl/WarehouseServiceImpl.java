@@ -474,7 +474,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 				dict.setStatus(Constants.STATUS_NORMAL);
 				dict01Dao.insertDict01(dict);
 			}
-			String warehouseno = Constants.WAREHOUSERPT_IN_NO_PRE + belongto + StringUtil.replenishStr("" + newVal, 6);
+			String warehouseno = Constants.WAREHOUSERPT_IN_NO_PRE + belongto + year.substring(2, 4) + StringUtil.replenishStr("" + newVal, 6);
 			
 			warehouserpt.setWarehouseno(warehouseno);
 			//仓库名
@@ -736,7 +736,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 				dict.setStatus(Constants.STATUS_NORMAL);
 				dict01Dao.insertDict01(dict);
 			}
-			String warehouseno = Constants.WAREHOUSERPT_OUT_NO_PRE + belongto + StringUtil.replenishStr("" + newVal, 6);
+			String warehouseno = Constants.WAREHOUSERPT_OUT_NO_PRE + belongto + year.substring(2, 4)+ StringUtil.replenishStr("" + newVal, 6);
 			
 			warehouserpt.setWarehouseno(warehouseno);
 			//仓库名

@@ -744,7 +744,7 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 						dict.setStatus(Constants.STATUS_NORMAL);
 						dict01Dao.insertDict01(dict);
 					}
-					String warehouserptno = Constants.WAREHOUSERPT_REFUND_NO_PRE + belongto + StringUtil.replenishStr("" + newVal, 6);
+					String warehouserptno = Constants.WAREHOUSERPT_REFUND_NO_PRE + belongto + year.substring(2, 4) + StringUtil.replenishStr("" + newVal, 6);
 					
 					newwarehouserpt.setWarehouseno(warehouserptno);
 					

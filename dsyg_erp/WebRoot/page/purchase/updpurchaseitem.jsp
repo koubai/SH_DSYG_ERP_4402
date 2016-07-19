@@ -1131,7 +1131,7 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="标准版导出" onclick="exportData();"/>
+										<input class="input120" type="button" value="电线订单导出" onclick="exportData();"/>
 									</div>
 									<div class="box1_right"></div>
 								</div>
@@ -1140,7 +1140,7 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="标准版2导出" onclick="exportData('sumitube');"/>
+										<input class="input120" type="button" value="套管订单导出" onclick="exportData('sumitube');"/>
 									</div>
 									<div class="box1_right"></div>
 								</div>
@@ -1149,7 +1149,7 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="FFC导出" onclick="exportData('sumicard');"/>
+										<input class="input120" type="button" value="FFC订单导出" onclick="exportData('sumicard');"/>
 									</div>
 									<div class="box1_right"></div>
 								</div>
@@ -1158,7 +1158,7 @@
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="中文版导出" onclick="exportData('html');"/>
+										<input class="input120" type="button" value="其他订单导出" onclick="exportData('html');"/>
 									</div>
 									<div class="box1_right"></div>
 								</div>
