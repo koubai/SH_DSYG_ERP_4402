@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cn.common.util.Page;
 import com.cn.dsyg.dto.CustomerTrackDto;
+import com.cn.dsyg.dto.CustomerTrackHistDto;
 
 /**
  * @name 
@@ -19,9 +20,10 @@ public interface CustomerTrackService {
 	 * @param idLow
 	 * @param idHigh
 	 * @param customerName
+	 * @param strStatus
 	 * @return
 	 */
-	public Page queryCustomerTrackByPage(Page page, String idLow, String idHigh, String customerName);
+	public Page queryCustomerTrackByPage(Page page, String idLow, String idHigh, String customerName, String strStatus);
 
 	/**
 	 * 根据员工编号查询客户跟踪（查询未删除的记录）
@@ -71,4 +73,18 @@ public interface CustomerTrackService {
 	 * @return
 	 */
 	public List<CustomerTrackDto> queryAllCustomerTrackExport(String idLow, String idHigh, String customerName);
+	
+	/**
+	 * 根据跟踪记录id查询所有履历
+	 * @param trackno
+	 * @return
+	 */
+	public List<CustomerTrackHistDto> queryAllTrackHist(String trackno);
+	
+	/**
+	 * 根据ID查询履历
+	 * @param trackHisSeq
+	 * @return
+	 */
+	public CustomerTrackHistDto queryTrackHistByID(String trackHisSeq);
 }

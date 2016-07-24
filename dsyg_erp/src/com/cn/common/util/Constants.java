@@ -39,6 +39,8 @@ public class Constants {
 	public final static String PREGEATHERING_NO_PRE = "PG";
 	//请款编号前缀
 	public final static String REQUESTCASH_NO_PRE = "RC";
+	//客户跟踪编号前缀
+	public final static String CUSTOMER_TRACK_NO_PRE = "CTN";
 	
 	//数据导出常量
 	//采购单数据

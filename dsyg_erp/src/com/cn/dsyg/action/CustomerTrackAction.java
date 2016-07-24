@@ -12,6 +12,7 @@ import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.CustomerTrackDto;
+import com.cn.dsyg.dto.CustomerTrackHistDto;
 import com.cn.dsyg.service.CustomerTrackService;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -91,6 +92,32 @@ public class CustomerTrackAction extends BaseAction {
 	 * 控件ID
 	 */
 	private String strKey;
+	
+	/**
+	 * 客户跟踪状态
+	 */
+	private String strStatus;
+	
+	//履历
+	/**
+	 * 履历查询条件
+	 */
+	private String strTrackNoHist;
+
+	/**
+	 * 履历列表
+	 */
+	private List<CustomerTrackHistDto> listTrackHist;
+	
+	/**
+	 * 履历SEQ
+	 */
+	private String detailTrackHisSeq;
+	
+	/**
+	 * 履历明细
+	 */
+	private CustomerTrackHistDto trackHistDtoDetail;
 
 	/**
 	 * 显示客户跟踪页面
@@ -106,6 +133,7 @@ public class CustomerTrackAction extends BaseAction {
 			updateCustomerTrackDto = new CustomerTrackDto();
 			updateId = "";
 			delId = "";
+			strStatus = "";
 
 			//默认10条
 			intPageSize = 10;
@@ -168,7 +196,7 @@ public class CustomerTrackAction extends BaseAction {
 		}
 		//翻页查询所有客户跟踪
 		this.page.setStartIndex(startIndex);
-		page = customerTrackService.queryCustomerTrackByPage(page, strIdLow, strIdHigh, strCustomerName);
+		page = customerTrackService.queryCustomerTrackByPage(page, strIdLow, strIdHigh, strCustomerName, strStatus);
 		listCustomerTrack = (List<CustomerTrackDto>) page.getItems();
 		
 		this.setStartIndex(page.getStartIndex());
@@ -199,12 +227,12 @@ public class CustomerTrackAction extends BaseAction {
 			if(!checkData(addCustomerTrackDto)) {
 				return "checkerror";
 			}
-			log.info("addCustomerTrackDto.getId()=" + addCustomerTrackDto.getId());
+			log.info("addCustomerTrackDto.getId()=" + addCustomerTrackDto.getTrackno());
 			log.info("addCustomerTrackDto.getCustomername()=" + addCustomerTrackDto.getCustomername());
 			//校验编号是否存在
-			CustomerTrackDto customerTrack = customerTrackService.queryAllCustomerTrackByID(addCustomerTrackDto.getId()+"");
+			CustomerTrackDto customerTrack = customerTrackService.queryAllCustomerTrackByID(addCustomerTrackDto.getTrackno()+"");
 			if(customerTrack != null) {
-				this.addActionMessage("客户跟踪ID已经存在！");
+				this.addActionMessage("客户跟踪编号已经存在！");
 				return "checkerror";
 			}
 			//保存数据
@@ -213,7 +241,8 @@ public class CustomerTrackAction extends BaseAction {
 			if (addCustomerTrackDto.getHandlerid().compareTo("")==0)
 				addCustomerTrackDto.setHandlerid(user_id);
 			addCustomerTrackDto.setCreateuid(user_id);
-			String id = customerTrackService.insertCustomerTrack(addCustomerTrackDto);
+			String trackno = customerTrackService.insertCustomerTrack(addCustomerTrackDto);
+			log.error("added trackno:" + trackno);
 			this.addActionMessage("添加客户跟踪成功！");
 			addCustomerTrackDto = new CustomerTrackDto();
 		} catch(Exception e) {
@@ -249,7 +278,7 @@ public class CustomerTrackAction extends BaseAction {
 	 * 修改客户跟踪
 	 * @return
 	 */
-	public String updCustomerTrackAction() {
+	public String updateCustomerTrackAction() {
 		try {
 			this.clearMessages();
 			//数据校验
@@ -291,6 +320,41 @@ public class CustomerTrackAction extends BaseAction {
 			queryCustomerTrack();
 		} catch(Exception e) {
 			log.error("delCustomerTrackAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 履历明细页面
+	 * @return
+	 */
+	public String showTrackHistDetail() {
+		try {
+			this.clearMessages();
+			trackHistDtoDetail = new CustomerTrackHistDto();
+			trackHistDtoDetail = customerTrackService.queryTrackHistByID(detailTrackHisSeq);
+		} catch(Exception e) {
+			log.error("showTrackHistDetail error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 显示所有的履历（不翻页）
+	 * @return
+	 */
+	public String showAllTrackHisAction() {
+		try {
+			this.clearMessages();
+			detailTrackHisSeq = "";
+			trackHistDtoDetail = new CustomerTrackHistDto();
+			listTrackHist = new ArrayList<CustomerTrackHistDto>();
+			//查询所有履历
+			System.out.println("action id is: " + strTrackNoHist);
+			listTrackHist = customerTrackService.queryAllTrackHist(strTrackNoHist);
+		} catch(Exception e) {
 			return ERROR;
 		}
 		return SUCCESS;
@@ -446,5 +510,45 @@ public class CustomerTrackAction extends BaseAction {
 
 	public void setQueryId(String queryId) {
 		this.queryId = queryId;
+	}
+
+	public String getStrStatus() {
+		return strStatus;
+	}
+
+	public void setStrStatus(String strStatus) {
+		this.strStatus = strStatus;
+	}
+
+	public List<CustomerTrackHistDto> getListTrackHist() {
+		return listTrackHist;
+	}
+
+	public void setListTrackHist(List<CustomerTrackHistDto> listTrackHist) {
+		this.listTrackHist = listTrackHist;
+	}
+
+	public String getDetailTrackHisSeq() {
+		return detailTrackHisSeq;
+	}
+
+	public void setDetailTrackHisSeq(String detailTrackHisSeq) {
+		this.detailTrackHisSeq = detailTrackHisSeq;
+	}
+
+	public CustomerTrackHistDto getTrackHistDtoDetail() {
+		return trackHistDtoDetail;
+	}
+
+	public void setTrackHistDtoDetail(CustomerTrackHistDto trackHistDtoDetail) {
+		this.trackHistDtoDetail = trackHistDtoDetail;
+	}
+
+	public String getStrTrackNoHist() {
+		return strTrackNoHist;
+	}
+
+	public void setStrTrackNoHist(String strTrackNoHist) {
+		this.strTrackNoHist = strTrackNoHist;
 	}
 }

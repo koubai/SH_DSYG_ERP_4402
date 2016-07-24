@@ -6,6 +6,7 @@
 
 	<resultMap id="CustomerTrackDto" class="com.cn.dsyg.dto.CustomerTrackDto">
 		<result property="id" column="id" />
+		<result property="trackno" column="trackno" />
 		<result property="customername" column="customername" />
 		<result property="belongto" column="belongto" />
 		<result property="source" column="source" />
@@ -45,10 +46,10 @@
 				T.status = #status#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="idLow">
-				T.id <![CDATA[>=]]> #idLow#
+				T.trackno <![CDATA[>=]]> #idLow#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="idHigh">
-				T.id <![CDATA[<=]]> #idHigh#
+				T.trackno <![CDATA[<=]]> #idHigh#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="customerName">
 				T.customername like '%$customerName$%'
@@ -61,10 +62,10 @@
 			T.status = #status#
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="idLow">
-			T.id <![CDATA[>=]]> #idLow#
+			T.trackno <![CDATA[>=]]> #idLow#
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="idHigh">
-			T.id <![CDATA[<=]]> #idHigh#
+			T.trackno <![CDATA[<=]]> #idHigh#
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="customerName">
 			T.customername like '%$customerName$%'
@@ -80,10 +81,10 @@
 			T.status = #status#
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="idLow">
-			T.id <![CDATA[>=]]> #idLow#
+			T.trackno <![CDATA[>=]]> #idLow#
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="idHigh">
-			T.id <![CDATA[<=]]> #idHigh#
+			T.trackno <![CDATA[<=]]> #idHigh#
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="customerName">
 			T.customername like '%$customerName$%'
@@ -96,13 +97,13 @@
 		select T.*,
 		(select U.username from tbuser U where U.userid = T.handlerid) as handlername
 		from etb_customer_track T where
-			T.id = #id#
+			T.trackno = #id#
 			and T.status <![CDATA[>]]> 0
 	</select>
 	
 	<select id="queryAllCustomerTrackByID" parameterClass="java.util.Map" resultMap="CustomerTrackDto">
 		select * from etb_customer_track where 
-			id = #id#
+			trackno = #id#
 	</select>
 	
 	<select id="queryAllCustomerTrack" parameterClass="java.util.Map" resultMap="CustomerTrackDto">
@@ -110,10 +111,10 @@
 	</select>
 	
 	<insert id="insertCustomerTrack" parameterClass="com.cn.dsyg.dto.CustomerTrackDto">
-		insert into etb_customer_track(customername,belongto,source,note,customertel1,customermanager1,customeraddress1,customermail1,customerfax1,
+		insert into etb_customer_track(trackno,customername,belongto,source,note,customertel1,customermanager1,customeraddress1,customermail1,customerfax1,
 		product,customertype,handlerid,receivedate,status,res01,res02,res03,res04,res05,res06,res07,res08,res09,res10,
 		createuid,createdate,updateuid,updatedate)
-		values(#customername#,#belongto#,#source#,#note#,#customertel1#,#customermanager1#,#customeraddress1#,#customermail1#,#customerfax1#,
+		values(#trackno#,#customername#,#belongto#,#source#,#note#,#customertel1#,#customermanager1#,#customeraddress1#,#customermail1#,#customerfax1#,
 		#product#,#customertype#,#handlerid#,#receivedate#,#status#,#res01#,#res02#,#res03#,#res04#,#res05#,#res06#,#res07#,#res08#,#res09#,#res10#,
 		#createuid#,NOW(),#createuid#,NOW())
 	</insert>
@@ -148,7 +149,7 @@
 			createdate=#createdate#,
 			updateuid=#updateuid#,
 			updatedate=NOW()
-		where id = #id#
+		where trackno = #trackno#
 	</update>
 	
 </sqlMap>

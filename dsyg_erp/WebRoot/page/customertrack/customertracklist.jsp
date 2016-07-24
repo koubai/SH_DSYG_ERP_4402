@@ -61,6 +61,17 @@
 		document.mainform.submit();
 	}
 	
+	function showHis() {
+		var id = getSelectedID();
+		if(id == "") {
+			alert("请选择一条记录！");
+			return;
+		} else {
+			var url = '<c:url value="/customertrack/showAllTrackHisAction.action"></c:url>' + "?strTrackNoHist=" + id + "&date=" + new Date();
+			window.showModalDialog(url, window, "dialogheight:500px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+		}
+	}
+	
 	//翻页
 	function changePage(pageNum) {
 		document.getElementById("startIndex").value = pageNum;
@@ -141,10 +152,43 @@
 				</div> --%>
 				<div class="searchbox update">
 					<div class="box1" >
-						<label class="pdf10" style="width:120px">客户名</label>
+						<label class="pdf10">客户名</label>
 						<div class="box1_left"></div>
 						<div class="box1_center">
 							<s:textfield name="strCustomerName" id="strCustomerName" cssStyle="width:135px;" maxlength="50" theme="simple"></s:textfield>
+						</div>
+						<div class="box1_right"></div>
+					</div>
+					<div class="box1">
+						<label class="pdf10">状态</label>
+						<div class="box1_left"></div>
+						<div class="box1_center date_input">
+							<select id="strStatus" name="strStatus" style="width: 120px;">
+								<s:if test='strStatus == "2"'>
+									<option value="">请选择</option>
+									<option value="2" selected="selected">成功</option>
+									<option value="3">失败</option>
+									<option value="4">进行中</option>
+								</s:if>
+								<s:elseif test='strStatus == "3"'>
+									<option value="">请选择</option>
+									<option value="2">成功</option>
+									<option value="3" selected="selected">失败</option>
+									<option value="4">进行中</option>
+								</s:elseif>
+								<s:elseif test='strStatus == "4"'>
+									<option value="">请选择</option>
+									<option value="2">成功</option>
+									<option value="3">失败</option>
+									<option value="4" selected="selected">进行中</option>
+								</s:elseif>
+								<s:else>
+									<option value="" selected="selected">请选择</option>
+									<option value="2">成功</option>
+									<option value="3">失败</option>
+									<option value="4">进行中</option>
+								</s:else>
+							</select>
 						</div>
 						<div class="box1_right"></div>
 					</div>
@@ -177,16 +221,16 @@
 								<td width="8%">客户名</td>
 								<td width="8%">客户来源</td>
 								<td width="7%">联系人</td>
-								<td width="10%">地址</td>
+								<!-- <td width="10%">地址</td> -->
 								<td width="7%">电话</td>
-								<td width="7%">传真</td>
-								<td width="8%">邮箱</td>
+								<!-- <td width="7%">传真</td>
+								<td width="8%">邮箱</td> -->
 								<td width="10%">产品一览</td>
 								<!-- <td width="5%">客户类型</td> -->
 								<td width="7%">担当者</td>
 								<td width="9%">接待日期</td>
 								<td width="5%">状态</td>
-								<td width="8%">备注</td>
+								<td width="30%">跟踪记录</td>
 							</tr>
 							<s:iterator id="listCustomerTrack" value="listCustomerTrack" status="st1">
 								<s:if test="#st1.odd==true">
@@ -195,7 +239,7 @@
 								<s:else>
 									<tr onclick="checkRadioTr(this, event);">
 								</s:else>
-									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
+									<td><input name="radioKey" type="radio" value="<s:property value="trackno"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
 									<td>
 										<div noWrap style="text-overflow:ellipsis;overflow:hidden">
@@ -204,10 +248,10 @@
 									</td>
 									<td><s:property value="source"/></td>
 									<td><s:property value="customermanager1"/></td>
-									<td><s:property value="customeraddress1"/></td>
+									<%-- <td><s:property value="customeraddress1"/></td> --%>
 									<td><s:property value="customertel1"/></td>
-									<td><s:property value="customerfax1"/></td>
-									<td><s:property value="customermail1"/></td>
+									<%-- <td><s:property value="customerfax1"/></td>
+									<td><s:property value="customermail1"/></td> --%>
 									<td>
 										<div noWrap style="width:150px;text-overflow:ellipsis;overflow:hidden">
 											<%-- <s:property value="product"/> --%>
@@ -296,6 +340,21 @@
 							</li>
 						</ul>
 					</div>
+				</div>
+				<div class="btns" style="margin-top:40px; margin-left:-90px;">
+					<table border="0" style="margin:0 auto;">
+						<tr>
+							<td>
+								<div class="btn">
+									<div class="box1_left"></div>
+									<div class="box1_center">
+										<input class="input80" type="button" value="履历" onclick="showHis();" />
+									</div>
+									<div class="box1_right"></div>
+								</div>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</s:form>
 		</div>
