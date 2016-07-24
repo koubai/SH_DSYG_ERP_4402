@@ -72,7 +72,7 @@
 		}
 		
 		if(tmpnote.length > 256) {
-			alert("备注不能超过256个字！");
+			alert("跟踪记录不能超过256个字！");
 			$("#tmpnote").focus();
 			return;
 		}
@@ -97,9 +97,15 @@
 		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 	}
 	
+	function clearProduct() {
+		$("#tmpproductinfo").attr("value", "");
+		$("#product").attr("value", "");
+	}
+	
 	//客户
 	function selectCustomer() {
-		var type = $("#customertype").val().trim();
+		//var type = $("#customertype").val().trim();
+		var type = "2";
 		if(type == "1"){
 			var url = "../supplier/showSelectSupplierAction.action";
 			url += "?date=" + new Date();
@@ -114,6 +120,22 @@
 			var url = "../customer/showSelectCustomerAction.action";
 			url += "?date=" + new Date();
 			window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+
+			var customermanager = $("#customermanager").val().trim();
+			$("#customermanager1").attr("value", customermanager);
+			var customeraddress = $("#customeraddress").val().trim();
+			$("#customeraddress1").attr("value", customeraddress);
+			var customertel = $("#customertel").val().trim();
+			$("#customertel1").attr("value", customertel);
+			var customerfax = $("#customerfax").val().trim();
+			$("#customerfax1").attr("value", customerfax);
+			var customermail = $("#customermail").val().trim();
+			var index = customermail.indexOf('@');
+			var mail_pr1 = customermail.substring(0, index);
+			var mail_suffix1 = customermail.substring(index+1, customermail.length);
+			$("#mail_pr1").attr("value", mail_pr1);
+			$("#mail_suffix1").attr("value", mail_suffix1);
+			
 		}
 		else {
 			alert("请选择客户类型！");
@@ -176,8 +198,21 @@
 					<div class="box1_left"></div>
 					<div class="box1_center">
 						<s:textfield name="addCustomerTrackDto.customername" id="customername" cssStyle="width:425px;" maxlength="64" theme="simple"></s:textfield>
+						<s:hidden name="customerid" id="customerid"></s:hidden>
+						<s:hidden name="customermanager" id="customermanager"></s:hidden>
+						<s:hidden name="customeraddress" id="customeraddress"></s:hidden>
+						<s:hidden name="customertel" id="customertel"></s:hidden>
+						<s:hidden name="customerfax" id="customerfax"></s:hidden>
+						<s:hidden name="customermail" id="customermail"></s:hidden>
 					</div>
 					<div class="box1_right"></div>
+					<div class="btn">
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<input id="customerButton" class="input40" type="button" value="检索" onclick="selectCustomer();" />
+						</div>
+						<div class="box1_right"></div>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -271,6 +306,13 @@
 						<div class="box1_left"></div>
 						<div class="box1_center">
 							<input id="productButton" class="input40" type="button" value="产品" onclick="selectProduct();" />
+						</div>
+						<div class="box1_right"></div>
+					</div>
+					<div class="btn" style="margin-top: 5px;">
+						<div class="box1_left"></div>
+						<div class="box1_center">
+							<input id="productButton" class="input40" type="button" value="清除" onclick="clearProduct();" />
 						</div>
 						<div class="box1_right"></div>
 					</div>
@@ -372,7 +414,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td>备注</td>
+				<td>跟踪记录</td>
 				<td>
 					<textarea name="" id="tmpnote" cols="" rows="3" style="width:430px;"><s:property value="addCustomerTrackDto.note"/></textarea>
 				</td>

@@ -32,7 +32,7 @@
 			<result name="checkerror">/page/customertrack/updcustomertrack.jsp</result>
 		</action>
 		
-		<action name="updCustomerTrackAction" class="customerTrackAction" method="updCustomerTrackAction">
+		<action name="updateCustomerTrackAction" class="customerTrackAction" method="updateCustomerTrackAction">
 			<result name="success">/page/customertrack/updcustomertrack.jsp</result>
 			<result name="checkerror">/page/customertrack/updcustomertrack.jsp</result>
 		</action>
@@ -40,6 +40,14 @@
 		<action name="delCustomerTrackAction" class="customerTrackAction" method="delCustomerTrackAction">
 			<result name="success">/page/customertrack/customertracklist.jsp</result>
 			<result name="checkerror">/page/customertrack/customertracklist.jsp</result>
+		</action>
+		
+		<action name="showAllTrackHisAction" class="customerTrackAction" method="showAllTrackHisAction">
+			<result name="success">/page/customertrack/trackhisall.jsp</result>
+		</action>
+		
+		<action name="showTrackHistDetail" class="customerTrackAction" method="showTrackHistDetail">
+			<result name="success">/page/customertrack/trackhisdetail.jsp</result>
 		</action>
 		
 	</package>

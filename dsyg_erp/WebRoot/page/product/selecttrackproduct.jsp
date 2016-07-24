@@ -40,6 +40,8 @@
 				obj = list[i];
 				id = list[i].value;
 				//添加父页面记录
+				addProductToParent(obj, id);
+				/* 
 				var product = getOpener().document.getElementById("product").value;
 				var productinfo = getOpener().document.getElementById("tmpproductinfo").value;
 				if(j == 0){
@@ -47,7 +49,7 @@
 				} else {
 					addProductToParent(product, productinfo, obj, id);
 				}
-				j++;
+				j++; */
 				
 			}
 		}
@@ -60,15 +62,15 @@
 	}
 	
 	//添加父页面记录
-	function addProductToParent(product, productinfo, obj, id) {
+	function addProductToParent(obj, id) {
 		//验证该产品是否在产品列表中
-		/* var product = getOpener().document.getElementById("product").value;
-		var productinfo = getOpener().document.getElementById("productinfo").value;
+		var product = getOpener().document.getElementById("product").value;
+		var productinfo = getOpener().document.getElementById("tmpproductinfo").value;
 		var products = "," + product;
 		if(products.indexOf("," + id + ",") >= 0) {
 			//alert("该产品已存在！");
 			return;
-		} */
+		}
 
 		//添加产品信息
 		var tr = obj.parentNode.parentNode;

@@ -7,14 +7,14 @@ import com.cn.common.dto.BaseDto;
 import com.cn.common.util.StringUtil;
 
 /**
- * 客户跟踪
+ * 客户跟踪履历
  * @author 
  * @time 
  * @version 1.0
  */
-public class CustomerTrackDto extends BaseDto {
-
-	private static final long serialVersionUID = -1695063113228053983L;
+public class CustomerTrackHistDto extends BaseDto {
+	
+	private static final long serialVersionUID = -7082533551026817869L;
 
 	/**
 	 * ID
@@ -22,7 +22,7 @@ public class CustomerTrackDto extends BaseDto {
 	private int id;
 
 	/**
-	 * 跟踪记录编号
+	 * 客户跟踪编号
 	 */
 	private String trackno;
 
