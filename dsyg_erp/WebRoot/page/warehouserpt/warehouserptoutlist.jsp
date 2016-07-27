@@ -181,6 +181,7 @@
 								<td width="30"></td>
 								<td width="40">序号</td>
 								<td width="120">发货单号</td>
+								<td width="60">创建时间</td>
 								<td width="60">来源类型</td>
 								<td width="120">客户</td>
 								<td width="80">联系人</td>
@@ -201,6 +202,7 @@
 									<td><input name="radioKey" type="radio" value="<s:property value="id"/>"/></td>
 									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st1.index + 1"/></td>
 									<td><s:property value="warehouseno"/></td>
+									<td><s:property value="createdate"/></td>
 									<td>
 										<s:if test="%{warehousetype == 1}">
 											入库单
