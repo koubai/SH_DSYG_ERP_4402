@@ -83,17 +83,17 @@ public class PoiWarehouserptOutDetailNoprice extends Poi2007Base {
 		style_other.setFont(font_other);
 		
 		XSSFRow row4 = sheet.createRow(4);
-		XSSFCell cell_no = row4.createCell(7);
+		XSSFCell cell_no = row4.createCell(6);
 		cell_no.setCellValue("发货单号：" + warehouserpt.getWarehouseno());
 		cell_no.setCellStyle(style_other);
 		
 		XSSFRow row5 = sheet.createRow(5);
-		XSSFCell cell_date = row5.createCell(7);
+		XSSFCell cell_date = row5.createCell(6);
 		cell_date.setCellValue("发货日期：" + warehouserpt.getShowWarehousedate());
 		cell_date.setCellStyle(style_other);
 		
 		XSSFRow row6 = sheet.createRow(6);
-		XSSFCell cell_deliverry = row6.createCell(7);
+		XSSFCell cell_deliverry = row6.createCell(6);
 		cell_deliverry.setCellValue("运送方式：");
 		cell_deliverry.setCellStyle(style_other);
 
@@ -370,7 +370,7 @@ public class PoiWarehouserptOutDetailNoprice extends Poi2007Base {
 		//heads.add("含税金额");
 		//sheet.setColumnWidth(8, 12 * 256);
 		heads.add("备注");
-		sheet.setColumnWidth(8, 18 * 256);
+		sheet.setColumnWidth(8, 16 * 256);
 		
 		//Head部分颜色字体
 		XSSFFont font = workbook.createFont();

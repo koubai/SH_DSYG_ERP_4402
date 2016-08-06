@@ -13,6 +13,12 @@
 <script type="text/javascript">
 	$(function() {
 	});
+
+	//查询数据
+	function queryList() {
+		document.mainform.action = '../sample/querySampleNumByKeysAction.action';
+		document.mainform.submit();
+	}
 </script>
 </head>
 <body style="background: url(''); overflow-x:hidden;overflow-y:hidden;">
@@ -25,6 +31,40 @@
 				<table width="100%" border="1" cellpadding="5" cellspacing="0">
 				</table>
 			</div>
+			<div class="box1">
+				<label class="pdf10">品名</label>
+				<div class="box1_left"></div>
+				<div class="box1_center">
+					<s:textfield name="strTradename" id="strTradename" cssStyle="width:150px;" maxlength="32" theme="simple"></s:textfield>
+				</div>
+				<div class="box1_right"></div>
+				
+				<label class="pdf10">规格</label>
+				<div class="box1_left"></div>
+				<div class="box1_center">
+					<s:textfield name="strTypeno" id="strTypeno" cssStyle="width:150px;" maxlength="32" theme="simple"></s:textfield>
+				</div>
+				<div class="box1_right"></div>
+				
+				<label class="pdf10">颜色</label>
+				<div class="box1_left"></div>
+				<div class="box1_center">
+					<select name="strColor" id="strColor" style="width: 150px;">
+						<option value="" selected="selected">请选择</option>
+						<s:iterator value="colorList" id="colorList" status="st1">
+							<option value="<s:property value="code"/>" <s:if test="%{colorList[#st1.index].code == strColor}">selected</s:if>><s:property value="fieldname"/></option>
+						</s:iterator>
+					</select>
+				</div>
+			</div>
+			<div class="btn" style="margin-left: 60px;">
+				<div class="box1_left"></div>
+				<div class="box1_center">
+					<input type="button" class="input40" value="检索" onclick="queryList();"/>
+				</div>
+				<div class="box1_right"></div>
+			</div>
+	
 			<div class="tab_content" style="height: 160px;">
 				<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
 					<tr class="tittle">
@@ -34,7 +74,7 @@
 						<td width="20">形式</td>
 						<td width="10">包装</td>
 						<td width="10">单位</td>
-						<td width="20">汇总数量</td>
+						<td width="40">汇总数量</td>
 					</tr>
 					<s:iterator id="sampleTotleList" value="sampleTotleList" status="st1">
 					<tr class="tr_bg">

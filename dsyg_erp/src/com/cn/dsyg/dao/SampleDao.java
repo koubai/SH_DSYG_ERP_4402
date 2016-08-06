@@ -19,6 +19,16 @@ public interface SampleDao {
 	 * @return
 	 */
 	public List<SampleTotleDto> querySampleNumByProductId(String productid);
+
+	/**
+	 * 根据KEYS汇总
+	 * @param tradename
+	 * @param typeno
+	 * @param color
+	 * @return
+	 */
+	public List<SampleTotleDto> querySampleNumByKeys(String tradename, String typeno, String color);
+	
 	/**
 	 * 根据ID查询记录
 	 * @param id

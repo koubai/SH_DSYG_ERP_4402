@@ -38,6 +38,10 @@
 			<result name="*">/page/sample/samplesum.jsp</result>
 		</action>
 		
+		<action name="querySampleNumByKeysAction" class="sampleAction" method="querySampleNumByKeysAction">
+			<result name="*">/page/sample/samplesum.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

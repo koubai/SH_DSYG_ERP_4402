@@ -22,6 +22,15 @@ public interface SampleService {
 	public List<SampleTotleDto> querySampleNumByProductId(String productid);
 
 	/**
+	 * 根据产品tradename, typeno, color汇总
+	 * @param tradename
+	 * @param typeno
+	 * @param color
+	 * @return
+	 */
+	public List<SampleTotleDto> querySampleNumByKeys(String tradename, String typeno, String color);
+	
+	/**
 	 * 根据ID查询记录
 	 * @param id
 	 * @return

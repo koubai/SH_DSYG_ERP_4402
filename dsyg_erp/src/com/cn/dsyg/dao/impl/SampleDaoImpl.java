@@ -26,6 +26,16 @@ public class SampleDaoImpl extends BaseDao implements SampleDao {
 		return list;
 	}
 
+	public List<SampleTotleDto> querySampleNumByKeys(String tradename, String typeno, String color){
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("tradename", tradename);
+		paramMap.put("typeno", typeno);
+		paramMap.put("color", color);
+		@SuppressWarnings("unchecked")
+		List<SampleTotleDto> list = getSqlMapClientTemplate().queryForList("querySampleNumByKeys", paramMap);
+		return list;
+	}
+	
 	@Override
 	public SampleDto querySampleId(String id) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();

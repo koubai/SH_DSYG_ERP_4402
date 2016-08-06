@@ -32,6 +32,12 @@ public class SampleServiceImpl implements SampleService {
 		return list;
 	}
 
+	public List<SampleTotleDto> querySampleNumByKeys(String tradename, String typeno, String color) {
+		List<SampleTotleDto> list = sampleDao.querySampleNumByKeys(tradename, typeno, color);
+		return list;
+	}
+
+	
 	@Override
 	public SampleDto querySampleId(String id) {
 		SampleDto sample = sampleDao.querySampleId(id);

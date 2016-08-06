@@ -14,6 +14,7 @@ import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.SampleDto;
 import com.cn.dsyg.dto.SampleTotleDto;
+import com.cn.dsyg.dto.WarehouseProductDto;
 import com.cn.dsyg.service.Dict01Service;
 import com.cn.dsyg.service.ProductService;
 import com.cn.dsyg.service.SampleService;
@@ -48,6 +49,11 @@ public class SampleAction extends BaseAction {
 	private String strTradename;
 	//客户名
 	private String strCustomername;
+	//规格
+	private String strTypeno;
+	//颜色
+	private String strColor;
+	
 	
 	//采购主题
 	private List<Dict01Dto> goodsList;
@@ -223,6 +229,27 @@ public class SampleAction extends BaseAction {
 		}
 		return SUCCESS;
 	}
+	
+	/**
+	 * 查询样品库存BY KEYS
+	 * @return
+	 */
+	public String querySampleNumByKeysAction() {
+		try {
+			this.clearMessages();
+			//初期化字典数据
+			initDictList();
+			System.out.println("strTradename:" + strTradename);
+			System.out.println("strTypeno:" + strTypeno);
+			System.out.println("strColor:" + strColor);
+			sampleTotleList = (List<SampleTotleDto>)sampleService.querySampleNumByKeys(strTradename, strTypeno, strColor);
+		} catch(Exception e) {
+			log.error("querySampleNumByKeys error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
 	
 	/**
 	 * 翻页
@@ -475,6 +502,22 @@ public class SampleAction extends BaseAction {
 
 	public void setSampleTotleList(List<SampleTotleDto> sampleTotleList) {
 		this.sampleTotleList = sampleTotleList;
+	}
+
+	public String getStrTypeno() {
+		return strTypeno;
+	}
+
+	public void setStrTypeno(String strTypeno) {
+		this.strTypeno = strTypeno;
+	}
+
+	public String getStrColor() {
+		return strColor;
+	}
+
+	public void setStrColor(String strColor) {
+		this.strColor = strColor;
 	}
 
 }

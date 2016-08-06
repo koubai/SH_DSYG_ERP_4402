@@ -50,6 +50,23 @@
 		group by S.productid
 	</select>
 	
+	<select id="querySampleNumByKeys" parameterClass="java.util.Map" resultMap="SampleTotleDto">
+		select productid, P.tradename, P.typeno, P.color, P.packaging, P.item10, P.unit,sum(quantity) as total from etb_sample S
+		left join etb_product P
+		on P.id = S.productid
+		where 1 = 1
+		<isNotEmpty prepend="and" property="tradename">
+			P.tradename like '%$tradename$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="typeno">
+			P.typeno like '%$typeno$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="color">
+			P.color = #color#
+		</isNotEmpty>
+		group by S.productid
+	</select>
+
 	<select id="querySampleId" parameterClass="java.util.Map" resultMap="SampleDto">
 		select T.*,
 		(select P.tradename from etb_product P where P.id = T.productid) as tradename
