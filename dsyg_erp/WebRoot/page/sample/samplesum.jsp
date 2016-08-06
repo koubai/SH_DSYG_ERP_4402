@@ -27,8 +27,8 @@
 		<div class="searchbox">
 		</div>
 		<div class="data_table" style="padding:0px;">
-			<div class="tab_tittle">
-				<table width="100%" border="1" cellpadding="5" cellspacing="0">
+			<div class="tab_tittle" >
+				<table width="100%" border="1" cellpadding="5" cellspacing="5">
 				</table>
 			</div>
 			<div class="box1">
@@ -56,6 +56,7 @@
 						</s:iterator>
 					</select>
 				</div>
+				<div class="box1_right"></div>
 			</div>
 			<div class="btn" style="margin-left: 60px;">
 				<div class="box1_left"></div>
