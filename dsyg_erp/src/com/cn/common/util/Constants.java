@@ -223,6 +223,11 @@ public class Constants {
 	public final static String SESSION_LOGIN_TIME = "login_time";
 	
 	/**
+	 * 用户角色CODE
+	 */
+	public final static String SESSION_ROLE_CODE = "user_role";
+	
+	/**
 	 * 用户安全级别（权限）
 	 */
 	public final static String SESSION_ROLE_RANK = "user_rank";

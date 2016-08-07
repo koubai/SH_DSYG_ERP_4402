@@ -19,11 +19,13 @@ public class WarehouserptDaoImpl extends BaseDao implements WarehouserptDao {
 	@Override
 	public List<WarehouserptDto> queryWarehouserptByWarehouse(
 			String warehousetype, String warehouseno, String parentid,
-			String suppliername) {
+			String suppliername, String createdateLow, String createdateHigh) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("warehousetype", warehousetype);
 		paramMap.put("warehouseno", warehouseno);
 		paramMap.put("parentid", parentid);
+		paramMap.put("createdateLow", createdateLow);
+		paramMap.put("createdateHigh", createdateHigh);
 		paramMap.put("suppliername", suppliername);
 		@SuppressWarnings("unchecked")
 		List<WarehouserptDto> list = getSqlMapClientTemplate().queryForList("queryWarehouserptByWarehouse", paramMap);
@@ -50,7 +52,8 @@ public class WarehouserptDaoImpl extends BaseDao implements WarehouserptDao {
 	@Override
 	public List<WarehouserptDto> queryWarehouserptByPage(String status, String warehousetype,
 			String warehouseno, String theme1, String parentid, String supplierid,
-			String productid, String beginDate, String endDate, String strSuppliername,String strWarehouseno, int start, int end) {
+			String productid, String beginDate, String endDate, String strSuppliername,
+			String strWarehouseno, String createdateLow, String createdateHigh, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("status", status);
 		paramMap.put("warehousetype", warehousetype);
@@ -67,6 +70,10 @@ public class WarehouserptDaoImpl extends BaseDao implements WarehouserptDao {
 		
 		paramMap.put("start", start);
 		paramMap.put("end", end);
+		
+		paramMap.put("createdateLow", createdateLow);
+		paramMap.put("createdateHigh", createdateHigh);
+		
 		@SuppressWarnings("unchecked")
 		List<WarehouserptDto> list = getSqlMapClientTemplate().queryForList("queryWarehouserptByPage", paramMap);
 		return list;
@@ -74,7 +81,8 @@ public class WarehouserptDaoImpl extends BaseDao implements WarehouserptDao {
 
 	@Override
 	public int queryWarehouserptCountByPage(String status, String warehousetype, String warehouseno, String theme1,
-			String parentid, String supplierid, String productid, String beginDate, String endDate, String strSuppliername, String strWarehouseno) {
+			String parentid, String supplierid, String productid, String beginDate, String endDate,
+			String strSuppliername, String strWarehouseno, String createdateLow, String createdateHigh) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("status", status);
 		paramMap.put("warehousetype", warehousetype);
@@ -89,6 +97,8 @@ public class WarehouserptDaoImpl extends BaseDao implements WarehouserptDao {
 		paramMap.put("beginDate", beginDate);
 		paramMap.put("endDate", endDate);
 		
+		paramMap.put("createdateLow", createdateLow);
+		paramMap.put("createdateHigh", createdateHigh);
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryWarehouserptCountByPage", paramMap);
 	}
 

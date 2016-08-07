@@ -61,6 +61,8 @@
 	
 	//查询数据
 	function queryList() {
+		$("#strCreatedateLow").attr("value", $("#createdateLow").val());
+		$("#strCreatedateHigh").attr("value", $("#createdateHigh").val());
 		document.mainform.action = '../warehouserpt/queryWarehouserptInAction.action';
 		document.mainform.submit();
 	}
@@ -69,6 +71,8 @@
 	function changepagesize(pagesize) {
 		$("#intPageSize").attr("value", pagesize);
 		$("#startIndex").attr("value", "0");
+		$("#strCreatedateLow").attr("value", $("#createdateLow").val());
+		$("#strCreatedateHigh").attr("value", $("#createdateHigh").val());
 		document.mainform.action = '../warehouserpt/queryWarehouserptInAction.action';
 		document.mainform.submit();
 	}
@@ -76,6 +80,8 @@
 	//翻页
 	function changePage(pageNum) {
 		$("#startIndex").attr("value", pageNum);
+		$("#strCreatedateLow").attr("value", $("#createdateLow").val());
+		$("#strCreatedateHigh").attr("value", $("#createdateHigh").val());
 		document.mainform.action = '../warehouserpt/turnWarehouserptInAction.action';
 		document.mainform.submit();
 	}
@@ -132,6 +138,8 @@
 			<s:form id="mainform" name="mainform" method="POST">
 				<s:hidden name="startIndex" id="startIndex"/>
 				<s:hidden name="intPageSize" id="intPageSize"/>
+				<s:hidden name="strCreatedateLow" id="strCreatedateLow"/>
+				<s:hidden name="strCreatedateHigh" id="strCreatedateHigh"/>
 				<div class="searchbox">
 					<div class="box1">
 						<label class="pdf10">入库单号</label>
@@ -154,6 +162,24 @@
 						<div class="box1_left"></div>
 						<div class="box1_center">
 							<s:textfield name="strNo" cssStyle="width:200px;" id="strNo" theme="simple"></s:textfield>
+						</div>
+						<div class="box1_right"></div>
+					</div>
+				</div>
+				<div class="searchbox">
+					<div class="box1">
+						<label class="pdf10">创建日期</label>
+						<div class="box1_left"></div>
+						<div class="box1_center date_input">
+							<input type="text" disabled="disabled" style="width: 105px;" id="createdateLow" value="<s:property value="strCreatedateLow"/>" maxlength="10" />
+							<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('createdateLow'));"></a>
+						</div>
+						<div class="box1_right"></div>
+						<label>-</label>
+						<div class="box1_left"></div>
+						<div class="box1_center date_input">
+							<input type="text" disabled="disabled" style="width: 105px;" id="createdateHigh" value="<s:property value="strCreatedateHigh"/>" maxlength="10" />
+							<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('createdateHigh'));"></a>
 						</div>
 						<div class="box1_right"></div>
 					</div>

@@ -231,7 +231,8 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 	@Override
 	public Page queryWarehouserptByPage(String no, String status, String warehousetype,
 			String warehouseno, String theme1, String parentid, String supplierid,
-			String productid, String beginDate, String endDate, String strSuppliername, String strWarehouseno, Page page) {
+			String productid, String beginDate, String endDate, String strSuppliername,
+			String strWarehouseno, String createdateLow, String createdateHigh, Page page) {
 		strSuppliername = StringUtil.replaceDatabaseKeyword_mysql(strSuppliername);
 		if(StringUtil.isNotBlank(no)) {
 			List<WarehouserptDto> listAll = new ArrayList<WarehouserptDto>();
@@ -242,7 +243,8 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 			if(listWarehouse != null && listWarehouse.size() > 0) {
 				//查询RPT记录
 				for(WarehouseDto warehouse : listWarehouse) {
-					List<WarehouserptDto> ll = warehouserptDao.queryWarehouserptByWarehouse(warehousetype, strWarehouseno, warehouse.getWarehouseno(), strSuppliername);
+					List<WarehouserptDto> ll = warehouserptDao.queryWarehouserptByWarehouse(warehousetype, strWarehouseno,
+							warehouse.getWarehouseno(), strSuppliername, createdateLow, createdateHigh);
 					if(ll != null) {
 						listTemp.addAll(ll);
 					}
@@ -283,7 +285,8 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 		} else {
 			//查询总记录数
 			int totalCount = warehouserptDao.queryWarehouserptCountByPage(status, warehousetype,
-					warehouseno, theme1, parentid, supplierid, productid, beginDate, endDate, strSuppliername, strWarehouseno);
+					warehouseno, theme1, parentid, supplierid, productid, beginDate, endDate, strSuppliername,
+					strWarehouseno, createdateLow, createdateHigh);
 			page.setTotalCount(totalCount);
 			if(totalCount % page.getPageSize() > 0) {
 				page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -292,7 +295,8 @@ public class WarehouserptServiceImpl implements WarehouserptService {
 			}
 			//翻页查询记录
 			List<WarehouserptDto> list = warehouserptDao.queryWarehouserptByPage(status, warehousetype,
-					warehouseno, theme1, parentid, supplierid, productid, beginDate, endDate, strSuppliername, strWarehouseno,
+					warehouseno, theme1, parentid, supplierid, productid, beginDate, endDate, strSuppliername,
+					strWarehouseno, createdateLow, createdateHigh,
 					page.getStartIndex() * page.getPageSize(), page.getPageSize());
 			if(list != null && list.size() > 0) {
 				FinanceDto finance = null;

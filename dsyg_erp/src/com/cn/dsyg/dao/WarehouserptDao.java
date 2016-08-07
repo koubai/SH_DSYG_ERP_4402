@@ -18,10 +18,12 @@ public interface WarehouserptDao {
 	 * @param warehouseno
 	 * @param parentid
 	 * @param suppliername
+	 * @param createdateLow
+	 * @param createdateHigh
 	 * @return
 	 */
 	public List<WarehouserptDto> queryWarehouserptByWarehouse(String warehousetype,
-			String warehouseno, String parentid, String suppliername);
+			String warehouseno, String parentid, String suppliername, String createdateLow, String createdateHigh);
 	
 	/**
 	 * 导出入出库单数据
@@ -48,13 +50,18 @@ public interface WarehouserptDao {
 	 * @param productid
 	 * @param beginDate
 	 * @param endDate
+	 * @param strSuppliername
+	 * @param strWarehouseno
+	 * @param createdateLow
+	 * @param createdateHigh
 	 * @param start
 	 * @param end
 	 * @return
 	 */
 	public List<WarehouserptDto> queryWarehouserptByPage(String status, String warehousetype,
 			String warehouseno, String theme1, String parentid, String supplierid,
-			String productid, String beginDate, String endDate, String strSuppliername,String strWarehouseno, int start, int end);
+			String productid, String beginDate, String endDate, String strSuppliername,
+			String strWarehouseno, String createdateLow, String createdateHigh, int start, int end);
 	
 	/**
 	 * 查询总记录数
@@ -67,10 +74,15 @@ public interface WarehouserptDao {
 	 * @param productid
 	 * @param beginDate
 	 * @param endDate
+	 * @param strSuppliername
+	 * @param strWarehouseno
+	 * @param createdateLow
+	 * @param createdateHigh
 	 * @return
 	 */
 	public int queryWarehouserptCountByPage(String status, String warehousetype, String warehouseno,
-			String theme1, String parentid, String supplierid, String productid, String beginDate, String endDate, String strSuppliername, String strWarehouseno);
+			String theme1, String parentid, String supplierid, String productid, String beginDate, String endDate,
+			String strSuppliername, String strWarehouseno, String createdateLow, String createdateHigh);
 	
 	/**
 	 * 根据ID查询数据

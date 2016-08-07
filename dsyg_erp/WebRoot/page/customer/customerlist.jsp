@@ -163,11 +163,13 @@
 					<div class="box1" style="margin-top:-3px; margin-left: -400px; color: red;">
 						<s:actionmessage />
 					</div>
-					<div class="icons thums">
-						<a class="add" onclick="add();">增加</a>
-						<a class="edit" onclick="upd();">修改</a>
-						<a class="delete" onclick="del();">删除</a>
-					</div>
+					<s:if test='#session.user_role != "warehouser"'>
+						<div class="icons thums">
+							<a class="add" onclick="add();">增加</a>
+							<a class="edit" onclick="upd();">修改</a>
+							<a class="delete" onclick="del();">删除</a>
+						</div>
+					</s:if>
 				</div>
 				<div class="data_table" style="padding:0px;">
 					<div class="tab_tittle">

@@ -76,6 +76,10 @@ public class WarehouserptAction extends BaseAction {
 	private String strSuppliername;
 	private String strWarehouseno;
 	
+	//出库单+入库单一览查询条件
+	private String strCreatedateLow;
+	private String strCreatedateHigh;
+	
 	//采购单OR订单
 	private String strNo;
 
@@ -195,6 +199,8 @@ public class WarehouserptAction extends BaseAction {
 			this.clearMessages();
 			strSuppliername = "";
 			strWarehouseno = "";
+			strCreatedateLow = "";
+			strCreatedateHigh = "";
 			strNo = "";
 			warehouserptList = new ArrayList<WarehouserptDto>();
 			//页面数据初期化
@@ -393,6 +399,8 @@ public class WarehouserptAction extends BaseAction {
 			this.clearMessages();
 			strSuppliername = "";
 			strWarehouseno = "";
+			strCreatedateLow = "";
+			strCreatedateHigh = "";
 			strNo = "";
 			warehouserptList = new ArrayList<WarehouserptDto>();
 			//页面数据初期化
@@ -651,7 +659,8 @@ public class WarehouserptAction extends BaseAction {
 		initDictList();
 		//翻页查询所有预入库待确认数据
 		this.page.setStartIndex(startIndex);
-		page = warehouserptService.queryWarehouserptByPage(strNo, "", type, "", "", "", "", "", "", "", strSuppliername, strWarehouseno, page);
+		page = warehouserptService.queryWarehouserptByPage(strNo, "", type, "", "", "", "", "", "", "",
+				strSuppliername, strWarehouseno, strCreatedateLow, strCreatedateHigh, page);
 		warehouserptList = (List<WarehouserptDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -866,6 +875,26 @@ public class WarehouserptAction extends BaseAction {
 
 	public void setStrNo(String strNo) {
 		this.strNo = strNo;
+	}
+
+
+	public String getStrCreatedateLow() {
+		return strCreatedateLow;
+	}
+
+
+	public void setStrCreatedateLow(String strCreatedateLow) {
+		this.strCreatedateLow = strCreatedateLow;
+	}
+
+
+	public String getStrCreatedateHigh() {
+		return strCreatedateHigh;
+	}
+
+
+	public void setStrCreatedateHigh(String strCreatedateHigh) {
+		this.strCreatedateHigh = strCreatedateHigh;
 	}
 
 }

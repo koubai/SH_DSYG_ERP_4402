@@ -39,12 +39,17 @@ public interface WarehouserptService {
 	 * @param productid
 	 * @param beginDate
 	 * @param endDate
+	 * @param strSuppliername
+	 * @param strWarehouseno
+	 * @param createdateLow
+	 * @param createdateHigh
 	 * @param page
 	 * @return
 	 */
 	public Page queryWarehouserptByPage(String no, String status, String warehousetype,
 			String warehouseno, String theme1, String parentid, String supplierid,
-			String productid, String beginDate, String endDate, String strSuppliername,String strWarehouseno, Page page);
+			String productid, String beginDate, String endDate, String strSuppliername,String strWarehouseno,
+			String createdateLow, String createdateHigh, Page page);
 	
 	/**
 	 * 根据ID查询数据

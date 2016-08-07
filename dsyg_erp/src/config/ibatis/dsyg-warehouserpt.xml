@@ -70,6 +70,12 @@
 		<isNotEmpty prepend="and" property="suppliername">
 			T.suppliername like '%$suppliername$%' ESCAPE '/'
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="createdateLow">
+			T.createdate <![CDATA[>=]]> #createdateLow#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="createdateHigh">
+			T.createdate <![CDATA[<]]> #createdateHigh#
+		</isNotEmpty>
 		order by T.warehouseno desc
 	</select>
 	
@@ -125,6 +131,13 @@
 		<isNotEmpty prepend="and" property="suppliername">
 			T.suppliername like '%$suppliername$%' ESCAPE '/'
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="createdateLow">
+			T.createdate <![CDATA[>=]]> #createdateLow#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="createdateHigh">
+			T.createdate <![CDATA[<]]> #createdateHigh#
+		</isNotEmpty>
+		
 		order by T.warehouseno desc
 		LIMIT #start#, #end#
 	</select>
@@ -157,6 +170,12 @@
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="suppliername">
 			T.suppliername like '%$suppliername$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="createdateLow">
+			T.createdate <![CDATA[>=]]> #createdateLow#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="createdateHigh">
+			T.createdate <![CDATA[<]]> #createdateHigh#
 		</isNotEmpty>
 	</select>
 	
