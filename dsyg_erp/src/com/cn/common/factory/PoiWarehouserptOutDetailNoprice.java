@@ -296,7 +296,7 @@ public class PoiWarehouserptOutDetailNoprice extends Poi2007Base {
 		XSSFCell cell36 = row.createCell(6);
 		XSSFCell cell37 = row.createCell(7);
 		XSSFCell cell38 = row.createCell(8);
-		XSSFCell cell39 = row.createCell(9);
+//		XSSFCell cell39 = row.createCell(9);
 
 		cell30.setCellValue("");
 		cell30.setCellStyle(style);
@@ -370,7 +370,7 @@ public class PoiWarehouserptOutDetailNoprice extends Poi2007Base {
 		//heads.add("含税金额");
 		//sheet.setColumnWidth(8, 12 * 256);
 		heads.add("备注");
-		sheet.setColumnWidth(8, 15 * 256);
+		sheet.setColumnWidth(8, 10 * 256);
 		
 		//Head部分颜色字体
 		XSSFFont font = workbook.createFont();
