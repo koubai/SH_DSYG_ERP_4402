@@ -265,14 +265,15 @@
 				<div class="btns" style="margin-top:40px; margin-left:-90px;">
 					<table border="0" style="margin:0 auto;">
 						<tr>
-							<td>
+							<td><!--
 								<div class="btn">
 									<div class="box1_left"></div>
 									<div class="box1_center">
-										<input class="input80" type="button" value="导出" onclick="exportData();" />
+										 <input class="input80" type="button" value="导出" onclick="exportData();" /> 
 									</div>
 									<div class="box1_right"></div>
 								</div>
+								-->
 							</td>
 						</tr>
 					</table>
