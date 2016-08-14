@@ -11,6 +11,8 @@ public class Constants {
 
 	//销售报告编号前缀
 	public final static String SALESREPORT_NO_PRE = "BGN";
+	//SALES报告编号前缀
+	public final static String SALESREPORT2_NO_PRE = "SGN";
 	//资产编号前缀
 	public final static String ASSETS_NO_PRE = "ZCN";
 	//员工编号前缀

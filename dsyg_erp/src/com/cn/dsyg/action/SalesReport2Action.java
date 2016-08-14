@@ -272,8 +272,8 @@ public class SalesReport2Action extends BaseAction {
 			addSalesReport2Dto.setStatus(Constants.STATUS_NORMAL);
 			String username = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_NAME);
 			addSalesReport2Dto.setCreateuid(username);
-			String salesreport2no = salesreport2Service.insertSalesReport2(addSalesReport2Dto);
-			this.addActionMessage("添加SALES报告成功！SALES报告编号为：" + salesreport2no);
+			String salesreportno = salesreport2Service.insertSalesReport2(addSalesReport2Dto);
+			this.addActionMessage("添加SALES报告成功！SALES报告编号为：" + salesreportno);
 			addSalesReport2Dto = new SalesReport2Dto();
 		} catch(Exception e) {
 			this.addActionMessage("系统异常，添加SALES报告失败！");
@@ -365,9 +365,10 @@ public class SalesReport2Action extends BaseAction {
 	 * 删除SALES报告
 	 * @return
 	 */
-	public String delSalesReportAction() {
+	public String delSalesReport2Action() {
 		try {
 			this.clearMessages();
+			System.out.println("delSalesReport2Action");
 			if(StringUtil.isBlank(delSalesReportNo)) {
 				this.addActionMessage("SALES报告代码为空！");
 				return "checkerror";
@@ -381,7 +382,7 @@ public class SalesReport2Action extends BaseAction {
 			startIndex = 0;
 			querySalesReport2();
 		} catch(Exception e) {
-			log.error("delSalesReportAction error:" + e);
+			log.error("delSalesReport2Action error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;

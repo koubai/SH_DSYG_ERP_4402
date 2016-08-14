@@ -95,8 +95,8 @@
 </head>
 <body style="background: url(''); overflow-x:hidden;overflow-y:scroll;">
 <s:form id="mainform" name="mainform" method="POST" enctype="multipart/form-data">
-	<s:hidden name="addSalesReportDto.note" id="note"></s:hidden>
-	<s:hidden name="addSalesReportDto.registerdate" id="registerdate"></s:hidden>
+	<s:hidden name="addSalesReport2Dto.note" id="note"></s:hidden>
+	<s:hidden name="addSalesReport2Dto.registerdate" id="registerdate"></s:hidden>
 	<s:hidden name="file01Name" id="file01Name"></s:hidden>
 	<s:hidden name="file02Name" id="file02Name"></s:hidden>
 	<s:hidden name="file03Name" id="file03Name"></s:hidden>

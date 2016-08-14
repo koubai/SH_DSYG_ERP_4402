@@ -94,7 +94,7 @@
 	</select>
 	
 	<select id="queryAllSalesReport2ByID" parameterClass="java.util.Map" resultMap="SalesReport2Dto">
-		select * from etb_salesreport where 
+		select * from etb_salesreport2 where 
 			salesreportno = #ID#
 	</select>
 	

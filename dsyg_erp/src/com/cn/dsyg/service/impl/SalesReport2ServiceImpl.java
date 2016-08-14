@@ -82,7 +82,7 @@ public class SalesReport2ServiceImpl implements SalesReport2Service {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String uuid = UUID.randomUUID().toString();
 		uuid = uuid.substring(uuid.length() - 8, uuid.length());
-		salesreportno = Constants.SALESREPORT_NO_PRE + belongto + sdf.format(date) + uuid;
+		salesreportno = Constants.SALESREPORT2_NO_PRE + belongto + sdf.format(date) + uuid;
 		salesreport.setSalesreportno(salesreportno);
 		
 		salesreport2Dao.insertSalesReport2(salesreport);

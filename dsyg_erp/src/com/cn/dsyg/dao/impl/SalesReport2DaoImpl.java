@@ -56,6 +56,8 @@ public class SalesReport2DaoImpl extends BaseDao implements SalesReport2Dao {
 	@Override
 	public int querySalesReport2CountByPage(String salesreportNoLow,
 			String salesreportNoHigh, String salesreportName, String customerName) {
+		System.out.println("querySalesReport2ByPage internal");
+
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		//这里按照需求，若资产名称存在，则忽略资产代码按资产名称来查询。
 		if(StringUtil.isNotBlank(salesreportName)) {
@@ -64,6 +66,10 @@ public class SalesReport2DaoImpl extends BaseDao implements SalesReport2Dao {
 			paramMap.put("ID_LOW", salesreportNoLow);
 			paramMap.put("ID_HIGH", salesreportNoHigh);
 		}
+		if(StringUtil.isNotBlank(customerName)) {
+			paramMap.put("CUSTOMER_NAME", StringUtil.replaceDatabaseKeyword_mysql(customerName));
+		}
+		System.out.println("querySalesReport2ByPage internal paramMap" + paramMap);
 		return (Integer) getSqlMapClientTemplate().queryForObject("querySalesReport2CountByPage", paramMap);
 	}
 
