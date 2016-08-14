@@ -135,6 +135,13 @@
 		</property>
 	</bean>
 
+	<!-- SALES报告信息 -->
+	<bean id="salesReport2Action" class="com.cn.dsyg.action.SalesReport2Action" scope="session">
+		<property name="salesReport2Service">
+			<ref bean="salesReport2Service" />
+		</property>
+	</bean>
+
 	<!-- 员工档案信息 -->
 	<bean id="personalAction" class="com.cn.dsyg.action.PersonalAction" scope="session">
 		<property name="personalService">

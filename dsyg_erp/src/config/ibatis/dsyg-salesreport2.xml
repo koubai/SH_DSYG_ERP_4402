@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.dsyg">
+
+	<resultMap id="SalesReport2Dto" class="com.cn.dsyg.dto.SalesReport2Dto">
+		<result property="id" column="id" />
+		<result property="belongto" column="belongto" />
+		<result property="salesreportno" column="salesreportno" />
+		<result property="salesreportname" column="salesreportname" />	
+		<result property="handler" column="handler" />
+		<result property="registerdate" column="registerdate" />
+		<result property="purpose" column="purpose" />
+		<result property="approverid" column="approverid" />
+		<result property="customerid" column="customerid" />
+		<result property="customername" column="customername" />
+		<result property="note" column="note" />
+		<result property="reportpath01" column="reportpath01" />
+		<result property="reportpath02" column="reportpath02" />
+		<result property="reportpath03" column="reportpath03" />
+		<result property="reportpath04" column="reportpath04" />
+		<result property="reportpath05" column="reportpath05" />
+		<result property="rank" column="rank" />
+		<result property="status" column="status" />
+		<result property="res01" column="res01" />
+		<result property="res02" column="res02" />
+		<result property="res03" column="res03" />
+		<result property="res04" column="res04" />
+		<result property="res05" column="res05" />
+		<result property="res06" column="res06" />
+		<result property="res07" column="res07" />
+		<result property="res08" column="res08" />
+		<result property="res09" column="res09" />
+		<result property="res10" column="res10" />
+		<result property="createuid" column="createuid" />
+		<result property="createdate" column="createdate" />
+		<result property="updateuid" column="updateuid" />
+		<result property="updatedate" column="updatedate" />
+	</resultMap>
+	
+	<select id="querySalesReport2CountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from etb_salesreport2 T where 1 = 1
+			and T.status = '1'
+			<isNotEmpty prepend="and" property="ID_LOW">
+				T.salesreportno <![CDATA[>=]]> #ID_LOW#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ID_HIGH">
+				T.salesreportno <![CDATA[<=]]> #ID_HIGH#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="SALESREPORT_NAME">
+				T.salesreportname like '%$SALESREPORT_NAME$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CUSTOMER_NAME">
+				T.customername like '%$CUSTOMER_NAME$%'
+			</isNotEmpty>
+	</select>
+	
+	<select id="queryAllSalesReport2Export" parameterClass="java.util.Map" resultMap="SalesReport2Dto">
+		select T.* from etb_salesreport2 T where 1 = 1
+		and T.status = '1'
+		<isNotEmpty prepend="and" property="ID_LOW">
+			T.salesreportno <![CDATA[>=]]> #ID_LOW#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="ID_HIGH">
+			T.salesreportno <![CDATA[<=]]> #ID_HIGH#
+		</isNotEmpty>
+		order by T.updatedate desc
+	</select>
+	
+	<select id="querySalesReport2ByPage" parameterClass="java.util.Map" resultMap="SalesReport2Dto">
+		select T.* from etb_salesreport2 T where 1 = 1
+		and T.status = '1'
+		<isNotEmpty prepend="and" property="ID_LOW">
+			T.salesreportno <![CDATA[>=]]> #ID_LOW#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="ID_HIGH">
+			T.salesreportno <![CDATA[<=]]> #ID_HIGH#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="SALESREPORT_NAME">
+			T.salesreportname like '%$SALESREPORT_NAME$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CUSTOMER_NAME">
+			T.customername like '%$CUSTOMER_NAME$%'
+		</isNotEmpty>
+		order by T.updatedate desc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="querySalesReport2ByID" parameterClass="java.util.Map" resultMap="SalesReport2Dto">
+		select * from etb_salesreport2 where 
+			salesreportno = #ID#
+			and status = '1'
+	</select>
+	
+	<select id="queryAllSalesReport2ByID" parameterClass="java.util.Map" resultMap="SalesReport2Dto">
+		select * from etb_salesreport where 
+			salesreportno = #ID#
+	</select>
+	
+	<select id="queryAllSalesReport2" parameterClass="java.util.Map" resultMap="SalesReport2Dto">
+		select * from etb_salesreport2 where 1 = 1 and status = '1' order by updatedate desc
+	</select>
+	
+	<insert id="insertSalesReport2" parameterClass="com.cn.dsyg.dto.SalesReport2Dto">
+		insert into etb_salesreport2(belongto,salesreportno,salesreportname,handler,registerdate,purpose,approverid,
+		reportpath01,reportpath02,reportpath03,reportpath04,reportpath05,customerid,customername,note,rank,
+		status,res01,res02,res03,res04,res05,res06,res07,res08,res09,res10,
+		createuid,createdate,updateuid,updatedate)
+		values(#belongto#,#salesreportno#,#salesreportname#,#handler#,#registerdate#,#purpose#,#approverid#,
+		#reportpath01#,#reportpath02#,#reportpath03#,#reportpath04#,#reportpath05#,#customerid#,#customername#,#note#,#rank#,
+		#status#,#res01#,#res02#,#res03#,#res04#,#res05#,#res06#,#res07#,#res08#,#res09#,#res10#,
+		#createuid#,NOW(),#updateuid#,#updatedate#)
+	</insert>
+	
+	<update id="updateSalesReport2" parameterClass="com.cn.dsyg.dto.SalesReport2Dto">
+		update etb_salesreport2
+		set salesreportname=#salesreportname#,
+			belongto=#belongto#,
+			handler=#handler#,
+			registerdate=#registerdate#,
+			purpose=#purpose#,
+			approverid=#approverid#,
+			reportpath01=#reportpath01#,
+			reportpath02=#reportpath02#,
+			reportpath03=#reportpath03#,
+			reportpath04=#reportpath04#,
+			reportpath05=#reportpath05#,
+			customerid=#customerid#,
+			customername=#customername#,
+			note=#note#,
+			rank=#rank#,
+			status=#status#,
+			res01=#res01#,
+			res02=#res02#,
+			res03=#res03#,
+			res04=#res04#,
+			res05=#res05#,
+			res06=#res06#,
+			res07=#res07#,
+			res08=#res08#,
+			res09=#res09#,
+			res10=#res10#,
+			createuid=#createuid#,
+			createdate=#createdate#,
+			updateuid=#updateuid#,
+			updatedate=NOW()
+		where salesreportno = #salesreportno#
+	</update>
+	
+</sqlMap>

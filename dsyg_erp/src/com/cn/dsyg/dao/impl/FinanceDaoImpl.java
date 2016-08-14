@@ -70,6 +70,25 @@ public class FinanceDaoImpl extends BaseDao implements FinanceDao {
 		paramMap.put("customername", expressName);
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryFinanceCountByPage", paramMap);
 	}
+
+	@Override
+	public Double queryFinance(String expressno, String status,
+			String financetype, String invoiceid, String receiptid,
+			String customerid, String receiptdateLow, String receiptdateHigh, String billno, String res02, String expressName) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("status", status);
+		paramMap.put("res08", expressno);
+		paramMap.put("financetype", financetype);
+		paramMap.put("invoiceid", invoiceid);
+		paramMap.put("receiptid", receiptid);
+		paramMap.put("customerid", customerid);
+		paramMap.put("receiptdateLow", receiptdateLow);
+		paramMap.put("receiptdateHigh", receiptdateHigh);
+		paramMap.put("billno", billno);
+		paramMap.put("res02", res02);
+		paramMap.put("customername", expressName);
+		return (Double) getSqlMapClientTemplate().queryForObject("queryFinance", paramMap);
+	}
 	
 	@Override
 	public FinanceDto queryFinanceByInvoiceid(String invoiceid, String financetype) {

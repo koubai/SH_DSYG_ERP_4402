@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="salesreport2" extends="struts-erp" namespace="/salesreport2">
+	
+		<action name="showSalesReport2Action" class="salesReport2Action" method="showSalesReport2Action">
+			<result name="*">/page/salesreport2/salesreport2list.jsp</result>
+		</action>
+		
+		<action name="querySalesReport2List" class="salesReport2Action" method="querySalesReport2List">
+			<result name="success">/page/salesreport2/salesreport2list.jsp</result>
+		</action>
+		
+		<action name="turnSalesReport2Page" class="salesReport2Action" method="turnSalesReport2Page">
+			<result name="success">/page/salesreport2/salesreport2list.jsp</result>
+		</action>
+		
+		<action name="showAddSalesReport2Action" class="salesReport2Action" method="showAddSalesReport2Action">
+			<result name="*">/page/salesreport2/addsalesreport2.jsp</result>
+		</action>
+		
+		<action name="addSalesReport2Action" class="salesReport2Action" method="addSalesReport2Action">
+			<result name="success">/page/salesreport2/addsalesreport2.jsp</result>
+			<result name="checkerror">/page/salesreport2/addsalesreport2.jsp</result>
+		</action>
+		
+		<action name="showUpdSalesReport2Action" class="salesReport2Action" method="showUpdSalesReport2Action">
+			<result name="success">/page/salesreport2/updsalesreport2.jsp</result>
+			<result name="checkerror">/page/salesreport2/updsalesreport2.jsp</result>
+		</action>
+		
+		<action name="updSalesReport2Action" class="salesReport2Action" method="updSalesReport2Action">
+			<result name="success">/page/salesreport2/updsalesreport2.jsp</result>
+			<result name="checkerror">/page/salesreport2/updsalesreport2.jsp</result>
+		</action>
+		
+		<action name="delSalesReport2Action" class="salesReport2Action" method="delSalesReport2Action">
+			<result name="success">/page/salesreport2/salesreport2list.jsp</result>
+			<result name="checkerror">/page/salesreport2/salesreport2list.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

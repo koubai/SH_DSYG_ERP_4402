@@ -1,5 +1,6 @@
 package com.cn.dsyg.service.impl;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -102,6 +103,29 @@ public class FinanceServiceImpl implements FinanceService {
 		page.setItems(list);
 		return page;
 	}
+
+	@Override
+	public String  queryFinanceTotalAmount(String expressno, String status, String financetype,
+			String invoiceid, String receiptid, String customerid,
+			String receiptdateLow, String receiptdateHigh, String billno, String res02, String expressName) {
+		expressName = StringUtil.replaceDatabaseKeyword_mysql(expressName);
+		expressno = StringUtil.replaceDatabaseKeyword_mysql(expressno);
+		invoiceid = StringUtil.replaceDatabaseKeyword_mysql(invoiceid);
+		receiptid = StringUtil.replaceDatabaseKeyword_mysql(receiptid);
+		billno = StringUtil.replaceDatabaseKeyword_mysql(billno);
+		
+		//查询记录
+		Double dblTotalAmount;
+		dblTotalAmount = financeDao.queryFinance(expressno, status, financetype, invoiceid, receiptid,
+				customerid, receiptdateLow, receiptdateHigh, billno, res02, expressName);
+		if (dblTotalAmount == null)
+			dblTotalAmount = new Double(0);
+		BigDecimal bdamount = new BigDecimal(Double.toString(dblTotalAmount));  
+		System.out.println("dblTotalAmount:" +dblTotalAmount);
+		System.out.println("bdamount:" +bdamount);
+		return String.valueOf(bdamount);
+	}
+
 
 	@Override
 	public FinanceDto queryFinanceByID(String id) {

@@ -88,6 +88,9 @@ public class FinanceAction extends BaseAction {
 	private String strFaPiaoAmount;
 	private String strIds;
 	
+	//合计金额（条件检索后）
+	private String strTotalAmount;
+	
 	/**
 	 * 开票
 	 * @return
@@ -585,6 +588,7 @@ public class FinanceAction extends BaseAction {
 		strBillamount1 = "";
 		strBillamount2 = "";
 		strBillamount3 = "";
+		strTotalAmount = "";
 		if(page == null) {
 			page = new Page(intPageSize);
 		}
@@ -595,6 +599,8 @@ public class FinanceAction extends BaseAction {
 		page = financeService.queryFinanceByPage("", "", "", strInvoiceid,
 				"", "", strReceiptdateLow, strReceiptdateHigh, strBillno, "", strCustomername, page);
 		financeList = (List<FinanceDto>) page.getItems();
+		strTotalAmount = financeService.queryFinanceTotalAmount("", "", "", strInvoiceid,
+				"", "", strReceiptdateLow, strReceiptdateHigh, strBillno, "", strCustomername);
 		this.setStartIndex(page.getStartIndex());
 	}
 
@@ -868,5 +874,13 @@ public class FinanceAction extends BaseAction {
 
 	public void setStrFaPiaoInvoiceid(String strFaPiaoInvoiceid) {
 		this.strFaPiaoInvoiceid = strFaPiaoInvoiceid;
+	}
+
+	public String getStrTotalAmount() {
+		return strTotalAmount;
+	}
+
+	public void setStrTotalAmount(String strTotalAmount) {
+		this.strTotalAmount = strTotalAmount;
 	}
 }

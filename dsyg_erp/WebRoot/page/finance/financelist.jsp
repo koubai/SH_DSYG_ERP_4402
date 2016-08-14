@@ -608,6 +608,7 @@
 						</table>
 					</div>
 					<div class="pages">
+							合计金额: <s:textfield name="strTotalAmount" id="strTotalAmount" cssStyle="width:250px;" maxlength="32" theme="simple"></s:textfield>
 						<ul>
 							<li style="width: 180px;">
 								<s:if test="intPageSize != null && intPageSize == 20">
