@@ -331,7 +331,7 @@
 	
 	<select id="queryCbjWarehouseByProductid" parameterClass="java.util.Map" resultMap="WarehouseCbjDto">
 		SELECT W.productid,ROUND(SUM(W.unitprice * W.quantity) / SUM(W.quantity),6) AS res04 FROM etb_warehouse W WHERE 
-			W.warehousetype = 1 AND W.productid = #productid# AND W.res05 IS NULL GROUP BY W.productid ORDER BY W.productid
+			W.warehousetype = 1 AND W.productid = #productid# GROUP BY W.productid ORDER BY W.productid
 	</select>
 	
 	<select id="queryWarehouseByTheme2" parameterClass="java.util.Map" resultMap="WarehouseDto">
