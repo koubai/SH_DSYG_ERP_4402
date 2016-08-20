@@ -7,8 +7,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
-import com.cn.common.factory.Poi2007Base;
-import com.cn.common.factory.PoiFactory;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
@@ -398,6 +396,29 @@ public class CustomerAction extends BaseAction {
 		}
 		return SUCCESS;
 	}
+
+	/**
+	 * 显示详细客户页面
+	 * @return
+	 */
+	public String showCustomerAction() {
+		try {
+			this.clearMessages();
+//			System.out.println("id is: "+updateCustomerNo);
+			updateCustomerDto = customerService.queryEtbCustomerByID(updateCustomerNo);
+			if(updateCustomerDto == null) {
+				this.addActionMessage("该数据不存在！");
+				return "checkerror";
+			}
+		} catch(Exception e) {
+			this.addActionMessage("系统错误，查询客户异常！");
+			log.error("showCustomerAction error:" + e);
+			return "checkerror";
+		}
+		return SUCCESS;
+	}
+
+	
 	
 	/**
 	 * 修改客户

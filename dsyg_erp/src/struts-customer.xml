@@ -39,6 +39,11 @@
 			<result name="checkerror">/page/customer/addcustomer.jsp</result>
 		</action>
 		
+		<action name="showCustomerAction" class="customerAction" method="showCustomerAction">
+			<result name="success">/page/customer/showcustomer.jsp</result>
+			<result name="checkerror">/page/customer/showcustomer.jsp</result>
+		</action>
+
 		<action name="showUpdEtbCustomerAction" class="customerAction" method="showUpdEtbCustomerAction">
 			<result name="success">/page/customer/updcustomer.jsp</result>
 			<result name="checkerror">/page/customer/updcustomer.jsp</result>
