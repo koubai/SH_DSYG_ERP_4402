@@ -65,7 +65,7 @@
 		<isNotEmpty prepend="and" property="ID_HIGH">
 			T.salesreportno <![CDATA[<=]]> #ID_HIGH#
 		</isNotEmpty>
-		order by T.updatedate desc
+		order by T.registerdate desc
 	</select>
 	
 	<select id="querySalesReport2ByPage" parameterClass="java.util.Map" resultMap="SalesReport2Dto">
@@ -83,7 +83,7 @@
 		<isNotEmpty prepend="and" property="CUSTOMER_NAME">
 			T.customername like '%$CUSTOMER_NAME$%'
 		</isNotEmpty>
-		order by T.updatedate desc
+		order by T.registerdate desc
 		LIMIT #start#, #end#
 	</select>
 	
@@ -99,7 +99,7 @@
 	</select>
 	
 	<select id="queryAllSalesReport2" parameterClass="java.util.Map" resultMap="SalesReport2Dto">
-		select * from etb_salesreport2 where 1 = 1 and status = '1' order by updatedate desc
+		select * from etb_salesreport2 where 1 = 1 and status = '1' order by registerdate desc
 	</select>
 	
 	<insert id="insertSalesReport2" parameterClass="com.cn.dsyg.dto.SalesReport2Dto">
